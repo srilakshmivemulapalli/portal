@@ -1,8 +1,9 @@
-var mainApp=angular.module('mainApp', [ 'ngRoute' ])
-	   .config(function($routeProvider) {
-		   $routeProvider.when('/main',{
-			   templateUrl: 'js/main/main.html',
-			   controller: 'mainController'
-		   })
+var mainApp=angular.module('mainApp', [ 'ui.router' ])
+.config(function($stateProvider){
+	$stateProvider.state('main',{
+		url:'/main',
+		templateUrl:'js/main/main.html',
+		controller: 'mainController'
+	})
 })    
 		
