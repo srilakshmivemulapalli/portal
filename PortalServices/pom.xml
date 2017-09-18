@@ -8,7 +8,7 @@
 	<name>Portal Services Project</name>
 	<description>Project to demonstrate on  Services Project</description>
 	
-
+<!-- testng -->
 	<packaging>pom</packaging>
 
 	<modules>
