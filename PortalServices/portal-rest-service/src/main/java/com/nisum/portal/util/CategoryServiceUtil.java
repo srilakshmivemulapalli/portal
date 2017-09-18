@@ -20,6 +20,17 @@ public class CategoryServiceUtil {
 		return categoriesDTOs;
 
 	}
+	
+	public static CategoriesDTO convertDaoToDtoInstance(Categories category) {
+		
+		CategoriesDTO categoriesDTO= new CategoriesDTO();
+		if(category!=null) {
+			categoriesDTO.setCategoryId(category.getCategoryId());
+			categoriesDTO.setCategoryName(category.getCategoryName());
+			categoriesDTO.setCreateDate(category.getCreateDate());
+		}
+		return categoriesDTO;
+	}
 
 	public static Categories convertDtoTODao(CategoriesDTO categoriesList) {
 
@@ -30,5 +41,13 @@ public class CategoryServiceUtil {
 
 		return category;
 
+	}
+	public static CategoriesDTO convertDaoTODto(Categories categories)
+	{
+		CategoriesDTO categoriesDTO=new CategoriesDTO();
+		categoriesDTO.setCategoryId(categories.getCategoryId());
+		categoriesDTO.setCategoryName(categories.getCategoryName());
+		categoriesDTO.setCreateDate(categories.getCreateDate());
+		return categoriesDTO;
 	}
 }

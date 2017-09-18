@@ -9,6 +9,6 @@ public interface CategoriesDAO
 	List<Categories> getCategories();
 	
 	int addCategory(Categories category);
-
-	String updateCategories(Categories categories);
+	Categories updateCategories(Categories categories);
+	Categories getCategory(Integer id);
 }
