@@ -3,32 +3,47 @@ package com.nisum.portal.rest.api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.PathVariable;
+
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nisum.portal.service.api.CategoriesService;
+import com.nisum.portal.service.dto.CategoriesDTO;
+import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.exception.CategoryServiceException;
 
 @RestController
 @RequestMapping(value = "/v1/category")
 public class CategoriesRestService {
-	
-private static Logger logger = LoggerFactory.getLogger(CategoriesRestService.class);
-	
+
+	private static Logger logger = LoggerFactory.getLogger(CategoriesRestService.class);
+
 	@Autowired
 	private CategoriesService categoriesService;
 
 	/**
 	 * damagesType
+	 * 
 	 * @return
 	 * @throws InventoryReceiveException
 	 */
-	@RequestMapping(value="/retrieve",method=RequestMethod.GET)
+	@RequestMapping(value = "/retrieve", method = RequestMethod.GET)
 	public Object categories() throws CategoryServiceException {
-		 logger.info("CategoriesRestService :: categories");
-		 return categoriesService.getCategories();
+		logger.info("CategoriesRestService :: categories");
+		return categoriesService.getCategories();
+	}
+
+	@RequestMapping(value = "/addCategory", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+	public @ResponseBody ServiceStatusDto addCategory(@RequestBody CategoriesDTO category)
+			throws CategoryServiceException {
+		logger.info("CategoriesRestService :: addCategories");
+
+		return categoriesService.addCategory(category);
 	}
 	
 	@RequestMapping(value="/retrieve/{id}",method=RequestMethod.GET)
