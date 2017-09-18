@@ -7,5 +7,8 @@ import com.nisum.portal.data.domain.Categories;
 public interface CategoriesDAO 
 {
 	List<Categories> getCategories();
+	
+	int addCategory(Categories category);
+
 	String updateCategories(Categories categories);
 }
