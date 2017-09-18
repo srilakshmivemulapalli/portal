@@ -42,6 +42,7 @@ public class CategoryServiceUtil {
 		return category;
 
 	}
+
 	
 	public static List<Categories> convertDtoTODao(List<CategoriesDTO>  categoriesList){
 		List<Categories> categoriess = new ArrayList<>();
@@ -53,6 +54,16 @@ public class CategoryServiceUtil {
 			categoriess.add(categories);
 		}
 		return categoriess;
+	}
 		
+
+	public static CategoriesDTO convertDaoTODto(Categories categories)
+	{
+		CategoriesDTO categoriesDTO=new CategoriesDTO();
+		categoriesDTO.setCategoryId(categories.getCategoryId());
+		categoriesDTO.setCategoryName(categories.getCategoryName());
+		categoriesDTO.setCreateDate(categories.getCreateDate());
+		return categoriesDTO;
+
 	}
 }
