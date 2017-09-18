@@ -1,6 +1,8 @@
 package com.nisum.portal.data.dao.impl;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
@@ -27,4 +29,19 @@ public class UserRoleDAOImpl implements UserRoleDAO{
 			userRoleRepository.delete(id);
 		return true;
 	}
+	//get the userdetails from database
+	@Override
+	public List<UserRole> getUserRole() {
+		return userRoleRepository.findAll();
+	}
+
+    //uodate the user role details into database
+	@Override
+	public UserRole updateUserRole(UserRole userRole) {
+		return userRoleRepository.save(userRole);
+	}
+
+	
+	
+	
 }

@@ -3,6 +3,7 @@ package com.nisum.portal.service.impl;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,5 +40,18 @@ public class UserRoleServiceImpl implements UserRoleService{
 		
 		return userRoleDao.deleteUser(id);	
 		
+	}
+	
+     @Override
+	public List<UserRoleDTO> getUserRole() {		
+		List<UserRole>  userRoleList=userRoleDao.getUserRole();
+		return UserRoleServiceUtil.convertDaoTODto(userRoleList);
+	}
+
+	@Override
+	public UserRole updateUserRole(UserRole userRole) {	
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		 userRole.setCreatedDate(timestamp);
+		return userRoleDao.updateUserRole(userRole);
 	}
 }
