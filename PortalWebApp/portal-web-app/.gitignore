@@ -1,0 +1,9 @@
+/target/
+/node_modules/
+/node/
+/bower_components/
+/.classpath
+
+/.project
+/.settings/
+/.vscode
