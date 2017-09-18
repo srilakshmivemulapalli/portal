@@ -53,5 +53,17 @@ public class CategoriesDAOImpl implements CategoriesDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public Integer deleteCategories(List<Categories>  categories) {
+		int count=0;
+		for(Categories categorie:categories)
+		{
+			categoriesRepository.delete(categorie.getCategoryId());
+			count++;
+		}
+		return count;
+		
+		
+	}
 
 }

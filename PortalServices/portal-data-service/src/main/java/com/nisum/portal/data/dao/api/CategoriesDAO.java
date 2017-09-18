@@ -12,4 +12,6 @@ public interface CategoriesDAO
 
 	String updateCategories(Categories categories);
 	Categories getCategory(Integer id);
+	
+	Integer deleteCategories(List<Categories> categories);
 }

@@ -63,5 +63,15 @@ public class CategoriesServiceImpl implements CategoriesService{
 		return CategoryServiceUtil.convertDaoToDtoInstance(category);
 	}
 	
+	@Override
+	public String deleteCategories(List<CategoriesDTO> categories) {
+		List<Categories> catgories=CategoryServiceUtil.convertDtoTODao(categories);
+		Integer  count=categoriesDAO.deleteCategories(catgories);
+		if(count>0)
+		return  count+" Categories deleted successfully";
+		else
+		return "Categories not Exist";
+	}
+	
 
 }
