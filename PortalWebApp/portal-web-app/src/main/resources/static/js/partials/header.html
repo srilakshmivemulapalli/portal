@@ -1,0 +1,73 @@
+			<header id="header"  ng-if="!navBarToggle">
+				<div class="col-md-2 col-xs-2" id="logo">
+					<a href="/"> <img src="images/nisumlogo.png">
+					</a>
+				</div>
+				<!-- logo -->
+				<div id="menu_qa" class="col-md-8 col-xs-8">
+					<div class="header-menu">
+						<ul>
+							<li
+								class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-12 current_page_item menu-item-20 active "><a
+								href=''>Questions</a></li>
+
+							<li
+								class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1866"><a
+								href=''>Blog</a></li>
+
+						</ul>
+					</div>
+					<!-- menu -->
+					<div class="header-search-wrapper">
+						<section class="buttonset">
+							<button id="showLeftPush">
+								<i class="fa fa-question"></i>
+							</button>
+							<button id="showRightPush">
+								<i class="fa fa-bar-chart-o"></i>
+							</button>
+
+							<!-- <button id="showLeft"><i class="fa fa-question"></i></button>
+								<button id="showRight"><i class="fa fa-bar-chart-o"></i></button> -->
+							<button id="showTop">
+								<i class="fa fa-list"></i>
+							</button>
+						</section>
+						<form id="header_search" method="GET" action=""
+							class="disable-mobile-search">
+							<input type="text" name="keyword" required value=""
+								placeholder="Enter Keywords" autocomplete="off" /> <i
+								class="fa fa-search"></i>
+							<div id="search_preview" class="search-preview empty"></div>
+						</form>
+					</div>
+					<!-- search -->
+				</div>
+				<div class="col-md-2 col-xs-2 btn-group">
+					<a class="login-url" data-toggle="dropdown" href="#">Prasanth <img
+						class="profImgHeader" src="images/userlogo.jpg" /> <!-- Prasanth Kumar<span class="glyphicon glyphicon-menu-down"></span> -->
+					</a>
+					<!-- <ul class="dropdown-menu togglemenu">
+						<li><a href="#"></a></li>
+						<li><a href="#">Page 1-2</a></li>
+						<li><a href="#">LogOut</a></li>
+						<li><input class='btn btn' type='button' value='Logout'/></li>
+					</ul> -->
+					<ul class="dropdown-menu togglemenu">
+						<li><a href="/Account/Account/Settings"><span
+								class="glyphicon glyphicon-wrench pull-right"></span><span
+								class="dropdown-link-text">Settings</span></a></li>
+						<li><a href="/Account/Account/ChangePassword"><span
+								class="glyphicon glyphicon-lock pull-right"></span><span
+								class="dropdown-link-text">Change Password</span></a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="/Account/Login/Logout"><span
+								class="glyphicon glyphicon-log-out pull-right"></span><span
+								class="dropdown-link-text">Logout</span></a></li>
+					</ul>
+					<!-- <a class="login-url" href="javascript:void(0)">
+						Prasanth Kumar &nbsp;<img class="profImgHeader" src="images/userlogo.jpg"/></a> -->
+
+				</div>
+				<!-- avatar -->
+			</header>

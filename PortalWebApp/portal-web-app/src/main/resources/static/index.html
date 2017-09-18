@@ -1,0 +1,390 @@
+<!doctype html>
+<html>
+
+<head>
+<title>NISUM :: PORTAL</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta charset="utf-8">
+<meta name="viewport"
+	content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<!-- googlesignin script and clientid -->
+<meta name="google-signin-client_id" content="167391935529-bns0200aplm1inm0qpb5ie7te1g1n50t.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+<link
+	href='//fonts.googleapis.com/css?family=Lato:400,700&subset=latin,cyrillic,cyrillic-ext,vietnamese,latin-ext'
+	rel='stylesheet' type='text/css'>
+
+<!-- <link href="webjars/bootstrap/3.3.7/css/bootstrap.min.css"
+	rel='stylesheet' /> -->
+
+
+<link rel='stylesheet' id='bootstrap-css' href='css/bootstrap.min.css'
+	type='text/css' media='all' />
+<link rel="stylesheet" href="css/bootstrap-select.min.css">
+<link rel='stylesheet' id='date-picker-style-css'
+	href='css/bootstrap-datetimepicker.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='demobar-font-awesome-css'
+	href='css/font-awesome.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='mCustomScrollbar-css'
+	href='css/jquery.mCustomScrollbar.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='demo-bar-css' href='css/main.css'
+	type='text/css' media='all' />
+<link rel='stylesheet' id='wp-color-picker-css'
+	href='css/color-picker.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='font-awesome-css'
+	href='css/font-awesome.min-1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='main-style-css' href='css/main-1.css'
+	type='text/css' media='all' />
+<link rel='stylesheet' id='editor-style-css' href='css/editor.css'
+	type='text/css' media='all' />
+<link rel='stylesheet' id='push-menu-css' href='css/push-menu.css'
+	type='text/css' media='all' />
+
+<link rel='stylesheet' id='custom-style-css' href='css/custom.css'
+	type='text/css' media='all' />
+
+<link rel='stylesheet' id='color-picker-style-css'
+	href='css/colorpicker.css' type='text/css' media='all' />
+<style type="text/css">
+    [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+        display: none !important;
+    }
+</style>
+<!-- <link rel='stylesheet' id='style-css'  href='css/style.css' type='text/css' media='all' /> -->
+</head>
+<body ng-app="nisumApp"
+	class="home page-template page-template-page-questions page-template-page-questions-php page page-id-12 cbp-spmenu-push">
+	<div class="sampleClass"></div>
+	<div class="container-fluid">
+		<div class="row">
+
+			<div ng-if="!navBarToggle">
+			<div ng-include="'js/partials/header.html'"></div></div>
+			 <!-- <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div> -->
+			<div ng-view></div>
+			<!-- main views -->
+			
+			<div ng-if="!navBarToggle">
+			<div ng-include="'js/partials/rightsidebar.html'"></div>
+			</div>
+			<!-- END RIGHT-SIDEBAR -->
+		
+		</div>
+		<!-- END ROW -->
+	</div>
+	<!-- END CONTAINER-FLUID -->
+	<div style="display: none;">
+		<div id="wp-temp_id-wrap"
+			class="wp-core-ui wp-editor-wrap tmce-active">
+			<!-- <link rel='stylesheet' id='dashicons-css'
+				href='https://qaengine.enginethemes.com/wp-includes/css/dashicons.min.css?ver=1463369188'
+				type='text/css' media='all' />
+			<link rel='stylesheet' id='editor-buttons-css'
+				href='https://qaengine.enginethemes.com/wp-includes/css/editor.min.css?ver=1483691856'
+				type='text/css' media='all' /> -->
+			<div id="wp-temp_id-editor-container" class="wp-editor-container">
+				<textarea class="wp-editor-area" rows="20" tabindex="5"
+					autocomplete="off" cols="40" name="post_content" id="temp_id"></textarea>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- MODAL LOGIN / REGISTER -->
+	<div class="modal fade modal-submit-questions" id="login_register"
+		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">
+						<i class="fa fa-times"></i>
+					</button>
+					<h4 class="modal-title modal-title-sign-in" id="myModalLabel">Sign
+						In</h4>
+				</div>
+				<div class="modal-body">
+					<form id="signin_form" class="form_modal_style">
+						<label for="username"> Username or Email </label> <input
+							type="text" class="email_user" name="username" id="username" />
+
+						<label for="password"> Password </label> <input type="password"
+							class="password_user" id="password" name="password">
+						<div class="clearfix"></div>
+						<input type="submit" name="submit" value="Sign in"
+							class="btn-submit"> <a href="javascript:void(0)"
+							class="link_forgot_pass">Forgot password</a>
+						<div class="submit-block">
+							<a href="javascript:void(0)" class="link_sign_up">Sign up
+								here</a><span>or sign in with</span>
+
+							<ul class="social-icon clearfix">
+								<!-- google plus login -->
+								<!-- twitter plus login -->
+								<!-- facebook plus login -->
+							</ul>
+						</div>
+
+					</form>
+
+					<form id="signup_form" class="form_modal_style">
+						<label for="username"> Username </label> <input type="text"
+							class="name_user" name="username" id="username" /> <label
+							for="email"> Email </label> <input type="text" class="email_user"
+							name="email" id="email" /> <label for="password1">
+							Password </label> <input type="password" class="password_user_signup"
+							id="password1" name="password" /> <label for="re_password">
+							Retype Password </label> <input type="password"
+							class="repeat_password_user_signup" id="re_password"
+							name="re_password" />
+
+
+						<div class="clearfix"></div>
+						<div class="gg-captcha"></div>
+						<input type="submit" name="submit" value="Sign up"
+							class="btn-submit"> <a href="javascript:void(0)"
+							class="link_sign_in">Sign in</a>
+
+						<div class="clearfix"></div>
+
+						<p class="policy-sign-up">
+							By clicking "Sign up" you indicate that you have read and agree
+							to the <a target="_blank"
+								href="https://qaengine.enginethemes.com/privacy/">privacy
+								policy</a> and <a target="_blank"
+								href="https://qaengine.enginethemes.com/term/">terms of
+								service.</a>
+						</p>
+					</form>
+
+					<form id="forgotpass_form" class="form_modal_style collapse">
+						<label>Enter your email here</label> <input type="text"
+							class="name_user" name="email" id="email" /> <input
+							type="submit" name="submit" value="Send" class="btn-submit">
+						<a href="javascript:void(0)" class="return_link_sign_in">Sign
+							in</a>
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- MODAL LOGIN / REGISTER -->
+
+	<!-- MODAL RESET PASSWORD -->
+	<div class="modal fade modal-submit-questions" id="reset_password"
+		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">
+						<i class="fa fa-times"></i>
+					</button>
+					<h4 class="modal-title modal-title-sign-in" id="myModalLabel">Reset
+						Password</h4>
+				</div>
+				<div class="modal-body">
+
+					<form id="resetpass_form" class="form_modal_style">
+						<input type="hidden" id="user_login" name="user_login" value="" />
+						<input type="hidden" id="user_key" name="user_key" value="">
+						<label>Enter your new password here</label> <input type="password"
+							class="name_user" name="new_password" id="new_password" /> <input
+							type="password" class="name_user" name="re_new_password"
+							id="re_new_password" /> <input type="submit" name="submit"
+							value="Reset" class="btn-submit">
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- MODAL RESET PASSWORD -->
+
+	<!-- MODAL EDIT PROFILE / CHANGE PASS -->
+	<div class="modal fade modal-edit-profile" id="edit_profile"
+		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">
+						<i class="fa fa-times"></i>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Edit Profile</h4>
+				</div>
+				<div class="modal-body">
+					<div class="author-edit" id="user_avatar_container">
+						<span class="author-avatar image" id="user_avatar_thumbnail">
+						</span>
+						<div class="edit-info-avatar">
+							<a href="javascript:void(0);" class="upload-avatar-btn"
+								id="user_avatar_browse_button"> Upload New Avatar </a> <a
+								href="javascript:void(0);" class="link_change_password">Change
+								Password</a> <a href="javascript:void(0);"
+								class="link_change_profile">Change Profile</a>
+						</div>
+						<span class="et_ajaxnonce" id="b9d2df4a0c"></span>
+					</div>
+
+					<form id="submit_edit_profile"
+						class="form_modal_style edit_profile_form">
+						<label>Full name</label> <input type="text" class="submit-input"
+							maxlength="40" id="display_name" name="display_name"> <label>Location</label>
+						<input type="text" class="submit-input" maxlength="40"
+							id="user_location" name="user_location"> <label>Facebook</label>
+						<input type="text" class="submit-input" maxlength="80"
+							id="user_facebook" name="user_facebook"> <label>Twitter</label>
+						<input type="text" class="submit-input" maxlength="80"
+							id="user_twitter" name="user_twitter"> <label>Google+</label>
+						<input type="text" class="submit-input" maxlength="80"
+							id="user_gplus" name="user_gplus"> <label>Email</label> <input
+							type="text" class="submit-input" id="user_email"
+							name="user_email">
+
+						<div class="clearfix"></div>
+
+						<label>About me</label>
+						<textarea maxlength="350" class="submit-textarea" id="description"
+							name="description"></textarea>
+						<input type="checkbox" name="show_email" id="show_email" /> <label
+							for="show_email" class="checkbox-email"> Make this email
+							public. </label>
+						<div class="clearfix"></div>
+
+						<input type="submit" name="submit" value="Update Profile"
+							class="btn-submit update_profile">
+					</form>
+
+					<form id="submit_edit_password"
+						class="form_modal_style edit_password_form">
+						<label>Old Password</label> <input type="password"
+							class="submit-input" id="old_password" name="old_password">
+						<label>New Password</label> <input type="text"
+							class="submit-input input-password" id="new_password1"
+							name="new_password"> <label>Repeat New Password</label> <input
+							type="text" class="submit-input input-password" id="re_password"
+							name="re_password"> <input type="submit" name="submit"
+							value="Change Password" class="btn-submit update_profile">
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="wp-link-backdrop" style="display: none"></div>
+	<div id="wp-link-wrap" class="wp-core-ui" style="display: none"
+		role="dialog" aria-labelledby="link-modal-title">
+		<form id="wp-link" tabindex="-1">
+			<input type="hidden" id="_ajax_linking_nonce"
+				name="_ajax_linking_nonce" value="81fd61a218" />
+			<h1 id="link-modal-title">Insert/edit link</h1>
+			<button type="button" id="wp-link-close">
+				<span class="screen-reader-text">Close</span>
+			</button>
+			<div id="link-selector">
+				<div id="link-options">
+					<p class="howto" id="wplink-enter-url">Enter the destination
+						URL</p>
+					<div>
+						<label><span>URL</span> <input id="wp-link-url"
+							type="text" aria-describedby="wplink-enter-url" /></label>
+					</div>
+					<div class="wp-link-text-field">
+						<label><span>Link Text</span> <input id="wp-link-text"
+							type="text" /></label>
+					</div>
+					<div class="link-target">
+						<label><span></span> <input type="checkbox"
+							id="wp-link-target" /> Open link in a new tab</label>
+					</div>
+				</div>
+				<p class="howto" id="wplink-link-existing-content">Or link to
+					existing content</p>
+				<div id="search-panel">
+					<div class="link-search-wrapper">
+						<label> <span class="search-label">Search</span> <input
+							type="search" id="wp-link-search" class="link-search-field"
+							autocomplete="off"
+							aria-describedby="wplink-link-existing-content" /> <span
+							class="spinner"></span>
+						</label>
+					</div>
+					<div id="search-results" class="query-results" tabindex="0">
+						<ul></ul>
+						<div class="river-waiting">
+							<span class="spinner"></span>
+						</div>
+					</div>
+					<div id="most-recent-results" class="query-results" tabindex="0">
+						<div class="query-notice" id="query-notice-message">
+							<em class="query-notice-default">No search term specified.
+								Showing recent items.</em> <em
+								class="query-notice-hint screen-reader-text">Search or use
+								up and down arrow keys to select an item.</em>
+						</div>
+						<div class="river-waiting">
+							<span class="spinner"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="submitbox">
+				<div id="wp-link-cancel">
+					<button type="button" class="button">Cancel</button>
+				</div>
+				<div id="wp-link-update">
+					<input type="submit" value="Add Link" class="button button-primary"
+						id="wp-link-submit" name="wp-link-submit">
+				</div>
+			</div>
+		</form>
+	</div>
+	<style type="text/css">
+.post-a-job .step .toggle-title, .btn-background, .icon-border {
+	box-sizing: content-box;
+}
+
+.et-plugin-demobar .icon:before {
+	font-size: 20px;
+}
+</style>
+
+	
+
+	<!-- angular scripts -->
+	<script src="webjars/angularjs/1.4.10/angular.js"></script>
+	<script src="webjars/angularjs/1.4.10/angular-resource.js"></script>
+	<script src="webjars/angularjs/1.4.10/angular-route.js"></script>
+	
+
+	<!-- bootstrap scripts -->
+	<script src="webjars/jquery/3.2.1/jquery.js"></script>
+	
+	<script src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="js/common/bootstrap-select.min.js"></script>
+	<script src="http://angular-ui.github.com/bootstrap/ui-bootstrap-tpls-0.2.0.js"></script>
+	
+	<!-- module scripts -->
+	<script src='js/main/main.js'></script>
+	<script src='js/admin/admin.js'></script>
+	<script src='js/login/login.js'></script>
+	<script src="js/app.js"></script>
+	<!-- module scripts -->
+
+	<!-- controllers scripts -->
+	<script src="js/main/mainController.js"></script>
+	<script src='js/admin/adminController.js'></script>
+	<script src='js/login/loginController.js'></script>
+
+</body>
+</html>
