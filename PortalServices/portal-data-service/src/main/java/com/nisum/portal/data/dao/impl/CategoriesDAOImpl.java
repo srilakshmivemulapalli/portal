@@ -20,4 +20,16 @@ public class CategoriesDAOImpl implements CategoriesDAO{
 		return categoriesRepository.findAll();
 	}
 
+	@Override
+	public String updateCategories(Categories categories) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Categories getCategory(Integer id) {
+		// TODO Auto-generated method stub
+		return categoriesRepository.findOne(id);
+	}
+
 }

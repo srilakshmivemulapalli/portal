@@ -23,4 +23,11 @@ public class CategoriesServiceImpl implements CategoriesService{
 		return CategoryServiceUtil.convertDaoTODto(categoriesList);
 	}
 
+	@Override
+	public CategoriesDTO getCategory(Integer id) {
+		Categories category=categoriesDAO.getCategory(id);
+		return CategoryServiceUtil.convertDaoToDtoInstance(category);
+	}
+	
+
 }

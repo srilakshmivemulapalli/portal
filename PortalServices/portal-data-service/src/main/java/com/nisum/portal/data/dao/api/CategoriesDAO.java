@@ -8,4 +8,5 @@ public interface CategoriesDAO
 {
 	List<Categories> getCategories();
 	String updateCategories(Categories categories);
+	Categories getCategory(Integer id);
 }

@@ -20,5 +20,16 @@ public class CategoryServiceUtil {
 		return categoriesDTOs;
 		
 	}
+	
+	public static CategoriesDTO convertDaoToDtoInstance(Categories category) {
+		
+		CategoriesDTO categoriesDTO= new CategoriesDTO();
+		if(category!=null) {
+			categoriesDTO.setCategoryId(category.getCategoryId());
+			categoriesDTO.setCategoryName(category.getCategoryName());
+			categoriesDTO.setCreateDate(category.getCreateDate());
+		}
+		return categoriesDTO;
+	}
 
 }

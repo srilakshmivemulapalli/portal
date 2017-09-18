@@ -7,5 +7,7 @@ import com.nisum.portal.service.dto.CategoriesDTO;
 public interface CategoriesService {
 	
 	List<CategoriesDTO> getCategories();
+	
+	CategoriesDTO getCategory(Integer id);
 
 }
