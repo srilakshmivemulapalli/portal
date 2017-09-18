@@ -48,9 +48,17 @@ public class CategoriesDAOImpl implements CategoriesDAO {
 	}
 
 	@Override
-	public String updateCategories(Categories categories) {
+	public Categories updateCategories(Categories categories)
+	{
 		// TODO Auto-generated method stub
-		return null;
+		Categories category = categoriesRepository.findByCategoryId(categories.getCategoryId());
+		if(!category.equals(null))
+		{
+			categoriesRepository.save(categories);
+		}
+		else
+			category=null;
+		return category;
 	}
 
 }

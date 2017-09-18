@@ -10,5 +10,5 @@ public interface CategoriesDAO
 	
 	int addCategory(Categories category);
 
-	String updateCategories(Categories categories);
+	Categories updateCategories(Categories categories);
 }

@@ -31,4 +31,12 @@ public class CategoryServiceUtil {
 		return category;
 
 	}
+	public static CategoriesDTO convertDaoTODto(Categories categories)
+	{
+		CategoriesDTO categoriesDTO=new CategoriesDTO();
+		categoriesDTO.setCategoryId(categories.getCategoryId());
+		categoriesDTO.setCategoryName(categories.getCategoryName());
+		categoriesDTO.setCreateDate(categories.getCreateDate());
+		return categoriesDTO;
+	}
 }
