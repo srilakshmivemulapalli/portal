@@ -3,7 +3,7 @@
 /node/
 /bower_components/
 /.classpath
-
+/.gitignore
 /.project
 /.settings/
 /.vscode
