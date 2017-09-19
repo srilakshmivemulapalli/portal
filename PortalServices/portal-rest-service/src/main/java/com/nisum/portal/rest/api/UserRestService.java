@@ -15,7 +15,7 @@ import com.nisum.portal.service.dto.UserDTO;
 import com.nisum.portal.service.exception.UserServiceException;
 
 @RestController
-@RequestMapping(value = "/User")
+@RequestMapping(value = "/v1/user")
 public class UserRestService {
 	
 	@Autowired
