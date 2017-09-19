@@ -3,6 +3,9 @@ package com.nisum.portal.rest.api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,6 +44,12 @@ public class CategoriesRestService {
 		logger.info("CategoriesRestService :: addCategories");
 
 		return categoriesService.addCategory(category);
+	}
+	
+	@RequestMapping(value="/retrieve/{id}",method=RequestMethod.GET)
+	public Object category(@PathVariable Integer id) throws CategoryServiceException {
+		 logger.info("CategoriesRestService :: category");
+		 return categoriesService.getCategory(id);
 	}
 
 }

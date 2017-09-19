@@ -9,6 +9,7 @@ public interface CategoriesService {
 	
 	List<CategoriesDTO> getCategories();
 	
+	CategoriesDTO getCategory(Integer id);
 	ServiceStatusDto addCategory(CategoriesDTO category);
 
 
