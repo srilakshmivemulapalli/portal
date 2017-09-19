@@ -2,6 +2,8 @@ package com.nisum.portal.data.dao.impl;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,6 +14,7 @@ import com.nisum.portal.data.repository.CategoriesRepository;
 @Configuration
 public class CategoriesDAOImpl implements CategoriesDAO {
 
+	private static Logger logger = LoggerFactory.getLogger(CategoriesDAOImpl.class);
 	@Autowired
 	CategoriesRepository categoriesRepository;
 
@@ -27,7 +30,6 @@ public class CategoriesDAOImpl implements CategoriesDAO {
 	}
 	public int addCategory(Categories category) {
 
-		Boolean serviceStatus = false;
 		int status;
 
 		Categories categories = categoriesRepository.findByCategoryName(category.getCategoryName());
@@ -52,13 +54,17 @@ public class CategoriesDAOImpl implements CategoriesDAO {
 	public Categories updateCategories(Categories categories)
 	{
 		// TODO Auto-generated method stub
+		logger.info("CategoriesDAOImpl :: updateCategories :: Category Details "+categories.toString());
 		Categories category = categoriesRepository.findByCategoryId(categories.getCategoryId());
 		if(!category.equals(null))
 		{
 			categoriesRepository.save(categories);
 		}
 		else
+		{
+			logger.error("Unable To Update Categories with categoryId not found.", categories.getCategoryId());
 			category=null;
+		}
 		return category;
 	}
 	@Override

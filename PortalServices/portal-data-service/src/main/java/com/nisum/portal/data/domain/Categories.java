@@ -23,7 +23,6 @@ public class Categories implements Serializable{
     @Column(name="categoryId")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer categoryId;
-	private String description;
 	private String categoryName;
 	private Timestamp createDate;
 	/**
@@ -103,7 +102,13 @@ public class Categories implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
-
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Categories [categoryId=" + categoryId + ", categoryName=" + categoryName + ", createDate=" + createDate
+				+ "]";
+	}
 }

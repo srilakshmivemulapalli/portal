@@ -52,10 +52,19 @@ public class CategoriesRestService {
 		return categoriesService.addCategory(category);
 	}
 	@RequestMapping(value="/update",method=RequestMethod.PUT,produces=MediaType.APPLICATION_JSON_VALUE,consumes=MediaType.APPLICATION_JSON_VALUE)
-	public Object updateCategories(@RequestBody Categories categories) throws CategoryServiceException
+	public ResponseEntity<?> updateCategories(@RequestBody Categories categories) throws CategoryServiceException
 	{
-		logger.info("CategoriesRestService :: updateCategories");
-		return categoriesService.update(categories);
+		logger.info("CategoriesRestService :: updateCategories :: Category Details "+categories.toString());
+		try
+		{
+			CategoriesDTO categoriesDTO = categoriesService.update(categories);
+			return new ResponseEntity<CategoriesDTO>(categoriesDTO,HttpStatus.OK);
+		}
+		catch(Exception e)
+		{
+			logger.error("Unable To Update Categories with categoryId not found.", categories.getCategoryId());
+            return new ResponseEntity<Object>(new CategoryServiceException("Unable To Update Categories with categoryId " + categories.getCategoryId() + " not found."),HttpStatus.NOT_FOUND);
+		}
 	}
 	
 	@RequestMapping(value="/retrieve/{id}",method=RequestMethod.GET)
