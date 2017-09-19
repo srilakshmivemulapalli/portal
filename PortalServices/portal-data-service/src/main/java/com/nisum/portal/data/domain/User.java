@@ -19,10 +19,11 @@ public class User {
 	
 	@Id
 	@Column (name = "userId")
-	private String userid;
-	private String emailid;
+	private int userId;
+	private String emailId;
 	private String name;
 	private Timestamp loginDate;
+	private String isActive;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "roleId", referencedColumnName = "roleId")
@@ -40,32 +41,50 @@ public UserRole getRole() {
 //	public void setRoleId(Set<UserRole> roleId) {
 //		this.roleId = roleId;
 //	}
-	public String getUserid() {
-		return userid;
+
+
+
+	
+
+	public String getIsActive() {
+		return isActive;
 	}
-	public void setUserid(String userid) {
-		this.userid = userid;
+	public String getEmailId() {
+		return emailId;
 	}
-	public String getEmailid() {
-		return emailid;
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
 	}
-	public void setEmailid(String emailid) {
-		this.emailid = emailid;
+	public void setIsActive(String isActive) {
+		this.isActive = isActive;
+	}
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+	public String getemailId() {
+		return emailId;
 	}
 	@Override
 	public String toString() {
-		return "User [userid=" + userid + ", emailid=" + emailid + ", name=" + name + ", loginDate=" + loginDate
+		return "User [userid=" + userId + ", emailId=" + emailId + ", name=" + name + ", loginDate=" + loginDate
 				+ ", roleId=" + role + "]";
 	}
+
+	
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((emailid == null) ? 0 : emailid.hashCode());
+		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
 		result = prime * result + ((loginDate == null) ? 0 : loginDate.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((role == null) ? 0 : role.hashCode());
-		result = prime * result + ((userid == null) ? 0 : userid.hashCode());
+		result = prime * result + userId;
 		return result;
 	}
 	@Override
@@ -77,10 +96,10 @@ public UserRole getRole() {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (emailid == null) {
-			if (other.emailid != null)
+		if (emailId == null) {
+			if (other.emailId != null)
 				return false;
-		} else if (!emailid.equals(other.emailid))
+		} else if (!emailId.equals(other.emailId))
 			return false;
 		if (loginDate == null) {
 			if (other.loginDate != null)
@@ -93,14 +112,11 @@ public UserRole getRole() {
 		} else if (!name.equals(other.name))
 			return false;
 		if (role == null) {
-			if (other.role!= null)
+			if (other.role != null)
 				return false;
 		} else if (!role.equals(other.role))
 			return false;
-		if (userid == null) {
-			if (other.userid != null)
-				return false;
-		} else if (!userid.equals(other.userid))
+		if (userId != other.userId)
 			return false;
 		return true;
 	}

@@ -14,11 +14,11 @@ public class UserServiceUtil {
 		{
 		UserDTO userDto = new UserDTO();
 		userDto.setUserId(user.getUserId());
-		userDto.setActive(user.isActive());
+		userDto.setIsActive(user.getIsActive());
 		userDto.setEmailId(user.getEmailId());
 		userDto.setLoginDate(user.getLoginDate());
 		userDto.setName(user.getName());
-		userDto.setRoleId(user.getUserRole());
+		userDto.setRoleId(user.getRole());
 		userDTO.add(userDto);
 		}
 		return userDTO;
@@ -29,8 +29,8 @@ public class UserServiceUtil {
 		userDTO.setName(user.getName());
 		userDTO.setEmailId(user.getEmailId());
 		userDTO.setLoginDate(user.getLoginDate());
-		userDTO.setActive(user.isActive());
-		userDTO.setRoleId(user.getUserRole());
+		userDTO.setIsActive(user.getIsActive());
+		userDTO.setRoleId(user.getRole());
 		return userDTO;
 
 	}
