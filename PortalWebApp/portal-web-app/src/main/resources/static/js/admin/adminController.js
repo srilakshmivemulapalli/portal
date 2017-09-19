@@ -22,13 +22,7 @@ adminApp.controller('adminController', function($scope, $http) {
 		"createdDate" : '9/25/2017'
 	}
 	$scope.getUsers = function() {
-
-		$http.get('samplejsons/roles.json').then(function(response) {
-			$scope.rolesList = response.data;
-		}, function(response) {
-
-		});
-		$http.get('samplejsons/users.json').then(function(response) {
+		$http.get('v1/user/getUsers').then(function(response) {
 			$scope.usersList = response.data;
 			//$scope.dummyUsersList = response.data;
 		}, function(response) {
@@ -37,7 +31,7 @@ adminApp.controller('adminController', function($scope, $http) {
 
 	}
 	$scope.getRoles = function() {
-		$http.get('samplejsons/roles.json').then(function(response) {
+		$http.get('v1/userrole/retrieve').then(function(response) {
 			$scope.rolesList = response.data;
 		}, function(response) {
 
