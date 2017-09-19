@@ -36,7 +36,7 @@
 								<td>{{user.userRole.role}}</td>
 								<td>{{user.loginDate | date: 'MM-dd-yyyy HH:mm:ss'}}</td>
 								<td><select name="mySelect" id="mySelect"
-									ng-model="user.roleId"
+									ng-model="user.userRole.roleId"
 									ng-options="role.roleId as role.role for role in rolesList"
 									ng-change='edituserselected(user,$index)'
 									ng-disabled="!userselected[$index]"></select></td>
@@ -95,7 +95,7 @@
 								<td><input type="checkbox" value=""
 									ng-model="roleselected[$index]"></td>
 								<td>{{role.role}}</td>
-								<td>{{role.createdDate | date: 'dd-mm-yy'}}</td>
+								<td>{{role.createdDate | date: 'MM-dd-yyyy HH:mm:ss'}}</td>
 								<td class="CENTER"><img class="deleteicon"
 									src="images/delete.png"
 									ng-class="{'disabled':!roleselected[$index]}"

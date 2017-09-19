@@ -22,6 +22,8 @@ adminApp.controller('adminController', function($scope, $http) {
 		"createdDate" : '9/25/2017'
 	}
 	$scope.getUsers = function() {
+		$scope.getRoles();
+		
 		$http.get('v1/user/getUsers').then(function(response) {
 			$scope.usersList = response.data;
 			//$scope.dummyUsersList = response.data;
