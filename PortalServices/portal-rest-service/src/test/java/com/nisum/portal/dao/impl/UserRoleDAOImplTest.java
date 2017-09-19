@@ -5,6 +5,8 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -28,8 +30,10 @@ public class UserRoleDAOImplTest {
 	UserRoleRepository userRoleRepository;
 	UserRole expected;
 	
+	List<UserRole> expected1;
+	
 	@Before
-	public void init() {
+	public void setUP() {
 		expected=new UserRole();
 		expected.setRoleId(1);
 		expected.setRole("SE");
@@ -61,4 +65,45 @@ public class UserRoleDAOImplTest {
 	public void cleanUp() {
 		expected=null;
 	}
+	
+	@Before
+	public void setUp() {
+		expected1 = new ArrayList<>();
+		UserRole userRole = new UserRole();
+		userRole.setRole("mg");
+		userRole.setRoleId(1);
+		userRole.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+		expected1.add(userRole);
+	}
+	
+	@Test
+	public void getUserRoleTest() {
+		List<UserRole> list = new ArrayList<>();
+		UserRole userRole = new UserRole();
+		userRole.setRoleId(1);
+		userRole.setRole("mg");
+		userRole.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+		list.add(userRole);
+		when(userRoleRepository.findAll()).thenReturn(list);
+		List<UserRole> actual =  userRoleDaoImpl.getUserRole();
+		assertEquals(actual.size(), expected1.size());
+	}
+
+	@Test
+	public void updateUserRoleTest() {
+		String  message= "user role successfully updated into database";
+		UserRole expected1 = new UserRole();
+		expected1.setRole("mg");
+		expected1.setRoleId(1);	
+		UserRole userRole = new UserRole();
+		userRole.setRole("mg");
+		userRole.setRoleId(1);
+		userRole.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+		when(userRoleRepository.save(userRole)).thenReturn(userRole);
+		UserRole actual = userRoleDaoImpl.updateUserRole(userRole);
+		assertEquals(actual.getRole(), expected1.getRole());
+	}
+
+	
 }
+

@@ -7,12 +7,12 @@ public class UserServiceUtil {
 
 	public static UserDTO convertDaoTODto(User user) {
 		UserDTO userDto = new UserDTO();
-		userDto.setUserId(user.getUserId());
-		userDto.setActive(user.isActive());
-		userDto.setEmailId(user.getEmailId());
+		//userDto.setUserId(user.getUserId());
+		//userDto.setActive(user.isActive());
+		//userDto.setEmailId(user.getEmailId());
 		userDto.setLoginDate(user.getLoginDate());
 		userDto.setName(user.getName());
-		userDto.setRoleId(user.getUserRole());
+		//userDto.setRoleId(user.getUserRole());
 		return userDto;
 	}
 }
