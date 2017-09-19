@@ -71,7 +71,7 @@
 			<!-- main views -->
 			
 			<div ng-if="!navBarToggle">
-			<div ng-include="'js/partials/rightsidebar.html'"></div>
+			<div class="rightbar" ng-include="'js/partials/rightsidebar.html'"></div>
 			</div>
 			<!-- END RIGHT-SIDEBAR -->
 		
@@ -388,8 +388,8 @@
 	
 	<script src="bower_components/angular-ui-router/release/angular-ui-router.js"/></script>
 	<script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
-	<script src="bower_components/angular-directive.g-signin/google-plus-signin.js"></script>
-
+	<!-- <script src="bower_components/angular-directive.g-signin/google-plus-signin.js"></script> -->
+	<script src="js/directives/google-plus-signin.js"></script>
 	<!-- bootstrap scripts -->
 	<script src="bower_components/jquery/dist/jquery.js"></script>
 	

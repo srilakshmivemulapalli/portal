@@ -20,22 +20,22 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			$rootScope.navBarToggle = true;
 		}
 
-		$timeout(function(){
+//		$timeout(function(){
 			var profile = localStorageService.get("profile");	
 			if (profile !== (undefined || null) && $rootScope.urlChanged==='/login') {
 				
-				
-					if (profile.username === 'admin@gmail.com') {
-						$state.go("admin");
-					} 
-					else if (profile.username === 'user@gmail.com') {
-						$state.go("questions");
-					}
+					$state.go('admin');
+//					if (profile.username === 'admin@gmail.com') {
+//						$state.go("admin");
+//					} 
+//					else if (profile.username === 'user@gmail.com') {
+//						$state.go("questions");
+//					}
 				
 			} else if (profile === null) {
 				$state.go('login');
 			}
-		},50);
+//		},50);
 		
 	})
 }).controller('mainController', function($scope, localStorageService, $state) {
