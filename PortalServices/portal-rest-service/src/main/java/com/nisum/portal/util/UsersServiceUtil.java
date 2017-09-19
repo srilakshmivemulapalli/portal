@@ -20,7 +20,7 @@ public class UsersServiceUtil {
 			userRoleDTO.setCreatedDate(users.getRole().getCreatedDate());
 			userRoleDTO.setRole(users.getRole().getRole());
 			userRoleDTO.setRoleId(users.getRole().getRoleId());
-			userDTO.setRoleId(userRoleDTO);
+			userDTO.setUserRole(userRoleDTO);
 			
 			userDTOs.add(userDTO);
 		}

@@ -11,7 +11,7 @@ public class UserDTO implements Serializable{
 	private String emailId;
 	private String name;
 	private Timestamp loginDate;
-	private UserRoleDTO roleId;
+	private UserRoleDTO userRole;
 	private String activeStatus;
 	
 	public int getUserId() {
@@ -38,12 +38,13 @@ public class UserDTO implements Serializable{
 	public void setLoginDate(Timestamp loginDate) {
 		this.loginDate = loginDate;
 	}
-	public UserRoleDTO getRoleId() {
-		return roleId;
+	public UserRoleDTO getUserRole() {
+		return userRole;
 	}
-	public void setRoleId(UserRoleDTO roleId) {
-		this.roleId = roleId;
+	public void setUserRole(UserRoleDTO userRole) {
+		this.userRole = userRole;
 	}
+
 	public String getActiveStatus() {
 		return activeStatus;
 	}
