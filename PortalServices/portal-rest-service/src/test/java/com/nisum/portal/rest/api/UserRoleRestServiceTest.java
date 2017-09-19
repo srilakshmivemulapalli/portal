@@ -18,6 +18,7 @@ import com.nisum.portal.data.domain.UserRole;
 import com.nisum.portal.service.api.UserRoleService;
 import com.nisum.portal.service.dto.UserRoleDTO;
 
+
 @RunWith(MockitoJUnitRunner.class)
 public class UserRoleRestServiceTest {
 
@@ -45,8 +46,7 @@ public class UserRoleRestServiceTest {
 					userRole.setRoleId(1);
 					userRole.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 			when(userRoleService.addUser(userRoleDto)).thenReturn(userRole);
-			when(userRoleDao.addUser(userRole)).thenReturn(userRole);
-					
+			when(userRoleDao.addUser(userRole)).thenReturn(userRole);				
 			String actual =userRoleRestService.addUserRole(userRoleDto);
 			//assertEquals(temp, userRoleRestService.addUserRole(userRoleDto)); 
 			assertEquals(expected, actual);
@@ -56,6 +56,7 @@ public class UserRoleRestServiceTest {
 	public void addUserRoleFailure() {
 		String expected="Failed to add UserRole";
 		UserRoleDTO userRoleDto=new UserRoleDTO();
+		
 			
 		//when(userRoleService.addUser(userRoleDto)).thenReturn(null);
 		String actual=userRoleRestService.addUserRole(userRoleDto);

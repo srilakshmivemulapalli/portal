@@ -51,6 +51,7 @@ public class UserRoleDAOImplTest {
 			assertEquals(expected.getRole(), actual.getRole());		
 	}
 	
+	
 	@Test
 	public void deleteUser() {
 		int id=1;
