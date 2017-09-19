@@ -12,6 +12,7 @@ import com.nisum.portal.data.domain.Categories;
 import com.nisum.portal.service.api.CategoriesService;
 import com.nisum.portal.service.dto.CategoriesDTO;
 import com.nisum.portal.service.dto.ServiceStatusDto;
+import com.nisum.portal.service.exception.CategoryServiceException;
 import com.nisum.portal.util.CategoryServiceUtil;
 import com.nisum.portal.util.KeyConstants;
 
@@ -55,6 +56,36 @@ public class CategoriesServiceImpl implements CategoriesService{
 
 		return serviceStatusDto;
 	}
+	@Override
+	public CategoriesDTO update(Categories categories) throws CategoryServiceException 
+	{
+		// TODO Auto-generated method stub
+		try
+		{
+			Categories categories2 = categoriesDAO.updateCategories(categories);
+			return CategoryServiceUtil.convertDaoTODto(categories2);
+		}
+		catch(Exception e)
+		{
+			throw new CategoryServiceException("Category id "+categories.getCategoryId()+" is Not Exists");
+		}
+	}
 
+	@Override
+	public CategoriesDTO getCategory(Integer id) {
+		Categories category=categoriesDAO.getCategory(id);
+		return CategoryServiceUtil.convertDaoToDtoInstance(category);
+	}
+	
+	@Override
+	public String deleteCategories(List<CategoriesDTO> categories) {
+		List<Categories> catgories=CategoryServiceUtil.convertDtoTODao(categories);
+		Integer  count=categoriesDAO.deleteCategories(catgories);
+		if(count>0)
+		return  count+" Categories deleted successfully";
+		else
+		return "Categories not Exist";
+	}
+	
 
 }

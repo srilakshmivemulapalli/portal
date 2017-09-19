@@ -1,15 +1,31 @@
-<div class="col-md-12 col-xs-12">
+<!--  <div class="col-md-12 col-xs-12">
 <div class="row">
 <div class="col-md-4">
 <h1>login</h1></div>
 <div class="g-signin2" data-onsuccess="onSignIn"></div></div>
 </div>
-
-<script>
-function onSignIn(googleUser) {
-	  var profile = googleUser.getBasicProfile();
-	  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-	  console.log('Name: ' + profile.getName());
-	  console.log('Image URL: ' + profile.getImageUrl());
-	  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-	}</script>
+	 -->
+<!-- 	<google-plus-signin clientid="167391935529-bns0200aplm1inm0qpb5ie7te1g1n50t.apps.googleusercontent.com"></google-plus-signin>
+  <p>^ This is a Google Plus sign-in button</p> -->
+<div class="col-md-12 col-xs-12">
+        <div class="login card card-container">
+            <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
+            <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+            <p id="profile-name" class="profile-name-card"></p>
+            <p ng-show="err">{{errStatus}}</p>
+            <form class="form-signin" ng-submit="checkUser(login);">
+                <span id="reauth-email" class="reauth-email"></span>
+                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" ng-model="login.username" required autofocus>
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password" ng-model="login.password"  required>
+                <div id="remember" class="checkbox">
+                    <label>
+                        <input type="checkbox" value="remember-me"> Remember me
+                    </label>
+                </div>
+                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+            </form><!-- /form -->
+            <a href="#" class="forgot-password">
+                Forgot the password?
+            </a>
+        </div><!-- /card-container -->
+</div>

@@ -1,9 +1,11 @@
 package com.nisum.portal.rest.api;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals; 
 import static org.mockito.Mockito.when;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -21,7 +23,7 @@ import com.nisum.portal.service.dto.UserRoleDTO;
 @RunWith(MockitoJUnitRunner.class)
 public class UserRoleRestServiceTest {
 
-	@Mock
+    @Mock
 	UserRoleService userRoleService;
 	
 	@Mock
@@ -30,7 +32,8 @@ public class UserRoleRestServiceTest {
 	@InjectMocks
 	UserRoleRestService userRoleRestService= new UserRoleRestService();
 	
-	
+	List<UserRoleDTO> expected;
+
 	@Test
 	public void addUserRoleSuccess() {
 		String expected="User Role Added Successfully";
@@ -80,4 +83,47 @@ public class UserRoleRestServiceTest {
 		String actual=userRoleRestService.deleteUserRole(id);
 		assertEquals(expected, actual); 
 	}
+	@Before
+	public void init() {
+		expected = new ArrayList<>();
+		UserRoleDTO userRoleDTO = new UserRoleDTO();
+		userRoleDTO.setRole("mg");
+		userRoleDTO.setRoleId(1);
+		userRoleDTO.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+		expected.add(userRoleDTO);
+	}
+	
+	
+	
+	@Test
+	public void getUserRoleTest() {
+		List<UserRoleDTO> list = new ArrayList<>();
+		UserRoleDTO userRoleDto = new UserRoleDTO();
+		userRoleDto.setRoleId(1);
+		userRoleDto.setRole("mg");
+		userRoleDto.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+		list.add(userRoleDto);
+		when(userRoleService.getUserRole()).thenReturn(list);
+		List<UserRoleDTO> actual =  userRoleRestService.getUserRole();
+		assertEquals(actual.size(), expected.size());
+	}
+
+	@Test
+	public void updateUserRoleTest() {
+		String  message= "user role successfully updated into database";
+		UserRole expected1 = new UserRole();
+		expected1.setRole("mg");
+		expected1.setRoleId(1);	
+		UserRole userRole = new UserRole();
+		userRole.setRole("mg");
+		userRole.setRoleId(1);
+		userRole.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+		when(userRoleService.updateUserRole(userRole)).thenReturn(userRole);
+		UserRole actual = userRoleService.updateUserRole(userRole);
+		assertEquals(actual.getRole(), expected1.getRole());
+	}
+
+	
 }
+
+

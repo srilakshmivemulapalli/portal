@@ -12,6 +12,7 @@ public class UserDTO {
 	private Timestamp loginDate;
 	private UserRole roleId;
 	private String isActive;
+	
 	public int getUserId() {
 		return userId;
 	}
@@ -42,12 +43,13 @@ public class UserDTO {
 	public void setRoleId(UserRole roleId) {
 		this.roleId = roleId;
 	}
-	public String isActive() {
+	public String getIsActive() {
 		return isActive;
 	}
-	public void setActive(String isActive) {
+	public void setIsActive(String isActive) {
 		this.isActive = isActive;
 	}
+
 
 
 }

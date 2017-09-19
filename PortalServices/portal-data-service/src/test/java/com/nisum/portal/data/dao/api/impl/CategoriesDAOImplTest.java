@@ -5,6 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -87,6 +90,22 @@ public class CategoriesDAOImplTest {
 		assertEquals(1, categoriesDaoImpl.addCategory(category));
 		
 		
+	}
+	@Test
+	public void deleteCategoriesinDaoTest()
+	{
+		int expcount=1;
+		//when(categoriesDAOImpl.deleteCategories(id)).
+		
+		ArrayList<Categories> categoriesList=new ArrayList<Categories>();
+		Categories categories1=new Categories();
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		categories1.setCategoryId(101);
+		categories1.setCategoryName("java");
+		categories1.setCreateDate(timestamp);
+		categoriesList.add(categories1);
+		int actcount=categoriesDaoImpl.deleteCategories(categoriesList);
+		assertEquals(expcount, actcount);
 	}
 	
 }

@@ -1,6 +1,6 @@
 package com.nisum.portal.data.dao.impl;
 
-import java.util.List; 
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -8,8 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import com.nisum.portal.data.dao.api.CategoriesDAO;
 import com.nisum.portal.data.domain.Categories;
 import com.nisum.portal.data.repository.CategoriesRepository;
-
-
 
 @Configuration
 public class CategoriesDAOImpl implements CategoriesDAO {
@@ -22,8 +20,11 @@ public class CategoriesDAOImpl implements CategoriesDAO {
 		return categoriesRepository.findAll();
 	}
 
-
 	@Override
+	public Categories getCategory(Integer id) {
+		// TODO Auto-generated method stub
+		return categoriesRepository.findOne(id);
+	}
 	public int addCategory(Categories category) {
 
 		Boolean serviceStatus = false;
@@ -48,9 +49,29 @@ public class CategoriesDAOImpl implements CategoriesDAO {
 	}
 
 	@Override
-	public String updateCategories(Categories categories) {
+	public Categories updateCategories(Categories categories)
+	{
 		// TODO Auto-generated method stub
-		return null;
+		Categories category = categoriesRepository.findByCategoryId(categories.getCategoryId());
+		if(!category.equals(null))
+		{
+			categoriesRepository.save(categories);
+		}
+		else
+			category=null;
+		return category;
+	}
+	@Override
+	public Integer deleteCategories(List<Categories>  categories) {
+		int count=0;
+		for(Categories categorie:categories)
+		{
+			categoriesRepository.delete(categorie.getCategoryId());
+			count++;
+		}
+		return count;
+		
+		
 	}
 
 }
