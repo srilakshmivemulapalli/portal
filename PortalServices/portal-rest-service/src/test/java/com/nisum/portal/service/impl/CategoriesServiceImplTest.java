@@ -4,7 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -90,6 +92,26 @@ public class CategoriesServiceImplTest {
 			ServiceStatusDto serviceStatus2 = categoryServiceImpl.addCategory(categoryDto);
 			assertEquals(serviceStatus2.isStatus(), true);
 
+	}
+	@Test
+	public void deleteCategoriesinServiceTest()
+	{
+		int count=1;
+		String expMsg=count+" Categories deleted successfully";
+		
+		ArrayList<Categories> categoriesList=new ArrayList<Categories>();
+		Categories categories1=new Categories();
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		categories1.setCategoryId(101);
+		categories1.setCategoryName("java");
+		categories1.setCreateDate(timestamp);
+		categoriesList.add(categories1);
+		
+		when(categoriesDAO.deleteCategories(categoriesList)).thenReturn(count);
+		List<CategoriesDTO>  categoriesLis= CategoryServiceUtil.convertDaoTODto(categoriesList);
+	 String ActMsg= categoryServiceImpl.deleteCategories(categoriesLis);
+
+	      assertEquals(expMsg,ActMsg);
 	}
 
 	

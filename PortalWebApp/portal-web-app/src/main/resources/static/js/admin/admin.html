@@ -31,7 +31,7 @@
 									ng-change="editselectedList(user,$index)"></td>
 								<td>{{user.name}}</td>
 								<td>{{user.emailId}}</td>
-								<td>{{user.loginDate | date: 'dd-mm-yy'}}</td>
+								<td>{{user.loginDate | date: 'MM-dd-yyyy HH:mm:ss'}}</td>
 								<td><select name="mySelect" id="mySelect"
 									ng-model="user.roleId"
 									ng-options="role.roleId as role.role for role in rolesList"
@@ -137,18 +137,22 @@
 					<table class="table table-hover table-striped table-bordered">
 						<thead class="thead-inverse">
 							<tr>
-								<th></th>
+								<th>Select</th>
+								<th width="10px">Category Id</th>
 								<th>Category Name</th>
-								<th>CreatedDate</th>
-								<th></th>
+								<th>Description</th>
+								<th>Created Date</th>
+								<th>Delete</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr ng-repeat="category in categoriesList">
-								<td><input type="checkbox" value=""
+								<td align="center"><input type="checkbox" value=""
 									ng-model="categoryselected[$index]"></td>
+								<td align="center">{{category.categoryId}}</td>
 								<td>{{category.categoryName}}</td>
-								<td>{{category.createDate | date: 'dd-mm-yy'}}</td>
+								<td>{{category.description}}</td>
+								<td>{{category.createDate | date: 'MM-dd-yyyy HH:mm:ss'}}</td>
 								<td class="CENTER"><img class="deleteicon"
 									src="images/delete.png"
 									ng-class="{'disabled':!categoryselected[$index]}"
