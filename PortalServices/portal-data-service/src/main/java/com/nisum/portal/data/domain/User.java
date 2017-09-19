@@ -4,7 +4,6 @@ package com.nisum.portal.data.domain;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 @Entity
 @Table(name = "User")
-public class User {
+public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -23,7 +22,8 @@ public class User {
 	private String emailId;
 	private String name;
 	private Timestamp loginDate;
-	private String isActive;
+	private String activeStatus;
+	
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "roleId", referencedColumnName = "roleId")
@@ -44,19 +44,18 @@ public UserRole getRole() {
 
 
 
-	
-
-	public String getIsActive() {
-		return isActive;
+	public String getActiveStatus() {
+		return activeStatus;
 	}
+	public void setActiveStatus(String activeStatus) {
+		this.activeStatus = activeStatus;
+	}
+
 	public String getEmailId() {
 		return emailId;
 	}
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
-	}
-	public void setIsActive(String isActive) {
-		this.isActive = isActive;
 	}
 	public int getUserId() {
 		return userId;
@@ -84,6 +83,7 @@ public UserRole getRole() {
 		result = prime * result + ((loginDate == null) ? 0 : loginDate.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((role == null) ? 0 : role.hashCode());
+		result = prime * result + ((activeStatus == null) ? 0 : activeStatus.hashCode());
 		result = prime * result + userId;
 		return result;
 	}
@@ -115,6 +115,11 @@ public UserRole getRole() {
 			if (other.role != null)
 				return false;
 		} else if (!role.equals(other.role))
+			return false;
+		if (activeStatus == null) {
+			if (other.activeStatus != null)
+				return false;
+		} else if (!activeStatus.equals(other.activeStatus))
 			return false;
 		if (userId != other.userId)
 			return false;

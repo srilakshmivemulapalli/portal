@@ -14,7 +14,7 @@ public class UserServiceUtil {
 		{
 		UserDTO userDto = new UserDTO();
 		userDto.setUserId(user.getUserId());
-		userDto.setIsActive(user.getIsActive());
+		userDto.setActiveStatus(user.getActiveStatus());
 		userDto.setEmailId(user.getEmailId());
 		userDto.setLoginDate(user.getLoginDate());
 		userDto.setName(user.getName());
@@ -29,7 +29,7 @@ public class UserServiceUtil {
 		userDTO.setName(user.getName());
 		userDTO.setEmailId(user.getEmailId());
 		userDTO.setLoginDate(user.getLoginDate());
-		userDTO.setIsActive(user.getIsActive());
+		userDTO.setActiveStatus(user.getActiveStatus());
 		userDTO.setRoleId(user.getRole());
 		return userDTO;
 

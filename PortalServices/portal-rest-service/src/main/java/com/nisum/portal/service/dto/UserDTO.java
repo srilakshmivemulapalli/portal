@@ -11,7 +11,7 @@ public class UserDTO {
 	private String name;
 	private Timestamp loginDate;
 	private UserRole roleId;
-	private String isActive;
+	private String activeStatus;
 	
 	public int getUserId() {
 		return userId;
@@ -43,11 +43,11 @@ public class UserDTO {
 	public void setRoleId(UserRole roleId) {
 		this.roleId = roleId;
 	}
-	public String getIsActive() {
-		return isActive;
+	public String getActiveStatus() {
+		return activeStatus;
 	}
-	public void setIsActive(String isActive) {
-		this.isActive = isActive;
+	public void setActiveStatus(String activeStatus) {
+		this.activeStatus = activeStatus;
 	}
 
 
