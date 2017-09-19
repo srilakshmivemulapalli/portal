@@ -11,4 +11,6 @@ public interface CategoriesDAO
 	int addCategory(Categories category);
 	Categories updateCategories(Categories categories);
 	Categories getCategory(Integer id);
+	
+	Integer deleteCategories(List<Categories> categories);
 }

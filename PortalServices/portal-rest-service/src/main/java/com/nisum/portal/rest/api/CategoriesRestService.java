@@ -1,12 +1,12 @@
 package com.nisum.portal.rest.api;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-
 import org.springframework.web.bind.annotation.PathVariable;
-
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -58,6 +58,23 @@ public class CategoriesRestService {
 	public Object category(@PathVariable Integer id) throws CategoryServiceException {
 		 logger.info("CategoriesRestService :: category");
 		 return categoriesService.getCategory(id);
+	}
+	
+	@RequestMapping(value="/delete",method=RequestMethod.DELETE,consumes=MediaType.APPLICATION_JSON_VALUE)
+	public String deletingCategories(@RequestBody List<CategoriesDTO> categories) throws CategoryServiceException
+	{
+		String message;
+		logger.info("CategoriesRestService :: deleteCategory");
+		try
+		{
+		 message=categoriesService.deleteCategories(categories);
+		}
+		catch(Exception ex)
+		{
+			throw new CategoryServiceException("Categories Not Exist");
+		}
+		
+		return message;
 	}
 
 }

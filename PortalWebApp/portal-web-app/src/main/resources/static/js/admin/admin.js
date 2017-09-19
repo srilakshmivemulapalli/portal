@@ -1,8 +1,11 @@
-var adminApp=angular.module('adminApp', [ 'ngRoute' ])
-	   .config(function($routeProvider) {
-		   $routeProvider.when('/admin',{
-			   templateUrl: 'js/admin/admin.html',
-			   controller: 'adminController'
-		   })
-})    
+var adminApp=angular.module('adminApp', ['ui.router' ])
+.config(function($stateProvider){
+	$stateProvider.state('admin',{
+		url:'/admin',
+		templateUrl:'js/admin/admin.html',
+		controller: 'adminController'
+	})
+	
+})	  
+  
 		
