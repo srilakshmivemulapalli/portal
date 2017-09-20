@@ -25,12 +25,21 @@ public class CategoriesDAOImpl implements CategoriesDAO {
 
 	@Override
 	public Categories getCategory(Integer id) {
-		// TODO Auto-generated method stub
 		return categoriesRepository.findOne(id);
 	}
-	public int addCategory(Categories category) {
 
-		int status;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.nisum.portal.data.dao.api.CategoriesDAO#addCategory(com.nisum.portal.data
+	 * .domain.Categories)
+	 */
+	public Integer addCategory(Categories category) {
+
+		logger.info("CategoriesDAOImpl :: addCategories");
+
+		Integer status;
 
 		Categories categories = categoriesRepository.findByCategoryName(category.getCategoryName());
 
@@ -51,33 +60,29 @@ public class CategoriesDAOImpl implements CategoriesDAO {
 	}
 
 	@Override
-	public Categories updateCategories(Categories categories)
-	{
+	public Categories updateCategories(Categories categories) {
 		// TODO Auto-generated method stub
-		logger.info("CategoriesDAOImpl :: updateCategories :: Category Details "+categories.toString());
+		logger.info("CategoriesDAOImpl :: updateCategories :: Category Details " + categories.toString());
+
 		Categories category = categoriesRepository.findByCategoryId(categories.getCategoryId());
-		if(!category.equals(null))
-		{
+		if (!category.equals(null)) {
 			categoriesRepository.save(categories);
-		}
-		else
-		{
+		} else {
 			logger.error("Unable To Update Categories with categoryId not found.", categories.getCategoryId());
-			category=null;
+			category = null;
 		}
 		return category;
 	}
+
 	@Override
-	public Integer deleteCategories(List<Categories>  categories) {
-		int count=0;
-		for(Categories categorie:categories)
-		{
+	public Integer deleteCategories(List<Categories> categories) {
+		int count = 0;
+		for (Categories categorie : categories) {
 			categoriesRepository.delete(categorie.getCategoryId());
 			count++;
 		}
 		return count;
-		
-		
+
 	}
 
 }

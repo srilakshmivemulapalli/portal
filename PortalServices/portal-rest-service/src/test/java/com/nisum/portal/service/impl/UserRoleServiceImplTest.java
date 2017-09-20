@@ -89,13 +89,15 @@ public class UserRoleServiceImplTest {
 		userRole.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 		list.add(userRole);
 		when(userRoleDao.getUserRole()).thenReturn(list);
-		
+
 		List<UserRoleDTO> list1 = new ArrayList<>();
 		UserRoleDTO userRoleDto = new UserRoleDTO();
 		userRoleDto.setRoleId(1);
 		userRoleDto.setRole("mg");
 		userRoleDto.setCreatedDate(userRole.getCreatedDate());
 		list1.add(userRoleDto);
+
+
 		
 		PowerMockito.mockStatic(UserRoleServiceUtil.class);
 		PowerMockito.when(UserRoleServiceUtil.convertDaoTODto(list)).thenReturn(list1);
@@ -106,10 +108,10 @@ public class UserRoleServiceImplTest {
 
 	@Test
 	public void updateUserRole() {
-		String  message= "user role successfully updated into database";
+		String message = "user role successfully updated into database";
 		UserRole expected = new UserRole();
 		expected.setRole("mg");
-		expected.setRoleId(1);	
+		expected.setRoleId(1);
 		UserRole userRole = new UserRole();
 		userRole.setRole("mg");
 		userRole.setRoleId(1);
@@ -118,4 +120,5 @@ public class UserRoleServiceImplTest {
 		UserRole actual = userRoleServiceImpl.updateUserRole(userRole);
 		assertEquals(actual.getRole(), expected.getRole());
 	}
+
 }

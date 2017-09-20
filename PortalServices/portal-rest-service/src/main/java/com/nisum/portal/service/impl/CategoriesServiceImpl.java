@@ -31,9 +31,13 @@ public class CategoriesServiceImpl implements CategoriesService{
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see com.nisum.portal.service.api.CategoriesService#addCategory(com.nisum.portal.service.dto.CategoriesDTO)
+	 */
 	@Override
 	public ServiceStatusDto addCategory(CategoriesDTO categoryDto) {
 		
+		logger.info("CategoriesServiceImpl :: addCategories");
 
         Date date = new Date();
         ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
@@ -43,7 +47,7 @@ public class CategoriesServiceImpl implements CategoriesService{
 		Categories category = CategoryServiceUtil.convertDtoTODao(categoryDto);
 		
 	  
-		int serviceStatus = categoriesDAO.addCategory(category);
+		Integer serviceStatus = categoriesDAO.addCategory(category);
 		
 		if(serviceStatus == 0) {
 			serviceStatusDto.setStatus(true);
@@ -58,10 +62,11 @@ public class CategoriesServiceImpl implements CategoriesService{
 
 		return serviceStatusDto;
 	}
+	
 	@Override
 	public CategoriesDTO update(Categories categories) 
 	{
-		// TODO Auto-generated method stub
+
 		logger.info("CategoriesServiceImpl :: updateCategories :: Category Details "+categories.toString());
 			Categories categories2 = categoriesDAO.updateCategories(categories);
 			return CategoryServiceUtil.convertDaoTODto(categories2);
