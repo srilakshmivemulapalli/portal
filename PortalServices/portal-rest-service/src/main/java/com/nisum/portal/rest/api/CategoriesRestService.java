@@ -13,10 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nisum.portal.data.domain.Categories;
 import com.nisum.portal.service.api.CategoriesService;
 import com.nisum.portal.service.dto.CategoriesDTO;
 import com.nisum.portal.service.dto.Errors;
@@ -60,19 +58,27 @@ public class CategoriesRestService {
 		return new ResponseEntity<ServiceStatusDto>(servicedto, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> updateCategories(@RequestBody Categories categories) throws CategoryServiceException {
-		logger.info("CategoriesRestService :: updateCategories :: Category Details " + categories.toString());
-		try {
-			CategoriesDTO categoriesDTO = categoriesService.update(categories);
-			return new ResponseEntity<CategoriesDTO>(categoriesDTO, HttpStatus.OK);
-		} catch (Exception e) {
-			logger.error("Unable To Update Categories with categoryId not found.", categories.getCategoryId());
-			return new ResponseEntity<Object>(new CategoryServiceException(
-					"Unable To Update Categories with categoryId " + categories.getCategoryId() + " not found."),
-					HttpStatus.NOT_FOUND);
+	@RequestMapping(value="/update",method=RequestMethod.PUT,produces=MediaType.APPLICATION_JSON_VALUE,consumes=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> updateCategories(@RequestBody CategoriesDTO categoriesDTO) throws CategoryServiceException
+	{
+		logger.info("CategoriesRestService :: updateCategories :: Category Details "+categoriesDTO.toString());
+		try
+		{
+				String status = categoriesService.update(categoriesDTO);
+				if(status.equalsIgnoreCase("success"))
+					return new ResponseEntity<Object>("Categories Updated Successfully",HttpStatus.OK);
+				else
+				{
+					return new ResponseEntity<Object>("CategoryId is Not Found",HttpStatus.NOT_FOUND);
+				}
+		}
+		catch(Exception e)
+		{
+			logger.error("Unable To Update Categories with categoryId not found.", categoriesDTO.getCategoryId());
+			throw new CategoryServiceException("Categories Not Exist");
 		}
 	}
+	
 
 	@RequestMapping(value = "/retrieve/{id}", method = RequestMethod.GET)
 	public Object category(@PathVariable Integer id) throws CategoryServiceException {
