@@ -14,6 +14,7 @@ import com.nisum.portal.service.dto.UserDTO;
 import com.nisum.portal.service.dto.UsersDTO;
 
 import com.nisum.portal.util.UsersServiceUtil;
+
 @Service
 public class UsersServiceImpl implements UsersService {
 	@Autowired
@@ -21,7 +22,7 @@ public class UsersServiceImpl implements UsersService {
 
 	@Override
 	public List<UserDTO> getUsers() {
-		List<User>  usersList=userDAO.getUsers();
+		List<User> usersList = userDAO.getUsers();
 		return UsersServiceUtil.convertDaoTODto(usersList);
 	}
 

@@ -8,5 +8,4 @@ import com.nisum.portal.service.dto.UserDTO;
 public interface UsersService {
 	List<UserDTO> getUsers();
 
-
 }

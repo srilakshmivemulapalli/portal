@@ -106,5 +106,4 @@ public class CategoriesRestService {
 		errors.setErrorMessage(ex.getMessage());
 		return new ResponseEntity<Errors>(errors, HttpStatus.OK);
 	}
-
 }
