@@ -13,7 +13,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -22,9 +21,6 @@ import com.nisum.portal.data.dao.api.UserRoleDAO;
 import com.nisum.portal.data.domain.UserRole;
 import com.nisum.portal.service.dto.UserRoleDTO;
 import com.nisum.portal.util.UserRoleServiceUtil;
-
-
-
 
 @RunWith(PowerMockRunner.class) 
 @PrepareForTest(UserRoleServiceUtil.class)
@@ -37,6 +33,7 @@ public class UserRoleServiceImplTest {
 	UserRoleDAO userRoleDao;
 	
 	UserRole expected;
+	List<UserRoleDTO> expected1;
 	
 	@Before
 	public void setUp() {
@@ -74,25 +71,37 @@ public class UserRoleServiceImplTest {
 	
 	@Before
 	public void init() {
-		expected = new ArrayList<>();
+		expected1 = new ArrayList<>();
 		UserRoleDTO userRole = new UserRoleDTO();
 		userRole.setRole("mg");
 		userRole.setRoleId(1);
 		userRole.setCreatedDate(new Timestamp(System.currentTimeMillis()));
-		expected.add(userRole);
+		expected1.add(userRole);
 	}
+
 
 	@Test
 	public void getUserRole() {
-		List<UserRoleDTO> list = new ArrayList<>();
+		List<UserRole> list = new ArrayList<>();
+		UserRole userRole = new UserRole();
+		userRole.setRoleId(1);
+		userRole.setRole("mg");
+		userRole.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+		list.add(userRole);
+		when(userRoleDao.getUserRole()).thenReturn(list);
+		
+		List<UserRoleDTO> list1 = new ArrayList<>();
 		UserRoleDTO userRoleDto = new UserRoleDTO();
 		userRoleDto.setRoleId(1);
 		userRoleDto.setRole("mg");
-		userRoleDto.setCreatedDate(new Timestamp(System.currentTimeMillis()));
-		list.add(userRoleDto);
-		when(userRoleDao.getUserRole()).thenReturn(list);
+		userRoleDto.setCreatedDate(userRole.getCreatedDate());
+		list1.add(userRoleDto);
+		
+		PowerMockito.mockStatic(UserRoleServiceUtil.class);
+		PowerMockito.when(UserRoleServiceUtil.convertDaoTODto(list)).thenReturn(list1);
 		List<UserRoleDTO> actual = userRoleServiceImpl.getUserRole();
-		assertEquals(actual.size(), expected.size());
+		
+		assertEquals(actual.size(), expected1.size());
 	}
 
 	@Test
@@ -109,7 +118,4 @@ public class UserRoleServiceImplTest {
 		UserRole actual = userRoleServiceImpl.updateUserRole(userRole);
 		assertEquals(actual.getRole(), expected.getRole());
 	}
-
-
-
 }

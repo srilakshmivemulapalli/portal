@@ -7,7 +7,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -119,8 +118,8 @@ public class UserRoleRestServiceTest {
 		userRole.setRoleId(1);
 		userRole.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 		when(userRoleService.updateUserRole(userRole)).thenReturn(userRole);
-		UserRole actual = userRoleService.updateUserRole(userRole);
-		assertEquals(actual.getRole(), expected1.getRole());
+		String actual = userRoleRestService.updateUserRole(userRole);
+		assertEquals(actual, message);
 	}
 
 	

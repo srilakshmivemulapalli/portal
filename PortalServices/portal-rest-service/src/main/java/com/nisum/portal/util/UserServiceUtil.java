@@ -14,6 +14,7 @@ public class UserServiceUtil {
 		for(User user : users)
 		{
 		UserDTO userDto = new UserDTO();
+
 		userDto.setUserId(user.getUserId());
 		userDto.setActiveStatus(user.getActiveStatus());
 		userDto.setEmailId(user.getEmailId());
