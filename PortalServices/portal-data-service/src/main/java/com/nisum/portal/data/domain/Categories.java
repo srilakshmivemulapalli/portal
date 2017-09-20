@@ -24,6 +24,7 @@ public class Categories implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer categoryId;
 	private String categoryName;
+	private String description;
 	private Timestamp createDate;
 	/**
 	 * @return the categoryId
@@ -61,6 +62,13 @@ public class Categories implements Serializable{
 	public void setCreateDate(Timestamp createDate) {
 		this.createDate = createDate;
 	}
+	
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -70,6 +78,7 @@ public class Categories implements Serializable{
 		int result = 1;
 		result = prime * result + ((categoryId == null) ? 0 : categoryId.hashCode());
 		result = prime * result + ((categoryName == null) ? 0 : categoryName.hashCode());
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((createDate == null) ? 0 : createDate.hashCode());
 		return result;
 	}
@@ -95,6 +104,11 @@ public class Categories implements Serializable{
 				return false;
 		} else if (!categoryName.equals(other.categoryName))
 			return false;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
 		if (createDate == null) {
 			if (other.createDate != null)
 				return false;
@@ -108,7 +122,7 @@ public class Categories implements Serializable{
 	 */
 	@Override
 	public String toString() {
-		return "Categories [categoryId=" + categoryId + ", categoryName=" + categoryName + ", createDate=" + createDate
+		return "Categories [categoryId=" + categoryId + ", categoryName=" + categoryName + ",description=" +description +",createDate=" + createDate
 				+ "]";
 	}
 }

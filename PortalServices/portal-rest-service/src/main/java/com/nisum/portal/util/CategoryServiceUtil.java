@@ -14,6 +14,7 @@ public class CategoryServiceUtil {
 			CategoriesDTO categoriesDTO = new CategoriesDTO();
 			categoriesDTO.setCategoryId(categories.getCategoryId());
 			categoriesDTO.setCategoryName(categories.getCategoryName());
+			categoriesDTO.setDescription(categories.getDescription());
 			categoriesDTO.setCreateDate(categories.getCreateDate());
 			categoriesDTOs.add(categoriesDTO);
 		}
