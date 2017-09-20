@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,7 @@ import com.nisum.portal.util.KeyConstants;
 @Service
 public class CategoriesServiceImpl implements CategoriesService{
 	
+	private static Logger logger = LoggerFactory.getLogger(CategoriesServiceImpl.class);
 	@Autowired
 	private CategoriesDAO categoriesDAO;
 
@@ -28,9 +31,13 @@ public class CategoriesServiceImpl implements CategoriesService{
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see com.nisum.portal.service.api.CategoriesService#addCategory(com.nisum.portal.service.dto.CategoriesDTO)
+	 */
 	@Override
 	public ServiceStatusDto addCategory(CategoriesDTO categoryDto) {
 		
+		logger.info("CategoriesServiceImpl :: addCategories");
 
         Date date = new Date();
         ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
@@ -40,7 +47,7 @@ public class CategoriesServiceImpl implements CategoriesService{
 		Categories category = CategoryServiceUtil.convertDtoTODao(categoryDto);
 		
 	  
-		int serviceStatus = categoriesDAO.addCategory(category);
+		Integer serviceStatus = categoriesDAO.addCategory(category);
 		
 		if(serviceStatus == 0) {
 			serviceStatusDto.setStatus(true);
@@ -55,7 +62,32 @@ public class CategoriesServiceImpl implements CategoriesService{
 
 		return serviceStatusDto;
 	}
+	
+	@Override
+	public CategoriesDTO update(Categories categories) 
+	{
 
+		logger.info("CategoriesServiceImpl :: updateCategories :: Category Details "+categories.toString());
+			Categories categories2 = categoriesDAO.updateCategories(categories);
+			return CategoryServiceUtil.convertDaoTODto(categories2);
+	}
+
+	@Override
+	public CategoriesDTO getCategory(Integer id) {
+		Categories category=categoriesDAO.getCategory(id);
+		return CategoryServiceUtil.convertDaoToDtoInstance(category);
+	}
+	
+	@Override
+	public String deleteCategories(List<CategoriesDTO> categories) {
+		List<Categories> catgories=CategoryServiceUtil.convertDtoTODao(categories);
+		Integer  count=categoriesDAO.deleteCategories(catgories);
+		if(count>0)
+		return  count+" Categories deleted successfully";
+		else
+		return "Categories not Exist";
+	}
+	
 
 	@Override
 	public CategoriesDTO getCategory(Integer id) {

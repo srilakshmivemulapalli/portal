@@ -370,6 +370,7 @@ a.login-url {
 	display: block;
 	text-align: center;
 	font-size: 15px;
+	padding-right:50px;
 }
 .must-log-in a.login-url, .et-comment-reply a.login-url{
     line-height: inherit;
@@ -3941,6 +3942,7 @@ body.admin-bar .q-filter-waypoints {
 
 }
 
+/**************custom****************/
 .profImgDiv {
     border: 2px solid rgb(255, 255, 255);
     border-radius: 50%;
@@ -3984,4 +3986,169 @@ body.admin-bar .q-filter-waypoints {
 }
 .nav-tabs>li>a{
 	cursor:pointer;
+}
+.disabled{
+	opacity:0.4;
+}
+.deleteicon{
+	width:20px;
+	height:20px;
+}
+
+.CENTER{
+	text-align:center;
+}
+.btn-group{
+	float:right;
+}
+.header-menu .active a{
+	color:#ccc;
+}
+.logintxt h1{
+	color: #00b2e2;
+}
+.logintxt{
+	padding:100px 50px;
+	text-align:center;
+	font-size:15px;
+	line-height: 25px;
+}
+.rightbar{
+	min-height:500px;
+}
+
+/***************login****************/
+.card-container.card {
+    max-width: 400px;
+    padding: 40px 40px;
+    min-height:400px;
+}
+
+.login .btn {
+    font-weight: 700;
+    height: 45px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: default;
+}
+.googlebtn{
+	padding-top:50px;
+	color: #505050;
+}
+
+/*
+ * Card component
+ */
+.card {
+    background-color: rgba(0, 178, 226, .6) !important;
+    /* just in case there no content*/
+    padding: 20px 25px 30px;
+    margin: 0 auto 25px;
+    margin-top: 50px;
+    /* shadows and rounded borders */
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.login .profile-img-card {
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 10px;
+    display: block;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+
+/*
+ * Form styles
+ */
+.login .profile-name-card {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin: 10px 0 0;
+    min-height: 1em;
+}
+
+.login .reauth-email {
+    display: block;
+    color: #404040;
+    line-height: 2;
+    margin-bottom: 10px;
+    font-size: 14px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.login .form-signin #inputEmail,
+.login .form-signin #inputPassword {
+    direction: ltr;
+    height: 44px;
+    font-size: 16px;
+}
+
+.login.form-signin input[type=email],
+.login.form-signin input[type=password],
+.login.form-signin input[type=text],
+.login.form-signin button {
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+    z-index: 1;
+    position: relative;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.login.form-signin .form-control:focus {
+    border-color: rgb(104, 145, 162);
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
+}
+
+.login.btn.btn-signin {
+    /*background-color: #4d90fe; */
+    background-color: rgb(104, 145, 162);
+    /* background-color: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));*/
+    padding: 0px;
+    font-weight: 700;
+    font-size: 14px;
+    height: 36px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border: none;
+    -o-transition: all 0.218s;
+    -moz-transition: all 0.218s;
+    -webkit-transition: all 0.218s;
+    transition: all 0.218s;
+}
+
+.login.btn.btn-signin:hover,
+.login.btn.btn-signin:active,
+.login.btn.btn-signin:focus {
+    background-color: rgb(12, 97, 33);
+}
+
+.login.forgot-password {
+    color: rgb(104, 145, 162);
+}
+
+.login.forgot-password:hover,
+.login.forgot-password:active,
+.login.forgot-password:focus{
+    color: rgb(12, 97, 33);
 }

@@ -1,6 +1,10 @@
 package com.nisum.portal.rest.api;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -10,6 +14,7 @@ import org.mockito.Mock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 
 import com.nisum.portal.service.api.CategoriesService;
 import com.nisum.portal.service.dto.CategoriesDTO;
@@ -47,10 +52,29 @@ public class CategoriesRestServiceTest {
 		serviceStatusExpected.setMessage(KeyConstants.SUCCESS_MESSAGE);
 
 		when(categoryService.addCategory(categoryDto)).thenReturn(serviceStatusExpected);
-		ServiceStatusDto serviceStatusactual = mainController.addCategory(categoryDto);
+		ResponseEntity<ServiceStatusDto> serviceStatusactual = mainController.addCategory(categoryDto);
 
 		Assert.assertEquals(serviceStatusExpected, serviceStatusactual );
 		//return categoryService.addCategory(category);
+	}
+	
+	@Test
+	public void deleteCategoriesTest() throws CategoryServiceException
+	{
+	  String message=1+" Categories deleted successfully";
+		ArrayList<CategoriesDTO> categoriesList=new ArrayList<CategoriesDTO>();
+		CategoriesDTO categories1=new CategoriesDTO();
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		categories1.setCategoryId(101);
+		categories1.setCategoryName("java");
+		categories1.setCreateDate(timestamp);
+		
+		categoriesList.add(categories1);
+		when(categoryService.deleteCategories(categoriesList)).thenReturn(message);
+	
+		String result =mainController.deletingCategories(categoriesList);
+		assertEquals(result, message);
+		
 	}
 
 }

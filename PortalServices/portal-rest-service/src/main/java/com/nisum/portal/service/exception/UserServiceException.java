@@ -7,9 +7,10 @@ public class UserServiceException extends Exception {
 	public String getErrorMessage() {
 		return errorMessage;
 	}
-	public UserServiceException(String errormessage) {
-		super(errormessage);
-		this.errorMessage = errormessage;
+
+	public UserServiceException(String errorMessage) {
+		super(errorMessage);
+		this.errorMessage = errorMessage;
 	}
 	public UserServiceException() {
 		super();

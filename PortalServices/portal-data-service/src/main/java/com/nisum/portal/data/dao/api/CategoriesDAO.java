@@ -4,12 +4,15 @@ import java.util.List;
 
 import com.nisum.portal.data.domain.Categories;
 
-public interface CategoriesDAO 
-{
-	List<Categories> getCategories();
+public interface CategoriesDAO {
 	
-	int addCategory(Categories category);
+	List<Categories> getCategories();
 
-	String updateCategories(Categories categories);
+	Integer addCategory(Categories category);
+
+	Categories updateCategories(Categories categories);
+
 	Categories getCategory(Integer id);
+
+	Integer deleteCategories(List<Categories> categories);
 }

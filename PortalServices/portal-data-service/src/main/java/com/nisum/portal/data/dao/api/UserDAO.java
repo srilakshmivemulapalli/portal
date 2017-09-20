@@ -1,5 +1,7 @@
 package com.nisum.portal.data.dao.api;
 
+import java.util.List;
+
 import com.nisum.portal.data.domain.User;
 
 /**
@@ -9,7 +11,12 @@ import com.nisum.portal.data.domain.User;
  */
 public interface UserDAO {
 
-	public int deleteUser(int userId);
-	
-	public User findUserById(int userId);
+	String updateUser(User user);
+
+	int deleteUser(int userId);
+
+	List<User> getUsers();
+
+	User findUserById(int userId);
+
 }
