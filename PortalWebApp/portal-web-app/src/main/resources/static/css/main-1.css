@@ -4004,11 +4004,24 @@ body.admin-bar .q-filter-waypoints {
 .header-menu .active a{
 	color:#ccc;
 }
+.logintxt h1{
+	color: #00b2e2;
+}
+.logintxt{
+	padding:100px 50px;
+	text-align:center;
+	font-size:15px;
+	line-height: 25px;
+}
+.rightbar{
+	min-height:500px;
+}
 
 /***************login****************/
 .card-container.card {
-    max-width: 350px;
+    max-width: 400px;
     padding: 40px 40px;
+    min-height:400px;
 }
 
 .login .btn {
@@ -4019,12 +4032,16 @@ body.admin-bar .q-filter-waypoints {
     user-select: none;
     cursor: default;
 }
+.googlebtn{
+	padding-top:50px;
+	color: #505050;
+}
 
 /*
  * Card component
  */
 .card {
-    background-color: #F7F7F7;
+    background-color: rgba(0, 178, 226, .6) !important;
     /* just in case there no content*/
     padding: 20px 25px 30px;
     margin: 0 auto 25px;

@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 
 import com.nisum.portal.service.api.CategoriesService;
 import com.nisum.portal.service.dto.CategoriesDTO;
@@ -51,7 +52,7 @@ public class CategoriesRestServiceTest {
 		serviceStatusExpected.setMessage(KeyConstants.SUCCESS_MESSAGE);
 
 		when(categoryService.addCategory(categoryDto)).thenReturn(serviceStatusExpected);
-		ServiceStatusDto serviceStatusactual = mainController.addCategory(categoryDto);
+		ResponseEntity<ServiceStatusDto> serviceStatusactual = mainController.addCategory(categoryDto);
 
 		Assert.assertEquals(serviceStatusExpected, serviceStatusactual );
 		//return categoryService.addCategory(category);
