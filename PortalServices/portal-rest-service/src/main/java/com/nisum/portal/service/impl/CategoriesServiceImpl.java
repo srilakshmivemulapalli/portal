@@ -66,6 +66,7 @@ public class CategoriesServiceImpl implements CategoriesService{
 	@Override
 	public CategoriesDTO update(Categories categories) 
 	{
+
 		logger.info("CategoriesServiceImpl :: updateCategories :: Category Details "+categories.toString());
 			Categories categories2 = categoriesDAO.updateCategories(categories);
 			return CategoryServiceUtil.convertDaoTODto(categories2);

@@ -23,7 +23,6 @@ import com.nisum.portal.service.dto.Errors;
 import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.exception.CategoryServiceException;
 
-
 /**
  * @author nisum
  */
@@ -48,7 +47,6 @@ public class CategoriesRestService {
 		return categoriesService.getCategories();
 	}
 
-	
 	/**
 	 * @param category
 	 * @return

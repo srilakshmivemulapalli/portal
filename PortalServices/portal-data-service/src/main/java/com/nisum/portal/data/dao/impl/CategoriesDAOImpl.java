@@ -28,9 +28,12 @@ public class CategoriesDAOImpl implements CategoriesDAO {
 		return categoriesRepository.findOne(id);
 	}
 
-	
-	/* (non-Javadoc)
-	 * @see com.nisum.portal.data.dao.api.CategoriesDAO#addCategory(com.nisum.portal.data.domain.Categories)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.nisum.portal.data.dao.api.CategoriesDAO#addCategory(com.nisum.portal.data
+	 * .domain.Categories)
 	 */
 	public Integer addCategory(Categories category) {
 
@@ -60,6 +63,7 @@ public class CategoriesDAOImpl implements CategoriesDAO {
 	public Categories updateCategories(Categories categories) {
 		// TODO Auto-generated method stub
 		logger.info("CategoriesDAOImpl :: updateCategories :: Category Details " + categories.toString());
+
 		Categories category = categoriesRepository.findByCategoryId(categories.getCategoryId());
 		if (!category.equals(null)) {
 			categoriesRepository.save(categories);
