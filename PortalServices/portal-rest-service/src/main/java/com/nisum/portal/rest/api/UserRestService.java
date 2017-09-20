@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nisum.portal.data.domain.User;
 import com.nisum.portal.service.api.UserService;
+import com.nisum.portal.service.dto.Errors;
 import com.nisum.portal.service.dto.UserDTO;
 import com.nisum.portal.service.exception.UserServiceException;
+import com.nisum.portal.util.ExceptionConstans;
 
 @RestController
 @RequestMapping(value = "/v1/user")
@@ -28,46 +30,53 @@ public class UserRestService {
 	@Autowired
 	UserService userService;
 	
-	@RequestMapping(value = "/delete/{userIds}",method=RequestMethod.GET,produces="application/json")
-	public String  deleteUser(@PathVariable List<Integer> userIds) throws UserServiceException{
-		int successList = 0;
-		int failedList = 0;
-		int notFound = 0;
-		String message = "";
-		for (int userId : userIds) {
+	/**
+	 * Used to delete a single user
+	 * @param userId
+	 * @throws UserServiceException
+	 */
+	@RequestMapping(value = "/deleteUser/{userId}",method=RequestMethod.PUT,produces="application/json")
+	public ResponseEntity<Object> deleteUser(@PathVariable Integer userId) throws UserServiceException{
+		logger.info("UserRestService :: deleteUser :: Deleting User");
+		try {
 			User user = userService.findUserById(userId);
 			if (user != null) {
-				int deletedCount = userService.deleteUser(userId);
-				if (deletedCount == 1) {
-					successList++;
+				String activeStatus = user.getActiveStatus();
+				if (activeStatus.equalsIgnoreCase("No")) {
+					return new ResponseEntity<Object>(ExceptionConstans.ALREADYDELETED, HttpStatus.EXPECTATION_FAILED);
 				} else {
-					failedList++;
+					userService.deleteUser(userId);
+					return new ResponseEntity<Object>(ExceptionConstans.USERDELETED, HttpStatus.OK);
 				}
 			} else {
-				notFound ++;
-				message = notFound + " User doesnot exists in database";
+				return new ResponseEntity<Object>(ExceptionConstans.USERNOTEXISTS, HttpStatus.EXPECTATION_FAILED);
 			}
+		} catch (Exception e) {
+			logger.info("UserRestService :: deleteUser :: Internal Server Error");
+			throw new UserServiceException(ExceptionConstans.INTERNALSERVERERROR, e);
 		}
-		message = message + successList +" Users Deleted," + failedList + " Failed to delete";
-		return message;
 	}
+	
 	@RequestMapping(value = "/getUsers", method = RequestMethod.GET, produces = "application/json")
 	public List<UserDTO> getUsers() throws UserServiceException {
 		return userService.getUsers();
 	}
+
 	@RequestMapping(value = "/updateUserDetails", method = RequestMethod.PUT, consumes = "application/json", produces = "application/json")
-	public ResponseEntity<?> updateUserDetails(@RequestBody User user){
-		logger.info("UserRestService ::  user update :::");
+	public void updateUserDetails(@RequestBody User user) throws UserServiceException {
 		userService.updateUserDetails(user);
-		return new ResponseEntity<>("User Updated Successfully",HttpStatus.OK);
 	}
-	@RequestMapping(value = "/updateUsers",method=RequestMethod.PUT,consumes = "application/json",produces="application/json")
-	public ResponseEntity<?>  updateUsers(@RequestBody List<User> users){
-		logger.info("UserRestService :: multiple users update :::");
-		for(User user : users)
-		{
-			userService.updateUserDetails(user);
-			}
-         return new ResponseEntity<>("Users Updated Successfully",HttpStatus.OK);
+	/**
+	 * Exception handler
+	 * @param ex
+	 * @return
+	 */
+	@ExceptionHandler(UserServiceException.class)
+	public ResponseEntity<Errors> exceptionHandler(Exception ex) {
+		logger.info("UserRestService :: exceptionHandler :: caught exception");
+		Errors errors=new Errors();
+		errors.setErrorCode("Error-User");
+		errors.setErrorMessage(ex.getMessage());
+		return new ResponseEntity<Errors>(errors, HttpStatus.OK);
 	}
 }

@@ -95,12 +95,6 @@ public class CategoriesServiceImpl implements CategoriesService{
 			
 	}
 
-
-	@Override
-	public CategoriesDTO getCategory(Integer id) {
-		Categories category=categoriesDAO.getCategory(id);
-		return CategoryServiceUtil.convertDaoToDtoInstance(category);
-	}
 	
 	@Override
 	public String deleteCategories(List<CategoriesDTO> categories)  {
