@@ -55,7 +55,6 @@ public class CategoriesDAOImpl implements CategoriesDAO {
 			status = 0;
 
 		}
-
 		return status;
 	}
 
