@@ -19,6 +19,7 @@ public class User implements Serializable{
 	@Id
 	@Column (name = "userId")
 	private int userId;
+	@Column (name = "emailid")
 	private String emailId;
 	private String name;
 	private Timestamp loginDate;

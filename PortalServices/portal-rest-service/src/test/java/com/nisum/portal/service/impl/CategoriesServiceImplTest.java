@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -21,7 +20,6 @@ import com.nisum.portal.data.domain.Categories;
 import com.nisum.portal.service.dto.CategoriesDTO;
 import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.util.CategoryServiceUtil;
-import com.nisum.portal.util.KeyConstants;
 
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
@@ -51,7 +49,6 @@ public class CategoriesServiceImplTest {
 		ServiceStatusDto serviceStatus = categoryServiceImpl.addCategory(categoryDto);
 		assertEquals(serviceStatus.isStatus(), status);
 	}
-	
 	@Test
 	public void addCategoryFailure() { 
 		
