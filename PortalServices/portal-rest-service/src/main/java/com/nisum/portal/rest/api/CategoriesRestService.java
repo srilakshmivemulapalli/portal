@@ -22,6 +22,7 @@ import com.nisum.portal.service.dto.CategoriesDTO;
 import com.nisum.portal.service.dto.Errors;
 import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.exception.CategoryServiceException;
+import com.nisum.portal.util.KeyConstants;
 
 /**
  * @author nisum
@@ -81,16 +82,18 @@ public class CategoriesRestService {
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public String deletingCategories(@RequestBody List<CategoriesDTO> categories) throws CategoryServiceException {
-		String message;
+	public Object deletingCategories(@RequestBody List<CategoriesDTO> categories) throws CategoryServiceException {
 		logger.info("CategoriesRestService :: deleteCategory");
-		try {
-			message = categoriesService.deleteCategories(categories);
-		} catch (Exception ex) {
-			throw new CategoryServiceException("Categories Not Exist");
+		String message="";
+		try
+		{  
+			message= categoriesService.deleteCategories(categories);
+		}catch(Exception ex)
+		{
+			logger.error(KeyConstants.CATEGORY_NOT_EXIST);
+			throw new CategoryServiceException(KeyConstants.CATEGORY_NOT_EXIST);
 		}
-
-		return message;
+		return  message;
 	}
 
 	/**

@@ -75,6 +75,7 @@ public class CategoriesDAOImpl implements CategoriesDAO {
 
 	@Override
 	public Integer deleteCategories(List<Categories> categories) {
+		logger.info("CategoriesDAOImpl :: deleteCategories");
 		int count = 0;
 		for (Categories categorie : categories) {
 			categoriesRepository.delete(categorie.getCategoryId());

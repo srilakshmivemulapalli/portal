@@ -59,7 +59,7 @@ public class CategoriesRestServiceTest {
 	}
 	
 	@Test
-	public void deleteCategoriesTest() throws CategoryServiceException
+	public void deleteCategoriesTest() throws CategoryServiceException 
 	{
 	  String message=1+" Categories deleted successfully";
 		ArrayList<CategoriesDTO> categoriesList=new ArrayList<CategoriesDTO>();
@@ -72,7 +72,7 @@ public class CategoriesRestServiceTest {
 		categoriesList.add(categories1);
 		when(categoryService.deleteCategories(categoriesList)).thenReturn(message);
 	
-		String result =mainController.deletingCategories(categoriesList);
+		Object result =mainController.deletingCategories(categoriesList);
 		assertEquals(result, message);
 		
 	}

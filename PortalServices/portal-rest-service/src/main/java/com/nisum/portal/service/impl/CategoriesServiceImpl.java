@@ -79,13 +79,14 @@ public class CategoriesServiceImpl implements CategoriesService{
 	}
 	
 	@Override
-	public String deleteCategories(List<CategoriesDTO> categories) {
+	public String deleteCategories(List<CategoriesDTO> categories)  {
+		logger.info("CategoriesServiceImpl :: deleteCategories");
 		List<Categories> catgories=CategoryServiceUtil.convertDtoTODao(categories);
 		Integer  count=categoriesDAO.deleteCategories(catgories);
 		if(count>0)
-		return  count+" Categories deleted successfully";
+		return  count+KeyConstants.CATEGORY_DELETE;
 		else
-		return "Categories not Exist";
+		return KeyConstants.CATEGORY_NOT_EXIST;
 	}
 	
 
