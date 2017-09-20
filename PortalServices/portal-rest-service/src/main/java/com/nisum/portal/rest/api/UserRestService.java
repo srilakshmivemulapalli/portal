@@ -2,7 +2,12 @@ package com.nisum.portal.rest.api;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +22,8 @@ import com.nisum.portal.service.exception.UserServiceException;
 @RestController
 @RequestMapping(value = "/v1/user")
 public class UserRestService {
+	
+	private static Logger logger = LoggerFactory.getLogger(CategoriesRestService.class);
 	
 	@Autowired
 	UserService userService;
@@ -48,9 +55,19 @@ public class UserRestService {
 	public List<UserDTO> getUsers() throws UserServiceException {
 		return userService.getUsers();
 	}
-
 	@RequestMapping(value = "/updateUserDetails", method = RequestMethod.PUT, consumes = "application/json", produces = "application/json")
-	public void updateUserDetails(@RequestBody User user) throws UserServiceException {
+	public ResponseEntity<?> updateUserDetails(@RequestBody User user){
+		logger.info("UserRestService ::  user update :::");
 		userService.updateUserDetails(user);
+		return new ResponseEntity<>("User Updated Successfully",HttpStatus.OK);
+	}
+	@RequestMapping(value = "/updateUsers",method=RequestMethod.PUT,consumes = "application/json",produces="application/json")
+	public ResponseEntity<?>  updateUsers(@RequestBody List<User> users){
+		logger.info("UserRestService :: multiple users update :::");
+		for(User user : users)
+		{
+			userService.updateUserDetails(user);
+			}
+         return new ResponseEntity<>("Users Updated Successfully",HttpStatus.OK);
 	}
 }
