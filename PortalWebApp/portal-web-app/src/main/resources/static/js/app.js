@@ -45,7 +45,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		vm.profile = localStorageService.get('profile');
 	}
 	vm.logout = function() {
+
 		localStorageService.remove('profile');
-		$state.go('login');
+		var url=window.location.href;
+		var navigate=url.substring(0,url.lastIndexOf("/"));
+		document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue="+navigate+"/login";
+		sessionStorage.clear();
 	}
 })
