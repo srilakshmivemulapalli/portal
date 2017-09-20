@@ -40,6 +40,9 @@ public class CategoriesRestService {
 		return categoriesService.getCategories();
 	}
 
+	/*
+	 * 
+	 */
 	@RequestMapping(value = "/addCategory", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
 	public @ResponseBody ServiceStatusDto addCategory(@RequestBody CategoriesDTO category)
 			throws CategoryServiceException {

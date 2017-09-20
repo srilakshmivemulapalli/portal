@@ -44,7 +44,7 @@ adminApp.controller('adminController', function($scope, $http) {
 		});
 	}
 	$scope.getCategories = function() {
-		$http.get('samplejsons/categories.json').then(function(response) {
+		$http.get('v1/category/retrieve').then(function(response) {
 			$scope.categoriesList = response.data;
 		}, function(response) {
 

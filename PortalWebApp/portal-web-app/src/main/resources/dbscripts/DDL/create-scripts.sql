@@ -10,6 +10,7 @@ CREATE TABLE `portal`.`User` (
   `emailid` varchar(45) DEFAULT NULL,
   `name` varchar(100) DEFAULT NULL,
   `loginDate` datetime DEFAULT NULL,
+  `activeStatus` varchar(45)  DEFAULT NULL,
   `roleId` int(11) DEFAULT NULL,
   PRIMARY KEY (`userId`),
   KEY `fk_roleId_user_idx` (`roleId`),
@@ -19,6 +20,7 @@ CREATE TABLE `portal`.`User` (
 CREATE TABLE `portal`.`Categories` (
   `categoryId` int(11) NOT NULL AUTO_INCREMENT,
   `categoryName` varchar(100) DEFAULT NULL,
+  `description` varchar(200) DEFAULT NULL,
   `createDate` datetime DEFAULT NULL,
   PRIMARY KEY (`categoryId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=big5;

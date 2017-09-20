@@ -13,7 +13,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -22,9 +21,6 @@ import com.nisum.portal.data.dao.api.UserRoleDAO;
 import com.nisum.portal.data.domain.UserRole;
 import com.nisum.portal.service.dto.UserRoleDTO;
 import com.nisum.portal.util.UserRoleServiceUtil;
-
-
-
 
 @RunWith(PowerMockRunner.class) 
 @PrepareForTest(UserRoleServiceUtil.class)
@@ -83,6 +79,7 @@ public class UserRoleServiceImplTest {
 		expected1.add(userRole);
 	}
 
+
 	@Test
 	public void getUserRole() {
 		List<UserRole> list = new ArrayList<>();
@@ -100,10 +97,12 @@ public class UserRoleServiceImplTest {
 		userRoleDto.setCreatedDate(userRole.getCreatedDate());
 		list1.add(userRoleDto);
 
+
+		
 		PowerMockito.mockStatic(UserRoleServiceUtil.class);
 		PowerMockito.when(UserRoleServiceUtil.convertDaoTODto(list)).thenReturn(list1);
 		List<UserRoleDTO> actual = userRoleServiceImpl.getUserRole();
-
+		
 		assertEquals(actual.size(), expected1.size());
 	}
 

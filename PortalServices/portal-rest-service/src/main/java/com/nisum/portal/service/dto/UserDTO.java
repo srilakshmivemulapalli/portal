@@ -1,17 +1,18 @@
 package com.nisum.portal.service.dto;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 import com.nisum.portal.data.domain.UserRole;
 
-public class UserDTO {
-	
+public class UserDTO implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private int userId;
 	private String emailId;
 	private String name;
 	private Timestamp loginDate;
-	private UserRole roleId;
-	private String isActive;
+	private UserRoleDTO userRole;
+	private String activeStatus;
 	
 	public int getUserId() {
 		return userId;
@@ -37,17 +38,18 @@ public class UserDTO {
 	public void setLoginDate(Timestamp loginDate) {
 		this.loginDate = loginDate;
 	}
-	public UserRole getRoleId() {
-		return roleId;
+	public UserRoleDTO getUserRole() {
+		return userRole;
 	}
-	public void setRoleId(UserRole roleId) {
-		this.roleId = roleId;
+	public void setUserRole(UserRoleDTO userRole) {
+		this.userRole = userRole;
 	}
-	public String getIsActive() {
-		return isActive;
+
+	public String getActiveStatus() {
+		return activeStatus;
 	}
-	public void setIsActive(String isActive) {
-		this.isActive = isActive;
+	public void setActiveStatus(String activeStatus) {
+		this.activeStatus = activeStatus;
 	}
 
 

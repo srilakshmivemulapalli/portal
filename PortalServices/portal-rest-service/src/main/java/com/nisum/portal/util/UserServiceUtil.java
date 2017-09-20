@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.nisum.portal.data.domain.User;
 import com.nisum.portal.service.dto.UserDTO;
+import com.nisum.portal.service.dto.UserRoleDTO;
 
 public class UserServiceUtil {
 
@@ -13,12 +14,18 @@ public class UserServiceUtil {
 		for(User user : users)
 		{
 		UserDTO userDto = new UserDTO();
+
 		userDto.setUserId(user.getUserId());
-		userDto.setIsActive(user.getIsActive());
+		userDto.setActiveStatus(user.getActiveStatus());
 		userDto.setEmailId(user.getEmailId());
 		userDto.setLoginDate(user.getLoginDate());
 		userDto.setName(user.getName());
-		userDto.setRoleId(user.getRole());
+		UserRoleDTO userRoleDTO = new UserRoleDTO();
+		userRoleDTO.setCreatedDate(user.getRole().getCreatedDate());
+		userRoleDTO.setRole(user.getRole().getRole());
+		userRoleDTO.setRoleId(user.getRole().getRoleId());
+		userDto.setUserRole(userRoleDTO);
+		
 		userDTO.add(userDto);
 		}
 		return userDTO;
@@ -29,8 +36,12 @@ public class UserServiceUtil {
 		userDTO.setName(user.getName());
 		userDTO.setEmailId(user.getEmailId());
 		userDTO.setLoginDate(user.getLoginDate());
-		userDTO.setIsActive(user.getIsActive());
-		userDTO.setRoleId(user.getRole());
+		userDTO.setActiveStatus(user.getActiveStatus());
+		UserRoleDTO userRoleDTO = new UserRoleDTO();
+		userRoleDTO.setCreatedDate(user.getRole().getCreatedDate());
+		userRoleDTO.setRole(user.getRole().getRole());
+		userRoleDTO.setRoleId(user.getRole().getRoleId());
+		userDTO.setUserRole(userRoleDTO);
 		return userDTO;
 
 	}

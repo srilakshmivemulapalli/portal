@@ -16,7 +16,7 @@ import com.nisum.portal.service.api.UserRoleService;
 import com.nisum.portal.service.dto.UserRoleDTO;
 
 @RestController
-@RequestMapping("/userrole")
+@RequestMapping("/v1/userrole")
 public class UserRoleRestService {
 
 	@Autowired
