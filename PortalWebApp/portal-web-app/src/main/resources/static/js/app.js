@@ -1,4 +1,4 @@
-var app = angular.module('nisumApp', [ 'ui.router', 'adminApp',
+var app = angular.module('nisumApp', [ 'ui.router', 'configurationsApp',
 		'loginApp','questionsApp','directive.g+signin', 'LocalStorageModule' ]);
 
 // app.config(function($routeProvider){
@@ -13,7 +13,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 		$rootScope.urlChanged = $location.path();
 
-		var urls = [ '/home', '/questions', '/admin' ]
+		var urls = [ '/home', '/questions', '/configurations' ]
 		if (urls.indexOf($rootScope.urlChanged) > -1) {
 			$rootScope.navBarToggle = false;
 		} else {
@@ -24,7 +24,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			var profile = localStorageService.get("profile");	
 			if (profile !== (undefined || null) && $rootScope.urlChanged==='/login') {
 				
-					$state.go('admin');
+					$state.go('configurations');
 //					if (profile.username === 'admin@gmail.com') {
 //						$state.go("admin");
 //					} 

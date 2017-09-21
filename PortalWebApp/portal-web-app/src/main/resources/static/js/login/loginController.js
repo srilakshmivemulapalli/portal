@@ -13,7 +13,7 @@ loginApp.controller('loginController', function($scope, $state,
 				"image": profile.getImageUrl()
 		}
 		localStorageService.set('profile',$scope.profile);
-		$state.go("admin");
+		$state.go("configurations");
 	});
 	$scope.$on('event:google-plus-signin-failure', function(event, authResult) {
 		// Auth failure or signout detected
