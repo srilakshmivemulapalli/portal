@@ -26,4 +26,9 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 		return QuestionariesUtil.convertDaoToDto(questionariesList);
 	}
 
+	@Override
+	public long getQuestionariesCount() {
+		return questionariesDAO.getQuestionariesCount();
+	}
+
 }

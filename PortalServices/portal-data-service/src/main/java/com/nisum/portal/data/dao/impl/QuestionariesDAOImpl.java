@@ -21,5 +21,10 @@ public class QuestionariesDAOImpl implements QuestionariesDAO {
 	public List<Questionaries> getQuestionaries() {
 		return questionariesRepository.findAll();
 	}
+	@Override
+	public long getQuestionariesCount() {
+		return questionariesRepository.count();
+	}
+	
 
 }

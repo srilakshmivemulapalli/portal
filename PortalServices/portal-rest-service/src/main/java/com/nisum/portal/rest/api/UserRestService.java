@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nisum.portal.service.api.UserService;
 import com.nisum.portal.service.dto.Errors;
 import com.nisum.portal.service.dto.UserDTO;
+import com.nisum.portal.service.exception.QuestionariesServiceException;
 import com.nisum.portal.service.exception.UserServiceException;
 import com.nisum.portal.util.ExceptionConstans;
 import com.nisum.portal.util.UserConstants;
@@ -103,6 +104,17 @@ public class UserRestService {
 		}
 	}
 	
+	/**
+	 * getUserCount
+	 * 
+	 * @return
+	 * @throws QuestionariesServiceException
+	 */
+	@RequestMapping(value = "/retrieveCount", method = RequestMethod.GET)
+	public Object retrieveCount() throws QuestionariesServiceException {
+		logger.info("QuestionariesRestService :: getUserCount");
+		return userService.getUserCount();
+	}
 
 	
 	/**
