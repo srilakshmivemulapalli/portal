@@ -16,23 +16,23 @@ import com.nisum.portal.service.exception.UsersServiceException;
 @RequestMapping(value = "/user")
 public class UsersRestService {
 	
-	private static Logger logger = LoggerFactory.getLogger(UsersRestService.class);
-		
-		@Autowired
-		private UsersService usersService;
-
-		/**@RestController
-	@RequestMapping(value = "/user")
-	
-		 * damagesType
-		 * @return
-		 * @throws InventoryReceiveException
-		 */
-		@RequestMapping(value="/retrieve",method=RequestMethod.GET,produces="application/json")
-		public Object users() throws UsersServiceException {
-			 logger.info("UsersRestService :: users");
-			return usersService.getUsers();
-		}
+//	private static Logger logger = LoggerFactory.getLogger(UsersRestService.class);
+//		
+//		@Autowired
+//		private UsersService usersService;
+//
+//		/**@RestController
+//	@RequestMapping(value = "/user")
+//	
+//		 * damagesType
+//		 * @return
+//		 * @throws InventoryReceiveException
+//		 */
+//		@RequestMapping(value="/retrieve",method=RequestMethod.GET,produces="application/json")
+//		public Object users() throws UsersServiceException {
+//			 logger.info("UsersRestService :: users");
+//			return usersService.getUsers();
+//		}
 
 	}
 

@@ -41,16 +41,15 @@ public class UserRestService {
 		logger.info("UserRestService :: deleteUser :: Deleting User");
 		try {
 			User user = userService.findUserById(userId);
+			String activeStatus = null;
 			if (user != null) {
-				String activeStatus = user.getActiveStatus();
-				if (activeStatus.equalsIgnoreCase("No")) {
-					return new ResponseEntity<Object>(ExceptionConstans.ALREADYDELETED, HttpStatus.EXPECTATION_FAILED);
-				} else {
-					userService.deleteUser(userId);
-					return new ResponseEntity<Object>(ExceptionConstans.USERDELETED, HttpStatus.OK);
-				}
-			} else {
+				activeStatus = user.getActiveStatus();	
+			}
+			if (user == null || activeStatus.equalsIgnoreCase("No")) {
 				return new ResponseEntity<Object>(ExceptionConstans.USERNOTEXISTS, HttpStatus.EXPECTATION_FAILED);
+			} else {
+				userService.deleteUser(userId);
+				return new ResponseEntity<Object>(ExceptionConstans.USERDELETED, HttpStatus.OK);
 			}
 		} catch (Exception e) {
 			logger.info("UserRestService :: deleteUser :: Internal Server Error");
