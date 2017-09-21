@@ -60,6 +60,7 @@ public class CategoriesRestService {
 		return new ResponseEntity<ServiceStatusDto>(servicedto, HttpStatus.OK);
 	}
 
+	
 	@RequestMapping(value = "/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> updateCategories(@RequestBody Categories categories) throws CategoryServiceException {
 		logger.info("CategoriesRestService :: updateCategories :: Category Details " + categories.toString());
@@ -95,7 +96,6 @@ public class CategoriesRestService {
 
 	/**
 	 * exceptionHandler
-	 * 
 	 * @param ex
 	 * @return
 	 */

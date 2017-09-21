@@ -14,6 +14,7 @@ import com.nisum.portal.data.domain.Categories;
 import com.nisum.portal.service.api.CategoriesService;
 import com.nisum.portal.service.dto.CategoriesDTO;
 import com.nisum.portal.service.dto.ServiceStatusDto;
+import com.nisum.portal.service.exception.CategoryServiceException;
 import com.nisum.portal.util.CategoryServiceUtil;
 import com.nisum.portal.util.KeyConstants;
 

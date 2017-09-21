@@ -1,5 +1,5 @@
 var app = angular.module('nisumApp', [ 'ui.router', 'adminApp',
-		'loginApp','questionsApp','directive.g+signin', 'LocalStorageModule' ]);
+		'loginApp','questionsApp','directive.g+signin', 'LocalStorageModule']);
 
 // app.config(function($routeProvider){
 // $routeProvider.otherwise({redirectTo:'/login'});

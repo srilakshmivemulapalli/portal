@@ -60,7 +60,6 @@ public class CategoriesDAOImpl implements CategoriesDAO {
 
 	@Override
 	public Categories updateCategories(Categories categories) {
-		// TODO Auto-generated method stub
 		logger.info("CategoriesDAOImpl :: updateCategories :: Category Details " + categories.toString());
 
 		Categories category = categoriesRepository.findByCategoryId(categories.getCategoryId());
