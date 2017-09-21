@@ -1,4 +1,4 @@
-adminApp.controller('adminController', function($scope, $http) {
+adminApp.controller('configurationsController', function($scope, $http) {
 
 	$scope.categoriesList = [];
 	$scope.rolesList = [];
@@ -10,6 +10,7 @@ adminApp.controller('adminController', function($scope, $http) {
 	$scope.category = false;
 	$scope.edituser = true;
 
+	console.log("Admin Controller");
 	$scope.categoryobj = {
 		"categoryId" : 5,
 		"categoryName" : "",
@@ -146,4 +147,31 @@ adminApp.controller('adminController', function($scope, $http) {
 			}
 			$('#deleteModal').modal('hide');
 	}
+	
+	$scope.addCategory = function(){
+		$scope.category = {
+				"categoryName" : "Spirngboot",
+				"description" : "Spring advanced one"
+		}
+		
+	
+	}
+	
+	var category = {
+			"categoryName" : "Spirngboot",
+			"description" : "Spring advanced one"
+	}
+	
+	$http({
+		url : 'v1/category/addCategory',
+		method : "POST",
+		data : category
+	}).then(function(response) {
+		console.log(response);
+	}, function(response) { // optional
+		console.log(response);
+
+	});
+	
+	
 });
