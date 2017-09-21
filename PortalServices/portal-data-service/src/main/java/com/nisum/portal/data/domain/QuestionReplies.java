@@ -26,8 +26,8 @@ public class QuestionReplies implements Serializable{
 	private Timestamp updatedDate;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "questionId", referencedColumnName = "questionId")
-	private Questionaries questionId;
+    @JoinColumn(name = "questId")
+	private Questionaries questId;
 	
 	@JoinColumn(name = "userId", referencedColumnName = "userId")
 	private User userId;
@@ -88,19 +88,7 @@ public class QuestionReplies implements Serializable{
 		this.updatedDate = updatedDate;
 	}
 
-	/**
-	 * @return the questionId
-	 */
-	public Questionaries getQuestionId() {
-		return questionId;
-	}
-
-	/**
-	 * @param questionId the questionId to set
-	 */
-	public void setQuestionId(Questionaries questionId) {
-		this.questionId = questionId;
-	}
+	
 
 	/**
 	 * @return the userId
@@ -116,6 +104,20 @@ public class QuestionReplies implements Serializable{
 		this.userId = userId;
 	}
 
+	/**
+	 * @return the questId
+	 */
+	public Questionaries getQuestId() {
+		return questId;
+	}
+
+	/**
+	 * @param questId the questId to set
+	 */
+	public void setQuestId(Questionaries questId) {
+		this.questId = questId;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -124,7 +126,7 @@ public class QuestionReplies implements Serializable{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((createdDate == null) ? 0 : createdDate.hashCode());
-		result = prime * result + ((questionId == null) ? 0 : questionId.hashCode());
+		result = prime * result + ((questId == null) ? 0 : questId.hashCode());
 		result = prime * result + ((replyDescription == null) ? 0 : replyDescription.hashCode());
 		result = prime * result + replyId;
 		result = prime * result + ((updatedDate == null) ? 0 : updatedDate.hashCode());
@@ -149,10 +151,10 @@ public class QuestionReplies implements Serializable{
 				return false;
 		} else if (!createdDate.equals(other.createdDate))
 			return false;
-		if (questionId == null) {
-			if (other.questionId != null)
+		if (questId == null) {
+			if (other.questId != null)
 				return false;
-		} else if (!questionId.equals(other.questionId))
+		} else if (!questId.equals(other.questId))
 			return false;
 		if (replyDescription == null) {
 			if (other.replyDescription != null)
@@ -180,7 +182,7 @@ public class QuestionReplies implements Serializable{
 	@Override
 	public String toString() {
 		return "QuestionReplies [replyId=" + replyId + ", replyDescription=" + replyDescription + ", createdDate="
-				+ createdDate + ", updatedDate=" + updatedDate + ", questionId=" + questionId + ", userId=" + userId
+				+ createdDate + ", updatedDate=" + updatedDate + ", questionId=" + questId + ", userId=" + userId
 				+ "]";
 	}
 	

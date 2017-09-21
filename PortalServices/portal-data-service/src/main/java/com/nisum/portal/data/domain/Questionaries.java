@@ -2,7 +2,6 @@ package com.nisum.portal.data.domain;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -11,8 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,30 +21,49 @@ public class Questionaries implements Serializable{
 	
 	@Id
 	@Column (name = "questionId")
-	private int questionId;
-	@JoinColumn(name = "categoryId", referencedColumnName = "categoryId")
+	private Integer questionId;
+	
+	@OneToOne(cascade = CascadeType.ALL,fetch=FetchType.LAZY)
+	@JoinColumn(name = "categoryId")
 	private Categories categoryId;
 	private String question;
 	private String description;
 	private Timestamp createdDate;
 	
-	@JoinColumn(name = "userId", referencedColumnName = "userId")
+	@OneToOne(cascade = CascadeType.ALL,fetch=FetchType.LAZY)
+	@JoinColumn(name = "userId")
 	private User userId;
 	
-//	@OneToMany(mappedBy = "questionId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//	private Set<QuestionReplies> questionReplies;
+	@OneToMany(mappedBy = "questId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<QuestionReplies> questionReplies;
+	
+	/**
+	 * @return the questionReplies
+	 */
+	public Set<QuestionReplies> getQuestionReplies() {
+		return questionReplies;
+	}
+
+	/**
+	 * @param questionReplies the questionReplies to set
+	 */
+	public void setQuestionReplies(Set<QuestionReplies> questionReplies) {
+		this.questionReplies = questionReplies;
+	}
+
+	
 
 	/**
 	 * @return the questionId
 	 */
-	public int getQuestionId() {
+	public Integer getQuestionId() {
 		return questionId;
 	}
 
 	/**
 	 * @param questionId the questionId to set
 	 */
-	public void setQuestionId(int questionId) {
+	public void setQuestionId(Integer questionId) {
 		this.questionId = questionId;
 	}
 
@@ -144,7 +162,7 @@ public class Questionaries implements Serializable{
 		result = prime * result + ((createdDate == null) ? 0 : createdDate.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((question == null) ? 0 : question.hashCode());
-		result = prime * result + questionId;
+		result = prime * result + ((questionId == null) ? 0 : questionId.hashCode());
 		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
 	}
