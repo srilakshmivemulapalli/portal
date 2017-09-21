@@ -1,17 +1,10 @@
 package com.nisum.portal.service.dto;
 
-import java.sql.Timestamp;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 public class UserRoleDTO {
 	
 	private Integer roleId;
 	private String role;
-	private Timestamp createdDate;
+	private String createdDate;
 	/**
 	 * 
 	 * @return the roleId
@@ -45,14 +38,14 @@ public class UserRoleDTO {
 	 * 
 	 * @return the createdDate
 	 */
-	public Timestamp getCreatedDate() {
+	public String getCreatedDate() {
 		return createdDate;
 	}
 	/**
 	 * 
 	 * @param createdDate the createdDate to set
 	 */
-	public void setCreatedDate(Timestamp createdDate) {
+	public void setCreatedDate(String createdDate) {
 		this.createdDate = createdDate;
 	}
 }

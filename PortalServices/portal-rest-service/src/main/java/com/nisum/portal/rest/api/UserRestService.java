@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nisum.portal.data.domain.User;
 import com.nisum.portal.service.api.UserService;
 import com.nisum.portal.service.dto.Errors;
 import com.nisum.portal.service.dto.UserDTO;
@@ -40,12 +39,12 @@ public class UserRestService {
 	public ResponseEntity<Object> deleteUser(@PathVariable Integer userId) throws UserServiceException{
 		logger.info("UserRestService :: deleteUser :: Deleting User");
 		try {
-			User user = userService.findUserById(userId);
+			UserDTO userdto = userService.findUserById(userId);
 			String activeStatus = null;
-			if (user != null) {
-				activeStatus = user.getActiveStatus();	
+			if (userdto != null) {
+				activeStatus = userdto.getActiveStatus();	
 			}
-			if (user == null || activeStatus.equalsIgnoreCase("No")) {
+			if (userdto == null || activeStatus.equalsIgnoreCase("No")) {
 				return new ResponseEntity<Object>(ExceptionConstans.USERNOTEXISTS, HttpStatus.EXPECTATION_FAILED);
 			} else {
 				userService.deleteUser(userId);
@@ -71,10 +70,41 @@ public class UserRestService {
 	}
 	
 
-	@RequestMapping(value = "/updateUserDetails", method = RequestMethod.PUT, consumes = "application/json", produces = "application/json")
-	public void updateUserDetails(@RequestBody User user) throws UserServiceException {
-		userService.updateUserDetails(user);
+	@RequestMapping(value = "/update", method = RequestMethod.PUT, consumes = "application/json", produces = "application/json")
+	public ResponseEntity<Object> updateUser(@RequestBody UserDTO userDto) throws UserServiceException {
+		logger.info("UserRestService :: users::: update");
+		try {
+		if(userDto==null) {
+			throw new UserServiceException(ExceptionConstans.INTERNALSERVERERROR);
+		}
+		userService.updateUserDetails(userDto);
+		return new ResponseEntity<Object>(UserConstants.USERUPDATED, HttpStatus.OK);
+		}
+		catch(Exception e)
+		{
+			logger.info("UserRestService :: UpdateUser :: Internal Server Error");
+			throw new UserServiceException(ExceptionConstans.INTERNALSERVERERROR, e);
+		}
 	}
+	@RequestMapping(value = "/updateUsers",method=RequestMethod.PUT,consumes = "application/json",produces="application/json")
+	public ResponseEntity<Object>  updateUsers(@RequestBody List<UserDTO> usersDTO) throws UserServiceException{
+		logger.info("UserRestService :: multiple users update :::");
+		try {
+			for(UserDTO userDto : usersDTO)
+			{
+			userService.updateUserDetails(userDto);
+			}
+         return new ResponseEntity<>("Users Updated Successfully",HttpStatus.OK);
+	}
+		catch(Exception e)
+		{
+			logger.info("UserRestService :: Update multiple Users :: Internal Server Error");
+			throw new UserServiceException(ExceptionConstans.INTERNALSERVERERROR, e);
+		}
+	}
+	
+
+	
 	/**
 	 * Exception handler
 	 * @param ex

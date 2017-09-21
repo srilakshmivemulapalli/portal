@@ -43,7 +43,7 @@ CREATE TABLE `portal`.`Questionaries` (
 
 CREATE TABLE `portal`.`QuestionReplies` (
   `replyId` int(11) NOT NULL AUTO_INCREMENT,
-  `questionId` int(11) DEFAULT NULL,
+  `questId` int(11) DEFAULT NULL,
   `replyDescription` varchar(200) DEFAULT NULL,
   `createdDate` datetime DEFAULT NULL,
   `updatedDate` datetime DEFAULT NULL,

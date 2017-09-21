@@ -19,7 +19,7 @@ public class UserRole implements Serializable {
 	private int roleId;
 
 	private String role;
-	private Timestamp createdDate;
+	private String createdDate;
 
 	public int getRoleId() {
 		return roleId;
@@ -37,12 +37,12 @@ public class UserRole implements Serializable {
 		this.role = role;
 	}
 
-	public Timestamp getCreatedDate() {
+	public String getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(Timestamp date) {
-		this.createdDate = date;
+	public void setCreatedDate(String string) {
+		this.createdDate = string;
 	}
 
 	// @Override

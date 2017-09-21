@@ -1,4 +1,4 @@
-adminApp.controller('adminController', function($scope, $http) {
+adminApp.controller('configurationsController', function($scope, $http) {
 
 	$scope.categoriesList = [];
 	$scope.rolesList = [];
