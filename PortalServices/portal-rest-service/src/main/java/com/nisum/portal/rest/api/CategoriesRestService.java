@@ -87,19 +87,18 @@ public class CategoriesRestService {
 		return categoriesService.getCategory(id);
 	}
 
-	@RequestMapping(value = "/delete", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> deletingCategories(@RequestBody List<CategoriesDTO> categories) throws CategoryServiceException {
+	@RequestMapping(value = "/delete/{categoryId}", method = RequestMethod.DELETE)
+	public ResponseEntity<Object> deletingCategories(@PathVariable("categoryId") Integer categoryId) throws CategoryServiceException {
 		logger.info("CategoriesRestService :: deleteCategory");
-		String message="";
 		try
 		{  
-			message= categoriesService.deleteCategories(categories);
+		   categoriesService.deleteCategories(categoryId);
 		}catch(Exception ex)
 		{
 			logger.error(KeyConstants.CATEGORY_NOT_EXIST);
 			throw new CategoryServiceException(KeyConstants.CATEGORY_NOT_EXIST);
 		}
-		return  new ResponseEntity<Object>(message,HttpStatus.OK);
+		return  new ResponseEntity<Object>(KeyConstants.CATEGORY_DELETE,HttpStatus.OK);
 	}
 
 	/**

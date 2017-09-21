@@ -93,21 +93,10 @@ public class CategoriesServiceImplTest {
 	@Test
 	public void deleteCategoriesinServiceTest()
 	{
-		int count=1;
-		String expMsg=count+" Categories deleted successfully";
-		
-		ArrayList<Categories> categoriesList=new ArrayList<Categories>();
-		Categories categories1=new Categories();
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		categories1.setCategoryId(101);
-		categories1.setCategoryName("java");
-		categories1.setCreateDate(timestamp);
-		categoriesList.add(categories1);
-		
-		when(categoriesDAO.deleteCategories(categoriesList)).thenReturn(count);
-		List<CategoriesDTO>  categoriesLis= CategoryServiceUtil.convertDaoTODto(categoriesList);
-	 String ActMsg= categoryServiceImpl.deleteCategories(categoriesLis);
-
+		String expMsg="Success";
+		when(categoriesDAO.deleteCategories(101)).thenReturn("Success");
+	 String ActMsg= categoryServiceImpl.deleteCategories(101);
+       System.out.println(ActMsg);
 	      assertEquals(expMsg,ActMsg);
 	}
 
