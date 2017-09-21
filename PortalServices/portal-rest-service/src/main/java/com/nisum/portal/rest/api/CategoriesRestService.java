@@ -88,7 +88,7 @@ public class CategoriesRestService {
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Object deletingCategories(@RequestBody List<CategoriesDTO> categories) throws CategoryServiceException {
+	public ResponseEntity<Object> deletingCategories(@RequestBody List<CategoriesDTO> categories) throws CategoryServiceException {
 		logger.info("CategoriesRestService :: deleteCategory");
 		String message="";
 		try
@@ -99,7 +99,7 @@ public class CategoriesRestService {
 			logger.error(KeyConstants.CATEGORY_NOT_EXIST);
 			throw new CategoryServiceException(KeyConstants.CATEGORY_NOT_EXIST);
 		}
-		return  message;
+		return  new ResponseEntity<Object>(message,HttpStatus.OK);
 	}
 
 	/**

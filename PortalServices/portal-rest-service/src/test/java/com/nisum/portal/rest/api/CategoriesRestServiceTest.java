@@ -14,7 +14,9 @@ import org.mockito.Mock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.SystemPropertyUtils;
 
 import com.nisum.portal.service.api.CategoriesService;
 import com.nisum.portal.service.dto.CategoriesDTO;
@@ -62,6 +64,7 @@ public class CategoriesRestServiceTest {
 	public void deleteCategoriesTest() throws CategoryServiceException 
 	{
 	  String message=1+" Categories deleted successfully";
+	  ResponseEntity<Object> expmsg=new ResponseEntity<Object>(message,HttpStatus.OK);
 		ArrayList<CategoriesDTO> categoriesList=new ArrayList<CategoriesDTO>();
 		CategoriesDTO categories1=new CategoriesDTO();
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -72,8 +75,9 @@ public class CategoriesRestServiceTest {
 		categoriesList.add(categories1);
 		when(categoryService.deleteCategories(categoriesList)).thenReturn(message);
 	
-		Object result =mainController.deletingCategories(categoriesList);
-		assertEquals(result, message);
+		ResponseEntity<Object> result =mainController.deletingCategories(categoriesList);
+		System.out.println(result);
+		assertEquals(expmsg, result);
 		
 	}
 
