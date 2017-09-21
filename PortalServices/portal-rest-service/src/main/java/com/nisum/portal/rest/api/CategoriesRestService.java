@@ -58,8 +58,10 @@ public class CategoriesRestService {
 		ServiceStatusDto servicedto = categoriesService.addCategory(category);
 		if (servicedto.isStatus())
 			return new ResponseEntity<ServiceStatusDto>(servicedto, HttpStatus.OK);
-		else
+		else {
+			logger.error("Category already Exists");
 			throw new CategoryServiceException(KeyConstants.CATEGORY_EXISTS);
+		}
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -96,7 +98,6 @@ public class CategoriesRestService {
 			logger.error(KeyConstants.CATEGORY_NOT_EXIST);
 			throw new CategoryServiceException(KeyConstants.CATEGORY_NOT_EXIST);
 		}
-
 		return new ResponseEntity<Object>(message, HttpStatus.OK);
 	}
 
@@ -109,6 +110,7 @@ public class CategoriesRestService {
 	@ExceptionHandler(CategoryServiceException.class)
 	public ResponseEntity<Errors> exceptionHandler(Exception ex) {
 		Errors errors = new Errors();
+
 		errors.setErrorCode("Error-Categories");
 		errors.setErrorMessage(ex.getMessage());
 		return new ResponseEntity<Errors>(errors, HttpStatus.OK);
