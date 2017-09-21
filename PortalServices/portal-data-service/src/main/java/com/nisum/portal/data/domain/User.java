@@ -22,7 +22,7 @@ public class User implements Serializable{
 	@Column (name = "emailid")
 	private String emailId;
 	private String name;
-	private String loginDate;
+	private Timestamp loginDate;
 	private String activeStatus;
 	
 	
@@ -67,24 +67,32 @@ public UserRole getRole() {
 	public String getemailId() {
 		return emailId;
 	}
+	public Timestamp getLoginDate() {
+		return loginDate;
+	}
+	public void setLoginDate(Timestamp loginDate) {
+		this.loginDate = loginDate;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	@Override
 	public String toString() {
-		return "User [userid=" + userId + ", emailId=" + emailId + ", name=" + name + ", loginDate=" + loginDate
-				+ ", roleId=" + role + "]";
+		return "User [userId=" + userId + ", emailId=" + emailId + ", name=" + name + ", loginDate=" + loginDate
+				+ ", activeStatus=" + activeStatus + ", role=" + role + "]";
 	}
-
-	
-	
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((activeStatus == null) ? 0 : activeStatus.hashCode());
 		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
 		result = prime * result + ((loginDate == null) ? 0 : loginDate.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((role == null) ? 0 : role.hashCode());
-		result = prime * result + ((activeStatus == null) ? 0 : activeStatus.hashCode());
 		result = prime * result + userId;
 		return result;
 	}
@@ -97,6 +105,11 @@ public UserRole getRole() {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
+		if (activeStatus == null) {
+			if (other.activeStatus != null)
+				return false;
+		} else if (!activeStatus.equals(other.activeStatus))
+			return false;
 		if (emailId == null) {
 			if (other.emailId != null)
 				return false;
@@ -117,26 +130,9 @@ public UserRole getRole() {
 				return false;
 		} else if (!role.equals(other.role))
 			return false;
-		if (activeStatus == null) {
-			if (other.activeStatus != null)
-				return false;
-		} else if (!activeStatus.equals(other.activeStatus))
-			return false;
 		if (userId != other.userId)
 			return false;
 		return true;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getLoginDate() {
-		return loginDate;
-	}
-	public void setLoginDate(String loginDate) {
-		this.loginDate = loginDate;
 	}
 
 	

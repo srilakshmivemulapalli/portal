@@ -27,8 +27,9 @@ public class UserServiceImpl implements UserService {
 		return UserServiceUtil.convertDaoListTODto(userList);
 	}
 	@Override
-	public String updateUserDetails(User user) {
+	public String updateUserDetails(UserDTO userDto) {
 		logger.info("UserServiceImpl :: updateUserDetails :: Updating user detail");
+		User user = UserServiceUtil.convertDtoObjectTODao(userDto);
 		return userDAO.updateUser(user);
 	}
 	@Override
@@ -38,10 +39,10 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public User findUserById(int userId) {
+	public UserDTO findUserById(int userId) {
 		logger.info("UserServiceImpl :: findUserById :: Finding user by userId");
 		User  user=userDAO.findUserById(userId);
-		return user;
+		return UserServiceUtil.convertDaoObjectTODto(user);
 		
 	}
 
