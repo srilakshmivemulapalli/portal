@@ -13,6 +13,6 @@ import com.nisum.portal.data.domain.User;
 public interface UserRepository extends JpaRepository<User,Integer>{
 	@Transactional
 	@Modifying(clearAutomatically = true)
-    @Query(value = "UPDATE User u SET u.isActive = 'No' where u.userId = :userId",nativeQuery = true)
+    @Query(value = "UPDATE User u SET u.activeStatus = 'No' where u.userId = :userId")
     int deleteUser(@Param("userId") int userId);
 }
