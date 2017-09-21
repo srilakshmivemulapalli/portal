@@ -57,19 +57,18 @@ public class CategoriesRestService {
 		ServiceStatusDto servicedto = categoriesService.addCategory(category);
 		return new ResponseEntity<ServiceStatusDto>(servicedto, HttpStatus.OK);
 	}
-
-	@RequestMapping(value="/update",method=RequestMethod.PUT,produces=MediaType.APPLICATION_JSON_VALUE,consumes=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> updateCategories(@RequestBody CategoriesDTO categoriesDTO) throws CategoryServiceException
+	@RequestMapping(value="/update",method=RequestMethod.PUT,consumes=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> updateCategories(@RequestBody CategoriesDTO categoriesDTO) throws CategoryServiceException
 	{
 		logger.info("CategoriesRestService :: updateCategories :: Category Details "+categoriesDTO.toString());
 		try
 		{
 				String status = categoriesService.update(categoriesDTO);
 				if(status.equalsIgnoreCase("success"))
-					return new ResponseEntity<Object>("Categories Updated Successfully",HttpStatus.OK);
+					return new ResponseEntity<String>("Categories Updated Successfully",HttpStatus.OK);
 				else
 				{
-					return new ResponseEntity<Object>("CategoryId is Not Found",HttpStatus.NOT_FOUND);
+					return new ResponseEntity<String>("CategoryId is Not Found",HttpStatus.EXPECTATION_FAILED);
 				}
 		}
 		catch(Exception e)

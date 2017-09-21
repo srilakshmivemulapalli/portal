@@ -14,20 +14,23 @@ public class CategoryServiceUtil {
 			CategoriesDTO categoriesDTO = new CategoriesDTO();
 			categoriesDTO.setCategoryId(categories.getCategoryId());
 			categoriesDTO.setCategoryName(categories.getCategoryName());
+			categoriesDTO.setDescription(categories.getDescription());
 			categoriesDTO.setCreateDate(categories.getCreateDate());
+			categoriesDTO.setDescription(categories.getDescription());
 			categoriesDTOs.add(categoriesDTO);
 		}
 		return categoriesDTOs;
 
 	}
-	
+
 	public static CategoriesDTO convertDaoToDtoInstance(Categories category) {
-		
-		CategoriesDTO categoriesDTO= new CategoriesDTO();
-		if(category!=null) {
+
+		CategoriesDTO categoriesDTO = new CategoriesDTO();
+		if (category != null) {
 			categoriesDTO.setCategoryId(category.getCategoryId());
 			categoriesDTO.setCategoryName(category.getCategoryName());
 			categoriesDTO.setCreateDate(category.getCreateDate());
+			categoriesDTO.setDescription(category.getDescription());
 		}
 		return categoriesDTO;
 	}
@@ -38,16 +41,16 @@ public class CategoryServiceUtil {
 		category.setCategoryId(categoriesList.getCategoryId());
 		category.setCategoryName(categoriesList.getCategoryName());
 		category.setCreateDate(categoriesList.getCreateDate());
+		category.setDescription(categoriesList.getDescription());
 
 		return category;
 
 	}
 
-	
-	public static List<Categories> convertDtoTODao(List<CategoriesDTO>  categoriesList){
+	public static List<Categories> convertDtoTODao(List<CategoriesDTO> categoriesList) {
 		List<Categories> categoriess = new ArrayList<>();
-		for(CategoriesDTO categoriesDTO:categoriesList){
-			Categories categories= new Categories();
+		for (CategoriesDTO categoriesDTO : categoriesList) {
+			Categories categories = new Categories();
 			categories.setCategoryId(categoriesDTO.getCategoryId());
 			categories.setCategoryName(categoriesDTO.getCategoryName());
 			categories.setCreateDate(categoriesDTO.getCreateDate());
@@ -55,11 +58,9 @@ public class CategoryServiceUtil {
 		}
 		return categoriess;
 	}
-		
 
-	public static CategoriesDTO convertDaoTODto(Categories categories)
-	{
-		CategoriesDTO categoriesDTO=new CategoriesDTO();
+	public static CategoriesDTO convertDaoTODto(Categories categories) {
+		CategoriesDTO categoriesDTO = new CategoriesDTO();
 		categoriesDTO.setCategoryId(categories.getCategoryId());
 		categoriesDTO.setCategoryName(categories.getCategoryName());
 		categoriesDTO.setCreateDate(categories.getCreateDate());

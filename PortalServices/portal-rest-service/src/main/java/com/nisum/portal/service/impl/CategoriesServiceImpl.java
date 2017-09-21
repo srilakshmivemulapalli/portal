@@ -51,12 +51,9 @@ public class CategoriesServiceImpl implements CategoriesService{
 		Integer serviceStatus = categoriesDAO.addCategory(category);
 		
 		if(serviceStatus == 0) {
-			serviceStatusDto.setStatus(true);
+			serviceStatusDto.setStatus(false);
 			serviceStatusDto.setMessage(KeyConstants.CATEGORY_EXISTS);
 		}else if(serviceStatus == 1){
-			serviceStatusDto.setStatus(false);
-			serviceStatusDto.setMessage(KeyConstants.ERROR_MESSAGE);
-		}else {
 			serviceStatusDto.setStatus(true);
 			serviceStatusDto.setMessage(KeyConstants.SUCCESS_MESSAGE);
 		}
@@ -90,34 +87,16 @@ public class CategoriesServiceImpl implements CategoriesService{
 			}
 			catch(Exception e)
 			{
+				logger.error("CategoriesServiceImpl :: updateCategories :: Exception");
 				throw new CategoryServiceException("CategoryId Not Existed");
 			}
 			
 	}
 
-
-	@Override
-	public CategoriesDTO getCategory(Integer id) {
-		Categories category=categoriesDAO.getCategory(id);
-		return CategoryServiceUtil.convertDaoToDtoInstance(category);
-	}
 	
 	@Override
-	public String deleteCategories(List<CategoriesDTO> categories) {
-		List<Categories> catgories=CategoryServiceUtil.convertDtoTODao(categories);
-		Integer  count=categoriesDAO.deleteCategories(catgories);
-		if(count>0)
-		return  count+" Categories deleted successfully";
-		else
-		return "Categories not Exist";
+	public String deleteCategories(Integer categoryId)  {
+		logger.info("CategoriesServiceImpl :: deleteCategories");
+          return categoriesDAO.deleteCategories(categoryId);
 	}
-	
-
-	@Override
-	public CategoriesDTO getCategory(Integer id) {
-		Categories category=categoriesDAO.getCategory(id);
-		return CategoryServiceUtil.convertDaoToDtoInstance(category);
-	}
-	
-
 }

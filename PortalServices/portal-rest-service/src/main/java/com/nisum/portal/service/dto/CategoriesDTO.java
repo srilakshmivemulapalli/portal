@@ -56,4 +56,14 @@ public class CategoriesDTO {
 	public void setCreateDate(Timestamp createDate) {
 		this.createDate = createDate;
 	}
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "CategoriesDTO [categoryId=" + categoryId + ", categoryName=" + categoryName + ", description="
+				+ description + ", createDate=" + createDate + "]";
+	}
+	
 }
