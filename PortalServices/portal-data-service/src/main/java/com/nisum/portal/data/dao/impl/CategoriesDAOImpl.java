@@ -45,12 +45,7 @@ public class CategoriesDAOImpl implements CategoriesDAO {
 
 		if (categories == null) {
 			Categories savedCategory = categoriesRepository.save(category);
-
-			if (savedCategory == null) {
-				status = 1;
-			} else {
-				status = 2;
-			}
+			status = 1;
 		} else {
 			status = 0;
 

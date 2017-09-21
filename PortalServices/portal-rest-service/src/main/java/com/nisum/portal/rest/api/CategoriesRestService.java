@@ -56,7 +56,10 @@ public class CategoriesRestService {
 			throws CategoryServiceException {
 		logger.info("CategoriesRestService :: addCategories");
 		ServiceStatusDto servicedto = categoriesService.addCategory(category);
-		return new ResponseEntity<ServiceStatusDto>(servicedto, HttpStatus.OK);
+		if (servicedto.isStatus())
+			return new ResponseEntity<ServiceStatusDto>(servicedto, HttpStatus.OK);
+		else
+			throw new CategoryServiceException(KeyConstants.CATEGORY_EXISTS);
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -83,7 +86,8 @@ public class CategoriesRestService {
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> deletingCategories(@RequestBody List<CategoriesDTO> categories) throws CategoryServiceException {
+	public ResponseEntity<Object> deletingCategories(@RequestBody List<CategoriesDTO> categories)
+			throws CategoryServiceException {
 		logger.info("CategoriesRestService :: deleteCategory");
 		String message = "";
 		try {
@@ -93,7 +97,7 @@ public class CategoriesRestService {
 			throw new CategoryServiceException(KeyConstants.CATEGORY_NOT_EXIST);
 		}
 
-		return  new ResponseEntity<Object>(message,HttpStatus.OK);
+		return new ResponseEntity<Object>(message, HttpStatus.OK);
 	}
 
 	/**
