@@ -45,25 +45,23 @@ public class CategoriesDAOImpl implements CategoriesDAO {
 
 		if (categories == null) {
 			Categories savedCategory = categoriesRepository.save(category);
-
-			if (savedCategory == null) {
-				status = 1;
-			} else {
-				status = 2;
-			}
+			status = 1;
 		} else {
 			status = 0;
 
 		}
 		return status;
 	}
-/*
- * (non-Javadoc)
- * @see com.nisum.portal.data.dao.api.CategoriesDAO#updateCategories(com.nisum.portal.data.domain.Categories)
- */
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.nisum.portal.data.dao.api.CategoriesDAO#updateCategories(com.nisum.portal
+	 * .data.domain.Categories)
+	 */
 	@Override
 	public boolean updateCategories(Categories categories) {
-		// TODO Auto-generated method stub
 		logger.info("CategoriesDAOImpl :: updateCategories :: Category Details " + categories.toString());
 		Categories category = categoriesRepository.findByCategoryId(categories.getCategoryId());
 		boolean flag;

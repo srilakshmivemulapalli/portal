@@ -51,12 +51,9 @@ public class CategoriesServiceImpl implements CategoriesService{
 		Integer serviceStatus = categoriesDAO.addCategory(category);
 		
 		if(serviceStatus == 0) {
-			serviceStatusDto.setStatus(true);
+			serviceStatusDto.setStatus(false);
 			serviceStatusDto.setMessage(KeyConstants.CATEGORY_EXISTS);
 		}else if(serviceStatus == 1){
-			serviceStatusDto.setStatus(false);
-			serviceStatusDto.setMessage(KeyConstants.ERROR_MESSAGE);
-		}else {
 			serviceStatusDto.setStatus(true);
 			serviceStatusDto.setMessage(KeyConstants.SUCCESS_MESSAGE);
 		}
