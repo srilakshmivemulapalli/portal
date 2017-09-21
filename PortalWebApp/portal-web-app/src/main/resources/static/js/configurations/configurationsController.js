@@ -125,7 +125,17 @@ adminApp.controller('configurationsController', function($scope, $http) {
 				});
 			
 			});
-		console.log(data);
+		$http({
+			url : 'v1/user/updateUsers',
+			method : "PUT",
+			data : data
+		}).success(function (response) {
+			alert(response);
+        })
+        .error(function (response) {
+        	alert(response);
+        });
+		//console.log(data);
 	}
 	
 	$scope.confirmDelete=function(name,item){

@@ -1,10 +1,6 @@
 package com.nisum.portal.util;
 
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import com.nisum.portal.data.domain.User;
@@ -29,7 +25,7 @@ UserRoleDTO userRoleDTO = new UserRoleDTO();
 userRoleDTO.setCreatedDate(user.getRole().getCreatedDate());
 userRoleDTO.setRole(user.getRole().getRole());
 userRoleDTO.setRoleId(user.getRole().getRoleId());
-userDto.setUserRole(userRoleDTO);
+userDto.setRole(userRoleDTO);
 userDTO.add(userDto);
 }
 return userDTO;
@@ -48,7 +44,7 @@ UserRoleDTO userRoleDTO = new UserRoleDTO();
 userRoleDTO.setCreatedDate(user.getRole().getCreatedDate());
 userRoleDTO.setRole(user.getRole().getRole());
 userRoleDTO.setRoleId(user.getRole().getRoleId());
-userDTO.setUserRole(userRoleDTO);
+userDTO.setRole(userRoleDTO);
 return userDTO;
 
 }
@@ -63,9 +59,9 @@ user.setEmailId(userlist.getEmailId());
 user.setLoginDate(userlist.getLoginDate());
 user.setName(userlist.getName());
 UserRole userRole = new UserRole();
-userRole.setCreatedDate(userlist.getUserRole().getCreatedDate());
-userRole.setRole(userlist.getUserRole().getRole());
-userRole.setRoleId(userlist.getUserRole().getRoleId());
+userRole.setCreatedDate(userlist.getRole().getCreatedDate());
+userRole.setRole(userlist.getRole().getRole());
+userRole.setRoleId(userlist.getRole().getRoleId());
 user.setRole(userRole);
 users.add(user);
 }
@@ -80,9 +76,9 @@ user.setEmailId(userdto.getEmailId());
 user.setLoginDate(userdto.getLoginDate());
 user.setActiveStatus(userdto.getActiveStatus());
 UserRole userRole = new UserRole();
-userRole.setCreatedDate(userdto.getUserRole().getCreatedDate());
-userRole.setRole(userdto.getUserRole().getRole());
-userRole.setRoleId(userdto.getUserRole().getRoleId());
+userRole.setCreatedDate(userdto.getRole().getCreatedDate());
+userRole.setRole(userdto.getRole().getRole());
+userRole.setRoleId(userdto.getRole().getRoleId());
 user.setRole(userRole);
 return user;
 }
