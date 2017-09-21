@@ -22,7 +22,7 @@ public class User implements Serializable{
 	@Column (name = "emailid")
 	private String emailId;
 	private String name;
-	private Timestamp loginDate;
+	private String loginDate;
 	private String activeStatus;
 	
 	
@@ -132,12 +132,14 @@ public UserRole getRole() {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Timestamp getLoginDate() {
+	public String getLoginDate() {
 		return loginDate;
 	}
-	public void setLoginDate(Timestamp loginDate) {
+	public void setLoginDate(String loginDate) {
 		this.loginDate = loginDate;
 	}
+
+	
 //	public Date getLoginDate() {
 //		return loginDate;
 //	}

@@ -7,7 +7,7 @@ import com.nisum.portal.service.dto.UserDTO;
 
 public interface UserService {
 	public int deleteUser(int userId);
-	String updateUserDetails(User user);
-	public User findUserById(int userId);
+	String updateUserDetails(UserDTO user);
+	public UserDTO findUserById(int userId);
 	List<UserDTO> getUsers();
 }
