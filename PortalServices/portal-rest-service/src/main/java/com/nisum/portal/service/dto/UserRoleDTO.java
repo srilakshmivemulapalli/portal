@@ -1,10 +1,12 @@
 package com.nisum.portal.service.dto;
 
+import java.sql.Timestamp;
+
 public class UserRoleDTO {
 	
 	private Integer roleId;
 	private String role;
-	private String createdDate;
+	private Timestamp createdDate;
 	/**
 	 * 
 	 * @return the roleId
@@ -38,14 +40,14 @@ public class UserRoleDTO {
 	 * 
 	 * @return the createdDate
 	 */
-	public String getCreatedDate() {
+	public Timestamp getCreatedDate() {
 		return createdDate;
 	}
 	/**
 	 * 
 	 * @param createdDate the createdDate to set
 	 */
-	public void setCreatedDate(String createdDate) {
+	public void setCreatedDate(Timestamp createdDate) {
 		this.createdDate = createdDate;
 	}
 }

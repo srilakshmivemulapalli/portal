@@ -1,6 +1,8 @@
 package com.nisum.portal.service.dto;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+
 import com.nisum.portal.service.dto.UserRoleDTO;
 
 public class UserDTO implements Serializable{
@@ -8,7 +10,7 @@ public class UserDTO implements Serializable{
 	private int userId;
 	private String emailId;
 	private String name;
-	private String loginDate;
+	private Timestamp loginDate;
 	private UserRoleDTO userRole;
 	private String activeStatus;
 	
@@ -30,10 +32,10 @@ public class UserDTO implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getLoginDate() {
+	public Timestamp getLoginDate() {
 		return loginDate;
 	}
-	public void setLoginDate(String loginDate) {
+	public void setLoginDate(Timestamp loginDate) {
 		this.loginDate = loginDate;
 	}
 	public UserRoleDTO getUserRole() {
