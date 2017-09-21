@@ -138,17 +138,23 @@ adminApp.controller('configurationsController', function($scope, $http) {
 		//console.log(data);
 	}
 	
-	$scope.confirmDelete=function(name,item){
+	$scope.confirmDelete=function(name,itemid){
 		$scope.deleteitem={
 				'name':name,
-				'item':item
+				'itemid':itemid
 		}
 		$('#deleteModal').modal('show');
 	}
 	$scope.deleteItem=function(){
-			if($scope.deleteitem.name==='user'){
-				alert('user');
-			}
+		if($scope.deleteitem.name==='user'){
+			console.log('entered into user delete method')
+			$http.put('v1/user/deleteUser/'+$scope.deleteitem.itemid).success(function(response){
+				$scope.getUsers();
+				alert(response.message);
+				}).error(function(){
+				alert('error');
+				});
+	}
 			else if($scope.deleteitem.name==='role'){
 				alert('role');
 			}

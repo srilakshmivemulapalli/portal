@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nisum.portal.service.api.UserService;
 import com.nisum.portal.service.dto.Errors;
+import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.dto.UserDTO;
 import com.nisum.portal.service.exception.QuestionariesServiceException;
 import com.nisum.portal.service.exception.UserServiceException;
@@ -37,19 +38,22 @@ public class UserRestService {
 	 * @throws UserServiceException
 	 */
 	@RequestMapping(value = "/deleteUser/{userId}",method=RequestMethod.PUT,produces="application/json")
-	public ResponseEntity<Object> deleteUser(@PathVariable Integer userId) throws UserServiceException{
+	public ResponseEntity<ServiceStatusDto> deleteUser(@PathVariable Integer userId) throws UserServiceException{
 		logger.info("UserRestService :: deleteUser :: Deleting User");
 		try {
 			UserDTO userdto = userService.findUserById(userId);
+			ServiceStatusDto serviceStatusDTO = new ServiceStatusDto();
 			String activeStatus = null;
 			if (userdto != null) {
 				activeStatus = userdto.getActiveStatus();	
 			}
 			if (userdto == null || activeStatus.equalsIgnoreCase("No")) {
-				return new ResponseEntity<Object>(ExceptionConstans.USERNOTEXISTS, HttpStatus.EXPECTATION_FAILED);
+				serviceStatusDTO.setMessage(ExceptionConstans.USERNOTEXISTS);
+				return new ResponseEntity<ServiceStatusDto>(serviceStatusDTO, HttpStatus.EXPECTATION_FAILED);
 			} else {
 				userService.deleteUser(userId);
-				return new ResponseEntity<Object>(ExceptionConstans.USERDELETED, HttpStatus.OK);
+				serviceStatusDTO.setMessage(ExceptionConstans.USERDELETED);
+				return new ResponseEntity<ServiceStatusDto>(serviceStatusDTO, HttpStatus.OK);
 			}
 		} catch (Exception e) {
 			logger.info("UserRestService :: deleteUser :: Internal Server Error");
