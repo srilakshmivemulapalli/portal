@@ -76,7 +76,7 @@ public class UserRoleServiceImplTest {
 		UserRoleDTO userRole = new UserRoleDTO();
 		userRole.setRole("mg");
 		userRole.setRoleId(1);
-		userRole.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+		
 		expected1.add(userRole);
 	}
 
@@ -95,7 +95,7 @@ public class UserRoleServiceImplTest {
 		UserRoleDTO userRoleDto = new UserRoleDTO();
 		userRoleDto.setRoleId(1);
 		userRoleDto.setRole("mg");
-		userRoleDto.setCreatedDate(userRole.getCreatedDate());
+		
 		list1.add(userRoleDto);
 
 

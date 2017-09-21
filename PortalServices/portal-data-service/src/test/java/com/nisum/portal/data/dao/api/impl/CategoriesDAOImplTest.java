@@ -107,18 +107,16 @@ public class CategoriesDAOImplTest {
 
 	@Test
 	public void deleteCategoriesinDaoTest() {
-		int expcount = 1;
-		// when(categoriesDAOImpl.deleteCategories(id)).
-
-		ArrayList<Categories> categoriesList = new ArrayList<Categories>();
+		String expMesg="Success";
+		/*ArrayList<Categories> categoriesList = new ArrayList<Categories>();
 		Categories categories1 = new Categories();
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		categories1.setCategoryId(101);
 		categories1.setCategoryName("java");
 		categories1.setCreateDate(timestamp);
-		categoriesList.add(categories1);
-		int actcount = categoriesDaoImpl.deleteCategories(categoriesList);
-		assertEquals(expcount, actcount);
+		categoriesList.add(categories1);*/
+		 String actMsg = categoriesDaoImpl.deleteCategories(101);
+		assertEquals(expMesg, actMsg);
 	}
 
 }

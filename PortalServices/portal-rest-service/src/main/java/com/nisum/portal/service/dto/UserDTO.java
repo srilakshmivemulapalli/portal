@@ -3,7 +3,7 @@ package com.nisum.portal.service.dto;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-import com.nisum.portal.data.domain.UserRole;
+import com.nisum.portal.service.dto.UserRoleDTO;
 
 public class UserDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -51,7 +51,4 @@ public class UserDTO implements Serializable{
 	public void setActiveStatus(String activeStatus) {
 		this.activeStatus = activeStatus;
 	}
-
-
-
 }

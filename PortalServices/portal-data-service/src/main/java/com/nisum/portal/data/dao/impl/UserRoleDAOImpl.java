@@ -3,6 +3,8 @@ package com.nisum.portal.data.dao.impl;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,6 +15,8 @@ import com.nisum.portal.data.repository.UserRoleRepository;
 
 @Configuration
 public class UserRoleDAOImpl implements UserRoleDAO{
+	
+	private static Logger logger = LoggerFactory.getLogger(UserDAOImpl.class);
 	
 	@Autowired
 	UserRoleRepository userRoleRepository;
@@ -29,19 +33,21 @@ public class UserRoleDAOImpl implements UserRoleDAO{
 			userRoleRepository.delete(id);
 		return true;
 	}
-	//get the userdetails from database
+	
 	@Override
 	public List<UserRole> getUserRole() {
+		logger.info("UserRoleDAOImpl :: getUsers :: Get list of userRoles");
 		return userRoleRepository.findAll();
 	}
 
-    //uodate the user role details into database
 	@Override
-	public UserRole updateUserRole(UserRole userRole) {
+	public UserRole updateUserRole(UserRole userRole) 
+	{  
+		UserRole userRole1=userRoleRepository.findOne(userRole.getRoleId());
+		userRole.setCreatedDate(userRole1.getCreatedDate());
+		logger.info("UserRoleDAOImpl :: updateUser :: Updating userRole");
 		return userRoleRepository.save(userRole);
-	}
+		}
 
-	
-	
-	
 }
+	

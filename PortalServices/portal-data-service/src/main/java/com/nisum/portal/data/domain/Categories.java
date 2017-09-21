@@ -12,56 +12,77 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Categories")
-public class Categories implements Serializable{
-	
+public class Categories implements Serializable {
+
 	/**
 	 * serialVersionUID
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-    @Column(name="categoryId")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "categoryId")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer categoryId;
 	private String categoryName;
+	private String description;
 	private Timestamp createDate;
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	/**
 	 * @return the categoryId
 	 */
 	public Integer getCategoryId() {
 		return categoryId;
 	}
+
 	/**
-	 * @param categoryId the categoryId to set
+	 * @param categoryId
+	 *            the categoryId to set
 	 */
 	public void setCategoryId(Integer categoryId) {
 		this.categoryId = categoryId;
 	}
+
 	/**
 	 * @return the categoryName
 	 */
 	public String getCategoryName() {
 		return categoryName;
 	}
+
 	/**
-	 * @param categoryName the categoryName to set
+	 * @param categoryName
+	 *            the categoryName to set
 	 */
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
+
 	/**
 	 * @return the createDate
 	 */
 	public Timestamp getCreateDate() {
 		return createDate;
 	}
+
 	/**
-	 * @param createDate the createDate to set
+	 * @param createDate
+	 *            the createDate to set
 	 */
 	public void setCreateDate(Timestamp createDate) {
 		this.createDate = createDate;
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -70,10 +91,14 @@ public class Categories implements Serializable{
 		int result = 1;
 		result = prime * result + ((categoryId == null) ? 0 : categoryId.hashCode());
 		result = prime * result + ((categoryName == null) ? 0 : categoryName.hashCode());
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((createDate == null) ? 0 : createDate.hashCode());
 		return result;
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -95,6 +120,11 @@ public class Categories implements Serializable{
 				return false;
 		} else if (!categoryName.equals(other.categoryName))
 			return false;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
 		if (createDate == null) {
 			if (other.createDate != null)
 				return false;
@@ -102,13 +132,15 @@ public class Categories implements Serializable{
 			return false;
 		return true;
 	}
+
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Categories [categoryId=" + categoryId + ", categoryName=" + categoryName + ", createDate=" + createDate
-				+ "]";
+		return "Categories [categoryId=" + categoryId + ", categoryName=" + categoryName + ",description=" + description
+				+ ",createDate=" + createDate + "]";
 	}
 }

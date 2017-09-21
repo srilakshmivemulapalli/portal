@@ -6,6 +6,6 @@ import com.nisum.portal.service.dto.UserDTO;
 //import com.nisum.portal.service.dto.CategoriesDTO;
 
 public interface UsersService {
-	List<UserDTO> getUsers();
+//	List<UserDTO> getUsers();
 
 }

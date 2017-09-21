@@ -18,5 +18,7 @@ public interface UserDAO {
 	List<User> getUsers();
 
 	User findUserById(int userId);
+	
+	long getUserCount();
 
 }

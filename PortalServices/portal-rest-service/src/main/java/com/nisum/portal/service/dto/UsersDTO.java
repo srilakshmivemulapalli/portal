@@ -95,6 +95,12 @@ public class UsersDTO {
 		this.loginDate = timestamp;
 	}
 
-public UserRole getRoleId() {
-return roleId;
+	public UserRole getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(UserRole userRole) {
+		this.roleId = userRole;
+	}
+
 }
