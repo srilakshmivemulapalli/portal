@@ -58,22 +58,31 @@ public class CategoriesDAOImpl implements CategoriesDAO {
 		return status;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.nisum.portal.data.dao.api.CategoriesDAO#updateCategories(com.nisum.portal
+	 * .data.domain.Categories)
+	 */
 	@Override
-	public Categories updateCategories(Categories categories) {
+	public boolean updateCategories(Categories categories) {
 		logger.info("CategoriesDAOImpl :: updateCategories :: Category Details " + categories.toString());
-
 		Categories category = categoriesRepository.findByCategoryId(categories.getCategoryId());
-		if (!category.equals(null)) {
+		boolean flag;
+		if (category != null) {
 			categoriesRepository.save(categories);
+			flag = true;
 		} else {
 			logger.error("Unable To Update Categories with categoryId not found.", categories.getCategoryId());
-			category = null;
+			flag = false;
 		}
-		return category;
+		return flag;
 	}
 
 	@Override
 	public Integer deleteCategories(List<Categories> categories) {
+		logger.info("CategoriesDAOImpl :: deleteCategories");
 		int count = 0;
 		for (Categories categorie : categories) {
 			categoriesRepository.delete(categorie.getCategoryId());

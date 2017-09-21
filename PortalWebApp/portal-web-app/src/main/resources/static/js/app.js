@@ -1,5 +1,5 @@
-var app = angular.module('nisumApp', [ 'ui.router', 'adminApp',
-		'loginApp','questionsApp','directive.g+signin', 'LocalStorageModule']);
+var app = angular.module('nisumApp', [ 'ui.router', 'configurationsApp',
+	'loginApp','questionsApp','directive.g+signin', 'LocalStorageModule' ]);
 
 // app.config(function($routeProvider){
 // $routeProvider.otherwise({redirectTo:'/login'});
@@ -13,29 +13,29 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 		$rootScope.urlChanged = $location.path();
 
-		var urls = [ '/home', '/questions', '/admin' ]
+		var urls = [ '/home', '/questions', '/configurations' ]
 		if (urls.indexOf($rootScope.urlChanged) > -1) {
 			$rootScope.navBarToggle = false;
 		} else {
 			$rootScope.navBarToggle = true;
 		}
 
-//		$timeout(function(){
+// $timeout(function(){
 			var profile = localStorageService.get("profile");	
 			if (profile !== (undefined || null) && $rootScope.urlChanged==='/login') {
 				
-					$state.go('admin');
-//					if (profile.username === 'admin@gmail.com') {
-//						$state.go("admin");
-//					} 
-//					else if (profile.username === 'user@gmail.com') {
-//						$state.go("questions");
-//					}
+					$state.go('configurations');
+// if (profile.username === 'admin@gmail.com') {
+// $state.go("admin");
+// }
+// else if (profile.username === 'user@gmail.com') {
+// $state.go("questions");
+// }
 				
 			} else if (profile === null) {
 				$state.go('login');
 			}
-//		},50);
+// },50);
 		
 	})
 }).controller('mainController', function($scope, localStorageService, $state) {
@@ -45,7 +45,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		vm.profile = localStorageService.get('profile');
 	}
 	vm.logout = function() {
+
 		localStorageService.remove('profile');
-		$state.go('login');
+		var url=window.location.href;
+		var navigate=url.substring(0,url.lastIndexOf("/"));
+		document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue="+navigate+"/login";
+		sessionStorage.clear();
 	}
 })

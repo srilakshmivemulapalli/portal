@@ -30,7 +30,41 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.mockito</groupId>
+   			 <groupId>org.mockito</groupId>
+   			 <artifactId>mockito-all</artifactId>
+   			 <version>1.9.5</version>
+   			 <scope>test</scope>
+		</dependency>
+
+	<dependency>
+	    <groupId>org.powermock</groupId>
+	    <artifactId>powermock-module-junit4</artifactId>
+	    <version>1.7.3</version>
+	    <scope>test</scope>
+	</dependency>
+
+	<dependency>
+	    <groupId>org.powermock</groupId>
+	    <artifactId>powermock-api-mockito</artifactId>
+	    <version>1.7.3</version>
+	    <scope>test</scope>
+	</dependency>
+	
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-test</artifactId>
+    <version>1.5.7.RELEASE</version>
+    <scope>test</scope>
+</dependency>
+	
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-autoconfigure</artifactId>
+    <version>1.0.0.RELEASE</version>
+</dependency>
+
+		<dependency>
+	<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
 			<version>1.9.5</version>
 			<scope>test</scope>
@@ -107,6 +141,29 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-module-junit4</artifactId>
+			<version>${powermock.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-api-mockito</artifactId>
+			<version>${powermock.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>1.8.5</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<version>1.4.3.RELEASE</version>
+		</dependency>
 			<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -120,10 +177,6 @@
 			<version>1.6.5</version>
 			<scope>test</scope>
 		</dependency>
-
-	
-		
-
 	</dependencies>
 	<build>
 

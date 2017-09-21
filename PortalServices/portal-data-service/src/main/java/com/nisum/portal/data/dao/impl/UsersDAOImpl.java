@@ -13,12 +13,12 @@ import com.nisum.portal.data.repository.UsersRespository;
 @Configuration
 public class UsersDAOImpl implements UsersDAO {
 
-	@Autowired
-	UsersRespository usersRepository;
-	
-	@Override
-	public List<User> getUsers() {
-		return usersRepository.findAll();
-	}
+//	@Autowired
+//	UsersRespository usersRepository;
+//	
+//	@Override
+//	public List<User> getUsers() {
+//		return usersRepository.findAll();
+//	}
 
 }

@@ -95,118 +95,7 @@
 		</div>
 
 	</div>
-
-	<!-- MODAL LOGIN / REGISTER -->
-	<div class="modal fade modal-submit-questions" id="login_register"
-		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-hidden="true">
-						<i class="fa fa-times"></i>
-					</button>
-					<h4 class="modal-title modal-title-sign-in" id="myModalLabel">Sign
-						In</h4>
-				</div>
-				<div class="modal-body">
-					<form id="signin_form" class="form_modal_style">
-						<label for="username"> Username or Email </label> <input
-							type="text" class="email_user" name="username" id="username" />
-
-						<label for="password"> Password </label> <input type="password"
-							class="password_user" id="password" name="password">
-						<div class="clearfix"></div>
-						<input type="submit" name="submit" value="Sign in"
-							class="btn-submit"> <a href="javascript:void(0)"
-							class="link_forgot_pass">Forgot password</a>
-						<div class="submit-block">
-							<a href="javascript:void(0)" class="link_sign_up">Sign up
-								here</a><span>or sign in with</span>
-
-							<ul class="social-icon clearfix">
-								<!-- google plus login -->
-								<!-- twitter plus login -->
-								<!-- facebook plus login -->
-							</ul>
-						</div>
-
-					</form>
-
-					<form id="signup_form" class="form_modal_style">
-						<label for="username"> Username </label> <input type="text"
-							class="name_user" name="username" id="username" /> <label
-							for="email"> Email </label> <input type="text" class="email_user"
-							name="email" id="email" /> <label for="password1">
-							Password </label> <input type="password" class="password_user_signup"
-							id="password1" name="password" /> <label for="re_password">
-							Retype Password </label> <input type="password"
-							class="repeat_password_user_signup" id="re_password"
-							name="re_password" />
-
-
-						<div class="clearfix"></div>
-						<div class="gg-captcha"></div>
-						<input type="submit" name="submit" value="Sign up"
-							class="btn-submit"> <a href="javascript:void(0)"
-							class="link_sign_in">Sign in</a>
-
-						<div class="clearfix"></div>
-
-						<p class="policy-sign-up">
-							By clicking "Sign up" you indicate that you have read and agree
-							to the <a target="_blank"
-								href="https://qaengine.enginethemes.com/privacy/">privacy
-								policy</a> and <a target="_blank"
-								href="https://qaengine.enginethemes.com/term/">terms of
-								service.</a>
-						</p>
-					</form>
-
-					<form id="forgotpass_form" class="form_modal_style collapse">
-						<label>Enter your email here</label> <input type="text"
-							class="name_user" name="email" id="email" /> <input
-							type="submit" name="submit" value="Send" class="btn-submit">
-						<a href="javascript:void(0)" class="return_link_sign_in">Sign
-							in</a>
-					</form>
-
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- MODAL LOGIN / REGISTER -->
-
-	<!-- MODAL RESET PASSWORD -->
-	<div class="modal fade modal-submit-questions" id="reset_password"
-		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-hidden="true">
-						<i class="fa fa-times"></i>
-					</button>
-					<h4 class="modal-title modal-title-sign-in" id="myModalLabel">Reset
-						Password</h4>
-				</div>
-				<div class="modal-body">
-
-					<form id="resetpass_form" class="form_modal_style">
-						<input type="hidden" id="user_login" name="user_login" value="" />
-						<input type="hidden" id="user_key" name="user_key" value="">
-						<label>Enter your new password here</label> <input type="password"
-							class="name_user" name="new_password" id="new_password" /> <input
-							type="password" class="name_user" name="re_new_password"
-							id="re_new_password" /> <input type="submit" name="submit"
-							value="Reset" class="btn-submit">
-					</form>
-
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- MODAL RESET PASSWORD -->
+	
 
 	<!-- MODAL EDIT PROFILE / CHANGE PASS -->
 	<div class="modal fade modal-edit-profile" id="edit_profile"
@@ -280,105 +169,12 @@
 		</div>
 	</div>
 	
-	<!-- MODAL DELETE -->
-	<div id="deleteModal2" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal Header</h4>
-      </div>
-      <div class="modal-body">
-        <p>Some text in the modal.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
+	
 	
 
-	<div id="wp-link-backdrop" style="display: none"></div>
-	<div id="wp-link-wrap" class="wp-core-ui" style="display: none"
-		role="dialog" aria-labelledby="link-modal-title">
-		<form id="wp-link" tabindex="-1">
-			<input type="hidden" id="_ajax_linking_nonce"
-				name="_ajax_linking_nonce" value="81fd61a218" />
-			<h1 id="link-modal-title">Insert/edit link</h1>
-			<button type="button" id="wp-link-close">
-				<span class="screen-reader-text">Close</span>
-			</button>
-			<div id="link-selector">
-				<div id="link-options">
-					<p class="howto" id="wplink-enter-url">Enter the destination
-						URL</p>
-					<div>
-						<label><span>URL</span> <input id="wp-link-url"
-							type="text" aria-describedby="wplink-enter-url" /></label>
-					</div>
-					<div class="wp-link-text-field">
-						<label><span>Link Text</span> <input id="wp-link-text"
-							type="text" /></label>
-					</div>
-					<div class="link-target">
-						<label><span></span> <input type="checkbox"
-							id="wp-link-target" /> Open link in a new tab</label>
-					</div>
-				</div>
-				<p class="howto" id="wplink-link-existing-content">Or link to
-					existing content</p>
-				<div id="search-panel">
-					<div class="link-search-wrapper">
-						<label> <span class="search-label">Search</span> <input
-							type="search" id="wp-link-search" class="link-search-field"
-							autocomplete="off"
-							aria-describedby="wplink-link-existing-content" /> <span
-							class="spinner"></span>
-						</label>
-					</div>
-					<div id="search-results" class="query-results" tabindex="0">
-						<ul></ul>
-						<div class="river-waiting">
-							<span class="spinner"></span>
-						</div>
-					</div>
-					<div id="most-recent-results" class="query-results" tabindex="0">
-						<div class="query-notice" id="query-notice-message">
-							<em class="query-notice-default">No search term specified.
-								Showing recent items.</em> <em
-								class="query-notice-hint screen-reader-text">Search or use
-								up and down arrow keys to select an item.</em>
-						</div>
-						<div class="river-waiting">
-							<span class="spinner"></span>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="submitbox">
-				<div id="wp-link-cancel">
-					<button type="button" class="button">Cancel</button>
-				</div>
-				<div id="wp-link-update">
-					<input type="submit" value="Add Link" class="button button-primary"
-						id="wp-link-submit" name="wp-link-submit">
-				</div>
-			</div>
-		</form>
-	</div>
-	<style type="text/css">
-.post-a-job .step .toggle-title, .btn-background, .icon-border {
-	box-sizing: content-box;
-}
 
-.et-plugin-demobar .icon:before {
-	font-size: 20px;
-}
-</style>
+	
+
 
 	
 
@@ -388,7 +184,9 @@
 	
 	<script src="bower_components/angular-ui-router/release/angular-ui-router.js"/></script>
 	<script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
-	<!-- <script src="bower_components/angular-directive.g-signin/google-plus-signin.js"></script> -->
+	
+	
+	
 	<script src="js/directives/google-plus-signin.js"></script>
 	<!-- bootstrap scripts -->
 	<script src="bower_components/jquery/dist/jquery.js"></script>
@@ -409,15 +207,6 @@
 	<script src='js/admin/adminController.js'></script>
 	<script src='js/login/loginController.js'></script>
 	
-<script>
-function onSignIn(googleUser) {
-	  var profile = googleUser.getBasicProfile();
-	  localStorage.setItem('googleDetails',profile);
-	 /*  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-	  console.log('Name: ' + profile.getName());
-	  console.log('Image URL: ' + profile.getImageUrl());
-	  console.log('Email: ' + profile.getEmail()); */ // This is null if the 'email' scope is not present.
-	}
-</script>
+
 </body>
 </html>

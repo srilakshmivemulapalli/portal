@@ -8,12 +8,17 @@ public class UserServiceException extends Exception {
 		return errorMessage;
 	}
 
-	public UserServiceException(String errorMessage) {
+	public UserServiceException(String errorMessage, Exception e) {
 		super(errorMessage);
 		this.errorMessage = errorMessage;
+		e.printStackTrace();
 	}
 	public UserServiceException() {
 		super();
+	}
+	public UserServiceException(String errorMessage) {
+		super(errorMessage);
+		this.errorMessage = errorMessage;
 	}
 
 }
