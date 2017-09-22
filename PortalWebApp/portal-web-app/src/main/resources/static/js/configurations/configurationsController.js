@@ -152,12 +152,12 @@ adminApp
 						if ($scope.deleteitem.name === 'user') {
 							$http.put(
 									'v1/user/deleteUser/'
-											+ $scope.deleteitem.itemid)
+											+ $scope.deleteitem.itemId)
 									.success(function(response) {
 										$scope.getUsers();
 										alert(response.message);
-									}).error(function() {
-										alert('error');
+									}).error(function(response) {
+										alert(response.message);
 									});
 
 						} else if ($scope.deleteitem.name === 'role') {

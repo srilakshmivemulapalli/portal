@@ -42,13 +42,9 @@ public class UserRestService {
 	public ResponseEntity<ServiceStatusDto> deleteUser(@PathVariable Integer userId) throws UserServiceException{
 		logger.info("UserRestService :: deleteUser :: Deleting User");
 		try {
-			UserDTO userdto = userService.findUserById(userId);
+			String activeStatus = userService.findUserById(userId);
 			ServiceStatusDto serviceStatusDTO = new ServiceStatusDto();
-			String activeStatus = null;
-			if (userdto != null) {
-				activeStatus = userdto.getActiveStatus();	
-			}
-			if (userdto == null || activeStatus.equalsIgnoreCase("No")) {
+			if (activeStatus == null || activeStatus.equalsIgnoreCase("No")) {
 				serviceStatusDTO.setMessage(ExceptionConstants.USERNOTEXISTS);
 				return new ResponseEntity<ServiceStatusDto>(serviceStatusDTO, HttpStatus.EXPECTATION_FAILED);
 			} else {
