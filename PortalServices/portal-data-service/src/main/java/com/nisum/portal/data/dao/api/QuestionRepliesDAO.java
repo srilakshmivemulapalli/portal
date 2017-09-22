@@ -7,4 +7,5 @@ import com.nisum.portal.data.domain.QuestionReplies;
 public interface QuestionRepliesDAO {
 
 	List<QuestionReplies> getQuestionReplies();
+	Integer getQuestionariesReplyCount(int questId);
 }
