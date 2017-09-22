@@ -7,4 +7,6 @@ import com.nisum.portal.service.dto.QuestionariesDTO;
 public interface QuestionariesService {
 
 	List<QuestionariesDTO> getQuestionaries();
+	
+	long getQuestionariesCount();
 }

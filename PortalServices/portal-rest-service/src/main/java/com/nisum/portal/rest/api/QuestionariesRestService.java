@@ -36,6 +36,19 @@ public class QuestionariesRestService {
 		logger.info("QuestionariesRestService :: categories");
 		return questionariesService.getQuestionaries();
 	}
+	
+	/**
+	 * questionariesCount
+	 * 
+	 * @return
+	 * @throws QuestionariesServiceException
+	 */
+	@RequestMapping(value = "/retrieveCount", method = RequestMethod.GET)
+	public Object retrieveCount() throws QuestionariesServiceException {
+		logger.info("QuestionariesRestService :: questionariesCount");
+		return questionariesService.getQuestionariesCount();
+	}
+	
 	/**
 	 * exceptionHandler
 	 * 

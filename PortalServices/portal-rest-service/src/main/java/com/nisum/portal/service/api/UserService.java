@@ -10,4 +10,5 @@ public interface UserService {
 	String updateUserDetails(UserDTO user);
 	public UserDTO findUserById(int userId);
 	List<UserDTO> getUsers();
+	long getUserCount();
 }

@@ -63,19 +63,10 @@ public class CategoriesRestServiceTest {
 	@Test
 	public void deleteCategoriesTest() throws CategoryServiceException 
 	{
-	  String message=1+" Categories deleted successfully";
+	  String message=" Categories deleted successfully";
 	  ResponseEntity<Object> expmsg=new ResponseEntity<Object>(message,HttpStatus.OK);
-		ArrayList<CategoriesDTO> categoriesList=new ArrayList<CategoriesDTO>();
-		CategoriesDTO categories1=new CategoriesDTO();
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		categories1.setCategoryId(101);
-		categories1.setCategoryName("java");
-		categories1.setCreateDate(timestamp);
-		
-		categoriesList.add(categories1);
-		when(categoryService.deleteCategories(categoriesList)).thenReturn(message);
-	
-		ResponseEntity<Object> result =mainController.deletingCategories(categoriesList);
+		when(categoryService.deleteCategories(101)).thenReturn("Success");
+		ResponseEntity<Object> result =mainController.deletingCategories(101);
 		System.out.println(result);
 		assertEquals(expmsg, result);
 		

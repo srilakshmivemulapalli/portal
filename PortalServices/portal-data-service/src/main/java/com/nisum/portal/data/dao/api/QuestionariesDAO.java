@@ -7,4 +7,5 @@ import com.nisum.portal.data.domain.Questionaries;
 public interface QuestionariesDAO {
 
 	List<Questionaries> getQuestionaries();
+	long getQuestionariesCount();
 }

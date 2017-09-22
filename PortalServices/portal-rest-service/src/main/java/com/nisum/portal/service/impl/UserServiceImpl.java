@@ -45,5 +45,9 @@ public class UserServiceImpl implements UserService {
 		return UserServiceUtil.convertDaoObjectTODto(user);
 		
 	}
+	@Override
+	public long getUserCount() {
+		return userDAO.getUserCount();
+	}
 
 }

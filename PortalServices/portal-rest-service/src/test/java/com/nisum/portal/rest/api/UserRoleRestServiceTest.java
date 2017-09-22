@@ -13,11 +13,13 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.http.ResponseEntity;
 
 import com.nisum.portal.data.dao.api.UserRoleDAO;
 import com.nisum.portal.data.domain.UserRole;
 import com.nisum.portal.service.api.UserRoleService;
 import com.nisum.portal.service.dto.UserRoleDTO;
+import com.nisum.portal.service.exception.UserRoleServiceException;
 
 
 @RunWith(MockitoJUnitRunner.class)
@@ -89,27 +91,25 @@ public class UserRoleRestServiceTest {
 		UserRoleDTO userRoleDTO = new UserRoleDTO();
 		userRoleDTO.setRole("mg");
 		userRoleDTO.setRoleId(1);
-		userRoleDTO.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 		expected.add(userRoleDTO);
 	}
 	
 	
 	
 	@Test
-	public void getUserRoleTest() {
+	public void getUserRoleTest() throws UserRoleServiceException {
 		List<UserRoleDTO> list = new ArrayList<>();
 		UserRoleDTO userRoleDto = new UserRoleDTO();
 		userRoleDto.setRoleId(1);
 		userRoleDto.setRole("mg");
-		userRoleDto.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 		list.add(userRoleDto);
 		when(userRoleService.getUserRole()).thenReturn(list);
-		List<UserRoleDTO> actual =  userRoleRestService.getUserRole();
-		assertEquals(actual.size(), expected.size());
+		ResponseEntity<List<UserRoleDTO>> actual =  userRoleRestService.getUserRole();
+		assertEquals(actual, expected.size());
 	}
 
 	@Test
-	public void updateUserRoleTest() {
+	public void updateUserRoleTest() throws UserRoleServiceException {
 		String  message= "user role successfully updated into database";
 		UserRole expected1 = new UserRole();
 		expected1.setRole("mg");
@@ -119,7 +119,7 @@ public class UserRoleRestServiceTest {
 		userRole.setRoleId(1);
 		userRole.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 		when(userRoleService.updateUserRole(userRole)).thenReturn(userRole);
-		String actual = userRoleRestService.updateUserRole(userRole);
+		ResponseEntity<String> actual = userRoleRestService.updateUserRole(userRole);
 		assertEquals(actual, message);
 	}
 
