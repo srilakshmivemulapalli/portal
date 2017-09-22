@@ -189,5 +189,34 @@ adminApp
 
 						});
 					};
+					
+					$scope.confirmEdit = function(name, item) {
+						$scope.editteditem= {
+							'name' : name,
+							'item' : item
+
+						}
+						$('#editModal').modal('show');
+					}
+					$scope.editItem = function() {
+						if ($scope.editteditem.name === 'user') {
+							$http.put(
+									'v1/user/deleteUser/'
+											+ $scope.editteditem.item)
+									.success(function(response) {
+										$scope.getUsers();
+										alert(response.message);
+									}).error(function() {
+										alert('error');
+									});
+
+						} else if ($scope.editteditem.name === 'role') {
+							alert('role');
+						} else if ($scope.editteditem.name === 'category') {
+							alert('category');
+						}
+						$('#editModal').modal('hide');
+					}
+
 
 				});
