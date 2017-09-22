@@ -189,34 +189,26 @@ adminApp
 
 						});
 					};
-					
-					$scope.confirmEdit = function(name, item) {
-						$scope.editteditem= {
-							'name' : name,
-							'item' : item
+					$scope.updateCategory = function(category) {
 
-						}
-						$('#editModal').modal('show');
-					}
-					$scope.editItem = function() {
-						if ($scope.editteditem.name === 'user') {
-							$http.put(
-									'v1/user/deleteUser/'
-											+ $scope.editteditem.item)
-									.success(function(response) {
-										$scope.getUsers();
-										alert(response.message);
-									}).error(function() {
-										alert('error');
-									});
+						var category = {
+							"categoryId" : category.categoryId,
+							"categoryName" : category.categoryName,
+							"description" : category.description
+						};
 
-						} else if ($scope.editteditem.name === 'role') {
-							alert('role');
-						} else if ($scope.editteditem.name === 'category') {
-							alert('category');
-						}
-						$('#editModal').modal('hide');
-					}
+						$http({
+							url : 'v1/category/updateCategory',
+							method : "PUT",
+							data : category
+						}).then(function(response) {
+							console.log(response);
+							$scope.getCategories();
+							$scope.categoryobj.categoryName = "";
+							$scope.categoryobj.description = "";
+						}, function(response) { // optional
+							console.log(response);
 
-
+						});
+					};
 				});

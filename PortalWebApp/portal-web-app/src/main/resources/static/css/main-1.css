@@ -4043,20 +4043,6 @@ body.admin-bar .q-filter-waypoints {
 	min-height:40px;
 	padding:10px;
 }
-.editicon {
-	font-size: 20px;
-    padding-left: 10px;
-   	top:7px;
-   	color:#3498db;
-}
-.txtdisabled{
-	border:none;
-	background:none;
-}
-table thead tr th, table tbody tr td{
-	text-align:center;
-}
-
 
 /***************login****************/
 .card-container.card {
