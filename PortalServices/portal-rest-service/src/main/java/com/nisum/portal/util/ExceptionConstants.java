@@ -1,6 +1,6 @@
 package com.nisum.portal.util;
 
-public class ExceptionConstans {
+public class ExceptionConstants {
 
 	public static final String USERNOTEXISTS = "User doesnot exists";
 	public static final String INTERNALSERVERERROR = "Internal Server Error";

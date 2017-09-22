@@ -20,7 +20,7 @@ import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.dto.UserDTO;
 import com.nisum.portal.service.exception.QuestionariesServiceException;
 import com.nisum.portal.service.exception.UserServiceException;
-import com.nisum.portal.util.ExceptionConstans;
+import com.nisum.portal.util.ExceptionConstants;
 import com.nisum.portal.util.UserConstants;
 
 @RestController
@@ -33,8 +33,9 @@ public class UserRestService {
 	UserService userService;
 	
 	/**
-	 * Used to delete a single user
+	 * 
 	 * @param userId
+	 * @return
 	 * @throws UserServiceException
 	 */
 	@RequestMapping(value = "/deleteUser/{userId}",method=RequestMethod.PUT,produces="application/json")
@@ -48,16 +49,16 @@ public class UserRestService {
 				activeStatus = userdto.getActiveStatus();	
 			}
 			if (userdto == null || activeStatus.equalsIgnoreCase("No")) {
-				serviceStatusDTO.setMessage(ExceptionConstans.USERNOTEXISTS);
+				serviceStatusDTO.setMessage(ExceptionConstants.USERNOTEXISTS);
 				return new ResponseEntity<ServiceStatusDto>(serviceStatusDTO, HttpStatus.EXPECTATION_FAILED);
 			} else {
 				userService.deleteUser(userId);
-				serviceStatusDTO.setMessage(ExceptionConstans.USERDELETED);
+				serviceStatusDTO.setMessage(ExceptionConstants.USERDELETED);
 				return new ResponseEntity<ServiceStatusDto>(serviceStatusDTO, HttpStatus.OK);
 			}
 		} catch (Exception e) {
 			logger.info("UserRestService :: deleteUser :: Internal Server Error");
-			throw new UserServiceException(ExceptionConstans.INTERNALSERVERERROR, e);
+			throw new UserServiceException(ExceptionConstants.INTERNALSERVERERROR, e);
 		}
 	}
 	
@@ -80,7 +81,7 @@ public class UserRestService {
 		logger.info("UserRestService :: users::: update");
 		try {
 		if(userDto==null) {
-			throw new UserServiceException(ExceptionConstans.INTERNALSERVERERROR);
+			throw new UserServiceException(ExceptionConstants.INTERNALSERVERERROR);
 		}
 		userService.updateUserDetails(userDto);
 		return new ResponseEntity<Object>(UserConstants.USERUPDATED, HttpStatus.OK);
@@ -88,7 +89,7 @@ public class UserRestService {
 		catch(Exception e)
 		{
 			logger.info("UserRestService :: UpdateUser :: Internal Server Error");
-			throw new UserServiceException(ExceptionConstans.INTERNALSERVERERROR, e);
+			throw new UserServiceException(ExceptionConstants.INTERNALSERVERERROR, e);
 		}
 	}
 	@RequestMapping(value = "/updateUsers",method=RequestMethod.PUT,consumes = "application/json",produces="application/json")
@@ -104,7 +105,7 @@ public class UserRestService {
 		catch(Exception e)
 		{
 			logger.info("UserRestService :: Update multiple Users :: Internal Server Error");
-			throw new UserServiceException(ExceptionConstans.INTERNALSERVERERROR, e);
+			throw new UserServiceException(ExceptionConstants.INTERNALSERVERERROR, e);
 		}
 	}
 	

@@ -19,7 +19,7 @@ import com.nisum.portal.service.api.UserRoleService;
 import com.nisum.portal.service.dto.Errors;
 import com.nisum.portal.service.dto.UserRoleDTO;
 import com.nisum.portal.service.exception.UserRoleServiceException;
-import com.nisum.portal.util.ExceptionConstans;
+import com.nisum.portal.util.ExceptionConstants;
 
 @RestController
 @RequestMapping("/v1/userrole")
@@ -86,12 +86,12 @@ public class UserRoleRestService {
 		try {
 			UserRole updateUserRole=userRoleService.updateUserRole(userRole);		
 			if(updateUserRole==null) {
-				return new ResponseEntity<>(ExceptionConstans.USERROLENOTEXISTS,HttpStatus.EXPECTATION_FAILED);
+				return new ResponseEntity<>(ExceptionConstants.USERROLENOTEXISTS,HttpStatus.EXPECTATION_FAILED);
 			}
 			else
-				return new ResponseEntity<>(ExceptionConstans.USERROLEUPDATED,HttpStatus.OK);
+				return new ResponseEntity<>(ExceptionConstants.USERROLEUPDATED,HttpStatus.OK);
 		} catch (Exception e) {
-			throw new UserRoleServiceException(ExceptionConstans.INTERNALSERVERERROR);
+			throw new UserRoleServiceException(ExceptionConstants.INTERNALSERVERERROR);
 		}
 
 	}

@@ -141,16 +141,25 @@ adminApp
 						console.log(data);
 					}
 
-					$scope.confirmDelete = function(name, item) {
+					$scope.confirmDelete = function(name, itemId) {
 						$scope.deleteitem = {
 							'name' : name,
-							'item' : item
+							'itemId' : itemId
 						}
 						$('#deleteModal').modal('show');
 					}
 					$scope.deleteItem = function() {
 						if ($scope.deleteitem.name === 'user') {
-							alert('user');
+							console.log("entered into user delete method")
+							$http.put('v1/user/deleteUser/'+$scope.deleteitem.itemid).success(function(response){
+								console.log(response);
+								console.log("user deleted")
+								getUsers();
+								alert(response.message);
+								console.log("Success");
+								}).error(function(){
+								alert('Error in deleting User');
+								});
 						} else if ($scope.deleteitem.name === 'role') {
 							alert('role');
 						} else if ($scope.deleteitem.name === 'category') {
@@ -186,8 +195,6 @@ adminApp
 					};
 
 				});
-<<<<<<< HEAD
-=======
 			
 			});
 		$http({
@@ -256,4 +263,3 @@ adminApp
 	
 	
 });
->>>>>>> 1f5d73884ed6047feb9001760b27b9d77e1ae1d9
