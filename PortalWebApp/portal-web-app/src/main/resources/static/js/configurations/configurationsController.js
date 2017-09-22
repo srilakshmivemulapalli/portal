@@ -189,5 +189,26 @@ adminApp
 
 						});
 					};
+					$scope.updateCategory = function(category) {
 
+						var category = {
+							"categoryId" : category.categoryId,
+							"categoryName" : category.categoryName,
+							"description" : category.description
+						};
+
+						$http({
+							url : 'v1/category/updateCategory',
+							method : "PUT",
+							data : category
+						}).then(function(response) {
+							console.log(response);
+							$scope.getCategories();
+							$scope.categoryobj.categoryName = "";
+							$scope.categoryobj.description = "";
+						}, function(response) { // optional
+							console.log(response);
+
+						});
+					};
 				});
