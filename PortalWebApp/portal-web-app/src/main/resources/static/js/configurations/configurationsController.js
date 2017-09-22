@@ -13,17 +13,16 @@ adminApp
 					$scope.category = false;
 					$scope.edituser = true;
 
-					console.log("Admin Controller");
 					$scope.categoryobj = {
-						"categoryId" : 5,
+						"categoryId" : -1,
 						"categoryName" : "",
-						"description" : "",
-						"createDate" : '9/25/2017'
+						"description" : ""
+
 					};
 					$scope.roleobj = {
-						"roleId" : 4,
-						"role" : "",
-						"createdDate" : '9/25/2017'
+						"roleId" : -1,
+						"role" : ""
+
 					}
 					$scope.getUsers = function() {
 						$scope.getRoles();
@@ -60,7 +59,7 @@ adminApp
 						}
 					}
 					$scope.addCategory = function() {
-						console.log("predefined add category")
+
 						if ($scope.categoryobj.categoryName.length > 0
 								&& $scope.categoryobj.description.length > 0) {
 							$scope.categoriesList.push($scope.categoryobj);
@@ -145,21 +144,22 @@ adminApp
 						$scope.deleteitem = {
 							'name' : name,
 							'itemId' : itemId
+
 						}
 						$('#deleteModal').modal('show');
 					}
 					$scope.deleteItem = function() {
 						if ($scope.deleteitem.name === 'user') {
-							console.log("entered into user delete method")
-							$http.put('v1/user/deleteUser/'+$scope.deleteitem.itemid).success(function(response){
-								console.log(response);
-								console.log("user deleted")
-								getUsers();
-								alert(response.message);
-								console.log("Success");
-								}).error(function(){
-								alert('Error in deleting User');
-								});
+							$http.put(
+									'v1/user/deleteUser/'
+											+ $scope.deleteitem.itemid)
+									.success(function(response) {
+										$scope.getUsers();
+										alert(response.message);
+									}).error(function() {
+										alert('error');
+									});
+
 						} else if ($scope.deleteitem.name === 'role') {
 							alert('role');
 						} else if ($scope.deleteitem.name === 'category') {
@@ -168,11 +168,7 @@ adminApp
 						$('#deleteModal').modal('hide');
 					}
 
-				
-
 					$scope.addCategory = function(category) {
-
-					
 
 						var category = {
 							"categoryName" : category.categoryName,
@@ -195,71 +191,3 @@ adminApp
 					};
 
 				});
-			
-			});
-		$http({
-			url : 'v1/user/updateUsers',
-			method : "PUT",
-			data : data
-		}).success(function (response) {
-			alert(response);
-        })
-        .error(function (response) {
-        	alert(response);
-        });
-		//console.log(data);
-	}
-	
-	$scope.confirmDelete=function(name,itemid){
-		$scope.deleteitem={
-				'name':name,
-				'itemid':itemid
-		}
-		$('#deleteModal').modal('show');
-	}
-	$scope.deleteItem=function(){
-		if($scope.deleteitem.name==='user'){
-			console.log('entered into user delete method')
-			$http.put('v1/user/deleteUser/'+$scope.deleteitem.itemid).success(function(response){
-				$scope.getUsers();
-				alert(response.message);
-				}).error(function(){
-				alert('error');
-				});
-	}
-			else if($scope.deleteitem.name==='role'){
-				alert('role');
-			}
-			else if($scope.deleteitem.name==='category'){
-				alert('category');
-			}
-			$('#deleteModal').modal('hide');
-	}
-	
-	$scope.addCategory = function(){
-		$scope.category = {
-				"categoryName" : "Spirngboot",
-				"description" : "Spring advanced one"
-		}
-		
-	
-	}
-	
-	var category = {
-			"categoryName" : "Spirngboot",
-			"description" : "Spring advanced one"
-	}
-	
-	$http({
-		url : 'v1/category/addCategory',
-		method : "POST",
-		data : category
-	}).then(function(response) {
-		console.log(response);
-	}, function(response) { // optional
-		console.log(response);
-
-	});
-	
-	
-});

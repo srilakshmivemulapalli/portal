@@ -27,6 +27,7 @@
 									<th>Email</th>
 									<th>Role</th>
 									<th>Created Date</th>
+									<th>Change Role</th>
 									<th></th>
 								</tr>
 							</thead>
@@ -49,7 +50,7 @@
 										src="images/delete.png"
 										ng-class="{'disabled':!userselected[$index]}"
 										ng-disabled="{'disabled':userselected[$index]}"
-										ng-click="confirmDelete('user',user.userId);" /></td>
+										ng-click="!userselected[$index] || confirmDelete('user',user.userId);" /></td>
 								</tr>
 
 							</tbody>
@@ -105,7 +106,7 @@
 										src="images/delete.png"
 										ng-class="{'disabled':!roleselected[$index]}"
 										ng-disabled="{'disabled':roleselected[$index]}"
-										ng-click="confirmDelete('role',role);" /></td>
+										ng-click="!roleselected[$index]||confirmDelete('role',role.roleId);" /></td>
 								</tr>
 
 							</tbody>
@@ -165,7 +166,7 @@
 										src="images/delete.png"
 										ng-class="{'disabled':!categoryselected[$index]}"
 										ng-disabled="{'disabled':categoryselected[$index]}"
-										ng-click="confirmDelete('category',category);" /></td>
+										ng-click="!categoryselected[$index]|| confirmDelete('category',category.cateogryId);" /></td>
 								</tr>
 							</tbody>
 						</table>
