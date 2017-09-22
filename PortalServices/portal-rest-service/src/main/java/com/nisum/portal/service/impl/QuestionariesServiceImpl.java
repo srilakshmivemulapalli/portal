@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nisum.portal.data.dao.api.QuestionariesDAO;
+import com.nisum.portal.data.dao.api.UserDAO;
 import com.nisum.portal.data.domain.Questionaries;
 import com.nisum.portal.service.api.QuestionariesService;
 import com.nisum.portal.service.dto.QuestionariesDTO;
+import com.nisum.portal.service.dto.QuestionsDTO;
 import com.nisum.portal.util.QuestionariesUtil;
 
 @Service
@@ -20,10 +22,16 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 	@Autowired
 	private QuestionariesDAO questionariesDAO;
 	
+	@Autowired
+	private UserDAO userDAO;
+	
 	@Override
-	public List<QuestionariesDTO> getQuestionaries() {
+	public QuestionsDTO getQuestionaries() {
 		List<Questionaries> questionariesList = questionariesDAO.getQuestionaries();
-		return QuestionariesUtil.convertDaoToDto(questionariesList);
+		QuestionsDTO questionsDTO = new QuestionsDTO();
+		questionsDTO.setTotalQuestions(questionariesDAO.getQuestionariesCount());
+		questionsDTO.setTotalUsers(userDAO.getUserCount());
+		return QuestionariesUtil.convertDaoToDto(questionariesList,questionsDTO);
 	}
 
 	@Override

@@ -6,20 +6,33 @@ import java.sql.Timestamp;
 public class QuestionariesDTO {
 
 	
-	private int questionId;
+	private Long questionId;
 	private String question;
 	private String description;
 	private Timestamp createdDate;
 	
-	private int userId;
 	private String categoryName;
 	private String emailId;
 	private String displayName;
 	
-	public int getQuestionId() {
+	private Integer questionRepliesCount;
+	
+	/**
+	 * @return the questionRepliesCount
+	 */
+	public Integer getQuestionRepliesCount() {
+		return questionRepliesCount;
+	}
+	/**
+	 * @param questionRepliesCount the questionRepliesCount to set
+	 */
+	public void setQuestionRepliesCount(Integer questionRepliesCount) {
+		this.questionRepliesCount = questionRepliesCount;
+	}
+	public Long getQuestionId() {
 		return questionId;
 	}
-	public void setQuestionId(int questionId) {
+	public void setQuestionId(Long questionId) {
 		this.questionId = questionId;
 	}
 	public String getQuestion() {
@@ -39,12 +52,6 @@ public class QuestionariesDTO {
 	}
 	public void setCreatedDate(Timestamp createdDate) {
 		this.createdDate = createdDate;
-	}
-	public int getUserId() {
-		return userId;
-	}
-	public void setUserId(int userId) {
-		this.userId = userId;
 	}
 	public String getCategoryName() {
 		return categoryName;
@@ -74,8 +81,7 @@ public class QuestionariesDTO {
 		result = prime * result + ((displayName == null) ? 0 : displayName.hashCode());
 		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
 		result = prime * result + ((question == null) ? 0 : question.hashCode());
-		result = prime * result + questionId;
-		result = prime * result + userId;
+		result = (int) (prime * result + questionId);
 		return result;
 	}
 	@Override
@@ -119,14 +125,12 @@ public class QuestionariesDTO {
 			return false;
 		if (questionId != other.questionId)
 			return false;
-		if (userId != other.userId)
-			return false;
 		return true;
 	}
 	@Override
 	public String toString() {
 		return "QuestionariesDTO [questionId=" + questionId + ", question=" + question + ", description=" + description
-				+ ", createdDate=" + createdDate + ", userId=" + userId + ", categoryName=" + categoryName
+				+ ", createdDate=" + createdDate + ", categoryName=" + categoryName
 				+ ", emailId=" + emailId + ", displayName=" + displayName + "]";
 	}
 	
