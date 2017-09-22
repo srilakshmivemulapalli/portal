@@ -39,14 +39,10 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public String findUserById(int userId) {
-		String activeStatus = null;
+	public UserDTO findUserById(int userId) {
 		logger.info("UserServiceImpl :: findUserById :: Finding user by userId");
 		User  user=userDAO.findUserById(userId);
-		if (user != null) {
-			activeStatus = user.getActiveStatus();
-		}
-		return activeStatus;
+		return UserServiceUtil.convertDaoObjectTODto(user);
 		
 	}
 	@Override
