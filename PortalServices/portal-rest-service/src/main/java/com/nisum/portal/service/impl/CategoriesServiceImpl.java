@@ -87,6 +87,7 @@ public class CategoriesServiceImpl implements CategoriesService{
 			}
 			catch(Exception e)
 			{
+				logger.error("CategoriesServiceImpl :: updateCategories :: Exception");
 				throw new CategoryServiceException("CategoryId Not Existed");
 			}
 			
@@ -98,13 +99,11 @@ public class CategoriesServiceImpl implements CategoriesService{
 		logger.info("CategoriesServiceImpl :: deleteCategories");
           return categoriesDAO.deleteCategories(categoryId);
 	}
-	
+
 
 	@Override
-	public CategoriesDTO getCategory(Integer id) {
-		Categories category=categoriesDAO.getCategory(id);
-		return CategoryServiceUtil.convertDaoToDtoInstance(category);
+	public Object getCategory(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
-
 }

@@ -186,3 +186,74 @@ adminApp
 					};
 
 				});
+<<<<<<< HEAD
+=======
+			
+			});
+		$http({
+			url : 'v1/user/updateUsers',
+			method : "PUT",
+			data : data
+		}).success(function (response) {
+			alert(response);
+        })
+        .error(function (response) {
+        	alert(response);
+        });
+		//console.log(data);
+	}
+	
+	$scope.confirmDelete=function(name,itemid){
+		$scope.deleteitem={
+				'name':name,
+				'itemid':itemid
+		}
+		$('#deleteModal').modal('show');
+	}
+	$scope.deleteItem=function(){
+		if($scope.deleteitem.name==='user'){
+			console.log('entered into user delete method')
+			$http.put('v1/user/deleteUser/'+$scope.deleteitem.itemid).success(function(response){
+				$scope.getUsers();
+				alert(response.message);
+				}).error(function(){
+				alert('error');
+				});
+	}
+			else if($scope.deleteitem.name==='role'){
+				alert('role');
+			}
+			else if($scope.deleteitem.name==='category'){
+				alert('category');
+			}
+			$('#deleteModal').modal('hide');
+	}
+	
+	$scope.addCategory = function(){
+		$scope.category = {
+				"categoryName" : "Spirngboot",
+				"description" : "Spring advanced one"
+		}
+		
+	
+	}
+	
+	var category = {
+			"categoryName" : "Spirngboot",
+			"description" : "Spring advanced one"
+	}
+	
+	$http({
+		url : 'v1/category/addCategory',
+		method : "POST",
+		data : category
+	}).then(function(response) {
+		console.log(response);
+	}, function(response) { // optional
+		console.log(response);
+
+	});
+	
+	
+});
+>>>>>>> 1f5d73884ed6047feb9001760b27b9d77e1ae1d9

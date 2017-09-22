@@ -63,19 +63,22 @@ public class CategoriesRestService {
 			throw new CategoryServiceException(KeyConstants.CATEGORY_EXISTS);
 		}
 	}
-
-	@RequestMapping(value = "/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> updateCategories(@RequestBody CategoriesDTO categoriesDTO)
-			throws CategoryServiceException {
-		logger.info("CategoriesRestService :: updateCategories :: Category Details " + categoriesDTO.toString());
-		try {
-			String status = categoriesService.update(categoriesDTO);
-			if (status.equalsIgnoreCase("success"))
-				return new ResponseEntity<Object>("Categories Updated Successfully", HttpStatus.OK);
-			else {
-				return new ResponseEntity<Object>("CategoryId is Not Found", HttpStatus.NOT_FOUND);
-			}
-		} catch (Exception e) {
+	@RequestMapping(value="/update",method=RequestMethod.PUT,consumes=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> updateCategories(@RequestBody CategoriesDTO categoriesDTO) throws CategoryServiceException
+	{
+		logger.info("CategoriesRestService :: updateCategories :: Category Details "+categoriesDTO.toString());
+		try
+		{
+				String status = categoriesService.update(categoriesDTO);
+				if(status.equalsIgnoreCase("success"))
+					return new ResponseEntity<String>("Categories Updated Successfully",HttpStatus.OK);
+				else
+				{
+					return new ResponseEntity<String>("CategoryId is Not Found",HttpStatus.EXPECTATION_FAILED);
+				}
+		}
+		catch(Exception e)
+		{
 			logger.error("Unable To Update Categories with categoryId not found.", categoriesDTO.getCategoryId());
 			throw new CategoryServiceException("Categories Not Exist");
 		}

@@ -2,7 +2,6 @@ package com.nisum.portal.data.dao.api.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 import java.sql.Timestamp;
@@ -12,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.nisum.portal.data.dao.impl.CategoriesDAOImpl;
@@ -42,6 +42,21 @@ public class CategoriesDAOImplTest {
 		assertEquals(status, categoriesDaoImpl.addCategory(category));
 		// assertTrue(categoriesDaoImpl.addCategory(category));
 
+	}
+	@Test
+	public void updateCategory() {
+		boolean expected = true;
+		Timestamp timestamp=new Timestamp(System.currentTimeMillis());
+		Categories category = new Categories();
+		category.setCategoryId(1);
+		category.setCategoryName("Hadoop");
+		category.setCreateDate(timestamp);
+		Mockito.when(categoriesRepository.findByCategoryId(1)).thenReturn(category);
+		assertEquals(expected, categoriesDaoImpl.updateCategories(category));
+		Mockito.when(categoriesRepository.findByCategoryId(2)).thenReturn(null);
+		Categories cg=new Categories();
+		cg.setCategoryId(2);
+		assertFalse(categoriesDaoImpl.updateCategories(cg));
 	}
 
 	@Test

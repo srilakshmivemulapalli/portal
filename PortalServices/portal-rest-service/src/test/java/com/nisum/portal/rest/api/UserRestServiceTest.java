@@ -14,6 +14,8 @@ import org.mockito.Mock;
 import com.nisum.portal.data.domain.User;
 import com.nisum.portal.data.domain.UserRole;
 import com.nisum.portal.service.api.UserService;
+import com.nisum.portal.service.dto.UserDTO;
+import com.nisum.portal.service.dto.UserRoleDTO;
 
 public class UserRestServiceTest {
 	
@@ -27,8 +29,8 @@ public class UserRestServiceTest {
 	public void updateUser()
 	{
 		Date date = new Date();
-		UserRole role = new UserRole();
-		User user = new User();
+		UserRoleDTO role = new UserRoleDTO();
+		UserDTO user = new UserDTO();
 		user.setUserId(1);
 		user.setEmailId("test@test.com");
 		user.setLoginDate(new Timestamp(date.getTime()));
@@ -39,8 +41,8 @@ public class UserRestServiceTest {
 		role.setCreatedDate(new Timestamp(date.getTime()));
 		user.setRole(role);
 		
-	//	when(userService.updateUserDetails(user)).thenReturn("Success");
-		when(userService.updateUserDetails(null)).thenReturn("Failed");
+		when(userService.updateUserDetails(user)).thenReturn("Success");
+		//when(userService.updateUserDetails(null)).thenReturn("Failed");
 	//	assertEquals(new ResponseEntity(null),userRestService.updateUser(user));
 	}
 	

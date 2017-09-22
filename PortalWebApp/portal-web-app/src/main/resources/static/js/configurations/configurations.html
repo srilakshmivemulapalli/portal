@@ -38,10 +38,10 @@
 									<td>{{user.userId}}</td>
 									<td>{{user.name}}</td>
 									<td>{{user.emailId}}</td>
-									<td>{{user.userRole.role}}</td>
+									<td>{{user.role.role}}</td>
 									<td>{{user.loginDate | date: 'MM-dd-yyyy HH:mm:ss'}}</td>
 									<td><select name="mySelect" id="mySelect"
-										ng-model="user.userRole.roleId"
+										ng-model="user.role.roleId"
 										ng-options="role.roleId as role.role for role in rolesList"
 										ng-change='edituserselected(user,$index)'
 										ng-disabled="!userselected[$index]"></select></td>
@@ -49,7 +49,7 @@
 										src="images/delete.png"
 										ng-class="{'disabled':!userselected[$index]}"
 										ng-disabled="{'disabled':userselected[$index]}"
-										ng-click="confirmDelete('user',user);" /></td>
+										ng-click="confirmDelete('user',user.userId);" /></td>
 								</tr>
 
 							</tbody>

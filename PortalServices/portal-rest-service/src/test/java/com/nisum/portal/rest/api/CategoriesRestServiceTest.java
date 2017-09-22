@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -52,14 +53,30 @@ public class CategoriesRestServiceTest {
 		ServiceStatusDto serviceStatusExpected = new ServiceStatusDto();
 		serviceStatusExpected.setStatus(true);
 		serviceStatusExpected.setMessage(KeyConstants.SUCCESS_MESSAGE);
-
 		when(categoryService.addCategory(categoryDto)).thenReturn(serviceStatusExpected);
 		ResponseEntity<ServiceStatusDto> serviceStatusactual = mainController.addCategory(categoryDto);
 
 		Assert.assertEquals(serviceStatusExpected, serviceStatusactual );
 		//return categoryService.addCategory(category);
 	}
-	
+	@Test(expected=CategoryServiceException.class)
+	public void updateCategoryTest() throws CategoryServiceException {
+		ResponseEntity<String> serviceStatusExpected=new ResponseEntity<String>("Categories Updated Successfully",HttpStatus.OK);
+		Timestamp createDate=new Timestamp(System.currentTimeMillis());
+		CategoriesDTO categoryDto = new CategoriesDTO();
+		categoryDto.setCategoryId(1);
+		categoryDto.setCategoryName("JAVA");
+		categoryDto.setCreateDate(createDate);
+		logger.info("CategoriesRestService :: updateCategoriesTest");
+		String expectedStatus="success";
+		Mockito.when(categoryService.update(categoryDto)).thenReturn(expectedStatus);
+		ResponseEntity<String> serviceStatusactual = mainController.updateCategories(categoryDto);
+		Assert.assertEquals(serviceStatusExpected, serviceStatusactual );
+		CategoriesDTO categoryDto1 = new CategoriesDTO();
+		categoryDto.setCategoryId(2);
+		ResponseEntity<String> serviceStatusactualf = mainController.updateCategories(categoryDto1);
+		when(serviceStatusactualf).thenThrow(new CategoryServiceException());
+	}
 	@Test
 	public void deleteCategoriesTest() throws CategoryServiceException 
 	{
