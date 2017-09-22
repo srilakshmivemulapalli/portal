@@ -1,7 +1,6 @@
 package com.nisum.portal.service.dto;
 
 import java.sql.Timestamp;
-import java.util.Set;
 
 
 public class QuestionariesDTO {
@@ -17,14 +16,6 @@ public class QuestionariesDTO {
 	private String emailId;
 	private String displayName;
 	
-	//private Set<QuestionRepliesDTO> questionReplies;
-	
-//	public Set<QuestionRepliesDTO> getQuestionReplies() {
-//		return questionReplies;
-//	}
-//	public void setQuestionReplies(Set<QuestionRepliesDTO> questionReplies) {
-//		this.questionReplies = questionReplies;
-//	}
 	public int getQuestionId() {
 		return questionId;
 	}

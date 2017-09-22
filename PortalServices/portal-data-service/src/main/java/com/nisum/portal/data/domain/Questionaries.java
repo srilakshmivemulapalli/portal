@@ -2,7 +2,6 @@ package com.nisum.portal.data.domain;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -33,25 +31,6 @@ public class Questionaries implements Serializable{
 	@OneToOne(cascade = CascadeType.ALL,fetch=FetchType.LAZY)
 	@JoinColumn(name = "userId")
 	private User userId;
-	
-	@OneToMany(mappedBy = "questId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private Set<QuestionReplies> questionReplies;
-	
-	/**
-	 * @return the questionReplies
-	 */
-	public Set<QuestionReplies> getQuestionReplies() {
-		return questionReplies;
-	}
-
-	/**
-	 * @param questionReplies the questionReplies to set
-	 */
-	public void setQuestionReplies(Set<QuestionReplies> questionReplies) {
-		this.questionReplies = questionReplies;
-	}
-
-	
 
 	/**
 	 * @return the questionId
