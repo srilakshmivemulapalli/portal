@@ -29,13 +29,14 @@ adminApp
 
 						$http.get('v1/user/getUsers').then(function(response) {
 							$scope.usersList = response.data;
-							// $scope.dummyUsersList = response.data;
+							
 						}, function(response) {
 
 						});
 
 					}
 					$scope.getRoles = function() {
+						
 						$http.get('v1/userrole/retrieve').then(
 								function(response) {
 									$scope.rolesList = response.data;
@@ -211,9 +212,9 @@ adminApp
 									});
 
 						} else if ($scope.editteditem.name === 'role') {
-							alert('role');
+							$scope.getRoles();
 						} else if ($scope.editteditem.name === 'category') {
-							alert('category');
+							$scope.getCategories();
 						}
 						$('#editModal').modal('hide');
 					}
