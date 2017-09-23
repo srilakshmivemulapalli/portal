@@ -31,7 +31,6 @@ public class UserDAOImplTest {
 	{
 		Date date = new Date();
 		String s = "Success";
-		String f = "Failed";
 		UserRole role = new UserRole();
 		User user = new User();
 		user.setUserId(1);
@@ -42,14 +41,32 @@ public class UserDAOImplTest {
 		role.setRoleId(1);
 		role.setRole("Admin");
 		role.setCreatedDate(new Timestamp(date.getTime()));
-		user.setRole(role);
+		//user.setRole(role);
 		when(userRepository.exists(user.getUserId())).thenReturn(true);
 		when(userRepository.save(user)).thenReturn(user);
 		when(userRepository.save(user)).thenReturn(null);
 		assertEquals(s,userDAOImpl.updateUser(user));
 		
 	}
-
 	
-
+	@Test
+	public void deleteUser() {
+		int userId = 1;
+		when(userRepository.deleteUser(userId)).thenReturn(1);
+		int actual = userDAOImpl.deleteUser(userId);
+		assertEquals(userId,actual);
+	}
+	
+	@Test
+	public void findUserById() {
+		int userId = 1;
+		User user = new User();
+		user.setActiveStatus("Yes");
+		user.setEmailId("sdsd");
+		user.setName("dsdsd");
+		user.setUserId(1);
+		when(userRepository.findOne(userId)).thenReturn(user);
+		User actual = userDAOImpl.findUserById(userId);
+		assertEquals(user, actual);
+	}
 }

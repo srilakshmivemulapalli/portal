@@ -19,7 +19,7 @@
 				<div class="row" style="padding-top: 30px">
 					<div class="col-md-12">
 						<table class="table table-hover table-striped table-bordered">
-							<thead class="thead-inverse">
+							<thead class="thead-inverse" align="center">
 								<tr>
 									<th></th>
 									<th>User Id</th>
@@ -31,7 +31,7 @@
 									<th>Edit/Delete</th>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody align="center">
 								<tr ng-repeat="user in usersList track by $index">
 									<td><input type="checkbox" value=""
 										ng-model="userselected[$index]"
@@ -46,24 +46,20 @@
 										ng-options="role.roleId as role.role for role in rolesList"
 										ng-change='edituserselected(user,$index)'
 										ng-disabled="!userselected[$index]"></select></td>
-									<td class="CENTER editicon"
+									<td class="CENTER"
 										ng-class="{'disabled':!userselected[$index]}"
-										ng-disabled="!userselected[$index]"><img
+										ng-disabled="{'disabled':userselected[$index]}"><img
 										class="deleteicon" src="images/delete.png"
-										ng-click="!userselected[$index] || confirmDelete('user',user.userId);" />
-										<span
-										ng-click="!userselected[$index]|| confirmEdit('user',user);"
-										class="glyphicon glyphicon-floppy-saved"></span></td>
+										ng-click="!userselected[$index]|| confirmDelete('user',user.userId);" />
+										<span ng-click="!userselected[$index]|| confirmEdit('user',user);"
+										class="glyphicon glyphicon-floppy-save editicon"></span></td>
+									</td>
 								</tr>
 
 							</tbody>
 						</table>
 					</div>
-					<div class="col-md-12">
-						<input type="button" class='btn btn-primary' value="Edit Users"
-							ng-click="submitUsersList()" ng-if="dummyUsersList.length>0"
-							style="float: right;" />
-					</div>
+					
 
 				</div>
 			</div>
@@ -94,7 +90,6 @@
 							<thead class="thead-inverse">
 								<tr>
 									<th></th>
-									<th>RoleId</th>
 									<th>Role Name</th>
 									<th>CreatedDate</th>
 									<th>Edit/Delete</th>
@@ -104,18 +99,17 @@
 								<tr ng-repeat="role in rolesList">
 									<td><input type="checkbox" value=""
 										ng-model="roleselected[$index]"></td>
-									<td>{{role.roleId}}</td>
 									<td><input type="text" ng-model="role.role"
-										ng-disabled="!roleselected[$index]"
-										ng-class="{'txtdisabled':!roleselected[$index]}" /></td>
+										ng-disabled="{'txtdisabled':roleselected[$index]}"
+										ng-class="{'txtdisabled': !roleselected[$index]}" />{{role.role}}</td>
 									<td>{{role.createdDate | date: 'MM-dd-yyyy HH:mm:ss'}}</td>
-									<td class="CENTER" ng-disabled="!roleselected[$index]"
+									<td class="CENTER"
+										ng-disabled="{'disabled':roleselected[$index]}"
 										ng-class="{'disabled':!roleselected[$index]}"><img
 										class="deleteicon" src="images/delete.png"
 										ng-click="!roleselected[$index]||confirmDelete('role',role.roleId);" />
-										<span
-										ng-click="!roleselected[$index]|| confirmEdit('role',role);"
-										class="editicon glyphicon glyphicon-floppy-saved"></span></td>
+										<span ng-click="!roleselected[$index]|| confirmEdit('role',role)"
+										class="glyphicon glyphicon-floppy-save editicon"></span></td>
 								</tr>
 
 							</tbody>
@@ -165,23 +159,25 @@
 							</thead>
 							<tbody>
 								<tr ng-repeat="category in categoriesList">
-									<td align="center"><input type="checkbox" value=""
+									<td><input type="checkbox" value=""
 										ng-model="categoryselected[$index]"></td>
-									<td align="center">{{category.categoryId}}/></td>
-									<td><input type="text" ng-model="category.categoryName"
+									<td>{{category.categoryId}}</td>
+									<td><input type="text"
 										ng-class="{'txtdisabled':!categoryselected[$index]}"
-										ng-disabled="!categoryselected[$index]" /></td>
-									<td><input type="text" ng-model="category.description"
+										ng-disabled="{'txtdisabled':categoryselected[$index]}"
+										ng-model="category.categoryName" /></td>
+									<td><input type="text"
 										ng-class="{'txtdisabled':!categoryselected[$index]}"
-										ng-disabled="!categoryselected[$index]" /></td>
+										ng-disabled="{'txtdisabled':categoryselected[$index]}"
+										ng-model="category.description" /></td>
 									<td>{{category.createDate | date: 'MM-dd-yyyy HH:mm:ss'}}</td>
-									<td class="CENTER editicon"
+									<td class="CENTER"
 										ng-class="{'disabled':!categoryselected[$index]}"
-										ng-disabled="!categoryselected[$index]"><img
+										ng-disabled="{'disabled':categoryselected[$index]}"><img
 										class="deleteicon" src="images/delete.png"
 										ng-click="!categoryselected[$index]|| confirmDelete('category',category.cateogryId);" />
 										<span ng-click="!categoryselected[$index]|| confirmEdit('category',category);"
-										class="glyphicon glyphicon-floppy-saved"></span></td>
+										class="glyphicon glyphicon-floppy-save editicon"></span></td>
 								</tr>
 							</tbody>
 						</table>
