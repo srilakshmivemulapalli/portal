@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 public class QuestionariesDTO {
 
 	
-	private Long questionId;
+	private Integer questionId;
 	private String question;
 	private String description;
 	private Timestamp createdDate;
@@ -29,10 +29,10 @@ public class QuestionariesDTO {
 	public void setQuestionRepliesCount(Integer questionRepliesCount) {
 		this.questionRepliesCount = questionRepliesCount;
 	}
-	public Long getQuestionId() {
+	public Integer getQuestionId() {
 		return questionId;
 	}
-	public void setQuestionId(Long questionId) {
+	public void setQuestionId(Integer questionId) {
 		this.questionId = questionId;
 	}
 	public String getQuestion() {

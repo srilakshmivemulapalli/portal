@@ -4,20 +4,15 @@ import java.util.List;
 
 public class QuestionsDTO {
 
-	private List<QuestionariesDTO> dtos;
+	private List<QuestionariesDTO> questionDetails;
 	private long totalQuestions;
 	private long totalUsers;
-	/**
-	 * @return the dtos
-	 */
-	public List<QuestionariesDTO> getDtos() {
-		return dtos;
+
+	public List<QuestionariesDTO> getQuestionDetails() {
+		return questionDetails;
 	}
-	/**
-	 * @param dtos the dtos to set
-	 */
-	public void setDtos(List<QuestionariesDTO> dtos) {
-		this.dtos = dtos;
+	public void setQuestionDetails(List<QuestionariesDTO> questionDetails) {
+		this.questionDetails = questionDetails;
 	}
 	/**
 	 * @return the totalQuestions

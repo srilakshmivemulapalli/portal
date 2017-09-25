@@ -24,7 +24,7 @@ public class QuestionariesUtil {
 			dto.setQuestionRepliesCount(questionaries.getQuestionReplies()!=null ? questionaries.getQuestionReplies().size() : 0);
 			questionariesDTOs.add(dto);
 		}
-		questionsDTO.setDtos(questionariesDTOs);
+		questionsDTO.setQuestionDetails(questionariesDTOs);
 		return questionsDTO;
 	}
 }

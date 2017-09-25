@@ -23,9 +23,9 @@ public class QuestionReplies implements Serializable{
 	private String replyDescription;
 	private Timestamp updatedDate;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "questId")
-	private Questionaries questId;
+	//@ManyToOne(fetch = FetchType.LAZY)
+    //@JoinColumn(name = "questId")
+	private int questId;
 	
 	private String emailid;
 
@@ -92,14 +92,14 @@ public class QuestionReplies implements Serializable{
 	/**
 	 * @return the questId
 	 */
-	public Questionaries getQuestId() {
+	public int getQuestId() {
 		return questId;
 	}
 
 	/**
 	 * @param questId the questId to set
 	 */
-	public void setQuestId(Questionaries questId) {
+	public void setQuestId(int questId) {
 		this.questId = questId;
 	}
 
@@ -110,7 +110,7 @@ public class QuestionReplies implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((questId == null) ? 0 : questId.hashCode());
+		result = prime * result + questId;
 		result = prime * result + ((replyDescription == null) ? 0 : replyDescription.hashCode());
 		result = prime * result + replyId;
 		result = prime * result + ((updatedDate == null) ? 0 : updatedDate.hashCode());
@@ -130,11 +130,8 @@ public class QuestionReplies implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		QuestionReplies other = (QuestionReplies) obj;
-		if (questId == null) {
-			if (other.questId != null)
+		if (questId != other.questId)
 				return false;
-		} else if (!questId.equals(other.questId))
-			return false;
 		if (replyDescription == null) {
 			if (other.replyDescription != null)
 				return false;

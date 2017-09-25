@@ -19,7 +19,7 @@ public class Questionaries implements Serializable{
 	
 	@Id
 	@Column (name = "questionId")
-	private Long questionId;
+	private Integer questionId;
 	
 	private int categoryId;
 	private String question;
@@ -47,13 +47,13 @@ public class Questionaries implements Serializable{
 	/**
 	 * @return the questionId
 	 */
-	public Long getQuestionId() {
+	public Integer getQuestionId() {
 		return questionId;
 	}
 	/**
 	 * @param questionId the questionId to set
 	 */
-	public void setQuestionId(Long questionId) {
+	public void setQuestionId(Integer questionId) {
 		this.questionId = questionId;
 	}
 	/**

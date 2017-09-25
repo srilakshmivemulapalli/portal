@@ -27,7 +27,7 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 	
 	@Override
 	public QuestionsDTO getQuestionaries() {
-		List<Questionaries> questionariesList = questionariesDAO.getQuestionaries();
+		List<Questionaries> questionariesList = questionariesDAO.fetchAllQuestionaries();
 		QuestionsDTO questionsDTO = new QuestionsDTO();
 		questionsDTO.setTotalQuestions(questionariesDAO.getQuestionariesCount());
 		questionsDTO.setTotalUsers(userDAO.getUserCount());

@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.repository.query.Param;
 
 import com.nisum.portal.data.dao.api.QuestionRepliesDAO;
 import com.nisum.portal.data.domain.QuestionReplies;
@@ -25,6 +26,11 @@ public class QuestionRepliesDAOImpl implements QuestionRepliesDAO{
 	@Override
 	public Integer getQuestionariesReplyCount(int questId) {
 		return questionRepliesRepository.getQuestionariesReplyCount(questId);
+	}
+	
+	@Override
+	public List<QuestionReplies> getQuestionariesReply(int questId){
+		return questionRepliesRepository.getQuestionariesReply(questId);
 	}
 
 }
