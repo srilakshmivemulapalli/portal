@@ -28,8 +28,8 @@ CREATE TABLE `portal`.`Categories` (
 CREATE TABLE `Questionaries` (
   `questionId` int(11) NOT NULL AUTO_INCREMENT,
   `categoryId` int(11) DEFAULT NULL,
-  `question` varchar(100) DEFAULT NULL,
-  `description` varchar(200) DEFAULT NULL,
+  `question` varchar(500) DEFAULT NULL,
+  `description` varchar(5000) DEFAULT NULL,
   `createdDate` datetime DEFAULT NULL,
   `emailid` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`questionId`)
