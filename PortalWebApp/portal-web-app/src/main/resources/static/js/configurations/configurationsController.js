@@ -203,16 +203,14 @@ adminApp
 
 					$scope.editItem = function() {
 						if ($scope.editteditem.name === 'user') {
-							console.log('here...');
-							$http.put('v1/user/update/',
-									$scope.editteditem.item).success(
+							$http.put('v1/user/update/',$scope.editteditem.item).success(function(){
 										$scope.successMessage = response.message;
 										$timeout(function(){
 											$scope.successMessage='';
-										},5000);
+											},5000);
 										$scope.getUsers();
 										alert(response.message);
-									}).error(function() {
+							}).error(function() {
 										$scope.errorMessage = response.message;
 										$timeout(function(){
 											$scope.errorMessage='';
@@ -226,6 +224,4 @@ adminApp
 						}
 						$('#editModal').modal('hide');
 					}
-					
-
-				});
+					});
