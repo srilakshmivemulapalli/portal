@@ -7,7 +7,7 @@ questionApp.controller('questionReplyController', function($scope,$stateParams, 
 		$scope.questionid=$stateParams.questionid;	
 		questionService.getQuestionById($scope.questionid).then(function(response){
 				console.log(response);
-				$scope.question=response.data;
+				$scope.question=response;
 			});
 	}
 	$scope.getQuestionById();

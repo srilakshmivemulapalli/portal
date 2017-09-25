@@ -38,7 +38,7 @@ app.factory('questionService', function($http, $q) {
 		return deferred.promise;
 	}
 	qs.getQuestionById=function(id){
-		$http.put('v1/questionreply/retrieveQuestionReply/'+id).success(function(response) {
+		$http.get('v1/questionreply/retrieveQuestionReply/'+id).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
