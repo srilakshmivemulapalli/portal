@@ -218,7 +218,19 @@ adminApp
 							});
 
 						} else if ($scope.editteditem.name === 'role') {
-							$scope.getRoles();
+							console.log($scope.editteditem.item)
+							console.log($scope.editItem.item);
+							$http({
+								url : 'v1/userrole/update',
+								method : "PUT",
+								data : $scope.editteditem.item
+							}).then(function(response) {
+								console.log(response);
+								$scope.getRoles();
+								alert(response.data.message)
+							}, function(response) {
+								alert(response.data.message)
+							});
 						} else if ($scope.editteditem.name === 'category') {
 							$scope.getCategories();
 						}

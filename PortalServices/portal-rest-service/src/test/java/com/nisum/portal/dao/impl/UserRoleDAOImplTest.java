@@ -100,6 +100,7 @@ public class UserRoleDAOImplTest {
 		userRole.setRole("mg");
 		userRole.setRoleId(1);
 		userRole.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+		when(userRoleRepository.findOne(userRole.getRoleId())).thenReturn(userRole);
 		when(userRoleRepository.save(userRole)).thenReturn(userRole);
 		UserRole actual = userRoleDaoImpl.updateUserRole(userRole);
 		assertEquals(actual.getRole(), expected1.getRole()); 

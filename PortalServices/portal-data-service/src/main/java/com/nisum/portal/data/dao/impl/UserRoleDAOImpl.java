@@ -36,20 +36,39 @@ public class UserRoleDAOImpl implements UserRoleDAO{
 		return true;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.nisum.portal.data.dao.api.UserRoleDAO#getUserRole(com.nisum.portal
+	 * .data.domain.UserRole)
+	 */
 	@Override
 	public List<UserRole> getUserRole() {
 		logger.info("UserRoleDAOImpl :: getUsers :: Get list of userRoles");
 		return userRoleRepository.findAll();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.nisum.portal.data.dao.api.UserRoleDAO#updateUserRole(com.nisum.portal
+	 * .data.domain.UserRole)
+	 */
 	@Override
 	public UserRole updateUserRole(UserRole userRole) 
 	{  
-		UserRole userRole1=userRoleRepository.findOne(userRole.getRoleId());
-		userRole.setCreatedDate(userRole1.getCreatedDate());
 		logger.info("UserRoleDAOImpl :: updateUser :: Updating userRole");
+		UserRole userRole1=userRoleRepository.findOne(userRole.getRoleId());
+		userRole.setCreatedDate(userRole1.getCreatedDate());	
 		return userRoleRepository.save(userRole);
 		}
+
+	@Override
+	public UserRole findUserById(Integer roleId) {
+		return userRoleRepository.findOne(roleId);
+	}
 
 }
 	

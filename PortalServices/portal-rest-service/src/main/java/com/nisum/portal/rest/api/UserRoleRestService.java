@@ -1,6 +1,7 @@
 package com.nisum.portal.rest.api;
 
-import java.util.List;  
+
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nisum.portal.data.domain.UserRole;
 import com.nisum.portal.service.api.UserRoleService;
 import com.nisum.portal.service.dto.Errors;
+import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.dto.UserRoleDTO;
 import com.nisum.portal.service.exception.UserRoleServiceException;
 import com.nisum.portal.util.Constants;
@@ -24,61 +26,41 @@ import com.nisum.portal.util.Constants;
 @RestController
 @RequestMapping("/v1/userrole")
 public class UserRoleRestService {
+
 	@Autowired
 	UserRoleService userRoleService;
 
 	private static Logger logger = LoggerFactory.getLogger(UserRoleRestService.class);
- 
-	/**
-	 * method that adds  User Role into database 
-	 * @param userRoleDto
-	 * @return
-	 * @throws UserRoleServiceException
-	 */
-	//This 
-	@RequestMapping(value="/create", method=RequestMethod.POST, consumes="application/json")
-	public ResponseEntity<?> addUserRole(@RequestBody UserRoleDTO userRoleDto) throws UserRoleServiceException{	
-		logger.info("UserRoleRestService :: Entered into addUserRole()");
-		try {
-				UserRole user =userRoleService.addUserRole(userRoleDto);
-			
-		}catch(Exception e) {	
-			logger.error("UserRoleRestService :: User Role "+userRoleDto.getRole()+" exists already");
-			
-			Errors error = new Errors();
-			error.setErrorCode("Errors-UserRole");
-			error.setErrorMessage(Constants.USER_ROLE_EXISTS);
-			ResponseEntity<Errors> rsEntity=new ResponseEntity<Errors>(error, HttpStatus.NOT_ACCEPTABLE);
-			return rsEntity;
-		}
-		logger.info("UserRoleRestService :: Given User Role Added Successfully");
-		return new ResponseEntity<Object>(Constants.USER_ROLE_ADDED, HttpStatus.OK);
-		
-	}
-	/**
-	 *  method that deletes the existing user role from database
-	 * @param id
-	 * @return successful deletion of user role
-	 * @throws UserRoleServiceException 
-	 */
 
-	@RequestMapping(value="/delete/{id}/{roleName}", method=RequestMethod.DELETE)
-	public ResponseEntity<?> deleteUserRole(@PathVariable Integer id, @PathVariable String roleName) throws UserRoleServiceException {
-		logger.info("UserRoleRestService :: Entered into deleteUserRole()");
-		
-		try {
-				userRoleService.deleteUserRole(id, roleName);	
-		}catch(Exception e) {	
-			logger.error("UserRoleRestService :: User Role with Given "+id+" Doesn't Exists");
+
+
+	//This method will add  User Role into database 
+	@RequestMapping(value="/create", method=RequestMethod.POST, consumes="application/json")
+	public ResponseEntity<?> addUserRole(@RequestBody UserRoleDTO userRoleDto) throws UserRoleServiceException {	
+		UserRole user =userRoleService.addUserRole(userRoleDto);
+		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
+		if(user!=null) {
+			serviceStatusDto.setMessage(Constants.USER_ROLE_ADDED);
+			return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.OK);
 			
-			Errors error = new Errors();
-			error.setErrorCode("Errors-UserRole");
-			error.setErrorMessage(Constants.USER_ROLE_NOT_EXISTS);
-			ResponseEntity<Errors> rsEntity=new ResponseEntity<Errors>(error, HttpStatus.NOT_ACCEPTABLE);
-			return rsEntity;
-		}	
-		logger.info("UserRoleRestService :: Existing User Role Deleted Successfully");		
-		return new ResponseEntity<Object>(Constants.USER_ROLE_DELETED, HttpStatus.OK);
+		}
+		serviceStatusDto.setMessage(Constants.USER_ROLE_NOT_EXISTS);
+		return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.EXPECTATION_FAILED);
+	}
+
+	//This method will delete the existing user role from database
+	@RequestMapping(value="/delete/{id}/{rolename}", method=RequestMethod.DELETE)
+	public ResponseEntity<?> deleteUserRole(@PathVariable Integer id, @PathVariable String roleName) throws UserRoleServiceException {
+
+		boolean status=userRoleService.deleteUserRole(id, roleName);
+		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
+		if(status) {
+			serviceStatusDto.setMessage(Constants.USER_ROLE_DELETED);
+			return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.OK);
+		}else {
+			serviceStatusDto.setMessage(Constants.USER_ROLE_NOT_EXIST);
+			return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.EXPECTATION_FAILED);
+		}
 	}
 
 	/**
@@ -99,10 +81,8 @@ public class UserRoleRestService {
 			}	
 		} catch(Exception e) {
 			throw new UserRoleServiceException("Error Message");
-		} 
+		}
 	}	 
-	
-	
 	/**
 	 * Updates userRole
 	 * @param userRole
@@ -110,33 +90,39 @@ public class UserRoleRestService {
 	 * @throws UserRoleServiceException
 	 */
 	@RequestMapping(value="/update", method=RequestMethod.PUT, consumes="application/json",produces="application/json")
-	public ResponseEntity<String> updateUserRole(@RequestBody UserRole userRole) throws UserRoleServiceException{					
+	public ResponseEntity<ServiceStatusDto> updateUserRole(@RequestBody UserRole userRole) throws UserRoleServiceException{					
 		logger.info("UserRoleService :: userrole");	 
 		try {
-			UserRole updateUserRole=userRoleService.updateUserRole(userRole);		
-			if(updateUserRole==null) {
-				return new ResponseEntity<>(Constants.USER_ROLE_NOT_EXISTS,HttpStatus.EXPECTATION_FAILED);
+			Integer roleId=userRole.getRoleId();
+			Integer userRoleId=userRoleService.findUserById(roleId);
+			ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
+			if(userRoleId!=null) {
+				userRoleService.updateUserRole(userRole);	
+				serviceStatusDto.setMessage(Constants.USER_ROLE_UPDATED);
+				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto,HttpStatus.OK);
+
+			} else {
+				serviceStatusDto.setMessage(Constants.USER_ROLE_NOT_EXISTS);
+				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto,HttpStatus.EXPECTATION_FAILED);
+
+
 			}
-			else
-				return new ResponseEntity<>(Constants.USER_ROLE_UPDATED,HttpStatus.OK);
 		} catch (Exception e) {
 			throw new UserRoleServiceException(Constants.INTERNALSERVERERROR);
 		}
 
 	}
-	
-	/**
-	 * Exception Handler
-	 * @param ex
-	 * @return
-	 */
+
+
 	@ExceptionHandler(UserRoleServiceException.class)
 	public ResponseEntity<Errors> exceptionHandler(Exception ex) {
-		System.out.println(ex.getMessage());
 		Errors error = new Errors();
-		error.setErrorCode("Errors -UserRole");
+		error.setErrorCode("Errors -UsersRole");
 		error.setErrorMessage(ex.getMessage());
 		return new ResponseEntity<Errors>(error, HttpStatus.OK);
 	}
+
+
 }
+
 

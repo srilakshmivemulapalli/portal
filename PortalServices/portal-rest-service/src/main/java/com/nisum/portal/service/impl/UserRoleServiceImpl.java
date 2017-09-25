@@ -20,9 +20,7 @@ import com.nisum.portal.util.UserRoleServiceUtil;
 @Service
 public class UserRoleServiceImpl implements UserRoleService,InitializingBean{
 	
-	
-
-	Logger logger=LoggerFactory.getLogger(UserServiceImpl.class); 
+	private static Logger logger = LoggerFactory.getLogger(UserRoleServiceImpl.class);
 	@Autowired
 	UserRoleDAO userRoleDao;
 	UserRoleCache cache=UserRoleCache.getInstance();
@@ -71,8 +69,9 @@ public class UserRoleServiceImpl implements UserRoleService,InitializingBean{
 		}
 	}
 	
-	@Override
-	public List<UserRoleDTO> getUserRole() {		
+     @Override
+	public List<UserRoleDTO> getUserRole() {	
+    	   logger.info("UserRoleServiceImpl :: getUserRole");
 		List<UserRole>  userRoleList=userRoleDao.getUserRole();
 		return UserRoleServiceUtil.convertDaoTODto(userRoleList);
 	}
@@ -92,6 +91,17 @@ public class UserRoleServiceImpl implements UserRoleService,InitializingBean{
 		List<UserRole> rolesList=userRoleDao.getUserRole();
 		UserRoleCache instance=UserRoleCache.getInstance();
 		instance.put("user-role", rolesList);
+	}
+
+	@Override
+	public Integer findUserById(Integer roleId) {
+		UserRole role=userRoleDao.findUserById(roleId);
+		Integer roleid=null;
+		if(role!=null) {
+	      roleid=role.getRoleId();
+	     
+		}
+		return roleid;
 		
 	}
 }
