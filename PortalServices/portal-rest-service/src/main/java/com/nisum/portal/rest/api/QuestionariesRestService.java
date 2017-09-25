@@ -1,5 +1,7 @@
 package com.nisum.portal.rest.api;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nisum.portal.service.api.QuestionariesService;
 import com.nisum.portal.service.dto.Errors;
+import com.nisum.portal.service.dto.QuestionsDTO;
+import com.nisum.portal.service.dto.UserDTO;
 import com.nisum.portal.service.exception.QuestionariesServiceException;
+import com.nisum.portal.service.exception.UserServiceException;
+import com.nisum.portal.util.ExceptionConstants;
 
 /**
  * @author nisum
@@ -33,9 +39,9 @@ public class QuestionariesRestService {
 	 * @throws QuestionariesServiceException
 	 */
 	@RequestMapping(value = "/retrieve", method = RequestMethod.GET)
-	public Object retriveAllQuestionaries() throws QuestionariesServiceException {
-		logger.info("QuestionariesRestService :: categories");
-		return questionariesService.getQuestionaries();
+	public ResponseEntity<QuestionsDTO> retriveAllQuestionaries() throws QuestionariesServiceException {
+		logger.info("QuestionariesRestService :: retriveAllQuestionaries");
+		return new ResponseEntity<QuestionsDTO>(questionariesService.getQuestionaries(), HttpStatus.OK);
 	}
 	
 	/**

@@ -22,7 +22,7 @@ public class QuestionReplysUtil {
 			dto.setDescription(questionaries.getDescription());
 			dto.setQuestion(questionaries.getQuestion());
 			dto.setQuestionId(questionaries.getQuestionId());
-			dto.setCategoryName(questionaries.getCategoryId()+"");
+			dto.setCategoryName("Java"+questionaries.getCategoryId()+"");
 			dto.setEmailId(questionaries.getEmailId());
 			replysDTO.setQuestionDetails(dto);
 			List<QuestionRepliesDTO> questRepliesDTO = new ArrayList<QuestionRepliesDTO>();
