@@ -17,6 +17,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Questionaries")
 public class Questionaries implements Serializable{
+	public Questionaries() {
+		super();
+	}
 	private static final long serialVersionUID = 1L;
 	
 	@Id
