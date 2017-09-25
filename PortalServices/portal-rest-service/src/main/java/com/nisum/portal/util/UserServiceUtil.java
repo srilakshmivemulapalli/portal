@@ -13,11 +13,11 @@ import com.nisum.portal.service.dto.UserRoleDTO;
 public class UserServiceUtil {
 
 	/**
-	 * Converts list of dao objects to dto objects
+	 * Converts List of UserDAO objects to UserDTO objects
 	 * @param users
-	 * @return List of user dto objects
+	 * @return List of UserDTO objects
 	 */
-	public static List<UserDTO> convertDaoListTODto(List<User> users) {
+	public static List<UserDTO> convertDaoListToDto(List<User> users) {
 		List<UserDTO> userDTO = new ArrayList<UserDTO>();
 		
 		if (CollectionUtils.isNotEmpty(users)) {
@@ -40,11 +40,11 @@ public class UserServiceUtil {
 	}
 
 	/**
-	 * Converts dao object to dto object
+	 * Converts UserDAO object to UserDTO object
 	 * @param user
-	 * @return user dto object
+	 * @return UserDTO object
 	 */
-	public static UserDTO convertDaoObjectTODto(User user) 
+	public static UserDTO convertDaoObjectToDto(User user) 
 	{
 		UserDTO userDTO = new UserDTO();
 		userDTO.setUserId(user.getUserId());

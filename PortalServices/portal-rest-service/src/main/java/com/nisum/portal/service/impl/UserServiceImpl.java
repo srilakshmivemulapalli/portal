@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
 	public List<UserDTO> getUsers() {
 		logger.info("UserServiceImpl :: getUsers :: Get list of users");
 		List<User> userList = userDAO.getUsers();
-		return UserServiceUtil.convertDaoListTODto(userList);
+		return UserServiceUtil.convertDaoListToDto(userList);
 	}
 	@Override
 	public String updateUserDetails(UserDTO userDto) {
