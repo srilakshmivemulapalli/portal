@@ -1,6 +1,5 @@
 package com.nisum.portal.rest.api;
 
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,10 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nisum.portal.service.api.QuestionariesService;
 import com.nisum.portal.service.dto.Errors;
 import com.nisum.portal.service.dto.QuestionsDTO;
-import com.nisum.portal.service.dto.UserDTO;
 import com.nisum.portal.service.exception.QuestionariesServiceException;
-import com.nisum.portal.service.exception.UserServiceException;
-import com.nisum.portal.util.ExceptionConstants;
 
 /**
  * @author nisum
@@ -51,9 +47,9 @@ public class QuestionariesRestService {
 	 * @throws QuestionariesServiceException
 	 */
 	@RequestMapping(value = "/retrieveCount", method = RequestMethod.GET)
-	public Object retrieveCount() throws QuestionariesServiceException {
+	public ResponseEntity<Long> retrieveCount() throws QuestionariesServiceException {
 		logger.info("QuestionariesRestService :: questionariesCount");
-		return questionariesService.getQuestionariesCount();
+		return new ResponseEntity<Long>(questionariesService.getQuestionariesCount(), HttpStatus.OK);
 	}
 	
 	/**
@@ -63,10 +59,10 @@ public class QuestionariesRestService {
 	 * @throws QuestionariesServiceException
 	 */
 	@RequestMapping(value = "/save/{emailId}/{categoryId}/{question}/{description}", method = RequestMethod.GET)
-	public Object saveQuestionaries(@PathVariable String emailId, @PathVariable Integer categoryId, 
+	public ResponseEntity<String> saveQuestionaries(@PathVariable String emailId, @PathVariable Integer categoryId, 
 			@PathVariable String question, @PathVariable String description) throws QuestionariesServiceException {
 		logger.info("QuestionariesRestService :: saveQuestionaries"+emailId+"-"+categoryId+"-"+question+"-"+description);
-		return questionariesService.saveQuestions(emailId, categoryId, question, description);
+		return new ResponseEntity<String>(questionariesService.saveQuestions(emailId, categoryId, question, description), HttpStatus.OK);
 	}
 	
 	/**
