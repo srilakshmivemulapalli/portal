@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.nisum.portal.data.dao.api.UserDAO;
 import com.nisum.portal.data.domain.User;
-import com.nisum.portal.rest.api.CategoriesRestService;
 import com.nisum.portal.service.api.UserService;
 import com.nisum.portal.service.dto.UserDTO;
 import com.nisum.portal.util.UserServiceUtil;
@@ -39,11 +38,14 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public UserDTO findUserById(int userId) {
+	public String findUserById(int userId) {
 		logger.info("UserServiceImpl :: findUserById :: Finding user by userId");
 		User  user=userDAO.findUserById(userId);
-		return UserServiceUtil.convertDaoObjectTODto(user);
-		
+		String activeStatus = null;
+		if (user != null) {
+			activeStatus = user.getActiveStatus();
+		}
+		return activeStatus;
 	}
 	@Override
 	public long getUserCount() {

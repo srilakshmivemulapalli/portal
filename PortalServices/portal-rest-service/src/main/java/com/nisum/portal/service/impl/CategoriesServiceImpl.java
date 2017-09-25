@@ -69,6 +69,9 @@ public class CategoriesServiceImpl implements CategoriesService{
 	{
 		// TODO Auto-generated method stub
 		logger.info("CategoriesServiceImpl :: updateCategories :: Category Details "+categoriesDTO.toString());
+			Date date = new Date();
+			Timestamp createdDate = new Timestamp(date.getTime());
+			categoriesDTO.setCreateDate(createdDate);
 			Categories categories = CategoryServiceUtil.convertDtoTODao(categoriesDTO);
 			boolean flag = categoriesDAO.updateCategories(categories);
 			try

@@ -21,7 +21,7 @@ import com.nisum.portal.service.dto.UserDTO;
 import com.nisum.portal.service.exception.QuestionariesServiceException;
 import com.nisum.portal.service.exception.UserServiceException;
 import com.nisum.portal.util.ExceptionConstants;
-import com.nisum.portal.util.UserConstants;
+import com.nisum.portal.util.KeyConstants;
 
 @RestController
 @RequestMapping(value = "/v1/user")
@@ -42,18 +42,14 @@ public class UserRestService {
 	public ResponseEntity<ServiceStatusDto> deleteUser(@PathVariable Integer userId) throws UserServiceException{
 		logger.info("UserRestService :: deleteUser :: Deleting User");
 		try {
-			UserDTO userdto = userService.findUserById(userId);
+			String activeStatus = userService.findUserById(userId);
 			ServiceStatusDto serviceStatusDTO = new ServiceStatusDto();
-			String activeStatus = null;
-			if (userdto != null) {
-				activeStatus = userdto.getActiveStatus();	
-			}
-			if (userdto == null || activeStatus.equalsIgnoreCase("No")) {
-				serviceStatusDTO.setMessage(ExceptionConstants.USERNOTEXISTS);
+			if (activeStatus == null || activeStatus.equalsIgnoreCase("No")) {
+				serviceStatusDTO.setMessage(KeyConstants.USERNOTEXISTS);
 				return new ResponseEntity<ServiceStatusDto>(serviceStatusDTO, HttpStatus.EXPECTATION_FAILED);
 			} else {
 				userService.deleteUser(userId);
-				serviceStatusDTO.setMessage(ExceptionConstants.USERDELETED);
+				serviceStatusDTO.setMessage(KeyConstants.USERDELETED);
 				return new ResponseEntity<ServiceStatusDto>(serviceStatusDTO, HttpStatus.OK);
 			}
 		} catch (Exception e) {
@@ -62,20 +58,27 @@ public class UserRestService {
 		}
 	}
 	
+	/**
+	 * Returns list of users
+	 * @return
+	 * @throws UserServiceException
+	 */
 	@RequestMapping(value = "/getUsers", method = RequestMethod.GET, produces = "application/json")
      public ResponseEntity<List<UserDTO>>  getUsers() throws UserServiceException {
-		//return userService.getUsers();
 		logger.info("UserRestService :: users");
 		List<UserDTO> users = userService.getUsers();
 		if (users.isEmpty()) {
-			// new ResponseEntity<List<UserDTO>>(HttpStatus.NO_CONTENT);
-			throw new UserServiceException(UserConstants.USERLISTEMPTY);
-			// You many decide to return HttpStatus.NOT_FOUND
+			throw new UserServiceException(KeyConstants.USERLISTEMPTY);
 			}
 			return new ResponseEntity<List<UserDTO>>(users, HttpStatus.OK);
 	}
 	
-
+	/**
+	 * Updates single user
+	 * @param userDto
+	 * @return
+	 * @throws UserServiceException
+	 */
 	@RequestMapping(value = "/update", method = RequestMethod.PUT, consumes = "application/json", produces = "application/json")
 	public ResponseEntity<Object> updateUser(@RequestBody UserDTO userDto) throws UserServiceException {
 		logger.info("UserRestService :: users::: update");
@@ -84,7 +87,7 @@ public class UserRestService {
 			throw new UserServiceException(ExceptionConstants.INTERNALSERVERERROR);
 		}
 		userService.updateUserDetails(userDto);
-		return new ResponseEntity<Object>(UserConstants.USERUPDATED, HttpStatus.OK);
+		return new ResponseEntity<Object>(KeyConstants.USERUPDATED, HttpStatus.OK);
 		}
 		catch(Exception e)
 		{
@@ -92,15 +95,24 @@ public class UserRestService {
 			throw new UserServiceException(ExceptionConstants.INTERNALSERVERERROR, e);
 		}
 	}
+	
+	/**
+	 * Updates list of users
+	 * @param usersDTO
+	 * @return
+	 * @throws UserServiceException
+	 */
 	@RequestMapping(value = "/updateUsers",method=RequestMethod.PUT,consumes = "application/json",produces="application/json")
-	public ResponseEntity<Object>  updateUsers(@RequestBody List<UserDTO> usersDTO) throws UserServiceException{
+	public ResponseEntity<ServiceStatusDto>  updateUsers(@RequestBody List<UserDTO> usersDTO) throws UserServiceException{
 		logger.info("UserRestService :: multiple users update :::");
+		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
 		try {
 			for(UserDTO userDto : usersDTO)
 			{
 			userService.updateUserDetails(userDto);
 			}
-         return new ResponseEntity<>("Users Updated Successfully",HttpStatus.OK);
+			serviceStatusDto.setMessage("Users Updated Successfully");
+         return new ResponseEntity<ServiceStatusDto>(serviceStatusDto,HttpStatus.OK);
 	}
 		catch(Exception e)
 		{

@@ -11,11 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 @Entity
 @Table(name = "User")
 public class User implements Serializable{
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@Column (name = "userId")
 	private int userId;
@@ -24,66 +26,121 @@ public class User implements Serializable{
 	private String name;
 	private Timestamp loginDate;
 	private String activeStatus;
-	
-	
+
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "roleId", referencedColumnName = "roleId")
 	private UserRole role;
-	
-public UserRole getRole() {
+
+	/**
+	 * Returns User role
+	 * @return
+	 */
+	public UserRole getRole() {
 		return role;
 	}
+	
+	/**
+	 * Sets user role for a user
+	 * @param role
+	 */
 	public void setRole(UserRole role) {
 		this.role= role;
 	}
-	//	public Set<UserRole> getRoleId() {
-//		return roleId;
-//	}
-//	public void setRoleId(Set<UserRole> roleId) {
-//		this.roleId = roleId;
-//	}
 
-
-
+	/**
+	 * Returns user active status
+	 * @return
+	 */
 	public String getActiveStatus() {
 		return activeStatus;
 	}
+	
+	/**
+	 * Sets user active status
+	 * @param activeStatus
+	 */
 	public void setActiveStatus(String activeStatus) {
 		this.activeStatus = activeStatus;
 	}
 
+	/**
+	 * Returns user email id
+	 * @return
+	 */
 	public String getEmailId() {
 		return emailId;
 	}
+	
+	/**
+	 * Sets user email id
+	 * @param emailId
+	 */
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
 	}
+	
+	/**
+	 * Returns user id
+	 * @return
+	 */
 	public int getUserId() {
 		return userId;
 	}
+	
+	/**
+	 * Sets user id
+	 * @param userId
+	 */
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
+	
+	/**
+	 * Returns email id
+	 * @return
+	 */
 	public String getemailId() {
 		return emailId;
 	}
+	
+	/**
+	 * Returns user created date
+	 * @return
+	 */
 	public Timestamp getLoginDate() {
 		return loginDate;
 	}
+	
+	/**
+	 * Sets user created date
+	 * @param loginDate
+	 */
 	public void setLoginDate(Timestamp loginDate) {
 		this.loginDate = loginDate;
 	}
+	
+	/**
+	 * Returns user name
+	 * @return
+	 */
 	public String getName() {
 		return name;
 	}
+	
+	/**
+	 * Sets user name 
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", emailId=" + emailId + ", name=" + name + ", loginDate=" + loginDate
 				+ ", activeStatus=" + activeStatus + ", role=" + role + "]";
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -96,6 +153,7 @@ public UserRole getRole() {
 		result = prime * result + userId;
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -134,21 +192,5 @@ public UserRole getRole() {
 			return false;
 		return true;
 	}
-
-	
-//	public Date getLoginDate() {
-//		return loginDate;
-//	}
-//	public void setLoginDate(Date loginDate) {
-//		this.loginDate = loginDate;
-//	}
-//	public UserRole getRoleId() {
-//		return roleId;
-//	}
-//	public void setRoleId(UserRole roleId) {
-//		this.roleId = roleId;
-//	}
-	
-	
 
 }

@@ -13,7 +13,8 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <!-- googlesignin script and clientid -->
-<meta name="google-signin-client_id" content="167391935529-bns0200aplm1inm0qpb5ie7te1g1n50t.apps.googleusercontent.com">
+<meta name="google-signin-client_id"
+	content="167391935529-bns0200aplm1inm0qpb5ie7te1g1n50t.apps.googleusercontent.com">
 <script src='https://apis.google.com/js/platform.js' async defer></script>
 
 <link
@@ -24,7 +25,8 @@
 	rel='stylesheet' /> -->
 
 
-<link rel='stylesheet' id='bootstrap-css' href='bower_components/bootstrap/dist/css/bootstrap.min.css'
+<link rel='stylesheet' id='bootstrap-css'
+	href='bower_components/bootstrap/dist/css/bootstrap.min.css'
 	type='text/css' media='all' />
 <link rel="stylesheet" href="css/bootstrap-select.min.css">
 <link rel='stylesheet' id='date-picker-style-css'
@@ -48,13 +50,15 @@
 
 <link rel='stylesheet' id='custom-style-css' href='css/custom.css'
 	type='text/css' media='all' />
+	<link rel='stylesheet' href='css/text-angular.css' type="text/css"/>
 
 <link rel='stylesheet' id='color-picker-style-css'
 	href='css/colorpicker.css' type='text/css' media='all' />
 <style type="text/css">
-    [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-        display: none !important;
-    }
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak,
+	.x-ng-cloak {
+	display: none !important;
+}
 </style>
 <!-- <link rel='stylesheet' id='style-css'  href='css/style.css' type='text/css' media='all' /> -->
 </head>
@@ -65,16 +69,17 @@
 		<div class="row" ng-controller="mainController as mc">
 
 			<div ng-if="!navBarToggle">
-			<div ng-include="'js/partials/header.html'"></div></div>
-			
+				<div ng-include="'js/partials/header.html'"></div>
+			</div>
+
 			<ui-view></ui-view>
 			<!-- main views -->
-			
+
 			<div ng-if="!navBarToggle">
-			<div class="rightbar" ng-include="'js/partials/rightsidebar.html'"></div>
+				<div class="rightbar" ng-include="'js/partials/rightsidebar.html'"></div>
 			</div>
 			<!-- END RIGHT-SIDEBAR -->
-		
+
 		</div>
 		<!-- END ROW -->
 	</div>
@@ -95,7 +100,7 @@
 		</div>
 
 	</div>
-	
+
 
 	<!-- MODAL EDIT PROFILE / CHANGE PASS -->
 	<div class="modal fade modal-edit-profile" id="edit_profile"
@@ -168,33 +173,40 @@
 			</div>
 		</div>
 	</div>
-	
-	
-	
 
 
-	
 
 
-	
+
+
+
+
+
 
 	<!-- angular scripts -->
 	<script src="bower_components/angular/angular.js"></script>
 	<script src="bower_components/angular-resource/angular-resource.js"></script>
-	
-	<script src="bower_components/angular-ui-router/release/angular-ui-router.js"/></script>
-	<script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
-	
-	
-	
+
+	<script
+		src="bower_components/angular-ui-router/release/angular-ui-router.js" /></script>
+	<script
+		src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
+
+
+
 	<script src="js/directives/google-plus-signin.js"></script>
 	<!-- bootstrap scripts -->
 	<script src="bower_components/jquery/dist/jquery.js"></script>
-	
+
 	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script src="js/common/bootstrap-select.min.js"></script>
-	
-	
+	<script
+		src='http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.5.0/textAngular-rangy.min.js'></script>
+	<script
+		src='http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.5.0/textAngular-sanitize.min.js'></script>
+	<script
+		src='http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.5.0/textAngular.min.js'></script>
+
 	<!-- module scripts -->
 	<script src='js/questions/questions.js'></script>
 	<script src='js/configurations/configurations.js'></script>
@@ -208,7 +220,7 @@
 	<script src='js/configurations/configurationsController.js'></script>
 	<script src='js/login/loginController.js'></script>
 	<script src='js/profile/profileController.js'></script>
-	
+
 
 </body>
 </html>
