@@ -11,6 +11,7 @@ mainApp.controller('questionsController', function($scope,$stateParams, localSto
 	$scope.getAllQuestions = function() {
 
 		questionService.getQuestions().then(function(response) {
+			console.log(response);
 			$scope.questionsList = response;
 
 		})
