@@ -10,12 +10,13 @@ public interface CategoriesService {
 	
 	List<CategoriesDTO> getCategories();
 	
-	CategoriesDTO getCategory(Integer id);
 	ServiceStatusDto addCategory(CategoriesDTO category);
 	
 	String deleteCategories(Integer categoryId);
 	
-	String update(CategoriesDTO categoriesDTO) throws CategoryServiceException;
+	ServiceStatusDto update(CategoriesDTO categoriesDTO) throws CategoryServiceException;
+
+	Object getCategory(Integer id);
 
 
 }

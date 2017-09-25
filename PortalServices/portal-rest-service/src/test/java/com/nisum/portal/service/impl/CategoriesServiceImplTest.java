@@ -19,6 +19,7 @@ import com.nisum.portal.data.dao.api.CategoriesDAO;
 import com.nisum.portal.data.domain.Categories;
 import com.nisum.portal.service.dto.CategoriesDTO;
 import com.nisum.portal.service.dto.ServiceStatusDto;
+import com.nisum.portal.service.exception.CategoryServiceException;
 import com.nisum.portal.util.CategoryServiceUtil;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -26,7 +27,7 @@ import com.nisum.portal.util.CategoryServiceUtil;
 public class CategoriesServiceImplTest {
 
 	@Mock
-	private CategoriesDAO categoriesDAO;
+	CategoriesDAO categoriesDAO;
 	
 	@InjectMocks 
 	CategoriesServiceImpl categoryServiceImpl;
@@ -49,6 +50,7 @@ public class CategoriesServiceImplTest {
 		ServiceStatusDto serviceStatus = categoryServiceImpl.addCategory(categoryDto);
 		assertEquals(serviceStatus.isStatus(), status);
 	}
+	
 	@Test
 	public void addCategoryFailure() { 
 		
@@ -89,6 +91,29 @@ public class CategoriesServiceImplTest {
 			ServiceStatusDto serviceStatus2 = categoryServiceImpl.addCategory(categoryDto);
 			assertEquals(serviceStatus2.isStatus(), true);
 
+	}
+	@Test
+	public void updateCategoryTest() throws CategoryServiceException 
+	{ 
+		Boolean status = true; 
+		Date date = new Date();
+        Timestamp createdDate = new Timestamp(date.getTime());
+		CategoriesDTO categoryDto = new CategoriesDTO();
+		categoryDto.setCategoryId(1);
+		categoryDto.setCategoryName("JAVA");
+		categoryDto.setCreateDate(createdDate);
+		Categories categories = CategoryServiceUtil.convertDtoTODao(categoryDto);
+		when(categoriesDAO.updateCategories(categories)).thenReturn(status);
+		assertEquals("success",categoryServiceImpl.update(categoryDto));
+		when(categoriesDAO.updateCategories(new Categories())).thenReturn(false);
+		assertEquals("fail",categoryServiceImpl.update(new CategoriesDTO()));
+	}
+	@Test(expected=Exception.class)
+	public void updateCategoryTestFailure() throws CategoryServiceException
+	{
+		CategoriesDTO categoryDto = new CategoriesDTO();
+		categoryDto.setCategoryId(1);
+		when(categoryServiceImpl.update(categoryDto)).thenThrow(new CategoryServiceException("Hello"));
 	}
 	@Test
 	public void deleteCategoriesinServiceTest()

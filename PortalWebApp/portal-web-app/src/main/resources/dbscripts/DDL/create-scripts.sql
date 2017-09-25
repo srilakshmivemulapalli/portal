@@ -25,35 +25,26 @@ CREATE TABLE `portal`.`Categories` (
   PRIMARY KEY (`categoryId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=big5;
 
-
-CREATE TABLE `portal`.`Questionaries` (
+CREATE TABLE `Questionaries` (
   `questionId` int(11) NOT NULL AUTO_INCREMENT,
   `categoryId` int(11) DEFAULT NULL,
   `question` varchar(100) DEFAULT NULL,
   `description` varchar(200) DEFAULT NULL,
   `createdDate` datetime DEFAULT NULL,
-  `userId` int(11) DEFAULT NULL,
-  PRIMARY KEY (`questionId`),
-  KEY `fk_userid_questonaries_idx` (`userId`),
-  KEY `fk_categoryid_questonaries_idx` (`categoryId`),
-  CONSTRAINT `fk_categoryid_questonaries` FOREIGN KEY (`categoryId`) REFERENCES `Categories` (`categoryId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_userid_questonaries` FOREIGN KEY (`userId`) REFERENCES `User` (`userId`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=big5;
+  `emailid` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`questionId`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=big5;
 
 
-CREATE TABLE `portal`.`QuestionReplies` (
+CREATE TABLE `QuestionReplies` (
   `replyId` int(11) NOT NULL AUTO_INCREMENT,
   `questId` int(11) DEFAULT NULL,
-  `replyDescription` varchar(200) DEFAULT NULL,
-  `createdDate` datetime DEFAULT NULL,
+  `replyDescription` varchar(5000) DEFAULT NULL,
   `updatedDate` datetime DEFAULT NULL,
-  `userId` int(11) DEFAULT NULL,
-  PRIMARY KEY (`replyId`),
-  KEY `fk_userid_questionreplies_idx` (`userId`),
-  KEY `fk_questionId_questionreplies_idx` (`questionId`),
-  CONSTRAINT `fk_questionId_questionreplies` FOREIGN KEY (`questionId`) REFERENCES `Questionaries` (`questionId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_userid_questionreplies` FOREIGN KEY (`userId`) REFERENCES `User` (`userId`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=big5;
+  `emailid` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`replyId`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=big5;
+
 
 
 

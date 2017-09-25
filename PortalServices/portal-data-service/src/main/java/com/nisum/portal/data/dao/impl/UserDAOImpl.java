@@ -45,4 +45,9 @@ public class UserDAOImpl implements UserDAO{
 		return userRepository.findOne(userId);
 	}
 
+	@Override
+	public long getUserCount() {
+		return userRepository.count();
+	}
+
 }

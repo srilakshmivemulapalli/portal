@@ -18,8 +18,22 @@ public class QuestionariesDAOImpl implements QuestionariesDAO {
 	@Autowired
 	QuestionariesRepository questionariesRepository;
 	@Override
-	public List<Questionaries> getQuestionaries() {
+	public List<Questionaries> fetchAllQuestionaries() {
 		return questionariesRepository.findAll();
 	}
+	@Override
+	public long getQuestionariesCount() {
+		return questionariesRepository.count();
+	}
+	@Override
+	public Questionaries getQuestionaries(int questionId) {
+		return questionariesRepository.findOne(questionId);
+	}
+	
+	@Override
+	public Questionaries saveQuestionaries(Questionaries questionaries) {
+		return questionariesRepository.save(questionaries);
+	}
+	
 
 }

@@ -1,6 +1,5 @@
 package com.nisum.portal.rest.api;
 
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,24 +57,29 @@ public class CategoriesRestService {
 		ServiceStatusDto servicedto = categoriesService.addCategory(category);
 		if (servicedto.isStatus())
 			return new ResponseEntity<ServiceStatusDto>(servicedto, HttpStatus.OK);
-		else
+		else {
+			logger.error("Category already Exists");
 			throw new CategoryServiceException(KeyConstants.CATEGORY_EXISTS);
+		}
 	}
-
-	@RequestMapping(value = "/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> updateCategories(@RequestBody CategoriesDTO categoriesDTO)
-			throws CategoryServiceException {
-		logger.info("CategoriesRestService :: updateCategories :: Category Details " + categoriesDTO.toString());
-		try {
-			String status = categoriesService.update(categoriesDTO);
-			if (status.equalsIgnoreCase("success"))
-				return new ResponseEntity<Object>("Categories Updated Successfully", HttpStatus.OK);
-			else {
-				return new ResponseEntity<Object>("CategoryId is Not Found", HttpStatus.NOT_FOUND);
-			}
-		} catch (Exception e) {
-			logger.error("Unable To Update Categories with categoryId not found.", categoriesDTO.getCategoryId());
-			throw new CategoryServiceException("Categories Not Exist");
+	@RequestMapping(value="/updateCategory",method=RequestMethod.PUT,consumes=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ServiceStatusDto> updateCategories(@RequestBody CategoriesDTO categoriesDTO) throws CategoryServiceException
+	{
+		logger.info("CategoriesRestService :: updateCategories :: Category Details "+categoriesDTO.toString());
+		try
+		{
+				ServiceStatusDto servicedto = categoriesService.update(categoriesDTO);
+				if(servicedto.isStatus())
+					return new ResponseEntity<ServiceStatusDto>(servicedto,HttpStatus.OK);
+				else
+				{
+					throw new CategoryServiceException(KeyConstants.CATEGORY_NOT_EXIST);
+				}
+		}
+		catch(Exception e)
+		{
+			logger.error("Unable To Update Categories with categoryId not found."+categoriesDTO.getCategoryId());
+			throw new CategoryServiceException(KeyConstants.CATEGORY_NOT_EXIST);
 		}
 	}
 
@@ -85,20 +89,18 @@ public class CategoriesRestService {
 		return categoriesService.getCategory(id);
 	}
 
-
 	@RequestMapping(value = "/delete/{categoryId}", method = RequestMethod.DELETE)
-	public ResponseEntity<Object> deletingCategories(@PathVariable("categoryId") Integer categoryId) throws CategoryServiceException {
+	public ResponseEntity<Object> deletingCategories(@PathVariable("categoryId") Integer categoryId)
+			throws CategoryServiceException {
 		logger.info("CategoriesRestService :: deleteCategory");
-		try
-		{  
-		   categoriesService.deleteCategories(categoryId);
-		}catch(Exception ex)
-		{
+		try {
+			categoriesService.deleteCategories(categoryId);
+		} catch (Exception ex) {
 			logger.error(KeyConstants.CATEGORY_NOT_EXIST);
 			throw new CategoryServiceException(KeyConstants.CATEGORY_NOT_EXIST);
 		}
 
-		return  new ResponseEntity<Object>(KeyConstants.CATEGORY_DELETE,HttpStatus.OK);
+		return new ResponseEntity<Object>(KeyConstants.CATEGORY_DELETE, HttpStatus.OK);
 
 	}
 
@@ -111,6 +113,7 @@ public class CategoriesRestService {
 	@ExceptionHandler(CategoryServiceException.class)
 	public ResponseEntity<Errors> exceptionHandler(Exception ex) {
 		Errors errors = new Errors();
+
 		errors.setErrorCode("Error-Categories");
 		errors.setErrorMessage(ex.getMessage());
 		return new ResponseEntity<Errors>(errors, HttpStatus.OK);
