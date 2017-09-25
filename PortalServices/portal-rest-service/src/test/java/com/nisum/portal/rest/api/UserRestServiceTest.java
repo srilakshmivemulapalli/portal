@@ -5,13 +5,16 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.exceptions.base.MockitoException;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.HttpStatus;
@@ -113,7 +116,27 @@ public class UserRestServiceTest {
 	@Test(expected=Exception.class)
 	public void TestException2() throws UserServiceException
 	{
+		//List<UserDTO>users = null;
+		
+		when(userRestService.getUsers()).thenThrow(new UserServiceException(KeyConstants.USERLISTEMPTY));
+
 		assertThat(userRestService.deleteUser(null));
+		
+		
+	}
+	@Test
+	public void TestGetUsers() throws UserServiceException {
+		UserDTO userDto = new UserDTO();
+		List<UserDTO> dtoList = new ArrayList<UserDTO>();
+		userDto.setEmailId("dsdsds");
+		userDto.setActiveStatus("Yes");
+		userDto.setName("dsd");
+		userDto.setUserId(1);
+		dtoList.add(userDto);
+	ResponseEntity<List<UserDTO>> resList=new ResponseEntity<List<UserDTO>>(dtoList, HttpStatus.OK);	
+		Mockito.when(userServiceMock.getUsers()).thenReturn(dtoList);
+		ResponseEntity<List<UserDTO>> actual = userRestService.getUsers();
+		assertEquals(resList,actual);
 	}
 
 }
