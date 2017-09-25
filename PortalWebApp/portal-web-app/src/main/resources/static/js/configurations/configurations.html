@@ -48,7 +48,7 @@
 										ng-disabled="!userselected[$index]"></select></td>
 									<td class="CENTER"
 										ng-class="{'disabled':!userselected[$index]}"
-										ng-disabled="{'disabled':userselected[$index]}"><img
+										ng-disabled="!userselected[$index]"><img
 										class="deleteicon" src="images/delete.png"
 										ng-click="!userselected[$index]|| confirmDelete('user',user.userId);" />
 										<span ng-click="!userselected[$index]|| confirmEdit('user',user);"
@@ -100,11 +100,11 @@
 									<td><input type="checkbox" value=""
 										ng-model="roleselected[$index]"></td>
 									<td><input type="text" ng-model="role.role"
-										ng-disabled="{'txtdisabled':roleselected[$index]}"
+										ng-disabled="!roleselected[$index]"
 										ng-class="{'txtdisabled': !roleselected[$index]}" />{{role.role}}</td>
 									<td>{{role.createdDate | date: 'MM-dd-yyyy HH:mm:ss'}}</td>
 									<td class="CENTER"
-										ng-disabled="{'disabled':roleselected[$index]}"
+										ng-disabled="!roleselected[$index]"
 										ng-class="{'disabled':!roleselected[$index]}"><img
 										class="deleteicon" src="images/delete.png"
 										ng-click="!roleselected[$index]||confirmDelete('role',role.roleId);" />
@@ -164,16 +164,16 @@
 									<td>{{category.categoryId}}</td>
 									<td><input type="text"
 										ng-class="{'txtdisabled':!categoryselected[$index]}"
-										ng-disabled="{'txtdisabled':categoryselected[$index]}"
+										ng-disabled="!categoryselected[$index]"
 										ng-model="category.categoryName" /></td>
 									<td><input type="text"
 										ng-class="{'txtdisabled':!categoryselected[$index]}"
-										ng-disabled="{'txtdisabled':categoryselected[$index]}"
+										ng-disabled="!categoryselected[$index]"
 										ng-model="category.description" /></td>
 									<td>{{category.createDate | date: 'MM-dd-yyyy HH:mm:ss'}}</td>
 									<td class="CENTER"
 										ng-class="{'disabled':!categoryselected[$index]}"
-										ng-disabled="{'disabled':categoryselected[$index]}"><img
+										ng-disabled="!categoryselected[$index]"><img
 										class="deleteicon" src="images/delete.png"
 										ng-click="!categoryselected[$index]|| confirmDelete('category',category.cateogryId);" />
 										<span ng-click="!categoryselected[$index]|| confirmEdit('category',category);"

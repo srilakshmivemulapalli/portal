@@ -218,6 +218,24 @@ adminApp
 						}
 						$('#editModal').modal('hide');
 					}
+					$scope.editItem = function() {
+						if ($scope.editteditem.name === 'user') {
+							$http.put(
+									'v1/user/updateCategory/'
+											, $scope.editteditem.item)
+									.success(function(response) {
+										$scope.getUsers();
+										alert(response.message);
+									}).error(function() {
+										alert('error');
+									});
 
+						} else if ($scope.editteditem.name === 'role') {
+							$scope.getRoles();
+						} else if ($scope.editteditem.name === 'category') {
+							$scope.getCategories();
+						}
+						$('#editModal').modal('hide');
+					}
 
 				});

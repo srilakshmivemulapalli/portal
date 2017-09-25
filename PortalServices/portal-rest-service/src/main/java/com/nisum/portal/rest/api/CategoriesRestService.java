@@ -63,7 +63,7 @@ public class CategoriesRestService {
 			throw new CategoryServiceException(KeyConstants.CATEGORY_EXISTS);
 		}
 	}
-	@RequestMapping(value="/update",method=RequestMethod.PUT,consumes=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/updateCategory",method=RequestMethod.PUT,consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> updateCategories(@RequestBody CategoriesDTO categoriesDTO) throws CategoryServiceException
 	{
 		logger.info("CategoriesRestService :: updateCategories :: Category Details "+categoriesDTO.toString());
