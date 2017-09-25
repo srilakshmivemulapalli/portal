@@ -214,28 +214,20 @@ adminApp
 						} else if ($scope.editteditem.name === 'role') {
 							$scope.getRoles();
 						} else if ($scope.editteditem.name === 'category') {
-							$scope.getCategories();
-						}
-						$('#editModal').modal('hide');
-					}
-					$scope.editItem = function() {
-						if ($scope.editteditem.name === 'user') {
 							$http.put(
-									'v1/user/updateCategory/'
+									'v1/category/updateCategory/'
 											, $scope.editteditem.item)
 									.success(function(response) {
-										$scope.getUsers();
+										console.log(response)
 										alert(response.message);
+										$scope.getCategories();
 									}).error(function() {
 										alert('error');
 									});
-
-						} else if ($scope.editteditem.name === 'role') {
-							$scope.getRoles();
-						} else if ($scope.editteditem.name === 'category') {
-							$scope.getCategories();
+							
 						}
 						$('#editModal').modal('hide');
 					}
+					
 
 				});

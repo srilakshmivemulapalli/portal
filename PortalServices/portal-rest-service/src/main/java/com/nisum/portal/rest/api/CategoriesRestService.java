@@ -1,6 +1,5 @@
 package com.nisum.portal.rest.api;
 
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,23 +63,23 @@ public class CategoriesRestService {
 		}
 	}
 	@RequestMapping(value="/updateCategory",method=RequestMethod.PUT,consumes=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> updateCategories(@RequestBody CategoriesDTO categoriesDTO) throws CategoryServiceException
+	public ResponseEntity<ServiceStatusDto> updateCategories(@RequestBody CategoriesDTO categoriesDTO) throws CategoryServiceException
 	{
 		logger.info("CategoriesRestService :: updateCategories :: Category Details "+categoriesDTO.toString());
 		try
 		{
-				String status = categoriesService.update(categoriesDTO);
-				if(status.equalsIgnoreCase("success"))
-					return new ResponseEntity<String>("Categories Updated Successfully",HttpStatus.OK);
+				ServiceStatusDto servicedto = categoriesService.update(categoriesDTO);
+				if(servicedto.isStatus())
+					return new ResponseEntity<ServiceStatusDto>(servicedto,HttpStatus.OK);
 				else
 				{
-					return new ResponseEntity<String>("CategoryId is Not Found",HttpStatus.EXPECTATION_FAILED);
+					throw new CategoryServiceException(KeyConstants.CATEGORY_NOT_EXIST);
 				}
 		}
 		catch(Exception e)
 		{
-			logger.error("Unable To Update Categories with categoryId not found.", categoriesDTO.getCategoryId());
-			throw new CategoryServiceException("Categories Not Exist");
+			logger.error("Unable To Update Categories with categoryId not found."+categoriesDTO.getCategoryId());
+			throw new CategoryServiceException(KeyConstants.CATEGORY_NOT_EXIST);
 		}
 	}
 
