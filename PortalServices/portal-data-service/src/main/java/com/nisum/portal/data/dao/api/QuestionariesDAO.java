@@ -9,4 +9,5 @@ public interface QuestionariesDAO {
 	List<Questionaries> fetchAllQuestionaries();
 	Questionaries getQuestionaries(int questionId);
 	long getQuestionariesCount();
+	Questionaries saveQuestionaries(Questionaries questionaries);
 }

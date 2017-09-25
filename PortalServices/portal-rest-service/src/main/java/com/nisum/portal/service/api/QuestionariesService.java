@@ -8,4 +8,7 @@ public interface QuestionariesService {
 	QuestionsDTO getQuestionaries();
 	
 	long getQuestionariesCount();
+	
+	String saveQuestions(String emailId, Integer categoryId, String question, String description);
+	
 }

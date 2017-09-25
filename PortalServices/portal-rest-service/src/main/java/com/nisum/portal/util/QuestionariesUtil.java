@@ -1,5 +1,6 @@
 package com.nisum.portal.util;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,5 +27,9 @@ public class QuestionariesUtil {
 		}
 		questionsDTO.setQuestionDetails(questionariesDTOs);
 		return questionsDTO;
+	}
+
+	public static Questionaries convertDtoToDao(String emailId, Integer categoryId, String question, String description) {
+		return new Questionaries(categoryId,question,description,new Timestamp(System.currentTimeMillis()),emailId);
 	}
 }

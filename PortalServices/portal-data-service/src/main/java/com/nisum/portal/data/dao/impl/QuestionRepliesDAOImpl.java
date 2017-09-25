@@ -32,5 +32,9 @@ public class QuestionRepliesDAOImpl implements QuestionRepliesDAO{
 	public List<QuestionReplies> getQuestionariesReply(int questId){
 		return questionRepliesRepository.getQuestionariesReply(questId);
 	}
+	@Override
+	public QuestionReplies saveQuestionReplies(QuestionReplies questionReplies) {
+		return questionRepliesRepository.save(questionReplies);
+	}
 
 }
