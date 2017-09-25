@@ -20,8 +20,8 @@ import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.dto.UserDTO;
 import com.nisum.portal.service.exception.QuestionariesServiceException;
 import com.nisum.portal.service.exception.UserServiceException;
-import com.nisum.portal.util.ExceptionConstants;
-import com.nisum.portal.util.KeyConstants;
+import com.nisum.portal.util.Constants;
+import com.nisum.portal.util.Constants;
 
 @RestController
 @RequestMapping(value = "/v1/user")
@@ -45,16 +45,16 @@ public class UserRestService {
 			String activeStatus = userService.findUserById(userId);
 			ServiceStatusDto serviceStatusDTO = new ServiceStatusDto();
 			if (activeStatus == null || activeStatus.equalsIgnoreCase("No")) {
-				serviceStatusDTO.setMessage(KeyConstants.USERNOTEXISTS);
+				serviceStatusDTO.setMessage(Constants.USERNOTEXISTS);
 				return new ResponseEntity<ServiceStatusDto>(serviceStatusDTO, HttpStatus.EXPECTATION_FAILED);
 			} else {
 				userService.deleteUser(userId);
-				serviceStatusDTO.setMessage(KeyConstants.USERDELETED);
+				serviceStatusDTO.setMessage(Constants.USERDELETED);
 				return new ResponseEntity<ServiceStatusDto>(serviceStatusDTO, HttpStatus.OK);
 			}
 		} catch (Exception e) {
 			logger.info("UserRestService :: deleteUser :: Internal Server Error");
-			throw new UserServiceException(ExceptionConstants.INTERNALSERVERERROR, e);
+			throw new UserServiceException(Constants.INTERNALSERVERERROR, e);
 		}
 	}
 	
@@ -68,7 +68,7 @@ public class UserRestService {
 		logger.info("UserRestService :: users");
 		List<UserDTO> users = userService.getUsers();
 		if (users.isEmpty()) {
-			throw new UserServiceException(KeyConstants.USERLISTEMPTY);
+			throw new UserServiceException(Constants.USERLISTEMPTY);
 			}
 			return new ResponseEntity<List<UserDTO>>(users, HttpStatus.OK);
 	}
@@ -84,15 +84,15 @@ public class UserRestService {
 		logger.info("UserRestService :: users::: update");
 		try {
 		if(userDto==null) {
-			throw new UserServiceException(ExceptionConstants.INTERNALSERVERERROR);
+			throw new UserServiceException(Constants.INTERNALSERVERERROR);
 		}
 		userService.updateUserDetails(userDto);
-		return new ResponseEntity<Object>(KeyConstants.USERUPDATED, HttpStatus.OK);
+		return new ResponseEntity<Object>(Constants.USERUPDATED, HttpStatus.OK);
 		}
 		catch(Exception e)
 		{
 			logger.info("UserRestService :: UpdateUser :: Internal Server Error");
-			throw new UserServiceException(ExceptionConstants.INTERNALSERVERERROR, e);
+			throw new UserServiceException(Constants.INTERNALSERVERERROR, e);
 		}
 	}
 	
@@ -117,7 +117,7 @@ public class UserRestService {
 		catch(Exception e)
 		{
 			logger.info("UserRestService :: Update multiple Users :: Internal Server Error");
-			throw new UserServiceException(ExceptionConstants.INTERNALSERVERERROR, e);
+			throw new UserServiceException(Constants.INTERNALSERVERERROR, e);
 		}
 	}
 	

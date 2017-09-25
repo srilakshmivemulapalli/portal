@@ -12,7 +12,7 @@ import com.nisum.portal.data.dao.api.UserDAO;
 import com.nisum.portal.data.domain.Questionaries;
 import com.nisum.portal.service.api.QuestionariesService;
 import com.nisum.portal.service.dto.QuestionsDTO;
-import com.nisum.portal.util.KeyConstants;
+import com.nisum.portal.util.Constants;
 import com.nisum.portal.util.QuestionariesUtil;
 
 @Service
@@ -43,7 +43,7 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 	public String saveQuestions(String emailId, Integer categoryId, String question, String description) {
 		Questionaries questionaries = QuestionariesUtil.convertDtoToDao(emailId, categoryId, question, description);
 		questionariesDAO.saveQuestionaries(questionaries);
-		return KeyConstants.SUCCESS_MESSAGE;
+		return Constants.SUCCESS_MESSAGE;
 	}
 
 }

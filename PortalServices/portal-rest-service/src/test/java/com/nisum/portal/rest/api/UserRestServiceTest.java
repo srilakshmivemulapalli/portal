@@ -24,7 +24,7 @@ import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.dto.UserDTO;
 import com.nisum.portal.service.dto.UserRoleDTO;
 import com.nisum.portal.service.exception.UserServiceException;
-import com.nisum.portal.util.KeyConstants;
+import com.nisum.portal.util.Constants;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserRestServiceTest {
@@ -75,7 +75,7 @@ public class UserRestServiceTest {
 		dto.setUserId(1);
 		dto.setName("sasas");
 		ServiceStatusDto expected = new ServiceStatusDto();
-		expected.setMessage(KeyConstants.USERDELETED);
+		expected.setMessage(Constants.USERDELETED);
 		expected.setStatus(true);
 		ResponseEntity<ServiceStatusDto> entity = new ResponseEntity<ServiceStatusDto>(expected,HttpStatus.OK);
 		when(userServiceMock.findUserById(userId)).thenReturn(dto.getActiveStatus());
@@ -96,7 +96,7 @@ public class UserRestServiceTest {
 		dto.setUserId(1);
 		dto.setName("sasas");
 		ServiceStatusDto expected = new ServiceStatusDto();
-		expected.setMessage(KeyConstants.USERNOTEXISTS);
+		expected.setMessage(Constants.USERNOTEXISTS);
 		expected.setStatus(false);
 		ResponseEntity<ServiceStatusDto> entity = new ResponseEntity<ServiceStatusDto>(expected,HttpStatus.EXPECTATION_FAILED);
 		when(userServiceMock.findUserById(userId)).thenReturn(dto.getActiveStatus());
@@ -111,7 +111,7 @@ public class UserRestServiceTest {
 	{
 		//List<UserDTO>users = null;
 		
-		when(userRestService.getUsers()).thenThrow(new UserServiceException(KeyConstants.USERLISTEMPTY));
+		when(userRestService.getUsers()).thenThrow(new UserServiceException(Constants.USERLISTEMPTY));
 
 		assertThat(userRestService.deleteUser(null));
 		

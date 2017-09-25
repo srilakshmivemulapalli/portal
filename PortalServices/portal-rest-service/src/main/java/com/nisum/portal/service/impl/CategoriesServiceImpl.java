@@ -16,7 +16,7 @@ import com.nisum.portal.service.dto.CategoriesDTO;
 import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.exception.CategoryServiceException;
 import com.nisum.portal.util.CategoryServiceUtil;
-import com.nisum.portal.util.KeyConstants;
+import com.nisum.portal.util.Constants;
 
 @Service
 public class CategoriesServiceImpl implements CategoriesService{
@@ -52,10 +52,10 @@ public class CategoriesServiceImpl implements CategoriesService{
 		
 		if(serviceStatus == 0) {
 			serviceStatusDto.setStatus(false);
-			serviceStatusDto.setMessage(KeyConstants.CATEGORY_EXISTS);
+			serviceStatusDto.setMessage(Constants.CATEGORY_EXISTS);
 		}else if(serviceStatus == 1){
 			serviceStatusDto.setStatus(true);
-			serviceStatusDto.setMessage(KeyConstants.SUCCESS_MESSAGE);
+			serviceStatusDto.setMessage(Constants.SUCCESS_MESSAGE);
 		}
 
 		return serviceStatusDto;
@@ -81,13 +81,13 @@ public class CategoriesServiceImpl implements CategoriesService{
 			{
 				logger.info("CategoriesServiceImpl :: updateCategories :: Categories updated Successfully");
 				serviceStatusDto.setStatus(true);
-				serviceStatusDto.setMessage(KeyConstants.SUCCESS_UPDATE_MESSAGE);
+				serviceStatusDto.setMessage(Constants.SUCCESS_UPDATE_MESSAGE);
 			}
 			else
 			{
 				logger.error("CategoriesServiceImpl :: updateCategories :: Unable To Update Categories with categoryId not found."+categories.getCategoryId());
 				serviceStatusDto.setStatus(false);
-				serviceStatusDto.setMessage(KeyConstants.CATEGORY_EXISTS);
+				serviceStatusDto.setMessage(Constants.CATEGORY_EXISTS);
 			}
 			return serviceStatusDto;
 			}

@@ -19,8 +19,7 @@ import com.nisum.portal.service.api.UserRoleService;
 import com.nisum.portal.service.dto.Errors;
 import com.nisum.portal.service.dto.UserRoleDTO;
 import com.nisum.portal.service.exception.UserRoleServiceException;
-import com.nisum.portal.util.ExceptionConstants;
-import com.nisum.portal.util.KeyConstants;
+import com.nisum.portal.util.Constants;
 
 @RestController
 @RequestMapping("/v1/userrole")
@@ -48,12 +47,12 @@ public class UserRoleRestService {
 			
 			Errors error = new Errors();
 			error.setErrorCode("Errors-UserRole");
-			error.setErrorMessage(ExceptionConstans.USER_ROLE_EXISTS);
+			error.setErrorMessage(Constants.USER_ROLE_EXISTS);
 			ResponseEntity<Errors> rsEntity=new ResponseEntity<Errors>(error, HttpStatus.NOT_ACCEPTABLE);
 			return rsEntity;
 		}
 		logger.info("UserRoleRestService :: Given User Role Added Successfully");
-		return new ResponseEntity<Object>(ExceptionConstans.USER_ROLE_ADDED, HttpStatus.OK);
+		return new ResponseEntity<Object>(Constants.USER_ROLE_ADDED, HttpStatus.OK);
 		
 	}
 	/**
@@ -74,12 +73,12 @@ public class UserRoleRestService {
 			
 			Errors error = new Errors();
 			error.setErrorCode("Errors-UserRole");
-			error.setErrorMessage(ExceptionConstans.USERROLENOTEXISTS);
+			error.setErrorMessage(Constants.USERROLENOTEXISTS);
 			ResponseEntity<Errors> rsEntity=new ResponseEntity<Errors>(error, HttpStatus.NOT_ACCEPTABLE);
 			return rsEntity;
 		}	
 		logger.info("UserRoleRestService :: Existing User Role Deleted Successfully");		
-		return new ResponseEntity<Object>(ExceptionConstans.USER_ROLE_DELETED, HttpStatus.OK);
+		return new ResponseEntity<Object>(Constants.USER_ROLE_DELETED, HttpStatus.OK);
 	}
 
 	/**
@@ -116,12 +115,12 @@ public class UserRoleRestService {
 		try {
 			UserRole updateUserRole=userRoleService.updateUserRole(userRole);		
 			if(updateUserRole==null) {
-				return new ResponseEntity<>(KeyConstants.USERROLENOTEXISTS,HttpStatus.EXPECTATION_FAILED);
+				return new ResponseEntity<>(Constants.USERROLENOTEXISTS,HttpStatus.EXPECTATION_FAILED);
 			}
 			else
-				return new ResponseEntity<>(KeyConstants.USERROLEUPDATED,HttpStatus.OK);
+				return new ResponseEntity<>(Constants.USERROLEUPDATED,HttpStatus.OK);
 		} catch (Exception e) {
-			throw new UserRoleServiceException(ExceptionConstants.INTERNALSERVERERROR);
+			throw new UserRoleServiceException(Constants.INTERNALSERVERERROR);
 		}
 
 	}

@@ -19,7 +19,7 @@ import com.nisum.portal.service.dto.CategoriesDTO;
 import com.nisum.portal.service.dto.Errors;
 import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.exception.CategoryServiceException;
-import com.nisum.portal.util.KeyConstants;
+import com.nisum.portal.util.Constants;
 
 /**
  * @author nisum
@@ -59,7 +59,7 @@ public class CategoriesRestService {
 			return new ResponseEntity<ServiceStatusDto>(servicedto, HttpStatus.OK);
 		else {
 			logger.error("Category already Exists");
-			throw new CategoryServiceException(KeyConstants.CATEGORY_EXISTS);
+			throw new CategoryServiceException(Constants.CATEGORY_EXISTS);
 		}
 	}
 	@RequestMapping(value="/updateCategory",method=RequestMethod.PUT,consumes=MediaType.APPLICATION_JSON_VALUE)
@@ -73,13 +73,13 @@ public class CategoriesRestService {
 					return new ResponseEntity<ServiceStatusDto>(servicedto,HttpStatus.OK);
 				else
 				{
-					throw new CategoryServiceException(KeyConstants.CATEGORY_NOT_EXIST);
+					throw new CategoryServiceException(Constants.CATEGORY_NOT_EXIST);
 				}
 		}
 		catch(Exception e)
 		{
 			logger.error("Unable To Update Categories with categoryId not found."+categoriesDTO.getCategoryId());
-			throw new CategoryServiceException(KeyConstants.CATEGORY_NOT_EXIST);
+			throw new CategoryServiceException(Constants.CATEGORY_NOT_EXIST);
 		}
 	}
 
@@ -96,11 +96,11 @@ public class CategoriesRestService {
 		try {
 			categoriesService.deleteCategories(categoryId);
 		} catch (Exception ex) {
-			logger.error(KeyConstants.CATEGORY_NOT_EXIST);
-			throw new CategoryServiceException(KeyConstants.CATEGORY_NOT_EXIST);
+			logger.error(Constants.CATEGORY_NOT_EXIST);
+			throw new CategoryServiceException(Constants.CATEGORY_NOT_EXIST);
 		}
 
-		return new ResponseEntity<Object>(KeyConstants.CATEGORY_DELETE, HttpStatus.OK);
+		return new ResponseEntity<Object>(Constants.CATEGORY_DELETE, HttpStatus.OK);
 
 	}
 

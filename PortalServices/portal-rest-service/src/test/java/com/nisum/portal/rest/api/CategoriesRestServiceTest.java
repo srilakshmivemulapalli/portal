@@ -21,7 +21,7 @@ import com.nisum.portal.service.api.CategoriesService;
 import com.nisum.portal.service.dto.CategoriesDTO;
 import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.exception.CategoryServiceException;
-import com.nisum.portal.util.KeyConstants;
+import com.nisum.portal.util.Constants;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -50,7 +50,7 @@ public class CategoriesRestServiceTest {
 		
 		ServiceStatusDto serviceStatusExpected = new ServiceStatusDto();
 		serviceStatusExpected.setStatus(true);
-		serviceStatusExpected.setMessage(KeyConstants.SUCCESS_MESSAGE);
+		serviceStatusExpected.setMessage(Constants.SUCCESS_MESSAGE);
 		when(categoryService.addCategory(categoryDto)).thenReturn(serviceStatusExpected);
 		ResponseEntity<ServiceStatusDto> serviceStatusactual = mainController.addCategory(categoryDto);
 
@@ -61,7 +61,7 @@ public class CategoriesRestServiceTest {
 	public void updateCategoryTest() throws CategoryServiceException {
 		ServiceStatusDto serviceStatusExpected = new ServiceStatusDto();
 		serviceStatusExpected.setStatus(true);
-		serviceStatusExpected.setMessage(KeyConstants.SUCCESS_MESSAGE);
+		serviceStatusExpected.setMessage(Constants.SUCCESS_MESSAGE);
 		Timestamp createDate=new Timestamp(System.currentTimeMillis());
 		CategoriesDTO categoryDto = new CategoriesDTO();
 		categoryDto.setCategoryId(1);
