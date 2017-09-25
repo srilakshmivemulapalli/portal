@@ -3,6 +3,8 @@ package com.nisum.portal.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections4.CollectionUtils;
+
 import com.nisum.portal.data.domain.Categories;
 import com.nisum.portal.service.dto.CategoriesDTO;
 
@@ -10,14 +12,17 @@ public class CategoryServiceUtil {
 
 	public static List<CategoriesDTO> convertDaoTODto(List<Categories> categoriesList) {
 		List<CategoriesDTO> categoriesDTOs = new ArrayList<>();
-		for (Categories categories : categoriesList) {
-			CategoriesDTO categoriesDTO = new CategoriesDTO();
-			categoriesDTO.setCategoryId(categories.getCategoryId());
-			categoriesDTO.setCategoryName(categories.getCategoryName());
-			categoriesDTO.setDescription(categories.getDescription());
-			categoriesDTO.setCreateDate(categories.getCreateDate());
-			categoriesDTO.setDescription(categories.getDescription());
-			categoriesDTOs.add(categoriesDTO);
+		
+		if (CollectionUtils.isNotEmpty(categoriesList)) {
+			for (Categories categories : categoriesList) {
+				CategoriesDTO categoriesDTO = new CategoriesDTO();
+				categoriesDTO.setCategoryId(categories.getCategoryId());
+				categoriesDTO.setCategoryName(categories.getCategoryName());
+				categoriesDTO.setDescription(categories.getDescription());
+				categoriesDTO.setCreateDate(categories.getCreateDate());
+				categoriesDTO.setDescription(categories.getDescription());
+				categoriesDTOs.add(categoriesDTO);
+			}
 		}
 		return categoriesDTOs;
 

@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections4.CollectionUtils;
+
 import com.nisum.portal.data.domain.QuestionReplies;
 import com.nisum.portal.data.domain.Questionaries;
 import com.nisum.portal.service.dto.QuestionRepliesDTO;
@@ -17,7 +19,7 @@ public class QuestionReplysUtil {
 		
 		QuestionReplysDTO replysDTO = new QuestionReplysDTO();
 		
-		if(questionaries!=null) {
+		if (questionaries!=null && CollectionUtils.isNotEmpty(questionReplies)) {
 			QuestionariesDTO dto = new  QuestionariesDTO();
 			dto.setCreatedDate(questionaries.getCreatedDate());
 			dto.setDescription(questionaries.getDescription());

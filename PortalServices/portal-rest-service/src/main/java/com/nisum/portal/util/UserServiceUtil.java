@@ -3,6 +3,8 @@ package com.nisum.portal.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections4.CollectionUtils;
+
 import com.nisum.portal.data.domain.User;
 import com.nisum.portal.data.domain.UserRole;
 import com.nisum.portal.service.dto.UserDTO;
@@ -17,21 +19,22 @@ public class UserServiceUtil {
 	 */
 	public static List<UserDTO> convertDaoListTODto(List<User> users) {
 		List<UserDTO> userDTO = new ArrayList<UserDTO>();
-		for(User user : users)
-		{
-			UserDTO userDto = new UserDTO();
-
-			userDto.setUserId(user.getUserId());
-			userDto.setActiveStatus(user.getActiveStatus());
-			userDto.setEmailId(user.getEmailId());
-			userDto.setLoginDate(user.getLoginDate());
-			userDto.setName(user.getName());
-			UserRoleDTO userRoleDTO = new UserRoleDTO();
-			userRoleDTO.setCreatedDate(user.getRole().getCreatedDate());
-			userRoleDTO.setRole(user.getRole().getRole());
-			userRoleDTO.setRoleId(user.getRole().getRoleId());
-			userDto.setRole(userRoleDTO);
-			userDTO.add(userDto);
+		
+		if (CollectionUtils.isNotEmpty(users)) {
+			for(User user : users){
+				UserDTO userDto = new UserDTO();
+				userDto.setUserId(user.getUserId());
+				userDto.setActiveStatus(user.getActiveStatus());
+				userDto.setEmailId(user.getEmailId());
+				userDto.setLoginDate(user.getLoginDate());
+				userDto.setName(user.getName());
+				UserRoleDTO userRoleDTO = new UserRoleDTO();
+				userRoleDTO.setCreatedDate(user.getRole().getCreatedDate());
+				userRoleDTO.setRole(user.getRole().getRole());
+				userRoleDTO.setRoleId(user.getRole().getRoleId());
+				userDto.setRole(userRoleDTO);
+				userDTO.add(userDto);
+			}
 		}
 		return userDTO;
 	}
@@ -65,20 +68,22 @@ public class UserServiceUtil {
 	 */
 	public static List<User> convertDtoListTODao(List<UserDTO> userDtoList) {
 		List<User> users = new ArrayList<User>();
-		for(UserDTO userlist : userDtoList)
-		{
-			User user = new User();
-			user.setUserId(userlist.getUserId());
-			user.setActiveStatus(userlist.getActiveStatus());
-			user.setEmailId(userlist.getEmailId());
-			user.setLoginDate(userlist.getLoginDate());
-			user.setName(userlist.getName());
-			UserRole userRole = new UserRole();
-			userRole.setCreatedDate(userlist.getRole().getCreatedDate());
-			userRole.setRole(userlist.getRole().getRole());
-			userRole.setRoleId(userlist.getRole().getRoleId());
-			user.setRole(userRole);
-			users.add(user);
+		if (CollectionUtils.isNotEmpty(userDtoList)) {
+			for(UserDTO userlist : userDtoList)
+			{
+				User user = new User();
+				user.setUserId(userlist.getUserId());
+				user.setActiveStatus(userlist.getActiveStatus());
+				user.setEmailId(userlist.getEmailId());
+				user.setLoginDate(userlist.getLoginDate());
+				user.setName(userlist.getName());
+				UserRole userRole = new UserRole();
+				userRole.setCreatedDate(userlist.getRole().getCreatedDate());
+				userRole.setRole(userlist.getRole().getRole());
+				userRole.setRoleId(userlist.getRole().getRoleId());
+				user.setRole(userRole);
+				users.add(user);
+			}
 		}
 		return users;
 	}
