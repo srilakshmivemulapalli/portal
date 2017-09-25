@@ -28,7 +28,7 @@ public class QuestionReplysUtil {
 			List<QuestionRepliesDTO> questRepliesDTO = new ArrayList<QuestionRepliesDTO>();
 			for (QuestionReplies reply : questionReplies) {
 				QuestionRepliesDTO repliesDTO = new QuestionRepliesDTO();
-				repliesDTO.setEmailid(reply.getEmailid());
+				repliesDTO.setEmailId(reply.getEmailid());
 				repliesDTO.setReplyDescription(reply.getReplyDescription());
 				repliesDTO.setReplyId(reply.getReplyId());
 				repliesDTO.setUpdatedDate(reply.getUpdatedDate());

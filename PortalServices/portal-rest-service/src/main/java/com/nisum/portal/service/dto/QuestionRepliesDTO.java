@@ -7,7 +7,7 @@ public class QuestionRepliesDTO {
 	private int replyId;
 	private String replyDescription;
 	private Timestamp updatedDate;
-	private String emailid;
+	private String emailId;
 	/**
 	 * @return the replyId
 	 */
@@ -44,16 +44,12 @@ public class QuestionRepliesDTO {
 	public void setUpdatedDate(Timestamp updatedDate) {
 		this.updatedDate = updatedDate;
 	}
-	/**
-	 * @return the emailid
-	 */
-	public String getEmailid() {
-		return emailid;
+	public String getEmailId() {
+		return emailId;
 	}
-	/**
-	 * @param emailid the emailid to set
-	 */
-	public void setEmailid(String emailid) {
-		this.emailid = emailid;
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
 	}
+	
+	
 }
