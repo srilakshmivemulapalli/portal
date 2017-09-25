@@ -5,20 +5,20 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "QuestionReplies")
 public class QuestionReplies implements Serializable{
+	
 	private static final long serialVersionUID = 1L;
 
-	
 	@Id
 	@Column (name = "replyId")
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int replyId;
 	private String replyDescription;
 	private Timestamp updatedDate;
@@ -101,6 +101,17 @@ public class QuestionReplies implements Serializable{
 	 */
 	public void setQuestId(int questId) {
 		this.questId = questId;
+	}
+	
+	public QuestionReplies() {
+		super();
+	}
+	public QuestionReplies(String replyDescription, Timestamp updatedDate, int questId, String emailid) {
+		super();
+		this.replyDescription = replyDescription;
+		this.updatedDate = updatedDate;
+		this.questId = questId;
+		this.emailid = emailid;
 	}
 
 	/* (non-Javadoc)
