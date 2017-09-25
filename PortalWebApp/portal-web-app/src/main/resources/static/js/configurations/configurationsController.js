@@ -29,14 +29,14 @@ adminApp
 
 						$http.get('v1/user/getUsers').then(function(response) {
 							$scope.usersList = response.data;
-							
-						}, function(response) {
 
+						}, function(response) {
+							
 						});
 
 					}
 					$scope.getRoles = function() {
-						
+
 						$http.get('v1/userrole/retrieve').then(
 								function(response) {
 									$scope.rolesList = response.data;
@@ -190,41 +190,32 @@ adminApp
 
 						});
 					};
-					
+
 					$scope.confirmEdit = function(name, item) {
-						$scope.editteditem= {
+						$scope.editteditem = {
 							'name' : name,
 							'item' : item
 
 						}
 						$('#editModal').modal('show');
 					}
+
 					$scope.editItem = function() {
 						if ($scope.editteditem.name === 'user') {
-							$http.put(
-									'v1/user/deleteUser/'
-											+ $scope.editteditem.item)
-									.success(function(response) {
-										$scope.getUsers();
+							$http.put('v1/user/updateCategory/',
+									$scope.editteditem.item).success(
+									function(response) {
 										alert(response.message);
 									}).error(function() {
 										alert('error');
 									});
+								alert('error');
+							});
 
 						} else if ($scope.editteditem.name === 'role') {
 							$scope.getRoles();
 						} else if ($scope.editteditem.name === 'category') {
-							$http.put(
-									'v1/category/updateCategory/'
-											, $scope.editteditem.item)
-									.success(function(response) {
-										console.log(response)
-										alert(response.message);
-										$scope.getCategories();
-									}).error(function() {
-										alert('error');
-									});
-							
+							$scope.getCategories();
 						}
 						$('#editModal').modal('hide');
 					}

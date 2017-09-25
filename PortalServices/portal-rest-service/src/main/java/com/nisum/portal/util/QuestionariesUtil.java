@@ -1,5 +1,6 @@
 package com.nisum.portal.util;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,12 +20,16 @@ public class QuestionariesUtil {
 			dto.setDescription(questionaries.getDescription());
 			dto.setQuestion(questionaries.getQuestion());
 			dto.setQuestionId(questionaries.getQuestionId());
-			dto.setCategoryName(questionaries.getCategoryId()+"");
+			dto.setCategoryName(questionaries.getCategoryId()+" TODO Need to read from Cache");
 			dto.setEmailId(questionaries.getEmailId());
 			dto.setQuestionRepliesCount(questionaries.getQuestionReplies()!=null ? questionaries.getQuestionReplies().size() : 0);
 			questionariesDTOs.add(dto);
 		}
 		questionsDTO.setQuestionDetails(questionariesDTOs);
 		return questionsDTO;
+	}
+
+	public static Questionaries convertDtoToDao(String emailId, Integer categoryId, String question, String description) {
+		return new Questionaries(categoryId,question,description,new Timestamp(System.currentTimeMillis()),emailId);
 	}
 }

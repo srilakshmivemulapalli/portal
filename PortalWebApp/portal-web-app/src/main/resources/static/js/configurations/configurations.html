@@ -1,9 +1,10 @@
 <div class="col-md-1 col-xs-1"></div>
 <div class="col-md-9 col-xs-9" style="padding-top: 30px;">
-	<!-- <div class="col-md-12 col-xs-12">
-		<div class="errStatus">* Error Message</div>
-		<div class="success">Success Message</div>
-	</div> -->
+
+	<div class="col-md-12 col-xs-12">
+		<div class="errStatus" ng-if="errStatus">{{errorMessage}}</div>
+		<div class="success" ng-if="successStatus">{{successMessage}}</div>
+	</div>
 	<div class="col-md-12 col-xs-12">
 		<ul class="nav nav-tabs" ng-init="getUsers();">
 			<li class="active"><a data-target="#1" data-toggle="tab"
@@ -51,7 +52,8 @@
 										ng-disabled="!userselected[$index]"><img
 										class="deleteicon" src="images/delete.png"
 										ng-click="!userselected[$index]|| confirmDelete('user',user.userId);" />
-										<span ng-click="!userselected[$index]|| confirmEdit('user',user);"
+										<span
+										ng-click="!userselected[$index]|| confirmEdit('user',user);"
 										class="glyphicon glyphicon-floppy-save editicon"></span></td>
 									</td>
 								</tr>
@@ -59,7 +61,7 @@
 							</tbody>
 						</table>
 					</div>
-					
+
 
 				</div>
 			</div>
@@ -103,12 +105,12 @@
 										ng-disabled="!roleselected[$index]"
 										ng-class="{'txtdisabled': !roleselected[$index]}" />{{role.role}}</td>
 									<td>{{role.createdDate | date: 'MM-dd-yyyy HH:mm:ss'}}</td>
-									<td class="CENTER"
-										ng-disabled="!roleselected[$index]"
+									<td class="CENTER" ng-disabled="!roleselected[$index]"
 										ng-class="{'disabled':!roleselected[$index]}"><img
 										class="deleteicon" src="images/delete.png"
 										ng-click="!roleselected[$index]||confirmDelete('role',role.roleId);" />
-										<span ng-click="!roleselected[$index]|| confirmEdit('role',role)"
+										<span
+										ng-click="!roleselected[$index]|| confirmEdit('role',role)"
 										class="glyphicon glyphicon-floppy-save editicon"></span></td>
 								</tr>
 
@@ -176,7 +178,8 @@
 										ng-disabled="!categoryselected[$index]"><img
 										class="deleteicon" src="images/delete.png"
 										ng-click="!categoryselected[$index]|| confirmDelete('category',category.cateogryId);" />
-										<span ng-click="!categoryselected[$index]|| confirmEdit('category',category);"
+										<span
+										ng-click="!categoryselected[$index]|| confirmEdit('category',category);"
 										class="glyphicon glyphicon-floppy-save editicon"></span></td>
 								</tr>
 							</tbody>
@@ -220,8 +223,7 @@
 					{{editteditem.name}}?</h3>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary"
-					ng-click="editItem();">Ok</button>
+				<button type="button" class="btn btn-primary" ng-click="editItem();">Ok</button>
 				<button type="button" class="btn btn-danger" data-dismiss="modal">cancel</button>
 			</div>
 		</div>

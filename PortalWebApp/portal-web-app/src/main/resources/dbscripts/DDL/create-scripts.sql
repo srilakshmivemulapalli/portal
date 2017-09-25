@@ -39,7 +39,7 @@ CREATE TABLE `Questionaries` (
 CREATE TABLE `QuestionReplies` (
   `replyId` int(11) NOT NULL AUTO_INCREMENT,
   `questId` int(11) DEFAULT NULL,
-  `replyDescription` varchar(200) DEFAULT NULL,
+  `replyDescription` varchar(5000) DEFAULT NULL,
   `updatedDate` datetime DEFAULT NULL,
   `emailid` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`replyId`)

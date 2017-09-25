@@ -22,13 +22,13 @@ public class QuestionReplysUtil {
 			dto.setDescription(questionaries.getDescription());
 			dto.setQuestion(questionaries.getQuestion());
 			dto.setQuestionId(questionaries.getQuestionId());
-			dto.setCategoryName(questionaries.getCategoryId()+"");
+			dto.setCategoryName("Java"+questionaries.getCategoryId()+"TODO Need to read from Cache");
 			dto.setEmailId(questionaries.getEmailId());
 			replysDTO.setQuestionDetails(dto);
 			List<QuestionRepliesDTO> questRepliesDTO = new ArrayList<QuestionRepliesDTO>();
 			for (QuestionReplies reply : questionReplies) {
 				QuestionRepliesDTO repliesDTO = new QuestionRepliesDTO();
-				repliesDTO.setEmailid(reply.getEmailid());
+				repliesDTO.setEmailId(reply.getEmailid());
 				repliesDTO.setReplyDescription(reply.getReplyDescription());
 				repliesDTO.setReplyId(reply.getReplyId());
 				repliesDTO.setUpdatedDate(reply.getUpdatedDate());
