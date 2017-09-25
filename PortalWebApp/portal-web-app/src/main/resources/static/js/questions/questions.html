@@ -12,7 +12,7 @@
 					<span class="label-filter">Filter by</span>
 					<div>
 						<select name='cat' id='move_to_category'
-							class='select-grey-bg selectpicker'>
+							class='select-grey-bg selectpicker' ng-options="category.id as category.name for category in categoriesList">
 							<option value=''>Select Categories</option>
 							<option>Education</option>
 							<option>Photography</option>
@@ -107,31 +107,28 @@
 <!-- END QUESTIONS-FILTER -->
 <div class="main-questions-list">
 	<ul id="main_questions_list">
-		<li
-			class="question-item question type-question status-publish hentry question_category-business qa_tag-business-2 qa_tag-technology-2"
-			data-id="2341">
+		<li ng-repeat="question in questionsList.questionDetails" class="question-item question type-question status-publish hentry question_category-business qa_tag-business-2 qa_tag-technology-2">
 			<div>
 				<div class="col-md-8 col-xs-8 q-left-content">
 					<div class="q-ltop-content">
 						<h2>
-							<a href="" class="question-title">What is business??</a>
+							<a href="#/question/{{question.questionId}}" class="question-title" ng-bind-html='question.question'></a>
 						</h2>
 					</div>
 					<div class="q-lbtm-content">
 						<div class="question-excerpt">
-							<p>I want to know about business process. &nbsp;</p>
+							<p ng-bind-html='question.description'></p>
 						</div>
 						<div class="question-cat">
 							<ul class="question-tags">
-								<li><a class="q-tag" href="">business </a></li>
-								<li><a class="q-tag" href="">technology </a></li>
+								<li><a class="q-tag" href="">{{question.categoryName}} </a></li>
+								<!-- <li><a class="q-tag" href="">technology </a></li> -->
 							</ul>
 							<div class="clearfix"></div>
 							<a href=""> <span class="author-avatar"> <img
 									src="images/userlogo.png" class="avatar" alt="" />
-							</span> <span class="author-name">prasanth kumar</span>
-							</a><span class="question-time"> Asked on July 14, 2016 in </span> <span
-								class="question-category"> <a href="">Business.</a>
+							</span> <span class="author-name">{{question.displayName}}</span>
+							</a><span class="question-time"> Asked on {{question.createdDate | date: 'MMM dd, yyyy'}}.
 							</span>
 						</div>
 					</div>
@@ -139,9 +136,9 @@
 				<!-- end left content -->
 				<div class="col-md-4 col-xs-4 q-right-content">
 					<ul class="question-statistic">
-						<li class="active"><span class="question-answers"> 2 </span>
+						<li class="active" ng-show="question.questionRepliesCount>0"><span class="question-answers">{{question.questionRepliesCount}} </span>
 							answers</li>
-						<li><span class="question-votes">0 </span> answers</li>
+						<li ng-show="question.questionRepliesCount<=0"><span class="question-votes">{{question.questionRepliesCount}} </span> answers</li>
 					</ul>
 					<div class="pumping"></div>
 				</div>
@@ -149,7 +146,7 @@
 				<div class="clearfix"></div>
 			</div>
 		</li>
-		<li
+		<!-- <li
 			class="question-item post-2341 question type-question status-publish hentry question_category-business qa_tag-business-2 qa_tag-technology-2"
 			data-id="2341">
 			<div>
@@ -178,7 +175,7 @@
 						</div>
 					</div>
 				</div>
-				<!-- end left content -->
+				end left content
 				<div class="col-md-4 col-xs-4 q-right-content">
 					<ul class="question-statistic">
 						<li class="active"><span class="question-answers">4</span>
@@ -187,7 +184,7 @@
 					</ul>
 					<div class="pumping"></div>
 				</div>
-				<!-- end right content -->
+				end right content
 				<div class="clearfix"></div>
 			</div>
 		</li>
@@ -220,7 +217,7 @@
 						</div>
 					</div>
 				</div>
-				<!-- end left content -->
+				end left content
 				<div class="col-md-4 col-xs-4 q-right-content">
 					<ul class="question-statistic">
 						<li class="active"><span class="question-answers">3</span>
@@ -229,7 +226,7 @@
 					</ul>
 					<div class="pumping"></div>
 				</div>
-				<!-- end right content -->
+				end right content
 				<div class="clearfix"></div>
 			</div>
 		</li>
@@ -258,7 +255,7 @@
 						</div>
 					</div>
 				</div>
-				<!-- end left content -->
+				end left content
 				<div class="col-md-4 col-xs-4 q-right-content">
 					<ul class="question-statistic">
 						<li class="active"><span class="question-answers">1</span>
@@ -267,7 +264,7 @@
 					</ul>
 					<div class="pumping"></div>
 				</div>
-				<!-- end right content -->
+				end right content
 				<div class="clearfix"></div>
 			</div>
 		</li>
@@ -299,7 +296,7 @@
 						</div>
 					</div>
 				</div>
-				<!-- end left content -->
+				end left content
 				<div class="col-md-4 col-xs-4 q-right-content">
 					<ul class="question-statistic">
 						<li class="active"><span class="question-answers">10</span>
@@ -308,10 +305,10 @@
 					</ul>
 					<div class="pumping"></div>
 				</div>
-				<!-- end right content -->
+				end right content
 				<div class="clearfix"></div>
 			</div>
-		</li>
+		</li> -->
 
 	</ul>
 </div>

@@ -1,8 +1,11 @@
-app.factory('userservice', function($http, $q) {
+app.factory('questionService', function($http, $q) {
+
+	var qs = {};
 	var deferred = $q.defer();
-	
-	function _getQuestions() {
-		$http.get('').success(function(response) {
+	qs.text = "hello";
+	qs.getQuestions = function() {
+		$http.get('v1/questionaries/retrieve').success(function(response) {
+
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
@@ -10,7 +13,7 @@ app.factory('userservice', function($http, $q) {
 		return deferred.promise;
 	}
 	
-	function _postQuestion(data) {
+	qs.postQuestion = function(data) {
 		$http.post('', data).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
@@ -18,7 +21,7 @@ app.factory('userservice', function($http, $q) {
 		})
 		return deferred.promise;
 	}
-	function _deleteQuestion(questionid) {
+	qs.deleteQuestion = function(questionid) {
 		$http.post('' + questionid).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
@@ -26,7 +29,7 @@ app.factory('userservice', function($http, $q) {
 		})
 		return deferred.promise;
 	}
-	function _editQuestion(data) {
+	qs.editQuestion = function(data) {
 		$http.put(',data').success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
@@ -34,9 +37,14 @@ app.factory('userservice', function($http, $q) {
 		})
 		return deferred.promise;
 	}
-	$scope.getQuestions=_getQuestions;
-	$scope.postQuestion=_postQuestion;
-	$scope.deleteQuestion=_deleteQuestion;
-	$scope.editQuestion=_editQuestion;
-	
+	qs.getQuestionById=function(id){
+		$http.put('v1/questionreply/retrieveQuestionReply/'+id).success(function(response) {
+			deferred.resolve(response);
+		}).error(function(response) {
+			deferred.reject(response);
+		})
+		return deferred.promise;
+	}
+
+	return qs;
 })
