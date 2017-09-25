@@ -203,14 +203,14 @@ adminApp
 
 					$scope.editItem = function() {
 						if ($scope.editteditem.name === 'user') {
-							$http.put('v1/user/update/',$scope.editteditem.item).success(function(){
+							$http.put('v1/user/update/',$scope.editteditem.item).success(function(response){
 										$scope.successMessage = response.message;
 										$timeout(function(){
 											$scope.successMessage='';
 											},5000);
 										$scope.getUsers();
 										alert(response.message);
-							}).error(function() {
+							}).error(function(response) {
 										$scope.errorMessage = response.message;
 										$timeout(function(){
 											$scope.errorMessage='';
