@@ -1,6 +1,6 @@
 package com.nisum.portal.rest.api;
 
-import java.util.List;
+import java.util.List;  
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,34 +25,61 @@ import com.nisum.portal.util.KeyConstants;
 @RestController
 @RequestMapping("/v1/userrole")
 public class UserRoleRestService {
-
 	@Autowired
 	UserRoleService userRoleService;
 
 	private static Logger logger = LoggerFactory.getLogger(UserRoleRestService.class);
-
-
-
-	//This method will add  User Role into database 
+ 
+	/**
+	 * method that adds  User Role into database 
+	 * @param userRoleDto
+	 * @return
+	 * @throws UserRoleServiceException
+	 */
+	//This 
 	@RequestMapping(value="/create", method=RequestMethod.POST, consumes="application/json")
-	public String addUserRole(@RequestBody UserRoleDTO userRoleDto) {	
-		UserRole user =userRoleService.addUser(userRoleDto);
-		if(user!=null) {
-			return "User Role Added Successfully";
+	public ResponseEntity<?> addUserRole(@RequestBody UserRoleDTO userRoleDto) throws UserRoleServiceException{	
+		logger.info("UserRoleRestService :: Entered into addUserRole()");
+		try {
+				UserRole user =userRoleService.addUserRole(userRoleDto);
+			
+		}catch(Exception e) {	
+			logger.error("UserRoleRestService :: User Role "+userRoleDto.getRole()+" exists already");
+			
+			Errors error = new Errors();
+			error.setErrorCode("Errors-UserRole");
+			error.setErrorMessage(ExceptionConstans.USER_ROLE_EXISTS);
+			ResponseEntity<Errors> rsEntity=new ResponseEntity<Errors>(error, HttpStatus.NOT_ACCEPTABLE);
+			return rsEntity;
 		}
-		return "Failed to add UserRole";  
+		logger.info("UserRoleRestService :: Given User Role Added Successfully");
+		return new ResponseEntity<Object>(ExceptionConstans.USER_ROLE_ADDED, HttpStatus.OK);
+		
 	}
+	/**
+	 *  method that deletes the existing user role from database
+	 * @param id
+	 * @return successful deletion of user role
+	 * @throws UserRoleServiceException 
+	 */
 
-	//This method will delete the existing user role from database
-	@RequestMapping(value="/delete/{id}", method=RequestMethod.DELETE)
-	public String deleteUserRole(@PathVariable Integer id) {
-
-		boolean status=userRoleService.deleteUser(id);
-		if(status) {
-			return "Given Record Successfully Deleted";
-		}else {
-			return "Given Record Does Not Exist"; 
-		}
+	@RequestMapping(value="/delete/{id}/{roleName}", method=RequestMethod.DELETE)
+	public ResponseEntity<?> deleteUserRole(@PathVariable Integer id, @PathVariable String roleName) throws UserRoleServiceException {
+		logger.info("UserRoleRestService :: Entered into deleteUserRole()");
+		
+		try {
+				userRoleService.deleteUserRole(id, roleName);	
+		}catch(Exception e) {	
+			logger.error("UserRoleRestService :: User Role with Given "+id+" Doesn't Exists");
+			
+			Errors error = new Errors();
+			error.setErrorCode("Errors-UserRole");
+			error.setErrorMessage(ExceptionConstans.USERROLENOTEXISTS);
+			ResponseEntity<Errors> rsEntity=new ResponseEntity<Errors>(error, HttpStatus.NOT_ACCEPTABLE);
+			return rsEntity;
+		}	
+		logger.info("UserRoleRestService :: Existing User Role Deleted Successfully");		
+		return new ResponseEntity<Object>(ExceptionConstans.USER_ROLE_DELETED, HttpStatus.OK);
 	}
 
 	/**
@@ -73,8 +100,10 @@ public class UserRoleRestService {
 			}	
 		} catch(Exception e) {
 			throw new UserRoleServiceException("Error Message");
-		}
+		} 
 	}	 
+	
+	
 	/**
 	 * Updates userRole
 	 * @param userRole
@@ -96,16 +125,19 @@ public class UserRoleRestService {
 		}
 
 	}
-
+	
+	/**
+	 * Exception Handler
+	 * @param ex
+	 * @return
+	 */
 	@ExceptionHandler(UserRoleServiceException.class)
 	public ResponseEntity<Errors> exceptionHandler(Exception ex) {
+		System.out.println(ex.getMessage());
 		Errors error = new Errors();
-		error.setErrorCode("Errors -UsersRole");
+		error.setErrorCode("Errors -UserRole");
 		error.setErrorMessage(ex.getMessage());
 		return new ResponseEntity<Errors>(error, HttpStatus.OK);
 	}
-
-
 }
-
 

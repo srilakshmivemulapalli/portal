@@ -14,7 +14,7 @@ public interface CategoriesService {
 	
 	String deleteCategories(Integer categoryId);
 	
-	String update(CategoriesDTO categoriesDTO) throws CategoryServiceException;
+	ServiceStatusDto update(CategoriesDTO categoriesDTO) throws CategoryServiceException;
 
 	Object getCategory(Integer id);
 

@@ -205,9 +205,10 @@ adminApp
 							$http.put('v1/user/updateCategory/',
 									$scope.editteditem.item).success(
 									function(response) {
-										$scope.getUsers();
 										alert(response.message);
 									}).error(function() {
+										alert('error');
+									});
 								alert('error');
 							});
 
@@ -218,5 +219,6 @@ adminApp
 						}
 						$('#editModal').modal('hide');
 					}
+					
 
 				});

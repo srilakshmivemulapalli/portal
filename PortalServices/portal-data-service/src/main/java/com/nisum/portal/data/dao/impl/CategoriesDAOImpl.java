@@ -69,7 +69,7 @@ public class CategoriesDAOImpl implements CategoriesDAO {
 			categoriesRepository.save(categories);
 			flag = true;
 		} else {
-			logger.error("Unable To Update Categories with categoryId not found.", categories.getCategoryId());
+			logger.error("Unable To Update Categories with categoryId not found."+categories.getCategoryId());
 			flag = false;
 		}
 		return flag;

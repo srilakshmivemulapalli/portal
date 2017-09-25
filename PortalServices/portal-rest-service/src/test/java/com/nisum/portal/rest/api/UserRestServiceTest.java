@@ -5,14 +5,16 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.exceptions.base.MockitoException;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +24,6 @@ import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.dto.UserDTO;
 import com.nisum.portal.service.dto.UserRoleDTO;
 import com.nisum.portal.service.exception.UserServiceException;
-import com.nisum.portal.util.ExceptionConstants;
 import com.nisum.portal.util.KeyConstants;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -88,16 +89,16 @@ public class UserRestServiceTest {
 	@Test
      public void TestUserNotFound() throws UserServiceException {
 		
-		int userId = 1;
+		int userId = 5;
 		UserDTO dto = new UserDTO();
-		dto.setActiveStatus("Yes");
+		dto.setActiveStatus("No");
 		dto.setEmailId("dsdsdsdd");
 		dto.setUserId(1);
 		dto.setName("sasas");
 		ServiceStatusDto expected = new ServiceStatusDto();
-		expected.setMessage(KeyConstants.USERDELETED);
-		expected.setStatus(true);
-		ResponseEntity<ServiceStatusDto> entity = new ResponseEntity<ServiceStatusDto>(expected,HttpStatus.OK);
+		expected.setMessage(KeyConstants.USERNOTEXISTS);
+		expected.setStatus(false);
+		ResponseEntity<ServiceStatusDto> entity = new ResponseEntity<ServiceStatusDto>(expected,HttpStatus.EXPECTATION_FAILED);
 		when(userServiceMock.findUserById(userId)).thenReturn(dto.getActiveStatus());
 		when(userServiceMock.deleteUser(userId)).thenReturn(1);
 		ResponseEntity<ServiceStatusDto> actual = userRestService.deleteUser(userId);
@@ -105,15 +106,30 @@ public class UserRestServiceTest {
 		
 	}
 	
-	@Test(expected=MockitoException.class)
-	public void TestException() throws UserServiceException {
-		when(userRestService.deleteUser(0)).thenThrow(new UserServiceException(ExceptionConstants.INTERNALSERVERERROR));
-		
-	}
 	@Test(expected=Exception.class)
 	public void TestException2() throws UserServiceException
 	{
+		//List<UserDTO>users = null;
+		
+		when(userRestService.getUsers()).thenThrow(new UserServiceException(KeyConstants.USERLISTEMPTY));
+
 		assertThat(userRestService.deleteUser(null));
+		
+		
+	}
+	@Test
+	public void TestGetUsers() throws UserServiceException {
+		UserDTO userDto = new UserDTO();
+		List<UserDTO> dtoList = new ArrayList<UserDTO>();
+		userDto.setEmailId("dsdsds");
+		userDto.setActiveStatus("Yes");
+		userDto.setName("dsd");
+		userDto.setUserId(1);
+		dtoList.add(userDto);
+	ResponseEntity<List<UserDTO>> resList=new ResponseEntity<List<UserDTO>>(dtoList, HttpStatus.OK);	
+		Mockito.when(userServiceMock.getUsers()).thenReturn(dtoList);
+		ResponseEntity<List<UserDTO>> actual = userRestService.getUsers();
+		assertEquals(resList,actual);
 	}
 
 }

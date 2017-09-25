@@ -5,8 +5,8 @@ import java.util.List;
 import com.nisum.portal.data.domain.UserRole;
 
 public interface UserRoleDAO {
-	UserRole addUser(UserRole userRole);
-	boolean deleteUser(int id);
+	UserRole addUserRole(UserRole userRole);
+	boolean deleteUserRole(int id);
 	List<UserRole> getUserRole();
 	public UserRole updateUserRole(UserRole userRole);
 	

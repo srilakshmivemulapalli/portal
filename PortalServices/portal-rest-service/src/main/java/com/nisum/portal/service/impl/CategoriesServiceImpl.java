@@ -65,28 +65,31 @@ public class CategoriesServiceImpl implements CategoriesService{
 	 * @see com.nisum.portal.service.api.CategoriesService#update(com.nisum.portal.data.domain.Categories)
 	 */
 	@Override
-	public String update(CategoriesDTO categoriesDTO) throws CategoryServiceException 
+	public ServiceStatusDto update(CategoriesDTO categoriesDTO) throws CategoryServiceException 
 	{
 		// TODO Auto-generated method stub
 		logger.info("CategoriesServiceImpl :: updateCategories :: Category Details "+categoriesDTO.toString());
 			Date date = new Date();
+			ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
 			Timestamp createdDate = new Timestamp(date.getTime());
 			categoriesDTO.setCreateDate(createdDate);
 			Categories categories = CategoryServiceUtil.convertDtoTODao(categoriesDTO);
 			boolean flag = categoriesDAO.updateCategories(categories);
 			try
 			{
-			String status;
 			if(flag==true)
 			{
-				status="success";
+				logger.info("CategoriesServiceImpl :: updateCategories :: Categories updated Successfully");
+				serviceStatusDto.setStatus(true);
+				serviceStatusDto.setMessage(KeyConstants.SUCCESS_UPDATE_MESSAGE);
 			}
 			else
 			{
-				logger.error("CategoriesServiceImpl :: updateCategories :: Unable To Update Categories with categoryId not found.", categories.getCategoryId());
-				status="fail";
+				logger.error("CategoriesServiceImpl :: updateCategories :: Unable To Update Categories with categoryId not found."+categories.getCategoryId());
+				serviceStatusDto.setStatus(false);
+				serviceStatusDto.setMessage(KeyConstants.CATEGORY_EXISTS);
 			}
-			return status;
+			return serviceStatusDto;
 			}
 			catch(Exception e)
 			{
