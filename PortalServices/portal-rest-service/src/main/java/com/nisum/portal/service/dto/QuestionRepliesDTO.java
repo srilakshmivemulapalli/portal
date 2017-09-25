@@ -1,46 +1,59 @@
 package com.nisum.portal.service.dto;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 
 public class QuestionRepliesDTO {
 
-	
 	private int replyId;
 	private String replyDescription;
-	private Timestamp createdDate;
 	private Timestamp updatedDate;
-	private String userName;
-	
+	private String emailid;
+	/**
+	 * @return the replyId
+	 */
 	public int getReplyId() {
 		return replyId;
 	}
+	/**
+	 * @param replyId the replyId to set
+	 */
 	public void setReplyId(int replyId) {
 		this.replyId = replyId;
 	}
+	/**
+	 * @return the replyDescription
+	 */
 	public String getReplyDescription() {
 		return replyDescription;
 	}
+	/**
+	 * @param replyDescription the replyDescription to set
+	 */
 	public void setReplyDescription(String replyDescription) {
 		this.replyDescription = replyDescription;
 	}
-	public Timestamp getCreatedDate() {
-		return createdDate;
-	}
-	public void setCreatedDate(Timestamp createdDate) {
-		this.createdDate = createdDate;
-	}
+	/**
+	 * @return the updatedDate
+	 */
 	public Timestamp getUpdatedDate() {
 		return updatedDate;
 	}
+	/**
+	 * @param updatedDate the updatedDate to set
+	 */
 	public void setUpdatedDate(Timestamp updatedDate) {
 		this.updatedDate = updatedDate;
 	}
-	public String getUserName() {
-		return userName;
+	/**
+	 * @return the emailid
+	 */
+	public String getEmailid() {
+		return emailid;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	/**
+	 * @param emailid the emailid to set
+	 */
+	public void setEmailid(String emailid) {
+		this.emailid = emailid;
 	}
-	
 }
