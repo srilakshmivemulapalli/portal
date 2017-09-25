@@ -2,6 +2,7 @@ package com.nisum.portal.service.api;
 
 import java.util.List;
 
+import com.nisum.portal.data.domain.User;
 import com.nisum.portal.service.dto.UserDTO;
 
 /**
@@ -23,7 +24,7 @@ public interface UserService {
 	 * @param user
 	 * @return 
 	 */
-	String updateUserDetails(UserDTO user);
+	User updateUserDetails(UserDTO user);
 	
 	/**
 	 * Find user given by userId

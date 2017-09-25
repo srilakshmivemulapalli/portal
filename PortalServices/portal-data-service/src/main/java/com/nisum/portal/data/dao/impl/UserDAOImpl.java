@@ -24,11 +24,10 @@ public class UserDAOImpl implements UserDAO{
 	}
 	
 	@Override
-	public String updateUser(User user) {
+	public User updateUser(User user) {
 		logger.info("UserDAOImpl :: updateUser :: Updating user");
 		if (userRepository.exists(user.getUserId())) {
-			userRepository.save(user);
-			return "Success";
+			return userRepository.save(user);
 		} else {
 			return null;
 		}

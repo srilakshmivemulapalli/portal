@@ -1,7 +1,7 @@
 adminApp
 		.controller(
 				'configurationsController',
-				function($scope, $http) {
+				function($scope, $http,$timeout) {
 
 					$scope.categoriesList = [];
 					$scope.rolesList = [];
@@ -12,7 +12,8 @@ adminApp
 					$scope.addrole = false;
 					$scope.category = false;
 					$scope.edituser = true;
-
+					$scope.successMessage ='';
+					$scope.errorMessage ='';
 					$scope.categoryobj = {
 						"categoryId" : -1,
 						"categoryName" : "",
@@ -202,14 +203,20 @@ adminApp
 
 					$scope.editItem = function() {
 						if ($scope.editteditem.name === 'user') {
-							$http.put('v1/user/updateCategory/',
+							console.log('here...');
+							$http.put('v1/user/update/',
 									$scope.editteditem.item).success(
-									function(response) {
+										$scope.successMessage = response.message;
+										$timeout(function(){
+											$scope.successMessage='';
+										},5000);
+										$scope.getUsers();
 										alert(response.message);
 									}).error(function() {
-										alert('error');
-									});
-								alert('error');
+										$scope.errorMessage = response.message;
+										$timeout(function(){
+											$scope.errorMessage='';
+										},5000);
 							});
 
 						} else if ($scope.editteditem.name === 'role') {
