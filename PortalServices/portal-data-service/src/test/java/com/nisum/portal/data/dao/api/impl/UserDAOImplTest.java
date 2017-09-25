@@ -4,12 +4,15 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.nisum.portal.data.dao.impl.UserDAOImpl;
@@ -19,6 +22,12 @@ import com.nisum.portal.data.repository.UserRepository;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserDAOImplTest {
+	
+	@Mock
+	User user;
+	
+	@Mock
+	UserRole userRole;
 	
 	@InjectMocks
 	UserDAOImpl userDAOImpl;
@@ -69,4 +78,24 @@ public class UserDAOImplTest {
 		User actual = userDAOImpl.findUserById(userId);
 		assertEquals(user, actual);
 	}
+	@Test
+	public void test_FindAllUserDAOImpl() {
+		User user=new User();
+		List<User> userList=new ArrayList<User>();
+		 // UserRole role=new UserRole();
+		 // role.setRole(role);
+		user.setEmailId("radhikapujari@nisum.com");
+		user.setActiveStatus("yes");
+		user.setName("radhika");
+		//user.setRole(role.setRole("admin"));
+		userList.add(user);
+		Mockito.when(userRepository.findAll()).thenReturn(userList);
+		List<User>	actual=userDAOImpl.getUsers(); 
+		
+		assertEquals(userList,actual);
+		
+		
+	}
+	
+	
 }
