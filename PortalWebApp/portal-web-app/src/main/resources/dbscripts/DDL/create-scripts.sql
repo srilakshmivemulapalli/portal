@@ -25,7 +25,6 @@ CREATE TABLE `portal`.`Categories` (
   PRIMARY KEY (`categoryId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=big5;
 
-
 CREATE TABLE `Questionaries` (
   `questionId` int(11) NOT NULL AUTO_INCREMENT,
   `categoryId` int(11) DEFAULT NULL,
@@ -37,16 +36,13 @@ CREATE TABLE `Questionaries` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=big5;
 
 
-
 CREATE TABLE `QuestionReplies` (
   `replyId` int(11) NOT NULL AUTO_INCREMENT,
   `questId` int(11) DEFAULT NULL,
   `replyDescription` varchar(200) DEFAULT NULL,
   `updatedDate` datetime DEFAULT NULL,
   `emailid` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`replyId`),
-  KEY `fk_questionId_questionreplies_idx` (`questId`),
-  CONSTRAINT `fk_questionId_questionreplies` FOREIGN KEY (`questId`) REFERENCES `Questionaries` (`questionId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  PRIMARY KEY (`replyId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=big5;
 
 
