@@ -45,11 +45,11 @@ public class UserRole implements Serializable {
 		this.createdDate = date;
 	}
 
-	// @Override
-	// public String toString() {
-	// return "UserRole [roleId=" + roleId + ", role=" + role + ", createdDate=" +
-	// createdDate + "]";
-	// }
+	 @Override
+	 public String toString() {
+	 return "UserRole [roleId=" + roleId + ", role=" + role + ", createdDate=" +
+	 createdDate + "]";
+	 }
 
 	@Override
 	public int hashCode() {
