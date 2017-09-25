@@ -75,7 +75,7 @@ public class UserRestServiceTest {
 		dto.setUserId(1);
 		dto.setName("sasas");
 		ServiceStatusDto expected = new ServiceStatusDto();
-		expected.setMessage(Constants.USERDELETED);
+		expected.setMessage(Constants.USER_DELETED);
 		expected.setStatus(true);
 		ResponseEntity<ServiceStatusDto> entity = new ResponseEntity<ServiceStatusDto>(expected,HttpStatus.OK);
 		when(userServiceMock.findUserById(userId)).thenReturn(dto.getActiveStatus());
@@ -96,7 +96,7 @@ public class UserRestServiceTest {
 		dto.setUserId(1);
 		dto.setName("sasas");
 		ServiceStatusDto expected = new ServiceStatusDto();
-		expected.setMessage(Constants.USERNOTEXISTS);
+		expected.setMessage(Constants.USER_NOT_EXISTS);
 		expected.setStatus(false);
 		ResponseEntity<ServiceStatusDto> entity = new ResponseEntity<ServiceStatusDto>(expected,HttpStatus.EXPECTATION_FAILED);
 		when(userServiceMock.findUserById(userId)).thenReturn(dto.getActiveStatus());
@@ -111,7 +111,7 @@ public class UserRestServiceTest {
 	{
 		//List<UserDTO>users = null;
 		
-		when(userRestService.getUsers()).thenThrow(new UserServiceException(Constants.USERLISTEMPTY));
+		when(userRestService.getUsers()).thenThrow(new UserServiceException(Constants.USERS_NOT_AVALIABLE));
 
 		assertThat(userRestService.deleteUser(null));
 		

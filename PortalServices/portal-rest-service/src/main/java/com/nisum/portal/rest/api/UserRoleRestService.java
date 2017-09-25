@@ -73,7 +73,7 @@ public class UserRoleRestService {
 			
 			Errors error = new Errors();
 			error.setErrorCode("Errors-UserRole");
-			error.setErrorMessage(Constants.USERROLENOTEXISTS);
+			error.setErrorMessage(Constants.USER_ROLE_NOT_EXISTS);
 			ResponseEntity<Errors> rsEntity=new ResponseEntity<Errors>(error, HttpStatus.NOT_ACCEPTABLE);
 			return rsEntity;
 		}	
@@ -115,10 +115,10 @@ public class UserRoleRestService {
 		try {
 			UserRole updateUserRole=userRoleService.updateUserRole(userRole);		
 			if(updateUserRole==null) {
-				return new ResponseEntity<>(Constants.USERROLENOTEXISTS,HttpStatus.EXPECTATION_FAILED);
+				return new ResponseEntity<>(Constants.USER_ROLE_NOT_EXISTS,HttpStatus.EXPECTATION_FAILED);
 			}
 			else
-				return new ResponseEntity<>(Constants.USERROLEUPDATED,HttpStatus.OK);
+				return new ResponseEntity<>(Constants.USER_ROLE_UPDATED,HttpStatus.OK);
 		} catch (Exception e) {
 			throw new UserRoleServiceException(Constants.INTERNALSERVERERROR);
 		}

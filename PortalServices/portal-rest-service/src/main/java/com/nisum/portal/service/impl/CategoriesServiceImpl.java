@@ -55,7 +55,7 @@ public class CategoriesServiceImpl implements CategoriesService{
 			serviceStatusDto.setMessage(Constants.CATEGORY_EXISTS);
 		}else if(serviceStatus == 1){
 			serviceStatusDto.setStatus(true);
-			serviceStatusDto.setMessage(Constants.SUCCESS_MESSAGE);
+			serviceStatusDto.setMessage(Constants.MSG_RECORD_ADD);
 		}
 
 		return serviceStatusDto;
@@ -81,7 +81,7 @@ public class CategoriesServiceImpl implements CategoriesService{
 			{
 				logger.info("CategoriesServiceImpl :: updateCategories :: Categories updated Successfully");
 				serviceStatusDto.setStatus(true);
-				serviceStatusDto.setMessage(Constants.SUCCESS_UPDATE_MESSAGE);
+				serviceStatusDto.setMessage(Constants.MSG_RECORD_UPDATE);
 			}
 			else
 			{

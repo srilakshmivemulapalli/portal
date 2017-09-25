@@ -43,7 +43,7 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 	public String saveQuestions(String emailId, Integer categoryId, String question, String description) {
 		Questionaries questionaries = QuestionariesUtil.convertDtoToDao(emailId, categoryId, question, description);
 		questionariesDAO.saveQuestionaries(questionaries);
-		return Constants.SUCCESS_MESSAGE;
+		return Constants.MSG_RECORD_ADD;
 	}
 
 }

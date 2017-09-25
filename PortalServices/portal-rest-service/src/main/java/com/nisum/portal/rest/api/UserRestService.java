@@ -45,11 +45,11 @@ public class UserRestService {
 			String activeStatus = userService.findUserById(userId);
 			ServiceStatusDto serviceStatusDTO = new ServiceStatusDto();
 			if (activeStatus == null || activeStatus.equalsIgnoreCase("No")) {
-				serviceStatusDTO.setMessage(Constants.USERNOTEXISTS);
+				serviceStatusDTO.setMessage(Constants.USER_NOT_EXISTS);
 				return new ResponseEntity<ServiceStatusDto>(serviceStatusDTO, HttpStatus.EXPECTATION_FAILED);
 			} else {
 				userService.deleteUser(userId);
-				serviceStatusDTO.setMessage(Constants.USERDELETED);
+				serviceStatusDTO.setMessage(Constants.USER_DELETED);
 				return new ResponseEntity<ServiceStatusDto>(serviceStatusDTO, HttpStatus.OK);
 			}
 		} catch (Exception e) {
@@ -68,7 +68,7 @@ public class UserRestService {
 		logger.info("UserRestService :: users");
 		List<UserDTO> users = userService.getUsers();
 		if (users.isEmpty()) {
-			throw new UserServiceException(Constants.USERLISTEMPTY);
+			throw new UserServiceException(Constants.USERS_NOT_AVALIABLE);
 			}
 			return new ResponseEntity<List<UserDTO>>(users, HttpStatus.OK);
 	}
@@ -87,7 +87,7 @@ public class UserRestService {
 			throw new UserServiceException(Constants.INTERNALSERVERERROR);
 		}
 		userService.updateUserDetails(userDto);
-		return new ResponseEntity<Object>(Constants.USERUPDATED, HttpStatus.OK);
+		return new ResponseEntity<Object>(Constants.USER_UPDATED, HttpStatus.OK);
 		}
 		catch(Exception e)
 		{

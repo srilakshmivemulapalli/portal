@@ -50,7 +50,7 @@ public class CategoriesRestServiceTest {
 		
 		ServiceStatusDto serviceStatusExpected = new ServiceStatusDto();
 		serviceStatusExpected.setStatus(true);
-		serviceStatusExpected.setMessage(Constants.SUCCESS_MESSAGE);
+		serviceStatusExpected.setMessage(Constants.MSG_RECORD_ADD);
 		when(categoryService.addCategory(categoryDto)).thenReturn(serviceStatusExpected);
 		ResponseEntity<ServiceStatusDto> serviceStatusactual = mainController.addCategory(categoryDto);
 
@@ -61,7 +61,7 @@ public class CategoriesRestServiceTest {
 	public void updateCategoryTest() throws CategoryServiceException {
 		ServiceStatusDto serviceStatusExpected = new ServiceStatusDto();
 		serviceStatusExpected.setStatus(true);
-		serviceStatusExpected.setMessage(Constants.SUCCESS_MESSAGE);
+		serviceStatusExpected.setMessage(Constants.MSG_RECORD_ADD);
 		Timestamp createDate=new Timestamp(System.currentTimeMillis());
 		CategoriesDTO categoryDto = new CategoriesDTO();
 		categoryDto.setCategoryId(1);

@@ -37,6 +37,6 @@ public class QuestionRepliesServiceImpl implements QuestionRepliesService{
 	public String saveQuestionariesReply(Integer questId, String emailId, String replyDescription) {
 		QuestionReplies questionaries = QuestionReplysUtil.convertDtoToDao(questId, emailId, replyDescription);
 		repliesDAO.saveQuestionReplies(questionaries);
-		return Constants.SUCCESS_MESSAGE;
+		return Constants.MSG_RECORD_ADD;
 	}
 }
