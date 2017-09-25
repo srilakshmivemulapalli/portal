@@ -2,8 +2,8 @@
 <div class="col-md-9 col-xs-9" style="padding-top: 30px;">
 
 	<div class="col-md-12 col-xs-12">
-		<div class="errStatus" ng-if="errStatus">{{errorMessage}}</div>
-		<div class="success" ng-if="successStatus">{{successMessage}}</div>
+		<div class="errStatus" ng-if="errorMessage!='';">{{errorMessage}}</div>
+		<div class="success" ng-if="successMessage!='';">{{successMessage}}</div>
 	</div>
 	<div class="col-md-12 col-xs-12">
 		<ul class="nav nav-tabs" ng-init="getUsers();">

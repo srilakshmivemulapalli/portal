@@ -21,7 +21,6 @@ import com.nisum.portal.service.dto.UserDTO;
 import com.nisum.portal.service.exception.QuestionariesServiceException;
 import com.nisum.portal.service.exception.UserServiceException;
 import com.nisum.portal.util.Constants;
-import com.nisum.portal.util.Constants;
 
 @RestController
 @RequestMapping(value = "/v1/user")
@@ -80,14 +79,22 @@ public class UserRestService {
 	 * @throws UserServiceException
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.PUT, consumes = "application/json", produces = "application/json")
-	public ResponseEntity<Object> updateUser(@RequestBody UserDTO userDto) throws UserServiceException {
+	public ResponseEntity<ServiceStatusDto> updateUser(@RequestBody UserDTO userDto) throws UserServiceException {
 		logger.info("UserRestService :: users::: update");
+		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
 		try {
-		if(userDto==null) {
-			throw new UserServiceException(Constants.INTERNALSERVERERROR);
+
+		Object obj = userService.updateUserDetails(userDto);
+		if(obj.equals(null))
+		{
+			serviceStatusDto.setMessage(Constants.USER_NOT_EXISTS);
+			return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.OK);
 		}
-		userService.updateUserDetails(userDto);
-		return new ResponseEntity<Object>(Constants.USER_UPDATED, HttpStatus.OK);
+		else
+			{
+			serviceStatusDto.setMessage(Constants.USER_UPDATED);
+			return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.OK);
+			}
 		}
 		catch(Exception e)
 		{
@@ -111,7 +118,7 @@ public class UserRestService {
 			{
 			userService.updateUserDetails(userDto);
 			}
-			serviceStatusDto.setMessage("Users Updated Successfully");
+			serviceStatusDto.setMessage(Constants.USER_UPDATED);
          return new ResponseEntity<ServiceStatusDto>(serviceStatusDto,HttpStatus.OK);
 	}
 		catch(Exception e)

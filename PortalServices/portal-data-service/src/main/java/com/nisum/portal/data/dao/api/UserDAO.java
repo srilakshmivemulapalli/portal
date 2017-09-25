@@ -16,7 +16,7 @@ public interface UserDAO {
 	 * @param user
 	 * @return
 	 */
-	String updateUser(User user);
+	User updateUser(User user);
 
 	/**
 	 * Deletes single user
