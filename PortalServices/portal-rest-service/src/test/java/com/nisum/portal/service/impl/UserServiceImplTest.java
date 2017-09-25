@@ -100,7 +100,7 @@ public class UserServiceImplTest {
 
 		
 		PowerMockito.mockStatic(UserServiceUtil.class);
-		PowerMockito.when(UserServiceUtil.convertDaoListTODto(userList)).thenReturn(userDAOlist);
+		PowerMockito.when(UserServiceUtil.convertDaoListToDto(userList)).thenReturn(userDAOlist);
 		List<UserDTO> actual = userServiceImpl.getUsers();
 		
 		assertEquals(actual.size(), expected.size());
