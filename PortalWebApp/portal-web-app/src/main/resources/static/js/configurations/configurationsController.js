@@ -182,14 +182,19 @@ adminApp
 							method : "POST",
 							data : category
 						}).then(function(response) {
-							console.log(response);
-							$scope.successMessage = response.data.message;
+							$scope.getCategories();
+
+							if(response.data.status){
+								$scope.successMessage = response.data.message;
+
+							}else{
+								$scope.errorMessage = response.data.errorMessage;
+							}
 							$timeout(function() {
 								$scope.successMessage = '';
+								$scope.errorMessage = '';
 							}, 5000);
-
-							console.log(response);
-							$scope.getCategories();
+							
 							$scope.categoryobj.categoryName = "";
 							$scope.categoryobj.description = "";
 						}, function(response) { // optional
