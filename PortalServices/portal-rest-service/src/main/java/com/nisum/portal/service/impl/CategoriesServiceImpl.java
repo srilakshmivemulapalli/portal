@@ -107,12 +107,12 @@ public class CategoriesServiceImpl implements CategoriesService{
 		if(categoriesDAO.deleteCategories(categoryId).equals("Success"))
 		{
 			serviceStatusDto.setStatus(true);
-			serviceStatusDto.setMessage(categoryId+Constants.CATEGORY_DELETE);
+			serviceStatusDto.setMessage(Constants.CATEGORY_DELETE);
 		}
 		else if(categoriesDAO.deleteCategories(categoryId).equals("Failure"))
 		{
 			serviceStatusDto.setStatus(false);
-			serviceStatusDto.setMessage(categoryId+Constants.CATEGORY_NOT_EXIST);
+			serviceStatusDto.setMessage(Constants.CATEGORY_NOT_EXIST);
 		}
 		return serviceStatusDto;
 	}

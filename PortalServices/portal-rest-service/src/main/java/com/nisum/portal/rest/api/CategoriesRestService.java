@@ -101,7 +101,6 @@ public class CategoriesRestService {
 		    }
 		    else 
 		    {
-		    	  System.out.println("Rest Failure");
 			    	logger.error(Constants.CATEGORY_NOT_EXIST);
 			    	throw new CategoryServiceException(Constants.CATEGORY_NOT_EXIST);
 		    }

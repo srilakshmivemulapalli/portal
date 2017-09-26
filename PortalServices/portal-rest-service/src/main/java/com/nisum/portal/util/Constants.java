@@ -11,8 +11,8 @@ public class Constants {
 	public static final String INTERNALSERVERERROR = "Internal Server Error !!";
 	
 	public static final String CATEGORY_EXISTS = "Category Already Exists !!";
-	public static final String CATEGORY_DELETE = " Categories deleted Successfully !!";
-	public static final String CATEGORY_NOT_EXIST= "Categories Details doest'n Exist !!";
+	public static final String CATEGORY_DELETE = " Category deleted Successfully !!";
+	public static final String CATEGORY_NOT_EXIST= "Category Details doest'n Exist !!";
 	
 	public static final String USER_UPDATED = "User updated Successfully !!";
 	public static final String USER_DELETED = "User Deleted Successfully !!";
