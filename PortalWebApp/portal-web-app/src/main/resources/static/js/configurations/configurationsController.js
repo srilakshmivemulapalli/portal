@@ -232,7 +232,19 @@ adminApp
 								alert(response.data.message)
 							});
 						} else if ($scope.editteditem.name === 'category') {
-							$scope.getCategories();
+							$http.put('v1/category/updateCategory',
+									$scope.editteditem.item).success(function(response){
+											$scope.successMessage = response.message;
+											$timeout(function(){
+												$scope.successMessage='';
+											},5000);
+											$scope.getCategories();
+									}).error(function(response) {
+										$scope.errorMessage = response.message;
+										$timeout(function(){
+											$scope.errorMessage='';
+										},5000);
+									});
 						}
 						$('#editModal').modal('hide');
 					}
