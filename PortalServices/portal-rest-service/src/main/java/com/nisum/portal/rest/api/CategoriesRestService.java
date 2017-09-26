@@ -73,13 +73,13 @@ public class CategoriesRestService {
 					return new ResponseEntity<ServiceStatusDto>(servicedto,HttpStatus.OK);
 				else
 				{
-					throw new CategoryServiceException(Constants.CATEGORY_NOT_EXIST);
+					throw new CategoryServiceException(Constants.CATEGORY_EXISTS);
 				}
 		}
 		catch(Exception e)
 		{
 			logger.error("Unable To Update Categories with categoryId not found."+categoriesDTO.getCategoryId());
-			throw new CategoryServiceException(Constants.CATEGORY_NOT_EXIST);
+			throw new CategoryServiceException(Constants.CATEGORY_EXISTS);
 		}
 	}
 

@@ -64,8 +64,9 @@ public class CategoriesDAOImpl implements CategoriesDAO {
 	public boolean updateCategories(Categories categories) {
 		logger.info("CategoriesDAOImpl :: updateCategories :: Category Details " + categories.toString());
 		Categories category = categoriesRepository.findByCategoryId(categories.getCategoryId());
+		Categories findByCategoryName = categoriesRepository.findByCategoryName(categories.getCategoryName());
 		boolean flag;
-		if (category != null) {
+		if (category != null&&findByCategoryName==null) {
 			categoriesRepository.save(categories);
 			flag = true;
 		} else {
