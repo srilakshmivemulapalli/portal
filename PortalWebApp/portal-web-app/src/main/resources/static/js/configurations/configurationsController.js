@@ -1,7 +1,7 @@
 adminApp
 		.controller(
 				'configurationsController',
-				function($scope, $http,$timeout) {
+				function($scope, $http, $timeout) {
 
 					$scope.categoriesList = [];
 					$scope.rolesList = [];
@@ -12,8 +12,8 @@ adminApp
 					$scope.addrole = false;
 					$scope.category = false;
 					$scope.edituser = true;
-					$scope.successMessage ='';
-					$scope.errorMessage ='';
+					$scope.successMessage = '';
+					$scope.errorMessage = '';
 					$scope.categoryobj = {
 						"categoryId" : -1,
 						"categoryName" : "",
@@ -32,7 +32,7 @@ adminApp
 							$scope.usersList = response.data;
 
 						}, function(response) {
-							
+
 						});
 
 					}
@@ -183,12 +183,21 @@ adminApp
 							data : category
 						}).then(function(response) {
 							console.log(response);
+							$scope.successMessage = response.data.message;
+							$timeout(function() {
+								$scope.successMessage = '';
+							}, 5000);
+
+							console.log(response);
 							$scope.getCategories();
 							$scope.categoryobj.categoryName = "";
 							$scope.categoryobj.description = "";
 						}, function(response) { // optional
 							console.log(response);
-
+							$scope.errorMessage = response.data.errorMessage;
+							$timeout(function() {
+								$scope.errorMessage = '';
+							}, 5000);
 						});
 					};
 
@@ -203,19 +212,23 @@ adminApp
 
 					$scope.editItem = function() {
 						if ($scope.editteditem.name === 'user') {
-							$http.put('v1/user/update/',$scope.editteditem.item).success(function(){
-										$scope.successMessage = response.message;
-										$timeout(function(){
-											$scope.successMessage='';
-											},5000);
-										$scope.getUsers();
-										alert(response.message);
-							}).error(function() {
+							$http
+									.put('v1/user/update/',
+											$scope.editteditem.item)
+									.success(
+											function() {
+												$scope.successMessage = response.message;
+												$timeout(function() {
+													$scope.successMessage = '';
+												}, 5000);
+												$scope.getUsers();
+												alert(response.message);
+											}).error(function() {
 										$scope.errorMessage = response.message;
-										$timeout(function(){
-											$scope.errorMessage='';
-										},5000);
-							});
+										$timeout(function() {
+											$scope.errorMessage = '';
+										}, 5000);
+									});
 
 						} else if ($scope.editteditem.name === 'role') {
 							$scope.getRoles();
@@ -224,4 +237,4 @@ adminApp
 						}
 						$('#editModal').modal('hide');
 					}
-					});
+				});
