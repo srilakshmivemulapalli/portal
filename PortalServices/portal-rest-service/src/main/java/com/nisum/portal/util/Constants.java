@@ -25,6 +25,8 @@ public class Constants {
 	public static final String USER_ROLE_ADDED = "User Role Added Successfully !!";
 	public static final String USER_ROLE_DELETED = "User Role Deleted Successfully !!";
 	public static final String USER_ROLE_NOT_EXIST = "UserRole Details doest'n Exist !!";
+	public static final String USER_TYPE = "user";
+	public static final String USER_STATUS = "YES";
 	
 
 }

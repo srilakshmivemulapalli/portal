@@ -26,6 +26,7 @@ public class User implements Serializable{
 	private String name;
 	private Timestamp loginDate;
 	private String activeStatus;
+	private Timestamp createDate;
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "roleId", referencedColumnName = "roleId")
@@ -191,6 +192,14 @@ public class User implements Serializable{
 		if (userId != other.userId)
 			return false;
 		return true;
+	}
+
+	public Timestamp getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Timestamp createDate) {
+		this.createDate = createDate;
 	}
 
 }
