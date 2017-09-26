@@ -78,8 +78,17 @@ public class CategoriesDAOImpl implements CategoriesDAO {
 	@Override
 	public String deleteCategories(Integer categoryId)   {
 		logger.info("CategoriesDAOImpl :: deleteCategories");
+		if(categoriesRepository.findOne(categoryId) != null)
+		{
+			System.out.println("=====================success");
 		 categoriesRepository.delete(categoryId);
 		 return "Success";
+		}
+		else
+		{
+			System.out.println("=====================failure");
+			 return "Failure";
+		}
 
 	}
 

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -20,6 +21,7 @@ import com.nisum.portal.data.domain.Categories;
 import com.nisum.portal.service.dto.CategoriesDTO;
 import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.util.CategoryServiceUtil;
+import com.nisum.portal.util.KeyConstants;
 
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
@@ -94,10 +96,13 @@ public class CategoriesServiceImplTest {
 	public void deleteCategoriesinServiceTest()
 	{
 		String expMsg="Success";
-		when(categoriesDAO.deleteCategories(101)).thenReturn("Success");
-	 String ActMsg= categoryServiceImpl.deleteCategories(101);
-       System.out.println(ActMsg);
-	      assertEquals(expMsg,ActMsg);
+		Integer categoryId=101;
+		ServiceStatusDto serviceStatusDto=new ServiceStatusDto();
+		serviceStatusDto.setStatus(true);
+		serviceStatusDto.setMessage(categoryId+KeyConstants.CATEGORY_DELETE);
+		when(categoriesDAO.deleteCategories(categoryId)).thenReturn("Success");
+		ServiceStatusDto serviceStatusDto1= categoryServiceImpl.deleteCategories(101);
+		assertEquals(serviceStatusDto1.isStatus(), serviceStatusDto.isStatus());	
 	}
 
 	

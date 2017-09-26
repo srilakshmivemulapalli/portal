@@ -13,7 +13,7 @@ public interface CategoriesService {
 	CategoriesDTO getCategory(Integer id);
 	ServiceStatusDto addCategory(CategoriesDTO category);
 	
-	String deleteCategories(Integer categoryId);
+	ServiceStatusDto deleteCategories(Integer categoryId);
 	
 	String update(CategoriesDTO categoriesDTO) throws CategoryServiceException;
 

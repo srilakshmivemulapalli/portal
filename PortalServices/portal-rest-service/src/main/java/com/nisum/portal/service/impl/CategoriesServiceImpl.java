@@ -94,9 +94,20 @@ public class CategoriesServiceImpl implements CategoriesService{
 
 	
 	@Override
-	public String deleteCategories(Integer categoryId)  {
+	public ServiceStatusDto deleteCategories(Integer categoryId)  {
 		logger.info("CategoriesServiceImpl :: deleteCategories");
-          return categoriesDAO.deleteCategories(categoryId);
+		 ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
+		if(categoriesDAO.deleteCategories(categoryId).equals("Success"))
+		{
+			serviceStatusDto.setStatus(true);
+			serviceStatusDto.setMessage(categoryId+KeyConstants.CATEGORY_DELETE);
+		}
+		else if(categoriesDAO.deleteCategories(categoryId).equals("Failure"))
+		{
+			serviceStatusDto.setStatus(false);
+			serviceStatusDto.setMessage(categoryId+KeyConstants.CATEGORY_NOT_EXIST);
+		}
+		return serviceStatusDto;
 	}
 	
 

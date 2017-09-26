@@ -63,12 +63,16 @@ public class CategoriesRestServiceTest {
 	@Test
 	public void deleteCategoriesTest() throws CategoryServiceException 
 	{
-	  String message=" Categories deleted successfully";
+	  String message="Categories deleted successfully";
+	  ServiceStatusDto serviceStatusDto=new ServiceStatusDto();
+	  serviceStatusDto.setStatus(true);
+	  serviceStatusDto.setMessage(KeyConstants.CATEGORY_DELETE);
+	  
 	  ResponseEntity<Object> expmsg=new ResponseEntity<Object>(message,HttpStatus.OK);
-		when(categoryService.deleteCategories(101)).thenReturn("Success");
-		ResponseEntity<Object> result =mainController.deletingCategories(101);
+		when(categoryService.deleteCategories(101)).thenReturn(serviceStatusDto);
+		ResponseEntity<ServiceStatusDto> result =mainController.deletingCategories(101);
 		System.out.println(result);
-		assertEquals(expmsg, result);
+		assertEquals(serviceStatusDto, expmsg);
 		
 	}
 

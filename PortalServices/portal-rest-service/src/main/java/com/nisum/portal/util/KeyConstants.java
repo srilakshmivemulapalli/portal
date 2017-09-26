@@ -8,9 +8,9 @@ public class KeyConstants {
 	
 	public static String CATEGORY_EXISTS = "Category Already Exists";
 	
-	public static String CATEGORY_DELETE= " Categories deleted successfully";
+	public static String CATEGORY_DELETE= " Category deleted successfully";
 	
-	public static String  CATEGORY_NOT_EXIST= "Categories not Exist";
+	public static String  CATEGORY_NOT_EXIST= "Category not Exist";
 
 
 
