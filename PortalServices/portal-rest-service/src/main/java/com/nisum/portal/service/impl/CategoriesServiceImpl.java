@@ -16,7 +16,7 @@ import com.nisum.portal.service.dto.CategoriesDTO;
 import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.exception.CategoryServiceException;
 import com.nisum.portal.util.CategoryServiceUtil;
-import com.nisum.portal.util.KeyConstants;
+import com.nisum.portal.util.Constants;
 
 @Service
 public class CategoriesServiceImpl implements CategoriesService{
@@ -52,10 +52,10 @@ public class CategoriesServiceImpl implements CategoriesService{
 		
 		if(serviceStatus == 0) {
 			serviceStatusDto.setStatus(false);
-			serviceStatusDto.setMessage(KeyConstants.CATEGORY_EXISTS);
+			serviceStatusDto.setMessage(Constants.CATEGORY_EXISTS);
 		}else if(serviceStatus == 1){
 			serviceStatusDto.setStatus(true);
-			serviceStatusDto.setMessage(KeyConstants.SUCCESS_MESSAGE);
+			serviceStatusDto.setMessage(Constants.MSG_RECORD_ADD);
 		}
 
 		return serviceStatusDto;
@@ -65,28 +65,35 @@ public class CategoriesServiceImpl implements CategoriesService{
 	 * @see com.nisum.portal.service.api.CategoriesService#update(com.nisum.portal.data.domain.Categories)
 	 */
 	@Override
-	public String update(CategoriesDTO categoriesDTO) throws CategoryServiceException 
+	public ServiceStatusDto update(CategoriesDTO categoriesDTO) throws CategoryServiceException 
 	{
 		// TODO Auto-generated method stub
 		logger.info("CategoriesServiceImpl :: updateCategories :: Category Details "+categoriesDTO.toString());
+			Date date = new Date();
+			ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
+			Timestamp createdDate = new Timestamp(date.getTime());
+			categoriesDTO.setCreateDate(createdDate);
 			Categories categories = CategoryServiceUtil.convertDtoTODao(categoriesDTO);
 			boolean flag = categoriesDAO.updateCategories(categories);
 			try
 			{
-			String status;
 			if(flag==true)
 			{
-				status="success";
+				logger.info("CategoriesServiceImpl :: updateCategories :: Categories updated Successfully");
+				serviceStatusDto.setStatus(true);
+				serviceStatusDto.setMessage(Constants.MSG_RECORD_UPDATE);
 			}
 			else
 			{
-				logger.error("CategoriesServiceImpl :: updateCategories :: Unable To Update Categories with categoryId not found.", categories.getCategoryId());
-				status="fail";
+				logger.error("CategoriesServiceImpl :: updateCategories :: Unable To Update Categories with categoryId not found."+categories.getCategoryId());
+				serviceStatusDto.setStatus(false);
+				serviceStatusDto.setMessage(Constants.CATEGORY_EXISTS);
 			}
-			return status;
+			return serviceStatusDto;
 			}
 			catch(Exception e)
 			{
+				logger.error("CategoriesServiceImpl :: updateCategories :: Exception");
 				throw new CategoryServiceException("CategoryId Not Existed");
 			}
 			
@@ -100,22 +107,20 @@ public class CategoriesServiceImpl implements CategoriesService{
 		if(categoriesDAO.deleteCategories(categoryId).equals("Success"))
 		{
 			serviceStatusDto.setStatus(true);
-			serviceStatusDto.setMessage(categoryId+KeyConstants.CATEGORY_DELETE);
+			serviceStatusDto.setMessage(categoryId+Constants.CATEGORY_DELETE);
 		}
 		else if(categoriesDAO.deleteCategories(categoryId).equals("Failure"))
 		{
 			serviceStatusDto.setStatus(false);
-			serviceStatusDto.setMessage(categoryId+KeyConstants.CATEGORY_NOT_EXIST);
+			serviceStatusDto.setMessage(categoryId+Constants.CATEGORY_NOT_EXIST);
 		}
 		return serviceStatusDto;
 	}
-	
+
 
 	@Override
-	public CategoriesDTO getCategory(Integer id) {
-		Categories category=categoriesDAO.getCategory(id);
-		return CategoryServiceUtil.convertDaoToDtoInstance(category);
+	public Object getCategory(Integer id) {
+		logger.info("CategoriesServiceImpl :: getCategory");
+		return categoriesDAO.getCategory(id);
 	}
-	
-
 }

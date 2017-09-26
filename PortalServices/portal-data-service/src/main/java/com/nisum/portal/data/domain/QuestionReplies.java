@@ -5,32 +5,29 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "QuestionReplies")
 public class QuestionReplies implements Serializable{
+	
 	private static final long serialVersionUID = 1L;
 
-	
 	@Id
 	@Column (name = "replyId")
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int replyId;
 	private String replyDescription;
-	private Timestamp createdDate;
 	private Timestamp updatedDate;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "questId")
-	private Questionaries questId;
+	//@ManyToOne(fetch = FetchType.LAZY)
+    //@JoinColumn(name = "questId")
+	private int questId;
 	
-	@JoinColumn(name = "userId", referencedColumnName = "userId")
-	private User userId;
+	private String emailid;
 
 	/**
 	 * @return the replyId
@@ -60,19 +57,6 @@ public class QuestionReplies implements Serializable{
 		this.replyDescription = replyDescription;
 	}
 
-	/**
-	 * @return the createdDate
-	 */
-	public Timestamp getCreatedDate() {
-		return createdDate;
-	}
-
-	/**
-	 * @param createdDate the createdDate to set
-	 */
-	public void setCreatedDate(Timestamp createdDate) {
-		this.createdDate = createdDate;
-	}
 
 	/**
 	 * @return the updatedDate
@@ -90,32 +74,44 @@ public class QuestionReplies implements Serializable{
 
 	
 
+
 	/**
-	 * @return the userId
+	 * @return the emailid
 	 */
-	public User getUserId() {
-		return userId;
+	public String getEmailid() {
+		return emailid;
 	}
 
 	/**
-	 * @param userId the userId to set
+	 * @param emailid the emailid to set
 	 */
-	public void setUserId(User userId) {
-		this.userId = userId;
+	public void setEmailid(String emailid) {
+		this.emailid = emailid;
 	}
 
 	/**
 	 * @return the questId
 	 */
-	public Questionaries getQuestId() {
+	public int getQuestId() {
 		return questId;
 	}
 
 	/**
 	 * @param questId the questId to set
 	 */
-	public void setQuestId(Questionaries questId) {
+	public void setQuestId(int questId) {
 		this.questId = questId;
+	}
+	
+	public QuestionReplies() {
+		super();
+	}
+	public QuestionReplies(String replyDescription, Timestamp updatedDate, int questId, String emailid) {
+		super();
+		this.replyDescription = replyDescription;
+		this.updatedDate = updatedDate;
+		this.questId = questId;
+		this.emailid = emailid;
 	}
 
 	/* (non-Javadoc)
@@ -125,12 +121,11 @@ public class QuestionReplies implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((createdDate == null) ? 0 : createdDate.hashCode());
-		result = prime * result + ((questId == null) ? 0 : questId.hashCode());
+		result = prime * result + questId;
 		result = prime * result + ((replyDescription == null) ? 0 : replyDescription.hashCode());
 		result = prime * result + replyId;
 		result = prime * result + ((updatedDate == null) ? 0 : updatedDate.hashCode());
-		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		result = prime * result + ((emailid == null) ? 0 : emailid.hashCode());
 		return result;
 	}
 
@@ -146,16 +141,8 @@ public class QuestionReplies implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		QuestionReplies other = (QuestionReplies) obj;
-		if (createdDate == null) {
-			if (other.createdDate != null)
+		if (questId != other.questId)
 				return false;
-		} else if (!createdDate.equals(other.createdDate))
-			return false;
-		if (questId == null) {
-			if (other.questId != null)
-				return false;
-		} else if (!questId.equals(other.questId))
-			return false;
 		if (replyDescription == null) {
 			if (other.replyDescription != null)
 				return false;
@@ -168,10 +155,10 @@ public class QuestionReplies implements Serializable{
 				return false;
 		} else if (!updatedDate.equals(other.updatedDate))
 			return false;
-		if (userId == null) {
-			if (other.userId != null)
+		if (emailid == null) {
+			if (other.emailid != null)
 				return false;
-		} else if (!userId.equals(other.userId))
+		} else if (!emailid.equals(other.emailid))
 			return false;
 		return true;
 	}
@@ -182,7 +169,7 @@ public class QuestionReplies implements Serializable{
 	@Override
 	public String toString() {
 		return "QuestionReplies [replyId=" + replyId + ", replyDescription=" + replyDescription + ", createdDate="
-				+ createdDate + ", updatedDate=" + updatedDate + ", questionId=" + questId + ", userId=" + userId
+				 + updatedDate + ", questionId=" + questId + ", emailid=" + emailid
 				+ "]";
 	}
 	

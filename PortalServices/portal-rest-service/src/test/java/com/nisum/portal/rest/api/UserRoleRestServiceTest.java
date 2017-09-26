@@ -1,6 +1,7 @@
 package com.nisum.portal.rest.api;
 
-import static org.junit.Assert.assertEquals; 
+import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat; 
 import static org.mockito.Mockito.when;
 
 import java.sql.Timestamp;
@@ -13,16 +14,21 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import com.nisum.portal.data.dao.api.UserRoleDAO;
 import com.nisum.portal.data.domain.UserRole;
 import com.nisum.portal.service.api.UserRoleService;
+import com.nisum.portal.service.dto.Errors;
+import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.dto.UserRoleDTO;
+import com.nisum.portal.service.exception.UserRoleServiceException;
 
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserRoleRestServiceTest {
-
+ 
     @Mock
 	UserRoleService userRoleService;
 	
@@ -34,8 +40,9 @@ public class UserRoleRestServiceTest {
 	
 	List<UserRoleDTO> expected;
 
+	
 	@Test
-	public void addUserRoleSuccess() {
+	public void addUserRoleSuccess() throws UserRoleServiceException {
 		String expected="User Role Added Successfully";
 		String temp=new String();
 		
@@ -47,41 +54,53 @@ public class UserRoleRestServiceTest {
 					userRole.setRole("SE");
 					userRole.setRoleId(1);
 					userRole.setCreatedDate(new Timestamp(System.currentTimeMillis()));
-			when(userRoleService.addUser(userRoleDto)).thenReturn(userRole);
-			when(userRoleDao.addUser(userRole)).thenReturn(userRole);				
-			String actual =userRoleRestService.addUserRole(userRoleDto);
-			//assertEquals(temp, userRoleRestService.addUserRole(userRoleDto)); 
-			assertEquals(expected, actual);
+		
+				when(userRoleService.addUserRole(userRoleDto)).thenReturn(userRole);				
+				ResponseEntity<?> actual =userRoleRestService.addUserRole(userRoleDto);
+			
+			assertEquals(expected, actual.getBody());
 	}
 	
+
+	
 	@Test
-	public void addUserRoleFailure() {
-		String expected="Failed to add UserRole";
-		UserRoleDTO userRoleDto=new UserRoleDTO();
+	public void addUserRoleFailure() throws UserRoleServiceException {
 		
+		Errors error=new Errors();
+		error.setErrorCode("Errors-UserRole");
+		error.setErrorMessage("User Role Exists Already");
+
+		UserRoleDTO userRoleDto=new UserRoleDTO();
+		userRoleDto.setRole("SE");
 			
-		//when(userRoleService.addUser(userRoleDto)).thenReturn(null);
-		String actual=userRoleRestService.addUserRole(userRoleDto);
-		assertEquals(expected, actual);
-	}
+		when(userRoleService.addUserRole(userRoleDto)).thenThrow(UserRoleServiceException.class);
+		ResponseEntity<?> actual=userRoleRestService.addUserRole(userRoleDto);
+		assertThat(actual.getBody()).isEqualToComparingFieldByField(error);
+	}  
 
 	@Test
-	public void deleteUserRoleSuccess() {
-		String expected="Given Record Successfully Deleted";
+	public void deleteUserRoleSuccess() throws UserRoleServiceException {
+		String expected="User Role Deleted Successfully";
 		int id=1;
-		when(userRoleService.deleteUser(id)).thenReturn(true);
-		String actual=userRoleRestService.deleteUserRole(id);
-		assertEquals(expected, actual); 
-	}
+		String role="SE";
+		when(userRoleService.deleteUserRole(id, role)).thenReturn(true);
+		ResponseEntity<?> actual=userRoleRestService.deleteUserRole(id, role);
+		assertEquals(expected, actual.getBody()); 
+	} 
+	
 	
 	@Test
-	public void deleteUserFailure() {
-		String expected="Given Record Does Not Exist";
+	public void deleteUserRoleFailure() throws UserRoleServiceException {
+	
+		Errors error=new Errors();
+			error.setErrorCode("Errors-UserRole");
+			error.setErrorMessage("User Role Doesnot Exists");
 		
-		int id=0;
-		when(userRoleService.deleteUser(id)).thenReturn(false);
-		String actual=userRoleRestService.deleteUserRole(id);
-		assertEquals(expected, actual); 
+		int id=2;
+		String role="SE";
+		when(userRoleService.deleteUserRole(id, role)).thenThrow(UserRoleServiceException.class);
+		ResponseEntity<?> actual=userRoleRestService.deleteUserRole(id, role);
+		assertThat(actual.getBody()).isEqualToComparingFieldByField(error);
 	}
 	@Before
 	public void init() {
@@ -89,28 +108,29 @@ public class UserRoleRestServiceTest {
 		UserRoleDTO userRoleDTO = new UserRoleDTO();
 		userRoleDTO.setRole("mg");
 		userRoleDTO.setRoleId(1);
-		userRoleDTO.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 		expected.add(userRoleDTO);
 	}
-	
+
 	
 	
 	@Test
-	public void getUserRoleTest() {
+	public void getUserRoleTest() throws UserRoleServiceException {
 		List<UserRoleDTO> list = new ArrayList<>();
 		UserRoleDTO userRoleDto = new UserRoleDTO();
 		userRoleDto.setRoleId(1);
 		userRoleDto.setRole("mg");
-		userRoleDto.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 		list.add(userRoleDto);
+		ResponseEntity<List<UserRole>> expected = new ResponseEntity<List<UserRole>>(HttpStatus.OK);
 		when(userRoleService.getUserRole()).thenReturn(list);
-		List<UserRoleDTO> actual =  userRoleRestService.getUserRole();
-		assertEquals(actual.size(), expected.size());
+		ResponseEntity<List<UserRoleDTO>> actual =  userRoleRestService.getUserRole();
+		assertEquals(actual.getStatusCode(), expected.getStatusCode());
 	}
 
 	@Test
-	public void updateUserRoleTest() {
+	public void updateUserRoleTest() throws UserRoleServiceException {
 		String  message= "user role successfully updated into database";
+		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
+		serviceStatusDto.setMessage(message);
 		UserRole expected1 = new UserRole();
 		expected1.setRole("mg");
 		expected1.setRoleId(1);	
@@ -118,12 +138,10 @@ public class UserRoleRestServiceTest {
 		userRole.setRole("mg");
 		userRole.setRoleId(1);
 		userRole.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+		ResponseEntity<ServiceStatusDto> expected = new ResponseEntity<ServiceStatusDto>(serviceStatusDto,HttpStatus.OK);
 		when(userRoleService.updateUserRole(userRole)).thenReturn(userRole);
-		String actual = userRoleRestService.updateUserRole(userRole);
-		assertEquals(actual, message);
-	}
-
-	
+		ResponseEntity<ServiceStatusDto> actual = userRoleRestService.updateUserRole(userRole);
+		assertEquals(actual.getStatusCode(), expected.getStatusCode());
+	}	
 }
-
 

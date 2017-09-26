@@ -1,10 +1,11 @@
 package com.nisum.portal.service.impl;
 
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,46 +13,95 @@ import com.nisum.portal.data.dao.api.UserRoleDAO;
 import com.nisum.portal.data.domain.UserRole;
 import com.nisum.portal.service.api.UserRoleService;
 import com.nisum.portal.service.dto.UserRoleDTO;
-import com.nisum.portal.util.CategoryServiceUtil;
+import com.nisum.portal.service.exception.UserRoleServiceException;
+import com.nisum.portal.util.UserRoleCache;
 import com.nisum.portal.util.UserRoleServiceUtil;
 
 @Service
-public class UserRoleServiceImpl implements UserRoleService{
-
+public class UserRoleServiceImpl implements UserRoleService,InitializingBean{
+	
+	private static Logger logger = LoggerFactory.getLogger(UserRoleServiceImpl.class);
 	@Autowired
 	UserRoleDAO userRoleDao;
+	UserRoleCache cache=UserRoleCache.getInstance();
 	
-	//Adds User Role into database 
+	/**
+	 * Adds New UserRole into Database
+	 */
 	@Override
-	public UserRole addUser(UserRoleDTO userRoleDto) {
+	public UserRole addUserRole(UserRoleDTO userRoleDto) throws UserRoleServiceException {
+		logger.info("UserRoleServiceImpl :: Enter into addUser(UserRoleDto)");
+		
+		UserRole userRole1=null;
+		UserRole addUserRole=null; 
+	 
+		if(!cache.verifyUserRoleToCache(userRoleDto)) {
+			logger.error("UserRoleServiceImpl :: Exception Raised As the Given User Role Exists");
+			throw new UserRoleServiceException("User Role Exists Already");
+		}else {
+			logger.info("UserRoleServiceImpl :: method call to UserRoleServiceUtil.convertDtoToDao(userRoleDto)");
+			userRole1=UserRoleServiceUtil.convertDtoToDao(userRoleDto);
+			logger.info("User Roile :"+userRole1);
+			addUserRole=(UserRole)userRoleDao.addUserRole(userRole1);
+			//System.out.println(userRoleDao.addUserRole(userRole1));
+			logger.info("UserRole After Adding into DB"+addUserRole); 
 			
-			Timestamp timeStamp=new Timestamp(System.currentTimeMillis());		
-			userRoleDto.setCreatedDate(timeStamp);  
-	
-			UserRole userRole=UserRoleServiceUtil.convertDtoToDao(userRoleDto);
-	
-		return userRoleDao.addUser(userRole);    
-	
+			cache.put("user-role",userRoleDao.getUserRole());
+			logger.info("added new user role to cache"); 
+		}
+		return addUserRole;  
 	}
 	
-	//Deletes User Role from Database
+	/**
+	 * deletes userRole from database and returns boolean value
+	 */
 	@Override
-	public boolean deleteUser(int id) {
-		
-		return userRoleDao.deleteUser(id);	
-		
+	public boolean deleteUserRole(Integer id, String roleName) throws UserRoleServiceException {
+		logger.info("UserRoleServiceImpl :: entered into deleteUserRole("+id+")");
+		logger.info("UserRoleServiceImpl ::Method call to userRoleDao.deleteUserRole("+id+")");
+		if(!cache.findUserRole(id, roleName)) { 
+			throw new UserRoleServiceException("User Role Doesn't Exists");
+	}else {
+			cache.remove(id, roleName);
+		logger.info("Cache Updated After Deleted"+cache.get("user-role"));
+			return userRoleDao.deleteUserRole(id);	
+			
+		}
 	}
 	
      @Override
-	public List<UserRoleDTO> getUserRole() {		
+	public List<UserRoleDTO> getUserRole() {	
+    	   logger.info("UserRoleServiceImpl :: getUserRole");
 		List<UserRole>  userRoleList=userRoleDao.getUserRole();
 		return UserRoleServiceUtil.convertDaoTODto(userRoleList);
 	}
 
 	@Override
-	public UserRole updateUserRole(UserRole userRole) {	
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		 userRole.setCreatedDate(timestamp);
+	public UserRole updateUserRole(UserRole userRole) {
+		
 		return userRoleDao.updateUserRole(userRole);
+	}
+
+	/**
+	 * loads the data into Cache from Database during application  start up o
+	 */
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		logger.info("loading data from db to cache");
+		List<UserRole> rolesList=userRoleDao.getUserRole();
+		UserRoleCache instance=UserRoleCache.getInstance();
+		instance.put("user-role", rolesList);
+	}
+
+	@Override
+	public Integer findUserById(Integer roleId) {
+		UserRole role=userRoleDao.findUserById(roleId);
+		Integer roleid=null;
+		if(role!=null) {
+	      roleid=role.getRoleId();
+	     
+		}
+		return roleid;
+		
 	}
 }

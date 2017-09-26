@@ -1,6 +1,6 @@
 package com.nisum.portal.service.impl;
 
-import static org.assertj.core.api.Assertions.assertThat; 
+import static org.assertj.core.api.Assertions.assertThat;  
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
@@ -19,9 +19,13 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import com.nisum.portal.data.dao.api.UserRoleDAO;
 import com.nisum.portal.data.domain.UserRole;
+import com.nisum.portal.data.repository.UserRoleRepository;
 import com.nisum.portal.service.dto.UserRoleDTO;
+import com.nisum.portal.service.exception.UserRoleServiceException;
+import com.nisum.portal.util.UserRoleCache;
 import com.nisum.portal.util.UserRoleServiceUtil;
 
+//@RunWith(MockitoJUnitRunner.class)
 @RunWith(PowerMockRunner.class) 
 @PrepareForTest(UserRoleServiceUtil.class)
 public class UserRoleServiceImplTest {
@@ -32,6 +36,12 @@ public class UserRoleServiceImplTest {
 	@Mock
 	UserRoleDAO userRoleDao;
 	
+	@Mock
+	UserRoleRepository userRoleRepository;
+	
+	@Mock
+	UserRoleCache cache; 
+	 
 	UserRole expected;
 	List<UserRoleDTO> expected1;
 	
@@ -39,44 +49,72 @@ public class UserRoleServiceImplTest {
 	public void setUp() {
 		expected = new UserRole();
 		expected.setRole("SE");
-		expected.setRoleId(1);  
+		expected.setRoleId(1);    
 	}
-	@Test
-	public void addUserTest() {
 	
-		
+	@Test
+	public void addUserRoleSuccessTest() throws UserRoleServiceException {
 			UserRoleDTO userRoleDto=new UserRoleDTO();
 			userRoleDto.setRole("SE");
 			
 			UserRole userRole=new UserRole();
 				userRole.setRole("SE");
 				userRole.setRoleId(1);
+		
+				
+				//when(cache.verifyUserRoleToCache(userRoleDto)).thenReturn(true);
+				
+		 
+			when(cache.verifyUserRoleToCache(userRoleDto)).thenReturn(true);
+			//PowerMockito.mockStatic(UserRoleServiceUtil.class); 
+			//PowerMockito.when(UserRoleServiceUtil.convertDtoToDao(userRoleDto)).thenReturn(userRole);
+			when(userRoleRepository.save(userRole)).thenReturn(userRole);
+			when(userRoleDao.addUserRole(userRole)).thenReturn(userRole); 
 			
-			PowerMockito.mockStatic(UserRoleServiceUtil.class);
-			PowerMockito.when(UserRoleServiceUtil.convertDtoToDao(userRoleDto)).thenReturn(userRole);
 			
+			//when(userRoleServiceImpl.addUserRole(userRoleDto)).thenReturn(userRole);
+	
+			 UserRole actual = userRoleServiceImpl.addUserRole(userRoleDto);
 			
-			when(userRoleDao.addUser(userRole)).thenReturn(userRole);
-			
-			UserRole actual=userRoleServiceImpl.addUser(userRoleDto);
-			assertThat(actual).isEqualToComparingFieldByField(expected);   
+			assertThat(actual).isEqualToComparingFieldByField(expected);     
 	}
+	
+
+	@Test(expected=UserRoleServiceException.class)
+	public void addUserRoleFailureTest() throws UserRoleServiceException {
+			UserRoleDTO userRoleDto=new UserRoleDTO();
+			userRoleDto.setRole("SE");
+		
+			when(cache.verifyUserRoleToCache(userRoleDto)).thenReturn(false);
+			userRoleServiceImpl.addUserRole(userRoleDto);   
+	}
+	
+	
 
 	@Test
-	public void deleteUserTest() {
-		int id = 1;
-		when(userRoleDao.deleteUser(id)).thenReturn(true);
-
-		assertTrue(userRoleServiceImpl.deleteUser(id));
-}
+	public void deleteUserRoleSuccessTest() throws UserRoleServiceException {
+		Integer id = 1;
+		String roleName="SE";
+		when(cache.findUserRole(id, roleName)).thenReturn(true);
+		when(userRoleDao.deleteUserRole(id)).thenReturn(true);
+		assertTrue(userRoleServiceImpl.deleteUserRole(id, roleName));
+	}
 	
+	
+	@Test(expected=UserRoleServiceException.class)
+	public void deleteUserRoleFailureTest() throws UserRoleServiceException {
+		Integer id = 0;
+		String roleName="SE";
+		when(cache.findUserRole(id, roleName)).thenReturn(false);
+		userRoleServiceImpl.deleteUserRole(id, roleName);
+	}
 	@Before
 	public void init() {
 		expected1 = new ArrayList<>();
 		UserRoleDTO userRole = new UserRoleDTO();
 		userRole.setRole("mg");
 		userRole.setRoleId(1);
-		userRole.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+		
 		expected1.add(userRole);
 	}
 
@@ -95,7 +133,7 @@ public class UserRoleServiceImplTest {
 		UserRoleDTO userRoleDto = new UserRoleDTO();
 		userRoleDto.setRoleId(1);
 		userRoleDto.setRole("mg");
-		userRoleDto.setCreatedDate(userRole.getCreatedDate());
+		
 		list1.add(userRoleDto);
 
 

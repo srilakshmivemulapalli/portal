@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.nisum.portal.data.dao.api.UserDAO;
 import com.nisum.portal.data.domain.User;
-import com.nisum.portal.rest.api.CategoriesRestService;
 import com.nisum.portal.service.api.UserService;
 import com.nisum.portal.service.dto.UserDTO;
 import com.nisum.portal.util.UserServiceUtil;
@@ -24,10 +23,10 @@ public class UserServiceImpl implements UserService {
 	public List<UserDTO> getUsers() {
 		logger.info("UserServiceImpl :: getUsers :: Get list of users");
 		List<User> userList = userDAO.getUsers();
-		return UserServiceUtil.convertDaoListTODto(userList);
+		return UserServiceUtil.convertDaoListToDto(userList);
 	}
 	@Override
-	public String updateUserDetails(UserDTO userDto) {
+	public User updateUserDetails(UserDTO userDto) {
 		logger.info("UserServiceImpl :: updateUserDetails :: Updating user detail");
 		User user = UserServiceUtil.convertDtoObjectTODao(userDto);
 		return userDAO.updateUser(user);
@@ -39,11 +38,18 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public UserDTO findUserById(int userId) {
+	public String findUserById(int userId) {
 		logger.info("UserServiceImpl :: findUserById :: Finding user by userId");
 		User  user=userDAO.findUserById(userId);
-		return UserServiceUtil.convertDaoObjectTODto(user);
-		
+		String activeStatus = null;
+		if (user != null) {
+			activeStatus = user.getActiveStatus();
+		}
+		return activeStatus;
+	}
+	@Override
+	public long getUserCount() {
+		return userDAO.getUserCount();
 	}
 
 }

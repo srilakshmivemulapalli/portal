@@ -10,6 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "UserRole")
+
 public class UserRole implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -17,39 +18,62 @@ public class UserRole implements Serializable {
 	@Id
 	@Column(name = "roleId")
 	private int roleId;
-
 	private String role;
 	private Timestamp createdDate;
 
+	/**
+	 * Returns roleId
+	 * @return
+	 */
 	public int getRoleId() {
 		return roleId;
 	}
 
+	/**
+	 * Sets roleId
+	 * @param roleId
+	 */
 	public void setRoleId(int roleId) {
 		this.roleId = roleId;
 	}
-
+	
+	/**
+	 * Returns roleName
+	 * @return
+	 */
 	public String getRole() {
 		return role;
 	}
 
+	/**
+	 * Sets roleName
+	 * @param role
+	 */
 	public void setRole(String role) {
 		this.role = role;
 	}
 
+	/**
+	 * Returns role created time
+	 * @return
+	 */
 	public Timestamp getCreatedDate() {
 		return createdDate;
 	}
 
+	/**
+	 * Sets role created time
+	 * @param date
+	 */
 	public void setCreatedDate(Timestamp date) {
 		this.createdDate = date;
 	}
 
-	// @Override
-	// public String toString() {
-	// return "UserRole [roleId=" + roleId + ", role=" + role + ", createdDate=" +
-	// createdDate + "]";
-	// }
+	 @Override
+	 public String toString() {
+	 return "UserRole [roleId=" + roleId + ", role=" + role + ", createdDate=" +
+	 createdDate + "]";
+	 }
 
 	@Override
 	public int hashCode() {

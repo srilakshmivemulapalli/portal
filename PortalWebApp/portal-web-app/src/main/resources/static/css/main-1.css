@@ -4043,6 +4043,16 @@ body.admin-bar .q-filter-waypoints {
 	min-height:40px;
 	padding:10px;
 }
+.txtdisabled{
+		border:none;
+		background:none;
+}
+.glyphicon{
+	color:#3498db;
+	font-size: 16px;
+	top:7px;
+	padding-left:10px;
+}
 
 /***************login****************/
 .card-container.card {

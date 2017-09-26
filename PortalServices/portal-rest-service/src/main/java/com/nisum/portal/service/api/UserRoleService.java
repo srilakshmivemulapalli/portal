@@ -4,12 +4,14 @@ import java.util.List;
 
 import com.nisum.portal.data.domain.UserRole;
 import com.nisum.portal.service.dto.UserRoleDTO;
+import com.nisum.portal.service.exception.UserRoleServiceException;
 
 public interface UserRoleService {
 	
-	public UserRole addUser(UserRoleDTO userRoleDto);
-	public boolean deleteUser(int id);
+	public UserRole addUserRole(UserRoleDTO userRoleDto) throws UserRoleServiceException;
+	public boolean deleteUserRole(Integer id, String roleName) throws UserRoleServiceException;
 	List<UserRoleDTO> getUserRole();
 	public UserRole updateUserRole(UserRole userRole);
+	public Integer findUserById(Integer roleId);
 
 }

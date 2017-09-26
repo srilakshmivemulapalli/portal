@@ -69,7 +69,7 @@ public class CategoriesDAOImpl implements CategoriesDAO {
 			categoriesRepository.save(categories);
 			flag = true;
 		} else {
-			logger.error("Unable To Update Categories with categoryId not found.", categories.getCategoryId());
+			logger.error("Unable To Update Categories with categoryId not found."+categories.getCategoryId());
 			flag = false;
 		}
 		return flag;
@@ -80,13 +80,11 @@ public class CategoriesDAOImpl implements CategoriesDAO {
 		logger.info("CategoriesDAOImpl :: deleteCategories");
 		if(categoriesRepository.findOne(categoryId) != null)
 		{
-			System.out.println("=====================success");
 		 categoriesRepository.delete(categoryId);
 		 return "Success";
 		}
 		else
 		{
-			System.out.println("=====================failure");
 			 return "Failure";
 		}
 

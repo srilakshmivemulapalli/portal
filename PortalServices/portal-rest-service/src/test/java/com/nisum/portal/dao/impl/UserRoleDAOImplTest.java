@@ -50,7 +50,7 @@ public class UserRoleDAOImplTest {
 			userRole.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 
 			when(userRoleRepository.save(userRole)).thenReturn(userRole);
-			UserRole actual=userRoleDaoImpl.addUser(userRole);
+			UserRole actual=userRoleDaoImpl.addUserRole(userRole);
 			
 			assertEquals(expected.getRole(), actual.getRole());		
 	}
@@ -59,7 +59,7 @@ public class UserRoleDAOImplTest {
 	@Test
 	public void deleteUser() {
 		int id=1;
-		assertTrue(userRoleDaoImpl.deleteUser(id));
+		assertTrue(userRoleDaoImpl.deleteUserRole(id));
 	}
 	
 	@After
@@ -100,9 +100,10 @@ public class UserRoleDAOImplTest {
 		userRole.setRole("mg");
 		userRole.setRoleId(1);
 		userRole.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+		when(userRoleRepository.findOne(userRole.getRoleId())).thenReturn(userRole);
 		when(userRoleRepository.save(userRole)).thenReturn(userRole);
 		UserRole actual = userRoleDaoImpl.updateUserRole(userRole);
-		assertEquals(actual.getRole(), expected1.getRole());
+		assertEquals(actual.getRole(), expected1.getRole()); 
 	}
 
 	
