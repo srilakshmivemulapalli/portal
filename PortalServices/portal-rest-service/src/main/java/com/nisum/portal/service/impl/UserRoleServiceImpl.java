@@ -78,7 +78,7 @@ public class UserRoleServiceImpl implements UserRoleService,InitializingBean{
 
 	@Override
 	public UserRole updateUserRole(UserRole userRole) {
-		
+		logger.info("UserRoleServiceImpl :: updateUserRole");
 		return userRoleDao.updateUserRole(userRole);
 	}
 
@@ -95,6 +95,7 @@ public class UserRoleServiceImpl implements UserRoleService,InitializingBean{
 
 	@Override
 	public Integer findUserById(Integer roleId) {
+		logger.info("loading data from db");
 		UserRole role=userRoleDao.findUserById(roleId);
 		Integer roleid=null;
 		if(role!=null) {
