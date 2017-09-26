@@ -52,7 +52,7 @@ public class CategoriesRestServiceTest {
 		serviceStatusExpected.setStatus(true);
 		serviceStatusExpected.setMessage(Constants.MSG_RECORD_ADD);
 		when(categoryService.addCategory(categoryDto)).thenReturn(serviceStatusExpected);
-		ResponseEntity<ServiceStatusDto> serviceStatusactual = mainController.addCategory(categoryDto);
+		ResponseEntity<?> serviceStatusactual = mainController.addCategory(categoryDto);
 
 		Assert.assertEquals(serviceStatusExpected, serviceStatusactual.getBody() );
 		//return categoryService.addCategory(category);
@@ -78,7 +78,7 @@ public class CategoriesRestServiceTest {
 	public void deleteCategoriesTest() throws CategoryServiceException 
 	{
 	  String message=" Categories deleted successfully";
-	  ResponseEntity<Object> expmsg=new ResponseEntity<Object>(message,HttpStatus.OK);
+	  ResponseEntity<Object> expmsg=new ResponseEntity<Object>(message,HttpStatus.NOT_ACCEPTABLE);
 		when(categoryService.deleteCategories(101)).thenReturn("Success");
 		ResponseEntity<Object> result =mainController.deletingCategories(101);
 		System.out.println(result);

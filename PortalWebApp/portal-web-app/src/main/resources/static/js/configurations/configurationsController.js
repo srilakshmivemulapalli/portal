@@ -176,34 +176,27 @@ adminApp
 							"categoryName" : category.categoryName,
 							"description" : category.description
 						};
-
 						$http({
 							url : 'v1/category/addCategory',
 							method : "POST",
 							data : category
 						}).then(function(response) {
 							$scope.getCategories();
-
-							if(response.data.status){
-								$scope.successMessage = response.data.message;
-
-							}else{
-								$scope.errorMessage = response.data.errorMessage;
-							}
+							$scope.successMessage = response.data.message;
 							$timeout(function() {
 								$scope.successMessage = '';
-								$scope.errorMessage = '';
 							}, 5000);
-							
 							$scope.categoryobj.categoryName = "";
 							$scope.categoryobj.description = "";
 						}, function(response) { // optional
-							console.log(response);
+
 							$scope.errorMessage = response.data.errorMessage;
 							$timeout(function() {
 								$scope.errorMessage = '';
 							}, 5000);
 						});
+
+						
 					};
 
 					$scope.confirmEdit = function(name, item) {
@@ -251,18 +244,21 @@ adminApp
 								alert(response.data.message)
 							});
 						} else if ($scope.editteditem.name === 'category') {
-							$http.put('v1/category/updateCategory',
-									$scope.editteditem.item).success(function(response){
-											$scope.successMessage = response.message;
-											$timeout(function(){
-												$scope.successMessage='';
-											},5000);
-											$scope.getCategories();
-									}).error(function(response) {
+							$http
+									.put('v1/category/updateCategory',
+											$scope.editteditem.item)
+									.success(
+											function(response) {
+												$scope.successMessage = response.message;
+												$timeout(function() {
+													$scope.successMessage = '';
+												}, 5000);
+												$scope.getCategories();
+											}).error(function(response) {
 										$scope.errorMessage = response.message;
-										$timeout(function(){
-											$scope.errorMessage='';
-										},5000);
+										$timeout(function() {
+											$scope.errorMessage = '';
+										}, 5000);
 									});
 						}
 						$('#editModal').modal('hide');
