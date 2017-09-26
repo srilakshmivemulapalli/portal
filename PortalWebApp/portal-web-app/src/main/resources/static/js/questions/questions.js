@@ -9,5 +9,10 @@ var questionApp=angular.module('questionsApp', [ 'ui.router' ])
 		templateUrl:'js/questions/questionreply.html',
 		controller: 'questionReplyController'
 	})
+	.state('addquestion',{
+		url:'/addquestion',
+		templateUrl:'js/questions/addquestion.html',
+		controller: 'addQuestionController'
+	})
 })    
 		

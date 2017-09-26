@@ -1,8 +1,10 @@
-app.factory('userservice', function($http, $q) {
-	var deferred = $q.defer();
+app.factory('userService', function($http, $q) {
+	var us={};
 	
-	function _getUsers() {
-		$http.get('').success(function(response) {
+	us.getUsers=function() {
+		var deferred = $q.defer();
+		
+		$http.get('v1/user/getUsers').success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
@@ -10,7 +12,9 @@ app.factory('userservice', function($http, $q) {
 		return deferred.promise;
 	}
 	
-	function _postUser(data) {
+	us.postUser=function(data) {
+		var deferred = $q.defer();
+		
 		$http.post('', data).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
@@ -18,16 +22,20 @@ app.factory('userservice', function($http, $q) {
 		})
 		return deferred.promise;
 	}
-	function _deleteUser(userid) {
-		$http.post('' + userid).success(function(response) {
+	us.deleteUser=function(userid) {
+		var deferred = $q.defer();
+		
+		$http.put('v1/user/deleteUser/' + userid).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
 		})
 		return deferred.promise;
 	}
-	function _editUser(data) {
-		$http.put(',data').success(function(response) {
+	us.editUser=function(data) {
+		var deferred = $q.defer();
+		
+		$http.put('v1/user/update',data).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
@@ -36,9 +44,6 @@ app.factory('userservice', function($http, $q) {
 	}
 	
 	
-	$scope.getUsers=_getUsers;
-	$scope.postUser=_postUser;
-	$scope.deleteUser=_deleteUser;
-	$scope.editUser=_editUser;
+	return us;
 	
 })

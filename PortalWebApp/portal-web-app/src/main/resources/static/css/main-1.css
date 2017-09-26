@@ -4053,6 +4053,9 @@ body.admin-bar .q-filter-waypoints {
 	top:7px;
 	padding-left:10px;
 }
+.select-categories .select-question{
+	width:100% !important;
+}
 
 /***************login****************/
 .card-container.card {

@@ -50,7 +50,7 @@
 
 <link rel='stylesheet' id='custom-style-css' href='css/custom.css'
 	type='text/css' media='all' />
-	<link rel='stylesheet' href='css/text-angular.css' type="text/css"/>
+<link rel='stylesheet' href='css/text-angular.css' type="text/css" />
 
 <link rel='stylesheet' id='color-picker-style-css'
 	href='css/colorpicker.css' type='text/css' media='all' />
@@ -184,6 +184,8 @@
 
 
 	<!-- angular scripts -->
+	<script src="bower_components/underscore/underscore.js"></script>
+
 	<script src="bower_components/angular/angular.js"></script>
 	<script src="bower_components/angular-resource/angular-resource.js"></script>
 
@@ -213,21 +215,21 @@
 	<script src='js/login/login.js'></script>
 	<script src='js/profile/profile.js'></script>
 	<script src="js/app.js"></script>
-	
-	<!-- service scripts -->
-<script src='js/services/categoryService.js'></script>
-<script src='js/services/questionService.js'></script>
-<script src='js/services/roleService.js'></script>
-<script src='js/services/userService.js'></script>
-	
 
+	<!-- service scripts -->
+	<script src='js/services/categoryService.js'></script>
+	<script src='js/services/questionService.js'></script>
+	<script src='js/services/roleService.js'></script>
+	<script src='js/services/userService.js'></script>
+	<script src='js/directives/customDirectives.js'></script>
+	
 	<!-- controllers scripts -->
 	<script src="js/questions/questionsController.js"></script>
 	<script src="js/questions/questionReplyController.js"></script>
 	<script src='js/configurations/configurationsController.js'></script>
 	<script src='js/login/loginController.js'></script>
 	<script src='js/profile/profileController.js'></script>
-
+	<script src='js/questions/addQuestionController.js'></script>
 
 </body>
 </html>

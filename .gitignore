@@ -1,2 +1,5 @@
 
 PortalWebApp/portal-web-app/src/main/resources/application.properties
+*.java
+*.java
+*.java
