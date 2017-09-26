@@ -22,7 +22,7 @@ app.factory('categoryService', function($http, $q) {
 	}
 	cs.deleteCategory=function(categoryid) {
 		var deferred = $q.defer();
-		$http.put('' + categoryid).success(function(response) {
+		$http.delete('v1/category/delete/' + categoryid).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);

@@ -179,7 +179,7 @@ adminApp
 
 											},
 											function(response) {
-												$scope.errorMessage = response.message;
+												$scope.errorMessage = response.errorMessage;
 												$timeout(function() {
 													$scope.errorMessage = '';
 												}, 5000);
@@ -188,7 +188,23 @@ adminApp
 						} else if ($scope.deleteitem.name === 'role') {
 							alert('role');
 						} else if ($scope.deleteitem.name === 'category') {
-							alert('category');
+							categoryService
+							.deleteUser($scope.deleteitem.itemId)
+							.then(
+									function(response) {
+										$scope.successMessage = response.message;
+										$timeout(function() {
+											$scope.successMessage = '';
+										}, 5000);
+										$scope.getCategories();
+
+									},
+									function(response) {
+										$scope.errorMessage = response.errorMessage;
+										$timeout(function() {
+											$scope.errorMessage = '';
+										}, 5000);
+									});
 						}
 						$('#deleteModal').modal('hide');
 					}
@@ -215,7 +231,7 @@ adminApp
 												$scope.getUsers();
 											},
 											function(response) {
-												$scope.errorMessage = response.message;
+												$scope.errorMessage = response.errorMessage;
 												$timeout(function() {
 													$scope.errorMessage = '';
 												}, 5000);
@@ -227,6 +243,7 @@ adminApp
 									.then(
 											function(response) {
 												$scope.successMessage = response.message;
+												$scope.getRoles();
 												$timeout(function() {
 													$scope.successMessage = '';
 												}, 5000);
@@ -244,6 +261,7 @@ adminApp
 									.then(
 											function(response) {
 												$scope.successMessage = response.message;
+												$scope.getCategories();
 												$timeout(function() {
 													$scope.successMessage = '';
 												}, 5000);
