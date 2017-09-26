@@ -109,7 +109,7 @@ public class CategoriesServiceImpl implements CategoriesService{
 
 	@Override
 	public Object getCategory(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		logger.info("CategoriesServiceImpl :: getCategory");
+		return categoriesDAO.getCategory(id);
 	}
 }
