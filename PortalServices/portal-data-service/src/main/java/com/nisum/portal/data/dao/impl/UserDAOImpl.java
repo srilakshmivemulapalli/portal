@@ -48,5 +48,18 @@ public class UserDAOImpl implements UserDAO{
 	public long getUserCount() {
 		return userRepository.count();
 	}
+	
+	@Override
+	public void saveUser(User user) {
+		userRepository.save(user);
+
+	}
+
+	@Override
+	public User findByEmailId(String emailId) {
+
+		return userRepository.findByEmailId(emailId);
+	}
+
 
 }

@@ -20,6 +20,8 @@ public class UserDTO implements Serializable{
 	private Timestamp loginDate;
 	private UserRoleDTO role;
 	private String activeStatus;
+	private Timestamp createDate;
+	
 
 	/**
 	 * Returns user id
@@ -115,5 +117,13 @@ public class UserDTO implements Serializable{
 	 */
 	public void setActiveStatus(String activeStatus) {
 		this.activeStatus = activeStatus;
+	}
+
+	public Timestamp getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Timestamp createDate) {
+		this.createDate = createDate;
 	}
 }

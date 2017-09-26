@@ -43,5 +43,19 @@ public interface UserDAO {
 	 * @return No.of users count
 	 */
 	long getUserCount();
+	
+
+	/**
+	 * 
+	 * @param user
+	 */
+	void saveUser(User user);
+    
+	/**
+	 * 
+	 * @param emailId
+	 * @return
+	 */
+	User findByEmailId(String emailId);
 
 }

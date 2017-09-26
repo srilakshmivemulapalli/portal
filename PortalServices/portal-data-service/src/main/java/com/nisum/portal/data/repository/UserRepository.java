@@ -15,4 +15,6 @@ public interface UserRepository extends JpaRepository<User,Integer>{
 	@Modifying(clearAutomatically = true)
     @Query(value = "UPDATE User u SET u.activeStatus = 'No' where u.userId = :userId")
     int deleteUser(@Param("userId") int userId);
+	
+	User findByEmailId(String emailId);
 }

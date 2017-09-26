@@ -1,4 +1,4 @@
-loginApp.controller('loginController', function($scope, $state,
+loginApp.controller('loginController', function($scope, $state,$http,
 		localStorageService) {
 
 	// --google sign in methods
@@ -8,10 +8,11 @@ loginApp.controller('loginController', function($scope, $state,
 		var profile=authResult.getBasicProfile();
 		console.log(authResult);
 		$scope.profile={
-				"username": profile.getName(),
-				"email": profile.getEmail(),
+				"name": profile.getName(),
+				"emailId": profile.getEmail(),
 				"image": profile.getImageUrl()
 		}
+		$http.post("v1/user/create",$scope.profile);
 		localStorageService.set('profile',$scope.profile);
 		$state.go("configurations");
 	});
