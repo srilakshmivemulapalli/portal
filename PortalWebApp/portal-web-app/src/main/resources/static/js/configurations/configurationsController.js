@@ -265,4 +265,36 @@ adminApp
 						}
 						$('#editModal').modal('hide');
 					}
+					$scope.confirmDelete=function(name,itemId){
+						
+						$scope.deleteitem={
+								'name':name,
+								'itemId':itemId
+						}
+						$('#deleteModal').modal('show');
+					}
+					$scope.deleteItem=function(){
+							if($scope.deleteitem.name==='user'){
+								alert('user');
+							}
+							else if($scope.deleteitem.name==='role'){
+								alert('role');
+							}
+							else if($scope.deleteitem.name==='category'){
+								var path = 'v1/category/delete/'+$scope.deleteitem.itemId;
+								$http({
+									url : path,
+									method : "DELETE",
+								}).then(function(response) {
+									$scope.getCategories();
+									$scope.successMessage=response.data.message;
+									console(response);
+								}, function(response) { // optional
+									$scope.errorMessage=response.data.errorMessage;
+
+								});
+							
+							}$scope.getCategories();
+							$('#deleteModal').modal('hide');
+					};
 				});
