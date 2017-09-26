@@ -232,18 +232,21 @@ adminApp
 								alert(response.data.message)
 							});
 						} else if ($scope.editteditem.name === 'category') {
-							$http.put('v1/category/updateCategory',
-									$scope.editteditem.item).success(function(response){
-											$scope.successMessage = response.message;
-											$timeout(function(){
-												$scope.successMessage='';
-											},5000);
-											$scope.getCategories();
-									}).error(function(response) {
-										$scope.errorMessage = response.message;
-										$timeout(function(){
-											$scope.errorMessage='';
-										},5000);
+							$http({
+									url: 'v1/category/updateCategory',
+									method: "PUT",
+									data: $scope.editteditem.item
+								}).then(function(response) {
+									if(response.data.status){
+									$scope.successMessage = response.data.message;
+									}else{
+									$scope.errorMessage = response.data.errorMessage;
+									}
+									$timeout(function() {
+									$scope.successMessage = '';
+									$scope.errorMessage = '';
+									}, 5000);
+									$scope.getCategories();
 									});
 						}
 						$('#editModal').modal('hide');
