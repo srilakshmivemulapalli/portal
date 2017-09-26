@@ -224,6 +224,7 @@ adminApp
 												$scope.getUsers();
 												alert(response.message);
 											}).error(function() {
+
 										$scope.errorMessage = response.message;
 										$timeout(function() {
 											$scope.errorMessage = '';
@@ -231,9 +232,33 @@ adminApp
 									});
 
 						} else if ($scope.editteditem.name === 'role') {
-							$scope.getRoles();
+							console.log($scope.editteditem.item)
+							console.log($scope.editItem.item);
+							$http({
+								url : 'v1/userrole/update',
+								method : "PUT",
+								data : $scope.editteditem.item
+							}).then(function(response) {
+								console.log(response);
+								$scope.getRoles();
+								alert(response.data.message)
+							}, function(response) {
+								alert(response.data.message)
+							});
 						} else if ($scope.editteditem.name === 'category') {
-							$scope.getCategories();
+							$http.put('v1/category/updateCategory',
+									$scope.editteditem.item).success(function(response){
+											$scope.successMessage = response.message;
+											$timeout(function(){
+												$scope.successMessage='';
+											},5000);
+											$scope.getCategories();
+									}).error(function(response) {
+										$scope.errorMessage = response.message;
+										$timeout(function(){
+											$scope.errorMessage='';
+										},5000);
+									});
 						}
 						$('#editModal').modal('hide');
 					}

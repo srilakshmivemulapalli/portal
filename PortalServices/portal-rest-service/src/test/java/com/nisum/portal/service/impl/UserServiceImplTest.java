@@ -25,7 +25,7 @@ import com.nisum.portal.service.dto.UserRoleDTO;
 import com.nisum.portal.util.UserRoleServiceUtil;
 import com.nisum.portal.util.UserServiceUtil;
 
-//@RunWith(MockitoJUnitRunner.class)
+
 @RunWith(PowerMockRunner.class) 
 @PrepareForTest(UserServiceUtil.class)
 public class UserServiceImplTest {

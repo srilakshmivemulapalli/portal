@@ -21,6 +21,7 @@ import com.nisum.portal.data.dao.api.UserRoleDAO;
 import com.nisum.portal.data.domain.UserRole;
 import com.nisum.portal.service.api.UserRoleService;
 import com.nisum.portal.service.dto.Errors;
+import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.dto.UserRoleDTO;
 import com.nisum.portal.service.exception.UserRoleServiceException;
 
@@ -101,7 +102,7 @@ public class UserRoleRestServiceTest {
 		ResponseEntity<?> actual=userRoleRestService.deleteUserRole(id, role);
 		assertThat(actual.getBody()).isEqualToComparingFieldByField(error);
 	}
-	/*@Before
+	@Before
 	public void init() {
 		expected = new ArrayList<>();
 		UserRoleDTO userRoleDTO = new UserRoleDTO();
@@ -119,14 +120,17 @@ public class UserRoleRestServiceTest {
 		userRoleDto.setRoleId(1);
 		userRoleDto.setRole("mg");
 		list.add(userRoleDto);
+		ResponseEntity<List<UserRole>> expected = new ResponseEntity<List<UserRole>>(HttpStatus.OK);
 		when(userRoleService.getUserRole()).thenReturn(list);
 		ResponseEntity<List<UserRoleDTO>> actual =  userRoleRestService.getUserRole();
-		assertEquals(actual, expected.size());
+		assertEquals(actual.getStatusCode(), expected.getStatusCode());
 	}
 
 	@Test
 	public void updateUserRoleTest() throws UserRoleServiceException {
 		String  message= "user role successfully updated into database";
+		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
+		serviceStatusDto.setMessage(message);
 		UserRole expected1 = new UserRole();
 		expected1.setRole("mg");
 		expected1.setRoleId(1);	
@@ -134,9 +138,10 @@ public class UserRoleRestServiceTest {
 		userRole.setRole("mg");
 		userRole.setRoleId(1);
 		userRole.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+		ResponseEntity<ServiceStatusDto> expected = new ResponseEntity<ServiceStatusDto>(serviceStatusDto,HttpStatus.OK);
 		when(userRoleService.updateUserRole(userRole)).thenReturn(userRole);
-		ResponseEntity<String> actual = userRoleRestService.updateUserRole(userRole);
-		assertEquals(actual, message);
-	}	*/
+		ResponseEntity<ServiceStatusDto> actual = userRoleRestService.updateUserRole(userRole);
+		assertEquals(actual.getStatusCode(), expected.getStatusCode());
+	}	
 }
 
