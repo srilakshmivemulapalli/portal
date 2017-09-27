@@ -138,7 +138,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr ng-repeat="category in categoriesList">
+								<tr ng-repeat="category in categoriesList.categories">
 									<td><input type="checkbox" value=""
 										ng-model="categoryselected[$index]"></td>
 									<td>{{category.categoryId}}</td>
@@ -151,11 +151,11 @@
 										ng-disabled="!categoryselected[$index]"
 										ng-model="category.description" /></td>
 									<td>{{category.createDate | date: 'MM-dd-yyyy HH:mm:ss'}}</td>
-									<td
+									<td class="CENTER"
 										ng-class="{'disabled':!categoryselected[$index]}"
 										ng-disabled="!categoryselected[$index]"><img
 										class="deleteicon" src="images/delete.png"
-										ng-click="!categoryselected[$index]|| confirmDelete('category',category.categoryId);" />
+										ng-click="!categoryselected[$index]|| confirmDelete('category',category);" />
 										<span
 										ng-click="!categoryselected[$index]|| confirmEdit('category',category);"
 										class="glyphicon glyphicon-floppy-save editicon"></span></td>

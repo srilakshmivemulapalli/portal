@@ -2,9 +2,10 @@ adminApp
 		.controller(
 				'configurationsController',
 				function($scope, $timeout, categoryService, userService,
-						roleService, localStorageService) {
+						roleService, localStorageService,CategoryListModel) {
 
-					$scope.categoriesList = [];
+					$scope.categoriesList =  CategoryListModel.newCategoryListInstance() ;
+					//$scope.categoriesList = [];
 					$scope.rolesList = [];
 					$scope.usersList = [];
 
@@ -48,8 +49,13 @@ adminApp
 						$scope.clear();
 						categoryService.getCategories().then(
 								function(response) {
-
-									$scope.categoriesList = response;
+									if (response.length > 0) {
+					                    response.map(function(category) {
+					                    	
+					                        $scope.categoriesList.addCategories(category);
+					                    })
+					                }
+									//$scope.categoriesList = response;
 									localStorageService.set('categoriesList',
 											response);
 								}, function(response) {
@@ -222,14 +228,15 @@ adminApp
 
 						}  else if ($scope.deleteitem.name === 'category') {
 							categoryService
-									.deleteCategory($scope.deleteitem.itemId)
+									.deleteCategory($scope.deleteitem.itemId.categoryId)
 									.then(
 											function(response) {
 												$scope.successMessage = response.message;
 												$timeout(function() {
 													$scope.successMessage = '';
 												}, 5000);
-												$scope.getCategories();
+												//$scope.getCategories();
+												$scope.categoriesList.deleteCatgory($scope.deleteitem.itemId);
 
 												$scope.clear();
 
