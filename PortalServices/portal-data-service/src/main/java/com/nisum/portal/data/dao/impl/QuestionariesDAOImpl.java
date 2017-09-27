@@ -38,6 +38,10 @@ public class QuestionariesDAOImpl implements QuestionariesDAO {
 	public List<Questionaries> fetchMyQuestionaries(String emailId) {
 		return questionariesRepository.fetchMyQuestionaries(emailId);
 	}
+	@Override
+	public List<Questionaries> retriveAllUnansweredQuestionaries() {
+		return questionariesRepository.retriveAllUnansweredQuestionaries();
+	}
 	
 
 }

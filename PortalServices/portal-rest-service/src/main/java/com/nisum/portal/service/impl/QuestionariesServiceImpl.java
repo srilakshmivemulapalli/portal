@@ -55,4 +55,9 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 		return QuestionariesUtil.convertDaoToDto(questionariesList,questionsDTO);
 	}
 
+	@Override
+	public QuestionsDTO retriveAllUnansweredQuestionaries() {
+		return QuestionariesUtil.convertDaoToDto(questionariesDAO.retriveAllUnansweredQuestionaries(),new QuestionsDTO());
+	}
+
 }

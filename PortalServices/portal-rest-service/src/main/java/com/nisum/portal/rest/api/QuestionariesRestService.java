@@ -80,6 +80,18 @@ public class QuestionariesRestService {
 	
 	
 	/**
+	 * Questionaries
+	 * 
+	 * @return
+	 * @throws QuestionariesServiceException
+	 */
+	@RequestMapping(value = "/retrieveunanswquest", method = RequestMethod.GET)
+	public ResponseEntity<QuestionsDTO> retriveAllUnansweredQuestionaries() throws QuestionariesServiceException {
+		logger.info("QuestionariesRestService :: retriveAllUnansweredQuestionaries");
+		return new ResponseEntity<QuestionsDTO>(questionariesService.retriveAllUnansweredQuestionaries(), HttpStatus.OK);
+	}
+	
+	/**
 	 * exceptionHandler
 	 * 
 	 * @param ex

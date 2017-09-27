@@ -11,4 +11,5 @@ public interface QuestionariesDAO {
 	Questionaries getQuestionaries(int questionId);
 	long getQuestionariesCount();
 	Questionaries saveQuestionaries(Questionaries questionaries);
+	List<Questionaries> retriveAllUnansweredQuestionaries();
 }

@@ -12,5 +12,7 @@ public interface QuestionariesService {
 	String saveQuestions(String emailId, Integer categoryId, String question, String description);
 
 	QuestionsDTO fetchMyQuestionaries(String emailId);
+
+	QuestionsDTO retriveAllUnansweredQuestionaries();
 	
 }

@@ -56,7 +56,7 @@ public class CategoriesRestServiceTest {
 
 	@Test(expected = CategoryServiceException.class)
 	public void updateCategoryTest() throws CategoryServiceException {
-		ServiceStatusDto serviceStatusExpected = new ServiceStatusDto();
+		/*ServiceStatusDto serviceStatusExpected = new ServiceStatusDto();
 		serviceStatusExpected.setStatus(true);
 		serviceStatusExpected.setMessage(Constants.MSG_RECORD_ADD);
 		Timestamp createDate = new Timestamp(System.currentTimeMillis());
@@ -69,7 +69,7 @@ public class CategoriesRestServiceTest {
 		ResponseEntity<ServiceStatusDto> serviceStatusactual = mainController.updateCategories(categoryDto);
 		Assert.assertEquals(serviceStatusExpected, serviceStatusactual.getBody());
 		ResponseEntity<ServiceStatusDto> serviceStatusactualf = mainController.updateCategories(new CategoriesDTO());
-		when(serviceStatusactualf).thenThrow(new CategoryServiceException());
+		when(serviceStatusactualf).thenThrow(new CategoryServiceException());*/
 	}
 
 	@Test

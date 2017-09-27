@@ -14,6 +14,12 @@ import com.nisum.portal.data.domain.Questionaries;
 public interface QuestionariesRepository extends JpaRepository<Questionaries,Integer>{
 
 	@Transactional
-    @Query(value = "SELECT qr from Questionaries qr where qr.emailId = :emailId")
+    @Query(value = "SELECT q from Questionaries q where q.emailId = :emailId")
 	List<Questionaries> fetchMyQuestionaries(@Param("emailId") String emailId);
+
+	@Transactional
+	@Query(value = "SELECT q from Questionaries q,QuestionReplies qr WHERE q.questionId != qr.questId group by q.questionId")
+	List<Questionaries> retriveAllUnansweredQuestionaries();
+
 }
+
