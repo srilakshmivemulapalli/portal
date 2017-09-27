@@ -11,7 +11,7 @@
 		<div class="col-md-8 col-xs-8">
 
 
-			<h1 ng-bind-html='question.questionDetails.question'></h1>
+			<h1 ng-bind-html='question.questionDetails.question' style="color:black"></h1>
 			<p ng-bind-html='question.questionDetails.description'></p>
 		</div>
 		<div class="col-md-3 col-xs-3 question-cat">
@@ -69,7 +69,7 @@
 					<span> <span class="author-avatar"> <img
 							src="images/userlogo.png" class="avatar" alt="" />
 					</span> <span class="author-name">{{reply.emailId}}</span>
-					</span> <span class="question-time"> Asked on {{reply.updatedDate|
+					</span> <span class="question-time"> Answered on {{reply.updatedDate|
 						date: 'MMM dd,yyyy'}}. </span>
 				</div>
 				<div class="col-md-4 col-xs-4 question-control">
