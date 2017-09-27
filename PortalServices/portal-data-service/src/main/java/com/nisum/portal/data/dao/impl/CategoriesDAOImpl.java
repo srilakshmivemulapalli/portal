@@ -64,8 +64,9 @@ public class CategoriesDAOImpl implements CategoriesDAO {
 	public boolean updateCategories(Categories categories) {
 		logger.info("CategoriesDAOImpl :: updateCategories :: Category Details " + categories.toString());
 		Categories category = categoriesRepository.findByCategoryId(categories.getCategoryId());
+		Categories findByCategoryName = categoriesRepository.findByCategoryName(categories.getCategoryName());
 		boolean flag;
-		if (category != null) {
+		if (category != null&&findByCategoryName==null) {
 			categoriesRepository.save(categories);
 			flag = true;
 		} else {
@@ -78,8 +79,15 @@ public class CategoriesDAOImpl implements CategoriesDAO {
 	@Override
 	public String deleteCategories(Integer categoryId)   {
 		logger.info("CategoriesDAOImpl :: deleteCategories");
+		if(categoriesRepository.findOne(categoryId) != null)
+		{
 		 categoriesRepository.delete(categoryId);
 		 return "Success";
+		}
+		else
+		{
+			 return "Failure";
+		}
 
 	}
 

@@ -17,7 +17,7 @@ var app = angular.module('nisumApp', [ 'ui.router', 'configurationsApp',
 						$rootScope.urlChanged = $location.path();
 
 						var urls = [ '/home', '/questions', '/configurations',
-								'/profile' ,'/question',]
+								'/profile' ,'/question','/addquestion']
 						if (urls.indexOf($rootScope.urlChanged) > -1) {
 							$rootScope.navBarToggle = false;
 						}else if($rootScope.urlChanged.indexOf('/question/')>-1){

@@ -1,32 +1,37 @@
-app.factory('userservice', function($http, $q) {
-	var deferred = $q.defer();
+app.factory('categoryService', function($http, $q) {
+	var cs={};
 	
-	function _getCategories() {
-		$http.get('').success(function(response) {
+	
+	cs.getCategories=function() {
+		var deferred = $q.defer();
+		$http.get('v1/category/retrieve').success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
 		})
 		return deferred.promise;
 	}
-	function _postCategory(data) {
-		$http.post('', data).success(function(response) {
+	cs.addCategory=function(data) {
+		var deferred = $q.defer();
+		$http.post('v1/category/addCategory', data).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
 		})
 		return deferred.promise;
 	}
-	function _deleteCategory(categoryid) {
-		$http.post('' + categoryid).success(function(response) {
+	cs.deleteCategory=function(categoryid) {
+		var deferred = $q.defer();
+		$http.delete('v1/category/delete/' + categoryid).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
 		})
 		return deferred.promise;
 	}
-	function _editCategory(data) {
-		$http.put('', data).success(function(response) {
+	cs.editCategory=function(data) {
+		var deferred = $q.defer();
+		$http.put('v1/category/updateCategory', data).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
@@ -34,9 +39,6 @@ app.factory('userservice', function($http, $q) {
 		return deferred.promise;
 	}
 	
-	$scope.getCategories=_getCategories;
-	$scope.postCategory=_postCategory;
-	$scope.deleteCategory=_deleteCategory;
-	$scope.editCategory=_editCategory;
+	return cs;
 	
 })

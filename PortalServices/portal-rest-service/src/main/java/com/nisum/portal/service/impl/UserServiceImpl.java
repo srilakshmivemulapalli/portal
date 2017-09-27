@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	UserDAO userDAO;
-	
+
 	private static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 	@Override
 	public List<UserDTO> getUsers() {
@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
 		logger.info("UserServiceImpl :: deleteUser :: Deleteing user");
 		return userDAO.deleteUser(userId);
 	}
-	
+
 	@Override
 	public String findUserById(int userId) {
 		logger.info("UserServiceImpl :: findUserById :: Finding user by userId");
@@ -50,6 +50,28 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public long getUserCount() {
 		return userDAO.getUserCount();
+	}
+
+	@Override
+	public void saveUser(UserDTO userDto) {
+		User user = UserServiceUtil.convertDtoObjectTODao(userDto);
+		userDAO.saveUser(user);
+	}
+
+
+	@Override
+	public void create(UserDTO userDto) {
+		User user = UserServiceUtil.convertDtoObjectTODao(userDto);
+		userDAO.saveUser(user);
+
+	}
+	@Override
+	public UserDTO findByEmailId(String emailId) {
+		User user=userDAO.findByEmailId(emailId);
+		if(user!=null){
+			return UserServiceUtil.convertDaoObjectToDto(user);
+		}
+		return null;
 	}
 
 }

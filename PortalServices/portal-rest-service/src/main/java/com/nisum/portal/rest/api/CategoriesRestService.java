@@ -77,13 +77,13 @@ public class CategoriesRestService {
 					return new ResponseEntity<ServiceStatusDto>(servicedto,HttpStatus.OK);
 				else
 				{
-					throw new CategoryServiceException(Constants.CATEGORY_NOT_EXIST);
+					throw new CategoryServiceException(Constants.CATEGORY_EXISTS);
 				}
 		}
 		catch(Exception e)
 		{
 			logger.error("Unable To Update Categories with categoryId not found."+categoriesDTO.getCategoryId());
-			throw new CategoryServiceException(Constants.CATEGORY_NOT_EXIST);
+			throw new CategoryServiceException(Constants.CATEGORY_EXISTS);
 		}
 	}
 
@@ -94,18 +94,21 @@ public class CategoriesRestService {
 	}
 
 	@RequestMapping(value = "/delete/{categoryId}", method = RequestMethod.DELETE)
-	public ResponseEntity<Object> deletingCategories(@PathVariable("categoryId") Integer categoryId)
-			throws CategoryServiceException {
+	public ResponseEntity<ServiceStatusDto> deletingCategories(@PathVariable("categoryId") Integer categoryId) throws CategoryServiceException {
 		logger.info("CategoriesRestService :: deleteCategory");
-		try {
-			categoriesService.deleteCategories(categoryId);
-		} catch (Exception ex) {
-			logger.error(Constants.CATEGORY_NOT_EXIST);
-			throw new CategoryServiceException(Constants.CATEGORY_NOT_EXIST);
-		}
-
-		return new ResponseEntity<Object>(Constants.CATEGORY_DELETE, HttpStatus.OK);
-
+		
+		   ServiceStatusDto    servicedto = categoriesService.deleteCategories(categoryId);
+		   
+		    if(servicedto.isStatus())
+		    {
+		      	return  new ResponseEntity<ServiceStatusDto>(servicedto,HttpStatus.OK);
+		    }
+		    else 
+		    {
+			    	logger.error(Constants.CATEGORY_NOT_EXIST);
+			    	throw new CategoryServiceException(Constants.CATEGORY_NOT_EXIST);
+		    }
+		
 	}
 
 	/**

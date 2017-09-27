@@ -3,16 +3,28 @@
 <div class="col-md-9 col-xs-9 main-content single-content"
 	style="padding-top: 30px;">
 	<div class="row select-category single-head">
-		<div class="col-md-2 col-xs-2">
+		<div class="col-md-1 col-xs-1">
 			<span class="back"> <i class="fa fa-angle-double-left"></i> <a
 				href="#/questions">Home</a>
 			</span>
 		</div>
 		<div class="col-md-8 col-xs-8">
-			<h1 itemprop="name" ng-bind-html='question.questionDetails.question'></h1>
-			<div class="question-content">
-			<p itemprop="desc" ng-bind-html='question.questionDetails.description' class='ng-binding'></p>
-			</div>
+
+
+			<h1 ng-bind-html='question.questionDetails.question'></h1>
+			<p ng-bind-html='question.questionDetails.description'></p>
+		</div>
+		<div class="col-md-3 col-xs-3 question-cat">
+
+			<span> <span class="author-avatar"> <img
+					src="images/userlogo.png" class="avatar" alt="" />
+			</span> <span class="author-name">{{question.questionDetails.emailId}}</span>
+			</span> <span class="question-time" style="padding-left: 50px;"> Asked on
+				{{question.questionDetails.createdDate| date: 'MMM dd,yyyy'}}. </span>
+
+
+			
+
 		</div>
 	</div>
 	<!-- END SELECT-CATEGORY -->
@@ -53,15 +65,12 @@
 
 			<div class="row">
 				<div class="col-md-8 col-xs-8 question-cat" data-user="11">
-					<a href="https://qaengine.enginethemes.com/blog/member/admindemo/">
-						<span> <span
-							class="author-avatar"> <img src="images/userlogo.png"
-								class="avatar" alt="" />
-						</span> <span itemprop="name" class="author-name">{{reply.emailId}}</span>
-					</span>
-					</a> <span
-						class="question-time"> Asked on
-						{{reply.updatedDate| date: 'MMM dd,yyyy'}}. </span>
+
+					<span> <span class="author-avatar"> <img
+							src="images/userlogo.png" class="avatar" alt="" />
+					</span> <span class="author-name">{{reply.emailId}}</span>
+					</span> <span class="question-time"> Asked on {{reply.updatedDate|
+						date: 'MMM dd,yyyy'}}. </span>
 				</div>
 				<div class="col-md-4 col-xs-4 question-control">
 					<ul>
@@ -122,12 +131,12 @@
 			<h3>Your Answer</h3>
 			<form id="form_reply" method="POST">
 
-				<text-angular ng-model="htmlVariable"></text-angular>
+				<text-angular ng-model="answer"></text-angular>
 
 				<div class="row submit-wrapper">
 					<div class="col-md-2">
-						<button ng-click="postAnswer();" class="btn-submit">Post
-							answer</button>
+						<button ng-click="postAnswer();" ng-disabled="answer==''"
+							class="btn-submit">Post answer</button>
 					</div>
 					<div class="col-md-10 term-texts">
 						By posting your answer, you agree to the <a target="_blank"

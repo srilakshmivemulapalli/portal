@@ -28,41 +28,38 @@ import org.mockito.runners.MockitoJUnitRunner;
 @SpringBootTest
 public class CategoriesRestServiceTest {
 
-	
 	@InjectMocks
 	CategoriesRestService mainController;
-	
+
 	@Mock
 	private static Logger logger = LoggerFactory.getLogger(CategoriesRestServiceTest.class);
-
 
 	@Mock
 	CategoriesService categoryService;
 
-	
 	@Test
 	public void addCategory() throws CategoryServiceException {
 
 		CategoriesDTO categoryDto = new CategoriesDTO();
-	
-		
+
 		logger.info("CategoriesRestService :: addCategories");
-		
+
 		ServiceStatusDto serviceStatusExpected = new ServiceStatusDto();
 		serviceStatusExpected.setStatus(true);
 		serviceStatusExpected.setMessage(Constants.MSG_RECORD_ADD);
 		when(categoryService.addCategory(categoryDto)).thenReturn(serviceStatusExpected);
 		ResponseEntity<?> serviceStatusactual = mainController.addCategory(categoryDto);
 
-		Assert.assertEquals(serviceStatusExpected, serviceStatusactual.getBody() );
-		//return categoryService.addCategory(category);
+		Assert.assertEquals(serviceStatusExpected, serviceStatusactual.getBody());
+		// return categoryService.addCategory(category);
 	}
-	@Test(expected=CategoryServiceException.class)
+
+	@Test(expected = CategoryServiceException.class)
 	public void updateCategoryTest() throws CategoryServiceException {
 		ServiceStatusDto serviceStatusExpected = new ServiceStatusDto();
 		serviceStatusExpected.setStatus(true);
 		serviceStatusExpected.setMessage(Constants.MSG_RECORD_ADD);
-		Timestamp createDate=new Timestamp(System.currentTimeMillis());
+		Timestamp createDate = new Timestamp(System.currentTimeMillis());
 		CategoriesDTO categoryDto = new CategoriesDTO();
 		categoryDto.setCategoryId(1);
 		categoryDto.setCategoryName("JAVA");
@@ -74,16 +71,20 @@ public class CategoriesRestServiceTest {
 		ResponseEntity<ServiceStatusDto> serviceStatusactualf = mainController.updateCategories(new CategoriesDTO());
 		when(serviceStatusactualf).thenThrow(new CategoryServiceException());
 	}
+
 	@Test
-	public void deleteCategoriesTest() throws CategoryServiceException 
-	{
-	  String message=" Categories deleted successfully";
-	  ResponseEntity<Object> expmsg=new ResponseEntity<Object>(message,HttpStatus.NOT_ACCEPTABLE);
-		when(categoryService.deleteCategories(101)).thenReturn("Success");
-		ResponseEntity<Object> result =mainController.deletingCategories(101);
+	public void deleteCategoriesTest() throws CategoryServiceException {
+		String message = "Categories deleted successfully";
+		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
+		serviceStatusDto.setStatus(true);
+		serviceStatusDto.setMessage(Constants.CATEGORY_DELETE);
+
+		ResponseEntity<Object> expmsg = new ResponseEntity<Object>(message, HttpStatus.OK);
+		when(categoryService.deleteCategories(101)).thenReturn(serviceStatusDto);
+		ResponseEntity<ServiceStatusDto> result = mainController.deletingCategories(101);
 		System.out.println(result);
-		assertEquals(expmsg, result);
-		
+		assertEquals(serviceStatusDto, expmsg);
+
 	}
 
 }
