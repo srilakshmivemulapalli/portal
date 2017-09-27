@@ -63,7 +63,7 @@ public class QuestionariesRestService {
 	 * @return
 	 * @throws QuestionariesServiceException
 	 */
-	@RequestMapping(value = "/save", method = RequestMethod.GET)
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public ResponseEntity<ServiceStatusDto> saveQuestionaries(@RequestBody AddQuestionDTO questionDTO) throws QuestionariesServiceException {
 		logger.info("QuestionariesRestService :: saveQuestionaries"+questionDTO.getEmailId()+"-"+questionDTO.getCategoryId()+"-"+questionDTO.getQuestion()+"-"+questionDTO.getQuestion());
 		ServiceStatusDto serviceStatusDto=new ServiceStatusDto();
