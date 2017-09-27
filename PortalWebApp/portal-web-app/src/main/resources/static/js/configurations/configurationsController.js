@@ -307,7 +307,9 @@ adminApp
 
 											},
 											function(response) {
-												$scope.errorMessage = response.message;
+												$scope.errorMessage = response.errorMessage;
+												$scope.getCategories();
+												$scope.clear();
 												$timeout(function() {
 													$scope.errorMessage = '';
 												}, 5000);
