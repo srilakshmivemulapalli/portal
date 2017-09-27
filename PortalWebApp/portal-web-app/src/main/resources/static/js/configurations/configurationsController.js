@@ -68,9 +68,6 @@ adminApp
 							}).then(function(response) {
 								
 									$scope.successMessage = response.data.message;
-
-							
-									$scope.errorMessage = response.data.errorMessage;
 									
 									$timeout(function() {
 										$scope.successMessage = '';

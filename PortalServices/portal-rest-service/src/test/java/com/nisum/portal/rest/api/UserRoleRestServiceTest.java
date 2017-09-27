@@ -100,7 +100,7 @@ public class UserRoleRestServiceTest {
 	
 		Errors error=new Errors();
 			error.setErrorCode("Errors-UserRole");
-			error.setErrorMessage("User Role Doesnot Exists !!");
+			error.setErrorMessage("User role doesnot Exists !!");
 		
 		int id=2;
 		String role="SE";
