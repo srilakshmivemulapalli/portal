@@ -220,9 +220,7 @@ adminApp
 												}, 5000);
 											});
 
-						} else if ($scope.deleteitem.name === 'category') {
-							alert('category');
-						} else if ($scope.deleteitem.name === 'category') {
+						}  else if ($scope.deleteitem.name === 'category') {
 							categoryService
 									.deleteCategory($scope.deleteitem.itemId)
 									.then(
