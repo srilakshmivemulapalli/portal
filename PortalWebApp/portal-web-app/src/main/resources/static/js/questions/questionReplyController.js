@@ -3,6 +3,7 @@ questionApp.controller('questionReplyController', function($scope,
 
 	$scope.getQuestionById = function() {
 		$scope.questionid = $stateParams.questionid;
+		$scope.question=[];
 		questionService.getQuestionById($scope.questionid).then(
 				function(response) {
 					console.log(response);
