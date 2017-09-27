@@ -24,7 +24,8 @@ public interface UserService {
 	 * @param user
 	 * @return 
 	 */
-	User updateUserDetails(UserDTO user);
+
+	public UserDTO updateUserDetails(UserDTO user);
 
 	/**
 	 * Find user given by userId

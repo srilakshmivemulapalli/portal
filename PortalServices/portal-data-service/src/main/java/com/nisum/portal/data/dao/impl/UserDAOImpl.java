@@ -26,11 +26,7 @@ public class UserDAOImpl implements UserDAO{
 	@Override
 	public User updateUser(User user) {
 		logger.info("UserDAOImpl :: updateUser :: Updating user");
-		if (userRepository.exists(user.getUserId())) {
 			return userRepository.save(user);
-		} else {
-			return null;
-		}
 	}
 	@Override
 	public int deleteUser(int userId) {

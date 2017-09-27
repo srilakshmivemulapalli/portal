@@ -26,11 +26,16 @@ public class UserServiceImpl implements UserService {
 		return UserServiceUtil.convertDaoListToDto(userList);
 	}
 	@Override
-	public User updateUserDetails(UserDTO userDto) {
+	public UserDTO updateUserDetails(UserDTO userDto) {
 		logger.info("UserServiceImpl :: updateUserDetails :: Updating user detail");
 		User user = UserServiceUtil.convertDtoObjectTODao(userDto);
-		return userDAO.updateUser(user);
-	}
+		if (userDAO.findUserById(user.getUserId()) != null) {
+			User userDao = userDAO.updateUser(user);
+			return UserServiceUtil.convertDaoObjectToDto(userDao);
+		} else {
+			return null;
+		}
+		}
 	@Override
 	public int deleteUser(int userId) {
 		logger.info("UserServiceImpl :: deleteUser :: Deleteing user");
