@@ -5,7 +5,7 @@ questionApp.controller('questionsController', function($scope, $stateParams,
 	if (localStorageService.get('categoriesList') !== (undefined || null)) {
 		$scope.categoriesList = localStorageService.get('categoriesList');
 	} else {
-		categoryService.getCateogries().then(function(response) {
+		categoryService.getCategories().then(function(response) {
 			
 			$scope.categoriesList = response;
 			localStorageService.set('categoriesList', response);

@@ -20,14 +20,15 @@
 					ng-model="addQuestion.question" /> <span id="charNum">{{150-addQuestion.question.length}}</span>
 			</div>
 			<div class="select-categories">
-				<select id="question_category" name="question_category"
-					ng-model="addQuestion.categoryId" ng-options="category.categoryId as category.categoryName for category in categoriesList"
-					class="categories-select select-question selectpicker">
-					<option value="">Select a Category</option>
-					<option>Education</option>
-					<option>Photography</option>
-					<option>Training</option>
-				</select>
+				<!-- <select select-picker
+					collection-name="categoriesList"
+					ng-model="addQuestion.categoryId"
+					class="categories-select selectpicker"
+					 ng-options="category.categoryId as category.categoryName for category in categoriesList">
+					
+				</select> -->
+				<select class="" ng-model="addQuestion.categoryId" ng-options="category.categoryId as category.categoryName for category in categoriesList">
+				<option>Select Category</option></select>
 			</div>
 			<div><h3>Add Description</h3></div>
 			<div class="wp-editor-container">

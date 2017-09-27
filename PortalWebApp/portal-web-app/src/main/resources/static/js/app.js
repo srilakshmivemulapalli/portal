@@ -51,6 +51,9 @@ var app = angular.module('nisumApp', [ 'ui.router', 'configurationsApp',
 				'mainController',
 				function($scope, localStorageService, $state) {
 					var vm = this;
+					vm.redirect=function(){
+						$state.go('addquestion');
+					}
 					vm.getProfile = function() {
 
 						vm.profile = localStorageService.get('profile');

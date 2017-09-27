@@ -5,7 +5,6 @@ app.factory('questionService', function($http, $q) {
 	qs.getQuestions = function() {
 		var deferred = $q.defer();
 		$http.get('v1/questionaries/retrieve/allQuestions').success(function(response) {
-			
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
@@ -16,7 +15,7 @@ app.factory('questionService', function($http, $q) {
 	qs.addQuestion = function(data) {
 		
 		var deferred = $q.defer();
-		$http.post('v1/questionaries/save/', data).success(function(response) {
+		$http.post('v1/questionaries/save', data).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
