@@ -34,7 +34,7 @@ public class QuestionariesRestService {
 	 * @return
 	 * @throws QuestionariesServiceException
 	 */
-	@RequestMapping(value = "/retrieve", method = RequestMethod.GET)
+	@RequestMapping(value = "/retrieve/allQuestions", method = RequestMethod.GET)
 	public ResponseEntity<QuestionsDTO> retriveAllQuestionaries() throws QuestionariesServiceException {
 		logger.info("QuestionariesRestService :: retriveAllQuestionaries");
 		return new ResponseEntity<QuestionsDTO>(questionariesService.getQuestionaries(), HttpStatus.OK);
@@ -46,7 +46,7 @@ public class QuestionariesRestService {
 	 * @return
 	 * @throws QuestionariesServiceException
 	 */
-	@RequestMapping(value = "/retrieveCount", method = RequestMethod.GET)
+	@RequestMapping(value = "/retrieve/questionsCount", method = RequestMethod.GET)
 	public ResponseEntity<Long> retrieveCount() throws QuestionariesServiceException {
 		logger.info("QuestionariesRestService :: questionariesCount");
 		return new ResponseEntity<Long>(questionariesService.getQuestionariesCount(), HttpStatus.OK);
@@ -72,7 +72,7 @@ public class QuestionariesRestService {
 	 * @return
 	 * @throws QuestionariesServiceException
 	 */
-	@RequestMapping(value = "/retrievemyquestions/{emailId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/retrieve/myQuestions/{emailId}", method = RequestMethod.GET)
 	public ResponseEntity<QuestionsDTO> retriveMyQuestionaries(@PathVariable String emailId) throws QuestionariesServiceException {
 		logger.info("QuestionariesRestService :: retriveMyQuestionaries");
 		return new ResponseEntity<QuestionsDTO>(questionariesService.fetchMyQuestionaries(emailId), HttpStatus.OK);
@@ -85,7 +85,7 @@ public class QuestionariesRestService {
 	 * @return
 	 * @throws QuestionariesServiceException
 	 */
-	@RequestMapping(value = "/retrieveunanswquest", method = RequestMethod.GET)
+	@RequestMapping(value = "/retrieve/unanswQuestions", method = RequestMethod.GET)
 	public ResponseEntity<QuestionsDTO> retriveAllUnansweredQuestionaries() throws QuestionariesServiceException {
 		logger.info("QuestionariesRestService :: retriveAllUnansweredQuestionaries");
 		return new ResponseEntity<QuestionsDTO>(questionariesService.retriveAllUnansweredQuestionaries(), HttpStatus.OK);

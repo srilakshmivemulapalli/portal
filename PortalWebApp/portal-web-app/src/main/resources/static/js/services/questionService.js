@@ -4,7 +4,7 @@ app.factory('questionService', function($http, $q) {
 
 	qs.getQuestions = function() {
 		var deferred = $q.defer();
-		$http.get('v1/questionaries/retrieve').success(function(response) {
+		$http.get('v1/questionaries/retrieve/allQuestions').success(function(response) {
 			
 			deferred.resolve(response);
 		}).error(function(response) {
@@ -43,7 +43,7 @@ app.factory('questionService', function($http, $q) {
 	}
 	qs.getQuestionById=function(id){
 		var deferred = $q.defer();
-		$http.get('v1/questionreply/retrieveQuestionReply/'+id).success(function(response) {
+		$http.get('v1/questionreply/retrieve/questionReply/'+id).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);

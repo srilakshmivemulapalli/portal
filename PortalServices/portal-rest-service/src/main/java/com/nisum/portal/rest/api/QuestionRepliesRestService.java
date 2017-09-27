@@ -37,12 +37,12 @@ public class QuestionRepliesRestService {
 	 * @return
 	 * @throws QuestionariesServiceException
 	 */
-	@RequestMapping(value = "/retrieveReplyCount/{questId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/retrieve/replyCount/{questId}", method = RequestMethod.GET)
 	public ResponseEntity<Integer> retrieveReplyCount(@PathVariable int questId) throws QuestionariesRepliesServiceException {
 		return new ResponseEntity<Integer>(questionRepliesService.getQuestionariesReplyCount(questId), HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/retrieveQuestionReply/{questId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/retrieve/questionReply/{questId}", method = RequestMethod.GET)
 	public ResponseEntity<QuestionReplysDTO> retrieveQuestionReply(@PathVariable int questId) throws QuestionariesRepliesServiceException {
 		return new ResponseEntity<QuestionReplysDTO>(questionRepliesService.getQuestionariesReply(questId), HttpStatus.OK);
 	}
