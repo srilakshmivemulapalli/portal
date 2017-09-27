@@ -8,13 +8,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nisum.portal.service.api.QuestionariesService;
+import com.nisum.portal.service.dto.AddQuestionDTO;
 import com.nisum.portal.service.dto.Errors;
 import com.nisum.portal.service.dto.QuestionsDTO;
+import com.nisum.portal.service.dto.UserDTO;
 import com.nisum.portal.service.exception.QuestionariesServiceException;
 
 /**
@@ -58,11 +61,10 @@ public class QuestionariesRestService {
 	 * @return
 	 * @throws QuestionariesServiceException
 	 */
-	@RequestMapping(value = "/save/{emailId}/{categoryId}/{question}/{description}", method = RequestMethod.GET)
-	public ResponseEntity<String> saveQuestionaries(@PathVariable String emailId, @PathVariable Integer categoryId, 
-			@PathVariable String question, @PathVariable String description) throws QuestionariesServiceException {
-		logger.info("QuestionariesRestService :: saveQuestionaries"+emailId+"-"+categoryId+"-"+question+"-"+description);
-		return new ResponseEntity<String>(questionariesService.saveQuestions(emailId, categoryId, question, description), HttpStatus.OK);
+	@RequestMapping(value = "/save", method = RequestMethod.GET)
+	public ResponseEntity<String> saveQuestionaries(@RequestBody AddQuestionDTO questionDTO) throws QuestionariesServiceException {
+		logger.info("QuestionariesRestService :: saveQuestionaries"+questionDTO.getEmailId()+"-"+questionDTO.getCategoryId()+"-"+questionDTO.getQuestion()+"-"+questionDTO.getQuestion());
+		return new ResponseEntity<String>(questionariesService.saveQuestions(questionDTO.getEmailId(), questionDTO.getCategoryId(), questionDTO.getQuestion(), questionDTO.getQuestion()), HttpStatus.OK);
 	}
 	
 	
