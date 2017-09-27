@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nisum.portal.service.api.QuestionRepliesService;
 import com.nisum.portal.service.dto.Errors;
 import com.nisum.portal.service.dto.QuestionReplysDTO;
+import com.nisum.portal.service.dto.ReplyQuestionDTO;
 import com.nisum.portal.service.exception.QuestionariesRepliesServiceException;
 
 /**
@@ -53,11 +55,10 @@ public class QuestionRepliesRestService {
 	 * @return
 	 * @throws QuestionariesServiceException
 	 */
-	@RequestMapping(value = "/save/{questId}/{emailId}/{description}", method = RequestMethod.GET)
-	public ResponseEntity<String> saveQuestionReply(@PathVariable Integer questId, @PathVariable String emailId, 
-			@PathVariable String description) throws QuestionariesRepliesServiceException {
-		logger.info("QuestionRepliesRestService :: saveQuestionReply"+emailId+"-"+questId+"-"+description);
-		return new ResponseEntity<String>(questionRepliesService.saveQuestionariesReply(questId, emailId, description), HttpStatus.OK);
+	@RequestMapping(value = "/save", method = RequestMethod.GET)
+	public ResponseEntity<String> saveQuestionReply(@RequestBody ReplyQuestionDTO replyQuestionDTO) throws QuestionariesRepliesServiceException {
+		logger.info("QuestionRepliesRestService :: saveQuestionReply"+replyQuestionDTO.getEmailId()+"-"+replyQuestionDTO.getQuestId()+"-"+replyQuestionDTO.getDescription());
+		return new ResponseEntity<String>(questionRepliesService.saveQuestionariesReply(replyQuestionDTO.getQuestId(), replyQuestionDTO.getEmailId(), replyQuestionDTO.getDescription()), HttpStatus.OK);
 	}
 	
 	
