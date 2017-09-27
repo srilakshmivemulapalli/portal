@@ -1,7 +1,7 @@
 adminApp
 		.controller(
 				'configurationsController',
-				function($scope, $http, $timeout, categoryService, userService,
+				function($scope, $timeout, categoryService, userService,
 						roleService, localStorageService) {
 
 					$scope.categoriesList = [];
