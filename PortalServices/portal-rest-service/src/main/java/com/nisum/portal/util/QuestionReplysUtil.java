@@ -19,7 +19,7 @@ public class QuestionReplysUtil {
 		
 		QuestionReplysDTO replysDTO = new QuestionReplysDTO();
 		
-		if (questionaries!=null && CollectionUtils.isNotEmpty(questionReplies)) {
+		if (questionaries!=null) {
 			QuestionariesDTO dto = new  QuestionariesDTO();
 			dto.setCreatedDate(questionaries.getCreatedDate());
 			dto.setDescription(questionaries.getDescription());
@@ -29,13 +29,15 @@ public class QuestionReplysUtil {
 			dto.setEmailId(questionaries.getEmailId());
 			replysDTO.setQuestionDetails(dto);
 			List<QuestionRepliesDTO> questRepliesDTO = new ArrayList<QuestionRepliesDTO>();
-			for (QuestionReplies reply : questionReplies) {
-				QuestionRepliesDTO repliesDTO = new QuestionRepliesDTO();
-				repliesDTO.setEmailId(reply.getEmailid());
-				repliesDTO.setReplyDescription(reply.getReplyDescription());
-				repliesDTO.setReplyId(reply.getReplyId());
-				repliesDTO.setUpdatedDate(reply.getUpdatedDate());
-				questRepliesDTO.add(repliesDTO);
+			if(CollectionUtils.isNotEmpty(questionReplies)) {
+				for (QuestionReplies reply : questionReplies) {
+					QuestionRepliesDTO repliesDTO = new QuestionRepliesDTO();
+					repliesDTO.setEmailId(reply.getEmailid());
+					repliesDTO.setReplyDescription(reply.getReplyDescription());
+					repliesDTO.setReplyId(reply.getReplyId());
+					repliesDTO.setUpdatedDate(reply.getUpdatedDate());
+					questRepliesDTO.add(repliesDTO);
+				}
 			}
 			
 			replysDTO.setReplyDetails(questRepliesDTO);
