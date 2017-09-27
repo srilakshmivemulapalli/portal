@@ -10,5 +10,7 @@ public interface QuestionariesService {
 	long getQuestionariesCount();
 	
 	String saveQuestions(String emailId, Integer categoryId, String question, String description);
+
+	QuestionsDTO fetchMyQuestionaries(String emailId);
 	
 }

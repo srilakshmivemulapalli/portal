@@ -65,6 +65,20 @@ public class QuestionariesRestService {
 		return new ResponseEntity<String>(questionariesService.saveQuestions(emailId, categoryId, question, description), HttpStatus.OK);
 	}
 	
+	
+	/**
+	 * Questionaries
+	 * 
+	 * @return
+	 * @throws QuestionariesServiceException
+	 */
+	@RequestMapping(value = "/retrievemyquestions/{emailId}", method = RequestMethod.GET)
+	public ResponseEntity<QuestionsDTO> retriveMyQuestionaries(@PathVariable String emailId) throws QuestionariesServiceException {
+		logger.info("QuestionariesRestService :: retriveMyQuestionaries");
+		return new ResponseEntity<QuestionsDTO>(questionariesService.fetchMyQuestionaries(emailId), HttpStatus.OK);
+	}
+	
+	
 	/**
 	 * exceptionHandler
 	 * 

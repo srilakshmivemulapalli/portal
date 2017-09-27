@@ -46,4 +46,12 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 		return Constants.MSG_RECORD_ADD;
 	}
 
+	@Override
+	public QuestionsDTO fetchMyQuestionaries(String emailId) {
+		emailId = emailId.substring(0, emailId.indexOf("@"))+"@nisum.com";
+		List<Questionaries> questionariesList = questionariesDAO.fetchMyQuestionaries(emailId);
+		QuestionsDTO questionsDTO = new QuestionsDTO();
+		return QuestionariesUtil.convertDaoToDto(questionariesList,questionsDTO);
+	}
+
 }
