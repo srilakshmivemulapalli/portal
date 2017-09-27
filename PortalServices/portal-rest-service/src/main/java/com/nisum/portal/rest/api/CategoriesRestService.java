@@ -67,7 +67,7 @@ public class CategoriesRestService {
 		}
 	}
 	@RequestMapping(value="/updateCategory",method=RequestMethod.PUT,consumes=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ServiceStatusDto> updateCategories(@RequestBody CategoriesDTO categoriesDTO) throws CategoryServiceException
+	public ResponseEntity<?> updateCategories(@RequestBody CategoriesDTO categoriesDTO) throws CategoryServiceException
 	{
 		logger.info("CategoriesRestService :: updateCategories :: Category Details "+categoriesDTO.toString());
 		try
@@ -83,7 +83,12 @@ public class CategoriesRestService {
 		catch(Exception e)
 		{
 			logger.error("Unable To Update Categories with categoryId not found."+categoriesDTO.getCategoryId());
-			throw new CategoryServiceException(Constants.CATEGORY_EXISTS);
+			Errors error = new Errors();
+			error.setErrorCode("Errors-UserRole");
+			error.setErrorMessage(Constants.CATEGORY_EXISTS);
+			ResponseEntity<Errors> rsEntity=new ResponseEntity<Errors>(error, HttpStatus.NOT_ACCEPTABLE);
+			return rsEntity;
+
 		}
 	}
 
