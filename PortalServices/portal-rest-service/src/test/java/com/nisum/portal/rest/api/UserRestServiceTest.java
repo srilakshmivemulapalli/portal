@@ -45,7 +45,7 @@ public class UserRestServiceTest {
 		
 	}
 	@Test
-	public void updateUser()
+	public void updateUser() throws UserServiceException
 	{
 		Date date = new Date();
 		UserRoleDTO role = new UserRoleDTO();
@@ -60,10 +60,30 @@ public class UserRestServiceTest {
 		role.setCreatedDate(new Timestamp(date.getTime()));
 		user.setRole(role);
 		
-		//when(userService.updateUserDetails(user)).thenReturn("Success");
-		//when(userService.updateUserDetails(null)).thenReturn("Failed");
-	//	assertEquals(new ResponseEntity(null),userRestService.updateUser(user));
-	}
+		when(userServiceMock.updateUserDetails(user)).thenReturn(user);
+		when(userServiceMock.updateUserDetails(null)).thenReturn(null);
+		ServiceStatusDto expected = new ServiceStatusDto();
+		expected.setMessage(Constants.USER_UPDATED);
+		expected.setStatus(true);
+		ResponseEntity<ServiceStatusDto> entity = new ResponseEntity<ServiceStatusDto>(expected,HttpStatus.OK);
+		ResponseEntity<ServiceStatusDto> actual = userRestService.updateUser(user);
+		assertEquals(entity.getStatusCode(), actual.getStatusCode());
+		expected.setStatus(true);
+		expected.setMessage(Constants.USER_NOT_EXISTS);
+		UserDTO usernull = new UserDTO();
+		usernull.setUserId(2);
+		usernull.setEmailId("test@test.com");
+		usernull.setLoginDate(new Timestamp(date.getTime()));
+		usernull.setActiveStatus("YES");
+		usernull.setName("test");
+		role.setRoleId(1);
+		role.setRole("Admin");
+		role.setCreatedDate(new Timestamp(date.getTime()));
+		usernull.setRole(role);
+		ResponseEntity<ServiceStatusDto> entitynull = new ResponseEntity<ServiceStatusDto>(expected,HttpStatus.NOT_FOUND);
+		ResponseEntity<ServiceStatusDto> actualnull = userRestService.updateUser(usernull);
+		assertEquals(entitynull.getStatusCode(), actualnull.getStatusCode());
+		}
 	
 	@Test
 	public void deleteUser() throws UserServiceException {
@@ -130,6 +150,11 @@ public class UserRestServiceTest {
 		Mockito.when(userServiceMock.getUsers()).thenReturn(dtoList);
 		ResponseEntity<?> actual = userRestService.getUsers();
 		assertEquals(resList,actual);
+	}
+	
+	@Test
+	public void getUserCount() throws UserServiceException {
+		
 	}
 
 }

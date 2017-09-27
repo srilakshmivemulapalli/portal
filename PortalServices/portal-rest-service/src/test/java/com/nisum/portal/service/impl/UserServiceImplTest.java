@@ -105,6 +105,23 @@ public class UserServiceImplTest {
 		
 		assertEquals(actual.size(), expected.size());
 	}
+	@Test
+	public void updateUser()
+	{
+		User user = new User();
+		user.setName("Test");
+		user.setActiveStatus("Yes");
+		user.setLoginDate(new Timestamp(System.currentTimeMillis()));
+		UserRole role = new UserRole();
+		role.setRole("USER");
+		role.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+		user.setRole(role);
+		User userExpected = new User();
+		when (userDao.updateUser(user)).thenReturn(userExpected);
+		PowerMockito.mockStatic(UserServiceUtil.class);
+		UserDTO userdto=new UserDTO();
+		PowerMockito.when(UserServiceUtil.convertDaoObjectToDto(user)).thenReturn(userdto);
+	}
 
 	
 }

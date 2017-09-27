@@ -94,7 +94,6 @@ public class UserRestService {
 		logger.info("UserRestService :: users::: update");
 		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
 		try {
-
 			Object obj = userService.updateUserDetails(userDto);
 			if(obj.equals(null))
 			{
@@ -103,12 +102,10 @@ public class UserRestService {
 			}
 			else
 			{
-				serviceStatusDto.setMessage(Constants.USER_UPDATED);
-				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.OK);
-			}
-		}
-		catch(Exception e)
-		{
+				serviceStatusDto.setMessage(Constants.USER_NOT_EXISTS);
+				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.NOT_FOUND);
+				}
+		} catch (Exception e) {
 			logger.info("UserRestService :: UpdateUser :: Internal Server Error");
 			throw new UserServiceException(Constants.INTERNALSERVERERROR, e);
 		}
@@ -120,6 +117,7 @@ public class UserRestService {
 	 * @return
 	 * @throws UserServiceException
 	 */
+
 	@RequestMapping(value = "/updateUsers",method=RequestMethod.PUT,consumes = "application/json",produces="application/json")
 	public ResponseEntity<ServiceStatusDto>  updateUsers(@RequestBody List<UserDTO> usersDTO) throws UserServiceException{
 		logger.info("UserRestService :: multiple users update :::");
@@ -138,6 +136,27 @@ public class UserRestService {
 			throw new UserServiceException(Constants.INTERNALSERVERERROR, e);
 		}
 	}
+
+
+//	@RequestMapping(value = "/updateUsers",method=RequestMethod.PUT,consumes = "application/json",produces="application/json")
+//	public ResponseEntity<ServiceStatusDto>  updateUsers(@RequestBody List<UserDTO> usersDTO) throws UserServiceException{
+//		logger.info("UserRestService :: multiple users update :::");
+//		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
+//		try {
+//			for(UserDTO userDto : usersDTO)
+//			{
+//			userService.updateUserDetails(userDto);
+//			}
+//			serviceStatusDto.setMessage(Constants.USER_UPDATED);
+//         return new ResponseEntity<ServiceStatusDto>(serviceStatusDto,HttpStatus.OK);
+//	}
+//		catch(Exception e)
+//		{
+//			logger.info("UserRestService :: Update multiple Users :: Internal Server Error");
+//			throw new UserServiceException(Constants.INTERNALSERVERERROR, e);
+//		}
+//	}
+	
 
 	/**
 	 * getUserCount

@@ -50,13 +50,12 @@ public class UserDAOImplTest {
 		role.setRoleId(1);
 		role.setRole("Admin");
 		role.setCreatedDate(new Timestamp(date.getTime()));
-		//user.setRole(role);
+		user.setRole(role);
 		when(userRepository.exists(user.getUserId())).thenReturn(true);
 		when(userRepository.save(user)).thenReturn(user);
 		when(userRepository.save(user)).thenReturn(null);
-		assertEquals(s,userDAOImpl.updateUser(user));
-		
-	}
+		assertEquals(null,userDAOImpl.updateUser(user));
+		}
 	
 	@Test
 	public void deleteUser() {
