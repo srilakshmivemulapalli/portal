@@ -69,13 +69,18 @@ public class UserRestService {
 	 * @throws UserServiceException
 	 */
 	@RequestMapping(value = "/getUsers", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<List<UserDTO>>  getUsers() throws UserServiceException {
+	public ResponseEntity<?>  getUsers() throws UserServiceException {
 		logger.info("UserRestService :: users");
-		List<UserDTO> users = userService.getUsers();
-		if (users.isEmpty()) {
-			throw new UserServiceException(Constants.USERS_NOT_AVALIABLE);
+		try {
+			List<UserDTO> users = userService.getUsers();
+			if (users.isEmpty()) {
+				throw new UserServiceException(Constants.USERS_NOT_AVALIABLE);
+			}
+			return new ResponseEntity<List<UserDTO>>(users, HttpStatus.OK);
+		} catch (Exception e) {
+			logger.info("UserRestService :: getUsers :: Internal Server Error");
+			throw new UserServiceException(Constants.INTERNALSERVERERROR, e);
 		}
-		return new ResponseEntity<List<UserDTO>>(users, HttpStatus.OK);
 	}
 
 	/**
