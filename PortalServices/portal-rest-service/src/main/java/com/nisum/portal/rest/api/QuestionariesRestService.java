@@ -17,8 +17,10 @@ import com.nisum.portal.service.api.QuestionariesService;
 import com.nisum.portal.service.dto.AddQuestionDTO;
 import com.nisum.portal.service.dto.Errors;
 import com.nisum.portal.service.dto.QuestionsDTO;
+import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.dto.UserDTO;
 import com.nisum.portal.service.exception.QuestionariesServiceException;
+import com.nisum.portal.util.Constants;
 
 /**
  * @author nisum
@@ -62,9 +64,13 @@ public class QuestionariesRestService {
 	 * @throws QuestionariesServiceException
 	 */
 	@RequestMapping(value = "/save", method = RequestMethod.GET)
-	public ResponseEntity<String> saveQuestionaries(@RequestBody AddQuestionDTO questionDTO) throws QuestionariesServiceException {
+	public ResponseEntity<ServiceStatusDto> saveQuestionaries(@RequestBody AddQuestionDTO questionDTO) throws QuestionariesServiceException {
 		logger.info("QuestionariesRestService :: saveQuestionaries"+questionDTO.getEmailId()+"-"+questionDTO.getCategoryId()+"-"+questionDTO.getQuestion()+"-"+questionDTO.getQuestion());
-		return new ResponseEntity<String>(questionariesService.saveQuestions(questionDTO.getEmailId(), questionDTO.getCategoryId(), questionDTO.getQuestion(), questionDTO.getQuestion()), HttpStatus.OK);
+		ServiceStatusDto serviceStatusDto=new ServiceStatusDto();
+		serviceStatusDto.setStatus(true);;
+		serviceStatusDto.setMessage(Constants.MSG_RECORD_ADD);
+		questionariesService.saveQuestions(questionDTO.getEmailId(), questionDTO.getCategoryId(), questionDTO.getQuestion(), questionDTO.getQuestion());
+		return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.OK);
 	}
 	
 	
