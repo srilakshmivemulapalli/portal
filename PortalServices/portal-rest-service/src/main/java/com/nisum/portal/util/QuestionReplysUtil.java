@@ -48,4 +48,13 @@ public class QuestionReplysUtil {
 		return new QuestionReplies(replyDescription,new Timestamp(System.currentTimeMillis()),questId,emailId);
 	}
 
+	public static QuestionRepliesDTO convertReplyDaoToDto(QuestionReplies reply) {
+		QuestionRepliesDTO repliesDTO = new QuestionRepliesDTO();
+		repliesDTO.setEmailId(reply.getEmailid());
+		repliesDTO.setReplyDescription(reply.getReplyDescription());
+		repliesDTO.setReplyId(reply.getReplyId());
+		repliesDTO.setUpdatedDate(reply.getUpdatedDate());
+		return repliesDTO;
+	}
+
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nisum.portal.service.api.QuestionRepliesService;
 import com.nisum.portal.service.dto.Errors;
+import com.nisum.portal.service.dto.QuestionRepliesDTO;
 import com.nisum.portal.service.dto.QuestionReplysDTO;
 import com.nisum.portal.service.dto.ReplyQuestionDTO;
 import com.nisum.portal.service.exception.QuestionariesRepliesServiceException;
@@ -55,10 +56,10 @@ public class QuestionRepliesRestService {
 	 * @return
 	 * @throws QuestionariesServiceException
 	 */
-	@RequestMapping(value = "/save", method = RequestMethod.GET)
-	public ResponseEntity<String> saveQuestionReply(@RequestBody ReplyQuestionDTO replyQuestionDTO) throws QuestionariesRepliesServiceException {
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	public ResponseEntity<QuestionRepliesDTO> saveQuestionReply(@RequestBody ReplyQuestionDTO replyQuestionDTO) throws QuestionariesRepliesServiceException {
 		logger.info("QuestionRepliesRestService :: saveQuestionReply"+replyQuestionDTO.getEmailId()+"-"+replyQuestionDTO.getQuestionId()+"-"+replyQuestionDTO.getReplyDescription());
-		return new ResponseEntity<String>(questionRepliesService.saveQuestionariesReply(replyQuestionDTO.getQuestionId(), replyQuestionDTO.getEmailId(), replyQuestionDTO.getReplyDescription()), HttpStatus.OK);
+		return new ResponseEntity<QuestionRepliesDTO>(questionRepliesService.saveQuestionariesReply(replyQuestionDTO.getQuestionId(), replyQuestionDTO.getEmailId(), replyQuestionDTO.getReplyDescription()), HttpStatus.OK);
 	}
 	
 	
