@@ -38,13 +38,13 @@ public class QuestionRepliesRestService {
 	 * @throws QuestionariesServiceException
 	 */
 	@RequestMapping(value = "/retrieveReplyCount/{questId}", method = RequestMethod.GET)
-	public Integer retrieveReplyCount(@PathVariable int questId) throws QuestionariesRepliesServiceException {
-		return questionRepliesService.getQuestionariesReplyCount(questId);
+	public ResponseEntity<Integer> retrieveReplyCount(@PathVariable int questId) throws QuestionariesRepliesServiceException {
+		return new ResponseEntity<Integer>(questionRepliesService.getQuestionariesReplyCount(questId), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/retrieveQuestionReply/{questId}", method = RequestMethod.GET)
-	public QuestionReplysDTO retrieveQuestionReply(@PathVariable int questId) throws QuestionariesRepliesServiceException {
-		return questionRepliesService.getQuestionariesReply(questId);
+	public ResponseEntity<QuestionReplysDTO> retrieveQuestionReply(@PathVariable int questId) throws QuestionariesRepliesServiceException {
+		return new ResponseEntity<QuestionReplysDTO>(questionRepliesService.getQuestionariesReply(questId), HttpStatus.OK);
 	}
 	
 	/**

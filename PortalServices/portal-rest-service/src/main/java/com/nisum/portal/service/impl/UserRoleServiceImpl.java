@@ -18,11 +18,13 @@ import com.nisum.portal.util.UserRoleCache;
 import com.nisum.portal.util.UserRoleServiceUtil;
 
 @Service
-public class UserRoleServiceImpl implements UserRoleService,InitializingBean{
+public class UserRoleServiceImpl implements UserRoleService, InitializingBean{
 	
 	private static Logger logger = LoggerFactory.getLogger(UserRoleServiceImpl.class);
+	
 	@Autowired
-	UserRoleDAO userRoleDao;
+	private UserRoleDAO userRoleDao;
+	
 	UserRoleCache cache=UserRoleCache.getInstance();
 	
 	/**
@@ -34,13 +36,13 @@ public class UserRoleServiceImpl implements UserRoleService,InitializingBean{
 		
 		UserRole userRole1=null;
 		UserRole addUserRole=null; 
-	 
-		if(!cache.verifyUserRoleToCache(userRoleDto)) {
+		if(cache.verifyUserRoleToCache(userRoleDto)) {
 			logger.error("UserRoleServiceImpl :: Exception Raised As the Given User Role Exists");
 			throw new UserRoleServiceException("User Role Exists Already");
 		}else {
 			logger.info("UserRoleServiceImpl :: method call to UserRoleServiceUtil.convertDtoToDao(userRoleDto)");
-			userRole1=UserRoleServiceUtil.convertDtoToDao(userRoleDto);
+			
+		userRole1=UserRoleServiceUtil.convertDtoToDao(userRoleDto);	
 			logger.info("User Roile :"+userRole1);
 			addUserRole=(UserRole)userRoleDao.addUserRole(userRole1);
 			//System.out.println(userRoleDao.addUserRole(userRole1));
@@ -53,16 +55,16 @@ public class UserRoleServiceImpl implements UserRoleService,InitializingBean{
 	}
 	
 	/**
-	 * deletes userRole from database and returns boolean value
+	 * Deletes userRole from database and returns boolean value
 	 */
 	@Override
-	public boolean deleteUserRole(Integer id, String roleName) throws UserRoleServiceException {
+	public boolean deleteUserRole(Integer id) throws UserRoleServiceException {
 		logger.info("UserRoleServiceImpl :: entered into deleteUserRole("+id+")");
 		logger.info("UserRoleServiceImpl ::Method call to userRoleDao.deleteUserRole("+id+")");
-		if(!cache.findUserRole(id, roleName)) { 
+		if(!cache.findUserRole(id)) { 
 			throw new UserRoleServiceException("User Role Doesn't Exists");
-	}else {
-			cache.remove(id, roleName);
+		}else {
+			cache.remove(id);
 		logger.info("Cache Updated After Deleted"+cache.get("user-role"));
 			return userRoleDao.deleteUserRole(id);	
 			
@@ -78,7 +80,7 @@ public class UserRoleServiceImpl implements UserRoleService,InitializingBean{
 
 	@Override
 	public UserRole updateUserRole(UserRole userRole) {
-		logger.info("UserRoleServiceImpl :: updateUserRole");
+		
 		return userRoleDao.updateUserRole(userRole);
 	}
 
@@ -95,7 +97,6 @@ public class UserRoleServiceImpl implements UserRoleService,InitializingBean{
 
 	@Override
 	public Integer findUserById(Integer roleId) {
-		logger.info("loading data from db");
 		UserRole role=userRoleDao.findUserById(roleId);
 		Integer roleid=null;
 		if(role!=null) {

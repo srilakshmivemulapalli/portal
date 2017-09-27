@@ -19,16 +19,20 @@ public class UserRoleDAOImpl implements UserRoleDAO{
 	private static Logger logger = LoggerFactory.getLogger(UserRoleDAOImpl.class);
 	
 	@Autowired
-	UserRoleRepository userRoleRepository;
+	private UserRoleRepository userRoleRepository;
 
-	//adding User Role
+	/**
+	 * Adds the user role into data base 
+	 */
 	@Override
 	public UserRole addUserRole(UserRole userRole) {
 		logger.info("UserRoleDAOImpl :: entered into addUserRole("+userRole+")");
 		return userRoleRepository.save(userRole);	
 	}
 
-	//deleting User Role
+	/**
+	 * deletes the exisiting user role from database
+	 */
 	@Override
 	public boolean deleteUserRole(int id) {
 		logger.info("userRoleDAOImpl: entered into deleteUserRole("+id+")");

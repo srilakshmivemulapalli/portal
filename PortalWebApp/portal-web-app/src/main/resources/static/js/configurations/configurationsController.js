@@ -1,13 +1,13 @@
 adminApp
 		.controller(
 				'configurationsController',
-				function($scope, $http, $timeout, categoryService, userService,
+				function($scope, $timeout, categoryService, userService,
 						roleService, localStorageService) {
 
 					$scope.categoriesList = [];
 					$scope.rolesList = [];
 					$scope.usersList = [];
-					$scope.userselected = [];
+
 					$scope.dummyUsersList = [];
 					$scope.editUsersList = [];
 					$scope.addrole = false;
@@ -28,6 +28,7 @@ adminApp
 					}
 					$scope.getUsers = function() {
 						$scope.getRoles();
+						$scope.clear();
 						userService.getUsers().then(function(response) {
 							$scope.usersList = response;
 						}, function(response) {
@@ -36,7 +37,7 @@ adminApp
 
 					}
 					$scope.getRoles = function() {
-
+						$scope.clear();
 						roleService.getRoles().then(function(response) {
 							$scope.rolesList = response;
 						}, function(response) {
@@ -44,6 +45,7 @@ adminApp
 						});
 					}
 					$scope.getCategories = function() {
+						$scope.clear();
 						categoryService.getCategories().then(
 								function(response) {
 
@@ -55,11 +57,25 @@ adminApp
 								})
 					}
 					$scope.addRole = function() {
-						if ($scope.roleobj.role.length > 0) {
-							$scope.rolesList.push($scope.roleobj);
-							$scope.addrole = false;
-							// $scope.roleobj.role='';
-						}
+						roleService
+								.addRole($scope.roleobj)
+								.then(
+										function(response) {
+											$scope.successMessage = response.message;
+											$scope.getRoles();
+											$scope.clear();
+											$timeout(function() {
+												$scope.successMessage = '';
+											}, 5000);
+
+										},
+										function(response) { // optional
+											$scope.errorMessage = response.errorMessage;
+											$timeout(function() {
+												$scope.errorMessage = '';
+											}, 5000);
+
+										});
 					}
 					$scope.addCategory = function() {
 
@@ -69,8 +85,7 @@ adminApp
 										function(response) {
 											$scope.successMessage = response.message;
 											$scope.getCategories();
-											$scope.categoryobj.categoryName = "";
-											$scope.categoryobj.description = "";
+											$scope.clear();
 											$timeout(function() {
 												$scope.successMessage = '';
 											}, 5000);
@@ -176,7 +191,7 @@ adminApp
 													$scope.successMessage = '';
 												}, 5000);
 												$scope.getUsers();
-
+												$scope.clear();
 											},
 											function(response) {
 												$scope.errorMessage = response.errorMessage;
@@ -189,7 +204,7 @@ adminApp
 							alert('role');
 						} else if ($scope.deleteitem.name === 'category') {
 							categoryService
-									.deleteUser($scope.deleteitem.itemId)
+									.deleteCategory($scope.deleteitem.itemId)
 									.then(
 											function(response) {
 												$scope.successMessage = response.message;
@@ -197,6 +212,8 @@ adminApp
 													$scope.successMessage = '';
 												}, 5000);
 												$scope.getCategories();
+
+												$scope.clear();
 
 											},
 											function(response) {
@@ -229,6 +246,7 @@ adminApp
 													$scope.successMessage = '';
 												}, 5000);
 												$scope.getUsers();
+												$scope.clear();
 											},
 											function(response) {
 												$scope.errorMessage = response.errorMessage;
@@ -244,6 +262,7 @@ adminApp
 											function(response) {
 												$scope.successMessage = response.message;
 												$scope.getRoles();
+												$scope.clear();
 												$timeout(function() {
 													$scope.successMessage = '';
 												}, 5000);
@@ -263,6 +282,7 @@ adminApp
 											function(response) {
 												$scope.successMessage = response.message;
 												$scope.getCategories();
+												$scope.clear();
 												$timeout(function() {
 													$scope.successMessage = '';
 												}, 5000);
@@ -276,5 +296,26 @@ adminApp
 											});
 						}
 						$('#editModal').modal('hide');
+					}
+					$scope.clear = function() {
+						$scope.addrole = false;
+						$scope.addcategory = false;
+						$scope.edituser = true;
+
+						$scope.categoryobj = {
+
+							"categoryName" : "",
+							"description" : ""
+
+						};
+						$scope.roleobj = {
+
+							"role" : ""
+
+						}
+						$scope.userselected = [];
+						$scope.roleselected = [];
+						$scope.categoryselected = [];
+
 					}
 				});

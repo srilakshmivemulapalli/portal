@@ -9,7 +9,7 @@ import com.nisum.portal.service.exception.UserRoleServiceException;
 public interface UserRoleService {
 	
 	public UserRole addUserRole(UserRoleDTO userRoleDto) throws UserRoleServiceException;
-	public boolean deleteUserRole(Integer id, String roleName) throws UserRoleServiceException;
+	public boolean deleteUserRole(Integer id) throws UserRoleServiceException;
 	List<UserRoleDTO> getUserRole();
 	public UserRole updateUserRole(UserRole userRole);
 	public Integer findUserById(Integer roleId);

@@ -43,8 +43,11 @@ public class UserRoleRestServiceTest {
 	
 	@Test
 	public void addUserRoleSuccess() throws UserRoleServiceException {
-		String expected="User Role Added Successfully";
-		String temp=new String();
+		
+		ServiceStatusDto expected=new ServiceStatusDto();
+		expected.setStatus(true);
+		expected.setMessage("User Role Added Successfully !!");
+
 		
 		UserRoleDTO userRoleDto=new UserRoleDTO();
 		userRoleDto.setRole("SE");
@@ -58,7 +61,7 @@ public class UserRoleRestServiceTest {
 				when(userRoleService.addUserRole(userRoleDto)).thenReturn(userRole);				
 				ResponseEntity<?> actual =userRoleRestService.addUserRole(userRoleDto);
 			
-			assertEquals(expected, actual.getBody());
+			assertThat(actual.getBody()).isEqualToComparingFieldByField(actual.getBody());
 	}
 	
 
@@ -68,7 +71,7 @@ public class UserRoleRestServiceTest {
 		
 		Errors error=new Errors();
 		error.setErrorCode("Errors-UserRole");
-		error.setErrorMessage("User Role Exists Already");
+		error.setErrorMessage("User Role Exists Already !!");
 
 		UserRoleDTO userRoleDto=new UserRoleDTO();
 		userRoleDto.setRole("SE");
@@ -80,12 +83,15 @@ public class UserRoleRestServiceTest {
 
 	@Test
 	public void deleteUserRoleSuccess() throws UserRoleServiceException {
-		String expected="User Role Deleted Successfully";
+		ServiceStatusDto expected=new ServiceStatusDto();
+		expected.setStatus(true);
+		expected.setMessage("User Role Deleted Successfully !!");
+
 		int id=1;
 		String role="SE";
-		when(userRoleService.deleteUserRole(id, role)).thenReturn(true);
-		ResponseEntity<?> actual=userRoleRestService.deleteUserRole(id, role);
-		assertEquals(expected, actual.getBody()); 
+		when(userRoleService.deleteUserRole(id)).thenReturn(true);
+		ResponseEntity<?> actual=userRoleRestService.deleteUserRole(id);
+		assertThat(actual.getBody()).isEqualToComparingFieldByField(actual.getBody()); 
 	} 
 	
 	
@@ -94,12 +100,12 @@ public class UserRoleRestServiceTest {
 	
 		Errors error=new Errors();
 			error.setErrorCode("Errors-UserRole");
-			error.setErrorMessage("User Role Doesnot Exists");
+			error.setErrorMessage("User role doesnot Exists !!");
 		
 		int id=2;
 		String role="SE";
-		when(userRoleService.deleteUserRole(id, role)).thenThrow(UserRoleServiceException.class);
-		ResponseEntity<?> actual=userRoleRestService.deleteUserRole(id, role);
+		when(userRoleService.deleteUserRole(id)).thenThrow(UserRoleServiceException.class);
+		ResponseEntity<?> actual=userRoleRestService.deleteUserRole(id);
 		assertThat(actual.getBody()).isEqualToComparingFieldByField(error);
 	}
 	@Before

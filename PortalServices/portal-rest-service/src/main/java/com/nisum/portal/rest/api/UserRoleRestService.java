@@ -28,40 +28,66 @@ import com.nisum.portal.util.Constants;
 public class UserRoleRestService {
 
 	@Autowired
-	UserRoleService userRoleService;
+	private UserRoleService userRoleService;
 
 	private static Logger logger = LoggerFactory.getLogger(UserRoleRestService.class);
-
-
 
 	//This method will add  User Role into database 
 	@RequestMapping(value="/create", method=RequestMethod.POST, consumes="application/json")
 	public ResponseEntity<?> addUserRole(@RequestBody UserRoleDTO userRoleDto) throws UserRoleServiceException {	
-		UserRole user =userRoleService.addUserRole(userRoleDto);
-		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
-		if(user!=null) {
-			serviceStatusDto.setMessage(Constants.USER_ROLE_ADDED);
-			return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.OK);
+		logger.info("UserRoleRestService :: Entered into addUserRole()");
+		ServiceStatusDto serviceStatusDto=new ServiceStatusDto();
+		try {
 			
+			if(userRoleDto.getRole()==null || userRoleDto.getRole().equals("")) {
+				Errors error = new Errors();
+				error.setErrorCode("Errors-UserRole");
+				error.setErrorMessage("UserRole Name Cannot Be Emplty");
+				ResponseEntity<Errors> rsEntity=new ResponseEntity<Errors>(error, HttpStatus.NOT_ACCEPTABLE);
+				return rsEntity;
+			
+			}
+				UserRole user =userRoleService.addUserRole(userRoleDto);
+		
+			serviceStatusDto.setStatus(true);;
+			serviceStatusDto.setMessage(Constants.USER_ROLE_ADDED);
+		}catch(Exception e) {	
+			logger.error("UserRoleRestService :: User Role "+userRoleDto.getRole()+" exists already");
+			
+			Errors error = new Errors();
+			error.setErrorCode("Errors-UserRole");
+			error.setErrorMessage(Constants.USER_ROLE_EXISTS);
+			ResponseEntity<Errors> rsEntity=new ResponseEntity<Errors>(error, HttpStatus.NOT_ACCEPTABLE);
+			return rsEntity;
 		}
-		serviceStatusDto.setMessage(Constants.USER_ROLE_NOT_EXISTS);
-		return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.EXPECTATION_FAILED);
+		logger.info("UserRoleRestService :: Given User Role Added Successfully");
+		return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.OK);
+		
 	}
+
 
 	//This method will delete the existing user role from database
-	@RequestMapping(value="/delete/{id}/{rolename}", method=RequestMethod.DELETE)
-	public ResponseEntity<?> deleteUserRole(@PathVariable Integer id, @PathVariable String roleName) throws UserRoleServiceException {
-
-		boolean status=userRoleService.deleteUserRole(id, roleName);
-		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
-		if(status) {
-			serviceStatusDto.setMessage(Constants.USER_ROLE_DELETED);
-			return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.OK);
-		}else {
-			serviceStatusDto.setMessage(Constants.USER_ROLE_NOT_EXIST);
-			return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.EXPECTATION_FAILED);
-		}
+	@RequestMapping(value="/delete/{id}", method=RequestMethod.DELETE)
+	public ResponseEntity<?> deleteUserRole(@PathVariable Integer id) throws UserRoleServiceException {
+		logger.info("UserRoleRestService :: Entered into deleteUserRole()");
+		ServiceStatusDto serviceStatusDto=new ServiceStatusDto();
+		try {
+				userRoleService.deleteUserRole(id);
+				serviceStatusDto.setStatus(true);;
+				serviceStatusDto.setMessage(Constants.USER_ROLE_DELETED);
+		}catch(Exception e) {	
+			logger.error("UserRoleRestService :: User Role with Given "+id+" Doesn't Exists");
+			
+			Errors error = new Errors();
+			error.setErrorCode("Errors-UserRole");
+			error.setErrorMessage(Constants.USER_ROLE_NOT_EXISTS);
+			ResponseEntity<Errors> rsEntity=new ResponseEntity<Errors>(error, HttpStatus.NOT_ACCEPTABLE);
+			return rsEntity;
+		}	
+		logger.info("UserRoleRestService :: Existing User Role Deleted Successfully");		
+		return new ResponseEntity<Object>(serviceStatusDto, HttpStatus.OK);
 	}
+
 
 	/**
 	 * get userRole

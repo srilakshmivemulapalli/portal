@@ -95,9 +95,9 @@ public class UserRoleServiceImplTest {
 	public void deleteUserRoleSuccessTest() throws UserRoleServiceException {
 		Integer id = 1;
 		String roleName="SE";
-		when(cache.findUserRole(id, roleName)).thenReturn(true);
+		when(cache.findUserRole(id)).thenReturn(true);
 		when(userRoleDao.deleteUserRole(id)).thenReturn(true);
-		assertTrue(userRoleServiceImpl.deleteUserRole(id, roleName));
+		assertTrue(userRoleServiceImpl.deleteUserRole(id));
 	}
 	
 	
@@ -105,8 +105,8 @@ public class UserRoleServiceImplTest {
 	public void deleteUserRoleFailureTest() throws UserRoleServiceException {
 		Integer id = 0;
 		String roleName="SE";
-		when(cache.findUserRole(id, roleName)).thenReturn(false);
-		userRoleServiceImpl.deleteUserRole(id, roleName);
+		when(cache.findUserRole(id)).thenReturn(false);
+		userRoleServiceImpl.deleteUserRole(id);
 	}
 	@Before
 	public void init() {
