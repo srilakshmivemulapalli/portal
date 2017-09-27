@@ -21,6 +21,10 @@
 			</span> <span class="author-name">{{question.questionDetails.emailId}}</span>
 			</span> <span class="question-time" style="padding-left: 50px;"> Asked on
 				{{question.questionDetails.createdDate| date: 'MMM dd,yyyy'}}. </span>
+				<ul class="question-tags">
+					<li><a class="q-tag" href="">{{question.questionDetails.categoryName}}</a></li>
+					<li></li>
+				</ul>
 
 
 			
@@ -49,11 +53,6 @@
 			<!-- question tag -->
 			<div class="top-content">
 				<span class="answered"><i class="fa fa-check"></i> Answered</span>
-				<ul class="question-tags">
-					<li><a class="q-tag" href="">{{question.questionDetails.categoryName}}</a></li>
-					<li></li>
-				</ul>
-
 			</div>
 			<!--// question tag -->
 			<div class="clearfix"></div>
