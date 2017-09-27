@@ -1,102 +1,104 @@
 adminApp
 		.controller(
 				'configurationsController',
-				function($scope, $http,$timeout) {
+				function($scope, $http, $timeout, categoryService, userService,
+						roleService, localStorageService) {
 
 					$scope.categoriesList = [];
 					$scope.rolesList = [];
 					$scope.usersList = [];
-					$scope.userselected = [];
+
 					$scope.dummyUsersList = [];
 					$scope.editUsersList = [];
 					$scope.addrole = false;
 					$scope.category = false;
 					$scope.edituser = true;
-					$scope.successMessage ='';
-					$scope.errorMessage ='';
+					$scope.successMessage = '';
+					$scope.errorMessage = '';
 					$scope.categoryobj = {
-						"categoryId" : -1,
+
 						"categoryName" : "",
 						"description" : ""
 
 					};
 					$scope.roleobj = {
-						"roleId" : -1,
+
 						"role" : ""
 
 					}
 					$scope.getUsers = function() {
 						$scope.getRoles();
-
-						$http.get('v1/user/getUsers').then(function(response) {
-							$scope.usersList = response.data;
-
+						$scope.clear();
+						userService.getUsers().then(function(response) {
+							$scope.usersList = response;
 						}, function(response) {
-							
-						});
+							console.log(response);
+						})
 
 					}
 					$scope.getRoles = function() {
+						$scope.clear();
+						roleService.getRoles().then(function(response) {
+							$scope.rolesList = response;
+						}, function(response) {
 
-						$http.get('v1/userrole/retrieve').then(
-								function(response) {
-									$scope.rolesList = response.data;
-								}, function(response) {
-
-								});
+						});
 					}
 					$scope.getCategories = function() {
-						$http.get('v1/category/retrieve').then(
+						$scope.clear();
+						categoryService.getCategories().then(
 								function(response) {
-									$scope.categoriesList = response.data;
+
+									$scope.categoriesList = response;
+									localStorageService.set('categoriesList',
+											response);
 								}, function(response) {
-
-								});
+									console.log(response);
+								})
 					}
-					$scope.addRole = function(roleName) {
-						if ($scope.roleobj.role.length > 0) {
-							$scope.rolesList.push($scope.roleobj);
-							$scope.addrole = false;
-							// $scope.roleobj.role='';
-							var userRoleDto = {
-								"role" : roleName,
-							}
-							$http({
-								url : 'v1/userrole/create',
-								method : "POST",
-								data : userRoleDto
-							}).then(function(response) {
-								
-									$scope.successMessage = response.data.message;
-									
-									$timeout(function() {
-										$scope.successMessage = '';
-										}, 5000);
+					$scope.addRole = function() {
+						roleService
+								.addRole($scope.roleobj)
+								.then(
+										function(response) {
+											$scope.successMessage = response.message;
+											$scope.getRoles();
+											$scope.clear();
+											$timeout(function() {
+												$scope.successMessage = '';
+											}, 5000);
 
-									$scope.roleobj.role = "";
-								
-								
-								
-								
-								
-							}, function(response) { // optional
-								console.log(response);
-								$scope.errorMessage = response.data.errorMessage;
-								$timeout(function() {
-									$scope.errorMessage = '';
-									}, 5000);
-							});
-						}
+										},
+										function(response) { // optional
+											$scope.errorMessage = response.errorMessage;
+											$timeout(function() {
+												$scope.errorMessage = '';
+											}, 5000);
+
+										});
 					}
 					$scope.addCategory = function() {
 
-						if ($scope.categoryobj.categoryName.length > 0
-								&& $scope.categoryobj.description.length > 0) {
-							$scope.categoriesList.push($scope.categoryobj);
-							$scope.addcategory = false;
-						}
+						categoryService
+								.addCategory($scope.categoryobj)
+								.then(
+										function(response) {
+											$scope.successMessage = response.message;
+											$scope.getCategories();
+											$scope.clear();
+											$timeout(function() {
+												$scope.successMessage = '';
+											}, 5000);
 
-					}
+										},
+										function(response) { // optional
+											$scope.errorMessage = response.errorMessage;
+											$timeout(function() {
+												$scope.errorMessage = '';
+											}, 5000);
+
+										});
+					};
 					$scope.userCheck = function(userselected, id) {
 						if (userselected) {
 							$scope.edituser = id;
@@ -171,9 +173,6 @@ adminApp
 					}
 
 					$scope.confirmDelete = function(name, itemId) {
-						console.log(itemId);
-						console.log(itemId);
-
 						$scope.deleteitem = {
 							'name' : name,
 							'itemId' : itemId
@@ -183,55 +182,48 @@ adminApp
 					}
 					$scope.deleteItem = function() {
 						if ($scope.deleteitem.name === 'user') {
-							$http.put(
-									'v1/user/deleteUser/'
-											+ $scope.deleteitem.itemId)
-									.success(function(response) {
-										$scope.getUsers();
-										alert(response.message);
-									}).error(function(response) {
-										alert(response.message);
-									});
+							userService
+									.deleteUser($scope.deleteitem.itemId)
+									.then(
+											function(response) {
+												$scope.successMessage = response.message;
+												$timeout(function() {
+													$scope.successMessage = '';
+												}, 5000);
+												$scope.getUsers();
+												$scope.clear();
+											},
+											function(response) {
+												$scope.errorMessage = response.errorMessage;
+												$timeout(function() {
+													$scope.errorMessage = '';
+												}, 5000);
+											});
 
 						} else if ($scope.deleteitem.name === 'role') {
-							$http.delete(
-									'v1/userrole/delete/'
-											+ $scope.deleteitem.itemId)
-									.success(function(response) {
-										$scope.getRoles();
-
-										alert(response.message);
-									}).error(function(response) {
-										alert(response.message);
-									});
-							
+							alert('role');
 						} else if ($scope.deleteitem.name === 'category') {
-							alert('category');
+							categoryService
+									.deleteCategory($scope.deleteitem.itemId)
+									.then(
+											function(response) {
+												$scope.successMessage = response.message;
+												$timeout(function() {
+													$scope.successMessage = '';
+												}, 5000);
+												$scope.getCategories();
+												$scope.clear();
+
+											},
+											function(response) {
+												$scope.errorMessage = response.errorMessage;
+												$timeout(function() {
+													$scope.errorMessage = '';
+												}, 5000);
+											});
 						}
 						$('#deleteModal').modal('hide');
 					}
-
-					$scope.addCategory = function(category) {
-
-						var category = {
-							"categoryName" : category.categoryName,
-							"description" : category.description
-						};
-
-						$http({
-							url : 'v1/category/addCategory',
-							method : "POST",
-							data : category
-						}).then(function(response) {
-							console.log(response);
-							$scope.getCategories();
-							$scope.categoryobj.categoryName = "";
-							$scope.categoryobj.description = "";
-						}, function(response) { // optional
-							console.log(response);
-
-						});
-					};
 
 					$scope.confirmEdit = function(name, item) {
 						$scope.editteditem = {
@@ -244,37 +236,84 @@ adminApp
 
 					$scope.editItem = function() {
 						if ($scope.editteditem.name === 'user') {
-							$http.put('v1/user/update/',$scope.editteditem.item).success(function(response){
-										$scope.successMessage = response.message;
-										$timeout(function(){
-											$scope.successMessage='';
-											},5000);
-										$scope.getUsers();
-										alert(response.message);
-							}).error(function(response) {
-										$scope.errorMessage = response.message;
-										$timeout(function(){
-											$scope.errorMessage='';
-										},5000);
-							});
+							userService
+									.editUser($scope.editteditem.item)
+									.then(
+											function(response) {
+												$scope.successMessage = response.message;
+												$timeout(function() {
+													$scope.successMessage = '';
+												}, 5000);
+												$scope.getUsers();
+												$scope.clear();
+											},
+											function(response) {
+												$scope.errorMessage = response.errorMessage;
+												$timeout(function() {
+													$scope.errorMessage = '';
+												}, 5000);
+											});
 
 						} else if ($scope.editteditem.name === 'role') {
-							console.log($scope.editteditem.item)
-							console.log($scope.editItem.item);
-							$http({
-								url : 'v1/userrole/update',
-								method : "PUT",
-								data : $scope.editteditem.item
-							}).then(function(response) {
-								console.log(response);
-								$scope.getRoles();
-								alert(response.data.message)
-							}, function(response) {
-								alert(response.data.message)
-							});
+							roleService
+									.editRole($scope.editteditem.item)
+									.then(
+											function(response) {
+												$scope.successMessage = response.message;
+												$scope.getRoles();
+												$scope.clear();
+												$timeout(function() {
+													$scope.successMessage = '';
+												}, 5000);
+
+											},
+											function(response) {
+												$scope.errorMessage = response.message;
+												$timeout(function() {
+													$scope.errorMessage = '';
+												}, 5000);
+											});
 						} else if ($scope.editteditem.name === 'category') {
-							$scope.getCategories();
+							categoryService
+									.editCategory($scope.editteditem.item)
+									.then(
+											function(response) {
+												$scope.successMessage = response.message;
+												$scope.getCategories();
+												$scope.clear();
+												$timeout(function() {
+													$scope.successMessage = '';
+												}, 5000);
+
+											},
+											function(response) {
+												$scope.errorMessage = response.message;
+												$timeout(function() {
+													$scope.errorMessage = '';
+												}, 5000);
+											});
 						}
 						$('#editModal').modal('hide');
 					}
-					});
+					$scope.clear = function() {
+						$scope.addrole = false;
+						$scope.addcategory = false;
+						$scope.edituser = true;
+
+						$scope.categoryobj = {
+
+							"categoryName" : "",
+							"description" : ""
+
+						};
+						$scope.roleobj = {
+
+							"role" : ""
+
+						}
+						$scope.userselected = [];
+						$scope.roleselected = [];
+						$scope.categoryselected = [];
+
+					}
+				});

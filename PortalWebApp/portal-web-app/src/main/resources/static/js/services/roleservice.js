@@ -11,9 +11,9 @@ app.factory('roleService', function($http, $q) {
 		})
 		return deferred.promise;
 	}
-	rs.postRole=function(data) {
+	rs.addRole=function(data) {
 		var deferred = $q.defer();
-		$http.post('', data).success(function(response) {
+		$http.post('v1/userrole/create', data).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);

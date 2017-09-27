@@ -1,5 +1,5 @@
 <div class="col-md-1 col-xs-1"></div>
-<div class="col-md-9 col-xs-9" style="padding-top: 30px;">
+<div class="col-md-9 col-xs-9 main-content" style="padding-top: 30px;">
 
 	<div class="col-md-12 col-xs-12">
 		<div class="errStatus" ng-if="errorMessage!='';">{{errorMessage}}</div>
@@ -67,25 +67,26 @@
 			</div>
 			<div class="tab-pane" id="2">
 				<div class="row" style="padding-top: 30px">
+
 					<div class="col-md-6"></div>
 					<div class="col-md-6" ng-show="!addrole">
 						<input class='btn btn-primary' type="button" value="Add Role"
 							ng-click="addrole=true;roleobj.role='';" style="float: right;" />
 					</div>
 					<div class="col-md-6" ng-show="addrole">
-						<div class="row">
-							<div class="col-md-8">
-								<input type="text" ng-model="roleobj.role" />
+						<form name="roleadd" class="form-inline" ng-submit="addRole();">
+							<!-- addrole.$dirty &&  -->
+							<div class="form-group">
+								<label for="email">Role:</label> <input type="text"
+									class="form-control" id="role" placeholder="Role Name"
+									ng-model="roleobj.role" required>
 							</div>
-							<div class="col-md-2">
-								<input class="btn btn-primary" type="button"
-									ng-click="addRole(roleobj.role);" value="add" />
-							</div>
-							<div class="col-md-2">
-								<input class="btn btn-danger" type="button"
-									ng-click="addrole=false;" value="cancel" />
-							</div>
-						</div>
+							<button type="submit" class="btn btn-primary">Add</button>
+							<button type="button" class='btn btn-danger'
+								ng-click="clear();">Cancel</button>
+						</form>
+						
+
 					</div>
 					<div class="col-md-12">
 						<table class="table table-hover table-striped table-bordered">
@@ -101,6 +102,7 @@
 								<tr ng-repeat="role in rolesList">
 									<td><input type="checkbox" value=""
 										ng-model="roleselected[$index]"></td>
+
 									<td><input type="text" ng-model="role.role"
 										ng-disabled="!roleselected[$index]"
 										ng-class="{'txtdisabled': !roleselected[$index]}" /></td>
@@ -121,31 +123,30 @@
 			</div>
 			<div class="tab-pane" id="3">
 				<div class="row" style="padding-top: 30px">
-					<div class="col-md-6"></div>
-					<div class="col-md-6" ng-show="!addcategory">
+					<div class="col-md-4"></div>
+					<div class="col-md-8" ng-show="!addcategory">
 						<input class='btn btn-primary' type="button" value="Add Category"
 							ng-click="addcategory=true;categoryobj.categoryName='';categoryobj.description='';"
 							style="float: right;" />
 					</div>
-					<div class="col-md-6" ng-show="addcategory">
-						<div class="row">
-							<div class="col-md-8">
-								<div class="col-md-6">
-									<input type="text" ng-model="categoryobj.categoryName" />
-								</div>
-								<div class="col-md-6">
-									<textarea ng-model="categoryobj.description"></textarea>
-								</div>
+					<div class="col-md-8" ng-show="addcategory">
+						<form name="addcat" class="form-inline" ng-submit="addCategory();">
+							<!-- addrole.$dirty &&  -->
+							<div class="form-group">
+								<label for="categoryname">Category:</label> <input type="text"
+									class="form-control" id="categoryname" placeholder="Category Name"
+									ng-model="categoryobj.categoryName" required>
 							</div>
-							<div class="col-md-1">
-								<input class="btn btn-primary" type="button"
-									ng-click="addCategory(categoryobj);" value="add" />
+							<div class="form-group">
+								<label for="description">Category:</label> <input type="text"
+									class="form-control" id="description" placeholder="Category Description"
+									ng-model="categoryobj.description" required>
 							</div>
-							<div class="col-md-1">
-								<input class="btn btn-danger" type="button"
-									ng-click="addcategory=false;" value="cancel" />
-							</div>
-						</div>
+							<button type="submit" class="btn btn-primary">Add</button>
+							<button type="button" class='btn btn-danger'
+								ng-click="clear();">Cancel</button>
+						</form>
+						
 					</div>
 					<div class="col-md-12">
 						<table class="table table-hover table-striped table-bordered">
@@ -177,7 +178,7 @@
 										ng-class="{'disabled':!categoryselected[$index]}"
 										ng-disabled="!categoryselected[$index]"><img
 										class="deleteicon" src="images/delete.png"
-										ng-click="!categoryselected[$index]|| confirmDelete('category',category.cateogryId);" />
+										ng-click="!categoryselected[$index]|| confirmDelete('category',category.categoryId);" />
 										<span
 										ng-click="!categoryselected[$index]|| confirmEdit('category',category);"
 										class="glyphicon glyphicon-floppy-save editicon"></span></td>
