@@ -25,6 +25,7 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 	@Autowired
 	private UserDAO userDAO;
 	
+	
 	@Override
 	public QuestionsDTO getQuestionaries() {
 		List<Questionaries> questionariesList = questionariesDAO.fetchAllQuestionaries();

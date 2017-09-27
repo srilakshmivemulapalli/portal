@@ -15,9 +15,8 @@ import com.nisum.portal.service.dto.QuestionariesDTO;
 public class QuestionReplysUtil {
 	
 	
-	public static QuestionReplysDTO convertDaoToDto(Questionaries questionaries,List<QuestionReplies> questionReplies ) {
+	public static QuestionReplysDTO convertDaoToDto(Questionaries questionaries,List<QuestionReplies> questionReplies,QuestionReplysDTO replysDTO ) {
 		
-		QuestionReplysDTO replysDTO = new QuestionReplysDTO();
 		
 		if (questionaries!=null) {
 			QuestionariesDTO dto = new  QuestionariesDTO();

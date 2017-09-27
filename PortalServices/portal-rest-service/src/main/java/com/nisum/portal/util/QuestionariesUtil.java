@@ -13,7 +13,7 @@ import com.nisum.portal.service.dto.QuestionsDTO;
 public class QuestionariesUtil {
 
 	
-	public static QuestionsDTO convertDaoToDto(List<Questionaries> questionariesList,QuestionsDTO questionsDTO ) {
+	public static QuestionsDTO convertDaoToDto(List<Questionaries> questionariesList,QuestionsDTO questionsDTO) {
 		
 		List<QuestionariesDTO> questionariesDTOs = new ArrayList<QuestionariesDTO>();
 		if (CollectionUtils.isNotEmpty(questionariesList)) {
