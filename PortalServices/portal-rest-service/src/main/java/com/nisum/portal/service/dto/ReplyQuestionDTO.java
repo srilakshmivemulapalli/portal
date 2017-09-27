@@ -2,14 +2,13 @@ package com.nisum.portal.service.dto;
 
 public class ReplyQuestionDTO {
 	
-	private Integer questId;
+	private Integer questionId;
 	private String emailId;
-	private String description;
-	public Integer getQuestId() {
-		return questId;
+	public Integer getQuestionId() {
+		return questionId;
 	}
-	public void setQuestId(Integer questId) {
-		this.questId = questId;
+	public void setQuestionId(Integer questionId) {
+		this.questionId = questionId;
 	}
 	public String getEmailId() {
 		return emailId;
@@ -17,11 +16,12 @@ public class ReplyQuestionDTO {
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
 	}
-	public String getDescription() {
-		return description;
+	public String getReplyDescription() {
+		return replyDescription;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+	public void setReplyDescription(String replyDescription) {
+		this.replyDescription = replyDescription;
 	}
-
+	private String replyDescription;
+	
 }

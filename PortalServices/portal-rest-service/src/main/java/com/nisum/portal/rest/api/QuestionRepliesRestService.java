@@ -57,8 +57,8 @@ public class QuestionRepliesRestService {
 	 */
 	@RequestMapping(value = "/save", method = RequestMethod.GET)
 	public ResponseEntity<String> saveQuestionReply(@RequestBody ReplyQuestionDTO replyQuestionDTO) throws QuestionariesRepliesServiceException {
-		logger.info("QuestionRepliesRestService :: saveQuestionReply"+replyQuestionDTO.getEmailId()+"-"+replyQuestionDTO.getQuestId()+"-"+replyQuestionDTO.getDescription());
-		return new ResponseEntity<String>(questionRepliesService.saveQuestionariesReply(replyQuestionDTO.getQuestId(), replyQuestionDTO.getEmailId(), replyQuestionDTO.getDescription()), HttpStatus.OK);
+		logger.info("QuestionRepliesRestService :: saveQuestionReply"+replyQuestionDTO.getEmailId()+"-"+replyQuestionDTO.getQuestionId()+"-"+replyQuestionDTO.getReplyDescription());
+		return new ResponseEntity<String>(questionRepliesService.saveQuestionariesReply(replyQuestionDTO.getQuestionId(), replyQuestionDTO.getEmailId(), replyQuestionDTO.getReplyDescription()), HttpStatus.OK);
 	}
 	
 	
