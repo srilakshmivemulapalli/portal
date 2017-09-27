@@ -201,7 +201,27 @@ adminApp
 											});
 
 						} else if ($scope.deleteitem.name === 'role') {
-							alert('role');
+
+							roleService
+									.deleteRole($scope.deleteitem.itemId)
+									.then(
+											function(response) {
+												$scope.getRoles();
+												$scope.successMessage = response.message;
+												$timeout(function() {
+													$scope.successMessage = '';
+												}, 5000);
+												alert(response.message);
+											},
+											function(response) {
+												$scope.errorMessage = response.errorMessage;
+												$timeout(function() {
+													$scope.errorMessage = '';
+												}, 5000);
+											});
+
+						} else if ($scope.deleteitem.name === 'category') {
+							alert('category');
 						} else if ($scope.deleteitem.name === 'category') {
 							categoryService
 									.deleteCategory($scope.deleteitem.itemId)
