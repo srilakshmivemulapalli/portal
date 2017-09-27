@@ -104,7 +104,7 @@ public class UserRestService {
 			{
 				serviceStatusDto.setMessage(Constants.USER_NOT_EXISTS);
 				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.NOT_FOUND);
-				}
+			}
 		} catch (Exception e) {
 			logger.info("UserRestService :: UpdateUser :: Internal Server Error");
 			throw new UserServiceException(Constants.INTERNALSERVERERROR, e);
@@ -138,25 +138,25 @@ public class UserRestService {
 	}
 
 
-//	@RequestMapping(value = "/updateUsers",method=RequestMethod.PUT,consumes = "application/json",produces="application/json")
-//	public ResponseEntity<ServiceStatusDto>  updateUsers(@RequestBody List<UserDTO> usersDTO) throws UserServiceException{
-//		logger.info("UserRestService :: multiple users update :::");
-//		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
-//		try {
-//			for(UserDTO userDto : usersDTO)
-//			{
-//			userService.updateUserDetails(userDto);
-//			}
-//			serviceStatusDto.setMessage(Constants.USER_UPDATED);
-//         return new ResponseEntity<ServiceStatusDto>(serviceStatusDto,HttpStatus.OK);
-//	}
-//		catch(Exception e)
-//		{
-//			logger.info("UserRestService :: Update multiple Users :: Internal Server Error");
-//			throw new UserServiceException(Constants.INTERNALSERVERERROR, e);
-//		}
-//	}
-	
+	//	@RequestMapping(value = "/updateUsers",method=RequestMethod.PUT,consumes = "application/json",produces="application/json")
+	//	public ResponseEntity<ServiceStatusDto>  updateUsers(@RequestBody List<UserDTO> usersDTO) throws UserServiceException{
+	//		logger.info("UserRestService :: multiple users update :::");
+	//		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
+	//		try {
+	//			for(UserDTO userDto : usersDTO)
+	//			{
+	//			userService.updateUserDetails(userDto);
+	//			}
+	//			serviceStatusDto.setMessage(Constants.USER_UPDATED);
+	//         return new ResponseEntity<ServiceStatusDto>(serviceStatusDto,HttpStatus.OK);
+	//	}
+	//		catch(Exception e)
+	//		{
+	//			logger.info("UserRestService :: Update multiple Users :: Internal Server Error");
+	//			throw new UserServiceException(Constants.INTERNALSERVERERROR, e);
+	//		}
+	//	}
+
 
 	/**
 	 * getUserCount
@@ -170,23 +170,26 @@ public class UserRestService {
 		return userService.getUserCount();
 	}
 
-
 	/**
 	 * 
 	 * @param userDto
+	 * @return
 	 * @throws UserServiceException
 	 */
 	@RequestMapping(value = "/create", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-	public void addUser(@RequestBody UserDTO userDto) throws UserServiceException {
+	public UserDTO addUser(@RequestBody UserDTO userDto) throws UserServiceException {
+
+		UserDTO userInfo=null;
 		logger.info("UserRestService :: Creating Users :::");
 		try {
 
 			String strEmail1 = null;
 			strEmail1 = userDto.getEmailId();
-			UserDTO userInfo = userService.findByEmailId(strEmail1);
+			userInfo = userService.findByEmailId(strEmail1);
 			if (userInfo != null && strEmail1.equals(userInfo.getEmailId())) {
 				userInfo.setLoginDate(CommonsUtil.getCurrentDateTime());
 				userService.updateUserDetails(userInfo);
+				//return userInfo;
 			} else {
 
 				userDto.setLoginDate(CommonsUtil.getCurrentDateTime());
@@ -209,7 +212,10 @@ public class UserRestService {
 				userDto.setRole(role);
 				userDto.setActiveStatus(Constants.USER_STATUS);
 				userService.saveUser(userDto);
+
+				userInfo=userDto;
 			}
+
 		}
 
 		catch (Exception e) {
@@ -217,6 +223,8 @@ public class UserRestService {
 			throw new UserServiceException(Constants.INTERNALSERVERERROR, e);
 		}
 
+
+		return userInfo;
 	}
 
 
