@@ -128,7 +128,7 @@ public class UserRestServiceTest {
 		dtoList.add(userDto);
 	ResponseEntity<List<UserDTO>> resList=new ResponseEntity<List<UserDTO>>(dtoList, HttpStatus.OK);	
 		Mockito.when(userServiceMock.getUsers()).thenReturn(dtoList);
-		ResponseEntity<List<UserDTO>> actual = userRestService.getUsers();
+		ResponseEntity<?> actual = userRestService.getUsers();
 		assertEquals(resList,actual);
 	}
 

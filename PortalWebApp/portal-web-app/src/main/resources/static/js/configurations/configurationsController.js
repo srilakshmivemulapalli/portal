@@ -212,6 +212,7 @@ adminApp
 													$scope.successMessage = '';
 												}, 5000);
 												$scope.getCategories();
+
 												$scope.clear();
 
 											},
@@ -274,6 +275,7 @@ adminApp
 												}, 5000);
 											});
 						} else if ($scope.editteditem.name === 'category') {
+
 							categoryService
 									.editCategory($scope.editteditem.item)
 									.then(

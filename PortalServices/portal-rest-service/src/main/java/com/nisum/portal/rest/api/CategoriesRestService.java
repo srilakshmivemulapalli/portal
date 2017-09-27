@@ -51,7 +51,7 @@ public class CategoriesRestService {
 	 * @throws CategoryServiceException
 	 */
 	@RequestMapping(value = "/addCategory", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
-	public ResponseEntity<ServiceStatusDto> addCategory(@RequestBody CategoriesDTO category)
+	public ResponseEntity<?> addCategory(@RequestBody CategoriesDTO category)
 			throws CategoryServiceException {
 		logger.info("CategoriesRestService :: addCategories");
 		ServiceStatusDto servicedto = categoriesService.addCategory(category);
@@ -59,7 +59,11 @@ public class CategoriesRestService {
 			return new ResponseEntity<ServiceStatusDto>(servicedto, HttpStatus.OK);
 		else {
 			logger.error("Category already Exists");
-			throw new CategoryServiceException(Constants.CATEGORY_EXISTS);
+			 Errors error = new Errors();
+			 error.setErrorCode("Errors-UserRole");
+			 error.setErrorMessage(Constants.USER_ROLE_EXISTS);
+			 ResponseEntity<Errors> rsEntity=new ResponseEntity<Errors>(error, HttpStatus.NOT_ACCEPTABLE);
+			 return rsEntity;
 		}
 	}
 	@RequestMapping(value="/updateCategory",method=RequestMethod.PUT,consumes=MediaType.APPLICATION_JSON_VALUE)
