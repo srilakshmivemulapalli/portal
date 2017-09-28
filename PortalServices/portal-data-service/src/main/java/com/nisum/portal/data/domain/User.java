@@ -27,6 +27,7 @@ public class User implements Serializable{
 	private Timestamp loginDate;
 	private String activeStatus;
 	private Timestamp createDate;
+	private String image;
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "roleId", referencedColumnName = "roleId")
@@ -200,6 +201,14 @@ public class User implements Serializable{
 
 	public void setCreateDate(Timestamp createDate) {
 		this.createDate = createDate;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 }
