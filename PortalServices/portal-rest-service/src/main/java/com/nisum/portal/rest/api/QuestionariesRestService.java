@@ -14,7 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nisum.portal.service.api.QuestionariesService;
+
 import com.nisum.portal.service.dto.AddQuestionDTO;
+
+import com.nisum.portal.service.dto.CountDTO;
+
 import com.nisum.portal.service.dto.Errors;
 import com.nisum.portal.service.dto.QuestionsDTO;
 import com.nisum.portal.service.dto.ServiceStatusDto;
@@ -51,10 +55,20 @@ public class QuestionariesRestService {
 	 * @return
 	 * @throws QuestionariesServiceException
 	 */
-	@RequestMapping(value = "/retrieve/questionsCount", method = RequestMethod.GET)
-	public ResponseEntity<Long> retrieveCount() throws QuestionariesServiceException {
-		logger.info("QuestionariesRestService :: questionariesCount");
-		return new ResponseEntity<Long>(questionariesService.getQuestionariesCount(), HttpStatus.OK);
+
+	@RequestMapping(value = "/retrieveCount", method = RequestMethod.GET)
+	public ResponseEntity<?> retrieveCount() throws QuestionariesServiceException {
+		logger.info("QuestionariesRestService :: retrieveCount");
+		try {
+			return new ResponseEntity<CountDTO>(questionariesService.getQuestionariesCount(), HttpStatus.OK);
+		}
+		catch(Exception e) {
+			logger.error("QuestionariesRestService :: retrieveCount========="+Constants.CATEGORY_NOT_EXIST);
+			Errors errors=new Errors();
+			errors.setErrorCode("Errors-Questionaries");
+			errors.setErrorMessage(e.getMessage());
+			return new ResponseEntity<Errors>(errors, HttpStatus.OK);
+		}
 	}
 	
 	/**

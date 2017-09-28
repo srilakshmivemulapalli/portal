@@ -1,13 +1,14 @@
 package com.nisum.portal.service.api;
 
 
+import com.nisum.portal.service.dto.CountDTO;
 import com.nisum.portal.service.dto.QuestionsDTO;
 
 public interface QuestionariesService {
 
 	QuestionsDTO getQuestionaries();
 	
-	long getQuestionariesCount();
+	CountDTO getQuestionariesCount();
 	
 	String saveQuestions(String emailId, Integer categoryId, String question, String description);
 

@@ -12,6 +12,7 @@ import com.nisum.portal.data.dao.api.QuestionariesDAO;
 import com.nisum.portal.data.dao.api.UserDAO;
 import com.nisum.portal.data.domain.Questionaries;
 import com.nisum.portal.service.api.QuestionariesService;
+import com.nisum.portal.service.dto.CountDTO;
 import com.nisum.portal.service.dto.QuestionsDTO;
 import com.nisum.portal.util.Constants;
 import com.nisum.portal.util.QuestionariesUtil;
@@ -41,8 +42,13 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 	}
 
 	@Override
-	public long getQuestionariesCount() {
-		return questionariesDAO.getQuestionariesCount();
+	public CountDTO getQuestionariesCount() {
+		long questionCount= questionariesDAO.getQuestionariesCount();
+		long userCount=userDAO.getUserCount();
+		CountDTO countDTO=new CountDTO();
+		countDTO.setQuestionCount(questionCount);
+		countDTO.setUserCount(userCount);
+		return countDTO;
 	}
 
 	@Override
