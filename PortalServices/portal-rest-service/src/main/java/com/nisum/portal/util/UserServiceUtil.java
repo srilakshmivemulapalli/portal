@@ -28,6 +28,7 @@ public class UserServiceUtil {
 				userDto.setEmailId(user.getEmailId());
 				userDto.setLoginDate(user.getLoginDate());
 				userDto.setName(user.getName());
+				userDto.setImage(user.getImage());
 				UserRoleDTO userRoleDTO = new UserRoleDTO();
 				userRoleDTO.setCreatedDate(user.getRole().getCreatedDate());
 				userRoleDTO.setRole(user.getRole().getRole());
@@ -50,6 +51,7 @@ public class UserServiceUtil {
 		userDTO.setUserId(user.getUserId());
 		userDTO.setName(user.getName());
 		userDTO.setEmailId(user.getEmailId());
+		userDTO.setImage(user.getImage());
 		userDTO.setLoginDate(user.getLoginDate());
 		userDTO.setCreateDate(user.getCreateDate());
 		userDTO.setActiveStatus(user.getActiveStatus());
@@ -79,6 +81,7 @@ public class UserServiceUtil {
 				user.setLoginDate(userlist.getLoginDate());
 				user.setCreateDate(userlist.getCreateDate());
 				user.setName(userlist.getName());
+				user.setImage(userlist.getImage());
 				UserRole userRole = new UserRole();
 				userRole.setCreatedDate(userlist.getRole().getCreatedDate());
 				userRole.setRole(userlist.getRole().getRole());
@@ -103,6 +106,7 @@ public class UserServiceUtil {
 		user.setEmailId(userdto.getEmailId());
 		user.setLoginDate(userdto.getLoginDate());
 		user.setCreateDate(userdto.getCreateDate());
+		user.setImage(userdto.getImage());
 		user.setActiveStatus(userdto.getActiveStatus());
 		UserRole userRole = new UserRole();
 		userRole.setCreatedDate(userdto.getRole().getCreatedDate());
