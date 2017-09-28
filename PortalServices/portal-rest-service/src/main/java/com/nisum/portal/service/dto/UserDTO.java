@@ -21,7 +21,7 @@ public class UserDTO implements Serializable{
 	private UserRoleDTO role;
 	private String activeStatus;
 	private Timestamp createDate;
-	private String image;
+	
 
 	/**
 	 * Returns user id
@@ -125,13 +125,5 @@ public class UserDTO implements Serializable{
 
 	public void setCreateDate(Timestamp createDate) {
 		this.createDate = createDate;
-	}
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
 	}
 }

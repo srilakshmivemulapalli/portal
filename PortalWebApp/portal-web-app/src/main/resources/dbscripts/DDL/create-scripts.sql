@@ -62,6 +62,3 @@ CREATE TABLE `portal`.`Blogs` (
   KEY `fk_categoryid_blogs_idx` (`categoryId`),
   CONSTRAINT `fk_categoryid_blogs` FOREIGN KEY (`categoryId`) REFERENCES `Categories` (`categoryId`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=big5;
-
-ALTER TABLE `portal`.`User` 
-ADD COLUMN `image` VARCHAR(200) NULL DEFAULT NULL AFTER `createDate`;
