@@ -2,6 +2,7 @@ package com.nisum.portal.util;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -29,6 +30,7 @@ public class QuestionariesUtil {
 				dto.setQuestionRepliesCount(questionaries.getQuestionReplies()!=null ? questionaries.getQuestionReplies().size() : 0);
 				questionariesDTOs.add(dto);
 			}
+			Collections.reverse(questionariesDTOs); 
 			questionsDTO.setQuestionDetails(questionariesDTOs);
 		}
 		return questionsDTO;

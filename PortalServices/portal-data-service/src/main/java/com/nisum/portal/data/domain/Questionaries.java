@@ -18,7 +18,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Questionaries")
-public class Questionaries implements Serializable{
+public class Questionaries implements Serializable,Comparable<Questionaries>{
 	public Questionaries() {
 		super();
 	}
@@ -198,6 +198,10 @@ public class Questionaries implements Serializable{
 	public String toString() {
 		return "Questionaries [questionId=" + questionId + ", categoryId=" + categoryId + ", question=" + question
 				+ ", description=" + description + ", createdDate=" + createdDate + ", emailId=" + emailId + "]";
+	}
+	@Override
+	public int compareTo(Questionaries o) {
+		return getCreatedDate().compareTo(o.getCreatedDate());
 	}
 
 	
