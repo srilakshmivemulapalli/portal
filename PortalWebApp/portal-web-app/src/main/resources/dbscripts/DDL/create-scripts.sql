@@ -17,6 +17,14 @@ CREATE TABLE `portal`.`User` (
   CONSTRAINT `fk_roleId_user` FOREIGN KEY (`roleId`) REFERENCES `UserRole` (`roleId`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=big5;
 
+CREATE TABLE `portal`.`Categories` (
+  `categoryId` int(11) NOT NULL AUTO_INCREMENT,
+  `categoryName` varchar(100) DEFAULT NULL,
+  `description` varchar(200) DEFAULT NULL,
+  `createDate` datetime DEFAULT NULL,
+  PRIMARY KEY (`categoryId`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=big5;
+
 CREATE TABLE `Questionaries` (
   `questionId` int(11) NOT NULL AUTO_INCREMENT,
   `categoryId` int(11) DEFAULT NULL,
@@ -29,16 +37,6 @@ CREATE TABLE `Questionaries` (
   CONSTRAINT `fk_categories_id` FOREIGN KEY (`categoryId`) REFERENCES `Categories` (`categoryId`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=big5;
 
-
-CREATE TABLE `Questionaries` (
-  `questionId` int(11) NOT NULL AUTO_INCREMENT,
-  `categoryId` int(11) DEFAULT NULL,
-  `question` varchar(500) DEFAULT NULL,
-  `description` varchar(5000) DEFAULT NULL,
-  `createdDate` datetime DEFAULT NULL,
-  `emailid` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`questionId`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=big5;
 
 
 CREATE TABLE `QuestionReplies` (
