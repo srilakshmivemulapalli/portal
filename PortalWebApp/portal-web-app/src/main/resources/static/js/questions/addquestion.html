@@ -19,14 +19,19 @@
 					name="post_title" placeholder="Your Question"
 					ng-model="addQuestion.question" /> <span id="charNum">{{150-addQuestion.question.length}}</span>
 			</div>
-			<div class="select-categories">
+			<div class="form-group">
+			<label for="categoryname">Select Category:</label> 
+			<div class="select-categories" id="categoryname">
 				<!-- <select select-picker
-					collection-name="categoriesList"
+					data-style="btn-primary"
+					data-live-search="true"
+					data-collection-name="categoriesList"
 					ng-model="addQuestion.categoryId"
-					class="categories-select selectpicker"
+					class=""
 					 ng-options="category.categoryId as category.categoryName for category in categoriesList">
 					
-				</select> -->
+				</select>
+				{{addQuestion.categoryId}} -->
 				<select class="" ng-model="addQuestion.categoryId" ng-options="category.categoryId as category.categoryName for category in categoriesList">
 				<option>Select Category</option></select>
 			</div>

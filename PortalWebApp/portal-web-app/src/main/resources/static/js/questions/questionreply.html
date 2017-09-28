@@ -128,13 +128,13 @@
 	<div class="row form-reply">
 		<div class="col-md-12">
 			<h3>Your Answer</h3>
-			<form id="form_reply" method="POST">
+			<form id="form_reply" ng-submit="postAnswer();">
 
-				<text-angular ng-model="answer"></text-angular>
+				<text-angular ng-model="answer.replyDescription"></text-angular>
 
 				<div class="row submit-wrapper">
 					<div class="col-md-2">
-						<button ng-click="postAnswer();" ng-disabled="answer==''"
+						<button type="submit"  ng-class="{'disabled': answer.replyDescription==''}" ng-disabled="answer.replyDescription=='';"
 							class="btn-submit">Post answer</button>
 					</div>
 					<div class="col-md-10 term-texts">

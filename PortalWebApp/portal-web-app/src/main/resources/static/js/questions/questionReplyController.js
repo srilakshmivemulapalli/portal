@@ -1,9 +1,16 @@
 questionApp.controller('questionReplyController', function($scope,
 		$stateParams, localStorageService, questionService) {
+	var profile = localStorageService.get('profile');
+	$scope.questionid = $stateParams.questionid;
+	$scope.answer = {
 
+		"replyDescription" : '',
+		"questionId" : $scope.questionid,
+		"emailId" : profile.emailId
+	}
 	$scope.getQuestionById = function() {
-		$scope.questionid = $stateParams.questionid;
-		$scope.question=[];
+		
+		$scope.question = [];
 		questionService.getQuestionById($scope.questionid).then(
 				function(response) {
 					console.log(response);
@@ -11,16 +18,15 @@ questionApp.controller('questionReplyController', function($scope,
 				});
 	}
 	$scope.getQuestionById();
-
+	
 	$scope.postAnswer = function() {
-		var data = {
-			'replyId' : $scope.question.replyDetails.length + 2,
-			"replyDescription" : $scope.answer,
-			"createdDate" : new Date(),
-			"updatedDate" : new Date(),
-			"userName" : "Prasanth"
-		}
-		$scope.question.replyDetails.push(data);
-		$scope.answer = '';
+		questionService.sendReply($scope.answer).then(function(response){
+			$scope.answer.replyDescription = '';
+			$scope.question.replyDetails.push(response);
+		},function(response){
+			
+		});
+		// $scope.question.replyDetails.push(data);
+		
 	}
 })

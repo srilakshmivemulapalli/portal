@@ -31,9 +31,9 @@ app.factory('questionService', function($http, $q) {
 		})
 		return deferred.promise;
 	}
-	qs.editQuestion = function(data) {
+	qs.sendReply = function(data) {
 		var deferred = $q.defer();
-		$http.put(',data').success(function(response) {
+		$http.post('v1/questionreply/save',data).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
