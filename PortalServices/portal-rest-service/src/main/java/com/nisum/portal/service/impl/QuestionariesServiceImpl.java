@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nisum.portal.data.dao.api.CategoriesDAO;
 import com.nisum.portal.data.dao.api.QuestionariesDAO;
 import com.nisum.portal.data.dao.api.UserDAO;
 import com.nisum.portal.data.domain.Questionaries;
@@ -25,6 +26,10 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 	@Autowired
 	private UserDAO userDAO;
 	
+	@Autowired
+	private CategoriesDAO categoriesDAO;
+
+	
 	
 	@Override
 	public QuestionsDTO getQuestionaries() {
@@ -42,7 +47,7 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 
 	@Override
 	public String saveQuestions(String emailId, Integer categoryId, String question, String description) {
-		Questionaries questionaries = QuestionariesUtil.convertDtoToDao(emailId, categoryId, question, description);
+		Questionaries questionaries = QuestionariesUtil.convertDtoToDao(emailId, categoriesDAO.getCategory(categoryId), question, description);
 		questionariesDAO.saveQuestionaries(questionaries);
 		return Constants.MSG_RECORD_ADD;
 	}

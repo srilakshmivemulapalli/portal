@@ -4,7 +4,6 @@ package com.nisum.portal.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nisum.portal.data.dao.api.CategoriesDAO;
 import com.nisum.portal.data.dao.api.QuestionRepliesDAO;
 import com.nisum.portal.data.dao.api.QuestionariesDAO;
 import com.nisum.portal.data.domain.QuestionReplies;
@@ -24,9 +23,6 @@ public class QuestionRepliesServiceImpl implements QuestionRepliesService{
 	@Autowired
 	private QuestionariesDAO questionariesDAO;
 	
-	@Autowired
-	private CategoriesDAO categoriesDAO;
-
 	@Override
 	public Integer getQuestionariesReplyCount(int questId) {
 		return repliesDAO.getQuestionariesReplyCount(questId);
@@ -37,7 +33,7 @@ public class QuestionRepliesServiceImpl implements QuestionRepliesService{
 		QuestionReplysDTO dto = new QuestionReplysDTO();
 		Questionaries questionaries = questionariesDAO.getQuestionaries(questId);
 		QuestionReplysDTO replysDTO = QuestionReplysUtil.convertDaoToDto(questionaries, repliesDAO.getQuestionariesReply(questId),dto);
-		replysDTO.getQuestionDetails().setCategoryName(categoriesDAO.getCategory(questionaries.getCategoryId()).getCategoryName());
+		replysDTO.getQuestionDetails().setCategoryName(questionaries.getCategoryId().getCategoryName());
 		return replysDTO;
 	}
 	
@@ -45,6 +41,5 @@ public class QuestionRepliesServiceImpl implements QuestionRepliesService{
 	public QuestionRepliesDTO saveQuestionariesReply(Integer questId, String emailId, String replyDescription) {
 		QuestionReplies questionaries = QuestionReplysUtil.convertDtoToDao(questId, emailId, replyDescription);
 		return QuestionReplysUtil.convertReplyDaoToDto(repliesDAO.saveQuestionReplies(questionaries));
-		//return Constants.MSG_RECORD_ADD;
 	}
 }

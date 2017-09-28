@@ -11,7 +11,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -27,7 +29,9 @@ public class Questionaries implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer questionId;
 	
-	private int categoryId;
+	@OneToOne(cascade = CascadeType.ALL,fetch=FetchType.LAZY)
+	@JoinColumn(name = "categoryId")
+	private Categories categoryId;
 	private String question;
 	private String description;
 	private Timestamp createdDate;
@@ -38,7 +42,7 @@ public class Questionaries implements Serializable{
 	
 	
 	
-	public Questionaries(int categoryId, String question, String description, Timestamp createdDate,
+	public Questionaries(Categories categoryId, String question, String description, Timestamp createdDate,
 			String emailId) {
 		super();
 		this.categoryId = categoryId;
@@ -74,13 +78,13 @@ public class Questionaries implements Serializable{
 	/**
 	 * @return the categoryId
 	 */
-	public int getCategoryId() {
+	public Categories getCategoryId() {
 		return categoryId;
 	}
 	/**
 	 * @param categoryId the categoryId to set
 	 */
-	public void setCategoryId(int categoryId) {
+	public void setCategoryId(Categories categoryId) {
 		this.categoryId = categoryId;
 	}
 	/**
@@ -138,7 +142,7 @@ public class Questionaries implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + categoryId;
+		result = prime * result + ((categoryId == null) ? 0 : categoryId.hashCode());
 		result = prime * result + ((createdDate == null) ? 0 : createdDate.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
