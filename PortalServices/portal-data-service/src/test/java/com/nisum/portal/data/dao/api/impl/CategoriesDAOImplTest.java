@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -118,5 +119,33 @@ public class CategoriesDAOImplTest {
 		 String actMsg = categoriesDaoImpl.deleteCategories(101);
 		assertEquals(expMesg, actMsg);
 	}
+	
+	@Test
+	public void getCategoryTest() {
+		Integer id=new Integer(101);
+		long millis=1505900926000L;
+		Timestamp createdDate=new Timestamp(millis);
+		Categories expMesg=new Categories();
+		expMesg.setCategoryId(id);
+		expMesg.setCategoryName("SpringBootSTS");
+		expMesg.setDescription("training");
+		expMesg.setCreateDate(createdDate);
+		
+		//SimpleDateFormat sdf=new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+		
+		when(categoriesDaoImpl.getCategory(id)).thenReturn(expMesg);
+		
+		Categories actMsg=categoriesDaoImpl.getCategory(id);
+		assertEquals(expMesg,actMsg);
+	}
+	
+	@Test
+	public void getCategoriesTest() {
+		List<Categories> categories=new ArrayList<Categories>();
+		when(categoriesDaoImpl.getCategories()).thenReturn(categories);
+		List<Categories> expMsg=categoriesDaoImpl.getCategories();
+		assertEquals(expMsg,categories);
+	}
+
 
 }

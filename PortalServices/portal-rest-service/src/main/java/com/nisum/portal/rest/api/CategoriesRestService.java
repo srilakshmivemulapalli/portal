@@ -42,7 +42,17 @@ public class CategoriesRestService {
 	@RequestMapping(value = "/retrieve", method = RequestMethod.GET)
 	public Object categories() throws CategoryServiceException {
 		logger.info("CategoriesRestService :: categories");
+		try {
 		return categoriesService.getCategories();
+		}
+		catch(Exception e) {
+			logger.error("CategoriesRestService :: categories ");
+			Errors errors=new Errors();
+			errors.setErrorCode("Errors-Categories");
+			errors.setErrorMessage(e.getMessage());
+			return new ResponseEntity<Errors>(errors, HttpStatus.OK);
+		}
+		
 	}
 
 	/**
@@ -95,7 +105,16 @@ public class CategoriesRestService {
 	@RequestMapping(value = "/retrieve/{id}", method = RequestMethod.GET)
 	public Object category(@PathVariable Integer id) throws CategoryServiceException {
 		logger.info("CategoriesRestService :: category");
-		return categoriesService.getCategory(id);
+		try {
+			return categoriesService.getCategory(id);
+		}
+		catch(Exception e) {
+			logger.error("CategoriesRestService :: category ");
+			Errors errors=new Errors();
+			errors.setErrorCode("Errors-Categories");
+			errors.setErrorMessage(e.getMessage());
+			return new ResponseEntity<Errors>(errors, HttpStatus.OK);
+		}
 	}
 
 	@RequestMapping(value = "/delete/{categoryId}", method = RequestMethod.DELETE)

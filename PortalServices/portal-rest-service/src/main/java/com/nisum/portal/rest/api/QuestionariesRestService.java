@@ -63,7 +63,7 @@ public class QuestionariesRestService {
 			return new ResponseEntity<CountDTO>(questionariesService.getQuestionariesCount(), HttpStatus.OK);
 		}
 		catch(Exception e) {
-			logger.error("QuestionariesRestService :: retrieveCount========="+Constants.CATEGORY_NOT_EXIST);
+			logger.error("QuestionariesRestService :: retrieveCount");
 			Errors errors=new Errors();
 			errors.setErrorCode("Errors-Questionaries");
 			errors.setErrorMessage(e.getMessage());
