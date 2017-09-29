@@ -1,5 +1,6 @@
 package com.nisum.portal.service.impl;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -128,5 +129,36 @@ public class CategoriesServiceImplTest {
 		ServiceStatusDto serviceStatusDto1 = categoryServiceImpl.deleteCategories(101);
 		assertEquals(serviceStatusDto1.isStatus(), serviceStatusDto.isStatus());
 	}
+	
+	@Test
+	public void getCategoryTest() {
+		Integer id=new Integer(101);
+		long millis=1505900926000L;
+		Timestamp createdDate=new Timestamp(millis);
+		
+		Categories expMesg=new Categories();
+		expMesg.setCategoryId(id);
+		expMesg.setCategoryName("SpringBootSTS");
+		expMesg.setDescription("training");
+		expMesg.setCreateDate(createdDate);
+		
+		
+		when(categoriesDAO.getCategory(id)).thenReturn(expMesg);
+		
+		Categories actMsg=(Categories) categoryServiceImpl.getCategory(id);
+		
+		assertThat(actMsg).isEqualToComparingFieldByField(expMesg);
+		
+		
+	}
+	
+	@Test
+	public void getCategoriesTest() {
+		List<CategoriesDTO> categories=new ArrayList<CategoriesDTO>();
+		when(categoryServiceImpl.getCategories()).thenReturn(categories);
+		List<CategoriesDTO> expMsg=categoryServiceImpl.getCategories();
+		assertEquals(expMsg,categories);
+	}
+
 
 }

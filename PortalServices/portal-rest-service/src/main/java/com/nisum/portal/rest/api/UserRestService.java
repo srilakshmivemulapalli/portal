@@ -44,14 +44,16 @@ public class UserRestService {
 	 * @throws UserServiceException
 	 */
 	@RequestMapping(value = "/deleteUser/{userId}",method=RequestMethod.PUT,produces="application/json")
-	public ResponseEntity<ServiceStatusDto> deleteUser(@PathVariable Integer userId) throws UserServiceException{
+	public ResponseEntity<?> deleteUser(@PathVariable Integer userId) throws UserServiceException{
 		logger.info("UserRestService :: deleteUser :: Deleting User");
+		Errors error = new Errors();
 		try {
 			String activeStatus = userService.findUserById(userId);
 			ServiceStatusDto serviceStatusDTO = new ServiceStatusDto();
 			if (activeStatus == null || activeStatus.equalsIgnoreCase("No")) {
-				serviceStatusDTO.setMessage(Constants.USER_NOT_EXISTS);
-				return new ResponseEntity<ServiceStatusDto>(serviceStatusDTO, HttpStatus.EXPECTATION_FAILED);
+				error.setErrorCode("417");
+				error.setErrorMessage(Constants.USER_NOT_EXISTS);
+				return new ResponseEntity<Errors>(error, HttpStatus.EXPECTATION_FAILED);
 			} else {
 				userService.deleteUser(userId);
 				serviceStatusDTO.setMessage(Constants.USER_DELETED);
@@ -59,7 +61,9 @@ public class UserRestService {
 			}
 		} catch (Exception e) {
 			logger.info("UserRestService :: deleteUser :: Internal Server Error");
-			throw new UserServiceException(Constants.INTERNALSERVERERROR, e);
+			error.setErrorCode("500");
+			error.setErrorMessage(Constants.INTERNALSERVERERROR);
+			return new ResponseEntity<Errors>(error, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
@@ -71,15 +75,21 @@ public class UserRestService {
 	@RequestMapping(value = "/getUsers", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<?>  getUsers() throws UserServiceException {
 		logger.info("UserRestService :: users");
+		Errors error = new Errors();
 		try {
 			List<UserDTO> users = userService.getUsers();
 			if (users.isEmpty()) {
-				throw new UserServiceException(Constants.USERS_NOT_AVALIABLE);
+				error.setErrorCode("204");
+				error.setErrorMessage(Constants.USERS_NOT_AVALIABLE);
+				return new ResponseEntity<Errors>(error, HttpStatus.NO_CONTENT);
+			} else {
+				return new ResponseEntity<List<UserDTO>>(users, HttpStatus.OK);
 			}
-			return new ResponseEntity<List<UserDTO>>(users, HttpStatus.OK);
 		} catch (Exception e) {
 			logger.info("UserRestService :: getUsers :: Internal Server Error");
-			throw new UserServiceException(Constants.INTERNALSERVERERROR, e);
+			error.setErrorCode("500");
+			error.setErrorMessage(Constants.INTERNALSERVERERROR);
+			return new ResponseEntity<Errors>(error,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 

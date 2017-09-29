@@ -100,7 +100,7 @@ public class UserRestServiceTest {
 		ResponseEntity<ServiceStatusDto> entity = new ResponseEntity<ServiceStatusDto>(expected,HttpStatus.OK);
 		when(userServiceMock.findUserById(userId)).thenReturn(dto.getActiveStatus());
 		when(userServiceMock.deleteUser(userId)).thenReturn(1);
-		ResponseEntity<ServiceStatusDto> actual = userRestService.deleteUser(userId);
+		ResponseEntity<?> actual = userRestService.deleteUser(userId);
 		//assertThat(actual).is
 		assertEquals(entity.getStatusCode(), actual.getStatusCode());
 		
@@ -121,7 +121,7 @@ public class UserRestServiceTest {
 		ResponseEntity<ServiceStatusDto> entity = new ResponseEntity<ServiceStatusDto>(expected,HttpStatus.EXPECTATION_FAILED);
 		when(userServiceMock.findUserById(userId)).thenReturn(dto.getActiveStatus());
 		when(userServiceMock.deleteUser(userId)).thenReturn(1);
-		ResponseEntity<ServiceStatusDto> actual = userRestService.deleteUser(userId);
+		ResponseEntity<?> actual = userRestService.deleteUser(userId);
 		assertEquals(entity.getStatusCode(), actual.getStatusCode());
 		
 	}

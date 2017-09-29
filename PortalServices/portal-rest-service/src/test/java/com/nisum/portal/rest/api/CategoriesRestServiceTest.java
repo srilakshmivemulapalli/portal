@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -19,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.nisum.portal.service.api.CategoriesService;
 import com.nisum.portal.service.dto.CategoriesDTO;
+import com.nisum.portal.service.dto.Errors;
 import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.exception.CategoryServiceException;
 import com.nisum.portal.util.Constants;
@@ -85,6 +88,66 @@ public class CategoriesRestServiceTest {
 		System.out.println(result);
 		assertEquals(serviceStatusDto, expmsg);
 
+	}
+	
+	@Test
+	public void categoriesTestSuccess() throws CategoryServiceException {
+		logger.info("CategoriesRestServiceTest :: categoriesTest");
+		List<CategoriesDTO> expMsg=new ArrayList<CategoriesDTO>();
+		when(mainController.categories()).thenReturn(expMsg);
+		List<CategoriesDTO> actMsg=(List<CategoriesDTO>) mainController.categories();
+		assertEquals(expMsg,actMsg);
+	}
+	
+	@Test
+	public void categoryTestSuccess() throws CategoryServiceException{
+		logger.info("CategoriesRestServiceTest :: categoryTest");
+		
+		Integer id=new Integer(101);
+		long millis=1505900926000L;
+		Timestamp createdDate=new Timestamp(millis);
+		
+		CategoriesDTO expMesg=new CategoriesDTO();
+		expMesg.setCategoryId(id);
+		expMesg.setCategoryName("SpringBootSTS");
+		expMesg.setDescription("training");
+		expMesg.setCreateDate(createdDate);
+		
+		when(categoryService.getCategory(id)).thenReturn(expMesg);
+		
+		CategoriesDTO actMesg=(CategoriesDTO)mainController.category(id);
+		
+		assertEquals(expMesg,actMesg);
+		
+	}
+	
+	@Test
+	public void categoryTestFailure() throws CategoryServiceException{
+		Integer id=new Integer(101);
+		Errors errors = new Errors();
+		errors.setErrorCode("Errors-Categories");
+		ResponseEntity<Errors> responseEntity=new ResponseEntity<Errors>(errors, HttpStatus.OK);
+		
+		when(categoryService.getCategory(id)).thenThrow(Exception.class);
+		
+		ResponseEntity<Errors> actualEntity=(ResponseEntity<Errors>)mainController.category(id);
+		
+		assertEquals(responseEntity.getStatusCode(),actualEntity.getStatusCode());
+		assertEquals(responseEntity.getBody().getErrorCode(),actualEntity.getBody().getErrorCode());
+	}
+	
+	@Test
+	public void categoriesTestFailure() throws CategoryServiceException{
+		Errors errors = new Errors();
+		errors.setErrorCode("Errors-Categories");
+		ResponseEntity<Errors> responseEntity=new ResponseEntity<Errors>(errors, HttpStatus.OK);
+		
+		when(categoryService.getCategories()).thenThrow(Exception.class);
+		
+		ResponseEntity<Errors> actualEntity=(ResponseEntity<Errors>)mainController.categories();
+		
+		assertEquals(responseEntity.getStatusCode(),actualEntity.getStatusCode());
+		assertEquals(responseEntity.getBody().getErrorCode(),actualEntity.getBody().getErrorCode());
 	}
 
 }
