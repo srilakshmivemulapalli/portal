@@ -2,6 +2,7 @@ questionApp.controller('questionsController', function($scope, $stateParams,
 		localStorageService, questionService,categoryService, PagerService) {
 	$('.selectpicker').selectpicker();
 	$scope.questionsList = [];
+	$scope.unAnsweredQuestionsList = [];
 	if (localStorageService.get('categoriesList') !== (undefined || null)) {
 		$scope.categoriesList = localStorageService.get('categoriesList');
 	} else {
@@ -24,6 +25,20 @@ questionApp.controller('questionsController', function($scope, $stateParams,
 		})
 
 	}
+	
+	
+	$scope.getAllUnansweredQuestions = function() {
+
+		questionService.getAllUnansweredQuestions().then(function(response) {
+
+			$scope.unAnsweredQuestionsList = response;
+
+		})
+
+	}
+	
+	
+	
 	$scope.getAllQuestions();
 	$scope.pager = {};
 	$scope.setPage = function(page) {

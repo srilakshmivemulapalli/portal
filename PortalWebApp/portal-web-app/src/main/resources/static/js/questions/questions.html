@@ -35,9 +35,9 @@
 	<div class="row question-filter" id="question_filter">
 		<div class="col-md-6 col-xs-6 sort-questions">
 			<ul>
-				<li><a class="active" href=""> Latest </a></li>
-				<li><a class="" href="">Unanswered</a></li>
-				<li><a class="" href="">My Posts</a></li>
+				<li class="active"><a data-target="#1" data-toggle="tab">Latest</a></li>
+				<li><a class="" data-target="#2" data-toggle="tab" ng-click='getAllUnansweredQuestions()'>Unanswered</a></li>
+				<li><a class="" data-target="#3" data-toggle="tab">My Posts</a></li>
 			</ul>
 		</div>
 		<div class="col-md-6 col-xs-6">
@@ -56,228 +56,112 @@
 			</div>
 		</div>
 	</div>
-	<!-- END QUESTIONS-FILTER -->
-	<div class="main-questions-list">
-		<ul id="main_questions_list">
-			<!-- <li ng-repeat="question in questionsList.questionDetails"
+	
+	<div class="tab-content">
+		<div class="tab-pane active" id="1">
+			<div class="main-questions-list">
+			<ul id="main_questions_list">
+				<li ng-repeat="question in questionsList.questionDetails"
 				class="question-item question type-question status-publish hentry question_category-business qa_tag-business-2 qa_tag-technology-2">
 				<div>
 					<div class="col-md-8 col-xs-8 q-left-content">
 						<div class="q-ltop-content">
-							<h2>
-								<a href="#/question/{{question.questionId}}"
-									class="question-title" ng-bind-html='question.question'></a>
-							</h2>
-						</div>
+								<h2>
+									<a href="#/question/{{question.questionId}}" class="question-title" ng-bind-html='question.question'></a>
+								</h2>
+							</div>
 						<div class="q-lbtm-content">
 							<div class="question-excerpt">
 								<p ng-bind-html='question.description'></p>
 							</div>
 							<div class="question-cat">
 								<ul class="question-tags">
-									<li><a class="q-tag" href="">{{question.categoryName}}
-									</a></li>
-									<li><a class="q-tag" href="">technology </a></li>
+										<li><a class="q-tag" href="">{{question.categoryName}}</a></li>
 								</ul>
 								<div class="clearfix"></div>
-								<span class="author-avatar"> <img
-									src="images/userlogo.png" class="avatar" alt="" />
-
-
-							</span> <span class="author-name">{{question.emailId}}</span>
-							<span class="question-time"> Asked on {{question.createdDate | date: 'MMM dd, yyyy'}}.
-
-							</span>
-
+								<a href="">
+									<span class="author-avatar"> <img src="images/userlogo.png" class="avatar" alt="" />
+									</span> <span class="author-name">{{question.emailId}}</span>
+								</a> 
+								<span class="question-time">Asked on {{question.createdDate | date: 'MMM dd, yyyy'}} </span>
+							</div>
 						</div>
 					</div>
-					end left content
 					<div class="col-md-4 col-xs-4 q-right-content">
 						<ul class="question-statistic">
 							<li class="active" ng-show="question.questionRepliesCount>0"><span
-								class="question-answers">{{question.questionRepliesCount}}
-							</span> answers</li>
-							<li ng-show="question.questionRepliesCount<=0"><span
-								class="question-votes">{{question.questionRepliesCount}}
-							</span> answers</li>
+									class="question-answers">{{question.questionRepliesCount}}
+								</span> answers</li>
+								<li ng-show="question.questionRepliesCount<=0"><span
+									class="question-votes">{{question.questionRepliesCount}}
+								</span> answers</li>
 						</ul>
 						<div class="pumping"></div>
 					</div>
-					end right content
+					
 					<div class="clearfix"></div>
 				</div>
-			</li> -->
-			<li ng-repeat="question in questionsList.questionDetails"
-			class="question-item question type-question status-publish hentry question_category-business qa_tag-business-2 qa_tag-technology-2"
-			>
-			<div>
-				<div class="col-md-8 col-xs-8 q-left-content">
-					<div class="q-ltop-content">
-							<h2>
-								<a href="#/question/{{question.questionId}}"
-									class="question-title" ng-bind-html='question.question'></a>
-							</h2>
-						</div>
-					<div class="q-lbtm-content">
-						<div class="question-excerpt">
-							<p ng-bind-html='question.description'></p>
-						</div>
-						<div class="question-cat">
-							<ul class="question-tags">
-									<li><a class="q-tag" href="">{{question.categoryName}}
-									</a></li>
-									
-								</ul>
-							<div class="clearfix"></div>
-							<a href=""> <span class="author-avatar"> <img
-									src="images/userlogo.png" class="avatar" alt="" />
-							</span> <span class="author-name">{{question.emailId}}</span>
-							</a> <span class="question-time">Asked on {{question.createdDate | date: 'MMM dd, yyyy'}} 
-							</span>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-md-4 col-xs-4 q-right-content">
-					<ul class="question-statistic">
-						<li class="active" ng-show="question.questionRepliesCount>0"><span
-								class="question-answers">{{question.questionRepliesCount}}
-							</span> answers</li>
-							<li ng-show="question.questionRepliesCount<=0"><span
-								class="question-votes">{{question.questionRepliesCount}}
-							</span> answers</li>
-					</ul>
-					<div class="pumping"></div>
-				</div>
-				
-				<div class="clearfix"></div>
-			</div>
-		</li>
-		<!--<li
-			class="question-item post-2341 question type-question status-publish hentry question_category-business qa_tag-business-2 qa_tag-technology-2"
-			data-id="2341">
-			<div>
-				<div class="col-md-8 col-xs-8 q-left-content">
-					<div class="q-ltop-content">
-						<h2>
-							<a href="" class="question-title">This is a question test</a>
-						</h2>
-					</div>
-					<div class="q-lbtm-content">
-						<div class="question-excerpt">
-							<p>test&nbsp;</p>
-						</div>
-						<div class="question-cat">
-							<ul class="question-tags">
-								<li><a class="q-tag" href="">test </a></li>
-
-							</ul>
-							<div class="clearfix"></div>
-							<a href=""> <span class="author-avatar"> <img
-									src="images/userlogo.png" class="avatar" alt="" />
-							</span> <span class="author-name">prasanth kumar</span>
-							</a> <span class="question-time"> Asked on July 14, 2016 in </span> <span
-								class="question-category"> <a href="">photograpy.</a>
-							</span>
-						</div>
-					</div>
-				</div>
-				end left content
-				<div class="col-md-4 col-xs-4 q-right-content">
-					<ul class="question-statistic">
-						<li class="active"><span class="question-answers">3</span>
-							answers</li>
-						<li><span class="question-votes">0 </span> answers</li>
-					</ul>
-					<div class="pumping"></div>
-				</div>
-				end right content
-				<div class="clearfix"></div>
-			</div>
-		</li>
-		<li
-			class="question-item post-2341 question type-question status-publish hentry question_category-business qa_tag-business-2 qa_tag-technology-2"
-			data-id="2341">
-			<div>
-				<div class="col-md-8 col-xs-8 q-left-content">
-					<div class="q-ltop-content">
-						<h2>
-							<a href="" class="question-title">Gavick</a>
-						</h2>
-					</div>
-					<div class="q-lbtm-content">
-						<div class="question-excerpt">
-							<p></p>
-						</div>
-						<div class="question-cat">
-							<div class="clearfix"></div>
-							<a href=""> </a> <span class="author-avatar"> <img
-								src="images/userlogo.png" class="avatar" alt="" />
-							</span> <span class="author-name">prasanth kumar</span><span
-								class="question-time"> Asked on July 14, 2016 in </span> <span
-								class="question-category"> <a href="">Technology.</a>
-							</span>
-						</div>
-					</div>
-				</div>
-				end left content
-				<div class="col-md-4 col-xs-4 q-right-content">
-					<ul class="question-statistic">
-						<li class="active"><span class="question-answers">1</span>
-							answers</li>
-						<li><span class="question-votes">0 </span> answers</li>
-					</ul>
-					<div class="pumping"></div>
-				</div>
-				end right content
-				<div class="clearfix"></div>
-			</div>
-		</li>
-		<li
-			class="question-item post-2341 question type-question status-publish hentry question_category-business qa_tag-business-2 qa_tag-technology-2"
-			data-id="2341">
-			<div>
-				<div class="col-md-8 col-xs-8 q-left-content">
-					<div class="q-ltop-content">
-						<h2>
-							<a href="" class="question-title">What &#8216;s your favorite
-								song?</a>
-						</h2>
-					</div>
-					<div class="q-lbtm-content">
-						<div class="question-excerpt">
-							<p>I&#8217;m a programmer, and student of Engineering&#8230;
-								Which linux distribution would be most useful to me in terms of
-								software, &#8230;</p>
-						</div>
-						<div class="question-cat">
-							<div class="clearfix"></div>
-							<a href=""> <span class="author-avatar"> <img
-									src="images/userlogo.png" class="avatar" alt="" />
-							</span> <span class="author-name">prasanth kumar</span>
-							</a> <span class="question-time"> Asked on July 14, 2016 in </span> <span
-								class="question-category"> <a href="">Music.</a>
-							</span>
-						</div>
-					</div>
-				</div>
-				end left content
-				<div class="col-md-4 col-xs-4 q-right-content">
-					<ul class="question-statistic">
-						<li class="active"><span class="question-answers">10</span>
-							answers</li>
-						<li><span class="question-votes">0 </span> answers</li>
-					</ul>
-					<div class="pumping"></div>
-				</div>
-				end right content
-				<div class="clearfix"></div>
-			</div>
-		</li> -->
-
-		</ul>
+			</li>
+			</ul>
 	</div>
-	<!-- END MAIN-QUESTIONS-LIST -->
+			<!-- END MAIN-QUESTIONS-LIST -->
+			
+	  </div>
+	  <div class="tab-pane" id="2">
+	  
+	  <div class="main-questions-list">
+			<ul id="main_questions_list">
+				<li ng-repeat="question in unAnsweredQuestionsList.questionDetails"
+				class="question-item question type-question status-publish hentry question_category-business qa_tag-business-2 qa_tag-technology-2">
+				<div>
+					<div class="col-md-8 col-xs-8 q-left-content">
+						<div class="q-ltop-content">
+								<h2>
+									<a href="#/question/{{question.questionId}}" class="question-title" ng-bind-html='question.question'></a>
+								</h2>
+							</div>
+						<div class="q-lbtm-content">
+							<div class="question-excerpt">
+								<p ng-bind-html='question.description'></p>
+							</div>
+							<div class="question-cat">
+								<ul class="question-tags">
+										<li><a class="q-tag" href="">{{question.categoryName}}</a></li>
+								</ul>
+								<div class="clearfix"></div>
+								<a href="">
+									<span class="author-avatar"> <img src="images/userlogo.png" class="avatar" alt="" />
+									</span> <span class="author-name">{{question.emailId}}</span>
+								</a> 
+								<span class="question-time">Asked on {{question.createdDate | date: 'MMM dd, yyyy'}} </span>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 col-xs-4 q-right-content">
+						<ul class="question-statistic">
+							<li class="active" ng-show="question.questionRepliesCount>0"><span
+									class="question-answers">{{question.questionRepliesCount}}
+								</span> answers</li>
+								<li ng-show="question.questionRepliesCount<=0"><span
+									class="question-votes">{{question.questionRepliesCount}}
+								</span> answers</li>
+						</ul>
+						<div class="pumping"></div>
+					</div>
+					
+					<div class="clearfix"></div>
+				</div>
+			</li>
+			</ul>
+	</div>
+			<!-- END MAIN-QUESTIONS-LIST -->
+			
+	  
+	  </div>
+	  <div class="tab-pane" id="3">My Posts</div>
+	</div>
+	
+	
 	<div class="row paginations home">
 		<div class="col-md-12">
 			<ul ng-if="vm.pager.pages.length" class="pagination">
@@ -300,8 +184,7 @@
 			
 		</div>
 	</div>
-	<!-- END MAIN-PAGINATIONS -->
-
+	
 	<div class="clearfix"></div>
 </div>
 

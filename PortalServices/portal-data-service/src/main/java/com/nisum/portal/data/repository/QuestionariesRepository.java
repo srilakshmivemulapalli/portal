@@ -18,7 +18,8 @@ public interface QuestionariesRepository extends JpaRepository<Questionaries,Int
 	List<Questionaries> fetchMyQuestionaries(@Param("emailId") String emailId);
 
 	@Transactional
-	@Query(value = "SELECT q from Questionaries q,QuestionReplies qr WHERE q.questionId != qr.questId group by q.questionId")
+	//@Query(value = "SELECT q from Questionaries q,QuestionReplies qr WHERE q.questionId != qr.questId group by q.questionId")
+	@Query(value = "SELECT q FROM Questionaries as q, QuestionReplies as qr where q.questionId != qr.questId")
 	List<Questionaries> retriveAllUnansweredQuestionaries();
 
 }

@@ -12,6 +12,19 @@ app.factory('questionService', function($http, $q) {
 		return deferred.promise;
 	}
 	
+	
+	qs.getAllUnansweredQuestions = function() {
+		var deferred = $q.defer();
+		$http.get('v1/questionaries/retrieve/unanswQuestions').success(function(response) {
+			deferred.resolve(response);
+		}).error(function(response) {
+			deferred.reject(response);
+		})
+		return deferred.promise;
+	}
+	
+	
+	
 	qs.addQuestion = function(data) {
 		
 		var deferred = $q.defer();
