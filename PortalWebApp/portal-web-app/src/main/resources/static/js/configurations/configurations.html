@@ -29,10 +29,10 @@
 								</tr>
 							</thead>
 							<tbody >
-								<tr ng-repeat="user in usersList track by $index">
+								<tr ng-repeat="user in usersList.users track by $index">
 									<td><input type="checkbox" value=""
 										ng-model="userselected[$index]"
-										ng-change="editselectedList(user,$index)"></td>
+										ng-change="userChange(user.userId,userselected[$index]);"></td>
 									<td>{{user.userId}}</td>
 									<td>{{user.name}}</td>
 									<td>{{user.emailId}}</td>
@@ -40,8 +40,8 @@
 									<td>{{user.loginDate | date: 'MM-dd-yyyy HH:mm:ss'}}</td>
 									<td><select name="mySelect" id="mySelect"
 										ng-model="user.role.roleId"
-										ng-options="role.roleId as role.role for role in rolesList"
-										ng-change='edituserselected(user,$index)'
+										ng-options="role.roleId as role.role for role in rolesList.roles"
+										ng-change=''
 										ng-disabled="!userselected[$index]"></select></td>
 									<td
 										ng-class="{'disabled':!userselected[$index]}"
@@ -96,7 +96,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr ng-repeat="role in rolesList">
+								<tr ng-repeat="role in rolesList.roles">
 									<td><input type="checkbox" value=""
 										ng-model="roleselected[$index]"></td>
 									<td>{{role.roleId}}</td>

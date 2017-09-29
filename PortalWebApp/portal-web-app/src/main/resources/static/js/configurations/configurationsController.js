@@ -2,13 +2,15 @@ adminApp
 		.controller(
 				'configurationsController',
 				function($scope, $timeout, categoryService, userService,
-						roleService, localStorageService,CategoryListModel) {
+						roleService, localStorageService, CategoryListModel,
+						RoleListModel,UserListModel) {
 
-					$scope.categoriesList =  CategoryListModel.newCategoryListInstance() ;
-					//$scope.categoriesList = [];
-					$scope.rolesList = [];
-					$scope.usersList = [];
-
+					$scope.categoriesList = CategoryListModel
+							.newCategoryListInstance();
+					$scope.rolesList = RoleListModel.newRoleListInstance();
+					
+					$scope.usersList =UserListModel.newUserListInstance();
+					
 					$scope.dummyUsersList = [];
 					$scope.editUsersList = [];
 					$scope.addrole = false;
@@ -31,7 +33,12 @@ adminApp
 						$scope.getRoles();
 						$scope.clear();
 						userService.getUsers().then(function(response) {
-							$scope.usersList = response;
+							if (response.length > 0) {
+								response.map(function(user) {
+									$scope.usersList.addUsers(user);
+								})
+							}
+							
 						}, function(response) {
 							console.log(response);
 						})
@@ -39,23 +46,34 @@ adminApp
 					}
 					$scope.getRoles = function() {
 						$scope.clear();
+						
 						roleService.getRoles().then(function(response) {
-							$scope.rolesList = response;
+
+							if (response.length > 0) {
+								response.map(function(role) {
+									$scope.rolesList.addRoles(role);
+								})
+							}
+							
 						}, function(response) {
 
 						});
+						
+						
 					}
 					$scope.getCategories = function() {
 						$scope.clear();
 						categoryService.getCategories().then(
 								function(response) {
 									if (response.length > 0) {
-					                    response.map(function(category) {
-					                    	
-					                        $scope.categoriesList.addCategories(category);
-					                    })
-					                }
-									//$scope.categoriesList = response;
+										response.map(function(category) {
+
+											$scope.categoriesList
+													.addCategories(category);
+											
+										})
+									}
+									
 									localStorageService.set('categoriesList',
 											response);
 								}, function(response) {
@@ -112,56 +130,10 @@ adminApp
 							$scope.edituser = -1;
 						}
 					}
-					$scope.editselectedList = function(user, index) {
 
-						if (!$scope.userselected[index]) {
-							var index = $scope.editUsersList
-									.indexOf(user.userId);
-							if (index >= -1) {
-								$scope.editUsersList.splice(index, 1);
-							}
-							angular
-									.forEach(
-											$scope.dummyUsersList,
-											function(dummyuser, $index) {
-
-												if (dummyuser.userId === user.userId) {
-													angular
-															.forEach(
-																	$scope.usersList,
-																	function(
-																			userlist,
-																			userindex) {
-																		if (userlist.userId == dummyuser.userId) {
-																			$scope.usersList[userindex].roleId = dummyuser.roleId;
-																		}
-																	})
-
-													$scope.dummyUsersList
-															.splice($index, 1);
-												}
-
-											})
-
-						} else {
-							$scope.data = {
-								'userId' : user.userId,
-								'roleId' : user.roleId
-							}
-							$scope.dummyUsersList[index] = $scope.data;
-
-						}
-
-					};
-
-					$scope.edituserselected = function(user, index) {
-
-						if ($scope.editUsersList.indexOf(user.userId) <= -1) {
-							$scope.editUsersList.push(user.userId);
-
-						}
-
-					};
+					$scope.userChange=function(userid,checkuser){
+							//console.log($scope.usersList.dummyUsers);
+					}
 					$scope.submitUsersList = function() {
 						var data = [];
 						angular.forEach($scope.dummyUsersList, function(
@@ -192,11 +164,13 @@ adminApp
 									.deleteUser($scope.deleteitem.itemId)
 									.then(
 											function(response) {
+												$scope.usersList
+												.deleteUser($scope.deleteitem.itemId);
 												$scope.successMessage = response.message;
 												$timeout(function() {
 													$scope.successMessage = '';
 												}, 5000);
-												$scope.getUsers();
+												
 												$scope.clear();
 											},
 											function(response) {
@@ -212,7 +186,9 @@ adminApp
 									.deleteRole($scope.deleteitem.itemId)
 									.then(
 											function(response) {
-												$scope.getRoles();
+												$scope.rolesList
+														.deleteRole($scope.deleteitem.itemId);
+
 												$scope.successMessage = response.message;
 												$timeout(function() {
 													$scope.successMessage = '';
@@ -226,17 +202,19 @@ adminApp
 												}, 5000);
 											});
 
-						}  else if ($scope.deleteitem.name === 'category') {
+						} else if ($scope.deleteitem.name === 'category') {
 							categoryService
-									.deleteCategory($scope.deleteitem.itemId.categoryId)
+									.deleteCategory(
+											$scope.deleteitem.itemId.categoryId)
 									.then(
 											function(response) {
 												$scope.successMessage = response.message;
 												$timeout(function() {
 													$scope.successMessage = '';
 												}, 5000);
-												//$scope.getCategories();
-												$scope.categoriesList.deleteCatgory($scope.deleteitem.itemId);
+
+												$scope.categoriesList
+														.deleteCatgory($scope.deleteitem.itemId);
 
 												$scope.clear();
 
@@ -266,11 +244,13 @@ adminApp
 									.editUser($scope.editteditem.item)
 									.then(
 											function(response) {
+												$scope.usersList
+												.editUser($scope.editteditem.item);
 												$scope.successMessage = response.message;
 												$timeout(function() {
 													$scope.successMessage = '';
 												}, 5000);
-												$scope.getUsers();
+												
 												$scope.clear();
 											},
 											function(response) {
@@ -285,8 +265,10 @@ adminApp
 									.editRole($scope.editteditem.item)
 									.then(
 											function(response) {
+												$scope.rolesList
+														.editRole($scope.editteditem.item);
 												$scope.successMessage = response.message;
-												$scope.getRoles();
+												
 												$scope.clear();
 												$timeout(function() {
 													$scope.successMessage = '';
@@ -305,8 +287,12 @@ adminApp
 									.editCategory($scope.editteditem.item)
 									.then(
 											function(response) {
+												$scope.categoriesList
+														.editCategory($scope.editteditem.item);
+												console
+														.log($scope.categoriesList);
 												$scope.successMessage = response.message;
-												$scope.getCategories();
+												
 												$scope.clear();
 												$timeout(function() {
 													$scope.successMessage = '';
@@ -315,8 +301,7 @@ adminApp
 											},
 											function(response) {
 												$scope.errorMessage = response.errorMessage;
-												$scope.getCategories();
-												$scope.clear();
+
 												$timeout(function() {
 													$scope.errorMessage = '';
 												}, 5000);

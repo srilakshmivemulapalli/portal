@@ -1,7 +1,9 @@
-var app = angular.module('nisumApp', [ 'ui.router', 'configurationsApp',
-		'profileApp', 'loginApp', 'questionsApp', 'directive.g+signin',
-		'LocalStorageModule','textAngular' ])
-
+var app = angular
+		.module(
+				'nisumApp',
+				[ 'ui.router', 'configurationsApp', 'profileApp', 'loginApp',
+						'questionsApp', 'directive.g+signin',
+						'LocalStorageModule', 'textAngular', 'am.multiselect' ])
 
 		.config(function($stateProvider, $urlRouterProvider) {
 
@@ -11,53 +13,66 @@ var app = angular.module('nisumApp', [ 'ui.router', 'configurationsApp',
 				function($rootScope, $window, $state, $location,
 						localStorageService, $timeout) {
 					$rootScope.navBarToggle = false;
-					$rootScope.$on("$locationChangeStart", function(event,
-							next, current) {
+					$rootScope.$on("$locationChangeStart",
+							function(event, next, current) {
 
-						$rootScope.urlChanged = $location.path();
+								$rootScope.urlChanged = $location.path();
 
-						var urls = [ '/home', '/questions', '/configurations',
-								'/profile' ,'/question','/addquestion']
-						if (urls.indexOf($rootScope.urlChanged) > -1) {
-							$rootScope.navBarToggle = false;
-						}else if($rootScope.urlChanged.indexOf('/question/')>-1){
-							$rootScope.navBarToggle = false;
-						} 
-						else {
-							$rootScope.navBarToggle = true;
-						}
+								var urls = [ '/home', '/questions',
+										'/configurations', '/profile',
+										'/question', '/addquestion' ]
+								if (urls.indexOf($rootScope.urlChanged) > -1) {
+									$rootScope.navBarToggle = false;
+								} else if ($rootScope.urlChanged
+										.indexOf('/question/') > -1) {
+									$rootScope.navBarToggle = false;
+								} else {
+									$rootScope.navBarToggle = true;
+								}
 
-						// $timeout(function(){
-						var profile = localStorageService.get("profile");
-						if (profile !== (undefined || null)
-								&& $rootScope.urlChanged === '/login') {
+								// $timeout(function(){
+								var profile = localStorageService
+										.get("profile");
+								if (profile !== (undefined || null)
+										&& $rootScope.urlChanged === '/login') {
 
-							$state.go('configurations');
-							// if (profile.username === 'admin@gmail.com') {
-							// $state.go("admin");
-							// }
-							// else if (profile.username === 'user@gmail.com') {
-							// $state.go("questions");
-							// }
+									$state.go('configurations');
+									// if (profile.username ===
+									// 'admin@gmail.com') {
+									// $state.go("admin");
+									// }
+									// else if (profile.username ===
+									// 'user@gmail.com') {
+									// $state.go("questions");
+									// }
 
-						} else if (profile === null) {
-							$state.go('login');
-						}
-						// },50);
+								} else if (profile === null) {
+									$state.go('login');
+								}
+								// },50);
 
-					})
+							})
 				})
 		.controller(
 				'mainController',
-				function($scope, localStorageService, $state) {
+				function($scope, $rootScope, localStorageService, $state, $http) {
 					var vm = this;
-					vm.redirect=function(){
+					vm.redirect = function() {
 						$state.go('addquestion');
 					}
 					vm.getProfile = function() {
 
 						vm.profile = localStorageService.get('profile');
 					}
+					$http
+							.get('v1/questionaries/retrieveCount')
+							.then(
+									function(response) {
+										 $rootScope.questionCount = response.data.questionCount;
+										$rootScope.userCount = response.data.userCount;
+									}, function(response) {
+										console.log(response);
+									});
 					vm.logout = function() {
 
 						localStorageService.remove('profile');
@@ -67,4 +82,5 @@ var app = angular.module('nisumApp', [ 'ui.router', 'configurationsApp',
 								+ navigate + "/login";
 						sessionStorage.clear();
 					}
+					
 				})

@@ -1,5 +1,4 @@
-angular.module('nisumApp')
-    .factory('CategoryListModel',["CategoryModel", function( categoryModel){
+app.factory('CategoryListModel',["CategoryModel", function( categoryModel){
     	function CategoryList() {
     	   var _self = this;
     	   this.categories = [];
@@ -38,7 +37,17 @@ angular.module('nisumApp')
       		  return _self.categories;
       	  };
       	  
-      	 
+      	  this.editCategory=function(category)
+      	  {
+      		  	var i= -1;
+      		  	_self.categories.find(function(innerCategory){
+      		  		i++;
+      		  		if(innerCategory.categoryId===category.categoryId){
+      		  			_self.categories[i]=category;
+      		  		}
+      		  	})
+      		  	
+      	  }
       	 
       	  
     	}

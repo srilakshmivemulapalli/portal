@@ -23,12 +23,13 @@
 
 <!-- <link href="webjars/bootstrap/3.3.7/css/bootstrap.min.css"
 	rel='stylesheet' /> -->
-
+<link rel="stylesheet" type="text/css"
+	href="css/multiselect.css" />
 
 <link rel='stylesheet' id='bootstrap-css'
 	href='bower_components/bootstrap/dist/css/bootstrap.min.css'
 	type='text/css' media='all' />
-<link rel="stylesheet" href="css/bootstrap-select.min.css">
+
 <link rel='stylesheet' id='date-picker-style-css'
 	href='css/bootstrap-datetimepicker.min.css' type='text/css' media='all' />
 <link rel='stylesheet' id='demobar-font-awesome-css'
@@ -201,7 +202,9 @@
 	<script src="bower_components/jquery/dist/jquery.js"></script>
 
 	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-	<script src="js/common/bootstrap-select.min.js"></script>
+ 
+	<script
+		src="js/common/multiselect-tpls.js"></script>
 	<script
 		src='http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.5.0/textAngular-rangy.min.js'></script>
 	<script
@@ -222,7 +225,7 @@
 	<script src='js/services/roleService.js'></script>
 	<script src='js/services/userService.js'></script>
 	<script src='js/directives/customDirectives.js'></script>
-	
+
 	<!-- controllers scripts -->
 	<script src="js/questions/questionsController.js"></script>
 	<script src="js/questions/questionReplyController.js"></script>
@@ -230,10 +233,14 @@
 	<script src='js/login/loginController.js'></script>
 	<script src='js/profile/profileController.js'></script>
 	<script src='js/questions/addQuestionController.js'></script>
-	
+
 	<!-- models scripts -->
 	<script src="js/models/categoryModel.factory.js"></script>
-    <script src="js/models/categoryListModel.factory.js"></script>
+	<script src="js/models/categoryListModel.factory.js"></script>
+	<script src="js/models/roleModel.factory.js"></script>
+	<script src="js/models/roleListModel.factory.js"></script>
+	<script src="js/models/userModel.factory.js"></script>
+	<script src="js/models/userListModel.factory.js"></script>
 
 </body>
 </html>

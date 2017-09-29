@@ -1,4 +1,4 @@
-angular.module('nisumApp')
+app
     .factory('CategoryModel', ['$http', function($http) {
     		function Category(categoryCopy) {
     		  this.categoryId = null;
