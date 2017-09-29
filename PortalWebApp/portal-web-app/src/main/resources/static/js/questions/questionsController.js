@@ -1,7 +1,8 @@
 questionApp.controller('questionsController', function($scope, $stateParams,
-		localStorageService, questionService,categoryService, PagerService) {
-	$('.selectpicker').selectpicker();
+		localStorageService,$rootScope, questionService,categoryService, PagerService) {
+	
 	$scope.questionsList = [];
+	$scope.pageSize=5;
 	$scope.unAnsweredQuestionsList = [];
 	if (localStorageService.get('categoriesList') !== (undefined || null)) {
 		$scope.categoriesList = localStorageService.get('categoriesList');
@@ -9,6 +10,7 @@ questionApp.controller('questionsController', function($scope, $stateParams,
 		categoryService.getCategories().then(function(response) {
 			
 			$scope.categoriesList = response;
+			console.log(response);
 			localStorageService.set('categoriesList', response);
 		}, function(response) {
 				console.log(response);
@@ -21,6 +23,8 @@ questionApp.controller('questionsController', function($scope, $stateParams,
 		questionService.getQuestions().then(function(response) {
 
 			$scope.questionsList = response;
+			$rootScope.questionCount=response.totalQuestions;
+			$rootScope.userCount=response.totalUsers;
 
 		})
 

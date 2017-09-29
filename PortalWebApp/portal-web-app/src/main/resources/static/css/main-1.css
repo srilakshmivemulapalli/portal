@@ -762,6 +762,7 @@ body.single-question .form-reply{
 	width: 228px;
 	right: 5px;
 	position:absolute;
+	
 	/*border: 1px solid #d1d5e0;*/
 	/* -webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
@@ -820,11 +821,12 @@ ul.q-f-sort li a {
 	    -ms-transition: all 0.3s ease;
 	        transition: all 0.3s ease;
 }
-.sort-questions ul li a.active,
-.sort-questions ul li a:hover,
-ul.q-f-sort li a.active,
-ul.q-f-sort li a:hover {
+.sort-questions ul .active,
+.sort-questions ul li:hover,
+ul.q-f-sort .active,
+ul.q-f-sort li:hover {
 	border-bottom: 4px solid #f39c12;
+	cursor:pointer;
 }
 .number-of-questions-wrapper {
 	text-align: right;
@@ -4053,10 +4055,19 @@ body.admin-bar .q-filter-waypoints {
 	top:7px;
 	padding-left:10px;
 }
-.select-categories .select-question{
-	width:100% !important;
+ .customselect .btn-group{
+	
+	float: none;
 }
-
+.customselect .select-btn{
+	min-width:150px;
+}
+ 
+ .btn .caret{
+ float: right;
+    margin: 10px 0px 10px 3px;
+ }
+ 
 /***************login****************/
 .card-container.card {
     max-width: 400px;
