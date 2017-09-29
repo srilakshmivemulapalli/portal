@@ -4,6 +4,8 @@ questionApp.controller('questionsController', function($scope, $stateParams,
 	$scope.questionsList = [];
 	$scope.pageSize=5;
 	$scope.unAnsweredQuestionsList = [];
+	$scope.retriveMyQuestionariesList =[];
+	
 	if (localStorageService.get('categoriesList') !== (undefined || null)) {
 		$scope.categoriesList = localStorageService.get('categoriesList');
 	} else {
@@ -41,7 +43,15 @@ questionApp.controller('questionsController', function($scope, $stateParams,
 
 	}
 	
-	
+	$scope.retriveMyQuestionaries = function() {
+
+		var profile=localStorageService.get('profile');
+		questionService.retriveMyQuestionaries(profile.emailId).then(function(response) {
+			$scope.retriveMyQuestionariesList = response;
+
+		})
+
+	}
 	
 	$scope.getAllQuestions();
 	$scope.pager = {};

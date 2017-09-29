@@ -36,10 +36,11 @@
 	<div class="row question-filter" id="question_filter">
 		<div class="col-md-6 col-xs-6 sort-questions">
 			<ul>
-				<li class="active" ><a data-target="#1" data-toggle="tab">Latest</a></li>
+				<li class="active"><a data-target="#1" data-toggle="tab">Latest</a></li>
 				<li><a data-target="#2" data-toggle="tab"
 					ng-click='getAllUnansweredQuestions()'>Unanswered</a></li>
-				<li><a data-target="#3" data-toggle="tab">My Posts</a></li>
+				<li><a class="" data-target="#3" data-toggle="tab"
+					ng-click='retriveMyQuestionaries()'>My Posts</a></li>
 			</ul>
 		</div>
 		<div class="col-md-6 col-xs-6">
@@ -107,7 +108,6 @@
 
 		</div>
 		<div class="tab-pane" id="2">
-
 			<div class="main-questions-list">
 				<ul id="main_questions_list">
 					<li ng-repeat="question in unAnsweredQuestionsList.questionDetails"
@@ -158,7 +158,54 @@
 
 
 		</div>
-		<div class="tab-pane" id="3">My Posts</div>
+		<div class="tab-pane" id="3">
+			<div class="main-questions-list">
+				<ul id="main_questions_list">
+					<li
+						ng-repeat="question in retriveMyQuestionariesList.questionDetails"
+						class="question-item question type-question status-publish hentry question_category-business qa_tag-business-2 qa_tag-technology-2">
+						<div>
+							<div class="col-md-8 col-xs-8 q-left-content">
+								<div class="q-ltop-content">
+									<h2>
+										<a href="#/question/{{question.questionId}}"
+											class="question-title" ng-bind-html='question.question'></a>
+									</h2>
+								</div>
+								<div class="q-lbtm-content">
+									<div class="question-excerpt">
+										<p ng-bind-html='question.description'></p>
+									</div>
+									<div class="question-cat">
+										<ul class="question-tags">
+											<li><a class="q-tag" href="">{{question.categoryName}}</a></li>
+										</ul>
+										<div class="clearfix"></div>
+										<a href=""> <span class="author-avatar"> <img
+												src="images/userlogo.png" class="avatar" alt="" />
+										</span> <span class="author-name">{{question.emailId}}</span>
+										</a> <span class="question-time">Asked on
+											{{question.createdDate | date: 'MMM dd, yyyy'}} </span>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4 col-xs-4 q-right-content">
+								<ul class="question-statistic">
+									<li class="active" ng-show="question.questionRepliesCount>0"><span
+										class="question-answers">{{question.questionRepliesCount}}
+									</span> answers</li>
+									<li ng-show="question.questionRepliesCount<=0"><span
+										class="question-votes">{{question.questionRepliesCount}}
+									</span> answers</li>
+								</ul>
+								<div class="pumping"></div>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
 	</div>
 
 

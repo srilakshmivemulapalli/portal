@@ -23,6 +23,16 @@ app.factory('questionService', function($http, $q) {
 		return deferred.promise;
 	}
 	
+	qs.retriveMyQuestionaries = function(emailId) {
+		var deferred = $q.defer();
+		$http.get('v1/questionaries/retrieve/myQuestions/'+emailId).success(function(response) {
+			deferred.resolve(response);
+		}).error(function(response) {
+			deferred.reject(response);
+		})
+		return deferred.promise;
+	}
+	
 	
 	
 	qs.addQuestion = function(data) {
