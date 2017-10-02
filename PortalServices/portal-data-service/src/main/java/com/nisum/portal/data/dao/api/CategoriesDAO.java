@@ -10,7 +10,7 @@ public interface CategoriesDAO {
 
 	Integer addCategory(Categories category);
 
-	boolean updateCategories(Categories categories);
+	Integer updateCategories(Categories categories);
 
 	Categories getCategory(Integer id);
 

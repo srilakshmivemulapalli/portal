@@ -97,7 +97,7 @@ public class CategoriesServiceImplTest {
 
 	@Test
 	public void updateCategoryTest() throws CategoryServiceException {
-		Boolean status = true;
+		Integer status = 1;
 		Date date = new Date();
 		Timestamp createdDate = new Timestamp(date.getTime());
 		CategoriesDTO categoryDto = new CategoriesDTO();
@@ -107,7 +107,7 @@ public class CategoriesServiceImplTest {
 		Categories categories = CategoryServiceUtil.convertDtoTODao(categoryDto);
 		when(categoriesDAO.updateCategories(categories)).thenReturn(status);
 		assertEquals("success", categoryServiceImpl.update(categoryDto));
-		when(categoriesDAO.updateCategories(new Categories())).thenReturn(false);
+		when(categoriesDAO.updateCategories(new Categories())).thenReturn(0);
 		assertEquals("fail", categoryServiceImpl.update(new CategoriesDTO()));
 	}
 

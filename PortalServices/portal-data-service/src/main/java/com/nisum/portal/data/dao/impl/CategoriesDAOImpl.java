@@ -61,17 +61,48 @@ public class CategoriesDAOImpl implements CategoriesDAO {
 	 * .data.domain.Categories)
 	 */
 	@Override
-	public boolean updateCategories(Categories categories) {
+	public Integer updateCategories(Categories categories) {
 		logger.info("CategoriesDAOImpl :: updateCategories :: Category Details " + categories.toString());
 		Categories category = categoriesRepository.findByCategoryId(categories.getCategoryId());
 		Categories findByCategoryName = categoriesRepository.findByCategoryName(categories.getCategoryName());
-		boolean flag;
-		if (category != null&&findByCategoryName==null) {
-			categoriesRepository.save(categories);
-			flag = true;
-		} else {
-			logger.error("Unable To Update Categories with categoryId not found."+categories.getCategoryId());
-			flag = false;
+		List<Categories> findAll = categoriesRepository.findAll();
+		final Integer categoryId = categories.getCategoryId();
+		final String categoryName = categories.getCategoryName();
+		final String description = categories.getDescription();
+		Integer flag = 0;
+		try
+		{
+		for(Categories c:findAll)
+		{
+			if(category!=null&&categoryName!=null&&description!=null)
+			{
+				if(findByCategoryName==null&&!c.getCategoryName().equalsIgnoreCase(categoryName)&&!c.getDescription().equalsIgnoreCase(description))
+				{
+					logger.info("CategoriesDAOImpl :: updateCategories :: Both CategoryName and Description updated");
+					categoriesRepository.save(categories);
+					flag=1;
+					break;
+				}
+				else if(c.getCategoryId()==categoryId&&c.getCategoryName().equalsIgnoreCase(categoryName)&&!c.getDescription().equalsIgnoreCase(description))
+				{
+					logger.info("CategoriesDAOImpl :: updateCategories :: Only Description is updated");
+					c.setDescription(description);
+					categoriesRepository.save(c);
+					flag=2;
+					break;
+				}
+				else if(c.getCategoryName().equalsIgnoreCase(categoryName)&&c.getDescription().equalsIgnoreCase(description))
+				{
+					logger.info("CategoriesDAOImpl :: updateCategories :: Category Nam Already Existed");
+					flag=0;
+					break;
+				}
+			}
+		}
+		}
+		catch(Exception e)
+		{
+			logger.error("CategoriesDAOImpl :: updateCategories :: Got An Exception -->"+e);
 		}
 		return flag;
 	}

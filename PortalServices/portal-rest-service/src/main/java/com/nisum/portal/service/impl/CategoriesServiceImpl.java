@@ -78,13 +78,19 @@ public class CategoriesServiceImpl implements CategoriesService {
 		Timestamp createdDate = new Timestamp(date.getTime());
 		categoriesDTO.setCreateDate(createdDate);
 		Categories categories = CategoryServiceUtil.convertDtoTODao(categoriesDTO);
-		boolean flag = categoriesDAO.updateCategories(categories);
+		Integer flag = categoriesDAO.updateCategories(categories);
 		try {
-			if (flag == true) {
+			if (flag == 1) {
 				logger.info("CategoriesServiceImpl :: updateCategories :: Categories updated Successfully");
 				serviceStatusDto.setStatus(true);
 				serviceStatusDto.setMessage(Constants.MSG_RECORD_UPDATE);
-			} else {
+			} else if(flag==2)
+			{
+				logger.info("CategoriesServiceImpl :: updateCategories :: Only Description is updated Successfully");
+				serviceStatusDto.setStatus(true);
+				serviceStatusDto.setMessage(Constants.CATEGORY_DESCRIPTION_ONLY_EXISTS);
+			}
+			else {
 				logger.error(
 						"CategoriesServiceImpl :: updateCategories :: Unable To Update Categories with categoryId not found."
 								+ categories.getCategoryId());
