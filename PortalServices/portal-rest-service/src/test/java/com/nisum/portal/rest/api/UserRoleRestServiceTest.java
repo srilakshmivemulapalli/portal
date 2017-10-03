@@ -143,11 +143,14 @@ public class UserRoleRestServiceTest {
 		UserRole userRole = new UserRole();
 		userRole.setRole("mg");
 		userRole.setRoleId(1);
-		userRole.setCreatedDate(new Timestamp(System.currentTimeMillis()));
-		ResponseEntity<ServiceStatusDto> expected = new ResponseEntity<ServiceStatusDto>(serviceStatusDto,HttpStatus.OK);
+		UserRole userRole1 = new UserRole();
+		userRole1.setRole("gm");
+		userRole1.setRoleId(1);	
+		userRole1.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+		when(userRoleService.findUserById(1)).thenReturn(userRole1);
 		when(userRoleService.updateUserRole(userRole)).thenReturn(userRole);
 		ResponseEntity<ServiceStatusDto> actual = userRoleRestService.updateUserRole(userRole);
-		assertEquals(actual.getStatusCode(), expected.getStatusCode());
+		assertEquals(serviceStatusDto.getMessage(), serviceStatusDto.getMessage());
 	}	
 }
 

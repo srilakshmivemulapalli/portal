@@ -130,7 +130,7 @@ public class UserRoleRestService {
 					return new ResponseEntity<ServiceStatusDto>(serviceStatusDto,HttpStatus.OK);
 
 			} else {
-				serviceStatusDto.setMessage(Constants.USER_ROLE_NOT_EXISTS);
+				serviceStatusDto.setMessage(Constants.USER_ROLE_CANNOTBE_SAME);
 				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto,HttpStatus.EXPECTATION_FAILED);
 
 
