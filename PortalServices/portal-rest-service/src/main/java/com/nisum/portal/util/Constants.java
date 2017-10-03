@@ -20,7 +20,7 @@ public class Constants {
 	public static final String USER_NOT_EXISTS = "User doesnot exists !!";
 	public static final String USERS_NOT_AVALIABLE = "Users Not Available !!";
 	
-	public static final String USER_ROLE_NOT_EXISTS = "User role doesnot exists !!";
+	public static final String USER_ROLE_NOT_EXISTS = "UserRole cannot be same !!";
 	public static final String USER_ROLE_UPDATED = "User role updated successfully !!";
 	public static final String USER_ROLE_EXISTS = "User Role Exists Already !!";
 	public static final String USER_ROLE_ADDED = "User Role Added Successfully !!";
@@ -28,6 +28,7 @@ public class Constants {
 	public static final String USER_ROLE_NOT_EXIST = "UserRole Details doest'n Exist !!";
 	public static final String USER_TYPE = "user";
 	public static final String USER_STATUS = "YES";
+	public static final String  USER_ROLE_CANNOTBE_SAME ="UserRole cannot be same";
 	
 
 }
