@@ -22,7 +22,7 @@ app.factory('roleService', function($http, $q) {
 	}
 	rs.deleteRole=function(roleid) {
 		var deferred = $q.defer();
-		$http.put('v1/userrole/delete' + roleid).success(function(response) {
+		$http.delete('v1/userrole/delete/' + roleid).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
