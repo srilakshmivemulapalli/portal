@@ -211,7 +211,7 @@ public class UserRestService {
 
 				for (UserRoleDTO dto : roleDTOs) {
 
-					if (Constants.USER_TYPE.equals(dto.getRole())) {
+					if (Constants.USER_TYPE.equalsIgnoreCase(dto.getRole())) {
 
 						role = new UserRoleDTO();
 						role.setCreatedDate(dto.getCreatedDate());
