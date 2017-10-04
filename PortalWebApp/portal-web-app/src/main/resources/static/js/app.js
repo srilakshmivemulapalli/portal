@@ -2,7 +2,7 @@ var app = angular
 		.module(
 				'nisumApp',
 				[ 'ui.router', 'configurationsApp', 'profileApp', 'loginApp',
-						'questionsApp', 'directive.g+signin',
+						'questionsApp','trainingsApp', 'directive.g+signin',
 						'LocalStorageModule', 'textAngular', 'am.multiselect' ])
 
 		.config(function($stateProvider, $urlRouterProvider) {
@@ -20,7 +20,7 @@ var app = angular
 
 								var urls = [ '/home', '/questions',
 										'/configurations', '/profile',
-										'/question', '/addquestion' ]
+										'/question', '/addquestion','/trainings' ]
 								if (urls.indexOf($rootScope.urlChanged) > -1) {
 									$rootScope.navBarToggle = false;
 								} else if ($rootScope.urlChanged
