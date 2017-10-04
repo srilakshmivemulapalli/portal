@@ -54,6 +54,7 @@ public class UserRestServiceTest {
 		user.setEmailId("test@test.com");
 		user.setLoginDate(new Timestamp(date.getTime()));
 		user.setActiveStatus("YES");
+		user.setCreateDate(new Timestamp(date.getTime()));
 		user.setName("test");
 		role.setRoleId(1);
 		role.setRole("Admin");

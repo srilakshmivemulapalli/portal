@@ -117,6 +117,7 @@ public class UserServiceImplTest {
 		role.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 		user.setRole(role);
 		User userExpected = new User();
+		when (userDao.findUserById(1)).thenReturn(user);
 		when (userDao.updateUser(user)).thenReturn(userExpected);
 		PowerMockito.mockStatic(UserServiceUtil.class);
 		UserDTO userdto=new UserDTO();

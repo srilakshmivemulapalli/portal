@@ -27,7 +27,7 @@ import com.nisum.portal.util.Constants;
 
 @RestController
 @RequestMapping(value = "/v1/user")
-public class UserRestService {
+public class UserRestService { 
 
 	private static Logger logger = LoggerFactory.getLogger(CategoriesRestService.class);
 
