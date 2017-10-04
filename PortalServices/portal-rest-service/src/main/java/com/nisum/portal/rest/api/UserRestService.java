@@ -108,12 +108,12 @@ public class UserRestService {
 			if(obj.equals(null))
 			{
 				serviceStatusDto.setMessage(Constants.USER_NOT_EXISTS);
-				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.OK);
+				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.NOT_FOUND);
 			}
 			else
 			{
-				serviceStatusDto.setMessage(Constants.USER_NOT_EXISTS);
-				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.NOT_FOUND);
+				serviceStatusDto.setMessage(Constants.USER_UPDATED );
+				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.OK);
 			}
 		} catch (Exception e) {
 			logger.info("UserRestService :: UpdateUser :: Internal Server Error");
