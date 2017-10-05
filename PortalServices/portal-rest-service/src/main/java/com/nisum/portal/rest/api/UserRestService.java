@@ -1,6 +1,8 @@
 package com.nisum.portal.rest.api;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,13 +77,13 @@ public class UserRestService {
 		logger.info("UserRestService :: users");
 		Errors error = new Errors();
 		try {
-			List<UserDTO> users = userService.getUsers();
+			Map<String, UserDTO> users = userService.getUsers();
 			if (users.isEmpty()) {
 				error.setErrorCode("204");
 				error.setErrorMessage(Constants.USERS_NOT_AVALIABLE);
 				return new ResponseEntity<Errors>(error, HttpStatus.NO_CONTENT);
 			} else {
-				return new ResponseEntity<List<UserDTO>>(users, HttpStatus.OK);
+				return new ResponseEntity<Collection<UserDTO>>(users.values(), HttpStatus.OK);
 			}
 		} catch (Exception e) {
 			logger.info("UserRestService :: getUsers :: Internal Server Error");

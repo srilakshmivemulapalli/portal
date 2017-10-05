@@ -1,8 +1,7 @@
 package com.nisum.portal.service.api;
 
-import java.util.List;
+import java.util.Map;
 
-import com.nisum.portal.data.domain.User;
 import com.nisum.portal.service.dto.UserDTO;
 
 /**
@@ -38,7 +37,7 @@ public interface UserService {
 	 * Returns list of users
 	 * @return list of userDto objects
 	 */
-	List<UserDTO> getUsers();
+	Map<String, UserDTO> getUsers();
 
 	/**
 	 * Returns users count
