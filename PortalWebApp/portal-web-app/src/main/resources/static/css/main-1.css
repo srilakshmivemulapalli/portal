@@ -1283,8 +1283,7 @@ a.hide-comment {
 	display: inline-block;
 	margin-right: 10px;
 }
-.paginations ul li a,
-.paginations ul li span {
+.paginations ul li a{
 	border: 1px solid rgba(140,151,178,.4);
 	width: auto;
 	height: 26px;
@@ -1298,9 +1297,10 @@ a.hide-comment {
 	border-radius: 3px; /* border radius */
 	font-size: 13px;
 	color: #8c97b2;
+	    cursor: pointer;
 }
 .paginations ul li a:hover,
-.paginations ul li span.current {
+.paginations ul li .current {
 	color: #fff;
 	background-color: #3397db; /* layer fill content */
 
@@ -4067,6 +4067,90 @@ body.admin-bar .q-filter-waypoints {
  float: right;
     margin: 10px 0px 10px 3px;
  }
+ 
+.content {
+	position: relative;
+	width: 90%;
+	max-width: 400px;
+	margin: auto;
+	overflow: hidden;
+}
+
+.content .content-overlay {
+	background: rgba(0, 0, 0, 0.7);
+	position: absolute;
+	height: 99%;
+	width: 100%;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	opacity: 0;
+	-webkit-transition: all 0.4s ease-in-out 0s;
+	-moz-transition: all 0.4s ease-in-out 0s;
+	transition: all 0.4s ease-in-out 0s;
+}
+
+.content:hover .content-overlay {
+	opacity: 1;
+}
+
+.content-image {
+	width: 100%;
+	min-height: 220px;
+}
+
+.content-details {
+	position: absolute;
+	text-align: center;
+	padding-left: 1em;
+	padding-right: 1em;
+	width: 100%;
+	top: 50%;
+	left: 50%;
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	-webkit-transition: all 0.3s ease-in-out 0s;
+	-moz-transition: all 0.3s ease-in-out 0s;
+	transition: all 0.3s ease-in-out 0s;
+}
+
+.content:hover .content-details {
+	top: 50%;
+	left: 50%;
+	opacity: 1;
+}
+
+.content-details h3 {
+	color: #fff;
+	font-weight: 500;
+	letter-spacing: 0.15em;
+	margin-bottom: 0.5em;
+	text-transform: uppercase;
+}
+
+.content-details p {
+	color: #fff;
+	font-size: 0.8em;
+}
+
+.fadeIn-bottom {
+	top: 80%;
+}
+
+.fadeIn-top {
+	top: 20%;
+}
+
+.fadeIn-left {
+	left: 20%;
+}
+
+.fadeIn-right {
+	left: 80%;
+}
  
 /***************login****************/
 .card-container.card {
