@@ -41,7 +41,7 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 		QuestionsDTO questionsDTO = new QuestionsDTO();
 		questionsDTO.setTotalQuestions(questionariesDAO.getQuestionariesCount());
 		questionsDTO.setTotalUsers(userDAO.getUserCount());
-		QuestionsDTO dto = QuestionariesUtil.convertDaoToDto(questionariesList,questionsDTO);
+		QuestionsDTO dto = QuestionariesUtil.convertDaoToDto(questionariesList,questionsDTO,null);
 		for (QuestionariesDTO qdto : dto.getQuestionDetails()) {
 			User user=userDAO.findByEmailId(qdto.getEmailId());//TODO: Need to read from cache
 			if(user!=null && StringUtils.isNotEmpty(user.getImage())) {
@@ -73,13 +73,22 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 	public QuestionsDTO fetchMyQuestionaries(String emailId) {
 		emailId = emailId.substring(0, emailId.indexOf("@"))+"@nisum.com";
 		List<Questionaries> questionariesList = questionariesDAO.fetchMyQuestionaries(emailId);
+		User user=userDAO.findByEmailId(emailId);//TODO: Need to read from cache
 		QuestionsDTO questionsDTO = new QuestionsDTO();
-		return QuestionariesUtil.convertDaoToDto(questionariesList,questionsDTO);
+		QuestionsDTO dto = QuestionariesUtil.convertDaoToDto(questionariesList,questionsDTO,user.getImage());
+		return dto;
 	}
 
 	@Override
 	public QuestionsDTO retriveAllUnansweredQuestionaries() {
-		return QuestionariesUtil.convertDaoToDto(questionariesDAO.retriveAllUnansweredQuestionaries(),new QuestionsDTO());
+		QuestionsDTO dto = QuestionariesUtil.convertDaoToDto(questionariesDAO.retriveAllUnansweredQuestionaries(),new QuestionsDTO(),null);
+		for (QuestionariesDTO qdto : dto.getQuestionDetails()) {
+			User user=userDAO.findByEmailId(qdto.getEmailId());//TODO: Need to read from cache
+			if(user!=null && StringUtils.isNotEmpty(user.getImage())) {
+				qdto.setDisplayImage(user.getImage());
+			}
+		}
+		return dto;
 	}
 
 }
