@@ -61,9 +61,7 @@ public class UserRestService {
 			}
 		} catch (Exception e) {
 			logger.info("UserRestService :: deleteUser :: Internal Server Error");
-			error.setErrorCode("500");
-			error.setErrorMessage(Constants.INTERNALSERVERERROR);
-			return new ResponseEntity<Errors>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new UserServiceException(Constants.INTERNALSERVERERROR, e);
 		}
 	}
 
@@ -87,9 +85,7 @@ public class UserRestService {
 			}
 		} catch (Exception e) {
 			logger.info("UserRestService :: getUsers :: Internal Server Error");
-			error.setErrorCode("500");
-			error.setErrorMessage(Constants.INTERNALSERVERERROR);
-			return new ResponseEntity<Errors>(error,HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new UserServiceException(Constants.INTERNALSERVERERROR, e);
 		}
 	}
 
