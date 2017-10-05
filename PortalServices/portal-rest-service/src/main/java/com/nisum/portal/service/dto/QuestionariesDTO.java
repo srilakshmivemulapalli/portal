@@ -15,6 +15,8 @@ public class QuestionariesDTO {
 	private String emailId;
 	private String displayName;
 	
+	private String displayImage;
+	
 	private Integer questionRepliesCount;
 	
 	/**
@@ -71,6 +73,19 @@ public class QuestionariesDTO {
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
 	}
+	public String getDisplayImage() {
+		return displayImage;
+	}
+	public void setDisplayImage(String displayImage) {
+		this.displayImage = displayImage;
+	}
+	@Override
+	public String toString() {
+		return "QuestionariesDTO [questionId=" + questionId + ", question=" + question + ", description=" + description
+				+ ", createdDate=" + createdDate + ", categoryName=" + categoryName + ", emailId=" + emailId
+				+ ", displayName=" + displayName + ", displayImage=" + displayImage + ", questionRepliesCount="
+				+ questionRepliesCount + "]";
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -78,10 +93,12 @@ public class QuestionariesDTO {
 		result = prime * result + ((categoryName == null) ? 0 : categoryName.hashCode());
 		result = prime * result + ((createdDate == null) ? 0 : createdDate.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + ((displayImage == null) ? 0 : displayImage.hashCode());
 		result = prime * result + ((displayName == null) ? 0 : displayName.hashCode());
 		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
 		result = prime * result + ((question == null) ? 0 : question.hashCode());
-		result = (int) (prime * result + questionId);
+		result = prime * result + ((questionId == null) ? 0 : questionId.hashCode());
+		result = prime * result + ((questionRepliesCount == null) ? 0 : questionRepliesCount.hashCode());
 		return result;
 	}
 	@Override
@@ -108,6 +125,11 @@ public class QuestionariesDTO {
 				return false;
 		} else if (!description.equals(other.description))
 			return false;
+		if (displayImage == null) {
+			if (other.displayImage != null)
+				return false;
+		} else if (!displayImage.equals(other.displayImage))
+			return false;
 		if (displayName == null) {
 			if (other.displayName != null)
 				return false;
@@ -123,15 +145,16 @@ public class QuestionariesDTO {
 				return false;
 		} else if (!question.equals(other.question))
 			return false;
-		if (questionId != other.questionId)
+		if (questionId == null) {
+			if (other.questionId != null)
+				return false;
+		} else if (!questionId.equals(other.questionId))
+			return false;
+		if (questionRepliesCount == null) {
+			if (other.questionRepliesCount != null)
+				return false;
+		} else if (!questionRepliesCount.equals(other.questionRepliesCount))
 			return false;
 		return true;
 	}
-	@Override
-	public String toString() {
-		return "QuestionariesDTO [questionId=" + questionId + ", question=" + question + ", description=" + description
-				+ ", createdDate=" + createdDate + ", categoryName=" + categoryName
-				+ ", emailId=" + emailId + ", displayName=" + displayName + "]";
-	}
-	
 }

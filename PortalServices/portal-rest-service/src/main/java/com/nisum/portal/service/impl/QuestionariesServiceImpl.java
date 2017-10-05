@@ -2,6 +2,7 @@ package com.nisum.portal.service.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,10 @@ import com.nisum.portal.data.dao.api.CategoriesDAO;
 import com.nisum.portal.data.dao.api.QuestionariesDAO;
 import com.nisum.portal.data.dao.api.UserDAO;
 import com.nisum.portal.data.domain.Questionaries;
+import com.nisum.portal.data.domain.User;
 import com.nisum.portal.service.api.QuestionariesService;
 import com.nisum.portal.service.dto.CountDTO;
+import com.nisum.portal.service.dto.QuestionariesDTO;
 import com.nisum.portal.service.dto.QuestionsDTO;
 import com.nisum.portal.util.Constants;
 import com.nisum.portal.util.QuestionariesUtil;
@@ -38,7 +41,15 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 		QuestionsDTO questionsDTO = new QuestionsDTO();
 		questionsDTO.setTotalQuestions(questionariesDAO.getQuestionariesCount());
 		questionsDTO.setTotalUsers(userDAO.getUserCount());
-		return QuestionariesUtil.convertDaoToDto(questionariesList,questionsDTO);
+		QuestionsDTO dto = QuestionariesUtil.convertDaoToDto(questionariesList,questionsDTO);
+		for (QuestionariesDTO qdto : dto.getQuestionDetails()) {
+			User user=userDAO.findByEmailId(qdto.getEmailId());//TODO: Need to read from cache
+			if(user!=null && StringUtils.isNotEmpty(user.getImage())) {
+				qdto.setDisplayImage(user.getImage());
+			}
+		}
+		
+		return dto;
 	}
 
 	@Override
