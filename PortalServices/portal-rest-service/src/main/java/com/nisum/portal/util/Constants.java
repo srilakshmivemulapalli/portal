@@ -30,5 +30,8 @@ public class Constants {
 	public static final String USER_STATUS = "YES";
 	public static final String  USER_ROLE_CANNOTBE_SAME ="UserRole cannot be same";
 	
+	// Training Constants
+		public static final String Training_Error="Error in While Saving the Record, plesae Try again !!!";
+		public static final String Training_No_Data="No Data Exist In DataBase !!!";
 
 }

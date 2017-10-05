@@ -65,3 +65,14 @@ CREATE TABLE `portal`.`Blogs` (
 
 ALTER TABLE `portal`.`User` 
 ADD COLUMN `image` VARCHAR(200) NULL DEFAULT NULL AFTER `createDate`;
+
+CREATE TABLE `portal`.`Trainings` (
+  `trainingId` int(11) NOT NULL AUTO_INCREMENT,
+  `trainingTitle` varchar(100) DEFAULT NULL,
+  `description` varchar(500) DEFAULT NULL,
+  `trainerName` varchar(100) DEFAULT NULL,
+  `trainingDate` datetime DEFAULT NULL,
+  `trainingStatus` varchar(100) DEFAULT NULL,
+  `trainingType` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`trainingId`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=big5;
