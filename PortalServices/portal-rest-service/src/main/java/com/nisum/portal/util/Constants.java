@@ -29,5 +29,5 @@ public class Constants {
 	public static final String USER_TYPE = "user";
 	public static final String USER_STATUS = "YES";
 	
-
+	public static final String TRAINING_FEEDBACK_EXISTS = "Training feedback to respective training already submitted !!";
 }

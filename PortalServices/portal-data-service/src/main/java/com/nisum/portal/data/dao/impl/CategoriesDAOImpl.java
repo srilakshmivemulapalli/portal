@@ -63,13 +63,13 @@ public class CategoriesDAOImpl implements CategoriesDAO {
 	@Override
 	public Integer updateCategories(Categories categories) {
 		logger.info("CategoriesDAOImpl :: updateCategories :: Category Details " + categories.toString());
+		Integer flag = 0;
 		Categories category = categoriesRepository.findByCategoryId(categories.getCategoryId());
 		Categories findByCategoryName = categoriesRepository.findByCategoryName(categories.getCategoryName());
 		List<Categories> findAll = categoriesRepository.findAll();
 		final Integer categoryId = categories.getCategoryId();
 		final String categoryName = categories.getCategoryName();
 		final String description = categories.getDescription();
-		Integer flag = 0;
 		try
 		{
 		for(Categories c:findAll)
@@ -103,6 +103,7 @@ public class CategoriesDAOImpl implements CategoriesDAO {
 		catch(Exception e)
 		{
 			logger.error("CategoriesDAOImpl :: updateCategories :: Got An Exception -->"+e);
+			flag=0;
 		}
 		return flag;
 	}

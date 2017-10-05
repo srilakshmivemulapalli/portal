@@ -1,6 +1,5 @@
 package com.nisum.portal.data.domain;
 
-
 import java.io.Serializable;
 import java.sql.Timestamp;
 
@@ -14,14 +13,14 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "User")
-public class User implements Serializable{
+public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column (name = "userId")
+	@Column(name = "userId")
 	private int userId;
-	@Column (name = "emailid")
+	@Column(name = "emailid")
 	private String emailId;
 	private String name;
 	private Timestamp loginDate;
@@ -29,36 +28,40 @@ public class User implements Serializable{
 	private Timestamp createDate;
 	private String image;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "roleId", referencedColumnName = "roleId")
 	private UserRole role;
 
 	/**
 	 * Returns User role
+	 * 
 	 * @return
 	 */
 	public UserRole getRole() {
 		return role;
 	}
-	
+
 	/**
 	 * Sets user role for a user
+	 * 
 	 * @param role
 	 */
 	public void setRole(UserRole role) {
-		this.role= role;
+		this.role = role;
 	}
 
 	/**
 	 * Returns user active status
+	 * 
 	 * @return
 	 */
 	public String getActiveStatus() {
 		return activeStatus;
 	}
-	
+
 	/**
 	 * Sets user active status
+	 * 
 	 * @param activeStatus
 	 */
 	public void setActiveStatus(String activeStatus) {
@@ -67,70 +70,79 @@ public class User implements Serializable{
 
 	/**
 	 * Returns user email id
+	 * 
 	 * @return
 	 */
 	public String getEmailId() {
 		return emailId;
 	}
-	
+
 	/**
 	 * Sets user email id
+	 * 
 	 * @param emailId
 	 */
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
 	}
-	
+
 	/**
 	 * Returns user id
+	 * 
 	 * @return
 	 */
 	public int getUserId() {
 		return userId;
 	}
-	
+
 	/**
 	 * Sets user id
+	 * 
 	 * @param userId
 	 */
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-	
+
 	/**
 	 * Returns email id
+	 * 
 	 * @return
 	 */
 	public String getemailId() {
 		return emailId;
 	}
-	
+
 	/**
 	 * Returns user created date
+	 * 
 	 * @return
 	 */
 	public Timestamp getLoginDate() {
 		return loginDate;
 	}
-	
+
 	/**
 	 * Sets user created date
+	 * 
 	 * @param loginDate
 	 */
 	public void setLoginDate(Timestamp loginDate) {
 		this.loginDate = loginDate;
 	}
-	
+
 	/**
 	 * Returns user name
+	 * 
 	 * @return
 	 */
 	public String getName() {
 		return name;
 	}
-	
+
 	/**
-	 * Sets user name 
+	 * Sets user name
+	 * 
 	 * @param name
 	 */
 	public void setName(String name) {
@@ -211,4 +223,24 @@ public class User implements Serializable{
 		this.image = image;
 	}
 
+	public User(int userId, String emailId, String name, Timestamp loginDate, String activeStatus, Timestamp createDate,
+			String image, UserRole role) {
+		super();
+		this.userId = userId;
+		this.emailId = emailId;
+		this.name = name;
+		this.loginDate = loginDate;
+		this.activeStatus = activeStatus;
+		this.createDate = createDate;
+		this.image = image;
+		this.role = role;
+	}
+
+	public User(int userId) {
+		this.userId = userId;
+	}
+
+	public User() {
+		// TODO Auto-generated constructor stub
+	}
 }
