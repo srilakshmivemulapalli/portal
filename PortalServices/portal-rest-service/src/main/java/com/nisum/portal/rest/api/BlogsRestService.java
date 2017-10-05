@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,21 +34,37 @@ public class BlogsRestService {
 	 * @throws CategoryServiceException
 	 */
 	@RequestMapping(value = "/retrieve", method = RequestMethod.GET)
-	public Object categories() throws BlogServiceException {
-		logger.info("BlogsRestService :: Blogs");
+	public Object getAllBlogs() throws BlogServiceException {
+		logger.info("BlogsRestService :: getAllBlogs");
 		try {
-		return blogService.getAllBlogs();
+			return blogService.getAllBlogs();
 		}
 		catch(Exception e) {
-			logger.error("BlogsRestService :: Blogs ");
+			logger.error("BlogsRestService :: getAllBlogs Error ");
 			Errors errors=new Errors();
-			errors.setErrorCode("Errors-Categories");
+			errors.setErrorCode("Errors-Blogs");
 			errors.setErrorMessage(e.getMessage());
 			return new ResponseEntity<Errors>(errors, HttpStatus.OK);
 		}
 		
 	}
 	
+	
+	
+	/**
+	 * exceptionHandler
+	 * 
+	 * @param ex
+	 * @return
+	 */
+	@ExceptionHandler(BlogServiceException.class)
+	public ResponseEntity<Errors> exceptionHandler(Exception ex) {
+		Errors errors = new Errors();
+
+		errors.setErrorCode("Errors-Blogs");
+		errors.setErrorMessage(ex.getMessage());
+		return new ResponseEntity<Errors>(errors, HttpStatus.OK);
+	}
 	
 	
 

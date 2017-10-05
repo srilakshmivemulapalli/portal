@@ -11,7 +11,9 @@ import com.nisum.portal.data.dao.api.BlogsDAO;
 import com.nisum.portal.data.dao.api.CategoriesDAO;
 import com.nisum.portal.data.domain.Blogs;
 import com.nisum.portal.service.api.BlogService;
+import com.nisum.portal.service.dto.BlogsDTO;
 import com.nisum.portal.service.dto.ServiceStatusDto;
+import com.nisum.portal.util.BlogsServiceUtil;
 
 @Service
 public class BlogServiceImpl implements BlogService{
@@ -22,33 +24,10 @@ public class BlogServiceImpl implements BlogService{
 	private BlogsDAO blogDAO;
 
 	@Override
-	public Blogs SubmitBlog( Blogs blog) {
-		return null;
-		
-	}
-
-	@Override
-	public Blogs getBlog() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ServiceStatusDto RemoveBlog() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ServiceStatusDto UpdateBlog() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Blogs> getAllBlogs() {
-		// TODO Auto-generated method stub
-		return blogDAO.getAllBlogs();
+	public List<BlogsDTO> getAllBlogs() {
+		logger.info("BlogServiceImpl :: getAllBlogs");
+		List<Blogs> blogs= blogDAO.getAllBlogs();
+		return BlogsServiceUtil.convertDaoTODto(blogs);
 	}
 
 }
