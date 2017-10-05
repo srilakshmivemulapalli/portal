@@ -20,7 +20,7 @@ var app = angular
 
 								var urls = [ '/home', '/questions',
 										'/configurations', '/profile',
-										'/question', '/addquestion','/trainings' ]
+										'/question', '/addquestion','/trainings','/onlineTrainings','/classRoomTrainings','/myTrainings' ]
 								if (urls.indexOf($rootScope.urlChanged) > -1) {
 									$rootScope.navBarToggle = false;
 								} else if ($rootScope.urlChanged
