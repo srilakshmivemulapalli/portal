@@ -30,5 +30,18 @@ public class BlogsServiceUtil {
 		return blogsDTOs;
 
 	}
+	
+	public static BlogsDTO convertDaoToDtoInstance(Blogs blog) {
+		BlogsDTO blogsDTO=new BlogsDTO();
+		if(blog!=null) {
+			blogsDTO.setBlogsId(blog.getBlogsId());
+			blogsDTO.setCategoryId(blog.getCategoryId());
+			blogsDTO.setUserId(blog.getUserId());
+			blogsDTO.setCreatedDate(blog.getCreatedDate());
+			blogsDTO.setDescription(blog.getDescription());
+			blogsDTO.setPath(blog.getPath());
+		}
+		return blogsDTO;
+	}
 
 }

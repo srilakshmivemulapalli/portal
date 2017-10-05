@@ -6,6 +6,8 @@ import com.nisum.portal.service.dto.BlogsDTO;
 
 public interface BlogService {
 	
-	public List<BlogsDTO> getAllBlogs();	
+	public List<BlogsDTO> getAllBlogs();
+	
+	public BlogsDTO getBlog(Integer id);
 
 }

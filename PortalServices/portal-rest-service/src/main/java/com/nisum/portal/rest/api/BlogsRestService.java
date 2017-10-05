@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,10 +29,10 @@ public class BlogsRestService {
 	@Autowired
 	BlogService blogService;
 	/**
-	 * categories
+	 * getAllBlogs
 	 * 
 	 * @return
-	 * @throws CategoryServiceException
+	 * @throws BlogServiceException
 	 */
 	@RequestMapping(value = "/retrieve", method = RequestMethod.GET)
 	public Object getAllBlogs() throws BlogServiceException {
@@ -48,6 +49,29 @@ public class BlogsRestService {
 		}
 		
 	}
+	
+	/**
+	 * getBlog
+	 * 
+	 * @return
+	 * @throws BlogServiceException
+	 */
+	
+	@RequestMapping(value = "/retrieve/{id}", method = RequestMethod.GET)
+	public Object getBlog(@PathVariable Integer id) throws BlogServiceException {
+		logger.info("CategoriesRestService :: getBlog");
+		try {
+			return blogService.getBlog(id);
+		}
+		catch(Exception e) {
+			logger.error("BlogServiceException :: getBlog ");
+			Errors errors=new Errors();
+			errors.setErrorCode("Errors-Blogs");
+			errors.setErrorMessage(e.getMessage());
+			return new ResponseEntity<Errors>(errors, HttpStatus.OK);
+		}
+	}
+	
 	
 	
 	

@@ -19,7 +19,13 @@ public class BlogsDAOImpl implements BlogsDAO {
 	BlogsRepository blogsRepository;
 	@Override
 	public List<Blogs> getAllBlogs() {
+		logger.info("BlogsDAOImpl :: getAllBlogs");
 		return blogsRepository.findAll();
+	}
+	@Override
+	public Blogs getBlog(Integer id) {
+		logger.info("BlogsDAOImpl :: getBlog");
+		return blogsRepository.findByBlogsId(id);
 	}
 
 }

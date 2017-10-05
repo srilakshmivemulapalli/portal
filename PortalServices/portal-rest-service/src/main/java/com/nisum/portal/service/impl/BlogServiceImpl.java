@@ -30,4 +30,11 @@ public class BlogServiceImpl implements BlogService{
 		return BlogsServiceUtil.convertDaoTODto(blogs);
 	}
 
+	@Override
+	public BlogsDTO getBlog(Integer id) {
+		logger.info("BlogServiceImpl :: getBlog");
+		Blogs blog=blogDAO.getBlog(id);
+		return BlogsServiceUtil.convertDaoToDtoInstance(blog);
+	}
+
 }
