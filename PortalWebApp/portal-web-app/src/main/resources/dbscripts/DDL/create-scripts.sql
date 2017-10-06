@@ -82,9 +82,10 @@ CREATE TABLE `portal`.`Trainings` (
 
 CREATE TABLE `portal`.`QuestionComment` (
   `commentId` int(11) NOT NULL AUTO_INCREMENT,
-  `questionId` int(11) DEFAULT NULL,
+  `questionsId` int(11) DEFAULT NULL,
   `commentdescription` varchar(1000) DEFAULT NULL,
   `createdDate` datetime DEFAULT NULL,
+  `emailId` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`commentId`),
   KEY `fk_questionId_QuestionComment_idx` (`questionId`),
   CONSTRAINT `fk_questionId_QuestionComment` FOREIGN KEY (`questionId`) REFERENCES `Questionaries` (`questionId`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -93,9 +94,10 @@ CREATE TABLE `portal`.`QuestionComment` (
 
 CREATE TABLE `portal`.`QuestionReplyComment` (
   `commentId` int(11) NOT NULL AUTO_INCREMENT,
-  `replyId` int(11) DEFAULT NULL,
+  `repliesId` int(11) DEFAULT NULL,
   `commentdescription` varchar(1000) DEFAULT NULL,
   `createdDate` datetime DEFAULT NULL,
+  `emailId` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`commentId`),
   KEY `fk_replyId_QuestionReplyComment_idx` (`replyId`),
   CONSTRAINT `fk_replyId_QuestionReplyComment` FOREIGN KEY (`replyId`) REFERENCES `QuestionReplies` (`replyId`) ON DELETE NO ACTION ON UPDATE NO ACTION

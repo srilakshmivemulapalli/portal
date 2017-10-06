@@ -1,6 +1,7 @@
 package com.nisum.portal.service.dto;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 
 public class QuestionariesDTO {
@@ -19,6 +20,21 @@ public class QuestionariesDTO {
 	
 	private Integer questionRepliesCount;
 	
+	private List<QuestionariesCommentsDTO>  questionComments;
+
+
+	/**
+	 * @return the questionComments
+	 */
+	public List<QuestionariesCommentsDTO> getQuestionComments() {
+		return questionComments;
+	}
+	/**
+	 * @param questionComments the questionComments to set
+	 */
+	public void setQuestionComments(List<QuestionariesCommentsDTO> questionComments) {
+		this.questionComments = questionComments;
+	}
 	/**
 	 * @return the questionRepliesCount
 	 */
@@ -79,13 +95,19 @@ public class QuestionariesDTO {
 	public void setDisplayImage(String displayImage) {
 		this.displayImage = displayImage;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "QuestionariesDTO [questionId=" + questionId + ", question=" + question + ", description=" + description
 				+ ", createdDate=" + createdDate + ", categoryName=" + categoryName + ", emailId=" + emailId
 				+ ", displayName=" + displayName + ", displayImage=" + displayImage + ", questionRepliesCount="
-				+ questionRepliesCount + "]";
+				+ questionRepliesCount + ", questionComments=" + questionComments + "]";
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -97,10 +119,14 @@ public class QuestionariesDTO {
 		result = prime * result + ((displayName == null) ? 0 : displayName.hashCode());
 		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
 		result = prime * result + ((question == null) ? 0 : question.hashCode());
+		result = prime * result + ((questionComments == null) ? 0 : questionComments.hashCode());
 		result = prime * result + ((questionId == null) ? 0 : questionId.hashCode());
 		result = prime * result + ((questionRepliesCount == null) ? 0 : questionRepliesCount.hashCode());
 		return result;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -144,6 +170,11 @@ public class QuestionariesDTO {
 			if (other.question != null)
 				return false;
 		} else if (!question.equals(other.question))
+			return false;
+		if (questionComments == null) {
+			if (other.questionComments != null)
+				return false;
+		} else if (!questionComments.equals(other.questionComments))
 			return false;
 		if (questionId == null) {
 			if (other.questionId != null)

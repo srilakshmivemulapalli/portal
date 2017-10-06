@@ -8,10 +8,14 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.nisum.portal.data.domain.QuestionReplies;
+import com.nisum.portal.data.domain.QuestionReplyComments;
 import com.nisum.portal.data.domain.Questionaries;
+import com.nisum.portal.data.domain.QuestionariesComments;
 import com.nisum.portal.service.api.UserService;
 import com.nisum.portal.service.dto.QuestionRepliesDTO;
+import com.nisum.portal.service.dto.QuestionReplyCommentsDTO;
 import com.nisum.portal.service.dto.QuestionReplysDTO;
+import com.nisum.portal.service.dto.QuestionariesCommentsDTO;
 import com.nisum.portal.service.dto.QuestionariesDTO;
 import com.nisum.portal.service.dto.UserDTO;
 
@@ -29,6 +33,19 @@ public class QuestionReplysUtil {
 			dto.setQuestionId(questionaries.getQuestionId());
 			dto.setCategoryName("Java"+questionaries.getCategoryId()+"TODO Need to read from Cache");
 			dto.setEmailId(questionaries.getEmailId());
+			List<QuestionariesCommentsDTO> questionariesCommentsDto = new ArrayList<QuestionariesCommentsDTO>();
+			List<QuestionariesComments> questionariesComments = questionaries.getQuestionariesComments();
+			if(CollectionUtils.isNotEmpty(questionariesComments)) {
+				for (QuestionariesComments comment : questionariesComments) {
+					QuestionariesCommentsDTO questionariesCommentsDTO = new QuestionariesCommentsDTO();
+					questionariesCommentsDTO.setCommentdescription(comment.getCommentdescription());
+					questionariesCommentsDTO.setCommentId(comment.getCommentId());
+					questionariesCommentsDTO.setCreatedDate(comment.getCreatedDate());
+					questionariesCommentsDTO.setEmailId(comment.getEmailId());
+					questionariesCommentsDto.add(questionariesCommentsDTO);
+				}
+			}
+			dto.setQuestionComments(questionariesCommentsDto);
 			UserDTO qUser = userervice.getUsers().get(questionaries.getEmailId());
 			if(qUser!=null && StringUtils.isNotEmpty(qUser.getImage())) {
 				dto.setDisplayImage(qUser.getImage());
@@ -43,6 +60,21 @@ public class QuestionReplysUtil {
 					repliesDTO.setReplyDescription(reply.getReplyDescription());
 					repliesDTO.setReplyId(reply.getReplyId());
 					repliesDTO.setUpdatedDate(reply.getUpdatedDate());
+					
+					List<QuestionReplyCommentsDTO> questionReplyCommentsDTO = new ArrayList<QuestionReplyCommentsDTO>();
+					List<QuestionReplyComments> questionReplyComments = reply.getQuestionReplyComments();
+					if(CollectionUtils.isNotEmpty(questionReplyComments)) {
+						for (QuestionReplyComments replyComment : questionReplyComments) {
+							QuestionReplyCommentsDTO questionReplyCommentsDto = new QuestionReplyCommentsDTO();
+							questionReplyCommentsDto.setCommentdescription(replyComment.getCommentdescription());
+							questionReplyCommentsDto.setCommentId(replyComment.getCommentId());
+							questionReplyCommentsDto.setCreatedDate(replyComment.getCreatedDate());
+							questionReplyCommentsDto.setEmailId(replyComment.getEmailId());
+							questionReplyCommentsDTO.add(questionReplyCommentsDto);
+						}
+					}
+					repliesDTO.setReplyComments(questionReplyCommentsDTO);
+					
 					UserDTO qrUser = userervice.getUsers().get(reply.getEmailid());
 					if(qrUser!=null && StringUtils.isNotEmpty(qrUser.getImage())) {
 						repliesDTO.setDisplayImage(qUser.getImage());

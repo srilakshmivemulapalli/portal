@@ -1,41 +1,25 @@
-package com.nisum.portal.data.domain;
+package com.nisum.portal.service.dto;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "QuestionReplyComment")
-public class QuestionReplyComments implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	@Id
-	@Column (name = "commentId")
-	@GeneratedValue(strategy=GenerationType.AUTO)
+public class QuestionReplyCommentsDTO {
+	
 	private Integer commentId;
 	private int repliesId;
 	private Timestamp createdDate;
 	private String emailId;
 	private String commentdescription;
 	/**
-	 * @return the replyId
+	 * @return the commentId
 	 */
-	public int getReplyId() {
-		return repliesId;
+	public Integer getCommentId() {
+		return commentId;
 	}
 	/**
-	 * @param replyId the replyId to set
+	 * @param commentId the commentId to set
 	 */
-	public void setReplyId(int replyId) {
-		this.repliesId = replyId;
+	public void setCommentId(Integer commentId) {
+		this.commentId = commentId;
 	}
 	/**
 	 * @return the createdDate
@@ -60,18 +44,6 @@ public class QuestionReplyComments implements Serializable{
 	 */
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
-	}
-	/**
-	 * @return the commentId
-	 */
-	public Integer getCommentId() {
-		return commentId;
-	}
-	/**
-	 * @param commentId the commentId to set
-	 */
-	public void setCommentId(Integer commentId) {
-		this.commentId = commentId;
 	}
 	/**
 	 * @return the commentdescription
@@ -110,7 +82,7 @@ public class QuestionReplyComments implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		QuestionReplyComments other = (QuestionReplyComments) obj;
+		QuestionReplyCommentsDTO other = (QuestionReplyCommentsDTO) obj;
 		if (commentId == null) {
 			if (other.commentId != null)
 				return false;
@@ -140,11 +112,9 @@ public class QuestionReplyComments implements Serializable{
 	 */
 	@Override
 	public String toString() {
-		return "QuestionReplyComments [replyId=" + repliesId + ", createdDate=" + createdDate + ", emailId=" + emailId
-				+ ", commentId=" + commentId + ", commentdescription=" + commentdescription + "]";
+		return "ReplyCommentsDTO [commentId=" + commentId + ", repliesId=" + repliesId + ", createdDate=" + createdDate
+				+ ", emailId=" + emailId + ", commentdescription=" + commentdescription + "]";
 	}
-	
-	
-	
 
+	
 }

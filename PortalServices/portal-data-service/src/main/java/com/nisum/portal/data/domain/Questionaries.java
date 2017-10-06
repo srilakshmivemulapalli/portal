@@ -40,10 +40,22 @@ public class Questionaries implements Serializable,Comparable<Questionaries>{
 	@OneToMany(mappedBy = "questId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<QuestionReplies> questionReplies;
 	
-	@OneToMany(mappedBy = "questionId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "questionsId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<QuestionariesComments>  questionariesComments;
 	
 	
+	/**
+	 * @return the questionariesComments
+	 */
+	public List<QuestionariesComments> getQuestionariesComments() {
+		return questionariesComments;
+	}
+	/**
+	 * @param questionariesComments the questionariesComments to set
+	 */
+	public void setQuestionariesComments(List<QuestionariesComments> questionariesComments) {
+		this.questionariesComments = questionariesComments;
+	}
 	public Questionaries(Categories categoryId, String question, String description, Timestamp createdDate,
 			String emailId) {
 		super();
@@ -150,6 +162,8 @@ public class Questionaries implements Serializable,Comparable<Questionaries>{
 		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
 		result = prime * result + ((question == null) ? 0 : question.hashCode());
 		result = prime * result + ((questionId == null) ? 0 : questionId.hashCode());
+		result = prime * result + ((questionReplies == null) ? 0 : questionReplies.hashCode());
+		result = prime * result + ((questionariesComments == null) ? 0 : questionariesComments.hashCode());
 		return result;
 	}
 	/* (non-Javadoc)
@@ -164,7 +178,10 @@ public class Questionaries implements Serializable,Comparable<Questionaries>{
 		if (getClass() != obj.getClass())
 			return false;
 		Questionaries other = (Questionaries) obj;
-		if (categoryId != other.categoryId)
+		if (categoryId == null) {
+			if (other.categoryId != null)
+				return false;
+		} else if (!categoryId.equals(other.categoryId))
 			return false;
 		if (createdDate == null) {
 			if (other.createdDate != null)
@@ -191,6 +208,16 @@ public class Questionaries implements Serializable,Comparable<Questionaries>{
 				return false;
 		} else if (!questionId.equals(other.questionId))
 			return false;
+		if (questionReplies == null) {
+			if (other.questionReplies != null)
+				return false;
+		} else if (!questionReplies.equals(other.questionReplies))
+			return false;
+		if (questionariesComments == null) {
+			if (other.questionariesComments != null)
+				return false;
+		} else if (!questionariesComments.equals(other.questionariesComments))
+			return false;
 		return true;
 	}
 	/* (non-Javadoc)
@@ -199,7 +226,8 @@ public class Questionaries implements Serializable,Comparable<Questionaries>{
 	@Override
 	public String toString() {
 		return "Questionaries [questionId=" + questionId + ", categoryId=" + categoryId + ", question=" + question
-				+ ", description=" + description + ", createdDate=" + createdDate + ", emailId=" + emailId + "]";
+				+ ", description=" + description + ", createdDate=" + createdDate + ", emailId=" + emailId
+				+ ", questionReplies=" + questionReplies + ", questionariesComments=" + questionariesComments + "]";
 	}
 	@Override
 	public int compareTo(Questionaries o) {

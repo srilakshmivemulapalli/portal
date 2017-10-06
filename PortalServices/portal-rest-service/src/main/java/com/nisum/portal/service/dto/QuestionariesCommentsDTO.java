@@ -1,41 +1,25 @@
-package com.nisum.portal.data.domain;
+package com.nisum.portal.service.dto;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+public class QuestionariesCommentsDTO {
 
-@Entity
-@Table(name = "QuestionReplyComment")
-public class QuestionReplyComments implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	@Id
-	@Column (name = "commentId")
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer commentId;
-	private int repliesId;
+	private int questionsId;
 	private Timestamp createdDate;
 	private String emailId;
 	private String commentdescription;
 	/**
-	 * @return the replyId
+	 * @return the commentId
 	 */
-	public int getReplyId() {
-		return repliesId;
+	public Integer getCommentId() {
+		return commentId;
 	}
 	/**
-	 * @param replyId the replyId to set
+	 * @param commentId the commentId to set
 	 */
-	public void setReplyId(int replyId) {
-		this.repliesId = replyId;
+	public void setCommentId(Integer commentId) {
+		this.commentId = commentId;
 	}
 	/**
 	 * @return the createdDate
@@ -62,18 +46,6 @@ public class QuestionReplyComments implements Serializable{
 		this.emailId = emailId;
 	}
 	/**
-	 * @return the commentId
-	 */
-	public Integer getCommentId() {
-		return commentId;
-	}
-	/**
-	 * @param commentId the commentId to set
-	 */
-	public void setCommentId(Integer commentId) {
-		this.commentId = commentId;
-	}
-	/**
 	 * @return the commentdescription
 	 */
 	public String getCommentdescription() {
@@ -96,7 +68,7 @@ public class QuestionReplyComments implements Serializable{
 		result = prime * result + ((commentdescription == null) ? 0 : commentdescription.hashCode());
 		result = prime * result + ((createdDate == null) ? 0 : createdDate.hashCode());
 		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
-		result = prime * result + repliesId;
+		result = prime * result + questionsId;
 		return result;
 	}
 	/* (non-Javadoc)
@@ -110,7 +82,7 @@ public class QuestionReplyComments implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		QuestionReplyComments other = (QuestionReplyComments) obj;
+		QuestionariesCommentsDTO other = (QuestionariesCommentsDTO) obj;
 		if (commentId == null) {
 			if (other.commentId != null)
 				return false;
@@ -131,7 +103,7 @@ public class QuestionReplyComments implements Serializable{
 				return false;
 		} else if (!emailId.equals(other.emailId))
 			return false;
-		if (repliesId != other.repliesId)
+		if (questionsId != other.questionsId)
 			return false;
 		return true;
 	}
@@ -140,11 +112,9 @@ public class QuestionReplyComments implements Serializable{
 	 */
 	@Override
 	public String toString() {
-		return "QuestionReplyComments [replyId=" + repliesId + ", createdDate=" + createdDate + ", emailId=" + emailId
-				+ ", commentId=" + commentId + ", commentdescription=" + commentdescription + "]";
+		return "QuestionCommentsDTO [commentId=" + commentId + ", questionsId=" + questionsId + ", createdDate="
+				+ createdDate + ", emailId=" + emailId + ", commentdescription=" + commentdescription + "]";
 	}
 	
 	
-	
-
 }

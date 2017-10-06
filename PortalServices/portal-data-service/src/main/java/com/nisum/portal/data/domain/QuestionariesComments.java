@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "QuestionariesComments")
+@Table(name = "QuestionComment")
 public class QuestionariesComments implements Serializable{
 	
 	/**
@@ -22,7 +22,7 @@ public class QuestionariesComments implements Serializable{
 	@Column (name = "commentId")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer commentId;
-	private int questionId;
+	private int questionsId;
 	private Timestamp createdDate;
 	private String emailId;
 	private String commentdescription;
@@ -31,13 +31,13 @@ public class QuestionariesComments implements Serializable{
 	 * @return the questionId
 	 */
 	public int getQuestionId() {
-		return questionId;
+		return questionsId;
 	}
 	/**
 	 * @param questionId the questionId to set
 	 */
 	public void setQuestionId(int questionId) {
-		this.questionId = questionId;
+		this.questionsId = questionId;
 	}
 	
 	/* (non-Javadoc)
@@ -45,7 +45,7 @@ public class QuestionariesComments implements Serializable{
 	 */
 	@Override
 	public String toString() {
-		return "QuestionariesComments [questionId=" + questionId + ", createdDate=" + createdDate + ", emailId="
+		return "QuestionariesComments [questionId=" + questionsId + ", createdDate=" + createdDate + ", emailId="
 				+ emailId + ", commentId=" + commentId + ", commentdescription=" + commentdescription + "]";
 	}
 	/* (non-Javadoc)
@@ -59,7 +59,7 @@ public class QuestionariesComments implements Serializable{
 		result = prime * result + ((commentdescription == null) ? 0 : commentdescription.hashCode());
 		result = prime * result + ((createdDate == null) ? 0 : createdDate.hashCode());
 		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
-		result = prime * result + questionId;
+		result = prime * result + questionsId;
 		return result;
 	}
 	/* (non-Javadoc)
@@ -94,7 +94,7 @@ public class QuestionariesComments implements Serializable{
 				return false;
 		} else if (!emailId.equals(other.emailId))
 			return false;
-		if (questionId != other.questionId)
+		if (questionsId != other.questionsId)
 			return false;
 		return true;
 	}
