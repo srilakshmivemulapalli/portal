@@ -17,7 +17,7 @@
 		<div class="col-md-3 col-xs-3 question-cat">
 
 			<span> <span class="author-avatar"> <img
-					src="images/userlogo.png" class="avatar" alt="" />
+					ngSrc="{{reply.displayImage}}" class="avatar" alt="" />
 			</span> <span class="author-name">{{question.questionDetails.emailId}}</span>
 			</span> <span class="question-time" style="padding-left: 50px;"> Asked on
 				{{question.questionDetails.createdDate| date: 'MMM dd,yyyy'}}. </span>
@@ -66,7 +66,7 @@
 				<div class="col-md-8 col-xs-8 question-cat" data-user="11">
 
 					<span> <span class="author-avatar"> <img
-							src="images/userlogo.png" class="avatar" alt="" />
+							ngSrc="{{reply.displayImage}}" class="avatar" alt="" />
 					</span> <span class="author-name">{{reply.emailId}}</span>
 					</span> <span class="question-time"> Answered on {{reply.updatedDate|
 						date: 'MMM dd,yyyy'}}. </span>

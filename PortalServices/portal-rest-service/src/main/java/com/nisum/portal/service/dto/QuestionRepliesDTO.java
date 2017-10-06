@@ -8,6 +8,14 @@ public class QuestionRepliesDTO {
 	private String replyDescription;
 	private Timestamp updatedDate;
 	private String emailId;
+	private String displayImage;
+	
+	public String getDisplayImage() {
+		return displayImage;
+	}
+	public void setDisplayImage(String displayImage) {
+		this.displayImage = displayImage;
+	}
 	/**
 	 * @return the replyId
 	 */
