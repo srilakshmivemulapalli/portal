@@ -70,7 +70,9 @@ public class UserRoleServiceImpl implements UserRoleService, InitializingBean{
 			
 		}
 	}
-	
+     /**
+      * get userRole from database and returns List
+      */
      @Override
 	public List<UserRoleDTO> getUserRole() {	
     	   logger.info("UserRoleServiceImpl :: getUserRole");
@@ -78,9 +80,12 @@ public class UserRoleServiceImpl implements UserRoleService, InitializingBean{
 		return UserRoleServiceUtil.convertDaoTODto(userRoleList);
 	}
 
+     /**
+      * update userRole from database and returns UserRole
+      */
 	@Override
 	public UserRole updateUserRole(UserRole userRole) {
-		
+		logger.info("UserRoleServiceImpl :: updateUserRole");
 		return userRoleDao.updateUserRole(userRole);
 	}
 
@@ -95,15 +100,17 @@ public class UserRoleServiceImpl implements UserRoleService, InitializingBean{
 		instance.put("user-role", rolesList);
 	}
 
-	@Override
-	public Integer findUserById(Integer roleId) {
+	
+	    /**
+	     * loads the data from database
+	     */
+	    @Override
+	    public UserRole findUserById(Integer roleId) {
+		logger.info("loading data from db");
 		UserRole role=userRoleDao.findUserById(roleId);
-		Integer roleid=null;
-		if(role!=null) {
-	      roleid=role.getRoleId();
-	     
-		}
-		return roleid;
-		
+		return role;
 	}
+
+	
+	    
 }

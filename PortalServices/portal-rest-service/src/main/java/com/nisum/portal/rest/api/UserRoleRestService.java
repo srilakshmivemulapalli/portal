@@ -1,6 +1,4 @@
 package com.nisum.portal.rest.api;
-
-
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -119,16 +117,20 @@ public class UserRoleRestService {
 	public ResponseEntity<ServiceStatusDto> updateUserRole(@RequestBody UserRole userRole) throws UserRoleServiceException{					
 		logger.info("UserRoleService :: userrole");	 
 		try {
+			
+			String newRoleName=userRole.getRole();
 			Integer roleId=userRole.getRoleId();
-			Integer userRoleId=userRoleService.findUserById(roleId);
+			UserRole role = userRoleService.findUserById(roleId);
+			String existedRoleName = role.getRole();
 			ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
-			if(userRoleId!=null) {
-				userRoleService.updateUserRole(userRole);	
-				serviceStatusDto.setMessage(Constants.USER_ROLE_UPDATED);
-				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto,HttpStatus.OK);
+			if(role!=null && newRoleName!= null && newRoleName.trim().length() > 0 && 
+					!newRoleName.equalsIgnoreCase(existedRoleName)){			
+					userRoleService.updateUserRole(userRole);	
+					serviceStatusDto.setMessage(Constants.USER_ROLE_UPDATED);
+					return new ResponseEntity<ServiceStatusDto>(serviceStatusDto,HttpStatus.OK);
 
 			} else {
-				serviceStatusDto.setMessage(Constants.USER_ROLE_NOT_EXISTS);
+				serviceStatusDto.setMessage(Constants.USER_ROLE_CANNOTBE_SAME);
 				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto,HttpStatus.EXPECTATION_FAILED);
 
 
@@ -150,5 +152,3 @@ public class UserRoleRestService {
 
 
 }
-
-

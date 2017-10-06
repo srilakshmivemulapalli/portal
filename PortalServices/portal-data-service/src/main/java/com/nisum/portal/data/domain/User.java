@@ -32,127 +32,68 @@ public class User implements Serializable {
 	@JoinColumn(name = "roleId", referencedColumnName = "roleId")
 	private UserRole role;
 
-	/**
-	 * Returns User role
-	 * 
-	 * @return
-	 */
-	public UserRole getRole() {
-		return role;
-	}
-
-	/**
-	 * Sets user role for a user
-	 * 
-	 * @param role
-	 */
-	public void setRole(UserRole role) {
-		this.role = role;
-	}
-
-	/**
-	 * Returns user active status
-	 * 
-	 * @return
-	 */
-	public String getActiveStatus() {
-		return activeStatus;
-	}
-
-	/**
-	 * Sets user active status
-	 * 
-	 * @param activeStatus
-	 */
-	public void setActiveStatus(String activeStatus) {
-		this.activeStatus = activeStatus;
-	}
-
-	/**
-	 * Returns user email id
-	 * 
-	 * @return
-	 */
-	public String getEmailId() {
-		return emailId;
-	}
-
-	/**
-	 * Sets user email id
-	 * 
-	 * @param emailId
-	 */
-	public void setEmailId(String emailId) {
-		this.emailId = emailId;
-	}
-
-	/**
-	 * Returns user id
-	 * 
-	 * @return
-	 */
 	public int getUserId() {
 		return userId;
 	}
 
-	/**
-	 * Sets user id
-	 * 
-	 * @param userId
-	 */
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 
-	/**
-	 * Returns email id
-	 * 
-	 * @return
-	 */
-	public String getemailId() {
+	public String getEmailId() {
 		return emailId;
 	}
 
-	/**
-	 * Returns user created date
-	 * 
-	 * @return
-	 */
-	public Timestamp getLoginDate() {
-		return loginDate;
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
 	}
 
-	/**
-	 * Sets user created date
-	 * 
-	 * @param loginDate
-	 */
-	public void setLoginDate(Timestamp loginDate) {
-		this.loginDate = loginDate;
-	}
-
-	/**
-	 * Returns user name
-	 * 
-	 * @return
-	 */
 	public String getName() {
 		return name;
 	}
 
-	/**
-	 * Sets user name
-	 * 
-	 * @param name
-	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	@Override
-	public String toString() {
-		return "User [userId=" + userId + ", emailId=" + emailId + ", name=" + name + ", loginDate=" + loginDate
-				+ ", activeStatus=" + activeStatus + ", role=" + role + "]";
+	public Timestamp getLoginDate() {
+		return loginDate;
+	}
+
+	public void setLoginDate(Timestamp loginDate) {
+		this.loginDate = loginDate;
+	}
+
+	public String getActiveStatus() {
+		return activeStatus;
+	}
+
+	public void setActiveStatus(String activeStatus) {
+		this.activeStatus = activeStatus;
+	}
+
+	public Timestamp getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Timestamp createDate) {
+		this.createDate = createDate;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public UserRole getRole() {
+		return role;
+	}
+
+	public void setRole(UserRole role) {
+		this.role = role;
 	}
 
 	@Override
@@ -160,7 +101,9 @@ public class User implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((activeStatus == null) ? 0 : activeStatus.hashCode());
+		result = prime * result + ((createDate == null) ? 0 : createDate.hashCode());
 		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
+		result = prime * result + ((image == null) ? 0 : image.hashCode());
 		result = prime * result + ((loginDate == null) ? 0 : loginDate.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((role == null) ? 0 : role.hashCode());
@@ -182,10 +125,20 @@ public class User implements Serializable {
 				return false;
 		} else if (!activeStatus.equals(other.activeStatus))
 			return false;
+		if (createDate == null) {
+			if (other.createDate != null)
+				return false;
+		} else if (!createDate.equals(other.createDate))
+			return false;
 		if (emailId == null) {
 			if (other.emailId != null)
 				return false;
 		} else if (!emailId.equals(other.emailId))
+			return false;
+		if (image == null) {
+			if (other.image != null)
+				return false;
+		} else if (!image.equals(other.image))
 			return false;
 		if (loginDate == null) {
 			if (other.loginDate != null)
@@ -207,20 +160,11 @@ public class User implements Serializable {
 		return true;
 	}
 
-	public Timestamp getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(Timestamp createDate) {
-		this.createDate = createDate;
-	}
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", emailId=" + emailId + ", name=" + name + ", loginDate=" + loginDate
+				+ ", activeStatus=" + activeStatus + ", createDate=" + createDate + ", image=" + image + ", role="
+				+ role + "]";
 	}
 
 	public User(int userId, String emailId, String name, Timestamp loginDate, String activeStatus, Timestamp createDate,

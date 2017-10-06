@@ -7,7 +7,9 @@ import static org.mockito.Mockito.when;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -54,6 +56,7 @@ public class UserRestServiceTest {
 		user.setEmailId("test@test.com");
 		user.setLoginDate(new Timestamp(date.getTime()));
 		user.setActiveStatus("YES");
+		user.setCreateDate(new Timestamp(date.getTime()));
 		user.setName("test");
 		role.setRoleId(1);
 		role.setRole("Admin");
@@ -140,14 +143,16 @@ public class UserRestServiceTest {
 	@Test
 	public void TestGetUsers() throws UserServiceException {
 		UserDTO userDto = new UserDTO();
+		Map<String, UserDTO> userMap = new HashMap<String, UserDTO>();
 		List<UserDTO> dtoList = new ArrayList<UserDTO>();
 		userDto.setEmailId("dsdsds");
 		userDto.setActiveStatus("Yes");
 		userDto.setName("dsd");
 		userDto.setUserId(1);
 		dtoList.add(userDto);
-	ResponseEntity<List<UserDTO>> resList=new ResponseEntity<List<UserDTO>>(dtoList, HttpStatus.OK);	
-		Mockito.when(userServiceMock.getUsers()).thenReturn(dtoList);
+		userMap.put("test@nisum.com", userDto);
+		ResponseEntity<List<UserDTO>> resList=new ResponseEntity<List<UserDTO>>(dtoList, HttpStatus.OK);	
+		Mockito.when(userServiceMock.getUsers()).thenReturn(userMap);
 		ResponseEntity<?> actual = userRestService.getUsers();
 		assertEquals(resList,actual);
 	}

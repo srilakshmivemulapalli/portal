@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.nisum.portal.data.domain.Categories;
 import com.nisum.portal.data.domain.Questionaries;
@@ -15,7 +16,7 @@ import com.nisum.portal.service.dto.QuestionsDTO;
 public class QuestionariesUtil {
 
 	
-	public static QuestionsDTO convertDaoToDto(List<Questionaries> questionariesList,QuestionsDTO questionsDTO) {
+	public static QuestionsDTO convertDaoToDto(List<Questionaries> questionariesList,QuestionsDTO questionsDTO, String displayImage) {
 		
 		List<QuestionariesDTO> questionariesDTOs = new ArrayList<QuestionariesDTO>();
 		if (CollectionUtils.isNotEmpty(questionariesList)) {
@@ -28,6 +29,7 @@ public class QuestionariesUtil {
 				dto.setCategoryName(questionaries.getCategoryId().getCategoryName());
 				dto.setEmailId(questionaries.getEmailId());
 				dto.setQuestionRepliesCount(questionaries.getQuestionReplies()!=null ? questionaries.getQuestionReplies().size() : 0);
+				if(StringUtils.isNotEmpty(displayImage)) dto.setDisplayImage(displayImage);
 				questionariesDTOs.add(dto);
 			}
 			Collections.reverse(questionariesDTOs); 

@@ -1,6 +1,8 @@
 package com.nisum.portal.rest.api;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +29,7 @@ import com.nisum.portal.util.Constants;
 
 @RestController
 @RequestMapping(value = "/v1/user")
-public class UserRestService {
+public class UserRestService { 
 
 	private static Logger logger = LoggerFactory.getLogger(CategoriesRestService.class);
 
@@ -61,9 +63,7 @@ public class UserRestService {
 			}
 		} catch (Exception e) {
 			logger.info("UserRestService :: deleteUser :: Internal Server Error");
-			error.setErrorCode("500");
-			error.setErrorMessage(Constants.INTERNALSERVERERROR);
-			return new ResponseEntity<Errors>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new UserServiceException(Constants.INTERNALSERVERERROR, e);
 		}
 	}
 
@@ -77,19 +77,17 @@ public class UserRestService {
 		logger.info("UserRestService :: users");
 		Errors error = new Errors();
 		try {
-			List<UserDTO> users = userService.getUsers();
+			Map<String, UserDTO> users = userService.getUsers();
 			if (users.isEmpty()) {
 				error.setErrorCode("204");
 				error.setErrorMessage(Constants.USERS_NOT_AVALIABLE);
 				return new ResponseEntity<Errors>(error, HttpStatus.NO_CONTENT);
 			} else {
-				return new ResponseEntity<List<UserDTO>>(users, HttpStatus.OK);
+				return new ResponseEntity<Collection<UserDTO>>(users.values(), HttpStatus.OK);
 			}
 		} catch (Exception e) {
 			logger.info("UserRestService :: getUsers :: Internal Server Error");
-			error.setErrorCode("500");
-			error.setErrorMessage(Constants.INTERNALSERVERERROR);
-			return new ResponseEntity<Errors>(error,HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new UserServiceException(Constants.INTERNALSERVERERROR, e);
 		}
 	}
 
@@ -108,12 +106,12 @@ public class UserRestService {
 			if(obj.equals(null))
 			{
 				serviceStatusDto.setMessage(Constants.USER_NOT_EXISTS);
-				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.OK);
+				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.NOT_FOUND);
 			}
 			else
 			{
-				serviceStatusDto.setMessage(Constants.USER_NOT_EXISTS);
-				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.NOT_FOUND);
+				serviceStatusDto.setMessage(Constants.USER_UPDATED );
+				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.OK);
 			}
 		} catch (Exception e) {
 			logger.info("UserRestService :: UpdateUser :: Internal Server Error");
@@ -211,7 +209,7 @@ public class UserRestService {
 
 				for (UserRoleDTO dto : roleDTOs) {
 
-					if (Constants.USER_TYPE.equals(dto.getRole())) {
+					if (Constants.USER_TYPE.equalsIgnoreCase(dto.getRole())) {
 
 						role = new UserRoleDTO();
 						role.setCreatedDate(dto.getCreatedDate());

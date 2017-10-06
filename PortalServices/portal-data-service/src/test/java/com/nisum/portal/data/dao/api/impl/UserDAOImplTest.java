@@ -51,10 +51,9 @@ public class UserDAOImplTest {
 		role.setRole("Admin");
 		role.setCreatedDate(new Timestamp(date.getTime()));
 		user.setRole(role);
-		when(userRepository.exists(user.getUserId())).thenReturn(true);
 		when(userRepository.save(user)).thenReturn(user);
 		when(userRepository.save(user)).thenReturn(null);
-		assertEquals(null,userDAOImpl.updateUser(user));
+		assertEquals(user,userDAOImpl.updateUser(user));
 		}
 	
 	@Test
@@ -92,6 +91,7 @@ public class UserDAOImplTest {
 		List<User>	actual=userDAOImpl.getUsers(); 
 		
 		assertEquals(userList,actual);
+		
 		
 		
 	}

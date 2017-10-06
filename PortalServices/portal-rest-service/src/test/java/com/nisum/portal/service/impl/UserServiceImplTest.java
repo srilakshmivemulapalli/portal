@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -101,7 +102,7 @@ public class UserServiceImplTest {
 		
 		PowerMockito.mockStatic(UserServiceUtil.class);
 		PowerMockito.when(UserServiceUtil.convertDaoListToDto(userList)).thenReturn(userDAOlist);
-		List<UserDTO> actual = userServiceImpl.getUsers();
+		Map<String, UserDTO> actual = userServiceImpl.getUsers();
 		
 		assertEquals(actual.size(), expected.size());
 	}
@@ -117,6 +118,7 @@ public class UserServiceImplTest {
 		role.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 		user.setRole(role);
 		User userExpected = new User();
+		when (userDao.findUserById(1)).thenReturn(user);
 		when (userDao.updateUser(user)).thenReturn(userExpected);
 		PowerMockito.mockStatic(UserServiceUtil.class);
 		UserDTO userdto=new UserDTO();

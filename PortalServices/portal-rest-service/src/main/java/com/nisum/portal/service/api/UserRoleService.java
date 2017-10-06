@@ -12,6 +12,7 @@ public interface UserRoleService {
 	public boolean deleteUserRole(Integer id) throws UserRoleServiceException;
 	List<UserRoleDTO> getUserRole();
 	public UserRole updateUserRole(UserRole userRole);
-	public Integer findUserById(Integer roleId);
+	public UserRole findUserById(Integer roleId);
+	
 
 }

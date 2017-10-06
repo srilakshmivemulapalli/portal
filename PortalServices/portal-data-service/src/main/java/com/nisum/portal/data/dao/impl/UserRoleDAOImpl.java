@@ -74,5 +74,7 @@ public class UserRoleDAOImpl implements UserRoleDAO{
 		return userRoleRepository.findOne(roleId);
 	}
 
+	
+
 }
 	
