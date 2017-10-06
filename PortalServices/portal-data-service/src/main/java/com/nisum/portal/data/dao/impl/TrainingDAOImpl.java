@@ -70,10 +70,10 @@ public class TrainingDAOImpl implements TrainingsDAO {
 	@Override
 	public Integer addTrainingsRequest(TrainingRequest trainingRequest) {
 		// TODO Auto-generated method stub
-		logger.info("TrainingDAOImpl :: addTrainingsFeedBack ::" + trainingRequest.toString());
+		logger.info("TrainingDAOImpl :: addTrainingsRequest ::" + trainingRequest.toString());
 
 		Integer status;
-		logger.info("TrainingDAOImpl :: addTrainingsFeedBack ::" + trainingRequest.getTrainingRequestId());
+		logger.info("TrainingDAOImpl :: addTrainingsRequest ::" + trainingRequest.getTrainingRequestId());
 		TrainingRequest request = trainingRequestRepository
 				.findByTrainingRequestId(trainingRequest.getTrainingRequestId());
 

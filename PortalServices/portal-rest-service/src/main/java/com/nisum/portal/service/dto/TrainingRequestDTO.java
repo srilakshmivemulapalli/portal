@@ -4,8 +4,8 @@ import java.sql.Timestamp;
 
 public class TrainingRequestDTO {
 	private Integer trainingRequestId;
-	private Integer userId;
-	private Integer courseId;
+	private String emailid;
+	private String requestTrainingTitle;
 	private String description;
 	private Timestamp requestedDate;
 	public Integer getTrainingRequestId() {
@@ -14,17 +14,17 @@ public class TrainingRequestDTO {
 	public void setTrainingRequestId(Integer trainingRequestId) {
 		this.trainingRequestId = trainingRequestId;
 	}
-	public Integer getUserId() {
-		return userId;
+	public String getEmailid() {
+		return emailid;
 	}
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+	public void setEmailid(String emailid) {
+		this.emailid = emailid;
 	}
-	public Integer getCourseId() {
-		return courseId;
+	public String getRequestTrainingTitle() {
+		return requestTrainingTitle;
 	}
-	public void setCourseId(Integer courseId) {
-		this.courseId = courseId;
+	public void setRequestTrainingTitle(String requestTrainingTitle) {
+		this.requestTrainingTitle = requestTrainingTitle;
 	}
 	public String getDescription() {
 		return description;
@@ -42,11 +42,11 @@ public class TrainingRequestDTO {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((courseId == null) ? 0 : courseId.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + ((emailid == null) ? 0 : emailid.hashCode());
+		result = prime * result + ((requestTrainingTitle == null) ? 0 : requestTrainingTitle.hashCode());
 		result = prime * result + ((requestedDate == null) ? 0 : requestedDate.hashCode());
 		result = prime * result + ((trainingRequestId == null) ? 0 : trainingRequestId.hashCode());
-		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
 	}
 	@Override
@@ -58,15 +58,20 @@ public class TrainingRequestDTO {
 		if (getClass() != obj.getClass())
 			return false;
 		TrainingRequestDTO other = (TrainingRequestDTO) obj;
-		if (courseId == null) {
-			if (other.courseId != null)
-				return false;
-		} else if (!courseId.equals(other.courseId))
-			return false;
 		if (description == null) {
 			if (other.description != null)
 				return false;
 		} else if (!description.equals(other.description))
+			return false;
+		if (emailid == null) {
+			if (other.emailid != null)
+				return false;
+		} else if (!emailid.equals(other.emailid))
+			return false;
+		if (requestTrainingTitle == null) {
+			if (other.requestTrainingTitle != null)
+				return false;
+		} else if (!requestTrainingTitle.equals(other.requestTrainingTitle))
 			return false;
 		if (requestedDate == null) {
 			if (other.requestedDate != null)
@@ -78,16 +83,12 @@ public class TrainingRequestDTO {
 				return false;
 		} else if (!trainingRequestId.equals(other.trainingRequestId))
 			return false;
-		if (userId == null) {
-			if (other.userId != null)
-				return false;
-		} else if (!userId.equals(other.userId))
-			return false;
 		return true;
 	}
 	@Override
 	public String toString() {
-		return "TrainingRequestDTO [trainingRequestId=" + trainingRequestId + ", userId=" + userId + ", courseId="
-				+ courseId + ", description=" + description + ", requestedDate=" + requestedDate + "]";
+		return "TrainingRequestDTO [trainingRequestId=" + trainingRequestId + ", emailid=" + emailid
+				+ ", requestTrainingTitle=" + requestTrainingTitle + ", description=" + description + ", requestedDate="
+				+ requestedDate + "]";
 	}
 }

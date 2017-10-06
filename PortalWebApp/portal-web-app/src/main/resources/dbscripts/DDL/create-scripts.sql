@@ -103,27 +103,14 @@ CREATE TABLE `portal`.`QuestionReplyComment` (
   CONSTRAINT `fk_replyId_QuestionReplyComment` FOREIGN KEY (`replyId`) REFERENCES `QuestionReplies` (`replyId`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=big5;
 
-CREATE TABLE `portal`.`Course` (
-  `courseId` int(11) NOT NULL AUTO_INCREMENT,
-  `courseName` varchar(100) DEFAULT NULL,
-  `trainingid` int(11) DEFAULT NULL,
-  PRIMARY KEY (`courseId`),
-  KEY `fk_trainingid_course_idx` (`trainingid`),
-  CONSTRAINT `fk_trainingid_course` FOREIGN KEY (`trainingid`) REFERENCES `Trainings` (`trainingid`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=big5;
-
 CREATE TABLE `portal`.`TrainingRequest` (
   `trainingRequestId` int(11) NOT NULL AUTO_INCREMENT,
-  `userId` int(11) DEFAULT NULL,
-  `courseId` int(11) DEFAULT NULL,  
+  `emailid` varchar(45) DEFAULT NULL,
+  `requestTrainingTitle` int(11) DEFAULT NULL,  
   `description` varchar(100) DEFAULT NULL,
   `requestedDate` datetime DEFAULT NULL,
-   PRIMARY KEY (`trainingRequestId`),
-  KEY `fk_user_id_idx` (`userId`),
-  CONSTRAINT `fk_user_id` FOREIGN KEY (`userId`)   REFERENCES `User` (`userId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  KEY `fk_course_id_idx` (`courseId`),
-  CONSTRAINT `fk_course_id` FOREIGN KEY (`courseId`) REFERENCES `Course` (`courseId`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=big5;
+   PRIMARY KEY (`trainingRequestId`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=big5;
 
 CREATE TABLE `portal`.`TrainingFeedBack` (
   `trainingFeedBackId` int(11) NOT NULL AUTO_INCREMENT,
