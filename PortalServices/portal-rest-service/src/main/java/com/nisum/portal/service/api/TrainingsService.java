@@ -2,6 +2,7 @@ package com.nisum.portal.service.api;
 
 import java.util.List;
 
+
 import com.nisum.portal.data.domain.Trainings;
 import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.dto.TrainingFeedBackDTO;
@@ -18,5 +19,7 @@ public interface TrainingsService {
 	ServiceStatusDto addTrainingFeedBack(TrainingFeedBackDTO trainingFeedBackDTO);
 
 	ServiceStatusDto addTrainingRequest(TrainingRequestDTO trainingRequestDTO);
+
+	List<TrainingRequestDTO> getAllTrainingRequests();
 
 }

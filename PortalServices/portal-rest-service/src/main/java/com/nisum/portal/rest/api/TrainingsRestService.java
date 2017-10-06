@@ -110,5 +110,25 @@ public class TrainingsRestService {
 		}
 
 	}
+	@RequestMapping(value = "/getAllTrainingRequests", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
+	public ResponseEntity<?> getAllTrainingRequests() throws TrainingsServiceException{
 
+		logger.info("TrainingsRestService :: getAllTrainingRequests ");
+		ResponseEntity<?> rsEntity = null;
+		try {
+			List<TrainingRequestDTO> trainingRequests = trainingsService.getAllTrainingRequests();
+			if(trainingRequests.size()>0) {
+				rsEntity= new ResponseEntity<List<TrainingRequestDTO>>(trainingRequests,HttpStatus.OK);
+			}
+			}
+			catch(Exception e) {
+				logger.error(Constants.Training_No_Data);
+				Errors error = new Errors();
+				error.setErrorCode("Error-upcoming Trainings");
+				error.setErrorMessage(Constants.Training_No_Data);
+				rsEntity= new ResponseEntity<Errors>(error, HttpStatus.OK);
+			}
+		return rsEntity;
+
+	}
 }

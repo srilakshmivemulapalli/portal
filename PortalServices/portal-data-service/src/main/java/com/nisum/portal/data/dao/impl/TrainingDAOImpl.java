@@ -87,4 +87,11 @@ public class TrainingDAOImpl implements TrainingsDAO {
 		return status;
 	}
 
+	@Override
+	public List<TrainingRequest> getTrainingRequests() {
+		// TODO Auto-generated method stub
+		logger.info("TrainingDAOImpl::getTrainingRequests");
+		return trainingRequestRepository.findAll();
+	}
+
 }

@@ -123,5 +123,13 @@ public class TrainingsServiceImpl implements TrainingsService {
 
 		return serviceStatusDto;
 	}
+
+
+	@Override
+	public List<TrainingRequestDTO> getAllTrainingRequests() {
+		// TODO Auto-generated method stub
+		List<TrainingRequest> trainingRequests = trainingsDAO.getTrainingRequests();
+		return TrainingRequestUtil.convertDaoListToDto(trainingRequests);
+	}
 	
 }

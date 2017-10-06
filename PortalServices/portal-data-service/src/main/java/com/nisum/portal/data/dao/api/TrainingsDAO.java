@@ -17,4 +17,6 @@ public interface TrainingsDAO {
 	Integer addTrainingsFeedBack(TrainingFeedBack trainingFeedBack);
 
 	Integer addTrainingsRequest(TrainingRequest trainingRequest);
+
+	List<TrainingRequest> getTrainingRequests();
 }
