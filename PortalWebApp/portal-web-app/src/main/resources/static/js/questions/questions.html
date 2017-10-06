@@ -1,5 +1,5 @@
 <div class="col-md-1 col-xs-1"></div>
-<div class="col-md-9 col-xs-9 main-content">
+<div class="col-md-9 col-xs-9 main-content questionspage">
 	<div class="clearfix"></div>
 	<div class="row select-category">
 		<div class="col-md-6 col-xs-6 current-category">
@@ -13,7 +13,7 @@
 						<div>
 							<am-multiselect class="customselect" ng-model="categoryId"
 								ms-header="Select Category"
-								options="category.categoryId as category.categoryName for category in categoriesList"
+								options="category.categoryId as category.categoryName for category in categoriesList.categories"
 								change="selected()"></am-multiselect>
 
 						</div>
@@ -110,17 +110,17 @@
 				<div class="col-md-12">
 					<ul ng-if="pager.pages.length>1" class="pagination">
 						<li ng-class="{disabled:pager.currentPage === 1}"><a
-							ng-click="setPage(1,questionsList)">First</a></li>
+							ng-click="setPage(1,questionsList.questions)">First</a></li>
 						<li ng-class="{disabled:pager.currentPage === 1}"><a
-							ng-click="setPage(pager.currentPage - 1,questionsList)">Previous</a></li>
+							ng-click="setPage(pager.currentPage - 1,questionsList.questions)">Previous</a></li>
 						<li class="page-numbers" ng-repeat="page in pager.pages"><a
 							ng-class="{current:pager.currentPage === page}"
-							ng-click="setPage(page,questionsList)">{{page}}</a></li>
+							ng-click="setPage(page,questionsList.questions)">{{page}}</a></li>
 						<li ng-class="{disabled:pager.currentPage === pager.totalPages}">
-							<a ng-click="setPage(pager.currentPage + 1,questionsList)">Next</a>
+							<a ng-click="setPage(pager.currentPage + 1,questionsList.questions)">Next</a>
 						</li>
 						<li ng-class="{disabled:pager.currentPage === pager.totalPages}">
-							<a ng-click="setPage(pager.totalPages,questionsList)">Last</a>
+							<a ng-click="setPage(pager.totalPages,questionsList.questions)">Last</a>
 						</li>
 					</ul>
 
@@ -150,7 +150,7 @@
 										</ul>
 										<div class="clearfix"></div>
 										<a href=""> <span class="author-avatar"> <img
-												ngSrc="{{question.displayImage}}" class="avatar" alt="" />
+												ng-src="{{question.displayImage}}" class="avatar" alt="" />
 										</span> <span class="author-name">{{question.emailId}}</span>
 										</a> <span class="question-time">Asked on
 											{{question.createdDate | date: 'MMM dd, yyyy'}} </span>
@@ -179,17 +179,17 @@
 				<div class="col-md-12">
 					<ul ng-if="pager.pages.length>1" class="pagination">
 						<li ng-class="{disabled:pager.currentPage === 1}"><a
-							ng-click="setPage(1,unAnsweredQuestionsList)">First</a></li>
+							ng-click="setPage(1,unAnsweredQuestionsList.questions)">First</a></li>
 						<li ng-class="{disabled:pager.currentPage === 1}"><a
-							ng-click="setPage(pager.currentPage - 1,unAnsweredQuestionsList)">Previous</a></li>
+							ng-click="setPage(pager.currentPage - 1,unAnsweredQuestionsList.questions)">Previous</a></li>
 						<li class="page-numbers" ng-repeat="page in pager.pages"><a
 							ng-class="{current:pager.currentPage === page}"
-							ng-click="setPage(page,unAnsweredQuestionsList)">{{page}}</a></li>
+							ng-click="setPage(page,unAnsweredQuestionsList.questions)">{{page}}</a></li>
 						<li ng-class="{disabled:pager.currentPage === pager.totalPages}">
-							<a ng-click="setPage(pager.currentPage + 1,unAnsweredQuestionsList)">Next</a>
+							<a ng-click="setPage(pager.currentPage + 1,unAnsweredQuestionsList.questions)">Next</a>
 						</li>
 						<li ng-class="{disabled:pager.currentPage === pager.totalPages}">
-							<a ng-click="setPage(pager.totalPages,unAnsweredQuestionsList)">Last</a>
+							<a ng-click="setPage(pager.totalPages,unAnsweredQuestionsList.questions)">Last</a>
 						</li>
 					</ul>
 
@@ -221,7 +221,7 @@
 										</ul>
 										<div class="clearfix"></div>
 										<a href=""> <span class="author-avatar"> <img
-												ngSrc="{{question.displayImage}}" class="avatar" alt="" />
+												ng-src="{{question.displayImage}}" class="avatar" alt="" />
 										</span> <span class="author-name">{{question.emailId}}</span>
 										</a> <span class="question-time">Asked on
 											{{question.createdDate | date: 'MMM dd, yyyy'}} </span>
@@ -248,17 +248,17 @@
 				<div class="col-md-12">
 					<ul ng-if="pager.pages.length>1" class="pagination">
 						<li ng-class="{disabled:pager.currentPage === 1}"><a
-							ng-click="setPage(1,retriveMyQuestionariesList)">First</a></li>
+							ng-click="setPage(1,retriveMyQuestionariesList.questions)">First</a></li>
 						<li ng-class="{disabled:pager.currentPage === 1}"><a
-							ng-click="setPage(pager.currentPage - 1,retriveMyQuestionariesList)">Previous</a></li>
+							ng-click="setPage(pager.currentPage - 1,retriveMyQuestionariesList.questions)">Previous</a></li>
 						<li class="page-numbers" ng-repeat="page in pager.pages"><a
 							ng-class="{current:pager.currentPage === page}"
-							ng-click="setPage(page,retriveMyQuestionariesList)">{{page}}</a></li>
+							ng-click="setPage(page,retriveMyQuestionariesList.questions)">{{page}}</a></li>
 						<li ng-class="{disabled:pager.currentPage === pager.totalPages}">
-							<a ng-click="setPage(pager.currentPage + 1,retriveMyQuestionariesList)">Next</a>
+							<a ng-click="setPage(pager.currentPage + 1,retriveMyQuestionariesList.questions)">Next</a>
 						</li>
 						<li ng-class="{disabled:pager.currentPage === pager.totalPages}">
-							<a ng-click="setPage(pager.totalPages,retriveMyQuestionariesList)">Last</a>
+							<a ng-click="setPage(pager.totalPages,retriveMyQuestionariesList.questions)">Last</a>
 						</li>
 					</ul>
 

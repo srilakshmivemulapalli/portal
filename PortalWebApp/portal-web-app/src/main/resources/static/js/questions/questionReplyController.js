@@ -1,5 +1,8 @@
 questionApp.controller('questionReplyController', function($scope,
 		$stateParams, localStorageService, questionService) {
+	
+	    $('[data-toggle="tooltip"]').tooltip();   
+	
 	var profile = localStorageService.get('profile');
 	$scope.questionid = $stateParams.questionid;
 	$scope.answer = {

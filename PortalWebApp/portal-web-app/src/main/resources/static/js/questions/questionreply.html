@@ -1,6 +1,6 @@
 
 <div class="col-md-1 col-xs-1"></div>
-<div class="col-md-9 col-xs-9 single-content"
+<div class="col-md-9 col-xs-9 main-content questionspage"
 	style="padding-top: 30px;">
 	<div class="row select-category single-head">
 		<div class="col-md-1 col-xs-1">
@@ -8,32 +8,260 @@
 				href="#/questions">Home</a>
 			</span>
 		</div>
-		<div class="col-md-8 col-xs-8">
+		<div class="col-md-10 col-xs-10">
 
 
-			<h1 ng-bind-html='question.questionDetails.question' style="color:black"></h1>
-			<p ng-bind-html='question.questionDetails.description'></p>
+			<h1 ng-bind-html='question.questionDetails.question'></h1>
+
 		</div>
-		<div class="col-md-3 col-xs-3 question-cat">
+		<!-- <div class="col-md-3 col-xs-3 question-cat">
 
 			<span> <span class="author-avatar"> <img
-					ngSrc="{{reply.displayImage}}" class="avatar" alt="" />
+					ng-src="{{question.questionDetails.displayImage}}" class="avatar"
+					alt="" />
 			</span> <span class="author-name">{{question.questionDetails.emailId}}</span>
-			</span> <span class="question-time" style="padding-left: 50px;"> Asked on
-				{{question.questionDetails.createdDate| date: 'MMM dd,yyyy'}}. </span>
-				<ul class="question-tags">
-					<li><a class="q-tag" href="">{{question.questionDetails.categoryName}}</a></li>
-					<li></li>
-				</ul>
+			</span> <span class="question-time" style="padding-left: 50px;">
+				Asked on {{question.questionDetails.createdDate| date: 'MMM
+				dd,yyyy'}}. </span>
+			<ul class="question-tags">
+				<li><a class="q-tag" href="">{{question.questionDetails.categoryName}}</a></li>
+				<li></li>
+			</ul>
 
 
-			
+
+
+		</div> -->
+	</div>
+
+	<div id="question_content"
+		class="row question-main-content question-item">
+		<div class="col-md-1 col-xs-1"></div>
+		<div class="col-md-10 col-xs-10 q-right-content">
+			<ul class="post-controls">
+				<!-- Follow Action -->
+				<li><a href="javascript:void(0)" data-toggle="tooltip"
+					title="Follow"
+					class="action follow"> <i class="fa fa-plus-square"></i>
+				</a>
+					</li>
+				<!-- // Follow Action -->
+				<!-- report Action -->
+				<li><a href="javascript:void(0)" data-toggle="tooltip"
+					title="Report" 
+					class="action report"> <i class="fa fa-exclamation-triangle"></i>
+				</a>
+					</li>
+				<!--// Report Action -->
+			</ul>
+			<div class="top-content" ng-if="question.replyDetails.length>0">
+				<span class="answered"><i class="fa fa-check"></i> Answered</span>
+			</div>
+			<div class="question-content">
+				<p ng-bind-html="question.questionDetails.description"></p>
+			</div>
+			<div class="row">
+				<div class="col-md-8 col-xs-8 question-cat" data-user="11">
+
+					<span> <span class="author-avatar"> <img
+							ng-src="{{question.questionDetails.displayImage}}" class="avatar"
+							alt="" />
+					</span> <span class="author-name">{{question.questionDetails.emailId}}</span>
+					</span> <span class="question-time">Asked on
+						{{question.questionDetails.createdDate| date: 'MMM dd,yyyy'}}.
+						{{question.questionDetails.categoryName}}</span>
+				</div>
+				<div class="col-md-4 col-xs-4 question-control">
+					<ul>
+
+						<li><a data-toggle="collapse"
+							data-target="#question-container" class="show-comments active">
+								Comment(5) <i class="fa fa-comment"></i>
+						</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+			<div class="comments-container collpase" id="question-container">
+				<div class="comments-wrapper">
+
+					<div class="row comment-item" data-id="11">
+						<div class="col-md-2 comment-avatar">
+							<img itemprop="image"
+								src="https://cdn.enginethemes.com/qaengine/2015/01/12.jpg"
+								class="avatar" alt="" />
+							<p class="cmt-author">
+								<a href="https://qaengine.enginethemes.com/blog/member/admin/"
+									title="admin"> admin </a>
+							</p>
+						</div>
+						<div class="col-md-10 comment-content">
+							<div class="cm-content-wrap">
+								<div class="cm-wrap">
+									<p>
+										<span style="color: #000000;">Don&#8217;t forget to
+											tell us what your favorite Android apps are in the comments
+											section below.</span>
+									</p>
+								</div>
+								<span class="comment-time">on June 5, 2014. </span> <span
+									class="comment-edit"> </span>
+							</div>
+							<!-- END COMMENT CONTENT -->
+							<div class="cm-content-edit collapse">
+								<form class="edit-comment">
+									<input type="hidden" name="qa_nonce" value="6f589a0575" />
+									<div class="wp-editor-container">
+										<textarea name="comment_content" id="edit_comment_11"></textarea>
+									</div>
+									<div class="row submit-wrapper">
+										<div class="col-md-3">
+											<button id="submit_reply" class="btn-submit">Update</button>
+										</div>
+										<div class="col-md-3">
+											<a href="javascript:void(0)" class="cancel-comment">Cancel</a>
+										</div>
+									</div>
+								</form>
+							</div>
+							<!-- END EDIT COMMENT FORM -->
+						</div>
+					</div>
+					<div class="row comment-item" data-id="12">
+						<div class="col-md-2 comment-avatar">
+							<img itemprop="image"
+								src="https://cdn.enginethemes.com/qaengine/2015/01/128323.jpg"
+								class="avatar" alt="" />
+							<p class="cmt-author">
+								<a href="https://qaengine.enginethemes.com/blog/member/alex/"
+									title="Alex"> Alex </a>
+							</p>
+						</div>
+						<div class="col-md-10 comment-content">
+							<div class="cm-content-wrap">
+								<div class="cm-wrap"></div>
+								<span class="comment-time">on June 5, 2014. </span> <span
+									class="comment-edit"> </span>
+							</div>
+							<!-- END COMMENT CONTENT -->
+							<div class="cm-content-edit collapse">
+								<form class="edit-comment">
+									<input type="hidden" name="qa_nonce" value="6f589a0575" />
+									<div class="wp-editor-container">
+										<textarea name="comment_content" id="edit_comment_12"></textarea>
+									</div>
+									<div class="row submit-wrapper">
+										<div class="col-md-3">
+											<button id="submit_reply" class="btn-submit">Update</button>
+										</div>
+										<div class="col-md-3">
+											<a href="javascript:void(0)" class="cancel-comment">Cancel</a>
+										</div>
+									</div>
+								</form>
+							</div>
+							<!-- END EDIT COMMENT FORM -->
+						</div>
+					</div>
+					<div class="row comment-item" data-id="13">
+						<div class="col-md-2 comment-avatar">
+							<img itemprop="image"
+								src="https://cdn.enginethemes.com/qaengine/2015/01/12.jpg"
+								class="avatar" alt="" />
+							<p class="cmt-author">
+								<a href="https://qaengine.enginethemes.com/blog/member/admin/"
+									title="admin"> admin </a>
+							</p>
+						</div>
+						<div class="col-md-10 comment-content">
+							<div class="cm-content-wrap">
+								<div class="cm-wrap">
+									<p style="text-align: center;">
+										<a href="https://cdn.enginethemes.com/qaengine/2014/06/1.jpg"
+											class="qa-zoom"
+											title="What are the best mobile apps for traveling?"><img
+											alt="What are the best mobile apps for traveling?"
+											class="img-responsive"
+											src="https://cdn.enginethemes.com/qaengine/2014/06/1.jpg"></a>
+									</p>
+									<p>TripIt is the type of app that almost needs no
+										introduction. When it comes to travel planning, it won&#8217;t
+										suggest destinations for you, or help you plan the best
+										possible way to spend your time in town wherever you go, but
+										what TripIt does offer is a complete, hassle free way to
+										combine all of your travel confirmations, itineraries,
+										tickets, hotel bookings, rental car reservations, and the rest
+										in one simple view. That view then becomes the central hub for
+										all of your travel needs—no more fishing for a confirmation
+										email to get your reservation number, or wondering what flight
+										number you&#8217;re on before you check in; it&#8217;s all
+										right there, and it&#8217;s all incredibly handy. It&#8217;ll
+										even let you know if there&#8217;s a better seat on your
+										flight so you can switch to it. As someone who uses TripIt
+										when he travels, I wouldn&#8217;t leave home without it.</p>
+								</div>
+								<span class="comment-time">on June 5, 2014. </span> <span
+									class="comment-edit"> </span>
+							</div>
+							<!-- END COMMENT CONTENT -->
+							<div class="cm-content-edit collapse">
+								<form class="edit-comment">
+									<input type="hidden" name="qa_nonce" value="6f589a0575" />
+									<div class="wp-editor-container">
+										<textarea name="comment_content" id="edit_comment_13"></textarea>
+									</div>
+									<div class="row submit-wrapper">
+										<div class="col-md-3">
+											<button id="submit_reply" class="btn-submit">Update</button>
+										</div>
+										<div class="col-md-3">
+											<a href="javascript:void(0)" class="cancel-comment">Cancel</a>
+										</div>
+									</div>
+								</form>
+							</div>
+							<!-- END EDIT COMMENT FORM -->
+						</div>
+					</div>
+				</div>
+				<a data-container="body" data-toggle="collapse"
+					data-target="#question-child" class="add-comment"
+					href="javascript:void(0)">Add Comment</a>
+				<div class="clearfix"></div>
+				<form class="child-reply" method="POST">
+
+					<div id="question-child" class="child-answer-wrap collapse">
+						<div class="wp-editor-container">
+							<text-angular ng-model="questioncomment.description"></text-angular>
+						</div>
+						<div class="row submit-wrapper">
+							<div class="col-md-3 col-xs-3">
+								<button id="submit_reply" class="btn-submit">Add
+									comment</button>
+							</div>
+							<div class="col-md-9 col-xs-9">
+								<a href="javascript:void(0)" class="hide-comment">Cancel</a>
+							</div>
+						</div>
+					</div>
+				</form>
+				<!-- END SUBMIT FORM COMMENT -->
+
+			</div>
+		</div>
+	</div>
+	<!-- END question-content -->
+	<div class="row answers-filter" id="answers_filter">
+		<div class="max-col-md-8">
+			<div class="col-md-6 col-xs-6">
+				<span class="answers-count"><span itemprop="answerCount"
+					class="number">{{question.replyDetails.length}}</span> Answer(s) </span>
+			</div>
 
 		</div>
 	</div>
-	<!-- END SELECT-CATEGORY -->
-	<div id="question_content"
-		class="row question-main-content question-item"
+	<div id="answers_main_list"
+		class="row question-main-content question-item answer-item"
 		ng-repeat="reply in question.replyDetails">
 		<div class="col-md-1 col-xs-1"></div>
 		<div class="col-md-10 col-xs-10 q-right-content">
@@ -42,89 +270,85 @@
 			<ul class="post-controls">
 				<!-- Follow Action -->
 				<li><a href="javascript:void(0)" data-toggle="tooltip"
-					data-original-title="Follow" data-name="follow"
+					title="Follow"
 					class="action follow"> <i class="fa fa-plus-square"></i>
 				</a></li>
 				<!-- // Follow Action -->
-				<!-- report Action -->
-				<!--// Report Action -->
 			</ul>
 			<!--// admin control -->
 			<!-- question tag -->
-			<div class="top-content">
-				<span class="answered"><i class="fa fa-check"></i> Answered</span>
-			</div>
+
 			<!--// question tag -->
 			<div class="clearfix"></div>
 
 			<div class="question-content">
+
 				<p ng-bind-html="reply.replyDescription"></p>
-				<p>&nbsp;</p>
+
 			</div>
 
 			<div class="row">
 				<div class="col-md-8 col-xs-8 question-cat" data-user="11">
 
 					<span> <span class="author-avatar"> <img
-							ngSrc="{{reply.displayImage}}" class="avatar" alt="" />
+							ng-src="{{reply.displayImage}}" class="avatar" alt="" />
 					</span> <span class="author-name">{{reply.emailId}}</span>
-					</span> <span class="question-time"> Answered on {{reply.updatedDate|
-						date: 'MMM dd,yyyy'}}. </span>
+					</span> <span class="question-time">Answered on
+						{{reply.updatedDate| date: 'MMM dd,yyyy'}}. </span>
 				</div>
 				<div class="col-md-4 col-xs-4 question-control">
 					<ul>
-						<li><a class="share-social" href="javascript:void(0)"
+						<!-- <li><a class="share-social" href="javascript:void(0)"
 							data-toggle="popover" data-placement="top" data-container="body"
 							data-content='<ul class="socials-share"><li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fqaengine.enginethemes.com%2Fblog%2Fquestion%2Fwhat-is-business%2F&t=What is business??" target="_blank" class="btn-fb"><i class="fa fa-facebook"></i></a></li><li><a target="_blank" href="http://twitter.com/share?text=What is business??&url=https%3A%2F%2Fqaengine.enginethemes.com%2Fblog%2Fquestion%2Fwhat-is-business%2F" class="btn-tw"><i class="fa fa-twitter"></i></a></li><li class="ggplus"><a target="_blank"  href="https://plus.google.com/share?url=https%3A%2F%2Fqaengine.enginethemes.com%2Fblog%2Fquestion%2Fwhat-is-business%2F" class="btn-gg"><i class="fa fa-google-plus"></i></a></li></ul>'
 							data-html="true"> Share <i class="fa fa-share"></i>
-						</a></li>
+						</a></li> -->
 						<!-- <li class="collapse">
                                 <a href="javascript:void(0)">
                                     Report <i class="fa fa-flag"></i>
                                 </a>
                             </li> -->
-						<!-- <li><a href="#container_2341" class="show-comments ">
+						<li><a data-toggle="collapse"
+							data-target="#container{{$index}}" class="show-comments ">
 								Comment(0) <i class="fa fa-comment"></i>
-						</a></li> -->
+						</a></li>
 					</ul>
 				</div>
 			</div>
 
 			<div class="clearfix"></div>
 
+			<div class="comments-container collapse" id="container{{$index}}">
+				<div class="comments-wrapper"></div>
+				<a data-toggle="collapse" class="add-comment"
+					data-target="#child-container{{$index}}" href="javascript:void(0)">Add
+					Comment</a>
+				<div class="clearfix"></div>
+				<form class="child-reply" method="POST">
+
+					<div id="child-container{{$index}}"
+						class="child-answer-wrap collapse">
+						<div class="wp-editor-container">
+							<text-angular ng-model="comment.description"></text-angular>
+						</div>
+						<div class="row submit-wrapper">
+							<div class="col-md-3 col-xs-3">
+								<button id="submit_reply" class="btn-submit">Add
+									comment</button>
+							</div>
+							<div class="col-md-9 col-xs-9">
+								<a href="javascript:void(0)" class="hide-comment">Cancel</a>
+							</div>
+						</div>
+					</div>
+				</form>
+
+			</div>
 
 		</div>
 		<div class="clearfix"></div>
 	</div>
-	<!-- <div class="comments-container collapse" id="container_2341">
-                    <div class="comments-wrapper">
-                                            </div>
-                    		<a data-container="body" data-toggle="popover" data-content="You must have 10 points to add comment." class="add-comment" data-id="2341" href="javascript:void(0)">Add Comment</a>
-	    <div class="clearfix"></div>
-	    <form class="child-reply" method="POST">
-	        <input type="hidden" name="qa_nonce"        value="521a9dcbf4" />
-	        <input type="hidden" name="comment_post_ID" value="2341" />
-	        <input type="hidden" name="comment_type"    value="question" />
-	        <input type="hidden" name="user_id"         value="0" />
-	        <input type="hidden" name="post_parent"     value="2341" />
-	        <div id="editor_wrap_2341" class="child-answer-wrap collapse">
-	            <div class="wp-editor-container">
-	                <textarea name="post_content" id="insert_answer_2341"></textarea>
-	            </div>
-	            <div class="row submit-wrapper">
-	                <div class="col-md-3 col-xs-3">
-	                    <button id="submit_reply" class="btn-submit">
-	                        Add comment	                    </button>
-	                </div>
-	                <div class="col-md-9 col-xs-9">
-	                    <a href="javascript:void(0)" class="hide-comment">Cancel</a>
-	                </div>
-	            </div>
-	        </div>
-	    </form>END SUBMIT FORM COMMENT
 
-	                </div>
- -->
 	<div class="row form-reply">
 		<div class="col-md-12">
 			<h3>Your Answer</h3>
@@ -134,8 +358,10 @@
 
 				<div class="row submit-wrapper">
 					<div class="col-md-2">
-						<button type="submit"  ng-class="{'disabled': answer.replyDescription==''}" ng-disabled="answer.replyDescription=='';"
-							class="btn-submit">Post answer</button>
+						<button type="submit"
+							ng-class="{'disabled': answer.replyDescription==''}"
+							ng-disabled="answer.replyDescription=='';" class="btn-submit">Post
+							answer</button>
 					</div>
 					<div class="col-md-10 term-texts">
 						By posting your answer, you agree to the <a target="_blank"

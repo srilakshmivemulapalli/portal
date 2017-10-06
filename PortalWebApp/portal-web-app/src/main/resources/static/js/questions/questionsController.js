@@ -1,96 +1,171 @@
-questionApp.controller('questionsController', function($scope, $stateParams,
-		localStorageService, $rootScope, questionService, categoryService,
-		PagerService) {
+questionApp
+		.controller(
+				'questionsController',
+				function($scope, $stateParams, localStorageService, $rootScope,
+						questionService, categoryService, PagerService,
+						CategoryListModel, QuestionsListModel) {
 
-	// $scope.questionsList = [];
-	$scope.pageSize = 5;
-	// $scope.unAnsweredQuestionsList = [];
-	// $scope.retriveMyQuestionariesList =[];
+					$scope.categoriesList = CategoryListModel
+							.newCategoryListInstance();
+					$scope.unAnsweredQuestionsList = QuestionsListModel
+							.newQuestionListInstance();
+					$scope.questionsList = QuestionsListModel
+							.newQuestionListInstance();
+					$scope.retriveMyQuestionariesList = QuestionsListModel
+							.newQuestionListInstance();
+					$scope.pageSize = 5;
 
-	if (localStorageService.get('categoriesList') !== (undefined || null)) {
-		$scope.categoriesList = localStorageService.get('categoriesList');
-	} else {
-		categoryService.getCategories().then(function(response) {
+					if (localStorageService.get('categoriesList') !== (undefined || null)) {
+						var list = localStorageService.get('categoriesList');
+						list.map(function(category) {
 
-			$scope.categoriesList = response;
-			console.log(response);
-			localStorageService.set('categoriesList', response);
-		}, function(response) {
-			console.log(response);
-		})
+							$scope.categoriesList.addCategories(category);
 
-	}
-	$scope.pageSelected = function() {
+						})
+					} else {
+						categoryService.getCategories().then(
+								function(response) {
 
-		var attr = $('#nav-tabs .active > a').attr('data-target');
-		if (attr === '#all') {
-			if ($scope.questionsList !==undefined) {
-				$scope.setPage(1, $scope.questionsList);
-			}
-		} else if (attr === '#unanswered') {
-			if ($scope.unAnsweredQuestionsList !==undefined ) {
-				$scope.setPage(1, $scope.unAnsweredQuestionsList);
-			}
-		} else if (attr === '#myposts') {
-			if ($scope.retriveMyQuestionariesList !==undefined) {
-				$scope.setPage(1, $scope.retriveMyQuestionariesList);
-			}
-		}
-	}
+									if (response.length > 0) {
+										response.map(function(category) {
 
-	$scope.getAllQuestions = function() {
+											$scope.categoriesList
+													.addCategories(category);
 
-		questionService.getQuestions().then(function(response) {
+										})
+										localStorageService.set(
+												'categoriesList', response);
+									}
 
-			$scope.questionsList = response;
-			$rootScope.questionCount = response.totalQuestions;
-			$rootScope.userCount = response.totalUsers;
-			$scope.setPage(1, $scope.questionsList);
-		})
+								}, function(response) {
+									console.log(response);
+								})
 
-	}
+					}
+					$scope.pageSelected = function() {
 
-	$scope.getAllUnansweredQuestions = function() {
+						var attr = $('#nav-tabs .active > a').attr(
+								'data-target');
+						if (attr === '#all') {
 
-		questionService.getAllUnansweredQuestions().then(function(response) {
+							if ($scope.questionsList.questions.questionDetails.length > 0) {
+								$scope.setPage(1,
+										$scope.questionsList.questions);
+							}
+						} else if (attr === '#unanswered') {
+							if ($scope.unAnsweredQuestionsList.questions.questionDetails.length > 0) {
+								$scope
+										.setPage(
+												1,
+												$scope.unAnsweredQuestionsList.questions);
+							}
+						} else if (attr === '#myposts') {
+							if ($scope.retriveMyQuestionariesList.questions.questionDetails.length > 0) {
+								$scope
+										.setPage(
+												1,
+												$scope.retriveMyQuestionariesList.questions);
+							}
+						}
+					}
 
-			$scope.unAnsweredQuestionsList = response;
-			$scope.setPage(1, $scope.unAnsweredQuestionsList);
-		})
+					$scope.getAllQuestions = function() {
 
-	}
+						questionService
+								.getQuestions()
+								.then(
+										function(response) {
 
-	$scope.retriveMyQuestionaries = function() {
+											if (response.questionDetails.length > 0) {
+												$scope.questionsList
+														.addquestion(response);
+												response.questionDetails
+														.map(function(question) {
+															$scope.questionsList
+																	.addquestionDetails(question);
+														})
+												$rootScope.questionCount = response.totalQuestions;
+												$rootScope.userCount = response.totalUsers;
+												$scope
+														.setPage(
+																1,
+																$scope.questionsList.questions);
+											}
 
-		var profile = localStorageService.get('profile');
-		questionService.retriveMyQuestionaries(profile.emailId).then(
-				function(response) {
-					$scope.retriveMyQuestionariesList = response;
-					$scope.setPage(1, $scope.retriveMyQuestionariesList);
+										})
+
+					}
+
+					$scope.getAllUnansweredQuestions = function() {
+
+						questionService
+								.getAllUnansweredQuestions()
+								.then(
+										function(response) {
+
+											if (response.questionDetails.length > 0) {
+												$scope.unAnsweredQuestionsList
+														.addquestion(response);
+												response.questionDetails
+														.map(function(question) {
+															$scope.unAnsweredQuestionsList
+																	.addquestionDetails(question);
+														})
+
+												$scope
+														.setPage(
+																1,
+																$scope.unAnsweredQuestionsList.questions);
+
+											}
+										})
+
+					}
+
+					$scope.retriveMyQuestionaries = function() {
+
+						var profile = localStorageService.get('profile');
+						questionService
+								.retriveMyQuestionaries(profile.emailId)
+								.then(
+
+										function(response) {
+											if (response.questionDetails.length > 0) {
+												$scope.retriveMyQuestionariesList
+														.addquestion(response);
+												response.questionDetails
+														.map(function(question) {
+															$scope.retriveMyQuestionariesList
+																	.addquestionDetails(question);
+														})
+
+												$scope
+														.setPage(
+																1,
+																$scope.retriveMyQuestionariesList.questions);
+
+											}
+
+										})
+
+					}
+
+					$scope.getAllQuestions();
+					$scope.pager = {};
+					$scope.setPage = function(page, questionsList) {
+						if (page < 1 || page > $scope.pager.totalPages) {
+							return;
+						}
+
+						// get pager object from service
+						$scope.pager = PagerService.GetPager(
+								questionsList.questionDetails.length, page,
+								$scope.pageSize);
+
+						// get current page of items
+						$scope.items = questionsList.questionDetails.slice(
+								$scope.pager.startIndex,
+								$scope.pager.endIndex + 1);
+					}
+
 				})
-
-	}
-
-	$scope.getAllQuestions();
-	$scope.pager = {};
-	$scope.setPage = function(page, questionsList) {
-		if (page < 1 || page > $scope.pager.totalPages) {
-			return;
-		}
-
-		// get pager object from service
-		$scope.pager = PagerService.GetPager(
-				questionsList.questionDetails.length, page, $scope.pageSize);
-
-		// get current page of items
-		$scope.items = questionsList.questionDetails.slice(
-				$scope.pager.startIndex, $scope.pager.endIndex + 1);
-	}
-	$scope.initController = function() {
-		// initialize to page 1
-
-	}
-
-	$scope.initController();
-
-})
