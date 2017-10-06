@@ -2,12 +2,16 @@ package com.nisum.portal.data.domain;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -29,6 +33,9 @@ public class QuestionReplies implements Serializable{
 	
 	private String emailid;
 
+	@OneToMany(mappedBy = "replyId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<QuestionReplyComments>  questionReplyComments;
+	
 	/**
 	 * @return the replyId
 	 */
