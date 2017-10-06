@@ -14,9 +14,11 @@ import com.nisum.portal.data.dao.api.UserDAO;
 import com.nisum.portal.data.domain.Questionaries;
 import com.nisum.portal.data.domain.User;
 import com.nisum.portal.service.api.QuestionariesService;
+import com.nisum.portal.service.api.UserService;
 import com.nisum.portal.service.dto.CountDTO;
 import com.nisum.portal.service.dto.QuestionariesDTO;
 import com.nisum.portal.service.dto.QuestionsDTO;
+import com.nisum.portal.service.dto.UserDTO;
 import com.nisum.portal.util.Constants;
 import com.nisum.portal.util.QuestionariesUtil;
 
@@ -31,6 +33,9 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 	private UserDAO userDAO;
 	
 	@Autowired
+	private UserService userervice;
+	
+	@Autowired
 	private CategoriesDAO categoriesDAO;
 
 	
@@ -41,15 +46,7 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 		QuestionsDTO questionsDTO = new QuestionsDTO();
 		questionsDTO.setTotalQuestions(questionariesDAO.getQuestionariesCount());
 		questionsDTO.setTotalUsers(userDAO.getUserCount());
-		QuestionsDTO dto = QuestionariesUtil.convertDaoToDto(questionariesList,questionsDTO,null);
-		for (QuestionariesDTO qdto : dto.getQuestionDetails()) {
-			User user=userDAO.findByEmailId(qdto.getEmailId());//TODO: Need to read from cache
-			if(user!=null && StringUtils.isNotEmpty(user.getImage())) {
-				qdto.setDisplayImage(user.getImage());
-			}
-		}
-		
-		return dto;
+		return QuestionariesUtil.convertDaoToDto(questionariesList,questionsDTO,userervice);
 	}
 
 	@Override
@@ -73,22 +70,13 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 	public QuestionsDTO fetchMyQuestionaries(String emailId) {
 		emailId = emailId.substring(0, emailId.indexOf("@"))+"@nisum.com";
 		List<Questionaries> questionariesList = questionariesDAO.fetchMyQuestionaries(emailId);
-		User user=userDAO.findByEmailId(emailId);//TODO: Need to read from cache
 		QuestionsDTO questionsDTO = new QuestionsDTO();
-		QuestionsDTO dto = QuestionariesUtil.convertDaoToDto(questionariesList,questionsDTO,user.getImage());
-		return dto;
+		return QuestionariesUtil.convertDaoToDto(questionariesList,questionsDTO,userervice);
 	}
 
 	@Override
 	public QuestionsDTO retriveAllUnansweredQuestionaries() {
-		QuestionsDTO dto = QuestionariesUtil.convertDaoToDto(questionariesDAO.retriveAllUnansweredQuestionaries(),new QuestionsDTO(),null);
-		for (QuestionariesDTO qdto : dto.getQuestionDetails()) {
-			User user=userDAO.findByEmailId(qdto.getEmailId());//TODO: Need to read from cache
-			if(user!=null && StringUtils.isNotEmpty(user.getImage())) {
-				qdto.setDisplayImage(user.getImage());
-			}
-		}
-		return dto;
+		return QuestionariesUtil.convertDaoToDto(questionariesDAO.retriveAllUnansweredQuestionaries(),new QuestionsDTO(),userervice);
 	}
 
 }
