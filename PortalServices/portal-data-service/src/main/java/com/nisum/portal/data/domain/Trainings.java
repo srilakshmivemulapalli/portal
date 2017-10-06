@@ -144,6 +144,11 @@ public class Trainings {
 				+ trainingDate + ", trainerName=" + trainerName +  ", trainingTitle="
 						+ trainingTitle+ " , trainingStatus=" +trainingStatus+ ",trainingType="+ trainingType+" ]";		
 	}
-	
+	public Trainings(Integer trainingId) {
+		this.trainingId = trainingId;
+	}
+	public Trainings() {
+		// TODO Auto-generated constructor stub
+	}
 	
 }

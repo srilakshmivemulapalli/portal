@@ -33,4 +33,5 @@ public class Constants {
 	public static final String Training_Error = "Error in While Saving the Record, plesae Try again !!!";
 	public static final String Training_No_Data = "No Data Exist In DataBase !!!";
 	public static final String TRAINING_FEEDBACK_EXISTS = "Training feedback to respective training already submitted !!";
+	public static final String TRAINING_REQUEST_EXISTS = "Training Request Already Raised !!";
 }
