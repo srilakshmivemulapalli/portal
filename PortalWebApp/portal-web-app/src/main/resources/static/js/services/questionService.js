@@ -1,10 +1,11 @@
-app.factory('questionService', function($http, $q) {
+app.factory('questionService', function($http, $q,localStorageService) {
 
 	var qs = {};
-
+	var profile=localStorageService.get('profile');
+	
 	qs.getQuestions = function() {
 		var deferred = $q.defer();
-		$http.get('v1/questionaries/retrieve/allQuestions').success(function(response) {
+		$http.get('v1/questionaries/retrieve/allQuestions',{ headers:{'EmailId':profile.emailId}}).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
