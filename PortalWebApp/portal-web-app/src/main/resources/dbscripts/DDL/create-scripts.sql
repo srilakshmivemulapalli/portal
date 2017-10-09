@@ -80,7 +80,7 @@ CREATE TABLE `portal`.`Trainings` (
   PRIMARY KEY (`trainingId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=big5;
 
-CREATE TABLE `QuestionComment` (
+CREATE TABLE `portal`.`QuestionComment` (
   `commentId` int(11) NOT NULL AUTO_INCREMENT,
   `questionsId` int(11) DEFAULT NULL,
   `commentdescription` varchar(1000) DEFAULT NULL,
@@ -91,7 +91,7 @@ CREATE TABLE `QuestionComment` (
   CONSTRAINT `fk_questionId_QuestionComment` FOREIGN KEY (`questionsId`) REFERENCES `Questionaries` (`questionId`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=big5;
 
-CREATE TABLE `QuestionReplyComment` (
+CREATE TABLE `portal`.`QuestionReplyComment` (
   `commentId` int(11) NOT NULL AUTO_INCREMENT,
   `repliesId` int(11) DEFAULT NULL,
   `commentdescription` varchar(1000) DEFAULT NULL,
