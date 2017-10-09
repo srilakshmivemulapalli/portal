@@ -34,4 +34,19 @@ public class Constants {
 	public static final String Training_No_Data = "No Data Exist In DataBase !!!";
 	public static final String TRAINING_FEEDBACK_EXISTS = "Training feedback to respective training already submitted !!";
 	public static final String TRAINING_REQUEST_EXISTS = "Training Request Already Raised !!";
+	
+	// Email configuration for new user account
+		public static final String GMAIL_SMTP="mail.smtp.auth";
+		
+		public static final String TRUE_FLAG="true";
+		
+		public static final String GMAIL_START_TLS="mail.smtp.starttls.enable";
+		
+		public static final String  GMAIL_HOST="mail.smtp.host";
+		
+		public static final String GMAIL_PORT="mail.smtp.port";
+		
+		public static final String  GMAIL_PORT_NUM="587";
+		
+		public static final String GMAIL_HOST_NAME="smtp.gmail.com";
 }
