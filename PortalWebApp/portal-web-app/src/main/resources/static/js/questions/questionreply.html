@@ -41,17 +41,15 @@
 			<ul class="post-controls">
 				<!-- Follow Action -->
 				<li><a href="javascript:void(0)" data-toggle="tooltip"
-					title="Follow"
-					class="action follow"> <i class="fa fa-plus-square"></i>
-				</a>
-					</li>
+					title="Follow" class="action follow"> <i
+						class="fa fa-plus-square"></i>
+				</a></li>
 				<!-- // Follow Action -->
 				<!-- report Action -->
 				<li><a href="javascript:void(0)" data-toggle="tooltip"
-					title="Report" 
-					class="action report"> <i class="fa fa-exclamation-triangle"></i>
-				</a>
-					</li>
+					title="Report" class="action report"> <i
+						class="fa fa-exclamation-triangle"></i>
+				</a></li>
 				<!--// Report Action -->
 			</ul>
 			<div class="top-content" ng-if="question.replyDetails.length>0">
@@ -61,7 +59,7 @@
 				<p ng-bind-html="question.questionDetails.description"></p>
 			</div>
 			<div class="row">
-				<div class="col-md-8 col-xs-8 question-cat" data-user="11">
+				<div class="col-md-8 col-xs-8 question-cat">
 
 					<span> <span class="author-avatar"> <img
 							ng-src="{{question.questionDetails.displayImage}}" class="avatar"
@@ -75,18 +73,22 @@
 					<ul>
 
 						<li><a data-toggle="collapse"
-							data-target="#question-container" class="show-comments active">
-								Comment(5) <i class="fa fa-comment"></i>
+							data-target="#question-container" class="show-comments"
+							ng-class="{'active': question.questionDetails.questionComments.length>0}">
+								Comment({{question.questionDetails.questionComments.length}}) <i
+								class="fa fa-comment"></i>
 						</a></li>
 					</ul>
 				</div>
 			</div>
 			<div class="clearfix"></div>
-			<div class="comments-container collpase" id="question-container">
+			<div class="comments-container" id="question-container"
+				ng-class="{'collpase in': question.questionDetails.questionComments.length>0}">
 				<div class="comments-wrapper">
 
-					<div class="row comment-item" data-id="11">
-						<div class="col-md-2 comment-avatar">
+					<div class="row comment-item"
+						ng-repeat="comment in question.questionDetails.questionComments">
+						<!-- <div class="col-md-2 comment-avatar">
 							<img itemprop="image"
 								src="https://cdn.enginethemes.com/qaengine/2015/01/12.jpg"
 								class="avatar" alt="" />
@@ -94,17 +96,16 @@
 								<a href="https://qaengine.enginethemes.com/blog/member/admin/"
 									title="admin"> admin </a>
 							</p>
-						</div>
-						<div class="col-md-10 comment-content">
+						</div> -->
+						<div class="col-md-12 comment-content">
 							<div class="cm-content-wrap">
-								<div class="cm-wrap">
+								<div class="">
 									<p>
-										<span style="color: #000000;">Don&#8217;t forget to
-											tell us what your favorite Android apps are in the comments
-											section below.</span>
+										<span style="color: #000000;">{{comment.commentdescription}}</span>
 									</p>
 								</div>
-								<span class="comment-time">on June 5, 2014. </span> <span
+								<span class="comment-time"><span style="color: #07C;">{{comment.emailId}}
+								</span> on {{comment.createdDate| date: 'MMM dd,yyyy'}} </span> <span
 									class="comment-edit"> </span>
 							</div>
 							<!-- END COMMENT CONTENT -->
@@ -127,108 +128,14 @@
 							<!-- END EDIT COMMENT FORM -->
 						</div>
 					</div>
-					<div class="row comment-item" data-id="12">
-						<div class="col-md-2 comment-avatar">
-							<img itemprop="image"
-								src="https://cdn.enginethemes.com/qaengine/2015/01/128323.jpg"
-								class="avatar" alt="" />
-							<p class="cmt-author">
-								<a href="https://qaengine.enginethemes.com/blog/member/alex/"
-									title="Alex"> Alex </a>
-							</p>
-						</div>
-						<div class="col-md-10 comment-content">
-							<div class="cm-content-wrap">
-								<div class="cm-wrap"></div>
-								<span class="comment-time">on June 5, 2014. </span> <span
-									class="comment-edit"> </span>
-							</div>
-							<!-- END COMMENT CONTENT -->
-							<div class="cm-content-edit collapse">
-								<form class="edit-comment">
-									<input type="hidden" name="qa_nonce" value="6f589a0575" />
-									<div class="wp-editor-container">
-										<textarea name="comment_content" id="edit_comment_12"></textarea>
-									</div>
-									<div class="row submit-wrapper">
-										<div class="col-md-3">
-											<button id="submit_reply" class="btn-submit">Update</button>
-										</div>
-										<div class="col-md-3">
-											<a href="javascript:void(0)" class="cancel-comment">Cancel</a>
-										</div>
-									</div>
-								</form>
-							</div>
-							<!-- END EDIT COMMENT FORM -->
-						</div>
-					</div>
-					<div class="row comment-item" data-id="13">
-						<div class="col-md-2 comment-avatar">
-							<img itemprop="image"
-								src="https://cdn.enginethemes.com/qaengine/2015/01/12.jpg"
-								class="avatar" alt="" />
-							<p class="cmt-author">
-								<a href="https://qaengine.enginethemes.com/blog/member/admin/"
-									title="admin"> admin </a>
-							</p>
-						</div>
-						<div class="col-md-10 comment-content">
-							<div class="cm-content-wrap">
-								<div class="cm-wrap">
-									<p style="text-align: center;">
-										<a href="https://cdn.enginethemes.com/qaengine/2014/06/1.jpg"
-											class="qa-zoom"
-											title="What are the best mobile apps for traveling?"><img
-											alt="What are the best mobile apps for traveling?"
-											class="img-responsive"
-											src="https://cdn.enginethemes.com/qaengine/2014/06/1.jpg"></a>
-									</p>
-									<p>TripIt is the type of app that almost needs no
-										introduction. When it comes to travel planning, it won&#8217;t
-										suggest destinations for you, or help you plan the best
-										possible way to spend your time in town wherever you go, but
-										what TripIt does offer is a complete, hassle free way to
-										combine all of your travel confirmations, itineraries,
-										tickets, hotel bookings, rental car reservations, and the rest
-										in one simple view. That view then becomes the central hub for
-										all of your travel needs—no more fishing for a confirmation
-										email to get your reservation number, or wondering what flight
-										number you&#8217;re on before you check in; it&#8217;s all
-										right there, and it&#8217;s all incredibly handy. It&#8217;ll
-										even let you know if there&#8217;s a better seat on your
-										flight so you can switch to it. As someone who uses TripIt
-										when he travels, I wouldn&#8217;t leave home without it.</p>
-								</div>
-								<span class="comment-time">on June 5, 2014. </span> <span
-									class="comment-edit"> </span>
-							</div>
-							<!-- END COMMENT CONTENT -->
-							<div class="cm-content-edit collapse">
-								<form class="edit-comment">
-									<input type="hidden" name="qa_nonce" value="6f589a0575" />
-									<div class="wp-editor-container">
-										<textarea name="comment_content" id="edit_comment_13"></textarea>
-									</div>
-									<div class="row submit-wrapper">
-										<div class="col-md-3">
-											<button id="submit_reply" class="btn-submit">Update</button>
-										</div>
-										<div class="col-md-3">
-											<a href="javascript:void(0)" class="cancel-comment">Cancel</a>
-										</div>
-									</div>
-								</form>
-							</div>
-							<!-- END EDIT COMMENT FORM -->
-						</div>
-					</div>
+
+
 				</div>
 				<a data-container="body" data-toggle="collapse"
 					data-target="#question-child" class="add-comment"
 					href="javascript:void(0)">Add Comment</a>
 				<div class="clearfix"></div>
-				<form class="child-reply" method="POST">
+				<form class="child-reply" ng-submit="submitQuestionComment(questioncomment.description,question.questionDetails.questionId)">
 
 					<div id="question-child" class="child-answer-wrap collapse">
 						<div class="wp-editor-container">
@@ -236,7 +143,7 @@
 						</div>
 						<div class="row submit-wrapper">
 							<div class="col-md-3 col-xs-3">
-								<button id="submit_reply" class="btn-submit">Add
+								<button type="submit" id="submit_reply" class="btn-submit">Add
 									comment</button>
 							</div>
 							<div class="col-md-9 col-xs-9">
@@ -270,8 +177,8 @@
 			<ul class="post-controls">
 				<!-- Follow Action -->
 				<li><a href="javascript:void(0)" data-toggle="tooltip"
-					title="Follow"
-					class="action follow"> <i class="fa fa-plus-square"></i>
+					title="Follow" tooltip class="action follow"> <i
+						class="fa fa-plus-square"></i>
 				</a></li>
 				<!-- // Follow Action -->
 			</ul>
@@ -309,8 +216,10 @@
                                 </a>
                             </li> -->
 						<li><a data-toggle="collapse"
-							data-target="#container{{$index}}" class="show-comments ">
-								Comment(0) <i class="fa fa-comment"></i>
+							data-target="#container{{$index}}" class="show-comments"
+							ng-class="{'active': reply.replyComments.length>0}">
+								Comment({{reply.replyComments.length}}) <i class="fa fa-comment"></i>
+
 						</a></li>
 					</ul>
 				</div>
@@ -318,22 +227,62 @@
 
 			<div class="clearfix"></div>
 
-			<div class="comments-container collapse" id="container{{$index}}">
-				<div class="comments-wrapper"></div>
+			<div class="comments-container collapse" id="container{{$index}}"
+				ng-class="{'collpase in': reply.replyComments.length>0}">
+				<div class="comments-wrapper">
+
+					<div class="row comment-item"
+						ng-repeat="comment in reply.replyComments">
+
+						<div class="col-md-12 comment-content">
+							<div class="cm-content-wrap">
+								<div class="">
+									<p>
+										<span style="color: #000000;">{{comment.commentdescription}}</span>
+									</p>
+								</div>
+								<span class="comment-time"><span style="color: #07C;">{{comment.emailId}}
+								</span> on {{comment.createdDate| date: 'MMM dd,yyyy'}} </span> <span
+									class="comment-edit"> </span>
+							</div>
+							<!-- END COMMENT CONTENT -->
+							<div class="cm-content-edit collapse">
+								<form class="edit-comment">
+									<input type="hidden" name="qa_nonce" value="6f589a0575" />
+									<div class="wp-editor-container">
+										<textarea name="comment_content" id="edit_comment_11"></textarea>
+									</div>
+									<div class="row submit-wrapper">
+										<div class="col-md-3">
+											<button id="submit_reply" class="btn-submit">Update</button>
+										</div>
+										<div class="col-md-3">
+											<a href="javascript:void(0)" class="cancel-comment">Cancel</a>
+										</div>
+									</div>
+								</form>
+							</div>
+							<!-- END EDIT COMMENT FORM -->
+						</div>
+					</div>
+
+
+				</div>
+
 				<a data-toggle="collapse" class="add-comment"
 					data-target="#child-container{{$index}}" href="javascript:void(0)">Add
 					Comment</a>
 				<div class="clearfix"></div>
-				<form class="child-reply" method="POST">
+				<form class="child-reply" ng-submit="submitReplyComment(replycomment[$index],reply.replyId)">
 
 					<div id="child-container{{$index}}"
 						class="child-answer-wrap collapse">
 						<div class="wp-editor-container">
-							<text-angular ng-model="comment.description"></text-angular>
+							<text-angular ng-model="replycomment[$index]"></text-angular>
 						</div>
 						<div class="row submit-wrapper">
 							<div class="col-md-3 col-xs-3">
-								<button id="submit_reply" class="btn-submit">Add
+								<button type="submit" id="submit_reply" class="btn-submit">Add
 									comment</button>
 							</div>
 							<div class="col-md-9 col-xs-9">

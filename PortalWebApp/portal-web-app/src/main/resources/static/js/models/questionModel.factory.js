@@ -1,14 +1,5 @@
 app.factory('QuestionModel', [ '$http', function($http) {
-//	function Question(questionCopy) {
-//		this.totalQuestions = null;
-//		this.totalUsers = null;
-//		this.questionDetails = [];
-//
-//		angular.extend(this, questionCopy);
-//		this.clone = function(otherQuestion) {
-//			return new User(otherQuestion);
-//		};
-//	}
+
 	function QuestionDetail(questionDetailCopy) {
 		this.categoryName = null;
 		this.createdDate = null;
