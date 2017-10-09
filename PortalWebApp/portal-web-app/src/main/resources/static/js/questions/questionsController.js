@@ -71,83 +71,102 @@ questionApp
 
 					$scope.getAllQuestions = function() {
 
-						questionService
-								.getQuestions()
-								.then(
-										function(response) {
+						if ($scope.questionsList.questions.questionDetails.length <= 0) {
+							questionService
+									.getQuestions()
+									.then(
+											function(response) {
 
-											if (response.questionDetails.length > 0) {
-												$scope.questionsList
-														.addquestion(response);
-												response.questionDetails
-														.map(function(question) {
-															$scope.questionsList
-																	.addquestionDetails(question);
-														})
-												$rootScope.questionCount = response.totalQuestions;
-												$rootScope.userCount = response.totalUsers;
-												$scope
-														.setPage(
-																1,
-																$scope.questionsList.questions);
-											}
+												if (response.questionDetails.length > 0) {
+													$scope.questionsList
+															.addquestion(response);
+													response.questionDetails
+															.map(function(
+																	question) {
+																$scope.questionsList
+																		.addquestionDetails(question);
+															})
+													$rootScope.questionCount = response.totalQuestions;
+													$rootScope.userCount = response.totalUsers;
+													$scope
+															.setPage(
+																	1,
+																	$scope.questionsList.questions);
+												}
 
-										})
-
+											})
+						} else {
+							$scope.setPage(1, $scope.questionsList.questions);
+						}
 					}
 
 					$scope.getAllUnansweredQuestions = function() {
 
-						questionService
-								.getAllUnansweredQuestions()
-								.then(
-										function(response) {
+						if ($scope.unAnsweredQuestionsList.questions.questionDetails.length <= 0) {
+							questionService
+									.getAllUnansweredQuestions()
+									.then(
+											function(response) {
 
-											if (response.questionDetails.length > 0) {
-												$scope.unAnsweredQuestionsList
-														.addquestion(response);
-												response.questionDetails
-														.map(function(question) {
-															$scope.unAnsweredQuestionsList
-																	.addquestionDetails(question);
-														})
+												if (response.questionDetails.length > 0) {
+													$scope.unAnsweredQuestionsList
+															.addquestion(response);
+													response.questionDetails
+															.map(function(
+																	question) {
+																$scope.unAnsweredQuestionsList
+																		.addquestionDetails(question);
+															})
 
-												$scope
-														.setPage(
-																1,
-																$scope.unAnsweredQuestionsList.questions);
+													$scope
+															.setPage(
+																	1,
+																	$scope.unAnsweredQuestionsList.questions);
 
-											}
-										})
+												}
+											})
 
+						} else {
+
+							$scope.setPage(1,
+									$scope.unAnsweredQuestionsList.questions);
+						}
 					}
 
 					$scope.retriveMyQuestionaries = function() {
 
 						var profile = localStorageService.get('profile');
-						questionService
-								.retriveMyQuestionaries(profile.emailId)
-								.then(
+						if ($scope.retriveMyQuestionariesList.questions.questionDetails.length <= 0) {
+							questionService
+									.retriveMyQuestionaries(profile.emailId)
+									.then(
 
-										function(response) {
-											if (response.questionDetails.length > 0) {
-												$scope.retriveMyQuestionariesList
-														.addquestion(response);
-												response.questionDetails
-														.map(function(question) {
-															$scope.retriveMyQuestionariesList
-																	.addquestionDetails(question);
-														})
+											function(response) {
+												if (response.questionDetails.length > 0) {
+													$scope.retriveMyQuestionariesList
+															.addquestion(response);
+													response.questionDetails
+															.map(function(
+																	question) {
+																$scope.retriveMyQuestionariesList
+																		.addquestionDetails(question);
+															})
 
-												$scope
-														.setPage(
-																1,
-																$scope.retriveMyQuestionariesList.questions);
+													$scope
+															.setPage(
+																	1,
+																	$scope.retriveMyQuestionariesList.questions);
 
-											}
+												}
 
-										})
+											})
+						} else {
+							$scope
+									.setPage(
+											1,
+											$scope.retriveMyQuestionariesList.questions);
 
+						}
 					}
 
 					$scope.getAllQuestions();
