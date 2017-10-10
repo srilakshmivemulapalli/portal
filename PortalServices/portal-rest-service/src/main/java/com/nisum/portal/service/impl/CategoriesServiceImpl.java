@@ -32,8 +32,8 @@ public class CategoriesServiceImpl implements CategoriesService {
 	public List<CategoriesDTO> getCategories() {
 		logger.info("categories in service impl");
 		List<Categories> categoriesList = categoriesDAO.getCategories();
-	
-		return CategoryServiceUtil.convertDaoTODto(categoriesList); 
+	 
+		return CategoryServiceUtil.convertDaoTODto(categoriesList);  
 	}
  
 	/*
@@ -44,7 +44,7 @@ public class CategoriesServiceImpl implements CategoriesService {
 	 * service.dto.CategoriesDTO)
 	 */
 	@Override
-	@CachePut(value="Categories", key="#categoryDto.categoryName")
+	@CacheEvict(value="Categories", key="#categoryDto.categoryName", allEntries=true)
 	public ServiceStatusDto addCategory(CategoriesDTO categoryDto) {
 
 		logger.info("CategoriesServiceImpl :: addCategories");
@@ -77,7 +77,7 @@ public class CategoriesServiceImpl implements CategoriesService {
 	 * domain.Categories)
 	 */
 	@Override 
-	@CachePut(value="Categories", key="#categoriesDTO.categoryId")
+	@CacheEvict(value="Categories", key="#categoriesDTO.categoryId", allEntries=true)
 	public ServiceStatusDto update(CategoriesDTO categoriesDTO) throws CategoryServiceException {
 		logger.info("CategoriesServiceImpl :: updateCategories :: Category Details " + categoriesDTO.toString());
 		Date date = new Date();
@@ -113,7 +113,7 @@ public class CategoriesServiceImpl implements CategoriesService {
 	}
 
 	@Override
-	@CachePut(value="Categories", key="#categoryId")
+	@CacheEvict(value="Categories", key="#categoryId", allEntries=true)
 	public ServiceStatusDto deleteCategories(Integer categoryId) {
 		logger.info("CategoriesServiceImpl :: deleteCategories");
 		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();

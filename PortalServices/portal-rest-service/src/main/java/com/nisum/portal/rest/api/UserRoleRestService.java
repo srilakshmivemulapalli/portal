@@ -37,10 +37,10 @@ public class UserRoleRestService {
 		ServiceStatusDto serviceStatusDto=new ServiceStatusDto();
 		try {
 			
-			if(userRoleDto.getRole().equalsIgnoreCase("null") || userRoleDto.getRole().equals("")) {
+			if(userRoleDto.getRole().trim().isEmpty()) {
 				Errors error = new Errors();
 				error.setErrorCode("Errors-UserRole");
-				error.setErrorMessage("UserRole Name Cannot Be Emplty");
+				error.setErrorMessage(Constants.USER_ROLE_EMPTY);
 				ResponseEntity<Errors> rsEntity=new ResponseEntity<Errors>(error, HttpStatus.NOT_ACCEPTABLE);
 				return rsEntity;
 			

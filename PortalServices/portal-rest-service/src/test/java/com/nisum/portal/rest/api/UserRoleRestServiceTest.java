@@ -45,10 +45,10 @@ public class UserRoleRestServiceTest {
 		
 		Errors error=new Errors();
 		error.setErrorCode("Errors-UserRole");
-		error.setErrorMessage("UserRole Name Cannot Be Emplty");
+		error.setErrorMessage("UserRole Name Cannot Be Empty !!");
 		
 		UserRoleDTO userRoleDto=new UserRoleDTO();
-		userRoleDto.setRole("NULL");
+		userRoleDto.setRole("");
 				
 				ResponseEntity<?> actual =userRoleRestService.addUserRole(userRoleDto);
 			
