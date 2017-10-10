@@ -89,11 +89,6 @@ public class Trainings {
 				return false;
 		} else if (!description.equals(other.description))
 			return false;
-		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
 		if (trainingDate == null) {
 			if (other.trainingDate != null)
 				return false;
@@ -140,7 +135,7 @@ public class Trainings {
 	
 	@Override
 	public String toString() {
-		return "CategoriesDTO [trainingId=" + trainingId + ", description=" + description + ", trainingDate="
+		return "Trainings [trainingId=" + trainingId + ", description=" + description + ", trainingDate="
 				+ trainingDate + ", trainerName=" + trainerName +  ", trainingTitle="
 						+ trainingTitle+ " , trainingStatus=" +trainingStatus+ ",trainingType="+ trainingType+" ]";		
 	}

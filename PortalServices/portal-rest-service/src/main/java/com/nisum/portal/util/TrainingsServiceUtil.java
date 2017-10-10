@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
 
+import com.nisum.portal.data.domain.TrainingToUser;
 import com.nisum.portal.data.domain.Trainings;
+import com.nisum.portal.service.dto.TrainingToUserDTO;
 import com.nisum.portal.service.dto.TrainingsDTO;
 
 public class TrainingsServiceUtil {
@@ -44,6 +46,26 @@ public class TrainingsServiceUtil {
 		return trainings;
 		
 	}
-
+	
+	public static TrainingToUser convertTrainingToUserDtoToDao(TrainingToUserDTO trainingToUserDTO)
+	{
+		TrainingToUser trainingToUser=new TrainingToUser();
+		trainingToUser.setTrainingToUserId(trainingToUserDTO.getTrainingToUserId());
+		trainingToUser.setTrainingId(trainingToUserDTO.getTrainingId());
+		trainingToUser.setUserId(trainingToUserDTO.getUserId());
+		trainingToUser.setTrainingPresence(trainingToUserDTO.getTrainingPresence());
+		
+		return trainingToUser;
+	}
+	public static TrainingToUserDTO convertTrainingToUserDaoToDto(TrainingToUser trainingToUser)
+	{
+		TrainingToUserDTO trainingToUserDTO=new TrainingToUserDTO();
+		trainingToUserDTO.setTrainingToUserId(trainingToUser.getTrainingToUserId());
+		trainingToUserDTO.setTrainingId(trainingToUser.getTrainingId());
+		trainingToUserDTO.setUserId(trainingToUser.getUserId());
+		trainingToUserDTO.setTrainingPresence(trainingToUser.getTrainingPresence());
+		
+		return trainingToUserDTO;
+	}
 
 }

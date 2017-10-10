@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 import com.nisum.portal.data.dao.api.TrainingsDAO;
+import com.nisum.portal.data.domain.TrainingToUser;
 import com.nisum.portal.data.domain.Trainings;
 import com.nisum.portal.data.repository.TrainingRepository;
+import com.nisum.portal.data.repository.TrainingToUserRepository;
 
 @Configuration
 public class TrainingDAOImpl implements TrainingsDAO {
@@ -17,6 +19,9 @@ public class TrainingDAOImpl implements TrainingsDAO {
 	
 	@Autowired
 	TrainingRepository trainingRepository;
+	
+	@Autowired
+	TrainingToUserRepository trainingToUserRepository;
 
 	@Override
 	public Trainings saveTrainings(Trainings trainings) {
@@ -37,6 +42,32 @@ public class TrainingDAOImpl implements TrainingsDAO {
 		return trainingRepository.findAll();	
 	}
 
-	
-
+	@Override
+	public TrainingToUser trainingToUser(TrainingToUser trainingToUser) {
+		logger.info("TrainingDAOImpl::trainingToUser");
+		TrainingToUser	trainingToUser1;
+		if(trainingToUser.getTrainingToUserId()!=null)
+			{
+			trainingToUser1=	trainingToUserRepository.findOne(trainingToUser.getTrainingToUserId());
+				if(trainingToUser1!=null)
+				{
+					trainingToUser1.setTrainingPresence(trainingToUser.getTrainingPresence());
+					trainingToUserRepository.save(trainingToUser1);
+				}
+				else
+				{
+					TrainingToUser trainingToUser2=new TrainingToUser();
+					trainingToUser2.setTrainingId(trainingToUser.getTrainingId());
+					trainingToUser2.setTrainingPresence(trainingToUser.getTrainingPresence());
+					trainingToUser2.setUserId(trainingToUser.getUserId());
+					
+					trainingToUserRepository.save(trainingToUser2);
+					
+				}
+					
+		  }
+		     return trainingToUser;
+	}
 }
+
+
