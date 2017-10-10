@@ -37,7 +37,7 @@ public class QuestionReplysUtil {
 			if(CollectionUtils.isNotEmpty(questionariesComments)) {
 				for (QuestionariesComments comment : questionariesComments) {
 					QuestionariesCommentsDTO questionariesCommentsDTO = new QuestionariesCommentsDTO();
-					questionariesCommentsDTO.setCommentdescription(comment.getCommentdescription());
+					questionariesCommentsDTO.setcommentDescription(comment.getcommentDescription());
 					questionariesCommentsDTO.setCommentId(comment.getCommentId());
 					questionariesCommentsDTO.setCreatedDate(comment.getCreatedDate());
 					questionariesCommentsDTO.setEmailId(comment.getEmailId());
@@ -65,7 +65,7 @@ public class QuestionReplysUtil {
 					if(CollectionUtils.isNotEmpty(questionReplyComments)) {
 						for (QuestionReplyComments replyComment : questionReplyComments) {
 							QuestionReplyCommentsDTO questionReplyCommentsDto = new QuestionReplyCommentsDTO();
-							questionReplyCommentsDto.setCommentdescription(replyComment.getCommentdescription());
+							questionReplyCommentsDto.setcommentDescription(replyComment.getcommentDescription());
 							questionReplyCommentsDto.setCommentId(replyComment.getCommentId());
 							questionReplyCommentsDto.setCreatedDate(replyComment.getCreatedDate());
 							questionReplyCommentsDto.setEmailId(replyComment.getEmailId());
@@ -103,7 +103,7 @@ public class QuestionReplysUtil {
 	public static QuestionReplyComments convertReplyDtoToDao(QuestionReplyCommentsDTO comment) {
 		QuestionReplyComments questionReplyComments = new QuestionReplyComments();
 		questionReplyComments.setEmailId(comment.getEmailId());
-		questionReplyComments.setCommentdescription(comment.getCommentdescription());
+		questionReplyComments.setcommentDescription(comment.getcommentDescription());
 		questionReplyComments.setReplyId(comment.getReplyId());
 		return questionReplyComments;
 	}

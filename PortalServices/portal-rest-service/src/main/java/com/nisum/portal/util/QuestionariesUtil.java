@@ -50,7 +50,7 @@ public class QuestionariesUtil {
 	
 	public static QuestionariesComments convertDtoToDao(String emailId, QuestionariesCommentsDTO questionComments) {
 		QuestionariesComments questionariesComments = new QuestionariesComments();
-		questionariesComments.setCommentdescription(questionComments.getCommentdescription());
+		questionariesComments.setcommentDescription(questionComments.getcommentDescription());
 		questionariesComments.setQuestionId(questionComments.getQuestionId());
 		questionariesComments.setEmailId(emailId);
 		return questionariesComments;
