@@ -5,22 +5,22 @@ import java.sql.Timestamp;
 public class QuestionariesCommentsDTO {
 
 	private Integer commentId;
-	private int questionId;
+	private int id;
 	private Timestamp createdDate;
 	private String emailId;
 	private String commentDescription;
 	
 	/**
-	 * @return the questionId
+	 * @return the id
 	 */
-	public int getQuestionId() {
-		return questionId;
+	public int getid() {
+		return id;
 	}
 	/**
-	 * @param questionId the questionId to set
+	 * @param id the id to set
 	 */
-	public void setquestionId(Integer questionId) {
-		this.questionId = questionId;
+	public void setid(Integer id) {
+		this.id = id;
 	}
 	/**
 	 * @return the commentId
@@ -81,7 +81,7 @@ public class QuestionariesCommentsDTO {
 		result = prime * result + ((commentDescription == null) ? 0 : commentDescription.hashCode());
 		result = prime * result + ((createdDate == null) ? 0 : createdDate.hashCode());
 		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
-		result = prime * result + questionId;
+		result = prime * result + id;
 		return result;
 	}
 	/* (non-Javadoc)
@@ -116,7 +116,7 @@ public class QuestionariesCommentsDTO {
 				return false;
 		} else if (!emailId.equals(other.emailId))
 			return false;
-		if (questionId != other.questionId)
+		if (id != other.id)
 			return false;
 		return true;
 	}
@@ -125,7 +125,7 @@ public class QuestionariesCommentsDTO {
 	 */
 	@Override
 	public String toString() {
-		return "QuestionCommentsDTO [commentId=" + commentId + ", questionId=" + questionId + ", createdDate="
+		return "QuestionCommentsDTO [commentId=" + commentId + ", id=" + id + ", createdDate="
 				+ createdDate + ", emailId=" + emailId + ", commentDescription=" + commentDescription + "]";
 	}
 	

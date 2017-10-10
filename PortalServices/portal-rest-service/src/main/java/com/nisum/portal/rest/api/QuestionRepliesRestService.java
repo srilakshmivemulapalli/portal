@@ -79,7 +79,7 @@ public class QuestionRepliesRestService {
 		logger.info("QuestionRepliesRestService :: saveReplyComment :: saving reply comment"); 
 		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
 		try {
-			boolean question = questionRepliesService.findReplyById(comment.getReplyId());
+			boolean question = questionRepliesService.findReplyById(comment.getid());
 			if (question) {
 				QuestionReplyCommentsDTO questionReplyCommentsDTO = questionRepliesService.saveReplyComment(emailId, comment);
 				return new ResponseEntity<QuestionReplyCommentsDTO>(questionReplyCommentsDTO, HttpStatus.OK);
