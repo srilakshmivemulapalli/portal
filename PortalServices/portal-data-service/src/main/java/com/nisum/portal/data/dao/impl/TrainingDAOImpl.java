@@ -125,7 +125,11 @@ public class TrainingDAOImpl implements TrainingsDAO {
 		logger.info("TrainingDAOImpl::getTrainingRequests");
 		return trainingRequestRepository.findAll();
 	}
-
+	public long getTrainingRequestsCount() {
+		// TODO Auto-generated method stub
+		logger.info("TrainingDAOImpl::getTrainingRequests");
+		return trainingRequestRepository.count();
+	}
 }
 
 
