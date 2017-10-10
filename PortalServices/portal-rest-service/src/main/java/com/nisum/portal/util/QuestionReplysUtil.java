@@ -99,6 +99,7 @@ public class QuestionReplysUtil {
 		repliesDTO.setReplyDescription(reply.getReplyDescription());
 		repliesDTO.setReplyId(reply.getReplyId());
 		repliesDTO.setUpdatedDate(reply.getUpdatedDate());
+		repliesDTO.setReplyComments(new ArrayList<QuestionReplyCommentsDTO>());
 		return repliesDTO;
 	}
 	
