@@ -21,7 +21,7 @@ public class QuestionReplyComments implements Serializable{
 	@Column (name = "commentId")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer commentId;
-	private int repliesId;
+	private int replyId;
 	private Timestamp createdDate;
 	private String emailId;
 	private String commentdescription;
@@ -29,13 +29,13 @@ public class QuestionReplyComments implements Serializable{
 	 * @return the replyId
 	 */
 	public int getReplyId() {
-		return repliesId;
+		return replyId;
 	}
 	/**
 	 * @param replyId the replyId to set
 	 */
 	public void setReplyId(int replyId) {
-		this.repliesId = replyId;
+		this.replyId = replyId;
 	}
 	/**
 	 * @return the createdDate
@@ -96,7 +96,7 @@ public class QuestionReplyComments implements Serializable{
 		result = prime * result + ((commentdescription == null) ? 0 : commentdescription.hashCode());
 		result = prime * result + ((createdDate == null) ? 0 : createdDate.hashCode());
 		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
-		result = prime * result + repliesId;
+		result = prime * result + replyId;
 		return result;
 	}
 	/* (non-Javadoc)
@@ -131,7 +131,7 @@ public class QuestionReplyComments implements Serializable{
 				return false;
 		} else if (!emailId.equals(other.emailId))
 			return false;
-		if (repliesId != other.repliesId)
+		if (replyId != other.replyId)
 			return false;
 		return true;
 	}
@@ -140,7 +140,7 @@ public class QuestionReplyComments implements Serializable{
 	 */
 	@Override
 	public String toString() {
-		return "QuestionReplyComments [replyId=" + repliesId + ", createdDate=" + createdDate + ", emailId=" + emailId
+		return "QuestionReplyComments [replyId=" + replyId + ", createdDate=" + createdDate + ", emailId=" + emailId
 				+ ", commentId=" + commentId + ", commentdescription=" + commentdescription + "]";
 	}
 	

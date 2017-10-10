@@ -1,24 +1,25 @@
 package com.nisum.portal.service.impl;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nisum.portal.data.dao.api.CategoriesDAO;
+import com.nisum.portal.data.dao.api.QuestionariesCommentsDAO;
 import com.nisum.portal.data.dao.api.QuestionariesDAO;
 import com.nisum.portal.data.dao.api.UserDAO;
 import com.nisum.portal.data.domain.Questionaries;
-import com.nisum.portal.data.domain.User;
+import com.nisum.portal.data.domain.QuestionariesComments;
 import com.nisum.portal.service.api.QuestionariesService;
 import com.nisum.portal.service.api.UserService;
 import com.nisum.portal.service.dto.CountDTO;
-import com.nisum.portal.service.dto.QuestionariesDTO;
+import com.nisum.portal.service.dto.QuestionariesCommentsDTO;
 import com.nisum.portal.service.dto.QuestionsDTO;
-import com.nisum.portal.service.dto.UserDTO;
 import com.nisum.portal.util.Constants;
 import com.nisum.portal.util.QuestionariesUtil;
 
@@ -38,7 +39,8 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 	@Autowired
 	private CategoriesDAO categoriesDAO;
 
-	
+	@Autowired
+	private QuestionariesCommentsDAO questionariesCommentsDAO;
 	
 	@Override
 	public QuestionsDTO getQuestionaries() {
@@ -77,6 +79,32 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 	@Override
 	public QuestionsDTO retriveAllUnansweredQuestionaries() {
 		return QuestionariesUtil.convertDaoToDto(questionariesDAO.retriveAllUnansweredQuestionaries(),new QuestionsDTO(),userervice);
+	}
+
+	@Override
+	public String saveQuestionComment(String emailId, QuestionariesCommentsDTO questionComment) {
+		logger.info("QuestionariesServiceImpl :: saveQuestionComment :: saving question comment");
+		QuestionariesComments comments = QuestionariesUtil.convertDtoToDao(emailId, questionComment);
+		Date date = new Date();
+		Timestamp createdDate = new Timestamp(date.getTime());
+		comments.setCreatedDate(createdDate);
+		QuestionariesComments questionariesComments = questionariesCommentsDAO.saveQuestionComments(comments);
+		if (questionariesComments != null) {
+			return Constants.MSG_RECORD_ADD;
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	public boolean findQuestionById(int questionId) {
+		logger.info("QuestionariesServiceImpl :: findQuestionById :: Finding question by id");
+		Questionaries question = questionariesDAO.getQuestionaries(questionId);
+		if (question == null) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 }

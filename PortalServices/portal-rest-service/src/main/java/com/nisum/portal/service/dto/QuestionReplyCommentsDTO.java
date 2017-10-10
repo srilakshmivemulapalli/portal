@@ -5,10 +5,16 @@ import java.sql.Timestamp;
 public class QuestionReplyCommentsDTO {
 	
 	private Integer commentId;
-	private int repliesId;
+	private int replyId;
 	private Timestamp createdDate;
 	private String emailId;
 	private String commentdescription;
+	/**
+	 * @return the repliesId
+	 */
+	public int getReplyId() {
+		return replyId;
+	}
 	/**
 	 * @return the commentId
 	 */
@@ -68,7 +74,7 @@ public class QuestionReplyCommentsDTO {
 		result = prime * result + ((commentdescription == null) ? 0 : commentdescription.hashCode());
 		result = prime * result + ((createdDate == null) ? 0 : createdDate.hashCode());
 		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
-		result = prime * result + repliesId;
+		result = prime * result + replyId;
 		return result;
 	}
 	/* (non-Javadoc)
@@ -103,7 +109,7 @@ public class QuestionReplyCommentsDTO {
 				return false;
 		} else if (!emailId.equals(other.emailId))
 			return false;
-		if (repliesId != other.repliesId)
+		if (replyId != other.replyId)
 			return false;
 		return true;
 	}
@@ -112,7 +118,7 @@ public class QuestionReplyCommentsDTO {
 	 */
 	@Override
 	public String toString() {
-		return "ReplyCommentsDTO [commentId=" + commentId + ", repliesId=" + repliesId + ", createdDate=" + createdDate
+		return "ReplyCommentsDTO [commentId=" + commentId + ", repliesId=" + replyId + ", createdDate=" + createdDate
 				+ ", emailId=" + emailId + ", commentdescription=" + commentdescription + "]";
 	}
 

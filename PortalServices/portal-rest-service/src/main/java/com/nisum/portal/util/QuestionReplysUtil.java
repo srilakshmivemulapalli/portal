@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-
 import com.nisum.portal.data.domain.QuestionReplies;
 import com.nisum.portal.data.domain.QuestionReplyComments;
 import com.nisum.portal.data.domain.Questionaries;
@@ -99,6 +98,14 @@ public class QuestionReplysUtil {
 		repliesDTO.setReplyId(reply.getReplyId());
 		repliesDTO.setUpdatedDate(reply.getUpdatedDate());
 		return repliesDTO;
+	}
+	
+	public static QuestionReplyComments convertReplyDtoToDao(QuestionReplyCommentsDTO comment) {
+		QuestionReplyComments questionReplyComments = new QuestionReplyComments();
+		questionReplyComments.setEmailId(comment.getEmailId());
+		questionReplyComments.setCommentdescription(comment.getCommentdescription());
+		questionReplyComments.setReplyId(comment.getReplyId());
+		return questionReplyComments;
 	}
 
 }

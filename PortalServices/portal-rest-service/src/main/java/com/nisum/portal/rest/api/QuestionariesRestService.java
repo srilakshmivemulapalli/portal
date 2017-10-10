@@ -13,17 +13,13 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.nisum.portal.service.api.QuestionariesService;
-import com.nisum.portal.service.api.UserService;
 import com.nisum.portal.service.dto.AddQuestionDTO;
-
 import com.nisum.portal.service.dto.CountDTO;
-
 import com.nisum.portal.service.dto.Errors;
+import com.nisum.portal.service.dto.QuestionariesCommentsDTO;
 import com.nisum.portal.service.dto.QuestionsDTO;
 import com.nisum.portal.service.dto.ServiceStatusDto;
-import com.nisum.portal.service.dto.UserDTO;
 import com.nisum.portal.service.exception.QuestionariesServiceException;
 import com.nisum.portal.util.Constants;
 
@@ -113,6 +109,33 @@ public class QuestionariesRestService {
 	public ResponseEntity<QuestionsDTO> retriveAllUnansweredQuestionaries() throws QuestionariesServiceException {
 		logger.info("QuestionariesRestService :: retriveAllUnansweredQuestionaries");
 		return new ResponseEntity<QuestionsDTO>(questionariesService.retriveAllUnansweredQuestionaries(), HttpStatus.OK);
+	}
+	
+	/**
+	 * To save Question comment
+	 * @return
+	 * @throws QuestionariesServiceException
+	 */
+	@RequestMapping(value = "/saveComment", method = RequestMethod.POST) 
+	public ResponseEntity<ServiceStatusDto> saveQuestionComment(@RequestHeader String emailId, @RequestBody QuestionariesCommentsDTO comment) throws QuestionariesServiceException {
+		logger.info("QuestionariesRestService :: saveQuestionComment :: saving question comment"); 
+		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
+		try {
+			boolean question = questionariesService.findQuestionById(comment.getQuestionId());
+			if (question) {
+				questionariesService.saveQuestionComment(emailId, comment);
+				serviceStatusDto.setStatus(true);
+				serviceStatusDto.setMessage(Constants.MSG_RECORD_ADD);
+				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.OK);
+			} else {
+				serviceStatusDto.setMessage(Constants.QUESTION_NOT_EXIST);
+				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.EXPECTATION_FAILED);
+			}
+			
+		} catch (Exception e) {
+			logger.info("QuestionariesRestService :: saveQuestionComment :: Internal Server Error");
+			throw new QuestionariesServiceException(Constants.INTERNALSERVERERROR);
+		}
 	}
 	
 	/**

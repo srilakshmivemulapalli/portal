@@ -40,7 +40,7 @@ public class Questionaries implements Serializable,Comparable<Questionaries>{
 	@OneToMany(mappedBy = "questId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<QuestionReplies> questionReplies;
 	
-	@OneToMany(mappedBy = "questionsId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "questionId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<QuestionariesComments>  questionariesComments;
 	
 	

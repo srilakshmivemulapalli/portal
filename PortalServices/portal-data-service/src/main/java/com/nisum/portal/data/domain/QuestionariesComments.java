@@ -22,7 +22,7 @@ public class QuestionariesComments implements Serializable{
 	@Column (name = "commentId")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer commentId;
-	private int questionsId;
+	private int questionId;
 	private Timestamp createdDate;
 	private String emailId;
 	private String commentdescription;
@@ -31,13 +31,13 @@ public class QuestionariesComments implements Serializable{
 	 * @return the questionId
 	 */
 	public int getQuestionId() {
-		return questionsId;
+		return questionId;
 	}
 	/**
 	 * @param questionId the questionId to set
 	 */
 	public void setQuestionId(int questionId) {
-		this.questionsId = questionId;
+		this.questionId = questionId;
 	}
 	
 	/* (non-Javadoc)
@@ -45,7 +45,7 @@ public class QuestionariesComments implements Serializable{
 	 */
 	@Override
 	public String toString() {
-		return "QuestionariesComments [questionId=" + questionsId + ", createdDate=" + createdDate + ", emailId="
+		return "QuestionariesComments [questionId=" + questionId + ", createdDate=" + createdDate + ", emailId="
 				+ emailId + ", commentId=" + commentId + ", commentdescription=" + commentdescription + "]";
 	}
 	/* (non-Javadoc)
@@ -59,7 +59,7 @@ public class QuestionariesComments implements Serializable{
 		result = prime * result + ((commentdescription == null) ? 0 : commentdescription.hashCode());
 		result = prime * result + ((createdDate == null) ? 0 : createdDate.hashCode());
 		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
-		result = prime * result + questionsId;
+		result = prime * result + questionId;
 		return result;
 	}
 	/* (non-Javadoc)
@@ -94,7 +94,7 @@ public class QuestionariesComments implements Serializable{
 				return false;
 		} else if (!emailId.equals(other.emailId))
 			return false;
-		if (questionsId != other.questionsId)
+		if (questionId != other.questionId)
 			return false;
 		return true;
 	}

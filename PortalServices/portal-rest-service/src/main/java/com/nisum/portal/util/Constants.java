@@ -4,6 +4,7 @@ public class Constants {
 
 	public static final String MSG_RECORD_ADD = "Record Added Successfully !!";
 	public static final String MSG_RECORD_UPDATE = "Record Updated Successfully !!";
+	public static final String QUESTION_NOT_EXIST = "Question Details doest'n Exist !!";
 
 	public static final String ERROR_MESSAGE = "Error While Creating Record !!";
 	public static final String UNKNOWN_EXCEPTION = "Unknown Exception !!";

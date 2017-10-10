@@ -33,7 +33,7 @@ public class QuestionReplies implements Serializable{
 	
 	private String emailid;
 
-	@OneToMany(mappedBy = "repliesId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "replyId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<QuestionReplyComments>  questionReplyComments;
 	
 	/**

@@ -7,10 +7,11 @@ import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-
 import com.nisum.portal.data.domain.Categories;
 import com.nisum.portal.data.domain.Questionaries;
+import com.nisum.portal.data.domain.QuestionariesComments;
 import com.nisum.portal.service.api.UserService;
+import com.nisum.portal.service.dto.QuestionariesCommentsDTO;
 import com.nisum.portal.service.dto.QuestionariesDTO;
 import com.nisum.portal.service.dto.QuestionsDTO;
 import com.nisum.portal.service.dto.UserDTO;
@@ -45,5 +46,14 @@ public class QuestionariesUtil {
 
 	public static Questionaries convertDtoToDao(String emailId, Categories categoryId, String question, String description) {
 		return new Questionaries(categoryId,question,description,new Timestamp(System.currentTimeMillis()),emailId);
+	}
+	
+	public static QuestionariesComments convertDtoToDao(String emailId, QuestionariesCommentsDTO questionComments) {
+		QuestionariesComments questionariesComments = new QuestionariesComments();
+		questionariesComments.setCommentdescription(questionComments.getCommentdescription());
+		questionariesComments.setQuestionId(questionComments.getQuestionId());
+		questionariesComments.setEmailId(emailId);
+		return questionariesComments;
+		
 	}
 }
