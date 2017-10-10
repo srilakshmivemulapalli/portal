@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -19,6 +20,8 @@ import com.nisum.portal.data.dao.impl.CategoriesDAOImpl;
 import com.nisum.portal.data.domain.Categories;
 import com.nisum.portal.data.repository.CategoriesRepository;
 
+import junit.framework.Assert;
+
 @RunWith(MockitoJUnitRunner.class)
 public class CategoriesDAOImplTest {
 
@@ -27,6 +30,9 @@ public class CategoriesDAOImplTest {
 
 	@Mock
 	CategoriesRepository categoriesRepository;
+	
+
+	List<Categories> categoriesList;
 
 	@Test
 	public void addCategory() {
@@ -44,20 +50,30 @@ public class CategoriesDAOImplTest {
 		// assertTrue(categoriesDaoImpl.addCategory(category));
 
 	}
-	@Test
-	public void updateCategory() {
-		boolean expected = true;
-		Timestamp timestamp=new Timestamp(System.currentTimeMillis());
+	@Before
+	public void updateCategoryInit()
+	{
+		categoriesList=new ArrayList<Categories>();
 		Categories category = new Categories();
 		category.setCategoryId(1);
 		category.setCategoryName("Hadoop");
-		category.setCreateDate(timestamp);
-		Mockito.when(categoriesRepository.findByCategoryId(1)).thenReturn(category);
-		assertEquals(expected, categoriesDaoImpl.updateCategories(category));
-		Mockito.when(categoriesRepository.findByCategoryId(2)).thenReturn(null);
-		Categories cg=new Categories();
-		cg.setCategoryId(2);
-		//assertFalse(categoriesDaoImpl.updateCategories(cg));
+		category.setDescription("It is application");
+		categoriesList.add(category);
+		Categories category1 = new Categories();
+		category1.setCategoryId(2);
+		category1.setCategoryName("Spring");
+		category1.setDescription("It is application");
+		categoriesList.add(category1);
+	}
+	@Test
+	public void updateCategory() {
+		Integer expected = 1;
+		Categories category2 = new Categories();
+		category2.setCategoryId(1);
+		category2.setCategoryName("Java");
+		category2.setDescription("It is Object oriented application");
+		Mockito.when(categoriesRepository.save(category2)).thenReturn(new Categories());
+		assertEquals(expected, categoriesDaoImpl.updateCategories(category2));
 	}
 
 	@Test
@@ -109,13 +125,13 @@ public class CategoriesDAOImplTest {
 	@Test
 	public void deleteCategoriesinDaoTest() {
 		String expMesg="Success";
-		/*ArrayList<Categories> categoriesList = new ArrayList<Categories>();
+		ArrayList<Categories> categoriesList = new ArrayList<Categories>();
 		Categories categories1 = new Categories();
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		categories1.setCategoryId(101);
 		categories1.setCategoryName("java");
 		categories1.setCreateDate(timestamp);
-		categoriesList.add(categories1);*/
+		categoriesList.add(categories1);
 		 String actMsg = categoriesDaoImpl.deleteCategories(101);
 		assertEquals(expMesg, actMsg);
 	}

@@ -57,53 +57,17 @@ app.factory('PagerService', function() {
 			pages : pages
 		};
 	}
-}).directive("selectPicker",
-        [
-            "$timeout",
-            function($timeout) {
-                return {
-                    restrict: "A",
-                    require: ["?ngModel", "?collectionName"],
-                    compile: function(tElement, tAttrs, transclude) {
-                        console.log("init bootstrap-select");
-                        $(tElement).selectpicker();
-
-                        if (angular.isUndefined(tAttrs.ngModel)) {
-                            throw new Error("Please add ng-model attribute!");
-                        } else if (angular.isUndefined(tAttrs.collectionName)) {
-                            throw new Error("Please add data-collection-name attribute!");
-                        }
-
-                        return function(scope, element, attrs, ngModel) {
-                            if (angular.isUndefined(ngModel)){
-                                return;
-                            }
-
-                            scope.$watch(attrs.ngModel, function(newVal, oldVal) {
-                            	console.log("value");
-                                if (newVal !== oldVal) {
-                                    $timeout(function() {
-                                        console.log("value selected");
-                                        $(element).selectpicker("val", element.val());
-                                    });
-                                }
-                            });
-
-                            scope.$watch(attrs.collectionName, function(newVal, oldVal) {
-                                $timeout(function() {
-                                    console.log("select collection updated");
-                                    $(element).selectpicker("refresh");
-                                });
-                            });
-
-                            ngModel.$render = function() {
-                               $(element).selectpicker("val", ngModel.$viewValue || "");
-                            };
-
-                            ngModel.$viewValue = $(element).val();
-                        };
-                    }
-                }
-            }
-        ]
-    )
+}).directive('tooltip', function(){
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs){
+            $(element).hover(function(){
+                // on mouseenter
+                $(element).tooltip('show');
+            }, function(){
+                // on mouseleave
+                $(element).tooltip('hide');
+            });
+        }
+    };
+})

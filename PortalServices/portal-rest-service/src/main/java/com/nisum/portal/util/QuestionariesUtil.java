@@ -7,16 +7,19 @@ import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-
 import com.nisum.portal.data.domain.Categories;
 import com.nisum.portal.data.domain.Questionaries;
+import com.nisum.portal.data.domain.QuestionariesComments;
+import com.nisum.portal.service.api.UserService;
+import com.nisum.portal.service.dto.QuestionariesCommentsDTO;
 import com.nisum.portal.service.dto.QuestionariesDTO;
 import com.nisum.portal.service.dto.QuestionsDTO;
+import com.nisum.portal.service.dto.UserDTO;
 
 public class QuestionariesUtil {
 
 	
-	public static QuestionsDTO convertDaoToDto(List<Questionaries> questionariesList,QuestionsDTO questionsDTO, String displayImage) {
+	public static QuestionsDTO convertDaoToDto(List<Questionaries> questionariesList,QuestionsDTO questionsDTO, UserService userervice) {
 		
 		List<QuestionariesDTO> questionariesDTOs = new ArrayList<QuestionariesDTO>();
 		if (CollectionUtils.isNotEmpty(questionariesList)) {
@@ -29,7 +32,10 @@ public class QuestionariesUtil {
 				dto.setCategoryName(questionaries.getCategoryId().getCategoryName());
 				dto.setEmailId(questionaries.getEmailId());
 				dto.setQuestionRepliesCount(questionaries.getQuestionReplies()!=null ? questionaries.getQuestionReplies().size() : 0);
-				if(StringUtils.isNotEmpty(displayImage)) dto.setDisplayImage(displayImage);
+				UserDTO user = userervice.getUsers().get(questionaries.getEmailId());
+				if(user!=null && StringUtils.isNotEmpty(user.getImage())) {
+					dto.setDisplayImage(user.getImage());
+				}
 				questionariesDTOs.add(dto);
 			}
 			Collections.reverse(questionariesDTOs); 
@@ -40,5 +46,14 @@ public class QuestionariesUtil {
 
 	public static Questionaries convertDtoToDao(String emailId, Categories categoryId, String question, String description) {
 		return new Questionaries(categoryId,question,description,new Timestamp(System.currentTimeMillis()),emailId);
+	}
+	
+	public static QuestionariesComments convertDtoToDao(String emailId, QuestionariesCommentsDTO questionComments) {
+		QuestionariesComments questionariesComments = new QuestionariesComments();
+		questionariesComments.setcommentDescription(questionComments.getcommentDescription());
+		questionariesComments.setQuestionId(questionComments.getQuestionId());
+		questionariesComments.setEmailId(emailId);
+		return questionariesComments;
+		
 	}
 }

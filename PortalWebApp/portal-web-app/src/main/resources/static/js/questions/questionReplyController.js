@@ -1,6 +1,10 @@
 questionApp.controller('questionReplyController', function($scope,
-		$stateParams, localStorageService, questionService) {
+		$stateParams, localStorageService, questionService,QuestionReplyListModel) {
+	
+	    $('[data-toggle="tooltip"]').tooltip();   
+	
 	var profile = localStorageService.get('profile');
+	$scope.question=QuestionReplyListModel.newQuestionReplyListInstance();
 	$scope.questionid = $stateParams.questionid;
 	$scope.answer = {
 
@@ -10,11 +14,11 @@ questionApp.controller('questionReplyController', function($scope,
 	}
 	$scope.getQuestionById = function() {
 		
-		$scope.question = [];
+		
 		questionService.getQuestionById($scope.questionid).then(
 				function(response) {
-					console.log(response);
-					$scope.question = response;
+					$scope.question.addReplyListDetails(response);
+					
 				});
 	}
 	$scope.getQuestionById();
@@ -28,5 +32,11 @@ questionApp.controller('questionReplyController', function($scope,
 		});
 		// $scope.question.replyDetails.push(data);
 		
+	}
+	$scope.submitQuestionComment=function(description,questionId){
+		console.log(description,questionId);
+	};
+	$scope.submitReplyComment=function(description,replyId){
+		console.log(description,replyId);
 	}
 })

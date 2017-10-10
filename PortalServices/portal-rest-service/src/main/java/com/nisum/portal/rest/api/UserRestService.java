@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nisum.portal.service.api.EmailAccount;
 import com.nisum.portal.service.api.UserRoleService;
 import com.nisum.portal.service.api.UserService;
 import com.nisum.portal.service.dto.Errors;
@@ -26,6 +27,7 @@ import com.nisum.portal.service.exception.QuestionariesServiceException;
 import com.nisum.portal.service.exception.UserServiceException;
 import com.nisum.portal.util.CommonsUtil;
 import com.nisum.portal.util.Constants;
+import com.nisum.portal.util.MailSender;
 
 @RestController
 @RequestMapping(value = "/v1/user")
@@ -38,6 +40,8 @@ public class UserRestService {
 
 	@Autowired
 	UserRoleService userRoleService;
+	
+	private static EmailAccount emailAccount;
 
 	/**
 	 * 
@@ -220,6 +224,9 @@ public class UserRestService {
 				userDto.setRole(role);
 				userDto.setActiveStatus(Constants.USER_STATUS);
 				userService.saveUser(userDto);
+                
+                MailSender.sendEmail(emailAccount.getAdminemail(),emailAccount.getAdminpassword(),
+                		strEmail1, emailAccount.getSubject(), MailSender.messageBody(userDto.getName()));
 
 				userInfo=userDto;
 			}
@@ -249,4 +256,9 @@ public class UserRestService {
 		errors.setErrorMessage(ex.getMessage());
 		return new ResponseEntity<Errors>(errors, HttpStatus.OK);
 	}
+	
+	@Autowired
+    public void setEmailAccount(EmailAccount emailAccount){
+        UserRestService.emailAccount = emailAccount;
+    }
 }
