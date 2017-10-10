@@ -6,8 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.repository.query.Param;
-
 import com.nisum.portal.data.dao.api.QuestionRepliesDAO;
 import com.nisum.portal.data.domain.QuestionReplies;
 import com.nisum.portal.data.repository.QuestionRepliesRepository;
@@ -35,6 +33,11 @@ public class QuestionRepliesDAOImpl implements QuestionRepliesDAO{
 	@Override
 	public QuestionReplies saveQuestionReplies(QuestionReplies questionReplies) {
 		return questionRepliesRepository.save(questionReplies);
+	}
+	@Override
+	public QuestionReplies getReply(int replyId) {
+		logger.info("QuestionRepliesDAOImpl :: getReply :: finding reply by Id");
+		return questionRepliesRepository.findOne(replyId);
 	}
 
 }

@@ -1,6 +1,5 @@
 package com.nisum.portal.data.domain;
 
-
 import java.io.Serializable;
 import java.sql.Timestamp;
 
@@ -14,14 +13,14 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "User")
-public class User implements Serializable{
+public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column (name = "userId")
+	@Column(name = "userId")
 	private int userId;
-	@Column (name = "emailid")
+	@Column(name = "emailid")
 	private String emailId;
 	private String name;
 	private Timestamp loginDate;
@@ -29,7 +28,7 @@ public class User implements Serializable{
 	private Timestamp createDate;
 	private String image;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "roleId", referencedColumnName = "roleId")
 	private UserRole role;
 
@@ -168,6 +167,24 @@ public class User implements Serializable{
 				+ role + "]";
 	}
 
-	
+	public User(int userId, String emailId, String name, Timestamp loginDate, String activeStatus, Timestamp createDate,
+			String image, UserRole role) {
+		super();
+		this.userId = userId;
+		this.emailId = emailId;
+		this.name = name;
+		this.loginDate = loginDate;
+		this.activeStatus = activeStatus;
+		this.createDate = createDate;
+		this.image = image;
+		this.role = role;
+	}
 
+	public User(int userId) {
+		this.userId = userId;
+	}
+
+	public User() {
+		// TODO Auto-generated constructor stub
+	}
 }

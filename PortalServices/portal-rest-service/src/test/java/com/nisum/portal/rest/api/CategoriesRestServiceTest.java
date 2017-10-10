@@ -1,5 +1,6 @@
 package com.nisum.portal.rest.api;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -57,9 +59,9 @@ public class CategoriesRestServiceTest {
 		// return categoryService.addCategory(category);
 	}
 
-	@Test(expected = CategoryServiceException.class)
+	@Test
 	public void updateCategoryTest() throws CategoryServiceException {
-		/*ServiceStatusDto serviceStatusExpected = new ServiceStatusDto();
+		ServiceStatusDto serviceStatusExpected = new ServiceStatusDto();
 		serviceStatusExpected.setStatus(true);
 		serviceStatusExpected.setMessage(Constants.MSG_RECORD_ADD);
 		Timestamp createDate = new Timestamp(System.currentTimeMillis());
@@ -69,12 +71,24 @@ public class CategoriesRestServiceTest {
 		categoryDto.setCreateDate(createDate);
 		logger.info("CategoriesRestService :: updateCategoriesTest");
 		Mockito.when(categoryService.update(categoryDto)).thenReturn(serviceStatusExpected);
-		ResponseEntity<ServiceStatusDto> serviceStatusactual = mainController.updateCategories(categoryDto);
+		ResponseEntity<?> serviceStatusactual = mainController.updateCategories(categoryDto);
 		Assert.assertEquals(serviceStatusExpected, serviceStatusactual.getBody());
-		ResponseEntity<ServiceStatusDto> serviceStatusactualf = mainController.updateCategories(new CategoriesDTO());
-		when(serviceStatusactualf).thenThrow(new CategoryServiceException());*/
 	}
-
+	@Test
+	public void updateCategoryFailureTest() throws CategoryServiceException
+	{
+		Timestamp createDate = new Timestamp(System.currentTimeMillis());
+		CategoriesDTO categoryDto1 = new CategoriesDTO();
+		categoryDto1.setCategoryId(2);
+		categoryDto1.setCategoryName("JAVA");
+		categoryDto1.setCreateDate(createDate);
+		Errors errorStatusExpected = new Errors();
+		errorStatusExpected.setErrorCode("Errors-UserRole");
+		errorStatusExpected.setErrorMessage(Constants.CATEGORY_EXISTS);
+		ResponseEntity<?> serviceStatusActualFailure = mainController.updateCategories(categoryDto1);
+		Errors errorActual= (Errors) serviceStatusActualFailure.getBody();
+		assertThat(errorActual).isEqualToComparingFieldByField(errorStatusExpected);		
+	}
 	@Test
 	public void deleteCategoriesTest() throws CategoryServiceException {
 		String message = "Categories deleted successfully";

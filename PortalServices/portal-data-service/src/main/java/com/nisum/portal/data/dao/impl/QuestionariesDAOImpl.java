@@ -27,6 +27,7 @@ public class QuestionariesDAOImpl implements QuestionariesDAO {
 	}
 	@Override
 	public Questionaries getQuestionaries(int questionId) {
+		logger.info("QuestionariesDAOImpl :: getQuestionaries :: get question by id");
 		return questionariesRepository.findOne(questionId);
 	}
 	

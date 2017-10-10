@@ -17,7 +17,7 @@ mainApp.controller('profileController', function($scope, localStorageService,
 		'userName' : 'Swathi',
 		'profileName' : null,
 		'emailId' : 'bsdivya@nisum.com',
-		'userCategories' : [ 1, 2, 3 ],
+		'userCategories' : [],
 		'roleId' : 1
 	}
 

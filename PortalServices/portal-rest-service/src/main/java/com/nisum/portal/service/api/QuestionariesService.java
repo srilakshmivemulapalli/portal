@@ -2,6 +2,7 @@ package com.nisum.portal.service.api;
 
 
 import com.nisum.portal.service.dto.CountDTO;
+import com.nisum.portal.service.dto.QuestionariesCommentsDTO;
 import com.nisum.portal.service.dto.QuestionsDTO;
 
 public interface QuestionariesService {
@@ -15,5 +16,9 @@ public interface QuestionariesService {
 	QuestionsDTO fetchMyQuestionaries(String emailId);
 
 	QuestionsDTO retriveAllUnansweredQuestionaries();
+	
+	String saveQuestionComment(String emailId, QuestionariesCommentsDTO questionComment);
+	
+	boolean findQuestionById(int questionId);
 	
 }

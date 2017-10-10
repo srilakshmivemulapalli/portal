@@ -2,12 +2,16 @@ package com.nisum.portal.data.domain;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -28,6 +32,23 @@ public class QuestionReplies implements Serializable{
 	private int questId;
 	
 	private String emailid;
+
+	@OneToMany(mappedBy = "replyId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<QuestionReplyComments>  questionReplyComments;
+	
+	/**
+	 * @return the questionReplyComments
+	 */
+	public List<QuestionReplyComments> getQuestionReplyComments() {
+		return questionReplyComments;
+	}
+
+	/**
+	 * @param questionReplyComments the questionReplyComments to set
+	 */
+	public void setQuestionReplyComments(List<QuestionReplyComments> questionReplyComments) {
+		this.questionReplyComments = questionReplyComments;
+	}
 
 	/**
 	 * @return the replyId
@@ -121,11 +142,12 @@ public class QuestionReplies implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((emailid == null) ? 0 : emailid.hashCode());
 		result = prime * result + questId;
+		result = prime * result + ((questionReplyComments == null) ? 0 : questionReplyComments.hashCode());
 		result = prime * result + ((replyDescription == null) ? 0 : replyDescription.hashCode());
 		result = prime * result + replyId;
 		result = prime * result + ((updatedDate == null) ? 0 : updatedDate.hashCode());
-		result = prime * result + ((emailid == null) ? 0 : emailid.hashCode());
 		return result;
 	}
 
@@ -141,8 +163,18 @@ public class QuestionReplies implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		QuestionReplies other = (QuestionReplies) obj;
-		if (questId != other.questId)
+		if (emailid == null) {
+			if (other.emailid != null)
 				return false;
+		} else if (!emailid.equals(other.emailid))
+			return false;
+		if (questId != other.questId)
+			return false;
+		if (questionReplyComments == null) {
+			if (other.questionReplyComments != null)
+				return false;
+		} else if (!questionReplyComments.equals(other.questionReplyComments))
+			return false;
 		if (replyDescription == null) {
 			if (other.replyDescription != null)
 				return false;
@@ -155,11 +187,6 @@ public class QuestionReplies implements Serializable{
 				return false;
 		} else if (!updatedDate.equals(other.updatedDate))
 			return false;
-		if (emailid == null) {
-			if (other.emailid != null)
-				return false;
-		} else if (!emailid.equals(other.emailid))
-			return false;
 		return true;
 	}
 
@@ -168,9 +195,9 @@ public class QuestionReplies implements Serializable{
 	 */
 	@Override
 	public String toString() {
-		return "QuestionReplies [replyId=" + replyId + ", replyDescription=" + replyDescription + ", createdDate="
-				 + updatedDate + ", questionId=" + questId + ", emailid=" + emailid
-				+ "]";
+		return "QuestionReplies [replyId=" + replyId + ", replyDescription=" + replyDescription + ", updatedDate="
+				+ updatedDate + ", questId=" + questId + ", emailid=" + emailid + ", questionReplyComments="
+				+ questionReplyComments + "]";
 	}
 	
 	

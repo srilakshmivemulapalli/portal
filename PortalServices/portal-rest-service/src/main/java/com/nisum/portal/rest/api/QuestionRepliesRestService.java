@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,9 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nisum.portal.service.api.QuestionRepliesService;
 import com.nisum.portal.service.dto.Errors;
 import com.nisum.portal.service.dto.QuestionRepliesDTO;
+import com.nisum.portal.service.dto.QuestionReplyCommentsDTO;
 import com.nisum.portal.service.dto.QuestionReplysDTO;
 import com.nisum.portal.service.dto.ReplyQuestionDTO;
+import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.exception.QuestionariesRepliesServiceException;
+import com.nisum.portal.service.exception.QuestionariesServiceException;
+import com.nisum.portal.util.Constants;
 
 /**
  * @author nisum
@@ -62,6 +67,34 @@ public class QuestionRepliesRestService {
 		return new ResponseEntity<QuestionRepliesDTO>(questionRepliesService.saveQuestionariesReply(replyQuestionDTO.getQuestionId(), replyQuestionDTO.getEmailId(), replyQuestionDTO.getReplyDescription()), HttpStatus.OK);
 	}
 	
+	/**
+	 * To save reply comment
+	 * @param emailId
+	 * @param comment
+	 * @return
+	 * @throws QuestionariesServiceException
+	 */
+	@RequestMapping(value = "/saveComment", method = RequestMethod.POST) 
+	public ResponseEntity<ServiceStatusDto> saveReplyComment(@RequestHeader String emailId, @RequestBody QuestionReplyCommentsDTO comment) throws QuestionariesServiceException {
+		logger.info("QuestionRepliesRestService :: saveReplyComment :: saving reply comment"); 
+		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
+		try {
+			boolean question = questionRepliesService.findReplyById(comment.getReplyId());
+			if (question) {
+				questionRepliesService.saveReplyComment(emailId, comment);
+				serviceStatusDto.setStatus(true);
+				serviceStatusDto.setMessage(Constants.MSG_RECORD_ADD);
+				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.OK);
+			} else {
+				serviceStatusDto.setMessage(Constants.QUESTION_NOT_EXIST);
+				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.EXPECTATION_FAILED);
+			}
+			
+		} catch (Exception e) {
+			logger.info("QuestionRepliesRestService :: saveReplyComment :: Internal Server Error");
+			throw new QuestionariesServiceException(Constants.INTERNALSERVERERROR);
+		}
+	}
 	
 	/**
 	 * exceptionHandler
