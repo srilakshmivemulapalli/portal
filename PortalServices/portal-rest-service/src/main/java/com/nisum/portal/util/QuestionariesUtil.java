@@ -50,10 +50,21 @@ public class QuestionariesUtil {
 	
 	public static QuestionariesComments convertDtoToDao(String emailId, QuestionariesCommentsDTO questionComments) {
 		QuestionariesComments questionariesComments = new QuestionariesComments();
-		questionariesComments.setCommentdescription(questionComments.getCommentdescription());
+		questionariesComments.setcommentDescription(questionComments.getcommentDescription());
 		questionariesComments.setQuestionId(questionComments.getQuestionId());
 		questionariesComments.setEmailId(emailId);
 		return questionariesComments;
+		
+	}
+	
+	public static QuestionariesCommentsDTO convertDaoToDto(QuestionariesComments questionComments) {
+		QuestionariesCommentsDTO questionariesCommentsDTO = new QuestionariesCommentsDTO();
+		questionariesCommentsDTO.setcommentDescription(questionComments.getcommentDescription());
+		questionariesCommentsDTO.setCommentId(questionComments.getCommentId());
+		questionariesCommentsDTO.setCreatedDate(questionComments.getCreatedDate());
+		questionariesCommentsDTO.setEmailId(questionComments.getEmailId());
+		questionariesCommentsDTO.setquestionId(questionComments.getQuestionId());
+		return questionariesCommentsDTO;
 		
 	}
 }

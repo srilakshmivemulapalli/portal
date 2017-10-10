@@ -8,12 +8,18 @@ public class QuestionReplyCommentsDTO {
 	private int replyId;
 	private Timestamp createdDate;
 	private String emailId;
-	private String commentdescription;
+	private String commentDescription;
 	/**
 	 * @return the repliesId
 	 */
 	public int getReplyId() {
 		return replyId;
+	}
+	/**
+	 * @param replyId the replyId to set
+	 */
+	public void setreplyId(Integer replyId) {
+		this.replyId = replyId;
 	}
 	/**
 	 * @return the commentId
@@ -52,16 +58,16 @@ public class QuestionReplyCommentsDTO {
 		this.emailId = emailId;
 	}
 	/**
-	 * @return the commentdescription
+	 * @return the commentDescription
 	 */
-	public String getCommentdescription() {
-		return commentdescription;
+	public String getcommentDescription() {
+		return commentDescription;
 	}
 	/**
-	 * @param commentdescription the commentdescription to set
+	 * @param commentDescription the commentDescription to set
 	 */
-	public void setCommentdescription(String commentdescription) {
-		this.commentdescription = commentdescription;
+	public void setcommentDescription(String commentDescription) {
+		this.commentDescription = commentDescription;
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
@@ -71,7 +77,7 @@ public class QuestionReplyCommentsDTO {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((commentId == null) ? 0 : commentId.hashCode());
-		result = prime * result + ((commentdescription == null) ? 0 : commentdescription.hashCode());
+		result = prime * result + ((commentDescription == null) ? 0 : commentDescription.hashCode());
 		result = prime * result + ((createdDate == null) ? 0 : createdDate.hashCode());
 		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
 		result = prime * result + replyId;
@@ -94,10 +100,10 @@ public class QuestionReplyCommentsDTO {
 				return false;
 		} else if (!commentId.equals(other.commentId))
 			return false;
-		if (commentdescription == null) {
-			if (other.commentdescription != null)
+		if (commentDescription == null) {
+			if (other.commentDescription != null)
 				return false;
-		} else if (!commentdescription.equals(other.commentdescription))
+		} else if (!commentDescription.equals(other.commentDescription))
 			return false;
 		if (createdDate == null) {
 			if (other.createdDate != null)
@@ -119,7 +125,7 @@ public class QuestionReplyCommentsDTO {
 	@Override
 	public String toString() {
 		return "ReplyCommentsDTO [commentId=" + commentId + ", repliesId=" + replyId + ", createdDate=" + createdDate
-				+ ", emailId=" + emailId + ", commentdescription=" + commentdescription + "]";
+				+ ", emailId=" + emailId + ", commentDescription=" + commentDescription + "]";
 	}
 
 	

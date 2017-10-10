@@ -82,15 +82,16 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 	}
 
 	@Override
-	public String saveQuestionComment(String emailId, QuestionariesCommentsDTO questionComment) {
+	public QuestionariesCommentsDTO saveQuestionComment(String emailId, QuestionariesCommentsDTO questionComment) {
 		logger.info("QuestionariesServiceImpl :: saveQuestionComment :: saving question comment");
 		QuestionariesComments comments = QuestionariesUtil.convertDtoToDao(emailId, questionComment);
 		Date date = new Date();
 		Timestamp createdDate = new Timestamp(date.getTime());
 		comments.setCreatedDate(createdDate);
 		QuestionariesComments questionariesComments = questionariesCommentsDAO.saveQuestionComments(comments);
-		if (questionariesComments != null) {
-			return Constants.MSG_RECORD_ADD;
+		QuestionariesCommentsDTO questionariesCommentsDTO = QuestionariesUtil.convertDaoToDto(questionariesComments);
+		if (questionariesCommentsDTO != null) {
+			return questionariesCommentsDTO;
 		} else {
 			return null;
 		}

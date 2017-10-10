@@ -29,11 +29,15 @@ public class Constants {
 	public static final String USER_ROLE_NOT_EXIST = "UserRole Details doest'n Exist !!";
 	public static final String USER_TYPE = "user";
 	public static final String USER_STATUS = "YES";
-	public static final String USER_ROLE_CANNOTBE_SAME = "UserRole cannot be same";
 
+	public static final String  USER_ROLE_CANNOTBE_SAME ="UserRole cannot be same";
+	
 	// Training Constants
-	public static final String Training_Error = "Error in While Saving the Record, plesae Try again !!!";
-	public static final String Training_No_Data = "No Data Exist In DataBase !!!";
+	public static final String Training_Error="Error in While Saving the Record, plesae Try again !!!";
+	public static final String Training_No_Data="No Data Exist In DataBase !!!";
+    public static final String TRAINING_PRESENCE="Training presence Updated Successfully !!!";
+    public static final String TRAINING_NOT_PRESENCE="Error While Updating the  Record !!!";
+	
 	public static final String TRAINING_FEEDBACK_EXISTS = "Training feedback to respective training already submitted !!";
 	public static final String TRAINING_REQUEST_EXISTS = "Training Request Already Raised !!";
 	
@@ -51,4 +55,5 @@ public class Constants {
 		public static final String  GMAIL_PORT_NUM="587";
 		
 		public static final String GMAIL_HOST_NAME="smtp.gmail.com";
+
 }

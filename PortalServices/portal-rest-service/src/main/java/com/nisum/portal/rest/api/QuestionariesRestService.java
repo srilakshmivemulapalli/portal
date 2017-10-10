@@ -117,16 +117,14 @@ public class QuestionariesRestService {
 	 * @throws QuestionariesServiceException
 	 */
 	@RequestMapping(value = "/saveComment", method = RequestMethod.POST) 
-	public ResponseEntity<ServiceStatusDto> saveQuestionComment(@RequestHeader String emailId, @RequestBody QuestionariesCommentsDTO comment) throws QuestionariesServiceException {
+	public ResponseEntity<?> saveQuestionComment(@RequestHeader String emailId, @RequestBody QuestionariesCommentsDTO comment) throws QuestionariesServiceException {
 		logger.info("QuestionariesRestService :: saveQuestionComment :: saving question comment"); 
 		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
 		try {
 			boolean question = questionariesService.findQuestionById(comment.getQuestionId());
 			if (question) {
-				questionariesService.saveQuestionComment(emailId, comment);
-				serviceStatusDto.setStatus(true);
-				serviceStatusDto.setMessage(Constants.MSG_RECORD_ADD);
-				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.OK);
+				QuestionariesCommentsDTO questionariesCommentsDTO= questionariesService.saveQuestionComment(emailId, comment);
+				return new ResponseEntity<QuestionariesCommentsDTO>(questionariesCommentsDTO, HttpStatus.OK);
 			} else {
 				serviceStatusDto.setMessage(Constants.QUESTION_NOT_EXIST);
 				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.EXPECTATION_FAILED);

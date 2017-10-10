@@ -8,6 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 import com.nisum.portal.data.dao.api.TrainingsDAO;
+import com.nisum.portal.data.domain.TrainingToUser;
+import com.nisum.portal.data.domain.Trainings;
+import com.nisum.portal.data.repository.TrainingRepository;
+import com.nisum.portal.data.repository.TrainingToUserRepository;
 import com.nisum.portal.data.domain.TrainingFeedBack;
 import com.nisum.portal.data.domain.TrainingRequest;
 import com.nisum.portal.data.domain.Trainings;
@@ -21,6 +25,9 @@ public class TrainingDAOImpl implements TrainingsDAO {
 
 	@Autowired
 	TrainingRepository trainingRepository;
+	
+	@Autowired
+	TrainingToUserRepository trainingToUserRepository;
 
 	@Autowired
 	TrainingsFeedBackRepository trainingFeedBackRepository;
@@ -68,6 +75,31 @@ public class TrainingDAOImpl implements TrainingsDAO {
 	}
 
 	@Override
+	public TrainingToUser trainingToUser(TrainingToUser trainingToUser) {
+		logger.info("TrainingDAOImpl::trainingToUser");
+		TrainingToUser	trainingToUser1;
+		if(trainingToUser.getTrainingToUserId()!=null)
+			{
+			trainingToUser1=	trainingToUserRepository.findOne(trainingToUser.getTrainingToUserId());
+				if(trainingToUser1!=null)
+				{
+					trainingToUser1.setTrainingPresence(trainingToUser.getTrainingPresence());
+					trainingToUserRepository.save(trainingToUser1);
+				}
+				else
+				{
+					TrainingToUser trainingToUser2=new TrainingToUser();
+					trainingToUser2.setTrainingId(trainingToUser.getTrainingId());
+					trainingToUser2.setTrainingPresence(trainingToUser.getTrainingPresence());
+					trainingToUser2.setUserId(trainingToUser.getUserId());
+					
+					trainingToUserRepository.save(trainingToUser2);
+					
+				}
+					
+		  }
+		     return trainingToUser;
+	}
 	public Integer addTrainingsRequest(TrainingRequest trainingRequest) {
 		// TODO Auto-generated method stub
 		logger.info("TrainingDAOImpl :: addTrainingsRequest ::" + trainingRequest.toString());
@@ -95,3 +127,5 @@ public class TrainingDAOImpl implements TrainingsDAO {
 	}
 
 }
+
+

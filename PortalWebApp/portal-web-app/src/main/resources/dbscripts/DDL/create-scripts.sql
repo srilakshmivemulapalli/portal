@@ -83,7 +83,7 @@ CREATE TABLE `portal`.`Trainings` (
 CREATE TABLE `QuestionComment` (
   `commentId` int(11) NOT NULL AUTO_INCREMENT,
   `questionId` int(11) DEFAULT NULL,
-  `commentdescription` varchar(1000) DEFAULT NULL,
+  `commentDescription` varchar(1000) DEFAULT NULL,
   `createdDate` datetime DEFAULT NULL,
   `emailId` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`commentId`),
@@ -95,7 +95,7 @@ CREATE TABLE `QuestionComment` (
 CREATE TABLE `QuestionReplyComment` (
   `commentId` int(11) NOT NULL AUTO_INCREMENT,
   `replyId` int(11) DEFAULT NULL,
-  `commentdescription` varchar(1000) DEFAULT NULL,
+  `commentDescription` varchar(1000) DEFAULT NULL,
   `createdDate` datetime DEFAULT NULL,
   `emailId` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`commentId`),

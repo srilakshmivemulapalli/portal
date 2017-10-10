@@ -17,7 +17,7 @@ public interface QuestionariesService {
 
 	QuestionsDTO retriveAllUnansweredQuestionaries();
 	
-	String saveQuestionComment(String emailId, QuestionariesCommentsDTO questionComment);
+	QuestionariesCommentsDTO saveQuestionComment(String emailId, QuestionariesCommentsDTO questionComment);
 	
 	boolean findQuestionById(int questionId);
 	

@@ -20,7 +20,6 @@ import com.nisum.portal.service.api.UserService;
 import com.nisum.portal.service.dto.QuestionRepliesDTO;
 import com.nisum.portal.service.dto.QuestionReplyCommentsDTO;
 import com.nisum.portal.service.dto.QuestionReplysDTO;
-import com.nisum.portal.util.Constants;
 import com.nisum.portal.util.QuestionReplysUtil;
 
 @Service
@@ -63,16 +62,17 @@ public class QuestionRepliesServiceImpl implements QuestionRepliesService{
 	}
 
 	@Override
-	public String saveReplyComment(String emailId, QuestionReplyCommentsDTO replyComment) {
+	public QuestionReplyCommentsDTO saveReplyComment(String emailId, QuestionReplyCommentsDTO replyComment) {
 		logger.info("QuestionRepliesServiceImpl :: saveReplyComment :: saving reply comment");
 		replyComment.setEmailId(emailId);
-		QuestionReplyComments comments = QuestionReplysUtil.convertReplyDtoToDao(replyComment);
+		QuestionReplyComments comments = QuestionReplysUtil.convertCommentDtoToDao(replyComment);
 		Date date = new Date();
 		Timestamp createdDate = new Timestamp(date.getTime());
 		comments.setCreatedDate(createdDate);
 		QuestionReplyComments questionariesComments = questionReplyCommentsDAO.saveReplyComments(comments);
-		if (questionariesComments != null) {
-			return Constants.MSG_RECORD_ADD;
+		QuestionReplyCommentsDTO questionReplyCommentsDTO = QuestionReplysUtil.convertCommentDaoToDto(questionariesComments);
+		if (questionReplyCommentsDTO != null) {
+			return questionReplyCommentsDTO;
 		} else {
 			return null;
 		}
