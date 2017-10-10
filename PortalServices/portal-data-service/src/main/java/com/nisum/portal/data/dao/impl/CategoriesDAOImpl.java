@@ -14,12 +14,13 @@ import com.nisum.portal.data.repository.CategoriesRepository;
 @Configuration
 public class CategoriesDAOImpl implements CategoriesDAO {
 
-	private static Logger logger = LoggerFactory.getLogger(CategoriesDAOImpl.class);
+	private static Logger logger = LoggerFactory.getLogger(CategoriesDAOImpl.class); 
 	@Autowired
 	CategoriesRepository categoriesRepository;
 
 	@Override
 	public List<Categories> getCategories() {
+		logger.info("getting data from db");
 		return categoriesRepository.findAll();
 	}
 

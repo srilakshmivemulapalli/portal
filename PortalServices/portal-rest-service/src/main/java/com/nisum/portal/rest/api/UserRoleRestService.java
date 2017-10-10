@@ -37,7 +37,7 @@ public class UserRoleRestService {
 		ServiceStatusDto serviceStatusDto=new ServiceStatusDto();
 		try {
 			
-			if(userRoleDto.getRole()==null || userRoleDto.getRole().equals("")) {
+			if(userRoleDto.getRole().equalsIgnoreCase("null") || userRoleDto.getRole().equals("")) {
 				Errors error = new Errors();
 				error.setErrorCode("Errors-UserRole");
 				error.setErrorMessage("UserRole Name Cannot Be Emplty");

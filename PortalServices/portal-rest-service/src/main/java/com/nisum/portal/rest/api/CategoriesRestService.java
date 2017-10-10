@@ -70,8 +70,8 @@ public class CategoriesRestService {
 		else {
 			logger.error("Category already Exists");
 			 Errors error = new Errors();
-			 error.setErrorCode("Errors-UserRole");
-			 error.setErrorMessage(Constants.USER_ROLE_EXISTS);
+			 error.setErrorCode("Errors-Categories");
+			 error.setErrorMessage(Constants.CATEGORY_EXISTS);
 			 ResponseEntity<Errors> rsEntity=new ResponseEntity<Errors>(error, HttpStatus.NOT_ACCEPTABLE);
 			 return rsEntity;
 		}

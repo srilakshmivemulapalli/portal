@@ -40,6 +40,21 @@ public class UserRoleRestServiceTest {
 	
 	List<UserRoleDTO> expected;
 
+	@Test
+	public void addUserRoleNullCheck() throws UserRoleServiceException {
+		
+		Errors error=new Errors();
+		error.setErrorCode("Errors-UserRole");
+		error.setErrorMessage("UserRole Name Cannot Be Emplty");
+		
+		UserRoleDTO userRoleDto=new UserRoleDTO();
+		userRoleDto.setRole("NULL");
+				
+				ResponseEntity<?> actual =userRoleRestService.addUserRole(userRoleDto);
+			
+			assertThat(actual.getBody()).isEqualToComparingFieldByField(error);
+	}
+	
 	
 	@Test
 	public void addUserRoleSuccess() throws UserRoleServiceException {
@@ -61,7 +76,7 @@ public class UserRoleRestServiceTest {
 				when(userRoleService.addUserRole(userRoleDto)).thenReturn(userRole);				
 				ResponseEntity<?> actual =userRoleRestService.addUserRole(userRoleDto);
 			
-			assertThat(actual.getBody()).isEqualToComparingFieldByField(actual.getBody());
+			assertThat(actual.getBody()).isEqualToComparingFieldByField(expected);
 	}
 	
 

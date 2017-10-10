@@ -1,12 +1,14 @@
 package com.nisum.portal.service.impl;
 
-import java.sql.Timestamp;
+import java.sql.Timestamp; 
 import java.util.Date;
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.nisum.portal.data.dao.api.CategoriesDAO;
@@ -26,11 +28,14 @@ public class CategoriesServiceImpl implements CategoriesService {
 	private CategoriesDAO categoriesDAO;
 
 	@Override
+	@Cacheable(value="Categories")
 	public List<CategoriesDTO> getCategories() {
+		logger.info("categories in service impl");
 		List<Categories> categoriesList = categoriesDAO.getCategories();
-		return CategoryServiceUtil.convertDaoTODto(categoriesList);
+	
+		return CategoryServiceUtil.convertDaoTODto(categoriesList); 
 	}
-
+ 
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -39,6 +44,7 @@ public class CategoriesServiceImpl implements CategoriesService {
 	 * service.dto.CategoriesDTO)
 	 */
 	@Override
+	@CachePut(value="Categories", key="#categoryDto.categoryName")
 	public ServiceStatusDto addCategory(CategoriesDTO categoryDto) {
 
 		logger.info("CategoriesServiceImpl :: addCategories");
@@ -70,7 +76,8 @@ public class CategoriesServiceImpl implements CategoriesService {
 	 * com.nisum.portal.service.api.CategoriesService#update(com.nisum.portal.data.
 	 * domain.Categories)
 	 */
-	@Override
+	@Override 
+	@CachePut(value="Categories", key="#categoriesDTO.categoryId")
 	public ServiceStatusDto update(CategoriesDTO categoriesDTO) throws CategoryServiceException {
 		logger.info("CategoriesServiceImpl :: updateCategories :: Category Details " + categoriesDTO.toString());
 		Date date = new Date();
@@ -106,6 +113,7 @@ public class CategoriesServiceImpl implements CategoriesService {
 	}
 
 	@Override
+	@CachePut(value="Categories", key="#categoryId")
 	public ServiceStatusDto deleteCategories(Integer categoryId) {
 		logger.info("CategoriesServiceImpl :: deleteCategories");
 		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();

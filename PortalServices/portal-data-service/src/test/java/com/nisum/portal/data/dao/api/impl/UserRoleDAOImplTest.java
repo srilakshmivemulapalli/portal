@@ -1,4 +1,4 @@
-package com.nisum.portal.dao.impl;
+package com.nisum.portal.data.dao.api.impl;
 
 import static org.junit.Assert.assertEquals; 
 import static org.junit.Assert.assertTrue;

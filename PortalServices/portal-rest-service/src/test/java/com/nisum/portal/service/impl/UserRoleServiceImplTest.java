@@ -60,19 +60,12 @@ public class UserRoleServiceImplTest {
 			UserRole userRole=new UserRole();
 				userRole.setRole("SE");
 				userRole.setRoleId(1);
-		
-				
-				//when(cache.verifyUserRoleToCache(userRoleDto)).thenReturn(true);
-				
 		 
-			when(cache.verifyUserRoleToCache(userRoleDto)).thenReturn(true);
-			//PowerMockito.mockStatic(UserRoleServiceUtil.class); 
-			//PowerMockito.when(UserRoleServiceUtil.convertDtoToDao(userRoleDto)).thenReturn(userRole);
-			when(userRoleRepository.save(userRole)).thenReturn(userRole);
+			when(cache.verifyUserRoleToCache(userRoleDto)).thenReturn(false);
+			PowerMockito.mockStatic(UserRoleServiceUtil.class); 
+			PowerMockito.when(UserRoleServiceUtil.convertDtoToDao(userRoleDto)).thenReturn(userRole);
 			when(userRoleDao.addUserRole(userRole)).thenReturn(userRole); 
 			
-			
-			//when(userRoleServiceImpl.addUserRole(userRoleDto)).thenReturn(userRole);
 	
 			 UserRole actual = userRoleServiceImpl.addUserRole(userRoleDto);
 			
@@ -85,7 +78,7 @@ public class UserRoleServiceImplTest {
 			UserRoleDTO userRoleDto=new UserRoleDTO();
 			userRoleDto.setRole("SE");
 		
-			when(cache.verifyUserRoleToCache(userRoleDto)).thenReturn(false);
+			when(cache.verifyUserRoleToCache(userRoleDto)).thenReturn(true);
 			userRoleServiceImpl.addUserRole(userRoleDto);   
 	}
 	
