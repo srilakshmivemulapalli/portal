@@ -56,4 +56,15 @@ public class QuestionariesUtil {
 		return questionariesComments;
 		
 	}
+	
+	public static QuestionariesCommentsDTO convertDaoToDto(QuestionariesComments questionComments) {
+		QuestionariesCommentsDTO questionariesCommentsDTO = new QuestionariesCommentsDTO();
+		questionariesCommentsDTO.setcommentDescription(questionComments.getcommentDescription());
+		questionariesCommentsDTO.setCommentId(questionComments.getCommentId());
+		questionariesCommentsDTO.setCreatedDate(questionComments.getCreatedDate());
+		questionariesCommentsDTO.setEmailId(questionComments.getEmailId());
+		questionariesCommentsDTO.setquestionId(questionComments.getQuestionId());
+		return questionariesCommentsDTO;
+		
+	}
 }

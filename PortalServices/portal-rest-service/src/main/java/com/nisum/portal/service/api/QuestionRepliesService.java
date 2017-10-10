@@ -10,7 +10,7 @@ public interface QuestionRepliesService {
 	public Integer getQuestionariesReplyCount(int questId);
 	QuestionReplysDTO getQuestionariesReply(int questId);
 	QuestionRepliesDTO saveQuestionariesReply(Integer questId, String emailId, String description);
-	String saveReplyComment(String emailId, QuestionReplyCommentsDTO questionComment);
+	QuestionReplyCommentsDTO saveReplyComment(String emailId, QuestionReplyCommentsDTO questionComment);
 	boolean findReplyById(int replyId);
 
 }

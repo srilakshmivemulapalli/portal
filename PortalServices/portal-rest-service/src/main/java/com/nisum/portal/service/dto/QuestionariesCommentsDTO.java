@@ -17,6 +17,12 @@ public class QuestionariesCommentsDTO {
 		return questionId;
 	}
 	/**
+	 * @param questionId the questionId to set
+	 */
+	public void setquestionId(Integer questionId) {
+		this.questionId = questionId;
+	}
+	/**
 	 * @return the commentId
 	 */
 	public Integer getCommentId() {

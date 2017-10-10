@@ -16,6 +16,12 @@ public class QuestionReplyCommentsDTO {
 		return replyId;
 	}
 	/**
+	 * @param replyId the replyId to set
+	 */
+	public void setreplyId(Integer replyId) {
+		this.replyId = replyId;
+	}
+	/**
 	 * @return the commentId
 	 */
 	public Integer getCommentId() {

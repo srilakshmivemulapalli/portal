@@ -41,6 +41,7 @@ public class QuestionReplysUtil {
 					questionariesCommentsDTO.setCommentId(comment.getCommentId());
 					questionariesCommentsDTO.setCreatedDate(comment.getCreatedDate());
 					questionariesCommentsDTO.setEmailId(comment.getEmailId());
+					questionariesCommentsDTO.setquestionId(comment.getQuestionId());
 					questionariesCommentsDto.add(questionariesCommentsDTO);
 				}
 			}
@@ -69,6 +70,7 @@ public class QuestionReplysUtil {
 							questionReplyCommentsDto.setCommentId(replyComment.getCommentId());
 							questionReplyCommentsDto.setCreatedDate(replyComment.getCreatedDate());
 							questionReplyCommentsDto.setEmailId(replyComment.getEmailId());
+							questionReplyCommentsDto.setreplyId(replyComment.getReplyId());
 							questionReplyCommentsDTO.add(questionReplyCommentsDto);
 						}
 					}
@@ -100,12 +102,22 @@ public class QuestionReplysUtil {
 		return repliesDTO;
 	}
 	
-	public static QuestionReplyComments convertReplyDtoToDao(QuestionReplyCommentsDTO comment) {
+	public static QuestionReplyComments convertCommentDtoToDao(QuestionReplyCommentsDTO comment) {
 		QuestionReplyComments questionReplyComments = new QuestionReplyComments();
 		questionReplyComments.setEmailId(comment.getEmailId());
 		questionReplyComments.setcommentDescription(comment.getcommentDescription());
 		questionReplyComments.setReplyId(comment.getReplyId());
 		return questionReplyComments;
+	}
+	
+	public static QuestionReplyCommentsDTO convertCommentDaoToDto(QuestionReplyComments comment) {
+		QuestionReplyCommentsDTO questionReplyCommentsDTO = new QuestionReplyCommentsDTO();
+		questionReplyCommentsDTO.setEmailId(comment.getEmailId());
+		questionReplyCommentsDTO.setcommentDescription(comment.getcommentDescription());
+		questionReplyCommentsDTO.setCommentId(comment.getCommentId());
+		questionReplyCommentsDTO.setCreatedDate(comment.getCreatedDate());
+		questionReplyCommentsDTO.setreplyId(comment.getReplyId());
+		return questionReplyCommentsDTO;
 	}
 
 }
