@@ -27,6 +27,15 @@ public class User implements Serializable {
 	private String activeStatus;
 	private Timestamp createDate;
 	private String image;
+	private byte[] imageIcon;
+
+	public byte[] getImageIcon() {
+		return imageIcon;
+	}
+
+	public void setImageIcon(byte[] imageIcon) {
+		this.imageIcon = imageIcon;
+	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "roleId", referencedColumnName = "roleId")

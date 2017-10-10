@@ -1,8 +1,13 @@
 package com.nisum.portal.rest.api;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.net.URL;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +36,7 @@ import com.nisum.portal.util.MailSender;
 
 @RestController
 @RequestMapping(value = "/v1/user")
-public class UserRestService { 
+public class UserRestService {
 
 	private static Logger logger = LoggerFactory.getLogger(CategoriesRestService.class);
 
@@ -40,7 +45,7 @@ public class UserRestService {
 
 	@Autowired
 	UserRoleService userRoleService;
-	
+
 	private static EmailAccount emailAccount;
 
 	/**
@@ -49,8 +54,8 @@ public class UserRestService {
 	 * @return
 	 * @throws UserServiceException
 	 */
-	@RequestMapping(value = "/deleteUser/{userId}",method=RequestMethod.PUT,produces="application/json")
-	public ResponseEntity<?> deleteUser(@PathVariable Integer userId) throws UserServiceException{
+	@RequestMapping(value = "/deleteUser/{userId}", method = RequestMethod.PUT, produces = "application/json")
+	public ResponseEntity<?> deleteUser(@PathVariable Integer userId) throws UserServiceException {
 		logger.info("UserRestService :: deleteUser :: Deleting User");
 		Errors error = new Errors();
 		try {
@@ -73,11 +78,12 @@ public class UserRestService {
 
 	/**
 	 * Returns list of users
+	 * 
 	 * @return
 	 * @throws UserServiceException
 	 */
 	@RequestMapping(value = "/getUsers", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<?>  getUsers() throws UserServiceException {
+	public ResponseEntity<?> getUsers() throws UserServiceException {
 		logger.info("UserRestService :: users");
 		Errors error = new Errors();
 		try {
@@ -97,6 +103,7 @@ public class UserRestService {
 
 	/**
 	 * Updates single user
+	 * 
 	 * @param userDto
 	 * @return
 	 * @throws UserServiceException
@@ -107,14 +114,11 @@ public class UserRestService {
 		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
 		try {
 			Object obj = userService.updateUserDetails(userDto);
-			if(obj.equals(null))
-			{
+			if (obj.equals(null)) {
 				serviceStatusDto.setMessage(Constants.USER_NOT_EXISTS);
 				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.NOT_FOUND);
-			}
-			else
-			{
-				serviceStatusDto.setMessage(Constants.USER_UPDATED );
+			} else {
+				serviceStatusDto.setMessage(Constants.USER_UPDATED);
 				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.OK);
 			}
 		} catch (Exception e) {
@@ -125,50 +129,51 @@ public class UserRestService {
 
 	/**
 	 * Updates list of users
+	 * 
 	 * @param usersDTO
 	 * @return
 	 * @throws UserServiceException
 	 */
 
-	@RequestMapping(value = "/updateUsers",method=RequestMethod.PUT,consumes = "application/json",produces="application/json")
-	public ResponseEntity<ServiceStatusDto>  updateUsers(@RequestBody List<UserDTO> usersDTO) throws UserServiceException{
+	@RequestMapping(value = "/updateUsers", method = RequestMethod.PUT, consumes = "application/json", produces = "application/json")
+	public ResponseEntity<ServiceStatusDto> updateUsers(@RequestBody List<UserDTO> usersDTO)
+			throws UserServiceException {
 		logger.info("UserRestService :: multiple users update :::");
 		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
 		try {
-			for(UserDTO userDto : usersDTO)
-			{
+			for (UserDTO userDto : usersDTO) {
 				userService.updateUserDetails(userDto);
 			}
 			serviceStatusDto.setMessage(Constants.USER_UPDATED);
-			return new ResponseEntity<ServiceStatusDto>(serviceStatusDto,HttpStatus.OK);
-		}
-		catch(Exception e)
-		{
+			return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.OK);
+		} catch (Exception e) {
 			logger.info("UserRestService :: Update multiple Users :: Internal Server Error");
 			throw new UserServiceException(Constants.INTERNALSERVERERROR, e);
 		}
 	}
 
-
-	//	@RequestMapping(value = "/updateUsers",method=RequestMethod.PUT,consumes = "application/json",produces="application/json")
-	//	public ResponseEntity<ServiceStatusDto>  updateUsers(@RequestBody List<UserDTO> usersDTO) throws UserServiceException{
-	//		logger.info("UserRestService :: multiple users update :::");
-	//		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
-	//		try {
-	//			for(UserDTO userDto : usersDTO)
-	//			{
-	//			userService.updateUserDetails(userDto);
-	//			}
-	//			serviceStatusDto.setMessage(Constants.USER_UPDATED);
-	//         return new ResponseEntity<ServiceStatusDto>(serviceStatusDto,HttpStatus.OK);
-	//	}
-	//		catch(Exception e)
-	//		{
-	//			logger.info("UserRestService :: Update multiple Users :: Internal Server Error");
-	//			throw new UserServiceException(Constants.INTERNALSERVERERROR, e);
-	//		}
-	//	}
-
+	// @RequestMapping(value = "/updateUsers",method=RequestMethod.PUT,consumes
+	// = "application/json",produces="application/json")
+	// public ResponseEntity<ServiceStatusDto> updateUsers(@RequestBody
+	// List<UserDTO> usersDTO) throws UserServiceException{
+	// logger.info("UserRestService :: multiple users update :::");
+	// ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
+	// try {
+	// for(UserDTO userDto : usersDTO)
+	// {
+	// userService.updateUserDetails(userDto);
+	// }
+	// serviceStatusDto.setMessage(Constants.USER_UPDATED);
+	// return new
+	// ResponseEntity<ServiceStatusDto>(serviceStatusDto,HttpStatus.OK);
+	// }
+	// catch(Exception e)
+	// {
+	// logger.info("UserRestService :: Update multiple Users :: Internal Server
+	// Error");
+	// throw new UserServiceException(Constants.INTERNALSERVERERROR, e);
+	// }
+	// }
 
 	/**
 	 * getUserCount
@@ -191,7 +196,7 @@ public class UserRestService {
 	@RequestMapping(value = "/create", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	public UserDTO addUser(@RequestBody UserDTO userDto) throws UserServiceException {
 
-		UserDTO userInfo=null;
+		UserDTO userInfo = null;
 		logger.info("UserRestService :: Creating Users :::");
 		try {
 
@@ -201,9 +206,20 @@ public class UserRestService {
 			if (userInfo != null && strEmail1.equals(userInfo.getEmailId())) {
 				userInfo.setLoginDate(CommonsUtil.getCurrentDateTime());
 				userService.updateUserDetails(userInfo);
-				//return userInfo;
-			} else {
 
+			} else {
+                     
+				 BufferedImage image = null;
+				 URL url = new URL(userDto.getImage());
+				 image = ImageIO.read(url);
+
+				 ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				 ImageIO.write(image, "jpg", baos);
+				 baos.flush();
+				 byte[] imageBytes = baos.toByteArray();
+				 baos.close();
+				 userDto.setImageIcon(imageBytes);
+				
 				userDto.setLoginDate(CommonsUtil.getCurrentDateTime());
 				userDto.setCreateDate(CommonsUtil.getCurrentDateTime());
 
@@ -224,11 +240,11 @@ public class UserRestService {
 				userDto.setRole(role);
 				userDto.setActiveStatus(Constants.USER_STATUS);
 				userService.saveUser(userDto);
-                
-                MailSender.sendEmail(emailAccount.getAdminemail(),emailAccount.getAdminpassword(),
-                		strEmail1, emailAccount.getSubject(), MailSender.messageBody(userDto.getName()));
 
-				userInfo=userDto;
+				MailSender.sendEmail(emailAccount.getAdminemail(), emailAccount.getAdminpassword(), strEmail1,
+						emailAccount.getSubject(), MailSender.messageBody(userDto.getName()));
+
+				userInfo = userDto;
 			}
 
 		}
@@ -238,27 +254,26 @@ public class UserRestService {
 			throw new UserServiceException(Constants.INTERNALSERVERERROR, e);
 		}
 
-
 		return userInfo;
 	}
 
-
 	/**
 	 * Exception handler
+	 * 
 	 * @param ex
 	 * @return
 	 */
 	@ExceptionHandler(UserServiceException.class)
 	public ResponseEntity<Errors> exceptionHandler(Exception ex) {
 		logger.info("UserRestService :: exceptionHandler :: caught exception");
-		Errors errors=new Errors();
+		Errors errors = new Errors();
 		errors.setErrorCode("Error-User");
 		errors.setErrorMessage(ex.getMessage());
 		return new ResponseEntity<Errors>(errors, HttpStatus.OK);
 	}
-	
+
 	@Autowired
-    public void setEmailAccount(EmailAccount emailAccount){
-        UserRestService.emailAccount = emailAccount;
-    }
+	public void setEmailAccount(EmailAccount emailAccount) {
+		UserRestService.emailAccount = emailAccount;
+	}
 }
