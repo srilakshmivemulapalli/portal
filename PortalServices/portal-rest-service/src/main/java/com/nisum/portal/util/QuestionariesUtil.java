@@ -51,7 +51,7 @@ public class QuestionariesUtil {
 	public static QuestionariesComments convertDtoToDao(String emailId, QuestionariesCommentsDTO questionComments) {
 		QuestionariesComments questionariesComments = new QuestionariesComments();
 		questionariesComments.setcommentDescription(questionComments.getcommentDescription());
-		questionariesComments.setQuestionId(questionComments.getQuestionId());
+		questionariesComments.setQuestionId(questionComments.getid());
 		questionariesComments.setEmailId(emailId);
 		return questionariesComments;
 		
@@ -63,7 +63,7 @@ public class QuestionariesUtil {
 		questionariesCommentsDTO.setCommentId(questionComments.getCommentId());
 		questionariesCommentsDTO.setCreatedDate(questionComments.getCreatedDate());
 		questionariesCommentsDTO.setEmailId(questionComments.getEmailId());
-		questionariesCommentsDTO.setquestionId(questionComments.getQuestionId());
+		questionariesCommentsDTO.setid(questionComments.getQuestionId());
 		return questionariesCommentsDTO;
 		
 	}

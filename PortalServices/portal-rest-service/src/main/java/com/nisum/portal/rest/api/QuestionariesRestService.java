@@ -121,7 +121,7 @@ public class QuestionariesRestService {
 		logger.info("QuestionariesRestService :: saveQuestionComment :: saving question comment"); 
 		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
 		try {
-			boolean question = questionariesService.findQuestionById(comment.getQuestionId());
+			boolean question = questionariesService.findQuestionById(comment.getid());
 			if (question) {
 				QuestionariesCommentsDTO questionariesCommentsDTO= questionariesService.saveQuestionComment(emailId, comment);
 				return new ResponseEntity<QuestionariesCommentsDTO>(questionariesCommentsDTO, HttpStatus.OK);
