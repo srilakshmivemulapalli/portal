@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,8 +47,8 @@ public class TrainingsRestService {
 		return new ResponseEntity<Errors>(error, HttpStatus.OK);
 	}
 
-	@RequestMapping("/classroomUpcoming/{emailId}")
-	public ResponseEntity<?> classroomUpcomingTrainings(@PathVariable("emailId") String emailId)throws TrainingsServiceException
+	@RequestMapping("/classroomUpcoming")
+	public ResponseEntity<?> classroomUpcomingTrainings(@RequestHeader("emailId") String emailId)throws TrainingsServiceException
 	{
 		logger.info("TrainingsRestService :: classroomUpcomingTrainings");
 	    List<TrainingsDTO> upcomingList=	trainingsService.upComingTrainings("classroom",emailId);
@@ -63,8 +64,8 @@ public class TrainingsRestService {
 	    }
 		
 	}
-	@RequestMapping("/onlineUpcoming/{emailId}")
-	public ResponseEntity<?> onlineUpcomingTrainings(@PathVariable("emailId") String emailId)throws TrainingsServiceException
+	@RequestMapping("/onlineUpcoming")
+	public ResponseEntity<?> onlineUpcomingTrainings(@RequestHeader("emailId") String emailId)throws TrainingsServiceException
 	{
 		logger.info("TrainingsRestService :: onlineUpcomingTrainings");
 	    List<TrainingsDTO> upcomingList=	trainingsService.upComingTrainings("online",emailId);
