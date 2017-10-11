@@ -14,7 +14,7 @@
 		</ul> -->
 		<div class="row irs-all-course-bb clearfix">
 			<div class="col-sm-6 col-md-6 col-lg-4 clearfix"
-				ng-repeat="training in trainingsList" ng-click="showModal(training)">
+				ng-repeat="training in trainingsList.trainings" ng-click="showModal(training)">
 				<div class="irs-lc-grid style2 text-center">
 					<!-- <div class="irs-lc-grid-thumb">
                   <img class="img-responsive img-fluid" src="images/classroom-training.jpg" alt="5.jpg">
@@ -45,238 +45,6 @@
 					</div>
 				</div>
 			</div>
-			<!-- <div class="col-sm-6 col-md-6 col-lg-4 clearfix">
-              <div class="irs-lc-grid style2 text-center">
-                
-                <div class="irs-lc-details style2">
-                  <div class="irs-lc-teacher-info">
-                    <div class="irs-lct-thumb"><img src="images/userlogo.jpg" alt="s4.png"></div>
-                    <div class="irs-lct-info">with <span class="text-thm2"> Annie Thornburg</span></div>
-                  </div>
-                  <h4 class="irs-extraspce style2"><a href="#">African American Studies (AFRICAM)</a></h4>
-                </div>
-                <div class="irs-lc-footer">
-                  <div class="irs-lc-normal-part">
-                    <ul class="list-inline">
-                      <li><a href="#"><i class="fa fa-users"></i> 108</a></li>
-                      <li><a href="#"><i class="fa fa-commenting"></i> 19</a></li>
-                    </ul>
-                  </div>
-                  <div class="irs-lc-hover-part">See Course</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-md-6 col-lg-4 clearfix">
-              <div class="irs-lc-grid style2 text-center">
-              
-                <div class="irs-lc-details">
-                  <div class="irs-lc-teacher-info">
-                    <div class="irs-lct-thumb"><img src="images/userlogo.jpg" alt="s5.png"></div>
-                    <div class="irs-lct-info">with <span class="text-thm2"> Jessica Hamson</span></div>
-                  </div>
-                  <h4 class="irs-extraspce style2"><a href="#">Bosnian, Croatian, Serbian (BOSCRSR)</a></h4>
-                </div>
-                <div class="irs-lc-footer">
-                  <div class="irs-lc-normal-part">
-                    <ul class="list-inline">
-                      <li><a href="#"><i class="fa fa-users"></i> 87</a></li>
-                      <li><a href="#"><i class="fa fa-commenting"></i> 27</a></li>
-                    </ul>
-                  </div>
-                  <div class="irs-lc-hover-part">See Course</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-md-6 col-lg-4 clearfix">
-              <div class="irs-lc-grid style2 text-center">
-                
-                <div class="irs-lc-details style2">
-                  <div class="irs-lc-teacher-info">
-                    <div class="irs-lct-thumb"><img src="images/userlogo.jpg" alt="s6.png"></div>
-                    <div class="irs-lct-info">with <span class="text-thm2"> Meryl Hawkinson</span></div>
-                  </div>
-                  <h4><a href="#">Chemical & Biomolecular Engineering</a></h4>
-                </div>
-                <div class="irs-lc-footer">
-                  <div class="irs-lc-normal-part">
-                    <ul class="list-inline">
-                      <li><a href="#"><i class="fa fa-users"></i> 3219</a></li>
-                      <li><a href="#"><i class="fa fa-commenting"></i> 432</a></li>
-                    </ul>
-                  </div>
-                  <div class="irs-lc-hover-part">See Course</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-md-6 col-lg-4 clearfix">
-              <div class="irs-lc-grid style2 text-center">
-                
-                <div class="irs-lc-details style2">
-                  <div class="irs-lc-teacher-info">
-                    <div class="irs-lct-thumb"><img src="images/userlogo.jpg" alt="s6.png"></div>
-                    <div class="irs-lct-info">with <span class="text-thm2"> Meryl Hawkinson</span></div>
-                  </div>
-                  <h4><a href="#">Business & Management Studies</a></h4>
-                </div>
-                <div class="irs-lc-footer">
-                  <div class="irs-lc-normal-part">
-                    <ul class="list-inline">
-                      <li><a href="#"><i class="fa fa-users"></i> 187</a></li>
-                      <li><a href="#"><i class="fa fa-commenting"></i> 19</a></li>
-                    </ul>
-                  </div>
-                  <div class="irs-lc-hover-part">See Course</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-md-6 col-lg-4 clearfix">
-              <div class="irs-lc-grid style2 text-center">
-                
-                <div class="irs-lc-details style2">
-                  <div class="irs-lc-teacher-info">
-                    <div class="irs-lct-thumb"><img src="images/userlogo.jpg" alt="s6.png"></div>
-                    <div class="irs-lct-info">with <span class="text-thm2"> Meryl Hawkinson</span></div>
-                  </div>
-                  <h4><a href="#">Geography & Environmental Sciences</a></h4>
-                </div>
-                <div class="irs-lc-footer">
-                  <div class="irs-lc-normal-part">
-                    <ul class="list-inline">
-                      <li><a href="#"><i class="fa fa-users"></i> 459</a></li>
-                      <li><a href="#"><i class="fa fa-commenting"></i> 197</a></li>
-                    </ul>
-                  </div>
-                  <div class="irs-lc-hover-part">See Course</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-md-6 col-lg-4 clearfix">
-              <div class="irs-lc-grid style2 text-center">
-                
-                <div class="irs-lc-details style2">
-                  <div class="irs-lc-teacher-info">
-                    <div class="irs-lct-thumb"><img src="images/userlogo.jpg" alt="s6.png"></div>
-                    <div class="irs-lct-info">with <span class="text-thm2"> Meryl Hawkinson</span></div>
-                  </div>
-                  <h4><a href="#">Applied Science and Best Technology (AST)</a></h4>
-                </div>
-                <div class="irs-lc-footer">
-                  <div class="irs-lc-normal-part">
-                    <ul class="list-inline">
-                      <li><a href="#"><i class="fa fa-users"></i> 287</a></li>
-                      <li><a href="#"><i class="fa fa-commenting"></i> 76</a></li>
-                    </ul>
-                  </div>
-                  <div class="irs-lc-hover-part">See Course</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-md-6 col-lg-4 clearfix">
-              <div class="irs-lc-grid style2 text-center">
-                
-                <div class="irs-lc-details style2">
-                  <div class="irs-lc-teacher-info">
-                    <div class="irs-lct-thumb"><img src="images/userlogo.jpg" alt="s6.png"></div>
-                    <div class="irs-lct-info">with <span class="text-thm2"> Meryl Hawkinson</span></div>
-                  </div>
-                  <h4><a href="#">Dentistry & Teeth Class Operations</a></h4>
-                </div>
-                <div class="irs-lc-footer">
-                  <div class="irs-lc-normal-part">
-                    <ul class="list-inline">
-                      <li><a href="#"><i class="fa fa-users"></i> 234</a></li>
-                      <li><a href="#"><i class="fa fa-commenting"></i> 53</a></li>
-                    </ul>
-                  </div>
-                  <div class="irs-lc-hover-part">See Course</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-md-6 col-lg-4 clearfix">
-              <div class="irs-lc-grid style2 text-center">
-                
-                <div class="irs-lc-details style2">
-                  <div class="irs-lc-teacher-info">
-                    <div class="irs-lct-thumb"><img src="images/userlogo.jpg" alt="s6.png"></div>
-                    <div class="irs-lct-info">with <span class="text-thm2"> Meryl Hawkinson</span></div>
-                  </div>
-                  <h4><a href="#">Hands Sculpts Clay Crafts Pottery Class</a></h4>
-                </div>
-                <div class="irs-lc-footer">
-                  <div class="irs-lc-normal-part">
-                    <ul class="list-inline">
-                      <li><a href="#"><i class="fa fa-users"></i> 93</a></li>
-                      <li><a href="#"><i class="fa fa-commenting"></i> 19</a></li>
-                    </ul>
-                  </div>
-                  <div class="irs-lc-hover-part">See Course</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-md-6 col-lg-4 clearfix">
-              <div class="irs-lc-grid style2 text-center">
-                
-                <div class="irs-lc-details style2">
-                  <div class="irs-lc-teacher-info">
-                    <div class="irs-lct-thumb"><img src="images/userlogo.jpg" alt="s6.png"></div>
-                    <div class="irs-lct-info">with <span class="text-thm2"> Meryl Hawkinson</span></div>
-                  </div>
-                  <h4><a href="#">History of Art, Architecture & Design</a></h4>
-                </div>
-                <div class="irs-lc-footer">
-                  <div class="irs-lc-normal-part">
-                    <ul class="list-inline">
-                      <li><a href="#"><i class="fa fa-users"></i> 1009</a></li>
-                      <li><a href="#"><i class="fa fa-commenting"></i> 205</a></li>
-                    </ul>
-                  </div>
-                  <div class="irs-lc-hover-part">See Course</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-md-6 col-lg-4 clearfix">
-              <div class="irs-lc-grid style2 text-center">
-                
-                <div class="irs-lc-details style2">
-                  <div class="irs-lc-teacher-info">
-                    <div class="irs-lct-thumb"><img src="images/userlogo.jpg" alt="s6.png"></div>
-                    <div class="irs-lct-info">with <span class="text-thm2"> Meryl Hawkinson</span></div>
-                  </div>
-                  <h4><a href="#">Middle Eastern & African Studies</a></h4>
-                </div>
-                <div class="irs-lc-footer">
-                  <div class="irs-lc-normal-part">
-                    <ul class="list-inline">
-                      <li><a href="#"><i class="fa fa-users"></i> 289</a></li>
-                      <li><a href="#"><i class="fa fa-commenting"></i> 10</a></li>
-                    </ul>
-                  </div>
-                  <div class="irs-lc-hover-part">See Course</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-md-6 col-lg-4 clearfix">
-              <div class="irs-lc-grid style2 text-center">
-                
-                <div class="irs-lc-details style2">
-                  <div class="irs-lc-teacher-info">
-                    <div class="irs-lct-thumb"><img src="images/userlogo.jpg" alt="s6.png"></div>
-                    <div class="irs-lct-info">with <span class="text-thm2"> Meryl Hawkinson</span></div>
-                  </div>
-                  <h4><a href="#">Russian & East European Languages</a></h4>
-                </div>
-                <div class="irs-lc-footer">
-                  <div class="irs-lc-normal-part">
-                    <ul class="list-inline">
-                      <li><a href="#"><i class="fa fa-users"></i> 54</a></li>
-                      <li><a href="#"><i class="fa fa-commenting"></i> 4</a></li>
-                    </ul>
-                  </div>
-                  <div class="irs-lc-hover-part">See Course</div>
-                </div>
-              </div>
-            </div>
-           -->
 		</div>
 	</div>
 	<div class="col-md-12 col-xs-12 body-question"></div>
@@ -320,7 +88,7 @@
 					</div>
 					<div class="col-md-7">
 						<div class="irs-courses-dtls-second-para">
-							<p>{{modalDescription}}</p>
+							<p>{{modalTraining.description}}</p>
 							
 						</div>
 					</div>
@@ -328,8 +96,8 @@
 
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" ng-click="editItem();">Join</button>
-				<button type="button" class="btn btn-danger" ng-click="editItem();">Cancel</button>
+				<button type="button" class="btn btn-primary" ng-click="editItem();" ng-if="modalTraining.trainingPresence===0">Join</button>
+				<button type="button" class="btn btn-danger" ng-click="editItem();" ng-if="modalTraining.trainingPresence===1">Cancel</button>
 			</div>
 		</div>
 

@@ -1,5 +1,5 @@
 app
-    .factory('CategoryModel', ['$http', function($http) {
+    .factory('CategoryModel', [ function() {
     		function Category(categoryCopy) {
     		  this.categoryId = null;
     		  this.categoryName= null;
