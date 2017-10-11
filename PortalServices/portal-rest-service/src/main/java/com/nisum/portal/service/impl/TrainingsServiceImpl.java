@@ -43,8 +43,8 @@ public class TrainingsServiceImpl implements TrainingsService {
 	}
 
 	
-	@Override
-	public List<TrainingsDTO> upComingTrainings(String trainingType) {
+	/*@Override
+	public List<TrainingsDTO> upComingTrainings(String trainingType,String email) {
 		
 		logger.info("TrainingsServiceImpl::upComingTrainings");
 		
@@ -87,14 +87,30 @@ public class TrainingsServiceImpl implements TrainingsService {
 	});
 	
 		return TrainingsServiceUtil.convertDaoTODto(upcomeList);
+	} */
+	
+	@Override
+	public List<TrainingsDTO> upComingTrainings(String trainingType,String emailId) {
+		logger.info("TrainingsServiceImpl::upComingTrainings");
+	//	List<Trainings> upcomeList=trainingsDAO.upcomingTraining( trainingType);
+		
+	//	List<TrainingsDTO> TrainingsDTOs=TrainingsServiceUtil.convertDaoTODto(upcomeList);
+		List<TrainingsDTO> upcomeList=TrainingsServiceUtil.convertDaoTODto(trainingsDAO.upcomingTraining( trainingType));
+		for(TrainingsDTO trainingsDTO:upcomeList)
+		{
+		   Integer presence=   trainingsDAO.checkTrainingPresence(emailId, trainingsDTO.getTrainingId());
+		   trainingsDTO.setTrainingPresence(presence);
+		}
+
+		return upcomeList;
 	}
 
 
 	@Override
 	public List<TrainingsDTO> completedTrainings() {
 		logger.info("TrainingsServiceImpl::completedTrainings");
-		List<Trainings> upcomeList=	trainingsDAO.upcomingTraining();
-	    LinkedHashSet<Trainings> lst=new LinkedHashSet<Trainings>(trainingsDAO.upcomingTraining());
+		List<Trainings> upcomeList=	trainingsDAO.completedTraining();
+	    LinkedHashSet<Trainings> lst=new LinkedHashSet<Trainings>(trainingsDAO.completedTraining());
 		Timestamp createDate = new Timestamp(System.currentTimeMillis());
 		for (Trainings trainings : lst) {
 			if(trainings.getTrainingDate().after(createDate))

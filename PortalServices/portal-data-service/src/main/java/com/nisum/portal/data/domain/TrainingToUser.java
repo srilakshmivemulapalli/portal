@@ -21,6 +21,7 @@ public class TrainingToUser implements Serializable {
 	private Integer trainingId;
 	private Integer userId;
 	private Integer trainingPresence;
+	private String emailId;
 	public Integer getTrainingToUserId() {
 		return trainingToUserId;
 	}
@@ -45,6 +46,12 @@ public class TrainingToUser implements Serializable {
 	}
 	public void setTrainingPresence(Integer trainingPresence) {
 		this.trainingPresence = trainingPresence;
+	}
+	public String getEmailId() {
+		return emailId;
+	}
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -75,6 +82,11 @@ public class TrainingToUser implements Serializable {
 				return false;
 		} else if (!trainingPresence.equals(other.trainingPresence))
 			return false;
+		if (emailId == null) {
+			if (other.emailId != null)
+				return false;
+		} else if (!emailId.equals(other.emailId))
+			return false;
 	
 		return true;
 	}
@@ -87,13 +99,14 @@ public class TrainingToUser implements Serializable {
 		result = prime * result + ((trainingId == null) ? 0 : trainingId.hashCode());
 		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		result = prime * result + ((trainingPresence == null) ? 0 : trainingPresence.hashCode());
+		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
 		return result;
 	}
 	
 	@Override
 	public String toString() {
 		return "TrainingToUser [trainingToUserId=" + trainingToUserId + ", trainingId=" + trainingId + ", userId="
-				+ userId + ",trainingPresence="+trainingPresence+"]";		
+				+ userId + ",trainingPresence="+trainingPresence+",emailId="+emailId+"]";		
 	}
 	
 

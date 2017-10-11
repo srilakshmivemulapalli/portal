@@ -13,6 +13,7 @@ public class TrainingsDTO {
 	private String trainingTitle;
 	private String trainingStatus;
 	private String trainingType;
+	private Integer trainingPresence;
 	public Integer getTrainingId() {
 		return trainingId;
 	}
@@ -55,11 +56,18 @@ public class TrainingsDTO {
 	public void setTrainingTitle(String trainingTitle) {
 		this.trainingTitle = trainingTitle;
 	}
+	
+	public Integer getTrainingPresence() {
+		return trainingPresence;
+	}
+	public void setTrainingPresence(Integer trainingPresence) {
+		this.trainingPresence = trainingPresence;
+	}
 	@Override
 	public String toString() {
 		return "CategoriesDTO [trainingId=" + trainingId + ", description=" + description + ", trainingDate="
 				+ trainingDate + ", trainerName=" + trainerName +  ", trainingTitle="
-						+ trainingTitle+ " , trainingStatus=" +trainingStatus+ ",trainingType="+ trainingType+" ]";		
+						+ trainingTitle+ " , trainingStatus=" +trainingStatus+ ",trainingType="+ trainingType+",trainingPresence="+trainingPresence+" ]";		
 	}
 	
 	

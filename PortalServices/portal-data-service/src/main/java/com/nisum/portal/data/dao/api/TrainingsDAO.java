@@ -10,7 +10,9 @@ import com.nisum.portal.data.domain.Trainings;
 
 public interface TrainingsDAO {
 
-	public List<Trainings> upcomingTraining();
+//	public List<Trainings> upcomingTraining();
+	
+	public List<Trainings> upcomingTraining(String trainingType);
 
 	public List<Trainings> completedTraining();
 
@@ -23,4 +25,6 @@ public interface TrainingsDAO {
 	Integer addTrainingsRequest(TrainingRequest trainingRequest);
 
 	List<TrainingRequest> getTrainingRequests();
+	
+	Integer checkTrainingPresence(String emailId,Integer trainingId);
 }

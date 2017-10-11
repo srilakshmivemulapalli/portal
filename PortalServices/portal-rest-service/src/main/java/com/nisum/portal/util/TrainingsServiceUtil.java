@@ -54,6 +54,7 @@ public class TrainingsServiceUtil {
 		trainingToUser.setTrainingId(trainingToUserDTO.getTrainingId());
 		trainingToUser.setUserId(trainingToUserDTO.getUserId());
 		trainingToUser.setTrainingPresence(trainingToUserDTO.getTrainingPresence());
+		trainingToUser.setEmailId(trainingToUserDTO.getEmailId());
 		
 		return trainingToUser;
 	}
@@ -64,7 +65,7 @@ public class TrainingsServiceUtil {
 		trainingToUserDTO.setTrainingId(trainingToUser.getTrainingId());
 		trainingToUserDTO.setUserId(trainingToUser.getUserId());
 		trainingToUserDTO.setTrainingPresence(trainingToUser.getTrainingPresence());
-		
+		trainingToUserDTO.setEmailId(trainingToUser.getEmailId());
 		return trainingToUserDTO;
 	}
 

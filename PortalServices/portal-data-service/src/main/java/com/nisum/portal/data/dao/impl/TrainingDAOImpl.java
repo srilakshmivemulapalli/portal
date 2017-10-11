@@ -42,10 +42,16 @@ public class TrainingDAOImpl implements TrainingsDAO {
 
 	}
 
-	@Override
+	/*@Override
 	public List<Trainings> upcomingTraining() {
 		logger.info("TrainingDAOImpl::upcomingTraining");
 		return trainingRepository.findAll();
+	} */
+	
+	@Override
+	public List<Trainings> upcomingTraining(String trainingType) {
+		logger.info("TrainingDAOImpl::upcomingTraining");
+		return trainingRepository.fetchMyTrainings(trainingType);
 	}
 
 	@Override
@@ -78,23 +84,24 @@ public class TrainingDAOImpl implements TrainingsDAO {
 	public TrainingToUser trainingToUser(TrainingToUser trainingToUser) {
 		logger.info("TrainingDAOImpl::trainingToUser");
 		TrainingToUser	trainingToUser1;
-		if(trainingToUser.getTrainingToUserId()!=null)
+		   if(trainingToUser.getTrainingToUserId()==null)
 			{
-			trainingToUser1=	trainingToUserRepository.findOne(trainingToUser.getTrainingToUserId());
+				TrainingToUser trainingToUser2=new TrainingToUser();
+				trainingToUser2.setTrainingId(trainingToUser.getTrainingId());
+				trainingToUser2.setTrainingPresence(trainingToUser.getTrainingPresence());
+				trainingToUser2.setUserId(trainingToUser.getUserId());
+				trainingToUser2.setEmailId(trainingToUser.getEmailId());
+			
+				trainingToUserRepository.save(trainingToUser2);
+			
+			}else
+			{
+				
+				trainingToUser1=	trainingToUserRepository.findOne(trainingToUser.getTrainingToUserId());
 				if(trainingToUser1!=null)
 				{
 					trainingToUser1.setTrainingPresence(trainingToUser.getTrainingPresence());
 					trainingToUserRepository.save(trainingToUser1);
-				}
-				else
-				{
-					TrainingToUser trainingToUser2=new TrainingToUser();
-					trainingToUser2.setTrainingId(trainingToUser.getTrainingId());
-					trainingToUser2.setTrainingPresence(trainingToUser.getTrainingPresence());
-					trainingToUser2.setUserId(trainingToUser.getUserId());
-					
-					trainingToUserRepository.save(trainingToUser2);
-					
 				}
 					
 		  }
@@ -125,11 +132,12 @@ public class TrainingDAOImpl implements TrainingsDAO {
 		logger.info("TrainingDAOImpl::getTrainingRequests");
 		return trainingRequestRepository.findAll();
 	}
-	public long getTrainingRequestsCount() {
-		// TODO Auto-generated method stub
-		logger.info("TrainingDAOImpl::getTrainingRequests");
-		return trainingRequestRepository.count();
+
+	@Override
+	public Integer checkTrainingPresence(String emailId, Integer trainingId) {
+		return trainingToUserRepository.fetchTrainingPresence(emailId, trainingId);
 	}
+
 }
 
 
