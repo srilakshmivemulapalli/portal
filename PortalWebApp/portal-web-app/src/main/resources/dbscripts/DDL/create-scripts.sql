@@ -80,7 +80,7 @@ CREATE TABLE `portal`.`Trainings` (
   PRIMARY KEY (`trainingId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=big5;
 
-CREATE TABLE `QuestionComment` (
+CREATE TABLE `portal`.`QuestionComment` (
   `commentId` int(11) NOT NULL AUTO_INCREMENT,
   `questionId` int(11) DEFAULT NULL,
   `commentDescription` varchar(1000) DEFAULT NULL,
@@ -92,7 +92,7 @@ CREATE TABLE `QuestionComment` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=big5;
 
 
-CREATE TABLE `QuestionReplyComment` (
+CREATE TABLE `portal`.`QuestionReplyComment` (
   `commentId` int(11) NOT NULL AUTO_INCREMENT,
   `replyId` int(11) DEFAULT NULL,
   `commentDescription` varchar(1000) DEFAULT NULL,
