@@ -99,7 +99,11 @@ public class TrainingsServiceImpl implements TrainingsService {
 		for(TrainingsDTO trainingsDTO:upcomeList)
 		{
 		   Integer presence=   trainingsDAO.checkTrainingPresence(emailId, trainingsDTO.getTrainingId());
-		   trainingsDTO.setTrainingPresence(presence);
+		   if(presence!=null)
+			   trainingsDTO.setTrainingPresence(presence);
+		   else
+			   trainingsDTO.setTrainingPresence(0);
+			   
 		}
 
 		return upcomeList;
