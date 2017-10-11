@@ -123,3 +123,6 @@ CREATE TABLE `portal`.`TrainingFeedBack` (
   KEY `fk_trainings_id_idx` (`trainingId`),
   CONSTRAINT `fk_trainings_id` FOREIGN KEY (`trainingId`)   REFERENCES `Trainings` (`trainingId`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=big5;
+
+ALTER TABLE `portal`.`User` 
+ADD COLUMN `imageIcon` BLOB NULL DEFAULT NULL AFTER `createDate`;
