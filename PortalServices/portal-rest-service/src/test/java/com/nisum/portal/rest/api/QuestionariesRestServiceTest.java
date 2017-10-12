@@ -3,6 +3,9 @@ package com.nisum.portal.rest.api;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -14,7 +17,10 @@ import org.springframework.http.ResponseEntity;
 import com.nisum.portal.service.api.QuestionariesService;
 import com.nisum.portal.service.dto.CountDTO;
 import com.nisum.portal.service.dto.Errors;
+import com.nisum.portal.service.dto.QuestionariesCommentsDTO;
+import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.exception.QuestionariesServiceException;
+import com.nisum.portal.util.Constants;
 
 @RunWith(MockitoJUnitRunner.class)
 public class QuestionariesRestServiceTest {
@@ -24,6 +30,9 @@ public class QuestionariesRestServiceTest {
 	
 	@InjectMocks
 	QuestionariesRestService questionariesRestService;
+	
+	@InjectMocks
+	QuestionariesServiceException questionariesServiceException;
 	
 	
 	@Test
@@ -51,6 +60,46 @@ public class QuestionariesRestServiceTest {
 		
 		assertEquals(responseEntity.getStatusCode(),actualEntity.getStatusCode());
 		assertEquals(responseEntity.getBody().getErrorCode(),actualEntity.getBody().getErrorCode());
+	}
+	
+	@Test
+	public void saveQuestionComment() throws QuestionariesServiceException {
+		QuestionariesCommentsDTO questionariesCommentsDTO = new QuestionariesCommentsDTO();
+		questionariesCommentsDTO.setcommentDescription("asasasaa");
+		questionariesCommentsDTO.setCommentId(1);
+		questionariesCommentsDTO.setCreatedDate(new Timestamp(new Date(0).getTime()));
+		questionariesCommentsDTO.setEmailId("test@nisum.com");
+		questionariesCommentsDTO.setid(1);
+		
+		when(questionariesService.findQuestionById(questionariesCommentsDTO.getid())).thenReturn(true);
+		when(questionariesService.saveQuestionComment(questionariesCommentsDTO.getEmailId(), questionariesCommentsDTO)).thenReturn(questionariesCommentsDTO);
+		ResponseEntity<?> actual = questionariesRestService.saveQuestionComment(questionariesCommentsDTO.getEmailId(), questionariesCommentsDTO);
+		ResponseEntity<QuestionariesCommentsDTO> entity = new ResponseEntity<QuestionariesCommentsDTO>(questionariesCommentsDTO,HttpStatus.OK);
+		System.out.println(actual.getStatusCode());
+		assertEquals(entity.getStatusCode(), actual.getStatusCode());
+	}
+	
+	@Test
+	public void questionNotFound() throws QuestionariesServiceException {
+		QuestionariesCommentsDTO questionariesCommentsDTO = new QuestionariesCommentsDTO();
+		questionariesCommentsDTO.setcommentDescription("asasasaa");
+		questionariesCommentsDTO.setCommentId(1);
+		questionariesCommentsDTO.setCreatedDate(new Timestamp(new Date(0).getTime()));
+		questionariesCommentsDTO.setEmailId("test@nisum.com");
+		questionariesCommentsDTO.setid(10000);
+		
+		when(questionariesService.findQuestionById(questionariesCommentsDTO.getid())).thenReturn(false);
+		ResponseEntity<?> actual = questionariesRestService.saveQuestionComment(questionariesCommentsDTO.getEmailId(), questionariesCommentsDTO);
+		ServiceStatusDto expected = new ServiceStatusDto();
+		expected.setMessage(Constants.QUESTION_NOT_EXIST);
+		expected.setStatus(false);
+		ResponseEntity<ServiceStatusDto> entity = new ResponseEntity<ServiceStatusDto>(expected,HttpStatus.EXPECTATION_FAILED);
+		assertEquals(entity.getStatusCode(), actual.getStatusCode());
+	}
+	
+	@Test(expected = Exception.class)
+	public void questionCommentException() throws QuestionariesServiceException {
+		when(questionariesRestService.saveQuestionComment(null,null)).thenThrow(questionariesServiceException);
 	}
 
 }
