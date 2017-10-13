@@ -31,7 +31,7 @@ public class TrainingRequestUtil {
 		trainingRequest.setTrainingRequestId(trainingRequestDTO.getTrainingRequestId());
 		trainingRequest.setEmailid(trainingRequestDTO.getEmailid());
 		trainingRequest.setRequestTrainingTitle(trainingRequestDTO.getRequestTrainingTitle());
-		trainingRequest.setDescription(trainingRequest.getDescription());
+		trainingRequest.setDescription(trainingRequestDTO.getDescription());
 		trainingRequest.setRequestedDate(trainingRequestDTO.getRequestedDate());
 		return trainingRequest;
 	}

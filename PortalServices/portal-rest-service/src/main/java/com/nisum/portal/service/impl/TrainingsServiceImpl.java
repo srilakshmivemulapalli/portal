@@ -195,7 +195,7 @@ public class TrainingsServiceImpl implements TrainingsService {
 		if (serviceStatus == 0) {
 			serviceStatusDto.setStatus(false);
 			serviceStatusDto.setMessage(Constants.TRAINING_REQUEST_EXISTS);
-		} else if (serviceStatus == 1) {
+		} if (serviceStatus == 1) {
 			serviceStatusDto.setStatus(true);
 			serviceStatusDto.setMessage(Constants.MSG_RECORD_ADD);
 		}
