@@ -14,8 +14,6 @@ import com.nisum.portal.data.repository.TrainingRepository;
 import com.nisum.portal.data.repository.TrainingToUserRepository;
 import com.nisum.portal.data.domain.TrainingFeedBack;
 import com.nisum.portal.data.domain.TrainingRequest;
-import com.nisum.portal.data.domain.Trainings;
-import com.nisum.portal.data.repository.TrainingRepository;
 import com.nisum.portal.data.repository.TrainingRequestRepository;
 import com.nisum.portal.data.repository.TrainingsFeedBackRepository;
 
@@ -119,7 +117,7 @@ public class TrainingDAOImpl implements TrainingsDAO {
 		if (request == null) {
 			trainingRequestRepository.save(trainingRequest);
 			status = 1;
-		} else {
+		} else{
 			status = 0;
 
 		}

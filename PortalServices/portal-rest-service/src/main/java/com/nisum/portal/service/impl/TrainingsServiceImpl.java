@@ -1,8 +1,6 @@
 package com.nisum.portal.service.impl;
 
 import java.sql.Timestamp;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -138,12 +136,13 @@ public class TrainingsServiceImpl implements TrainingsService {
 		logger.info("TrainingsServiceImpl :: addTrainingFeedBack ::"+trainingFeedBack.toString());
 		Integer serviceStatus = trainingsDAO.addTrainingsFeedBack(trainingFeedBack);
 
-		if (serviceStatus == 0) {
-			serviceStatusDto.setStatus(false);
-			serviceStatusDto.setMessage(Constants.TRAINING_FEEDBACK_EXISTS);
-		} else if (serviceStatus == 1) {
+		
+		if (serviceStatus == 1) {
 			serviceStatusDto.setStatus(true);
 			serviceStatusDto.setMessage(Constants.MSG_RECORD_ADD);
+		}else if (serviceStatus == 0) {
+			serviceStatusDto.setStatus(false);
+			serviceStatusDto.setMessage(Constants.TRAINING_FEEDBACK_EXISTS);
 		}
 
 		return serviceStatusDto;
@@ -165,7 +164,7 @@ public class TrainingsServiceImpl implements TrainingsService {
 
 		if (serviceStatus == 0) {
 			serviceStatusDto.setStatus(false);
-			serviceStatusDto.setMessage(Constants.TRAINING_FEEDBACK_EXISTS);
+			serviceStatusDto.setMessage(Constants.TRAINING_REQUEST_EXISTS);
 		} else if (serviceStatus == 1) {
 			serviceStatusDto.setStatus(true);
 			serviceStatusDto.setMessage(Constants.MSG_RECORD_ADD);
