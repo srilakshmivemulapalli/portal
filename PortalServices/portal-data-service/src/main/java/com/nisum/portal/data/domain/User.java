@@ -22,7 +22,7 @@ public class User implements Serializable {
 	private int userId;
 	@Column(name = "emailid")
 	private String emailId;
-	private String name;
+	private String userName;
 	private Timestamp loginDate;
 	private String activeStatus;
 	private Timestamp createDate;
@@ -57,13 +57,6 @@ public class User implements Serializable {
 		this.emailId = emailId;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public Timestamp getLoginDate() {
 		return loginDate;
@@ -114,7 +107,7 @@ public class User implements Serializable {
 		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
 		result = prime * result + ((image == null) ? 0 : image.hashCode());
 		result = prime * result + ((loginDate == null) ? 0 : loginDate.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
 		result = prime * result + ((role == null) ? 0 : role.hashCode());
 		result = prime * result + userId;
 		return result;
@@ -154,10 +147,10 @@ public class User implements Serializable {
 				return false;
 		} else if (!loginDate.equals(other.loginDate))
 			return false;
-		if (name == null) {
-			if (other.name != null)
+		if (userName == null) {
+			if (other.userName != null)
 				return false;
-		} else if (!name.equals(other.name))
+		} else if (!userName.equals(other.userName))
 			return false;
 		if (role == null) {
 			if (other.role != null)
@@ -171,17 +164,17 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", emailId=" + emailId + ", name=" + name + ", loginDate=" + loginDate
+		return "User [userId=" + userId + ", emailId=" + emailId + ", userName=" + userName + ", loginDate=" + loginDate
 				+ ", activeStatus=" + activeStatus + ", createDate=" + createDate + ", image=" + image + ", role="
 				+ role + "]";
 	}
 
-	public User(int userId, String emailId, String name, Timestamp loginDate, String activeStatus, Timestamp createDate,
+	public User(int userId, String emailId, String userName, Timestamp loginDate, String activeStatus, Timestamp createDate,
 			String image, UserRole role) {
 		super();
 		this.userId = userId;
 		this.emailId = emailId;
-		this.name = name;
+		this.userName = userName;
 		this.loginDate = loginDate;
 		this.activeStatus = activeStatus;
 		this.createDate = createDate;
@@ -195,5 +188,13 @@ public class User implements Serializable {
 
 	public User() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 }

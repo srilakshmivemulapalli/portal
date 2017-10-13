@@ -127,9 +127,9 @@ public class TrainingsServiceImpl implements TrainingsService {
 				}
 			  }
 			UserDTO user=userService.getUsers().get(trainingsDTO.getTrainerEmailId());
-			if(user!=null && StringUtils.isNotEmpty(user.getImage())&&user.getName()!=null) {
+			if(user!=null && StringUtils.isNotEmpty(user.getImage())&&user.getUserName()!=null) {
 				trainingsDTO.setDisplayImage(user.getImage());
-				trainingsDTO.setTrainerName(user.getName());
+				trainingsDTO.setTrainerName(user.getUserName());
 			}
 			   
 		}

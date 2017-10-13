@@ -16,7 +16,7 @@ public class UserDTO implements Serializable{
 
 	private int userId;
 	private String emailId;
-	private String name;
+	private String userName;
 	private Timestamp loginDate;
 	private UserRoleDTO role;
 	private String activeStatus;
@@ -64,22 +64,7 @@ public class UserDTO implements Serializable{
 		this.emailId = emailId;
 	}
 
-	/**
-	 * Returns user name
-	 * @return
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * Sets user created date
-	 * @param name
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
+	
 	/**
 	 * Returns user created date
 	 * @return
@@ -142,5 +127,13 @@ public class UserDTO implements Serializable{
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 }

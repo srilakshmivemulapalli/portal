@@ -126,3 +126,7 @@ CREATE TABLE `portal`.`TrainingFeedBack` (
 
 ALTER TABLE `portal`.`User` 
 ADD COLUMN `imageIcon` BLOB NULL DEFAULT NULL AFTER `createDate`;
+
+
+ALTER TABLE `portal`.`User` 
+CHANGE COLUMN `name` `userName` VARCHAR(100) NULL DEFAULT NULL ;

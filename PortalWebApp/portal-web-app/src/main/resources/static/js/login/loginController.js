@@ -8,7 +8,7 @@ loginApp.controller('loginController', function($scope, $state, $http,
 		var profile = authResult.getBasicProfile();
 		console.log(authResult);
 		$scope.profile = {
-			"name" : profile.getName(),
+			"userName" : profile.getName(),
 			"emailId" : profile.getEmail(),
 			"image" : profile.getImageUrl()
 		}

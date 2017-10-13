@@ -27,7 +27,7 @@ public class UserServiceUtil {
 				userDto.setActiveStatus(user.getActiveStatus());
 				userDto.setEmailId(user.getEmailId());
 				userDto.setLoginDate(user.getLoginDate());
-				userDto.setName(user.getName());
+				userDto.setUserName(user.getUserName());
 				userDto.setImage(user.getImage());
 				UserRoleDTO userRoleDTO = new UserRoleDTO();
 				userRoleDTO.setCreatedDate(user.getRole().getCreatedDate());
@@ -49,7 +49,7 @@ public class UserServiceUtil {
 	{
 		UserDTO userDTO = new UserDTO();
 		userDTO.setUserId(user.getUserId());
-		userDTO.setName(user.getName());
+		userDTO.setUserName(user.getUserName());
 		userDTO.setEmailId(user.getEmailId());
 		userDTO.setImage(user.getImage());
 		userDTO.setLoginDate(user.getLoginDate());
@@ -81,7 +81,7 @@ public class UserServiceUtil {
 				user.setEmailId(userlist.getEmailId());
 				user.setLoginDate(userlist.getLoginDate());
 				user.setCreateDate(userlist.getCreateDate());
-				user.setName(userlist.getName());
+				user.setUserName(userlist.getUserName());
 				user.setImage(userlist.getImage());
 				UserRole userRole = new UserRole();
 				userRole.setCreatedDate(userlist.getRole().getCreatedDate());
@@ -103,7 +103,7 @@ public class UserServiceUtil {
 	{
 		User user = new User();
 		user.setUserId(userdto.getUserId());
-		user.setName(userdto.getName());
+		user.setUserName(userdto.getUserName());
 		user.setEmailId(userdto.getEmailId());
 		user.setLoginDate(userdto.getLoginDate());
 		user.setCreateDate(userdto.getCreateDate());

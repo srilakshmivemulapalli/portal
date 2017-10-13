@@ -242,7 +242,7 @@ public class UserRestService {
 				userService.saveUser(userDto);
 
 				MailSender.sendEmail(emailAccount.getAdminemail(), emailAccount.getAdminpassword(), strEmail1,
-						emailAccount.getSubject(), MailSender.messageBody(userDto.getName()));
+						emailAccount.getSubject(), MailSender.messageBody(userDto.getUserName()));
 
 				userInfo = userDto;
 			}

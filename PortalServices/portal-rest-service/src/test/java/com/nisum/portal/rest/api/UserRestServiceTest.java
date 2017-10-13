@@ -57,7 +57,7 @@ public class UserRestServiceTest {
 		user.setLoginDate(new Timestamp(date.getTime()));
 		user.setActiveStatus("YES");
 		user.setCreateDate(new Timestamp(date.getTime()));
-		user.setName("test");
+		user.setUserName("test");
 		role.setRoleId(1);
 		role.setRole("Admin");
 		role.setCreatedDate(new Timestamp(date.getTime()));
@@ -78,7 +78,7 @@ public class UserRestServiceTest {
 		usernull.setEmailId("test@test.com");
 		usernull.setLoginDate(new Timestamp(date.getTime()));
 		usernull.setActiveStatus("YES");
-		usernull.setName("test");
+		usernull.setUserName("test");
 		role.setRoleId(1);
 		role.setRole("Admin");
 		role.setCreatedDate(new Timestamp(date.getTime()));
@@ -96,7 +96,7 @@ public class UserRestServiceTest {
 		dto.setActiveStatus("Yes");
 		dto.setEmailId("dsdsdsdd");
 		dto.setUserId(1);
-		dto.setName("sasas");
+		dto.setUserName("sasas");
 		ServiceStatusDto expected = new ServiceStatusDto();
 		expected.setMessage(Constants.USER_DELETED);
 		expected.setStatus(true);
@@ -117,7 +117,7 @@ public class UserRestServiceTest {
 		dto.setActiveStatus("No");
 		dto.setEmailId("dsdsdsdd");
 		dto.setUserId(1);
-		dto.setName("sasas");
+		dto.setUserName("sasas");
 		ServiceStatusDto expected = new ServiceStatusDto();
 		expected.setMessage(Constants.USER_NOT_EXISTS);
 		expected.setStatus(false);
@@ -147,7 +147,7 @@ public class UserRestServiceTest {
 		List<UserDTO> dtoList = new ArrayList<UserDTO>();
 		userDto.setEmailId("dsdsds");
 		userDto.setActiveStatus("Yes");
-		userDto.setName("dsd");
+		userDto.setUserName("dsd");
 		userDto.setUserId(1);
 		dtoList.add(userDto);
 		userMap.put("test@nisum.com", userDto);
