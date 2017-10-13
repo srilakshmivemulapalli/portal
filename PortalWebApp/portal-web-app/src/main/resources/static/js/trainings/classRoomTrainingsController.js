@@ -8,7 +8,10 @@ trainingsApp.controller('classRoomTrainingsController', function($scope,training
 	}
 	$scope.getTrainings=function(){
 		trainingService.getClassroomTrainings().then(function(response){
-			console.log(response);
+			
+			if(response.errorCode){
+				$scope.message=response.errorMessage;
+			}
 			if(response.length>0){
 				response.map(function(innerObj){
 					$scope.trainingsList.addtrainings(innerObj);

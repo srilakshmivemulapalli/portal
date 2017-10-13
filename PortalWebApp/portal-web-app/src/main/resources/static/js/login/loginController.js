@@ -6,7 +6,7 @@ loginApp.controller('loginController', function($scope, $state, $http,
 	$scope.$on('event:google-plus-signin-success', function(event, authResult) {
 
 		var profile = authResult.getBasicProfile();
-		console.log(authResult);
+		
 		$scope.profile = {
 			"userName" : profile.getName(),
 			"emailId" : profile.getEmail(),

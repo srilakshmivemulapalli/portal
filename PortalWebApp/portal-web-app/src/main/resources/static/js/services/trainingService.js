@@ -12,7 +12,7 @@ app.factory('trainingService', function($http, $q,localStorageService) {
 	}
 	ts.getOnlineTrainings=function() {
 		var deferred = $q.defer();
-		$http.get('v1/trainings/onlineUpcoming').success(function(response) {
+		$http.get('v1/trainings/onlineUpcoming',{ headers: {'EmailId': profile.emailId}}).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
@@ -21,7 +21,7 @@ app.factory('trainingService', function($http, $q,localStorageService) {
 	}
 	ts.getMyTrainings=function() {
 		var deferred = $q.defer();
-		$http.get('v1/trainings/completed').success(function(response) {
+		$http.get('v1/trainings/completed',{ headers: {'EmailId': profile.emailId}}).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
