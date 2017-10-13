@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -131,7 +130,7 @@ public class TrainingsRestService {
 		else {
 			logger.error("FeedBack for same already Exists");
 			Errors error = new Errors();
-			error.setErrorCode("Errors-UserRole");
+			error.setErrorCode("Errors-TrainingFeedBack");
 			error.setErrorMessage(Constants.TRAINING_FEEDBACK_EXISTS);
 			ResponseEntity<Errors> rsEntity = new ResponseEntity<Errors>(error, HttpStatus.NOT_ACCEPTABLE);
 			return rsEntity;
@@ -149,7 +148,7 @@ public class TrainingsRestService {
 		else {
 			logger.error("FeedBack for same already Exists");
 			Errors error = new Errors();
-			error.setErrorCode("Errors-UserRole");
+			error.setErrorCode("Errors-TrainingRequest");
 			error.setErrorMessage(Constants.TRAINING_REQUEST_EXISTS);
 			ResponseEntity<Errors> rsEntity = new ResponseEntity<Errors>(error, HttpStatus.NOT_ACCEPTABLE);
 			return rsEntity;
@@ -157,24 +156,18 @@ public class TrainingsRestService {
 
 	}
 	@RequestMapping(value = "/getAllTrainingRequests", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
-	public ResponseEntity<?> getAllTrainingRequests() throws TrainingsServiceException{
+	public Object getAllTrainingRequests() throws TrainingsServiceException{
 
 		logger.info("TrainingsRestService :: getAllTrainingRequests ");
-		ResponseEntity<?> rsEntity = null;
 		try {
-			List<TrainingRequestDTO> trainingRequests = trainingsService.getAllTrainingRequests();
-			if(trainingRequests.size()>0) {
-				rsEntity= new ResponseEntity<List<TrainingRequestDTO>>(trainingRequests,HttpStatus.OK);
-			}
+				return trainingsService.getAllTrainingRequests();
 			}
 			catch(Exception e) {
 				logger.error(Constants.Training_No_Data);
 				Errors error = new Errors();
-				error.setErrorCode("Error-upcoming Trainings");
+				error.setErrorCode("Error-All Trainings Requests");
 				error.setErrorMessage(Constants.Training_No_Data);
-				rsEntity= new ResponseEntity<Errors>(error, HttpStatus.OK);
+				return new ResponseEntity<Errors>(error, HttpStatus.OK);
 			}
-		return rsEntity;
-
 	}
 }

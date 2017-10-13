@@ -4,17 +4,19 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.nisum.portal.data.dao.impl.TrainingDAOImpl;
+import com.nisum.portal.data.dao.api.TrainingsDAO;
 import com.nisum.portal.data.domain.TrainingFeedBack;
 import com.nisum.portal.data.domain.TrainingRequest;
-import com.nisum.portal.data.repository.TrainingRepository;
 import com.nisum.portal.data.repository.TrainingRequestRepository;
 import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.dto.TrainingFeedBackDTO;
@@ -26,13 +28,13 @@ public class TrainingServiceImplTest {
 	@InjectMocks
 	TrainingsServiceImpl trainingsServiceImpl;
 	@Mock
-	TrainingDAOImpl trainingDAOImpl;
+	TrainingsDAO trainingsDAO;
 	@Mock
 	TrainingRequestRepository trainingRequestRepository;
 	@Test
-	public void addTrainingFeedBackTest(){
-		Boolean status=false;
-		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
+	public void addTrainingFeedBackSuccessTest(){
+		ServiceStatusDto expectedStatus = new ServiceStatusDto();
+		expectedStatus.setStatus(true);
 		TrainingFeedBackDTO trainingFeedBackDTO = new TrainingFeedBackDTO();
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		trainingFeedBackDTO.setTrainingFeedBackId(1);
@@ -42,42 +44,51 @@ public class TrainingServiceImplTest {
 		trainingFeedBackDTO.setCreateDate(timestamp);
 		TrainingFeedBack trainingFeedBack = TrainingFeedBackUtil.convertDtoTODao(trainingFeedBackDTO);
 		System.out.println(trainingFeedBack.toString());
-		when(trainingDAOImpl.addTrainingsFeedBack(trainingFeedBack)).thenReturn(0);
-		serviceStatusDto= trainingsServiceImpl.addTrainingFeedBack(trainingFeedBackDTO);
-		assertEquals(serviceStatusDto.isStatus(), status);
+		Mockito.when(trainingsDAO.addTrainingsFeedBack(trainingFeedBack)).thenReturn(1);
+		ServiceStatusDto actualStatus = trainingsServiceImpl.addTrainingFeedBack(trainingFeedBackDTO);
+		assertEquals(expectedStatus.isStatus(), actualStatus.isStatus());
 	}
 	@Test
-	public void addTrainingRequestTest(){
+	public void addTrainingFeedBackFailureTest() {
+		TrainingFeedBackDTO trainingFeedBackDTO = new TrainingFeedBackDTO();
+		TrainingFeedBack dao = TrainingFeedBackUtil.convertDtoTODao(trainingFeedBackDTO);
+		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
+		serviceStatusDto.setStatus(false);
+		serviceStatusDto.setMessage("Training feedback to respective training already submitted !!");
+		when(trainingsDAO.addTrainingsFeedBack(dao)).thenReturn(0);
+		ServiceStatusDto actual = trainingsServiceImpl.addTrainingFeedBack(trainingFeedBackDTO);
+		assertEquals(serviceStatusDto.isStatus(), actual.isStatus());
+		assertEquals(serviceStatusDto.getMessage(), actual.getMessage());
+	}
+	@Test
+	public void addTrainingRequesSuccesstTest(){
 		Boolean status=false;
 		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
 		TrainingRequestDTO trainingRequestDTO = new TrainingRequestDTO();
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		trainingRequestDTO.setRequestedDate(timestamp);
 		TrainingRequest dao = TrainingRequestUtil.convertDtoTODao(trainingRequestDTO);
-		when(trainingDAOImpl.addTrainingsRequest(dao)).thenReturn(0);
+		when(trainingsDAO.addTrainingsRequest(dao)).thenReturn(0);
 		serviceStatusDto= trainingsServiceImpl.addTrainingRequest(trainingRequestDTO);
 		assertEquals(serviceStatusDto.isStatus(), status);
 	}
 	@Test
 	public void addTrainingRequestFailureTest() {
-		Boolean status1=true;
-		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
-		TrainingRequestDTO trainingRequestDTO = new TrainingRequestDTO();
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		trainingRequestDTO.setTrainingRequestId(2);
-		trainingRequestDTO.setRequestTrainingTitle("Java Threads");
-		trainingRequestDTO.setEmailid("mahesh@gmail.com");
-		trainingRequestDTO.setDescription("Basic Info Needed");
-		trainingRequestDTO.setRequestedDate(timestamp);
-		TrainingRequest dao = TrainingRequestUtil.convertDtoTODao(trainingRequestDTO);
-		dao.setTrainingRequestId(2);
-		dao.setRequestTrainingTitle("Java Threads");
-		dao.setEmailid("mahesh@gmail.com");
-		dao.setDescription("Basic Info Needed");
-		dao.setRequestedDate(timestamp);
-		when(trainingRequestRepository.findByTrainingRequestId(2)).thenReturn(null);
-		when(trainingDAOImpl.addTrainingsRequest(dao)).thenReturn(1);
-		serviceStatusDto= trainingsServiceImpl.addTrainingRequest(trainingRequestDTO);
-		assertEquals(serviceStatusDto.isStatus(), status1);
+		TrainingRequestDTO dto = new TrainingRequestDTO();
+		TrainingRequest dao = TrainingRequestUtil.convertDtoTODao(dto);
+		ServiceStatusDto expectedStatus = new ServiceStatusDto();
+		expectedStatus.setStatus(false);
+		expectedStatus.setMessage("Training Request Already Raised !!");
+		when(trainingsDAO.addTrainingsRequest(dao)).thenReturn(0);
+		ServiceStatusDto actualStatus = trainingsServiceImpl.addTrainingRequest(dto);
+		assertEquals(expectedStatus.isStatus(), actualStatus.isStatus());
+		assertEquals(expectedStatus.getMessage(), actualStatus.getMessage());
+	}
+	@Test
+	public void getAllTrainingRequestsTest() {
+		List<TrainingRequest> expected=new ArrayList<TrainingRequest>();
+		when(trainingsDAO.getTrainingRequests()).thenReturn(expected);
+		List<TrainingRequestDTO> actual = trainingsServiceImpl.getAllTrainingRequests();
+		assertEquals(expected, actual);
 	}
 }

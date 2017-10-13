@@ -88,7 +88,7 @@ public class TrainingDAOImplTest {
 		assertEquals(status,trainingDAOImpl.addTrainingsFeedBack(feedBack));
 	}
 	@Test
-	public void getAllTrainingRequests()
+	public void getAllTrainingRequestsTest()
 	{
 		TrainingRequest trainingRequest = new TrainingRequest();
 		List<TrainingRequest> requestList=new ArrayList<TrainingRequest>();

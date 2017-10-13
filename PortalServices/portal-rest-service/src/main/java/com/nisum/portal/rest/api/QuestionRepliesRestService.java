@@ -75,7 +75,7 @@ public class QuestionRepliesRestService {
 	 * @throws QuestionariesServiceException
 	 */
 	@RequestMapping(value = "/saveComment", method = RequestMethod.POST) 
-	public ResponseEntity<?> saveReplyComment(@RequestHeader String emailId, @RequestBody QuestionReplyCommentsDTO comment) throws QuestionariesServiceException {
+	public ResponseEntity<?> saveReplyComment(@RequestHeader String emailId, @RequestBody QuestionReplyCommentsDTO comment) throws QuestionariesRepliesServiceException {
 		logger.info("QuestionRepliesRestService :: saveReplyComment :: saving reply comment"); 
 		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
 		try {
@@ -84,13 +84,13 @@ public class QuestionRepliesRestService {
 				QuestionReplyCommentsDTO questionReplyCommentsDTO = questionRepliesService.saveReplyComment(emailId, comment);
 				return new ResponseEntity<QuestionReplyCommentsDTO>(questionReplyCommentsDTO, HttpStatus.OK);
 			} else {
-				serviceStatusDto.setMessage(Constants.QUESTION_NOT_EXIST);
+				serviceStatusDto.setMessage(Constants.REPLY_NOT_EXISTS);
 				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.EXPECTATION_FAILED);
 			}
 			
 		} catch (Exception e) {
 			logger.info("QuestionRepliesRestService :: saveReplyComment :: Internal Server Error");
-			throw new QuestionariesServiceException(Constants.INTERNALSERVERERROR);
+			throw new QuestionariesRepliesServiceException(Constants.INTERNALSERVERERROR);
 		}
 	}
 	
