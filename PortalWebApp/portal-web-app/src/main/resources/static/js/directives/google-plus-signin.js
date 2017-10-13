@@ -40,7 +40,8 @@ angular.module('directive.g+signin', []).
               };
 
               defaults.clientid = attrs.clientid;
-
+              defaults.hosted_domain=attrs.hosteddomain;
+             
               // Overwrite default values if explicitly set
               angular.forEach(Object.getOwnPropertyNames(defaults), function (propName) {
                   if (attrs.hasOwnProperty(propName)) {
@@ -93,13 +94,15 @@ angular.module('directive.g+signin', []).
                           var googleAuthObj =
                           gapi.auth2.init({
                               client_id: defaults.clientid,
-                              cookie_policy: defaults.cookiepolicy
+                              cookie_policy: defaults.cookiepolicy,
+                              hosted_domain:defaults.hosted_domain
                           });
 
                           if (isAutoRendering) {
                               gapi.signin2.render(element[0], defaults);
                           } else {
                               googleAuthObj.attachClickHandler(defaults.customtargetid, {}, defaults.onsuccess, defaults.onfailure);
+
                           }
                       });
                   };
