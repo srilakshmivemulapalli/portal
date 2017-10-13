@@ -138,6 +138,12 @@ public class TrainingDAOImpl implements TrainingsDAO {
 		return trainingToUserRepository.fetchTrainingPresence(emailId, trainingId);
 	}
 
+	@Override
+	public List<Integer> noOfStudents(Integer trainingId) {
+		
+		return trainingToUserRepository.fetchnoOfStudent(trainingId);
+	}
+
 }
 
 

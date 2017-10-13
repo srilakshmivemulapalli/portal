@@ -12,7 +12,7 @@ import com.nisum.portal.service.dto.TrainingRequestDTO;
 
 public interface TrainingsService {
 	
-	public List<TrainingsDTO> upComingTrainings(String trainingType,String emailId);
+	public List<TrainingsDTO> upComingTrainings(String trainingType,String emailId,UserService userService);
 
 	public List<TrainingsDTO> completedTrainings();
 

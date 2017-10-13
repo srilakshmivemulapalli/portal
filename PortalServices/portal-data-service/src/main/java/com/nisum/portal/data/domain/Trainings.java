@@ -22,11 +22,14 @@ public class Trainings {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer trainingId;
 	private String description;
-	private Timestamp trainingDate;
-	private String trainerName;
+	private Timestamp trainingStartTime;
+	private String trainerEmailId;
 	private String trainingTitle;
 	private String trainingStatus;
 	private String trainingType;
+	private Timestamp trainingStartDate;
+	private Timestamp trainingEndDate;
+	private Timestamp trainingEndTime;
 	public Integer getTrainingId() {
 		return trainingId;
 	}
@@ -39,11 +42,11 @@ public class Trainings {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getTrainerName() {
-		return trainerName;
+	public String getTrainerEmailId() {
+		return trainerEmailId;
 	}
-	public void setTrainerName(String trainerName) {
-		this.trainerName = trainerName;
+	public void setTrainerEmailId(String trainerEmailId) {
+		this.trainerEmailId = trainerEmailId;
 	}
 	public String getTrainingTitle() {
 		return trainingTitle;
@@ -51,11 +54,17 @@ public class Trainings {
 	public void setTrainingTitle(String trainingTitle) {
 		this.trainingTitle = trainingTitle;
 	}
-	public Timestamp getTrainingDate() {
-		return trainingDate;
+	public Timestamp getTrainingStartTime() {
+		return trainingStartTime;
 	}
-	public void setTrainingDate(Timestamp trainingDate) {
-		this.trainingDate = trainingDate;
+	public void setTrainingStartTime(Timestamp trainingStartTime) {
+		this.trainingStartTime = trainingStartTime;
+	}
+	public Timestamp getTrainingEndTime() {
+		return trainingEndTime;
+	}
+	public void setTrainingEndTime(Timestamp trainingEndTime) {
+		this.trainingEndTime = trainingEndTime;
 	}
 	public String getTrainingStatus() {
 		return trainingStatus;
@@ -69,7 +78,18 @@ public class Trainings {
 	public void setTrainingType(String trainingType) {
 		this.trainingType = trainingType;
 	}
-	
+	public Timestamp getTrainingStartDate() {
+		return trainingStartDate;
+	}
+	public void setTrainingStartDate(Timestamp trainingStartDate) {
+		this.trainingStartDate = trainingStartDate;
+	}
+	public Timestamp getTrainingEndDate() {
+		return trainingEndDate;
+	}
+	public void setTrainingEndDate(Timestamp trainingEndDate) {
+		this.trainingEndDate = trainingEndDate;
+	}
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -89,15 +109,15 @@ public class Trainings {
 				return false;
 		} else if (!description.equals(other.description))
 			return false;
-		if (trainingDate == null) {
-			if (other.trainingDate != null)
+		if (trainingStartTime == null) {
+			if (other.trainingStartTime != null)
 				return false;
-		} else if (!trainingDate.equals(other.trainingDate))
+		} else if (!trainingStartTime.equals(other.trainingStartTime))
 			return false;
-		if (trainerName == null) {
-			if (other.trainerName != null)
+		if (trainerEmailId == null) {
+			if (other.trainerEmailId != null)
 				return false;
-		} else if (!trainerName.equals(other.trainerName))
+		} else if (!trainerEmailId.equals(other.trainerEmailId))
 			return false;
 		if (trainingStatus == null) {
 			if (other.trainingStatus != null)
@@ -108,6 +128,21 @@ public class Trainings {
 			if (other.trainingType != null)
 				return false;
 		} else if (!trainingType.equals(other.trainingType))
+			return false;
+		if (trainingStartDate == null) {
+			if (other.trainingStartDate != null)
+				return false;
+		} else if (!trainingStartDate.equals(other.trainingStartDate))
+			return false;
+		if (trainingEndDate == null) {
+			if (other.trainingEndDate != null)
+				return false;
+		} else if (!trainingEndDate.equals(other.trainingEndDate))
+			return false;
+		if (trainingEndTime == null) {
+			if (other.trainingEndTime != null)
+				return false;
+		} else if (!trainingEndTime.equals(other.trainingEndTime))
 			return false;
 		
 		return true;
@@ -124,20 +159,24 @@ public class Trainings {
 		int result = 1;
 		result = prime * result + ((trainingId == null) ? 0 : trainingId.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((trainingDate == null) ? 0 : trainingDate.hashCode());
-		result = prime * result + ((trainerName == null) ? 0 : trainerName.hashCode());
+		result = prime * result + ((trainingStartDate == null) ? 0 : trainingStartDate.hashCode());
+		result = prime * result + ((trainingEndDate == null) ? 0 : trainingEndDate.hashCode());
+		result = prime * result + ((trainerEmailId == null) ? 0 : trainerEmailId.hashCode());
 		result = prime * result + ((trainingTitle == null) ? 0 : trainingTitle.hashCode());
 		result = prime * result + ((trainingStatus == null) ? 0 : trainingStatus.hashCode());
 		result = prime * result + ((trainingType == null) ? 0 : trainingType.hashCode());
+		result = prime * result + ((trainingStartTime == null) ? 0 : trainingStartTime.hashCode());
+		result = prime * result + ((trainingEndTime == null) ? 0 : trainingEndTime.hashCode());
 		
 		return result;
 	}
 	
 	@Override
 	public String toString() {
-		return "Trainings [trainingId=" + trainingId + ", description=" + description + ", trainingDate="
-				+ trainingDate + ", trainerName=" + trainerName +  ", trainingTitle="
-						+ trainingTitle+ " , trainingStatus=" +trainingStatus+ ",trainingType="+ trainingType+" ]";		
+		return "Trainings [trainingId=" + trainingId + ", description=" + description + ", trainingStartTime="
+				+ trainingStartTime + ", trainerName=" + trainerEmailId +  ", trainingTitle="
+						+ trainingTitle+ " , trainingStatus=" +trainingStatus+ ",trainingType="
+				+ trainingType+",trainingStartDate="+trainingStartDate+",trainingEndDate="+trainingEndDate+",trainingEndTime="+trainingEndTime+"]";		
 	}
 	public Trainings(Integer trainingId) {
 		this.trainingId = trainingId;

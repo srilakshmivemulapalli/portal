@@ -12,6 +12,8 @@ public interface TrainingsDAO {
 
 //	public List<Trainings> upcomingTraining();
 	
+	public List<Integer> noOfStudents(Integer trainingId);
+	
 	public List<Trainings> upcomingTraining(String trainingType);
 
 	public List<Trainings> completedTraining();

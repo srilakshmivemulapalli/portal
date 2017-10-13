@@ -1,5 +1,7 @@
 package com.nisum.portal.data.repository;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,4 +16,9 @@ public interface TrainingToUserRepository extends JpaRepository<TrainingToUser, 
 
 @Query(value ="select tu.trainingPresence from TrainingToUser tu where tu.emailId=:emailId and tu.trainingId=:trainingId")
 Integer fetchTrainingPresence(@Param("emailId") String emailId,@Param("trainingId") int trainingId);
+
+
+@Transactional
+@Query(value="SELECT distinct(tu.emailId) FROM TrainingToUser tu where tu.trainingId=:trainingId")
+List<Integer> fetchnoOfStudent(@Param("trainingId") int trainingId);
 }

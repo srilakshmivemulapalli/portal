@@ -19,11 +19,14 @@ public class TrainingsServiceUtil {
 				TrainingsDTO trainingsDTO = new TrainingsDTO();
 				trainingsDTO.setTrainingId(trainings.getTrainingId());
 				trainingsDTO.setTrainingTitle(trainings.getTrainingTitle());
-				trainingsDTO.setTrainerName(trainings.getTrainerName());
-				trainingsDTO.setTrainingDate(trainings.getTrainingDate());
+				trainingsDTO.setTrainerEmailId(trainings.getTrainerEmailId());
+				trainingsDTO.setTrainingStartTime(trainings.getTrainingStartTime());
+				trainingsDTO.setTrainingEndTime(trainings.getTrainingEndTime());
 				trainingsDTO.setTrainingStatus(trainings.getTrainingStatus());
 				trainingsDTO.setTrainingType(trainings.getTrainingType());
 				trainingsDTO.setDescription(trainings.getDescription());
+				trainingsDTO.setTrainingStartDate(trainings.getTrainingStartDate());
+				trainingsDTO.setTrainingEndDate(trainings.getTrainingEndDate());
 				
 				trainingsDTOs.add(trainingsDTO);
 			}
@@ -37,11 +40,14 @@ public class TrainingsServiceUtil {
 		Trainings trainings=new Trainings();
 		trainings.setTrainingId(trainingsDTO.getTrainingId());
 		trainings.setTrainingTitle(trainingsDTO.getTrainingTitle());
-		trainings.setTrainerName(trainingsDTO.getTrainerName());
-		trainings.setTrainingDate(trainingsDTO.getTrainingDate());
+		trainings.setTrainerEmailId(trainingsDTO.getTrainerEmailId());
+		trainings.setTrainingStartTime(trainingsDTO.getTrainingStartTime());
+		trainings.setTrainingEndTime(trainingsDTO.getTrainingEndTime());
 		trainings.setTrainingStatus(trainingsDTO.getTrainingStatus());
 		trainings.setTrainingType(trainingsDTO.getTrainingType());
 		trainings.setDescription(trainingsDTO.getDescription());
+		trainings.setTrainingStartDate(trainingsDTO.getTrainingStartDate());
+		trainings.setTrainingEndDate(trainingsDTO.getTrainingEndDate());
 		
 		return trainings;
 		
