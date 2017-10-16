@@ -142,3 +142,22 @@ trainingPresence int(11) DEFAULT NULL,
 `emailId` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`trainingToUserId`)
 )ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=big5;
+
+ALTER TABLE `portal`.`User`
+ADD COLUMN `profileName`  VARCHAR(20) DEFAULT NULL;
+
+ALTER TABLE `portal`.`User`
+ADD COLUMN `notifications`  VARCHAR(20) DEFAULT NULL;
+
+
+CREATE TABLE `portal`.`ProfileSetting` (
+  `profileId` int(11) NOT NULL AUTO_INCREMENT,
+  `categoryId` int(11) DEFAULT NULL,
+  `userId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`profileId`),
+  KEY `fk_categoryid_profile_setting` (`categoryId`),
+  KEY `fk_userid_profile_setting` (`userId`),
+  CONSTRAINT `fk_categoryid_profile_setting` FOREIGN KEY (`categoryId`) REFERENCES `Categories` (`categoryId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_userid_profile_setting` FOREIGN KEY (`userId`) REFERENCES `User` (`userId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=big5;
+
