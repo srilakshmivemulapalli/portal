@@ -26,4 +26,6 @@ public interface TrainingsService {
 
 	List<TrainingRequestDTO> getAllTrainingRequests();
 
+	List<TrainingFeedBackDTO> getAllTrainingFeedBacks();
+
 }

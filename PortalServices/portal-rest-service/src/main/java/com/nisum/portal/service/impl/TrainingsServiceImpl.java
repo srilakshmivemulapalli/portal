@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
 
-import org.assertj.core.internal.Integers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -216,6 +215,14 @@ public class TrainingsServiceImpl implements TrainingsService {
 		TrainingToUser trainingToUser=TrainingsServiceUtil.convertTrainingToUserDtoToDao(trainingToUserDTO);
 		
 		return TrainingsServiceUtil.convertTrainingToUserDaoToDto((trainingsDAO.trainingToUser(trainingToUser)));
+	}
+
+
+	@Override
+	public List<TrainingFeedBackDTO> getAllTrainingFeedBacks() {
+		// TODO Auto-generated method stub
+		List<TrainingFeedBack> feedBacks = trainingsDAO.getTrainingFeedBacks();
+		return TrainingFeedBackUtil.convertDaoListToDto(feedBacks);
 	}
 	
 }
