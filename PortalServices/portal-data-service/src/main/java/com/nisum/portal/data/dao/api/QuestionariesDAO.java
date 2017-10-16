@@ -2,6 +2,9 @@ package com.nisum.portal.data.dao.api;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+
+import com.nisum.portal.data.domain.Categories;
 import com.nisum.portal.data.domain.Questionaries;
 
 public interface QuestionariesDAO {
@@ -12,4 +15,6 @@ public interface QuestionariesDAO {
 	long getQuestionariesCount();
 	Questionaries saveQuestionaries(Questionaries questionaries);
 	List<Questionaries> retriveAllUnansweredQuestionaries();
+	List<Questionaries> retrieveQuestionByPagination(Pageable pageable);
+	List<Questionaries> retrieveQuestionByCategory(Categories category, Pageable pageable);
 }

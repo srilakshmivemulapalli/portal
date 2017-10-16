@@ -7,16 +7,19 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.nisum.portal.data.dao.api.CategoriesDAO;
 import com.nisum.portal.data.dao.api.QuestionariesCommentsDAO;
 import com.nisum.portal.data.dao.api.QuestionariesDAO;
 import com.nisum.portal.data.dao.api.UserDAO;
+import com.nisum.portal.data.domain.Categories;
 import com.nisum.portal.data.domain.Questionaries;
 import com.nisum.portal.data.domain.QuestionariesComments;
 import com.nisum.portal.service.api.QuestionariesService;
 import com.nisum.portal.service.api.UserService;
+import com.nisum.portal.service.dto.CategoriesDTO;
 import com.nisum.portal.service.dto.CountDTO;
 import com.nisum.portal.service.dto.QuestionariesCommentsDTO;
 import com.nisum.portal.service.dto.QuestionsDTO;
@@ -25,6 +28,8 @@ import com.nisum.portal.util.QuestionariesUtil;
 
 @Service
 public class QuestionariesServiceImpl implements QuestionariesService{
+
+
 
 	private static Logger logger = LoggerFactory.getLogger(QuestionariesServiceImpl.class);
 	@Autowired
@@ -108,4 +113,37 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 		}
 	}
 
+	/*retrieving the questionaries based on category through pagination
+	 * (non-Javadoc)
+	 * @see com.nisum.portal.service.api.QuestionariesService#getQuestionariesByCategory(java.lang.Integer, org.springframework.data.domain.Pageable)
+	 */
+	@Override
+	public QuestionsDTO getQuestionariesByCategory(Integer categoryId, Pageable pageable) {
+		
+		logger.info("QuestionariesServiceImpl:: getQuestionariesByCategory(categoryId: "+categoryId+"PageNumber: "+pageable.getPageNumber()+", PageSize: "+pageable.getPageSize()+", "+pageable.getSort());
+		Categories category=categoriesDAO.getCategory(categoryId);
+		List<Questionaries> allQuestionariesList=questionariesDAO.retrieveQuestionByCategory(category, pageable);
+		QuestionsDTO questionsDTO = new QuestionsDTO();
+		questionsDTO.setTotalQuestions(questionariesDAO.getQuestionariesCount());
+		questionsDTO.setTotalUsers(userDAO.getUserCount());
+		
+		return QuestionariesUtil.convertDaoToDto(allQuestionariesList, questionsDTO,userervice);
+		//return QuestionariesUtil.convertDaoToDto(allQuest);
+	}
+	
+	/*retrieving all questionaries through pagination 
+	 * (non-Javadoc)
+	 * @see com.nisum.portal.service.api.QuestionariesService#getQuestionariesByPagination(org.springframework.data.domain.Pageable)
+	 */
+	@Override
+	public QuestionsDTO getQuestionariesByPagination(Pageable pageable) {
+		logger.info("QuestionariesServiceImpl:: getQuestionariesByPagination(PageNumber: "+pageable.getPageNumber()+", "+pageable.getPageSize()+", "+pageable.getSort());
+		List<Questionaries> questionariesList=questionariesDAO.retrieveQuestionByPagination(pageable);
+		
+		QuestionsDTO questionsDTO = new QuestionsDTO();
+		questionsDTO.setTotalQuestions(questionariesDAO.getQuestionariesCount());
+		questionsDTO.setTotalUsers(userDAO.getUserCount());
+		
+		return QuestionariesUtil.convertDaoToDto(questionariesList, questionsDTO, userervice);
+	}
 }
