@@ -142,6 +142,12 @@ public class TrainingDAOImpl implements TrainingsDAO {
 		return trainingToUserRepository.fetchnoOfStudent(trainingId);
 	}
 
+	@Override
+	public List<TrainingFeedBack> getTrainingFeedBacks() {
+		// TODO Auto-generated method stub
+		return trainingFeedBackRepository.findAll();
+	}
+
 }
 
 
