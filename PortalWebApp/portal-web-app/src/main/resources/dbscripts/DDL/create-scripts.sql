@@ -69,18 +69,7 @@ ADD COLUMN `createDate` DATETIME NULL DEFAULT NULL AFTER `roleId`;
 ALTER TABLE `portal`.`User` 
 ADD COLUMN `image` VARCHAR(200) NULL DEFAULT NULL AFTER `createDate`;
 
-CREATE TABLE `portal`.`Trainings` (
-  `trainingId` int(11) NOT NULL AUTO_INCREMENT,
-  `trainingTitle` varchar(100) DEFAULT NULL,
-  `description` varchar(500) DEFAULT NULL,
-  `trainerName` varchar(100) DEFAULT NULL,
-  `trainingDate` datetime DEFAULT NULL,
-  `trainingStatus` varchar(100) DEFAULT NULL,
-  `trainingType` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`trainingId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=big5;
-
-CREATE TABLE `QuestionComment` (
+CREATE TABLE `portal`.`QuestionComment` (
   `commentId` int(11) NOT NULL AUTO_INCREMENT,
   `questionId` int(11) DEFAULT NULL,
   `commentDescription` varchar(1000) DEFAULT NULL,
@@ -92,7 +81,7 @@ CREATE TABLE `QuestionComment` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=big5;
 
 
-CREATE TABLE `QuestionReplyComment` (
+CREATE TABLE `portal`.`QuestionReplyComment` (
   `commentId` int(11) NOT NULL AUTO_INCREMENT,
   `replyId` int(11) DEFAULT NULL,
   `commentDescription` varchar(1000) DEFAULT NULL,
@@ -123,3 +112,52 @@ CREATE TABLE `portal`.`TrainingFeedBack` (
   KEY `fk_trainings_id_idx` (`trainingId`),
   CONSTRAINT `fk_trainings_id` FOREIGN KEY (`trainingId`)   REFERENCES `Trainings` (`trainingId`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=big5;
+
+ALTER TABLE `portal`.`User` 
+ADD COLUMN `imageIcon` BLOB NULL DEFAULT NULL AFTER `createDate`;
+
+
+ALTER TABLE `portal`.`User` 
+CHANGE COLUMN `name` `userName` VARCHAR(100) NULL DEFAULT NULL ;
+
+CREATE TABLE `portal`.`Trainings` (
+  `trainingId` int(11) NOT NULL AUTO_INCREMENT,
+  `trainingTitle` varchar(100) DEFAULT NULL,
+  `description` varchar(500) DEFAULT NULL,
+  `trainerEmailId` varchar(100) DEFAULT NULL,
+  `trainingStartDate` datetime DEFAULT NULL,
+ `trainingEndDate` datetime DEFAULT NULL,
+  `trainingStatus` varchar(100) DEFAULT NULL,
+  `trainingType` varchar(100) DEFAULT NULL,
+    `trainingStartTime` datetime DEFAULT NULL,
+    `trainingEndTime` datetime DEFAULT NULL,
+  PRIMARY KEY (`trainingId`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=big5;
+
+CREATE TABLE `portal`.`TrainingToUser`(
+`trainingToUserId` int(11) NOT NULL   AUTO_INCREMENT,
+trainingId int(11) NOT NULL,
+userId int(11) NOT NULL,
+trainingPresence int(11) DEFAULT NULL,
+`emailId` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`trainingToUserId`)
+)ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=big5;
+
+ALTER TABLE `portal`.`User`
+ADD COLUMN `profileName`  VARCHAR(20) DEFAULT NULL;
+
+ALTER TABLE `portal`.`User`
+ADD COLUMN `notifications`  VARCHAR(20) DEFAULT NULL;
+
+
+CREATE TABLE `portal`.`ProfileSetting` (
+  `profileId` int(11) NOT NULL AUTO_INCREMENT,
+  `categoryId` int(11) DEFAULT NULL,
+  `userId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`profileId`),
+  KEY `fk_categoryid_profile_setting` (`categoryId`),
+  KEY `fk_userid_profile_setting` (`userId`),
+  CONSTRAINT `fk_categoryid_profile_setting` FOREIGN KEY (`categoryId`) REFERENCES `Categories` (`categoryId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_userid_profile_setting` FOREIGN KEY (`userId`) REFERENCES `User` (`userId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=big5;
+

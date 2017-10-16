@@ -4,7 +4,7 @@ adminApp
 				function($scope, $timeout, categoryService, userService,
 						roleService, localStorageService, CategoryListModel,
 						RoleListModel,UserListModel) {
-
+					//$('#example').DataTable({ "order": [[ 2, "desc" ]]});
 					$scope.categoriesList = CategoryListModel
 							.newCategoryListInstance();
 					$scope.rolesList = RoleListModel.newRoleListInstance();

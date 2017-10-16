@@ -1,11 +1,11 @@
 package com.nisum.portal.service.impl;
 
 import java.sql.Timestamp;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
+
+import org.assertj.core.internal.Integers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +14,7 @@ import com.nisum.portal.data.dao.api.TrainingsDAO;
 import com.nisum.portal.data.domain.TrainingToUser;
 import com.nisum.portal.data.domain.Trainings;
 import com.nisum.portal.service.api.TrainingsService;
+import com.nisum.portal.service.api.UserService;
 import com.nisum.portal.service.dto.TrainingToUserDTO;
 import com.nisum.portal.data.domain.TrainingFeedBack;
 import com.nisum.portal.data.domain.TrainingRequest;
@@ -21,10 +22,12 @@ import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.dto.TrainingFeedBackDTO;
 import com.nisum.portal.service.dto.TrainingRequestDTO;
 import com.nisum.portal.service.dto.TrainingsDTO;
+import com.nisum.portal.service.dto.UserDTO;
 import com.nisum.portal.util.Constants;
 import com.nisum.portal.util.TrainingFeedBackUtil;
 import com.nisum.portal.util.TrainingRequestUtil;
 import com.nisum.portal.util.TrainingsServiceUtil;
+import org.apache.commons.lang3.StringUtils;
 
 @Service
 public class TrainingsServiceImpl implements TrainingsService {
@@ -43,8 +46,8 @@ public class TrainingsServiceImpl implements TrainingsService {
 	}
 
 	
-	@Override
-	public List<TrainingsDTO> upComingTrainings(String trainingType) {
+	/*@Override
+	public List<TrainingsDTO> upComingTrainings(String trainingType,String email) {
 		
 		logger.info("TrainingsServiceImpl::upComingTrainings");
 		
@@ -87,17 +90,61 @@ public class TrainingsServiceImpl implements TrainingsService {
 	});
 	
 		return TrainingsServiceUtil.convertDaoTODto(upcomeList);
+	} */
+	
+	@Override
+	public List<TrainingsDTO> upComingTrainings(String trainingType,String emailId,UserService userService) {
+		logger.info("TrainingsServiceImpl::upComingTrainings");
+	//	List<Trainings> upcomeList=trainingsDAO.upcomingTraining( trainingType);
+		
+	//	List<TrainingsDTO> TrainingsDTOs=TrainingsServiceUtil.convertDaoTODto(upcomeList);
+		List<TrainingsDTO> upcomeList=TrainingsServiceUtil.convertDaoTODto(trainingsDAO.upcomingTraining( trainingType));
+		 Integer presence;
+		 List<Integer> noOfStudents;
+		 long durationInSeconds;
+		for(TrainingsDTO trainingsDTO:upcomeList)
+		{
+		    presence= trainingsDAO.checkTrainingPresence(emailId, trainingsDTO.getTrainingId());
+		   if(presence!=null)
+			   trainingsDTO.setTrainingPresence(presence);
+		   else
+			   trainingsDTO.setTrainingPresence(0);
+		   
+		    noOfStudents=trainingsDAO.noOfStudents(trainingsDTO.getTrainingId());
+		   if(noOfStudents!=null)
+			   trainingsDTO.setNoOfStudents(noOfStudents.size());
+		   else
+			   trainingsDTO.setNoOfStudents(0);
+			if(trainingsDTO.getTrainingStartTime()!=null && trainingsDTO.getTrainingEndTime()!=null)
+			{
+				long diff=  trainingsDTO.getTrainingEndTime().getTime()-trainingsDTO.getTrainingStartTime().getTime();
+				long diffHours = diff / (60 * 60 * 1000) % 24;
+				//long diffDays = diff / (24 * 60 * 60 * 1000);
+				long diffMinutes = diff / (60 * 1000) % 60;
+		        long diffSeconds = diff / 1000 % 60;
+		        durationInSeconds=(diffHours*60*60)+(diffMinutes*60)+(diffSeconds);
+				trainingsDTO.setDuration(durationInSeconds);
+			  }
+			UserDTO user=userService.getUsers().get(trainingsDTO.getTrainerEmailId());
+			if(user!=null && StringUtils.isNotEmpty(user.getImage())&&user.getUserName()!=null) {
+				trainingsDTO.setDisplayImage(user.getImage());
+				trainingsDTO.setTrainerName(user.getUserName());
+			}
+			   
+		}
+
+		return upcomeList;
 	}
 
 
 	@Override
 	public List<TrainingsDTO> completedTrainings() {
 		logger.info("TrainingsServiceImpl::completedTrainings");
-		List<Trainings> upcomeList=	trainingsDAO.upcomingTraining();
-	    LinkedHashSet<Trainings> lst=new LinkedHashSet<Trainings>(trainingsDAO.upcomingTraining());
+		List<Trainings> upcomeList=	trainingsDAO.completedTraining();
+	    LinkedHashSet<Trainings> lst=new LinkedHashSet<Trainings>(trainingsDAO.completedTraining());
 		Timestamp createDate = new Timestamp(System.currentTimeMillis());
 		for (Trainings trainings : lst) {
-			if(trainings.getTrainingDate().after(createDate))
+			if(trainings.getTrainingStartDate().after(createDate))
 				upcomeList.remove(trainings);
 			else
 				trainings.setTrainingStatus("completed");
@@ -118,12 +165,13 @@ public class TrainingsServiceImpl implements TrainingsService {
 		logger.info("TrainingsServiceImpl :: addTrainingFeedBack ::"+trainingFeedBack.toString());
 		Integer serviceStatus = trainingsDAO.addTrainingsFeedBack(trainingFeedBack);
 
-		if (serviceStatus == 0) {
-			serviceStatusDto.setStatus(false);
-			serviceStatusDto.setMessage(Constants.TRAINING_FEEDBACK_EXISTS);
-		} else if (serviceStatus == 1) {
+		
+		if (serviceStatus == 1) {
 			serviceStatusDto.setStatus(true);
 			serviceStatusDto.setMessage(Constants.MSG_RECORD_ADD);
+		}else if (serviceStatus == 0) {
+			serviceStatusDto.setStatus(false);
+			serviceStatusDto.setMessage(Constants.TRAINING_FEEDBACK_EXISTS);
 		}
 
 		return serviceStatusDto;
@@ -145,8 +193,8 @@ public class TrainingsServiceImpl implements TrainingsService {
 
 		if (serviceStatus == 0) {
 			serviceStatusDto.setStatus(false);
-			serviceStatusDto.setMessage(Constants.TRAINING_FEEDBACK_EXISTS);
-		} else if (serviceStatus == 1) {
+			serviceStatusDto.setMessage(Constants.TRAINING_REQUEST_EXISTS);
+		} if (serviceStatus == 1) {
 			serviceStatusDto.setStatus(true);
 			serviceStatusDto.setMessage(Constants.MSG_RECORD_ADD);
 		}

@@ -46,7 +46,7 @@ public class UserDAOImplTest {
 		user.setEmailId("test@test.com");
 		user.setLoginDate(new Timestamp(date.getTime()));
 		user.setActiveStatus("YES");
-		user.setName("test");
+		user.setUserName("test");
 		role.setRoleId(1);
 		role.setRole("Admin");
 		role.setCreatedDate(new Timestamp(date.getTime()));
@@ -70,7 +70,7 @@ public class UserDAOImplTest {
 		User user = new User();
 		user.setActiveStatus("Yes");
 		user.setEmailId("sdsd");
-		user.setName("dsdsd");
+		user.setUserName("dsdsd");
 		user.setUserId(1);
 		when(userRepository.findOne(userId)).thenReturn(user);
 		User actual = userDAOImpl.findUserById(userId);
@@ -84,7 +84,7 @@ public class UserDAOImplTest {
 		 // role.setRole(role);
 		user.setEmailId("radhikapujari@nisum.com");
 		user.setActiveStatus("yes");
-		user.setName("radhika");
+		user.setUserName("radhika");
 		//user.setRole(role.setRole("admin"));
 		userList.add(user);
 		Mockito.when(userRepository.findAll()).thenReturn(userList);

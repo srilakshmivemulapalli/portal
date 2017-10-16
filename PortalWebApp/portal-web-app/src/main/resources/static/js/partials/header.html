@@ -28,6 +28,9 @@
 				<li ng-class="{'active': urlChanged==='/configurations'}"
 					class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1866"><a
 					href='#/configurations'>Configurations</a></li>
+					<li ng-class="{'active': urlChanged==='/meetings'}"
+					class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1866"><a
+					href='#'>Meetings Room</a></li>
 				<li><div class="header-search-wrapper">
 						<form id="header_search" method="GET" action=""
 							class="disable-mobile-search">
@@ -39,7 +42,7 @@
 					</div></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right sidebaropen">
-				<li><a data-toggle="dropdown" href="javascript:void(0);">{{mc.profile.name}}
+				<li><a data-toggle="dropdown" href="javascript:void(0);">{{mc.profile.userName}}
 						<img class="profImgHeader" ng-src="{{mc.profile.image}}" />
 				</a>
 					<ul class="dropdown-menu togglemenu">

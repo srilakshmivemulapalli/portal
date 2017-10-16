@@ -4862,7 +4862,7 @@ body.admin-bar .q-filter-waypoints {
 	background: none;
 }
 
-.glyphicon {
+.editicon {
 	color: #3498db;
 	font-size: 16px;
 	top: 7px;
@@ -4893,7 +4893,7 @@ body.admin-bar .q-filter-waypoints {
 .content .content-overlay {
 	background: rgba(0, 0, 0, 0.7);
 	position: absolute;
-	height: 99%;
+	height: 100%;
 	width: 100%;
 	left: 0;
 	top: 0;

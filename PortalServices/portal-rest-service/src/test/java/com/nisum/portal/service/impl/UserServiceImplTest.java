@@ -45,7 +45,7 @@ public class UserServiceImplTest {
 		expected = new ArrayList<>();
 		UserDTO userDTO = new UserDTO();
 		userDTO.setActiveStatus("yes");
-		userDTO.setName("Radhika");
+		userDTO.setUserName("Radhika");
 		
 		expected.add(userDTO);
 	}
@@ -64,7 +64,7 @@ public class UserServiceImplTest {
 		User user = new User();
 		user.setActiveStatus("Yes");
 		user.setEmailId("sasas");
-		user.setName("asasa");
+		user.setUserName("asasa");
 		user.setUserId(1);
 		when(userDao.findUserById(userId)).thenReturn(user);
 		String expected = user.getActiveStatus();
@@ -86,7 +86,7 @@ public class UserServiceImplTest {
 		List<User> userList = new ArrayList<>();
 		User user = new User();
 		user.setActiveStatus("Yes");
-		user.setName("mg");
+		user.setUserName("mg");
 		user.setLoginDate(new Timestamp(System.currentTimeMillis()));
 		userList.add(user);
 		when(userDao.getUsers()).thenReturn(userList);
@@ -94,7 +94,7 @@ public class UserServiceImplTest {
 		List<UserDTO> userDAOlist = new ArrayList<>();
 		UserDTO UserDTO = new UserDTO();
 		UserDTO.setActiveStatus("Yes");
-		UserDTO.setName("mg");
+		UserDTO.setUserName("mg");
 		
 		 userDAOlist .add(UserDTO);
 
@@ -110,7 +110,7 @@ public class UserServiceImplTest {
 	public void updateUser()
 	{
 		User user = new User();
-		user.setName("Test");
+		user.setUserName("Test");
 		user.setActiveStatus("Yes");
 		user.setLoginDate(new Timestamp(System.currentTimeMillis()));
 		UserRole role = new UserRole();

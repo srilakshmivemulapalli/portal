@@ -7,11 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.nisum.portal.data.domain.TrainingToUser;
 import com.nisum.portal.service.api.TrainingsService;
+import com.nisum.portal.service.api.UserService;
 import com.nisum.portal.service.dto.Errors;
 import com.nisum.portal.service.dto.TrainingToUserDTO;
 import com.nisum.portal.service.dto.ServiceStatusDto;
@@ -22,78 +23,78 @@ import com.nisum.portal.service.exception.TrainingsServiceException;
 import com.nisum.portal.util.Constants;
 
 @RestController
-@RequestMapping(value = "/v1/trainings")
+@RequestMapping(value ="/v1/trainings")
 public class TrainingsRestService {
 	private static Logger logger = LoggerFactory.getLogger(TrainingsRestService.class);
 
 	@Autowired
 	private TrainingsService trainingsService;
+	
+	@Autowired
+	private UserService userService;
 
 	@RequestMapping(value = "/saveTrainings", method = RequestMethod.POST)
 	public ResponseEntity<?> saveTrainings(@RequestBody TrainingsDTO trainingsDTO) {
 		logger.info("TrainingsRestService :: saveTrainings");
-		Errors error = new Errors();
+		ServiceStatusDto serviceStatusDto=new ServiceStatusDto();
 		try {
-			if (trainingsService.saveTrainings(trainingsDTO) != null) {
-				error.setErrorCode("Success");
-				error.setErrorMessage(Constants.MSG_RECORD_ADD);
-			}
-		} catch (Exception e) {
-			logger.error(Constants.Training_Error);
-			error.setErrorCode("Error-saveTrainings");
-			error.setErrorMessage(Constants.Training_Error);
-		}
-		return new ResponseEntity<Errors>(error, HttpStatus.OK);
-	}
-
-	@RequestMapping("/classroomUpcoming")
-	public ResponseEntity<?> classroomUpcomingTrainings()throws TrainingsServiceException
-	{
-		logger.info("TrainingsRestService :: classroomUpcomingTrainings");
-	    List<TrainingsDTO> upcomingList=	trainingsService.upComingTrainings("classroom");
-	    if(upcomingList.size()>0)
-		return new ResponseEntity<List<TrainingsDTO>>(upcomingList,HttpStatus.OK);
-	    else
-	    {
-	    	     logger.error(Constants.Training_No_Data);
-	    	     Errors error=new Errors();
-	    	     error.setErrorCode("Error-upcoming Trainings");
-	    	     error.setErrorMessage(Constants.Training_No_Data);
-	       return new ResponseEntity<Errors>(error,HttpStatus.OK);
-	    }
+			    trainingsService.saveTrainings(trainingsDTO);
+				serviceStatusDto.setStatus(true);
+				serviceStatusDto.setMessage(Constants.MSG_RECORD_ADD);
+				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto,HttpStatus.OK);
+		    } catch (Exception e) {
+				logger.error(Constants.Training_Error);
+				Errors error = new Errors();
+				error.setErrorCode("Error-saveTrainings");
+				error.setErrorMessage(Constants.Training_Error);
+				return new ResponseEntity<Errors>(error, HttpStatus.OK);
+		   }
 		
 	}
-	@RequestMapping("/onlineUpcoming")
-	public ResponseEntity<?> onlineUpcomingTrainings()throws TrainingsServiceException
+
+	@RequestMapping(value="/classroomUpcoming",method = RequestMethod.GET)
+	public ResponseEntity<?> classroomUpcomingTrainings(@RequestHeader("emailId") String emailId)throws TrainingsServiceException
+	{
+		logger.info("TrainingsRestService :: classroomUpcomingTrainings");
+	    try {
+			    List<TrainingsDTO> upcomingList=	trainingsService.upComingTrainings("classroom",emailId,userService);
+		    		return new ResponseEntity<List<TrainingsDTO>>(upcomingList,HttpStatus.OK);
+	        } catch(Exception e){
+		    	     Errors error=new Errors();
+		    	     error.setErrorCode("Error-upcoming Trainings");
+		    	     error.setErrorMessage(Constants.TRAINING_NOT_FETCH);
+		         return new ResponseEntity<Errors>(error,HttpStatus.OK);
+	         }
+		
+	}
+	@RequestMapping(value="/onlineUpcoming",method = RequestMethod.GET)
+	public ResponseEntity<?> onlineUpcomingTrainings(@RequestHeader("emailId") String emailId)throws TrainingsServiceException
 	{
 		logger.info("TrainingsRestService :: onlineUpcomingTrainings");
-	    List<TrainingsDTO> upcomingList=	trainingsService.upComingTrainings("online");
-	    if(upcomingList.size()>0)
-		return new ResponseEntity<List<TrainingsDTO>>(upcomingList,HttpStatus.OK);
-	    else
-	    {
-	    	     logger.error(Constants.Training_No_Data);
-	    	     Errors error=new Errors();
-	    	     error.setErrorCode("Error-upcoming Trainings");
-	    	     error.setErrorMessage(Constants.Training_No_Data);
-	       return new ResponseEntity<Errors>(error,HttpStatus.OK);
-	    }
+	    try {
+			    List<TrainingsDTO> upcomingList=	trainingsService.upComingTrainings("online",emailId,userService);
+		    		return new ResponseEntity<List<TrainingsDTO>>(upcomingList,HttpStatus.OK);
+	        } catch(Exception e){
+		    	     Errors error=new Errors();
+		    	     error.setErrorCode("Error-upcoming Trainings");
+		    	     error.setErrorMessage(Constants.TRAINING_NOT_FETCH);
+		         return new ResponseEntity<Errors>(error,HttpStatus.OK);
+	       }
 	}
 
 
-	@RequestMapping("/completed")
+	@RequestMapping(value="/completed",method = RequestMethod.GET)
 	public ResponseEntity<?> completedTrainings() throws TrainingsServiceException {
 		logger.info("TrainingsRestService :: completedTrainings");
-		List<TrainingsDTO> upcomingList = trainingsService.completedTrainings();
-		if (upcomingList.size() > 0)
-			return new ResponseEntity<List<TrainingsDTO>>(upcomingList, HttpStatus.OK);
-		else {
-			logger.error(Constants.Training_No_Data);
-			Errors error = new Errors();
-			error.setErrorCode("Error-completed Trainings");
-			error.setErrorMessage(Constants.Training_No_Data);
-			return new ResponseEntity<Errors>(error, HttpStatus.OK);
-		}
+		try {
+				List<TrainingsDTO> upcomingList = trainingsService.completedTrainings();
+				return new ResponseEntity<List<TrainingsDTO>>(upcomingList, HttpStatus.OK);
+		    }catch(Exception e) {
+				Errors error = new Errors();
+				error.setErrorCode("Error-completed Trainings");
+				error.setErrorMessage(Constants.TRAINING_NOT_FETCH);
+				return new ResponseEntity<Errors>(error, HttpStatus.OK);
+		   }
 
 	}
 
@@ -101,19 +102,21 @@ public class TrainingsRestService {
 	public ResponseEntity<?> trainingToUser(@RequestBody TrainingToUserDTO trainingToUserDTO)
 	{
 		logger.info("TrainingsRestService :: trainingToUser");
-		 Errors error=new Errors();
-		TrainingToUserDTO savedTrainingToUserDTO=trainingsService.trainingToUser(trainingToUserDTO);
-		if(savedTrainingToUserDTO!=null)
-		{			
-    	     error.setErrorCode("success");
-    	     error.setErrorMessage(Constants.TRAINING_PRESENCE);
-		}
-		else
+	   	try
 		{
-    	     error.setErrorCode("Error-Training presence");
-    	     error.setErrorMessage(Constants.TRAINING_NOT_PRESENCE);
+				trainingsService.trainingToUser(trainingToUserDTO);
+				 ServiceStatusDto serviceStatusDto=new ServiceStatusDto();
+				 serviceStatusDto.setStatus(true);
+				 serviceStatusDto.setMessage(Constants.TRAINING_PRESENCE);
+				 return new ResponseEntity<ServiceStatusDto>(serviceStatusDto,HttpStatus.OK);
+		}catch(Exception e)
+		{
+				 Errors error=new Errors();
+	    	         error.setErrorCode("Error-Training presence");
+	    	         error.setErrorMessage(Constants.TRAINING_NOT_PRESENCE);
+	    	         return new ResponseEntity<Errors>(error,HttpStatus.OK);
 		}
-		  return new ResponseEntity<Errors>(error,HttpStatus.OK);
+		 
 	}
 
 	
@@ -127,7 +130,7 @@ public class TrainingsRestService {
 		else {
 			logger.error("FeedBack for same already Exists");
 			Errors error = new Errors();
-			error.setErrorCode("Errors-UserRole");
+			error.setErrorCode("Errors-TrainingFeedBack");
 			error.setErrorMessage(Constants.TRAINING_FEEDBACK_EXISTS);
 			ResponseEntity<Errors> rsEntity = new ResponseEntity<Errors>(error, HttpStatus.NOT_ACCEPTABLE);
 			return rsEntity;
@@ -145,7 +148,7 @@ public class TrainingsRestService {
 		else {
 			logger.error("FeedBack for same already Exists");
 			Errors error = new Errors();
-			error.setErrorCode("Errors-UserRole");
+			error.setErrorCode("Errors-TrainingRequest");
 			error.setErrorMessage(Constants.TRAINING_REQUEST_EXISTS);
 			ResponseEntity<Errors> rsEntity = new ResponseEntity<Errors>(error, HttpStatus.NOT_ACCEPTABLE);
 			return rsEntity;
@@ -153,24 +156,18 @@ public class TrainingsRestService {
 
 	}
 	@RequestMapping(value = "/getAllTrainingRequests", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
-	public ResponseEntity<?> getAllTrainingRequests() throws TrainingsServiceException{
+	public Object getAllTrainingRequests() throws TrainingsServiceException{
 
 		logger.info("TrainingsRestService :: getAllTrainingRequests ");
-		ResponseEntity<?> rsEntity = null;
 		try {
-			List<TrainingRequestDTO> trainingRequests = trainingsService.getAllTrainingRequests();
-			if(trainingRequests.size()>0) {
-				rsEntity= new ResponseEntity<List<TrainingRequestDTO>>(trainingRequests,HttpStatus.OK);
-			}
+				return trainingsService.getAllTrainingRequests();
 			}
 			catch(Exception e) {
 				logger.error(Constants.Training_No_Data);
 				Errors error = new Errors();
-				error.setErrorCode("Error-upcoming Trainings");
+				error.setErrorCode("Error-All Trainings Requests");
 				error.setErrorMessage(Constants.Training_No_Data);
-				rsEntity= new ResponseEntity<Errors>(error, HttpStatus.OK);
+				return new ResponseEntity<Errors>(error, HttpStatus.OK);
 			}
-		return rsEntity;
-
 	}
 }

@@ -5,6 +5,7 @@ public class Constants {
 	public static final String MSG_RECORD_ADD = "Record Added Successfully !!";
 	public static final String MSG_RECORD_UPDATE = "Record Updated Successfully !!";
 	public static final String QUESTION_NOT_EXIST = "Question Details doest'n Exist !!";
+	public static final String REPLY_NOT_EXISTS = "Reply Details doest'n Exist !!";
 
 	public static final String ERROR_MESSAGE = "Error While Creating Record !!";
 	public static final String UNKNOWN_EXCEPTION = "Unknown Exception !!";
@@ -40,6 +41,7 @@ public class Constants {
 	
 	public static final String TRAINING_FEEDBACK_EXISTS = "Training feedback to respective training already submitted !!";
 	public static final String TRAINING_REQUEST_EXISTS = "Training Request Already Raised !!";
+	public static final String TRAINING_NOT_FETCH="Error While Fetching the Record!!!";
 	
 	// Email configuration for new user account
 		public static final String GMAIL_SMTP="mail.smtp.auth";

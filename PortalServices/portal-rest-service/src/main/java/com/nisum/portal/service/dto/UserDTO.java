@@ -2,7 +2,10 @@ package com.nisum.portal.service.dto;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
+import com.nisum.portal.data.domain.ProfileSettings;
 import com.nisum.portal.service.dto.UserRoleDTO;
 
 /**
@@ -16,13 +19,26 @@ public class UserDTO implements Serializable{
 
 	private int userId;
 	private String emailId;
-	private String name;
+	private String userName;
 	private Timestamp loginDate;
 	private UserRoleDTO role;
 	private String activeStatus;
 	private Timestamp createDate;
 	private String image;
 	private byte[] imageIcon;
+	private String notifications;
+	private String profileName;
+	private Set<ProfileSettings> profileSettings=new HashSet<>();
+
+	
+
+	public Set<ProfileSettings> getProfileSettings() {
+		return profileSettings;
+	}
+
+	public void setProfileSettings(Set<ProfileSettings> profileSettings) {
+		this.profileSettings = profileSettings;
+	}
 
 	public byte[] getImageIcon() {
 		return imageIcon;
@@ -64,22 +80,7 @@ public class UserDTO implements Serializable{
 		this.emailId = emailId;
 	}
 
-	/**
-	 * Returns user name
-	 * @return
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * Sets user created date
-	 * @param name
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
+	
 	/**
 	 * Returns user created date
 	 * @return
@@ -143,4 +144,28 @@ public class UserDTO implements Serializable{
 	public void setImage(String image) {
 		this.image = image;
 	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getNotifications() {
+		return notifications;
+	}
+
+	public void setNotifications(String notifications) {
+		this.notifications = notifications;
+	}
+
+	public String getProfileName() {
+		return profileName;
+	}
+
+	public void setProfileName(String profileName) {
+		this.profileName = profileName;
+	}
+
 }

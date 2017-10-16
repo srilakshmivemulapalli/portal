@@ -101,7 +101,7 @@
 							<div class="cm-content-wrap">
 								<div class="">
 									<p>
-										<span style="color: #000000;">{{comment.commentdescription}}</span>
+										<span style="color: #000000;" ng-bind-html='comment.commentDescription'></span>
 									</p>
 								</div>
 								<span class="comment-time"><span style="color: #07C;">{{comment.emailId}}
@@ -132,14 +132,14 @@
 
 				</div>
 				<a data-container="body" data-toggle="collapse"
-					data-target="#question-child" class="add-comment"
+					data-target="#questionchild-container" class="add-comment"
 					href="javascript:void(0)">Add Comment</a>
 				<div class="clearfix"></div>
-				<form class="child-reply" ng-submit="submitQuestionComment(questioncomment.description,question.questionDetails.questionId)">
+				<form class="child-reply" ng-submit="submitQuestionComment(questioncomment,question.questionDetails.questionId)">
 
-					<div id="question-child" class="child-answer-wrap collapse">
+					<div id="questionchild-container" class="child-answer-wrap collapse">
 						<div class="wp-editor-container">
-							<text-angular ng-model="questioncomment.description"></text-angular>
+							<text-angular ng-model="questioncomment"></text-angular>
 						</div>
 						<div class="row submit-wrapper">
 							<div class="col-md-3 col-xs-3">
@@ -238,7 +238,7 @@
 							<div class="cm-content-wrap">
 								<div class="">
 									<p>
-										<span style="color: #000000;">{{comment.commentdescription}}</span>
+										<span style="color: #000000;" ng-bind-html='comment.commentDescription'></span>
 									</p>
 								</div>
 								<span class="comment-time"><span style="color: #07C;">{{comment.emailId}}
@@ -270,12 +270,12 @@
 				</div>
 
 				<a data-toggle="collapse" class="add-comment"
-					data-target="#child-container{{$index}}" href="javascript:void(0)">Add
+					data-target="#replychild-container{{$index}}" href="javascript:void(0)">Add
 					Comment</a>
 				<div class="clearfix"></div>
-				<form class="child-reply" ng-submit="submitReplyComment(replycomment[$index],reply.replyId)">
+				<form class="child-reply" ng-submit="submitReplyComment(replycomment[$index],reply.replyId,$index)">
 
-					<div id="child-container{{$index}}"
+					<div id="replychild-container{{$index}}"
 						class="child-answer-wrap collapse">
 						<div class="wp-editor-container">
 							<text-angular ng-model="replycomment[$index]"></text-angular>
