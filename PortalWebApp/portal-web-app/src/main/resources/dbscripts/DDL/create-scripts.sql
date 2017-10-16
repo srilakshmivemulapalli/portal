@@ -69,17 +69,6 @@ ADD COLUMN `createDate` DATETIME NULL DEFAULT NULL AFTER `roleId`;
 ALTER TABLE `portal`.`User` 
 ADD COLUMN `image` VARCHAR(200) NULL DEFAULT NULL AFTER `createDate`;
 
-CREATE TABLE `portal`.`Trainings` (
-  `trainingId` int(11) NOT NULL AUTO_INCREMENT,
-  `trainingTitle` varchar(100) DEFAULT NULL,
-  `description` varchar(500) DEFAULT NULL,
-  `trainerName` varchar(100) DEFAULT NULL,
-  `trainingDate` datetime DEFAULT NULL,
-  `trainingStatus` varchar(100) DEFAULT NULL,
-  `trainingType` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`trainingId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=big5;
-
 CREATE TABLE `portal`.`QuestionComment` (
   `commentId` int(11) NOT NULL AUTO_INCREMENT,
   `questionId` int(11) DEFAULT NULL,
@@ -130,3 +119,26 @@ ADD COLUMN `imageIcon` BLOB NULL DEFAULT NULL AFTER `createDate`;
 
 ALTER TABLE `portal`.`User` 
 CHANGE COLUMN `name` `userName` VARCHAR(100) NULL DEFAULT NULL ;
+
+CREATE TABLE `portal`.`Trainings` (
+  `trainingId` int(11) NOT NULL AUTO_INCREMENT,
+  `trainingTitle` varchar(100) DEFAULT NULL,
+  `description` varchar(500) DEFAULT NULL,
+  `trainerEmailId` varchar(100) DEFAULT NULL,
+  `trainingStartDate` datetime DEFAULT NULL,
+ `trainingEndDate` datetime DEFAULT NULL,
+  `trainingStatus` varchar(100) DEFAULT NULL,
+  `trainingType` varchar(100) DEFAULT NULL,
+    `trainingStartTime` datetime DEFAULT NULL,
+    `trainingEndTime` datetime DEFAULT NULL,
+  PRIMARY KEY (`trainingId`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=big5;
+
+CREATE TABLE `portal`.`TrainingToUser`(
+`trainingToUserId` int(11) NOT NULL   AUTO_INCREMENT,
+trainingId int(11) NOT NULL,
+userId int(11) NOT NULL,
+trainingPresence int(11) DEFAULT NULL,
+`emailId` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`trainingToUserId`)
+)ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=big5;
