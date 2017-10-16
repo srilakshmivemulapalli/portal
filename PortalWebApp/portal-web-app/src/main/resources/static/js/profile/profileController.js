@@ -33,6 +33,7 @@ mainApp.controller('profileController',function($scope,$http,localStorageService
 		}).error(function(response) {
 			deferred.reject(response);
 		})
+		alert("User Updated Successfully");
 		return deferred.promise;
 		
 		
