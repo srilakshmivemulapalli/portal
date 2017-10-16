@@ -40,7 +40,7 @@
 									<td>{{user.userName}}</td>
 									<td>{{user.emailId}}</td>
 									<td>{{user.role.role}}</td>
-									<td>{{user.loginDate | date: 'MM-dd-yyyy HH:mm:ss'}}</td>
+									<td>{{user.createDate | date: 'MM-dd-yyyy HH:mm:ss'}}</td>
 									<td><select name="mySelect" id="mySelect"
 										ng-model="user.role.roleId"
 										ng-options="role.roleId as role.role for role in rolesList.roles"

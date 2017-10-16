@@ -32,6 +32,7 @@ public class UserServiceUtil {
 				userDto.setLoginDate(user.getLoginDate());
 				userDto.setUserName(user.getUserName());
 				userDto.setImage(user.getImage());
+				userDto.setCreateDate(user.getCreateDate());
 				UserRoleDTO userRoleDTO = new UserRoleDTO();
 				userRoleDTO.setCreatedDate(user.getRole().getCreatedDate());
 				userRoleDTO.setRole(user.getRole().getRole());

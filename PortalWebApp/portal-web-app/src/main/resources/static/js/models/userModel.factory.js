@@ -7,6 +7,8 @@ app
     		  this.name=null;
     		  this.emailId=null;
     		  this.image=null;
+    		  this.loginDate=null;
+    		  this.createDate=null;
     		  this.role.roleId=null;
     		  this.role.role=null;
     		  this.role.createdDate=null;
