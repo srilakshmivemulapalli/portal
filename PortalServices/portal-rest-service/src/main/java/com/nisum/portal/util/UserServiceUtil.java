@@ -61,6 +61,7 @@ public class UserServiceUtil {
 		userDTO.setLoginDate(user.getLoginDate());
 		userDTO.setCreateDate(user.getCreateDate());
 		userDTO.setActiveStatus(user.getActiveStatus());
+		userDTO.setImageIcon(user.getImageIcon());
 		UserRoleDTO userRoleDTO = new UserRoleDTO();
 		userRoleDTO.setCreatedDate(user.getRole().getCreatedDate());
 		userRoleDTO.setRole(user.getRole().getRole());
@@ -119,6 +120,7 @@ public class UserServiceUtil {
 		user.setLoginDate(userdto.getLoginDate());
 		user.setCreateDate(userdto.getCreateDate());
 		user.setImage(userdto.getImage());
+		user.setImageIcon(userdto.getImageIcon());
 		user.setActiveStatus(userdto.getActiveStatus());
 		UserRole userRole = new UserRole();
 		userRole.setCreatedDate(userdto.getRole().getCreatedDate());
