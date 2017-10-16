@@ -101,7 +101,7 @@ public class TrainingsServiceImpl implements TrainingsService {
 		List<TrainingsDTO> upcomeList=TrainingsServiceUtil.convertDaoTODto(trainingsDAO.upcomingTraining( trainingType));
 		 Integer presence;
 		 List<Integer> noOfStudents;
-		 long duration;
+		 long durationInSeconds;
 		for(TrainingsDTO trainingsDTO:upcomeList)
 		{
 		    presence= trainingsDAO.checkTrainingPresence(emailId, trainingsDTO.getTrainingId());
@@ -119,12 +119,11 @@ public class TrainingsServiceImpl implements TrainingsService {
 			{
 				long diff=  trainingsDTO.getTrainingEndTime().getTime()-trainingsDTO.getTrainingStartTime().getTime();
 				long diffHours = diff / (60 * 60 * 1000) % 24;
-				long diffDays = diff / (24 * 60 * 60 * 1000);
-				if(diffDays>=0)
-				{
-				     duration=diffHours*(diffDays+1);
-				     trainingsDTO.setDuration(duration);
-				}
+				//long diffDays = diff / (24 * 60 * 60 * 1000);
+				long diffMinutes = diff / (60 * 1000) % 60;
+		        long diffSeconds = diff / 1000 % 60;
+		        durationInSeconds=(diffHours*60*60)+(diffMinutes*60)+(diffSeconds);
+				trainingsDTO.setDuration(durationInSeconds);
 			  }
 			UserDTO user=userService.getUsers().get(trainingsDTO.getTrainerEmailId());
 			if(user!=null && StringUtils.isNotEmpty(user.getImage())&&user.getUserName()!=null) {
