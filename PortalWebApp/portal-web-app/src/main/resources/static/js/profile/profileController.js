@@ -1,24 +1,48 @@
-mainApp.controller('profileController', function($scope, localStorageService,
-		categoryService) {
-	if (localStorageService.get('categoriesList') !== (undefined || null)) {
-		$scope.categoriesList = localStorageService.get('categoriesList');
-	} else {
-		categoryService.getCategories().then(function(response) {
 
-			$scope.categoriesList = response;
-			localStorageService.set('categoriesList', response);
-		}, function(response) {
+
+mainApp.controller('profileController',function($scope,$http,localStorageService,$q){
+	
+	$scope.categoriesList = [];
+	$scope.profile={
+	
+	}
+	console.log("localStorage profile value"+localStorageService.get("profile"));
+	$scope.profile = localStorageService.get("profile");
+	console.log("profile..."+$scope.profile);
+	
+	
+	$http.get('v1/category/retrieve').then(function(response) {
 			console.log(response);
+			$scope.categoriesList = response.data;
+		}, function(response) {
+
+		});
+	
+		
+		var notification="Yes"
+		
+	$scope.saveProfile=function()	{
+		
+			alert("calling");
+			
+		var deferred= $q.defer();
+	
+		
+		$http.put('v1/userprofile/update',$scope.profile).success(function(response) {
+			deferred.resolve(response);
+		}).error(function(response) {
+			deferred.reject(response);
 		})
-
+		return deferred.promise;
+		
+		
+		
+		
+		
+		
 	}
+		
+	
+	
 
-	$scope.profile = {
-		'userName' : 'Swathi',
-		'profileName' : null,
-		'emailId' : 'bsdivya@nisum.com',
-		'userCategories' : [],
-		'roleId' : 1
-	}
-
-})
+});

@@ -2,13 +2,16 @@ package com.nisum.portal.data.domain;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -28,6 +31,39 @@ public class User implements Serializable {
 	private Timestamp createDate;
 	private String image;
 	private byte[] imageIcon;
+	private String profileName;
+	private String notifications;
+	
+	
+	
+	@OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<ProfileSettings> profileSettings;
+
+	
+	public Set<ProfileSettings> getProfileSettings() {
+		return profileSettings;
+	}
+
+	public void setProfileSettings(Set<ProfileSettings> profileSettings) {
+		this.profileSettings = profileSettings;
+	}
+
+
+	public String getProfileName() {
+		return profileName;
+	}
+
+	public void setProfileName(String profileName) {
+		this.profileName = profileName;
+	}
+
+	public String getNotifications() {
+		return notifications;
+	}
+
+	public void setNotifications(String notifications) {
+		this.notifications = notifications;
+	}
 
 	public byte[] getImageIcon() {
 		return imageIcon;
