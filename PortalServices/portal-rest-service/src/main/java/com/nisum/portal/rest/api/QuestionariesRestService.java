@@ -4,6 +4,10 @@ package com.nisum.portal.rest.api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,6 +21,7 @@ import com.nisum.portal.service.api.QuestionariesService;
 import com.nisum.portal.service.dto.AddQuestionDTO;
 import com.nisum.portal.service.dto.CountDTO;
 import com.nisum.portal.service.dto.Errors;
+import com.nisum.portal.service.dto.PageableDTO;
 import com.nisum.portal.service.dto.QuestionariesCommentsDTO;
 import com.nisum.portal.service.dto.QuestionsDTO;
 import com.nisum.portal.service.dto.ServiceStatusDto;
@@ -53,7 +58,6 @@ public class QuestionariesRestService {
 	 * @return
 	 * @throws QuestionariesServiceException
 	 */
-
 	@RequestMapping(value = "/retrieveCount", method = RequestMethod.GET)
 	public ResponseEntity<?> retrieveCount() throws QuestionariesServiceException {
 		logger.info("QuestionariesRestService :: retrieveCount");
@@ -148,5 +152,26 @@ public class QuestionariesRestService {
 		errors.setErrorCode("Error-Categories");
 		errors.setErrorMessage(ex.getMessage());
 		return new ResponseEntity<Errors>(errors, HttpStatus.OK);
+	}
+
+	/**
+	 * QuestionariesByCategoryThroughPagination
+	 * 
+	 * @return
+	 * @throws QuestionariesServiceException
+	 */
+	@RequestMapping(value = "/retrieve/questionsByCategory/{categoryId}", method = RequestMethod.POST, consumes="application/json")
+	public ResponseEntity<QuestionsDTO> retriveQuestionariesByCategoryThroughPagination(@RequestHeader("EmailId") String emailId, @PathVariable Integer categoryId, @RequestBody PageableDTO pageableDto) throws QuestionariesServiceException {
+		//logger.info("QuestionariesRestService :: retriveQuestionariesByCategoryThroughPagination(PageNumber: "+ pageable.getPageNumber()+", PageSize: "+pageable.getPageSize()+")");
+		logger.info("QuestionariesRestService :: retriveQuestionariesByCategoryThroughPagination(PageNumber: "+ pageableDto.getPage()+", PageSize: "+pageableDto.getSize()+")");
+		
+		System.out.println("EmailId"+emailId);
+		if(categoryId==0) {
+			return new ResponseEntity<QuestionsDTO>(questionariesService.getQuestionariesByPagination(new PageRequest(pageableDto.getPage(), pageableDto.getSize(), Sort.Direction.ASC,Constants.SORT_BY_ELEMENT)), HttpStatus.OK);
+			//return new ResponseEntity<QuestionsDTO>(questionariesService.getQuestionariesByPagination(new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Sort.Direction.DESC, "questionId")), HttpStatus.OK);
+		}else {	
+			return new ResponseEntity<QuestionsDTO>(questionariesService.getQuestionariesByCategory(categoryId, new PageRequest(pageableDto.getPage(), pageableDto.getSize(), Sort.Direction.ASC,Constants.SORT_BY_ELEMENT)), HttpStatus.OK);
+			//return new ResponseEntity<QuestionsDTO>(questionariesService.getQuestionariesByCategory(categoryId, new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Sort.Direction.DESC, "questionId")), HttpStatus.OK);
+		}
 	}
 }
