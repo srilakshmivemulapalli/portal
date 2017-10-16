@@ -23,7 +23,7 @@ mainApp.controller('profileController',function($scope,$http,localStorageService
 		
 	$scope.saveProfile=function()	{
 		
-			alert("calling");
+			//alert("calling");
 			
 		var deferred= $q.defer();
 	
