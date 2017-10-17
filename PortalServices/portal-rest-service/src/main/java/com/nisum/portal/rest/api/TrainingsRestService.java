@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -184,5 +185,21 @@ public class TrainingsRestService {
 				error.setErrorMessage(Constants.Training_No_FeedBacks);
 				return new ResponseEntity<Errors>(error, HttpStatus.OK);
 			}
+	}
+	@RequestMapping(value="/getTrainingFeedBackWithId/{trainingId}", method=RequestMethod.GET,consumes = "application/json", produces = "application/json")
+	public Object getTrainingFeedBackByTrainingId(@PathVariable Integer trainingId) {
+		logger.info("TrainingsRestService :: getTrainingFeedBackByTrainingId ");
+		try
+		{
+			return trainingsService.getTrainingFeedBack(trainingId);
+		}
+		catch(Exception e) {
+			logger.error(Constants.Training_No_FeedBacks);
+			Errors error = new Errors();
+			error.setErrorCode("Error-All Trainings FeedBacks");
+			error.setErrorMessage(Constants.Training_No_FeedBacks);
+			return new ResponseEntity<Errors>(error, HttpStatus.OK);
+		}
+		
 	}
 }

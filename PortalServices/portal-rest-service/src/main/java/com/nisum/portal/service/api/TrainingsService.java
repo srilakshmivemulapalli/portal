@@ -28,4 +28,6 @@ public interface TrainingsService {
 
 	List<TrainingFeedBackDTO> getAllTrainingFeedBacks();
 
+	public TrainingFeedBackDTO getTrainingFeedBack(Integer trainingId);
+
 }

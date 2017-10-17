@@ -224,5 +224,13 @@ public class TrainingsServiceImpl implements TrainingsService {
 		List<TrainingFeedBack> feedBacks = trainingsDAO.getTrainingFeedBacks();
 		return TrainingFeedBackUtil.convertDaoListToDto(feedBacks);
 	}
+
+
+	@Override
+	public TrainingFeedBackDTO getTrainingFeedBack(Integer trainingId) {
+		// TODO Auto-generated method stub
+		TrainingFeedBack trainingFeedBack = trainingsDAO.getTrainingFeedBackByTrainingId(trainingId);
+		return TrainingFeedBackUtil.convertDaoTODto(trainingFeedBack);
+	}
 	
 }
