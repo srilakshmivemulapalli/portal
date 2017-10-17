@@ -27,5 +27,30 @@ public class BlogsDAOImpl implements BlogsDAO {
 		logger.info("BlogsDAOImpl :: getBlog");
 		return blogsRepository.findByBlogsId(id);
 	}
+	@Override
+	public void removeBlog(Integer id) {
+		logger.info("BlogsDAOImpl :: removeBlog");
+		blogsRepository.delete(id);
+	}
+	@Override
+	public Blogs updateBlog(Blogs blog) {
+		logger.info("BlogsDAOImpl :: updateBlog");
+		Blogs updatedBlog=blogsRepository.saveAndFlush(blog);
+		return updatedBlog;
+	}
+	@Override
+	public boolean blogExists(Integer id) {
+		logger.info("BlogsDAOImpl :: blogExists");
+		if(blogsRepository.exists(id)) {
+			return true;
+		}
+		return false;
+	}
+	@Override
+	public Blogs addBlog(Blogs blog) {
+		logger.info("BlogsDAOImpl :: addBlog");
+		Blogs addedBlog=blogsRepository.save(blog);
+		return addedBlog;
+	}
 
 }
