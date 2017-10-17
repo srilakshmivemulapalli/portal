@@ -21,6 +21,8 @@ public class TrainingsDTO {
 	private Long duration;
 	private String trainerName;
 	private String displayImage;
+	private Integer noOfComments;
+	private Integer traininToUserId;
 	public Integer getTrainingId() {
 		return trainingId;
 	}
@@ -112,6 +114,18 @@ public class TrainingsDTO {
 	public void setDisplayImage(String displayImage) {
 		this.displayImage = displayImage;
 	}
+	public Integer getNoOfComments() {
+		return noOfComments;
+	}
+	public void setNoOfComments(Integer noOfComments) {
+		this.noOfComments = noOfComments;
+	}
+	public Integer getTraininToUserId() {
+		return traininToUserId;
+	}
+	public void setTraininToUserId(Integer traininToUserId) {
+		this.traininToUserId = traininToUserId;
+	}
 	@Override
 	public String toString() {
 		return "CategoriesDTO [trainingId=" + trainingId + ", description=" + description + ", trainingStartTime="
@@ -119,8 +133,9 @@ public class TrainingsDTO {
 				+ trainingTitle+ " , trainingStatus=" +trainingStatus+ ",trainingType="
 				+ trainingType+",trainingPresence="+trainingPresence+",noOfStudents="
 				+noOfStudents+",trainingStartDate="+trainingStartDate+",trainingEndDate="
-				+trainingEndDate+" ,trainingEndTime="+trainingEndTime+"+duration="+duration+""
-						+ ",trainerName="+trainerName+",displayImage="+displayImage+"]";		
+				+trainingEndDate+" ,trainingEndTime="+trainingEndTime+"+duration="+duration+
+						",trainerName="+trainerName+",displayImage="+displayImage+",noOfComments="
+				+noOfComments+",traininToUserId="+traininToUserId+"]";		
 	}
 	
 	

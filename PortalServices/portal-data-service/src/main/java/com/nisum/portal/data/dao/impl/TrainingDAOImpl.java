@@ -137,7 +137,7 @@ public class TrainingDAOImpl implements TrainingsDAO {
 	}
 
 	@Override
-	public List<Integer> noOfStudents(Integer trainingId) {
+	public List<Object[]> noOfStudents(Integer trainingId) {
 		
 		return trainingToUserRepository.fetchnoOfStudent(trainingId);
 	}

@@ -99,21 +99,41 @@ public class TrainingsServiceImpl implements TrainingsService {
 	//	List<TrainingsDTO> TrainingsDTOs=TrainingsServiceUtil.convertDaoTODto(upcomeList);
 		List<TrainingsDTO> upcomeList=TrainingsServiceUtil.convertDaoTODto(trainingsDAO.upcomingTraining( trainingType));
 		 Integer presence;
-		 List<Integer> noOfStudents;
+		 List<Object[]> noOfStudents;
 		 long durationInSeconds;
 		for(TrainingsDTO trainingsDTO:upcomeList)
 		{
-		    presence= trainingsDAO.checkTrainingPresence(emailId, trainingsDTO.getTrainingId());
-		   if(presence!=null)
-			   trainingsDTO.setTrainingPresence(presence);
-		   else
-			   trainingsDTO.setTrainingPresence(0);
+			if(emailId.compareTo(trainingsDTO.getTrainerEmailId())==0)
+			{
+				trainingsDTO.setTrainingPresence(2);
+			}
+			else
+			{
+			     presence= trainingsDAO.checkTrainingPresence(emailId, trainingsDTO.getTrainingId());
+			    if(presence!=null)
+				   trainingsDTO.setTrainingPresence(presence);
+			    else
+				   trainingsDTO.setTrainingPresence(0);
+			}
 		   
 		    noOfStudents=trainingsDAO.noOfStudents(trainingsDTO.getTrainingId());
-		   if(noOfStudents!=null)
-			   trainingsDTO.setNoOfStudents(noOfStudents.size());
-		   else
-			   trainingsDTO.setNoOfStudents(0);
+		    if(noOfStudents.size()>0 && noOfStudents!=null )
+		    {
+			  // if(noOfStudents!=null )
+				   trainingsDTO.setNoOfStudents(noOfStudents.size());
+			   
+			  // else
+				  
+			   for(Object[] trainingTouser:noOfStudents)
+			   {
+				   
+				   if(trainingTouser[0]!=null &&(trainingTouser[0].toString()).compareTo(emailId)==0)
+					   trainingsDTO.setTraininToUserId(Integer.valueOf(trainingTouser[1].toString()));
+			  }
+		    }else
+		    {
+		    	    trainingsDTO.setNoOfStudents(0);
+		    }
 			if(trainingsDTO.getTrainingStartTime()!=null && trainingsDTO.getTrainingEndTime()!=null)
 			{
 				long diff=  trainingsDTO.getTrainingEndTime().getTime()-trainingsDTO.getTrainingStartTime().getTime();
@@ -128,6 +148,12 @@ public class TrainingsServiceImpl implements TrainingsService {
 			if(user!=null && StringUtils.isNotEmpty(user.getImage())&&user.getUserName()!=null) {
 				trainingsDTO.setDisplayImage(user.getImage());
 				trainingsDTO.setTrainerName(user.getUserName());
+			}
+			List<TrainingFeedBackDTO> comments= this.getAllTrainingFeedBacks();
+			if(comments!=null)
+			{
+				trainingsDTO.setNoOfComments(comments.size());
+				
 			}
 			   
 		}

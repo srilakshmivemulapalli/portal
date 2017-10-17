@@ -19,6 +19,6 @@ Integer fetchTrainingPresence(@Param("emailId") String emailId,@Param("trainingI
 
 
 @Transactional
-@Query(value="SELECT distinct(tu.emailId) FROM TrainingToUser tu where tu.trainingId=:trainingId")
-List<Integer> fetchnoOfStudent(@Param("trainingId") int trainingId);
+@Query(value="SELECT distinct(tu.emailId),tu.trainingToUserId FROM TrainingToUser tu where tu.trainingId=:trainingId")
+List<Object[]> fetchnoOfStudent(@Param("trainingId") int trainingId);
 }
