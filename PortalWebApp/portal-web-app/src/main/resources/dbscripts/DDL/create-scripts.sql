@@ -5,6 +5,9 @@ CREATE TABLE `portal`.`UserRole` (
   PRIMARY KEY (`roleId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=big5;
 
+INSERT INTO `portal`.`UserRole` (`role`,`createdDate`) VALUES ('Admin', CURRENT_TIMESTAMP);
+INSERT INTO `portal`.`UserRole` (`role`,`createdDate`) VALUES ('User', CURRENT_TIMESTAMP);
+
 CREATE TABLE `portal`.`User` (
   `userId` int(11) NOT NULL AUTO_INCREMENT,
   `emailid` varchar(45) DEFAULT NULL,

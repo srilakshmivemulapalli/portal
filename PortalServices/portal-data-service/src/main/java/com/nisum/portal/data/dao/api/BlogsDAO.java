@@ -9,5 +9,13 @@ public interface BlogsDAO {
 	List<Blogs> getAllBlogs();
 	
 	Blogs getBlog(Integer id);
+	
+	void removeBlog(Integer id);
+	
+	Blogs updateBlog(Blogs blog);
+	
+	Blogs addBlog(Blogs blog);
+	
+	boolean blogExists(Integer id);
 
 }

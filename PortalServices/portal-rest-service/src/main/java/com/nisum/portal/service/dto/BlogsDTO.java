@@ -1,14 +1,17 @@
 package com.nisum.portal.service.dto;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class BlogsDTO {
 	int blogsId;
-	int categoryId;
+	String title;
 	int userId;
 	String description;
 	String path;
 	Timestamp createdDate;
+	String userMailId;
+	List<String> fileNames;
 	/**
 	 * @return the blogsId
 	 */
@@ -21,18 +24,7 @@ public class BlogsDTO {
 	public void setBlogsId(int blogsId) {
 		this.blogsId = blogsId;
 	}
-	/**
-	 * @return the categoryId
-	 */
-	public int getCategoryId() {
-		return categoryId;
-	}
-	/**
-	 * @param categoryId the categoryId to set
-	 */
-	public void setCategoryId(int categoryId) {
-		this.categoryId = categoryId;
-	}
+
 	/**
 	 * @return the userId
 	 */
@@ -81,14 +73,42 @@ public class BlogsDTO {
 	public void setCreatedDate(Timestamp createdDate) {
 		this.createdDate = createdDate;
 	}
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
+	/**
+	 * @return the userMailId
 	 */
+	public String getUserMailId() {
+		return userMailId;
+	}
+	/**
+	 * @param userMailId the userMailId to set
+	 */
+	public void setUserMailId(String userMailId) {
+		this.userMailId = userMailId;
+	}
+	
+	/**
+	 * @return the title
+	 */
+	public String getTitle() {
+		return title;
+	}
+	/**
+	 * @param title the title to set
+	 */
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public List<String> getFileNames() {
+		return fileNames;
+	}
+	public void setFileNames(List<String> fileNames) {
+		this.fileNames = fileNames;
+	}
 	@Override
 	public String toString() {
-		return "BlogsDTO [blogsId=" + blogsId + ", categoryId=" + categoryId + ", userId=" + userId + ", description="
-				+ description + ", path=" + path + ", createdDate=" + createdDate + "]";
+		return "BlogsDTO [blogsId=" + blogsId + ", title=" + title + ", userId=" + userId + ", description="
+				+ description + ", path=" + path + ", createdDate=" + createdDate + ", userMailId=" + userMailId
+				+ ", fileNames=" + fileNames + "]";
 	}
 	
 	

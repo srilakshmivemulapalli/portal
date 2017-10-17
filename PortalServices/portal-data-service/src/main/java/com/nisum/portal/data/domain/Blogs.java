@@ -21,11 +21,12 @@ public class Blogs {
 	@Column(name = "blogsId")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int blogsId;
-	int categoryId;
+	String title;
 	int userId;
 	String description;
 	String path;
 	Timestamp createdDate;
+	String userMailId;
 	/**
 	 * @return the blogsId
 	 */
@@ -38,18 +39,7 @@ public class Blogs {
 	public void setBlogsId(int blogsId) {
 		this.blogsId = blogsId;
 	}
-	/**
-	 * @return the categoryId
-	 */
-	public int getCategoryId() {
-		return categoryId;
-	}
-	/**
-	 * @param categoryId the categoryId to set
-	 */
-	public void setCategoryId(int categoryId) {
-		this.categoryId = categoryId;
-	}
+
 	/**
 	 * @return the userId
 	 */
@@ -98,7 +88,30 @@ public class Blogs {
 	public void setCreatedDate(Timestamp createdDate) {
 		this.createdDate = createdDate;
 	}
-	
+	/**
+	 * @return the userMailId
+	 */
+	public String getUserMailId() {
+		return userMailId;
+	}
+	/**
+	 * @param userMailId the userMailId to set
+	 */
+	public void setUserMailId(String userMailId) {
+		this.userMailId = userMailId;
+	}
+	/**
+	 * @return the title
+	 */
+	public String getTitle() {
+		return title;
+	}
+	/**
+	 * @param title the title to set
+	 */
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -107,11 +120,12 @@ public class Blogs {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + blogsId;
-		result = prime * result + categoryId;
 		result = prime * result + ((createdDate == null) ? 0 : createdDate.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((path == null) ? 0 : path.hashCode());
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + userId;
+		result = prime * result + ((userMailId == null) ? 0 : userMailId.hashCode());
 		return result;
 	}
 	/* (non-Javadoc)
@@ -128,8 +142,6 @@ public class Blogs {
 		Blogs other = (Blogs) obj;
 		if (blogsId != other.blogsId)
 			return false;
-		if (categoryId != other.categoryId)
-			return false;
 		if (createdDate == null) {
 			if (other.createdDate != null)
 				return false;
@@ -145,19 +157,29 @@ public class Blogs {
 				return false;
 		} else if (!path.equals(other.path))
 			return false;
+		if (title == null) {
+			if (other.title != null)
+				return false;
+		} else if (!title.equals(other.title))
+			return false;
 		if (userId != other.userId)
+			return false;
+		if (userMailId == null) {
+			if (other.userMailId != null)
+				return false;
+		} else if (!userMailId.equals(other.userMailId))
 			return false;
 		return true;
 	}
-	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Blogs [blogsId=" + blogsId + ", categoryId=" + categoryId + ", userId=" + userId + ", description="
-				+ description + ", path=" + path + ", createdDate=" + createdDate + "]";
+		return "Blogs [blogsId=" + blogsId + ", title=" + title + ", userId=" + userId
+				+ ", description=" + description + ", path=" + path + ", createdDate=" + createdDate + ", userMailId="
+				+ userMailId + "]";
 	}
 	
-		
+	
 }
