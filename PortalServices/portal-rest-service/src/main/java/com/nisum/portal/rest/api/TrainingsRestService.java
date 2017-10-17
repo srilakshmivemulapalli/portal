@@ -1,6 +1,8 @@
 package com.nisum.portal.rest.api;
 
 import java.util.List;
+
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -187,13 +189,14 @@ public class TrainingsRestService {
 			}
 	}
 	@RequestMapping(value="/getTrainingFeedBackWithId/{trainingId}", method=RequestMethod.GET,consumes = "application/json", produces = "application/json")
-	public Object getTrainingFeedBackByTrainingId(@PathVariable Integer trainingId) {
+	public Object getTrainingFeedBacksByTrainingId(@PathVariable Integer trainingId) throws TrainingsServiceException{
 		logger.info("TrainingsRestService :: getTrainingFeedBackByTrainingId ");
-		try
-		{
-			return trainingsService.getTrainingFeedBack(trainingId);
-		}
-		catch(Exception e) {
+			List<TrainingFeedBackDTO> list = trainingsService.getTrainingFeedBack(trainingId);
+			if(CollectionUtils.isNotEmpty(list))
+			{
+				return list;
+			}
+			else {
 			logger.error(Constants.Training_No_FeedBacks);
 			Errors error = new Errors();
 			error.setErrorCode("Error-All Trainings FeedBacks");
