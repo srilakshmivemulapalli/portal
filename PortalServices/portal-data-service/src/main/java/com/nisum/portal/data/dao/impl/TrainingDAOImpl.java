@@ -148,6 +148,12 @@ public class TrainingDAOImpl implements TrainingsDAO {
 		return trainingFeedBackRepository.findAll();
 	}
 
+	@Override
+	public TrainingFeedBack getTrainingFeedBackByTrainingId(Integer trainingId) {
+		// TODO Auto-generated method stub
+		return trainingFeedBackRepository.findOne(trainingId);
+	}
+
 }
 
 

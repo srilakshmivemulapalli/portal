@@ -31,4 +31,6 @@ public interface TrainingsDAO {
 	Integer checkTrainingPresence(String emailId,Integer trainingId);
 
 	List<TrainingFeedBack> getTrainingFeedBacks();
+
+	public TrainingFeedBack getTrainingFeedBackByTrainingId(Integer trainingId);
 }
