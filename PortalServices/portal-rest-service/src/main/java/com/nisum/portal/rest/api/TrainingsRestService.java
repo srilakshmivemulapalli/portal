@@ -192,8 +192,7 @@ public class TrainingsRestService {
 	public Object getTrainingFeedBacksByTrainingId(@PathVariable Integer trainingId) throws TrainingsServiceException{
 		logger.info("TrainingsRestService :: getTrainingFeedBackByTrainingId ");
 			List<TrainingFeedBackDTO> list = trainingsService.getTrainingFeedBack(trainingId);
-			if(CollectionUtils.isNotEmpty(list))
-			{
+			if(CollectionUtils.isNotEmpty(list)){
 				return list;
 			}
 			else {

@@ -164,3 +164,5 @@ CREATE TABLE `portal`.`ProfileSetting` (
   CONSTRAINT `fk_userid_profile_setting` FOREIGN KEY (`userId`) REFERENCES `User` (`userId`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=big5;
 
+ALTER TABLE `portal`.`TrainingRequest` 
+CHANGE COLUMN `emailId` `emailId` VARCHAR(45) NULL DEFAULT NULL ;

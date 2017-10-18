@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class TrainingRequestDTO {
 	private Integer trainingRequestId;
-	private String emailid;
+	private String emailId;
 	private String requestTrainingTitle;
 	private String description;
 	private Timestamp requestedDate;
@@ -15,10 +15,10 @@ public class TrainingRequestDTO {
 		this.trainingRequestId = trainingRequestId;
 	}
 	public String getEmailid() {
-		return emailid;
+		return emailId;
 	}
-	public void setEmailid(String emailid) {
-		this.emailid = emailid;
+	public void setEmailid(String emailId) {
+		this.emailId = emailId;
 	}
 	public String getRequestTrainingTitle() {
 		return requestTrainingTitle;
@@ -43,7 +43,7 @@ public class TrainingRequestDTO {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((emailid == null) ? 0 : emailid.hashCode());
+		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
 		result = prime * result + ((requestTrainingTitle == null) ? 0 : requestTrainingTitle.hashCode());
 		result = prime * result + ((requestedDate == null) ? 0 : requestedDate.hashCode());
 		result = prime * result + ((trainingRequestId == null) ? 0 : trainingRequestId.hashCode());
@@ -63,10 +63,10 @@ public class TrainingRequestDTO {
 				return false;
 		} else if (!description.equals(other.description))
 			return false;
-		if (emailid == null) {
-			if (other.emailid != null)
+		if (emailId == null) {
+			if (other.emailId != null)
 				return false;
-		} else if (!emailid.equals(other.emailid))
+		} else if (!emailId.equals(other.emailId))
 			return false;
 		if (requestTrainingTitle == null) {
 			if (other.requestTrainingTitle != null)
@@ -87,7 +87,7 @@ public class TrainingRequestDTO {
 	}
 	@Override
 	public String toString() {
-		return "TrainingRequestDTO [trainingRequestId=" + trainingRequestId + ", emailid=" + emailid
+		return "TrainingRequestDTO [trainingRequestId=" + trainingRequestId + ", emailid=" + emailId
 				+ ", requestTrainingTitle=" + requestTrainingTitle + ", description=" + description + ", requestedDate="
 				+ requestedDate + "]";
 	}
