@@ -30,13 +30,10 @@ public class TrainingRestServiceTest {
 	@InjectMocks
 	TrainingsRestService trainingsRestService;
 	@Mock
-	private static Logger logger = LoggerFactory.getLogger(TrainingRestServiceTest.class);
-	@Mock
 	TrainingsService trainingsService;
 	@Test
 	public void addTrainingFeedBackTest() {
 		TrainingFeedBackDTO dto=new TrainingFeedBackDTO();
-		logger.info("TrainingRestServiceTest :: addTrainingFeedBackTest");
 		ServiceStatusDto statusDtoExpected=new ServiceStatusDto();
 		statusDtoExpected.setStatus(true);
 		statusDtoExpected.setMessage(Constants.MSG_RECORD_ADD);
@@ -47,7 +44,6 @@ public class TrainingRestServiceTest {
 	@Test
 	public void addTrainingFeedBackFailureTest() {
 		TrainingFeedBackDTO dto=new TrainingFeedBackDTO();
-		logger.info("TrainingRestServiceTest :: addTrainingFeedBackFailureTest");
 		ServiceStatusDto statusDtoExpected=new ServiceStatusDto();
 		statusDtoExpected.setStatus(false);
 		statusDtoExpected.setMessage(Constants.TRAINING_FEEDBACK_EXISTS);
@@ -75,7 +71,6 @@ public class TrainingRestServiceTest {
 	public void addTrainingRequestFailureTest()
 	{
 		TrainingRequestDTO dto = new TrainingRequestDTO();
-		logger.info("TrainingRestServiceTest :: addTrainingFeedBackTest");
 		ServiceStatusDto statusDtoExpected=new ServiceStatusDto();
 		statusDtoExpected.setStatus(false);
 		statusDtoExpected.setMessage(Constants.TRAINING_REQUEST_EXISTS);
