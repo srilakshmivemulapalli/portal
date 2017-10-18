@@ -124,7 +124,7 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 		Categories category=categoriesDAO.getCategory(categoryId);
 		List<Questionaries> allQuestionariesList=questionariesDAO.retrieveQuestionByCategory(category, pageable);
 		QuestionsDTO questionsDTO = new QuestionsDTO();
-		questionsDTO.setTotalQuestions(questionariesDAO.getQuestionariesCount());
+		questionsDTO.setTotalQuestions(questionariesDAO.getQuestionariesCountByCategory(category, pageable));
 		questionsDTO.setTotalUsers(userDAO.getUserCount());
 		
 		return QuestionariesUtil.convertDaoToDto(allQuestionariesList, questionsDTO,userervice);
