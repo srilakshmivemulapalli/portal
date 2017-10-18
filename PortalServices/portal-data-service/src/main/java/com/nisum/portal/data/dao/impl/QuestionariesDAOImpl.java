@@ -56,5 +56,10 @@ public class QuestionariesDAOImpl implements QuestionariesDAO {
 		logger.info("QuestionariesDAOImpl::retrieveQuestionByPagination(PageNumber: "+ pageable.getPageNumber()+", PageSize: "+pageable.getPageSize()+")");
 		return questionariesRepository.findAll(pageable).getContent();
 	}
+	@Override
+	public Integer getQuestionariesCountByCategory(Categories category, Pageable pageable) {
+		logger.info("QuestionariesDAOImpl :: getQuestionariesCountByCategory(CategoryId: "+category.getCategoryId()+")");
+		return questionariesRepository.retrieveQuestionariesByCategory(category, pageable).size();
+	}
 
 }

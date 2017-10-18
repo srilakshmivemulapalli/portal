@@ -160,18 +160,15 @@ public class QuestionariesRestService {
 	 * @return
 	 * @throws QuestionariesServiceException
 	 */
-	@RequestMapping(value = "/retrieve/questionsByCategory/{categoryId}", method = RequestMethod.POST, consumes="application/json")
-	public ResponseEntity<QuestionsDTO> retriveQuestionariesByCategoryThroughPagination(@RequestHeader("EmailId") String emailId, @PathVariable Integer categoryId, @RequestBody PageableDTO pageableDto) throws QuestionariesServiceException {
+	@RequestMapping(value = "/retrieve/questionsByCategory/{categoryId}", method = RequestMethod.GET)
+	public ResponseEntity<QuestionsDTO> retriveQuestionariesByCategoryThroughPagination(@PathVariable Integer categoryId, Pageable pageable) throws QuestionariesServiceException {
 		//logger.info("QuestionariesRestService :: retriveQuestionariesByCategoryThroughPagination(PageNumber: "+ pageable.getPageNumber()+", PageSize: "+pageable.getPageSize()+")");
-		logger.info("QuestionariesRestService :: retriveQuestionariesByCategoryThroughPagination(PageNumber: "+ pageableDto.getPage()+", PageSize: "+pageableDto.getSize()+")");
-		
-		System.out.println("EmailId"+emailId);
+		logger.info("QuestionariesRestService :: retriveQuestionariesByCategoryThroughPagination(PageNumber: "+ pageable.getPageNumber()+", PageSize: "+pageable.getPageSize()+")");
+	
 		if(categoryId==0) {
-			return new ResponseEntity<QuestionsDTO>(questionariesService.getQuestionariesByPagination(new PageRequest(pageableDto.getPage(), pageableDto.getSize(), Sort.Direction.ASC,Constants.SORT_BY_ELEMENT)), HttpStatus.OK);
-			//return new ResponseEntity<QuestionsDTO>(questionariesService.getQuestionariesByPagination(new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Sort.Direction.DESC, "questionId")), HttpStatus.OK);
+			return new ResponseEntity<QuestionsDTO>(questionariesService.getQuestionariesByPagination(new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Sort.Direction.ASC,Constants.SORT_BY_ELEMENT)), HttpStatus.OK);
 		}else {	
-			return new ResponseEntity<QuestionsDTO>(questionariesService.getQuestionariesByCategory(categoryId, new PageRequest(pageableDto.getPage(), pageableDto.getSize(), Sort.Direction.ASC,Constants.SORT_BY_ELEMENT)), HttpStatus.OK);
-			//return new ResponseEntity<QuestionsDTO>(questionariesService.getQuestionariesByCategory(categoryId, new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Sort.Direction.DESC, "questionId")), HttpStatus.OK);
+			return new ResponseEntity<QuestionsDTO>(questionariesService.getQuestionariesByCategory(categoryId, new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Sort.Direction.ASC,Constants.SORT_BY_ELEMENT)), HttpStatus.OK);
 		}
 	}
 }
