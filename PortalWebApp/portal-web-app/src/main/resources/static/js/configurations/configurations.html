@@ -22,7 +22,7 @@
 							<thead class="thead-inverse" align="center">
 								<tr>
 									<th>Select</th>
-									<th>User Id</th>
+									
 									<th>User Name</th>
 									<th>Email</th>
 									<th>Role</th>
@@ -36,7 +36,7 @@
 									<td><input type="checkbox" value=""
 										ng-model="userselected[$index]"
 										ng-change="userChange(user.userId,userselected[$index]);"></td>
-									<td>{{user.userId}}</td>
+									
 									<td>{{user.userName}}</td>
 									<td>{{user.emailId}}</td>
 									<td>{{user.role.role}}</td>
@@ -92,7 +92,7 @@
 							<thead class="thead-inverse">
 								<tr>
 									<th>Select</th>
-									<th>Role Id</th>
+									
 									<th>Role Name</th>
 									<th>CreatedDate</th>
 									<th>Edit/Delete</th>
@@ -102,7 +102,7 @@
 								<tr ng-repeat="role in rolesList.roles">
 									<td><input type="checkbox" value=""
 										ng-model="roleselected[$index]"></td>
-									<td>{{role.roleId}}</td>
+									
 									<td><input type="text" ng-model="role.role"
 										ng-disabled="!roleselected[$index]"
 										ng-class="{'txtdisabled': !roleselected[$index]}" /></td>
@@ -155,7 +155,7 @@
 							<thead class="thead-inverse">
 								<tr>
 									<th>Select</th>
-									<th>Category Id</th>
+									
 									<th>Category Name</th>
 									<th>Description</th>
 									<th>Created Date</th>
@@ -166,7 +166,7 @@
 								<tr ng-repeat="category in categoriesList.categories">
 									<td><input type="checkbox" value=""
 										ng-model="categoryselected[$index]"></td>
-									<td>{{category.categoryId}}</td>
+									
 									<td><input type="text"
 										ng-class="{'txtdisabled':!categoryselected[$index]}"
 										ng-disabled="!categoryselected[$index]"
