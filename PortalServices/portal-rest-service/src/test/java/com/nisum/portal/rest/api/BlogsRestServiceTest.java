@@ -18,7 +18,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.nisum.portal.data.domain.Blogs;
 import com.nisum.portal.service.api.BlogService;
 import com.nisum.portal.service.dto.BlogsDTO;
 import com.nisum.portal.service.dto.Errors;
@@ -48,7 +47,7 @@ public class BlogsRestServiceTest {
 	}
 	
 	@Test
-	public void getAllBlogsFailureTest() throws BlogServiceException {
+	public void getAllBlogsFailureTest() throws Exception {
 		logger.info("BlogsRestServiceTest :: getAllBlogsFailureTest");
 		Errors errors = new Errors();
 		errors.setErrorCode("Errors-Blogs");
@@ -63,7 +62,7 @@ public class BlogsRestServiceTest {
 	}
 	
 	@Test
-	public void getBlogTestSuccess() throws BlogServiceException{
+	public void getBlogTestSuccess() throws Exception{
 		logger.info("BlogsRestServiceTest :: getBlogTestSuccess");
 		
 		Integer id=new Integer(1);
@@ -72,7 +71,6 @@ public class BlogsRestServiceTest {
 		BlogsDTO expMesg=new BlogsDTO();
 		expMesg.setBlogsId(id);
 		expMesg.setCreatedDate(createdDate);
-		expMesg.setCategoryId(101);
 		expMesg.setDescription("aaaaaa");
 		expMesg.setPath("bbbbbbb");
 		expMesg.setUserId(101);
@@ -86,7 +84,7 @@ public class BlogsRestServiceTest {
 	}
 	
 	@Test
-	public void getBlogTestFailure() throws BlogServiceException{
+	public void getBlogTestFailure() throws Exception{
 		logger.info("BlogsRestServiceTest :: getBlogTestFailure");
 		Integer id=new Integer(1);
 		Errors errors = new Errors();
