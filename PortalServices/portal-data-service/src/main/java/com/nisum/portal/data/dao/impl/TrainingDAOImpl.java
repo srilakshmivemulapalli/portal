@@ -55,7 +55,8 @@ public class TrainingDAOImpl implements TrainingsDAO {
 	@Override
 	public List<Trainings> completedTraining() {
 		logger.info("TrainingDAOImpl::completedTraining");
-		return trainingRepository.findAll();
+		//return trainingRepository.findAll();
+		return trainingRepository.fetchCompletedTrainings();
 	}
 
 	@Override
