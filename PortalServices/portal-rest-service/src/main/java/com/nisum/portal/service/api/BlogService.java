@@ -1,6 +1,5 @@
 package com.nisum.portal.service.api;
 
-import java.io.File;
 import java.nio.file.Path;
 import java.util.List;
 
@@ -28,6 +27,8 @@ public interface BlogService {
 	
 	String uploadAttachment(HttpServletRequest request,String path) throws Exception;
 	
-	Path getFile(String userMailId,String blogId,String fileName) throws Exception;
+	Path getFile(String userMailId,Integer blogId,String fileName) throws Exception;
+	
+	boolean removeFile(String userMailId,Integer blogId,String fileName) throws Exception;
 
 }
