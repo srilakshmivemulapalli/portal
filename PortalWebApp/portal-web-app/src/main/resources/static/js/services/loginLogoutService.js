@@ -1,4 +1,5 @@
-app.factory('loginLogoutService', function($http, $q, localStorageService) {
+app.factory('loginLogoutService', function($http, $q, localStorageService,
+		GoogleSignin) {
 
 	var ls = {};
 	ls.login = function(data) {
@@ -12,20 +13,21 @@ app.factory('loginLogoutService', function($http, $q, localStorageService) {
 	}
 	ls.logout = function() {
 		var deferred = $q.defer();
-		var auth2 = gapi.auth2.getAuthInstance();
-		gapi.auth2.getAuthInstance().disconnect();
-		auth2.signOut().then(function() {
-
+		GoogleSignin.disconnect();
+		GoogleSignin.signOut().then(function() {
+			
 			localStorageService.remove('profile');
 			sessionStorage.clear();
 			deferred.resolve({
 				'status' : true
 			});
+
 		}, function() {
 			deferred.reject({
 				'status' : false
 			});
 		});
+	
 		return deferred.promise;
 	}
 	return ls;
