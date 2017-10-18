@@ -1,4 +1,4 @@
-var trainingsApp=angular.module('trainingsApp', [ 'ui.router' ])
+var trainingsApp=angular.module('trainingsApp', [ 'ui.router'])
 .config(function($stateProvider){
 		$stateProvider.state('trainings',{
 		url:'/trainings',

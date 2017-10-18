@@ -14,10 +14,10 @@ public class TrainingRequestDTO {
 	public void setTrainingRequestId(Integer trainingRequestId) {
 		this.trainingRequestId = trainingRequestId;
 	}
-	public String getEmailid() {
+	public String getEmailId() {
 		return emailId;
 	}
-	public void setEmailid(String emailId) {
+	public void setEmailId(String emailId) {
 		this.emailId = emailId;
 	}
 	public String getRequestTrainingTitle() {

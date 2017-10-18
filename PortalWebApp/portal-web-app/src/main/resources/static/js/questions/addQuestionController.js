@@ -1,5 +1,5 @@
 questionApp.controller('addQuestionController', function($scope,
-		questionService,$state,categoryService,localStorageService) {
+		questionService,$state,categoryService,localStorageService,$timeout) {
 	//$('.selectpicker').selectpicker();
 	if (localStorageService.get('categoriesList') !== (undefined || null)) {
 		$scope.categoriesList = localStorageService.get('categoriesList');
@@ -12,6 +12,7 @@ questionApp.controller('addQuestionController', function($scope,
 				console.log(response);
 		})
 	}
+	
 	$scope.addQuestion = {
 		'question' : '',
 		'categoryId' : null,
@@ -29,5 +30,22 @@ questionApp.controller('addQuestionController', function($scope,
 		},function(response){
 			console.log(response);
 		})
+	}
+	$scope.ValidatingForm=function(){
+		if($scope.addQuestion.question.length>0 && $scope.addQuestion.categoryId!==null && $scope.addQuestion.description.length>0){
+			$timeout(function () {
+		        $scope.$apply(function () {
+		        	$scope.validQuestionForm=false;
+		        });
+		    }, 100);
+		}
+		else{
+			$timeout(function () {
+		        $scope.$apply(function () {
+		            $scope.validQuestionForm=true;
+		        });
+		    }, 100);
+
+		}
 	}
 });

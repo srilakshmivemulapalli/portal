@@ -4965,6 +4965,13 @@ body.admin-bar .q-filter-waypoints {
 .fadeIn-right {
 	left: 80%;
 }
+
+.trainingback {
+	
+	color:#15a4fa;
+	cursor:pointer;
+	margin-bottom:40px;
+}
 /********trainings****/
 .irs-all-course-bb {
 	border-bottom: 1px solid #ebebeb;

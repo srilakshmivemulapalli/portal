@@ -76,7 +76,7 @@ public class TrainingServiceImplTest {
 		TrainingRequestDTO trainingRequestDTO = new TrainingRequestDTO();
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		trainingRequestDTO.setRequestedDate(timestamp);
-		trainingRequestDTO.setEmailid("mahesh@gmail.com");
+		trainingRequestDTO.setEmailId("mahesh@gmail.com");
 		trainingRequestDTO.setRequestTrainingTitle("Java8 Features");
 		trainingRequestDTO.setTrainingRequestId(1);
 		trainingRequestDTO.setDescription("It is latest version");

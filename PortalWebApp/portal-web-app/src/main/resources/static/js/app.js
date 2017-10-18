@@ -2,13 +2,24 @@ var app = angular
 		.module(
 				'nisumApp',
 				[ 'ui.router', 'configurationsApp', 'profileApp', 'loginApp',
-						'questionsApp', 'trainingsApp', 'directive.g+signin',
-						'LocalStorageModule', 'textAngular', 'am.multiselect' ])
+						'questionsApp', 'trainingsApp', 'LocalStorageModule',
+						'textAngular', 'am.multiselect', 'google-signin' ])
 
 		.config(function($stateProvider, $urlRouterProvider) {
 
 			$urlRouterProvider.otherwise('/login');
 		})
+		.config(
+				[
+						'GoogleSigninProvider',
+						function(GoogleSigninProvider) {
+							GoogleSigninProvider
+									.init({
+										clientId : '167391935529-bns0200aplm1inm0qpb5ie7te1g1n50t.apps.googleusercontent.com',
+										hostedDomain : 'nisum.com'
+									});
+						} ])
+
 		.run(
 				function($rootScope, $window, $state, $location,
 						localStorageService, $timeout) {
@@ -20,8 +31,8 @@ var app = angular
 
 								var urls = [ '/home', '/questions',
 										'/configurations', '/profile',
-										'/question', '/addquestion', '/trainings ',
-										'/onlineTrainings',
+										'/question', '/addquestion',
+										'/trainings', '/onlineTrainings',
 										'/classRoomTrainings', '/myTrainings' ]
 								if (urls.indexOf($rootScope.urlChanged) > -1) {
 									$rootScope.navBarToggle = false;
@@ -37,23 +48,24 @@ var app = angular
 										.get("profile");
 								if (profile !== (undefined || null)
 										&& $rootScope.urlChanged === '/login') {
+									$timeout(function() {
+										$state.go('configurations');
+									}, 0);
+									
 
-									$state.go('configurations');
-
-								} else if(profile===null)
-								{	
-									$timeout(function(){
+								} else if (profile === null) {
+									$timeout(function() {
 										$state.go('login');
-									},0);
+									}, 0);
 
 								}
-							
 
 							})
 				})
 		.controller(
 				'mainController',
-				function($scope, $rootScope, localStorageService, $state, $http) {
+				function($scope, $rootScope, localStorageService, $state,
+						$http, loginLogoutService) {
 					var vm = this;
 					vm.redirect = function() {
 						$state.go('addquestion');
@@ -73,16 +85,12 @@ var app = angular
 									});
 					vm.logout = function() {
 
-						// var auth2 = gapi.auth2.getAuthInstance();
-						// auth2.signOut().then(function () {
-						// console.log('User signed out.');
-						// })
-						localStorageService.remove('profile');
-						var url = window.location.href;
-						var navigate = url.substring(0, url.lastIndexOf("/"));
-						document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue="
-								+ navigate + "/login";
-						sessionStorage.clear();
+						loginLogoutService.logout().then(function(response) {
+							if (response.status) {
+								$state.go('login');
+							}
+						})
+
 					}
 
 				})
