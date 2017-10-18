@@ -17,5 +17,4 @@ public interface QuestionariesDAO {
 	List<Questionaries> retriveAllUnansweredQuestionaries();
 	List<Questionaries> retrieveQuestionByPagination(Pageable pageable);
 	List<Questionaries> retrieveQuestionByCategory(Categories category, Pageable pageable);
-	Integer  getQuestionariesCountByCategory(Categories category, Pageable pageable);
 }

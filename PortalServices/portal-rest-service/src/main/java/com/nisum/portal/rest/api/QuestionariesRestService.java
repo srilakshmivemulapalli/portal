@@ -1,7 +1,7 @@
 package com.nisum.portal.rest.api;
 
 
-import org.slf4j.Logger;
+import org.slf4j.Logger; 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -21,7 +21,6 @@ import com.nisum.portal.service.api.QuestionariesService;
 import com.nisum.portal.service.dto.AddQuestionDTO;
 import com.nisum.portal.service.dto.CountDTO;
 import com.nisum.portal.service.dto.Errors;
-import com.nisum.portal.service.dto.PageableDTO;
 import com.nisum.portal.service.dto.QuestionariesCommentsDTO;
 import com.nisum.portal.service.dto.QuestionsDTO;
 import com.nisum.portal.service.dto.ServiceStatusDto;
