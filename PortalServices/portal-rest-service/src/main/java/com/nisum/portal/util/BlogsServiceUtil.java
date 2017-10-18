@@ -102,6 +102,8 @@ public class BlogsServiceUtil {
 	public static BlogsDTO parseRequestToGetBlogsDTO(HttpServletRequest request) throws Exception{
 		logger.info("BlogsServiceUtil :: parseRequestToGetBlogsDTO");
 		
+		validateHttpRequestForUploads(request);
+		
 		String title=request.getParameter("title");
 		if(title==null) {
 			logger.error("BlogsServiceUtil :: parseRequestToGetBlogsDTO Error ==== Missing Blog title.");
@@ -134,7 +136,7 @@ public class BlogsServiceUtil {
 	
 	public static String parseRequestToStoreUploads(HttpServletRequest request,String dirPath) throws Exception{
 		logger.info("BlogsServiceUtil :: parseRequestToUploadFiles");
-		
+		validateHttpRequestForUploads(request);
 		if(dirPath!=null) {
 			File dir=new File(dirPath);
 			if(!dir.exists()) {
@@ -154,34 +156,39 @@ public class BlogsServiceUtil {
 		List<Part> fileParts = request.getParts().stream().filter(part -> "uploads".equals(part.getName())).collect(Collectors.toList()); 
 		
 		// Store uploaded files into server
-		if((fileParts==null)||fileParts.isEmpty()) {
-			logger.error("BlogsServiceUtil :: parseRequestToStoreUploads -- No Uploads Found.");
-			throw new BlogServiceException(" No Uploads Found.");	
-		}else {
+		if(fileParts!=null) {
 			for (Part filePart : fileParts) {
 				String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
 				InputStream fileContent = filePart.getInputStream();
 				
 				String[] fileNameParts=(String[]) fileName.split("\\.");
-				String newFileName=fileNameParts[0]+"_"+getCurrentTimeAsString("ddMMMYYYY_hh_mm_ss_a");
-				newFileName=newFileName+"."+fileNameParts[1];
-				if(dirPath!=null) {
-					String newFilePath=dirPath+File.separator+newFileName;
-					File newFile=new File(newFilePath);
-					if(newFile.createNewFile()) {
-						logger.info("BlogsServiceUtil :: parseRequestToStoreUploads -- file "+newFilePath+" created.");
-						OutputStream outStream=new FileOutputStream(newFile);
-						IOUtils.copy(fileContent, outStream);
+				if((fileNameParts!=null)&&(fileNameParts.length==2)) {
+					String newFileName=fileNameParts[0]+"_"+getCurrentTimeAsString("ddMMMYYYY_hh_mm_ss_a");
+					newFileName=newFileName+"."+fileNameParts[1];
+					if(dirPath!=null) {
+						String newFilePath=dirPath+File.separator+newFileName;
+						File newFile=new File(newFilePath);
+						if(newFile.createNewFile()) {
+							logger.info("BlogsServiceUtil :: parseRequestToStoreUploads -- file "+newFilePath+" created.");
+							OutputStream outStream=new FileOutputStream(newFile);
+							IOUtils.copy(fileContent, outStream);
+						}else {
+							logger.error("BlogsServiceUtil :: parseRequestToStoreUploads -- Error while creating file "+newFileName);
+							throw new BlogServiceException(" Error while creating file "+newFileName);
+						}
+						
 					}else {
 						logger.error("BlogsServiceUtil :: parseRequestToStoreUploads -- Error while creating file "+newFileName);
 						throw new BlogServiceException(" Error while creating file "+newFileName);
 					}
-					
 				}else {
-					logger.error("BlogsServiceUtil :: parseRequestToStoreUploads -- Error while creating file "+newFileName);
-					throw new BlogServiceException(" Error while creating file "+newFileName);
+					logger.error("BlogsServiceUtil :: parseRequestToStoreUploads -- Error while creating file ==== File Name "+fileName+" contains \".\" symbol.");
+					throw new BlogServiceException(" Error while creating file ==== File Name "+fileName+" contains \".\" symbol.");
 				}
 			}
+		}else {
+			logger.error("BlogsServiceUtil :: parseRequestToStoreUploads -- No Uploads Found.");
+			return null;
 		}
 		
 		return dirPath;
@@ -271,23 +278,47 @@ public class BlogsServiceUtil {
 		return headers;
 	}
 
-	public static List<String> getAllFiles(String dirPath) throws Exception {
+	public static List<String> getAllFiles(String dirPath,int blogId){
 		logger.info("BlogsServiceUtil :: getAllFiles");
 		List<String> fileNames=null;
 		if((dirPath!=null)&&(!StringUtils.isEmpty(dirPath))) {
 			fileNames=new ArrayList<String>();
 			File folder=new File(dirPath);
-			File[] list=folder.listFiles();
-			for(File file:list) {
-				if(file.isFile()&&(!file.isHidden())) {
-					fileNames.add(file.getName());
+			if(folder.exists()) {
+				File[] list=folder.listFiles();
+				for(File file:list) {
+					if(file.isFile()&&(!file.isHidden())) {
+						fileNames.add(file.getName());
+					}
 				}
+			}else {
+				logger.error("BlogsServiceUtil :: getAllFiles error === No directory found with name "+dirPath+" for BlogId "+blogId);
+				return null;
 			}
 			return fileNames;
 		}else {
-			logger.error("BlogsServiceUtil :: getAllFiles error === No directory found with name "+dirPath);
-			throw new BlogServiceException("No directory found with name "+dirPath);
+			logger.error("BlogsServiceUtil :: getAllFiles error === No directory found with name "+dirPath+" for BlogId "+blogId);
+			return null;
 		}
 		
+	}
+	
+	public static boolean validateHttpRequestForUploads(HttpServletRequest request) throws Exception {
+		logger.info("BlogsServiceUtil :: validateHttpRequestForUploads");
+		List<Part> fileParts = request.getParts().stream().filter(part -> "uploads".equals(part.getName())).collect(Collectors.toList());
+		if(fileParts!=null) {
+			for (Part filePart : fileParts) {
+				String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+				
+				String[] fileNameParts=(String[]) fileName.split("\\.");
+				if((fileNameParts!=null)&&(fileNameParts.length>2)) {
+					logger.error("BlogsServiceUtil :: validateHttpRequestForUploads ==== "+" Error while creating file ==== File Name "+fileName+" contains \".\" symbol.");
+					throw new BlogServiceException(" Error while creating file ==== File Name "+fileName+" contains \".\" symbol.");
+				}
+			}
+		}else {
+			logger.info("BlogsServiceUtil :: validateHttpRequestForUploads === No uploads found.");
+		}
+		return true;
 	}
 }

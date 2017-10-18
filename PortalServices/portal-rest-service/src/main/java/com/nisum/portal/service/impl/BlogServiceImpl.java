@@ -42,7 +42,7 @@ public class BlogServiceImpl implements BlogService{
 		for(BlogsDTO blogDTO : blogsDTO) {
 			String dirPath=blogDTO.getPath();
 			if((dirPath!=null)&&(!StringUtils.isEmpty(dirPath))) {
-				blogDTO.setFileNames(BlogsServiceUtil.getAllFiles(dirPath));
+				blogDTO.setFileNames(BlogsServiceUtil.getAllFiles(dirPath,blogDTO.getBlogsId()));
 			}
 		}
 		return blogsDTO;
@@ -59,7 +59,7 @@ public class BlogServiceImpl implements BlogService{
 		BlogsDTO blogsDTO=BlogsServiceUtil.convertDaoToDtoInstance(blog);
 		String dirPath=blogsDTO.getPath();
 		if((dirPath!=null)&&(!StringUtils.isEmpty(dirPath))) {
-			blogsDTO.setFileNames(BlogsServiceUtil.getAllFiles(dirPath));
+			blogsDTO.setFileNames(BlogsServiceUtil.getAllFiles(dirPath,blogsDTO.getBlogsId()));
 		}
 		return blogsDTO;
 	}
@@ -91,7 +91,7 @@ public class BlogServiceImpl implements BlogService{
 		BlogsDTO updatedBlogsDTO= BlogsServiceUtil.convertDaoToDtoInstance(blogDAO.updateBlog(updatedBlog));	
 		String dirPath=updatedBlogsDTO.getPath();
 		if((dirPath!=null)&&(!StringUtils.isEmpty(dirPath))) {
-			updatedBlogsDTO.setFileNames(BlogsServiceUtil.getAllFiles(dirPath));
+			updatedBlogsDTO.setFileNames(BlogsServiceUtil.getAllFiles(dirPath,updatedBlogsDTO.getBlogsId()));
 		}
 		return updatedBlogsDTO;
 	}
