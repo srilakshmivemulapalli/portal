@@ -149,7 +149,7 @@ public class TrainingsServiceImpl implements TrainingsService {
 				trainingsDTO.setDisplayImage(user.getImage());
 				trainingsDTO.setTrainerName(user.getUserName());
 			}
-			List<TrainingFeedBackDTO> comments= this.getAllTrainingFeedBacks();
+			List<TrainingFeedBackDTO> comments= this.getTrainingFeedBack(trainingsDTO.getTrainingId());
 			if(comments!=null)
 			{
 				trainingsDTO.setNoOfComments(comments.size());
