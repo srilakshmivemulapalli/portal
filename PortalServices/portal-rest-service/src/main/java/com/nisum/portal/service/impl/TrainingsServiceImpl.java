@@ -165,7 +165,7 @@ public class TrainingsServiceImpl implements TrainingsService {
 	@Override
 	public List<TrainingsDTO> completedTrainings() {
 		logger.info("TrainingsServiceImpl::completedTrainings");
-		List<Trainings> upcomeList=	trainingsDAO.completedTraining();
+		/*List<Trainings> upcomeList=	trainingsDAO.completedTraining();
 	    LinkedHashSet<Trainings> lst=new LinkedHashSet<Trainings>(trainingsDAO.completedTraining());
 		Timestamp createDate = new Timestamp(System.currentTimeMillis());
 		for (Trainings trainings : lst) {
@@ -173,9 +173,9 @@ public class TrainingsServiceImpl implements TrainingsService {
 				upcomeList.remove(trainings);
 			else
 				trainings.setTrainingStatus("completed");
-		}
+		}*/
 		
-			return TrainingsServiceUtil.convertDaoTODto(upcomeList);
+			return TrainingsServiceUtil.convertDaoTODto(trainingsDAO.completedTraining());
 	}
 	@Override
 	public ServiceStatusDto addTrainingFeedBack(TrainingFeedBackDTO trainingFeedBackDTO) {
