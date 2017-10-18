@@ -28,7 +28,25 @@ app.factory('trainingService', function($http, $q,localStorageService) {
 		})
 		return deferred.promise;
 	}
-	
+	ts.postTraining=function(data){
+		
+		var deferred = $q.defer();
+		$http.post('v1/trainings/saveTrainings',data).success(function(response) {
+			deferred.resolve(response);
+		}).error(function(response) {
+			deferred.reject(response);
+		})
+		return deferred.promise;
+	}
+	ts.requestUserTraining=function(data){
+		var deferred = $q.defer();
+		$http.post('v1/trainings/trainingToUser',data).success(function(response) {
+			deferred.resolve(response);
+		}).error(function(response) {
+			deferred.reject(response);
+		})
+		return deferred.promise;
+	}
 	return ts;
 	
 })
