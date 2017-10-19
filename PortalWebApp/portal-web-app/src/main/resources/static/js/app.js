@@ -51,7 +51,6 @@ var app = angular
 									$timeout(function() {
 										$state.go('configurations');
 									}, 0);
-									
 
 								} else if (profile === null) {
 									$timeout(function() {
@@ -65,7 +64,7 @@ var app = angular
 		.controller(
 				'mainController',
 				function($scope, $rootScope, localStorageService, $state,
-						$http, loginLogoutService) {
+						$http, loginLogoutService, questionService) {
 					var vm = this;
 					vm.redirect = function() {
 						$state.go('addquestion');
@@ -74,15 +73,21 @@ var app = angular
 
 						vm.profile = localStorageService.get('profile');
 					}
-					$http
-							.get('v1/questionaries/retrieveCount')
-							.then(
-									function(response) {
-										$rootScope.questionCount = response.data.questionCount;
-										$rootScope.userCount = response.data.userCount;
-									}, function(response) {
-										console.log(response);
-									});
+					vm.init = function() {
+						questionService
+								.getQuestionsCount()
+								.then(
+										function(response) {
+											if (response.errorCode === 500) {
+												$scope.message = response.errorMessage
+											} else {
+												$rootScope.questionCount = response.questionCount;
+												$rootScope.userCount = response.userCount;
+											}
+										}, function(response) {
+											console.log(response);
+										});
+					}
 					vm.logout = function() {
 
 						loginLogoutService.logout().then(function(response) {

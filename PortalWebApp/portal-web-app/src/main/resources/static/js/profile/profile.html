@@ -40,7 +40,7 @@
 					<am-multiselect class="customselect" multiple="true"
 						ms-selected="There are {{profile.profileSettings.length}} category(s) selected"
 						ng-model="profile.profileSettings" ms-header="Select Some Categories"
-						options="category.categoryId as category.categoryName for category in categoriesList"
+						options="category.categoryId as category.categoryName for category in categoriesList.categories"
 						change="selected()"></am-multiselect>
 
 
