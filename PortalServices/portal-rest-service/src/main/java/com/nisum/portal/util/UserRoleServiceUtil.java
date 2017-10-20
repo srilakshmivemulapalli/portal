@@ -26,7 +26,7 @@ public class UserRoleServiceUtil {
 			 UserRoleDTO userRoleDTO= new UserRoleDTO();		
 			 	userRoleDTO.setRoleId(userRole.getRoleId());
 			 	userRoleDTO.setRole(userRole.getRole());		
-			 	userRoleDTO.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+			 	userRoleDTO.setCreatedDate(userRole.getCreatedDate());
 			 	userRoleDTOs.add(userRoleDTO);
 			}
 		}
