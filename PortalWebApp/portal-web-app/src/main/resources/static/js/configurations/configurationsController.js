@@ -3,7 +3,7 @@ adminApp
 				'configurationsController',
 				function($scope, $timeout, categoryService, userService,
 						roleService, localStorageService, CategoryListModel,
-						RoleListModel, UserListModel) {
+						RoleListModel, UserListModel,commonService) {
 					// $('#example').DataTable({ "order": [[ 2, "desc" ]]});
 					$scope.categoriesList = CategoryListModel
 							.newCategoryListInstance();
@@ -81,6 +81,7 @@ adminApp
 
 									localStorageService.set('categoriesList',
 											response);
+									commonService.categoriesList=response;
 								}, function(response) {
 									console.log(response);
 								})

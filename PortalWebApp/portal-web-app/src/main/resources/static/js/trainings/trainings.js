@@ -17,5 +17,10 @@ var trainingsApp=angular.module('trainingsApp', [ 'ui.router'])
 		templateUrl:'js/trainings/myTrainings.html',
 		controller: 'myTrainingsController'
 	})
+	.state('createTraining',{
+		url:'/createTraining',
+		templateUrl:'js/trainings/createTraining.html',
+		controller: 'createTrainingController'
+	})
 }) 
 

@@ -128,7 +128,7 @@ ul {
 }
 
 #logo {
-	padding-left: 20px;
+	/* padding-left: 20px; */
 	line-height: 80px;
 }
 
@@ -4974,6 +4974,9 @@ body.admin-bar .q-filter-waypoints {
 }
 .PDTOP80{
 	padding-top:80px;
+}
+.navbar-brand{
+	padding: 18px 15px;
 }
 /********trainings****/
 .irs-all-course-bb {

@@ -1,12 +1,7 @@
 trainingsApp.controller('myTrainingsController', function($scope,
 		trainingService, TrainingListModel, $timeout, TrainingModel,
-		commonService, $filter) {
+		commonService, $filter,$state) {
 	$scope.myTrainingsList = TrainingListModel.newTrainingListInstance();
-	$scope.createTraining = false;
-	$scope.training = {
-		
-	};
-
 	$scope.showModal = function(training) {
 		$('#trainingModal').modal('show');
 		$scope.modalTraining = training;
@@ -35,12 +30,11 @@ trainingsApp.controller('myTrainingsController', function($scope,
 
 		})
 	}
-	if (!$scope.createTraining) {
-		$scope.getMyTrainings();
-	}
-	$scope.openCreateTraining = function() {
-		$scope.createTraining = !$scope.createTraining;
-		$scope.training ={};
+
+	$scope.getMyTrainings();
+
+	$scope.createTrainings = function() {
+		$state.go('createTraining');
 	}
 
 	$scope.saveTraining = function(trainingobj) {
@@ -54,22 +48,4 @@ trainingsApp.controller('myTrainingsController', function($scope,
 			}
 		})
 	}
-
-	$scope.requestuserTraining = function(modalobj, opt) {
-
-		var optObj = {
-			'trainingToUserId' : modalobj.trainingToUserId,
-			'trainingId' : modalobj.trainingId,
-			'emailId' : commonService.emailId,
-			'trainingPresence' : opt
-		}
-		trainingService.requestUserTraining(optObj).then(function(response) {
-			if (response.errorCode) {
-				$scope.message = response.errorMessage
-			} else {
-				console.log(response);
-			}
-		});
-	};
-
 })

@@ -33,7 +33,7 @@ var app = angular
 										'/configurations', '/profile',
 										'/question', '/addquestion',
 										'/trainings', '/onlineTrainings',
-										'/classRoomTrainings', '/myTrainings' ]
+										'/classRoomTrainings', '/myTrainings','/createTraining','/editquestion']
 								if (urls.indexOf($rootScope.urlChanged) > -1) {
 									$rootScope.navBarToggle = false;
 								} else if ($rootScope.urlChanged

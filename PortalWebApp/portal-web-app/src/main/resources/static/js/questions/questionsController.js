@@ -35,6 +35,7 @@ questionApp
 										})
 										localStorageService.set(
 												'categoriesList', response);
+										commonService.categoriesList=response;
 									}
 
 								}, function(response) {
