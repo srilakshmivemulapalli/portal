@@ -1,13 +1,17 @@
 trainingsApp.controller('myTrainingsController', function($scope,
-		trainingService, TrainingListModel, $timeout, TrainingModel,localStorageService) {
+		trainingService, TrainingListModel, $timeout, TrainingModel,
+		commonService, $filter) {
 	$scope.myTrainingsList = TrainingListModel.newTrainingListInstance();
 	$scope.createTraining = false;
-	$scope.training = {};
-	var profile=localStorageService.get('profile');
+	$scope.training = {
+		
+	};
+
 	$scope.showModal = function(training) {
 		$('#trainingModal').modal('show');
 		$scope.modalTraining = training;
-
+		$scope.modalTraining.customDuration = $filter('formatTimer')(
+				training.duration);
 	}
 	$scope.timeOptions = {
 		format : 'LT',
@@ -17,14 +21,12 @@ trainingsApp.controller('myTrainingsController', function($scope,
 		minDate : new Date()
 
 	}
-	
 
 	$scope.getMyTrainings = function() {
 		trainingService.getMyTrainings().then(function(response) {
-			console.log(response);
 			if (response.errorCode) {
-				$scope.message = response.errorMessage;
-			} else if (response.length > 0) {
+				$scope.message = response.errorMessage
+			} else {
 				response.map(function(innerObj) {
 					$scope.myTrainingsList.addtrainings(innerObj);
 				})
@@ -38,23 +40,36 @@ trainingsApp.controller('myTrainingsController', function($scope,
 	}
 	$scope.openCreateTraining = function() {
 		$scope.createTraining = !$scope.createTraining;
+		$scope.training ={};
 	}
 
 	$scope.saveTraining = function(trainingobj) {
-		trainingobj.trainerEmailId = profile.emailId;
+		trainingobj.trainerEmailId = commonService.emailId;
 		$scope.training = TrainingModel.clone(trainingobj);
 		trainingService.postTraining($scope.training).then(function(response) {
 			if (response.errorCode) {
-				$scope.message = response.errorMessage;
+				$scope.message = response.errorMessage
 			} else {
 				$scope.openCreateTraining();
 			}
 		})
 	}
-	
-	$scope.requestuserTraining=function(obj,opt){
-		obj.trainingPresence=opt;
-		
+
+	$scope.requestuserTraining = function(modalobj, opt) {
+
+		var optObj = {
+			'trainingToUserId' : modalobj.trainingToUserId,
+			'trainingId' : modalobj.trainingId,
+			'emailId' : commonService.emailId,
+			'trainingPresence' : opt
+		}
+		trainingService.requestUserTraining(optObj).then(function(response) {
+			if (response.errorCode) {
+				$scope.message = response.errorMessage
+			} else {
+				console.log(response);
+			}
+		});
 	};
 
 })

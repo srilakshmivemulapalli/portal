@@ -1,49 +1,52 @@
+mainApp.controller('profileController', function($scope, $http,
+		localStorageService, categoryService, commonService, CategoryListModel,
+		$q) {
 
-
-mainApp.controller('profileController',function($scope,$http,localStorageService,$q){
-	
 	$scope.categoriesList = [];
-	$scope.profile={
-	
-	}
-	console.log("localStorage profile value"+localStorageService.get("profile"));
-	$scope.profile = localStorageService.get("profile");
-	console.log("profile..."+$scope.profile);
-	
-	
-	$http.get('v1/category/retrieve').then(function(response) {
-			console.log(response);
-			$scope.categoriesList = response.data;
-		}, function(response) {
+	$scope.profile = commonService.profile;
+	$scope.categoriesList = CategoryListModel.newCategoryListInstance();
+	if (commonService.categoriesList !== (undefined || null)) {
+		var list = commonService.categoriesList;
+		list.map(function(category) {
 
-		});
-	
-		
-		var notification="Yes"
-		
-	$scope.saveProfile=function()	{
-		
-			//alert("calling");
-			
-		var deferred= $q.defer();
-	
-		
-		$http.put('v1/userprofile/update',$scope.profile).success(function(response) {
-			deferred.resolve(response);
-		}).error(function(response) {
+			$scope.categoriesList.addCategories(category);
+
+		})
+
+	} else {
+		categoryService.getCategories().then(function(response) {
+
+			if (response.errorCode) {
+				 $scope.message=response.errorMessage
+			 }else{
+				response.map(function(category) {
+					$scope.categoriesList.addCategories(category);
+				})
+				localStorageService.set('categoriesList', response);
+			}
+
+		},function(response){
+			console.log(response);
+		})
+	}
+
+	var notification = "Yes";
+
+	$scope.saveProfile = function() {
+
+		// alert("calling");
+
+		var deferred = $q.defer();
+
+		$http.put('v1/userprofile/update', $scope.profile).success(
+				function(response) {
+					deferred.resolve(response);
+				}).error(function(response) {
 			deferred.reject(response);
 		})
 		alert("User Updated Successfully");
 		return deferred.promise;
-		
-		
-		
-		
-		
-		
+
 	}
-		
-	
-	
 
 });

@@ -143,7 +143,8 @@
 						</div>
 						<div class="row submit-wrapper">
 							<div class="col-md-3 col-xs-3">
-								<button type="submit" id="submit_reply" class="btn-submit">Add
+								<button type="submit" ng-class="{'disabled': questioncomment==''  }"
+							ng-disabled="questioncomment==''" id="submit_reply" class="btn-submit">Add
 									comment</button>
 							</div>
 							<div class="col-md-9 col-xs-9">
@@ -282,7 +283,8 @@
 						</div>
 						<div class="row submit-wrapper">
 							<div class="col-md-3 col-xs-3">
-								<button type="submit" id="submit_reply" class="btn-submit">Add
+								<button type="submit" ng-class="{'disabled': (replycomment[$index]==null || replycomment[$index]==undefined || replycomment[$index]=='')  }"
+							ng-disabled="(replycomment[$index]==null || replycomment[$index]==undefined || replycomment[$index]=='') " id="submit_reply" class="btn-submit">Add
 									comment</button>
 							</div>
 							<div class="col-md-9 col-xs-9">

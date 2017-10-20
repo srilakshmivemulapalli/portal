@@ -171,8 +171,7 @@ app
 														if (!isDateEqual(
 																e.date,
 																ngModel.$viewValue)) {
-															var newValue = e.date
-																	.format() === false ? null
+															var newValue = e.date === false ? null
 																	: e.date
 																			.format();
 															ngModel
@@ -231,4 +230,13 @@ app
 						            attrs.$set("ngTrim", "false");
 						        }
 						      };
+						    }).filter('formatTimer', function () {
+						    	return function (input) {
+						    	    function z(n) { return (n < 10 ? '0' : '') + n; }
+						    	    var seconds = input % 60;
+						    	    var minutes = Math.floor(input % 3600 / 60);
+						    	    var hours = Math.floor(input / 3600);
+						    	    
+						    	    return {'hours':hours,'minutes':minutes,'seconds':seconds};
+						    	};
 						    })

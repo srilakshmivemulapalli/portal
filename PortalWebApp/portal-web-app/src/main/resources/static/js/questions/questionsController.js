@@ -3,7 +3,7 @@ questionApp
 				'questionsController',
 				function($scope, $stateParams, localStorageService, $rootScope,
 						questionService, categoryService, PagerService,
-						CategoryListModel, QuestionsListModel) {
+						CategoryListModel, QuestionsListModel, commonService) {
 
 					$scope.categoriesList = CategoryListModel
 							.newCategoryListInstance();
@@ -15,8 +15,8 @@ questionApp
 							.newQuestionListInstance();
 					$scope.pageSize = 5;
 
-					if (localStorageService.get('categoriesList') !== (undefined || null)) {
-						var list = localStorageService.get('categoriesList');
+					if (commonService.categoriesList !== (undefined || null)) {
+						var list = commonService.categoriesList;
 						list.map(function(category) {
 
 							$scope.categoriesList.addCategories(category);
@@ -26,12 +26,12 @@ questionApp
 						categoryService.getCategories().then(
 								function(response) {
 
-									if (response.length > 0) {
+									if (response.errorCode) {
+										$scope.message = repsonse.errorMessage;
+									} else {
 										response.map(function(category) {
-
 											$scope.categoriesList
 													.addCategories(category);
-
 										})
 										localStorageService.set(
 												'categoriesList', response);
@@ -76,8 +76,10 @@ questionApp
 									.getQuestions()
 									.then(
 											function(response) {
-
-												if (response.questionDetails.length > 0) {
+												if (response.errorCode) {
+													 $scope.message=response.errorMessage
+												 }
+												else{
 													$scope.questionsList
 															.addquestion(response);
 													response.questionDetails
@@ -107,8 +109,10 @@ questionApp
 									.getAllUnansweredQuestions()
 									.then(
 											function(response) {
-
-												if (response.questionDetails.length > 0) {
+												if (response.errorCode) {
+													 $scope.message=response.errorMessage
+												 }
+												else{
 													$scope.unAnsweredQuestionsList
 															.addquestion(response);
 													response.questionDetails
@@ -135,14 +139,16 @@ questionApp
 
 					$scope.retriveMyQuestionaries = function() {
 
-						var profile = localStorageService.get('profile');
 						if ($scope.retriveMyQuestionariesList.questions.questionDetails.length <= 0) {
 							questionService
-									.retriveMyQuestionaries(profile.emailId)
+									.retriveMyQuestionaries(
+											commonService.emailId)
 									.then(
 
 											function(response) {
-												if (response.questionDetails.length > 0) {
+												if (response.errorCode) {
+													 $scope.message=response.errorMessage
+												 }else{
 													$scope.retriveMyQuestionariesList
 															.addquestion(response);
 													response.questionDetails
@@ -177,8 +183,11 @@ questionApp
 						}
 
 						// get pager object from service
+//						$scope.pager = PagerService.GetPager(
+//								questionsList.questionDetails.length, page,
+//								$scope.pageSize);
 						$scope.pager = PagerService.GetPager(
-								questionsList.questionDetails.length, page,
+								questionsList.totalQuestions, page,
 								$scope.pageSize);
 
 						// get current page of items

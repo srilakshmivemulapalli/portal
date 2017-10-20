@@ -128,7 +128,7 @@ public class TrainingsServiceImpl implements TrainingsService {
 			   {
 				   
 				   if(trainingTouser[0]!=null &&(trainingTouser[0].toString()).compareTo(emailId)==0)
-					   trainingsDTO.setTraininToUserId(Integer.valueOf(trainingTouser[1].toString()));
+					   trainingsDTO.setTrainingToUserId(Integer.valueOf(trainingTouser[1].toString()));
 			  }
 		    }else
 		    {
@@ -149,12 +149,13 @@ public class TrainingsServiceImpl implements TrainingsService {
 				trainingsDTO.setDisplayImage(user.getImage());
 				trainingsDTO.setTrainerName(user.getUserName());
 			}
-			List<TrainingFeedBackDTO> comments= this.getTrainingFeedBack(trainingsDTO.getTrainingId());
-			if(comments!=null)
+			/*List<TrainingFeedBackDTO> comments= this.getTrainingFeedBack(trainingsDTO.getTrainingId());
+			if(comments!=null&&comments.size()>0)
 			{
 				trainingsDTO.setNoOfComments(comments.size());
 				
-			}
+			}*/
+			trainingsDTO.setNoOfComments(0);
 			   
 		}
 

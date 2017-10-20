@@ -246,7 +246,7 @@
 			</div>
 			<div class="row paginations home">
 				<div class="col-md-12">
-					<ul class="pagination">
+					<ul class="pagination" ng-if="pager.currentPage !== pager.totalPages">
 						<li ng-class="{disabled:pager.currentPage === 1}"><a
 							ng-click="setPage(1,retriveMyQuestionariesList.questions)">First</a></li>
 						<li ng-class="{disabled:pager.currentPage === 1}"><a

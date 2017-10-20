@@ -133,7 +133,7 @@ ul {
 }
 
 #logo img {
-	max-height: 70px;
+	max-height: 44px;
 }
 
 #header .top-menu {
@@ -4971,6 +4971,9 @@ body.admin-bar .q-filter-waypoints {
 	color:#15a4fa;
 	cursor:pointer;
 	margin-bottom:40px;
+}
+.PDTOP80{
+	padding-top:80px;
 }
 /********trainings****/
 .irs-all-course-bb {

@@ -22,7 +22,7 @@ public class TrainingsDTO {
 	private String trainerName;
 	private String displayImage;
 	private Integer noOfComments;
-	private Integer traininToUserId;
+	private Integer trainingToUserId;
 	public Integer getTrainingId() {
 		return trainingId;
 	}
@@ -120,11 +120,11 @@ public class TrainingsDTO {
 	public void setNoOfComments(Integer noOfComments) {
 		this.noOfComments = noOfComments;
 	}
-	public Integer getTraininToUserId() {
-		return traininToUserId;
+	public Integer getTrainingToUserId() {
+		return trainingToUserId;
 	}
-	public void setTraininToUserId(Integer traininToUserId) {
-		this.traininToUserId = traininToUserId;
+	public void setTrainingToUserId(Integer trainingToUserId) {
+		this.trainingToUserId = trainingToUserId;
 	}
 	@Override
 	public String toString() {
@@ -135,7 +135,7 @@ public class TrainingsDTO {
 				+noOfStudents+",trainingStartDate="+trainingStartDate+",trainingEndDate="
 				+trainingEndDate+" ,trainingEndTime="+trainingEndTime+"+duration="+duration+
 						",trainerName="+trainerName+",displayImage="+displayImage+",noOfComments="
-				+noOfComments+",traininToUserId="+traininToUserId+"]";		
+				+noOfComments+",traininToUserId="+trainingToUserId+"]";		
 	}
 	
 	
