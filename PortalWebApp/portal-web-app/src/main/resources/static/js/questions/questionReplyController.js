@@ -22,7 +22,7 @@ questionApp.controller('questionReplyController', function($scope,
 
 		questionService.getQuestionById($scope.questionid).then(
 				function(response) {
-					if (response.errorCode === 500) {
+					if (response.errorCode) {
 						$scope.message = response.errorMessage
 					} else {
 
@@ -37,7 +37,7 @@ questionApp.controller('questionReplyController', function($scope,
 
 	$scope.postAnswer = function() {
 		questionService.sendReply($scope.answer).then(function(response) {
-			if (response.errorCode === 500) {
+			if (response.errorCode) {
 				$scope.message = response.errorMessage
 			} else {
 
@@ -55,7 +55,7 @@ questionApp.controller('questionReplyController', function($scope,
 		commentObj.id = questionId;
 		commentObj.commentDescription = description;
 		commentService.postQuestionComment(commentObj).then(function(response) {
-			if (response.errorCode === 500) {
+			if (response.errorCode) {
 				$scope.message = response.errorMessage
 			} else {
 
@@ -74,7 +74,7 @@ questionApp.controller('questionReplyController', function($scope,
 		commentObj.id = replyId;
 		commentObj.commentDescription = description;
 		commentService.postReplyComment(commentObj).then(function(response) {
-			if (response.errorCode === 500) {
+			if (response.errorCode) {
 				$scope.message = response.errorMessage
 			} else {
 

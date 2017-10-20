@@ -78,7 +78,7 @@ var app = angular
 								.getQuestionsCount()
 								.then(
 										function(response) {
-											if (response.errorCode === 500) {
+											if (response.errorCode) {
 												$scope.message = response.errorMessage
 											} else {
 												$rootScope.questionCount = response.questionCount;

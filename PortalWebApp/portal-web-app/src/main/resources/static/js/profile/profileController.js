@@ -16,7 +16,7 @@ mainApp.controller('profileController', function($scope, $http,
 	} else {
 		categoryService.getCategories().then(function(response) {
 
-			if (response.errorCode === 500) {
+			if (response.errorCode) {
 				 $scope.message=response.errorMessage
 			 }else{
 				response.map(function(category) {

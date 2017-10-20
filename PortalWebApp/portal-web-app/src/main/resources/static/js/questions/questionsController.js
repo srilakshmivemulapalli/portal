@@ -26,7 +26,7 @@ questionApp
 						categoryService.getCategories().then(
 								function(response) {
 
-									if (response.errorCode === 500) {
+									if (response.errorCode) {
 										$scope.message = repsonse.errorMessage;
 									} else {
 										response.map(function(category) {
@@ -76,7 +76,7 @@ questionApp
 									.getQuestions()
 									.then(
 											function(response) {
-												if (response.errorCode === 500) {
+												if (response.errorCode) {
 													 $scope.message=response.errorMessage
 												 }
 												else{
@@ -109,7 +109,7 @@ questionApp
 									.getAllUnansweredQuestions()
 									.then(
 											function(response) {
-												if (response.errorCode === 500) {
+												if (response.errorCode) {
 													 $scope.message=response.errorMessage
 												 }
 												else{
@@ -146,7 +146,7 @@ questionApp
 									.then(
 
 											function(response) {
-												if (response.errorCode === 500) {
+												if (response.errorCode) {
 													 $scope.message=response.errorMessage
 												 }else{
 													$scope.retriveMyQuestionariesList

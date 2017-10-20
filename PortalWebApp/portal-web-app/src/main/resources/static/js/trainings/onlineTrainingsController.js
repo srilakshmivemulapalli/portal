@@ -9,7 +9,7 @@ trainingsApp.controller('onlineTrainingsController', function($scope,$filter,tra
 	}
 	$scope.getOnlineTrainings=function(){
 		trainingService.getOnlineTrainings().then(function(response){
-			if (response.errorCode === 500) {
+			if (response.errorCode) {
 				$scope.message = response.errorMessage
 			} else {
 				response.map(function(innerObj){
@@ -30,7 +30,7 @@ $scope.requestuserTraining=function(modalobj,opt){
 				'trainingPresence': opt
 				}
 		trainingService.requestUserTraining(optObj).then(function(response){
-			if (response.errorCode === 500) {
+			if (response.errorCode) {
 				$scope.message = response.errorMessage
 			} else {
 				console.log(response);

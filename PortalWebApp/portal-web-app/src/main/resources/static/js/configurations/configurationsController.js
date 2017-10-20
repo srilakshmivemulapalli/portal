@@ -33,7 +33,7 @@ adminApp
 						$scope.getRoles();
 						$scope.clear();
 						userService.getUsers().then(function(response) {
-							if (response.errorCode === 500) {
+							if (response.errorCode) {
 								$scope.message = response.errorMessage
 							} else {
 								response.map(function(user) {
@@ -51,7 +51,7 @@ adminApp
 
 						roleService.getRoles().then(function(response) {
 
-							if (response.errorCode === 500) {
+							if (response.errorCode) {
 								$scope.message = response.errorMessage
 							} else {
 								response.map(function(role) {
@@ -68,7 +68,7 @@ adminApp
 						$scope.clear();
 						categoryService.getCategories().then(
 								function(response) {
-									if (response.errorCode === 500) {
+									if (response.errorCode) {
 										$scope.message = response.errorMessage
 									} else {
 										response.map(function(category) {
@@ -90,7 +90,7 @@ adminApp
 								.addRole($scope.roleobj)
 								.then(
 										function(response) {
-											if (response.errorCode === 500) {
+											if (response.errorCode) {
 												$scope.message = response.errorMessage
 											} else {
 												$scope.successMessage = response.message;
@@ -115,7 +115,7 @@ adminApp
 								.addCategory($scope.categoryobj)
 								.then(
 										function(response) {
-											if (response.errorCode === 500) {
+											if (response.errorCode) {
 												$scope.message = response.errorMessage
 											} else {
 												$scope.successMessage = response.message;
@@ -175,7 +175,7 @@ adminApp
 									.deleteUser($scope.deleteitem.itemId)
 									.then(
 											function(response) {
-												if (response.errorCode === 500) {
+												if (response.errorCode) {
 													$scope.message = response.errorMessage
 												} else {
 													$scope.usersList
@@ -202,7 +202,7 @@ adminApp
 									.deleteRole($scope.deleteitem.itemId)
 									.then(
 											function(response) {
-												if (response.errorCode === 500) {
+												if (response.errorCode) {
 													$scope.message = response.errorMessage
 												} else {
 													$scope.rolesList
@@ -229,7 +229,7 @@ adminApp
 											$scope.deleteitem.itemId.categoryId)
 									.then(
 											function(response) {
-												if (response.errorCode === 500) {
+												if (response.errorCode) {
 													$scope.message = response.errorMessage
 												} else {
 													$scope.successMessage = response.message;
@@ -269,7 +269,7 @@ adminApp
 									.editUser($scope.editteditem.item)
 									.then(
 											function(response) {
-												if (response.errorCode === 500) {
+												if (response.errorCode) {
 													$scope.message = response.errorMessage
 												} else {
 													$scope.usersList
@@ -295,7 +295,7 @@ adminApp
 									.editRole($scope.editteditem.item)
 									.then(
 											function(response) {
-												if (response.errorCode === 500) {
+												if (response.errorCode) {
 													$scope.message = response.errorMessage
 												} else {
 
@@ -323,7 +323,7 @@ adminApp
 									.editCategory($scope.editteditem.item)
 									.then(
 											function(response) {
-												if (response.errorCode === 500) {
+												if (response.errorCode) {
 													$scope.message = response.errorMessage
 												} else {
 

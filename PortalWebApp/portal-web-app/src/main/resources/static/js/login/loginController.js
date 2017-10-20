@@ -13,7 +13,7 @@ loginApp.controller('loginController', function($scope, $state,
 			}
 
 			loginLogoutService.login($scope.profile).then(function(response) {
-				if (response.errorCode === 500) {
+				if (response.errorCode) {
 					$scope.message = response.errorMessage
 				} else {
 					localStorageService.set('profile', response);

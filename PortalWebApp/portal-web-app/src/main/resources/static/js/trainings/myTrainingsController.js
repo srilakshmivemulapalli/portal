@@ -24,7 +24,7 @@ trainingsApp.controller('myTrainingsController', function($scope,
 
 	$scope.getMyTrainings = function() {
 		trainingService.getMyTrainings().then(function(response) {
-			if (response.errorCode === 500) {
+			if (response.errorCode) {
 				$scope.message = response.errorMessage
 			} else {
 				response.map(function(innerObj) {
@@ -47,7 +47,7 @@ trainingsApp.controller('myTrainingsController', function($scope,
 		trainingobj.trainerEmailId = commonService.emailId;
 		$scope.training = TrainingModel.clone(trainingobj);
 		trainingService.postTraining($scope.training).then(function(response) {
-			if (response.errorCode === 500) {
+			if (response.errorCode) {
 				$scope.message = response.errorMessage
 			} else {
 				$scope.openCreateTraining();
@@ -64,7 +64,7 @@ trainingsApp.controller('myTrainingsController', function($scope,
 			'trainingPresence' : opt
 		}
 		trainingService.requestUserTraining(optObj).then(function(response) {
-			if (response.errorCode === 500) {
+			if (response.errorCode) {
 				$scope.message = response.errorMessage
 			} else {
 				console.log(response);

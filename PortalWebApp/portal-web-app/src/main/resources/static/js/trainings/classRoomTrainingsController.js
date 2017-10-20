@@ -9,7 +9,7 @@ trainingsApp.controller('classRoomTrainingsController', function($scope,training
 	$scope.getTrainings=function(){
 		trainingService.getClassroomTrainings().then(function(response){
 			
-			if (response.errorCode === 500) {
+			if (response.errorCode) {
 				$scope.message = response.errorMessage
 			} else {
 				response.map(function(innerObj){
@@ -31,7 +31,7 @@ trainingsApp.controller('classRoomTrainingsController', function($scope,training
 				'trainingPresence': opt
 				}
 		trainingService.requestUserTraining(optObj).then(function(response){
-			if (response.errorCode === 500) {
+			if (response.errorCode) {
 				$scope.message = response.errorMessage
 			} else {
 

@@ -13,7 +13,7 @@ questionApp.controller('addQuestionController', function($scope,
 	} else {
 		categoryService.getCategories().then(function(response) {
 
-			if (response.errorCode === 500) {
+			if (response.errorCode) {
 				$scope.message = response.errorMessage
 			} else {
 
@@ -40,7 +40,7 @@ questionApp.controller('addQuestionController', function($scope,
 	$scope.submitQuestion = function() {
 		questionService.addQuestion($scope.addQuestion).then(
 				function(response) {
-					if (response.errorCode === 500) {
+					if (response.errorCode) {
 						$scope.message = response.errorMessage
 					} else {
 
