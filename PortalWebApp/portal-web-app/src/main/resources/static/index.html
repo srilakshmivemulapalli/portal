@@ -69,15 +69,15 @@
 			<div ng-if="!navBarToggle">
 				<div ng-include="'js/partials/header.html'"></div>
 			</div>
+			<div class="PDTOP80">
+				<ui-view></ui-view>
+				<!-- main views -->
 
-			<ui-view></ui-view>
-			<!-- main views -->
-
-			<div ng-if="!navBarToggle">
-				<div class="rightbar" ng-include="'js/partials/rightsidebar.html'"></div>
+				<div ng-if="!navBarToggle">
+					<div class="rightbar" ng-include="'js/partials/rightsidebar.html'"></div>
+				</div>
+				<!-- END RIGHT-SIDEBAR -->
 			</div>
-			<!-- END RIGHT-SIDEBAR -->
-
 		</div>
 		<!-- END ROW -->
 	</div>
@@ -112,8 +112,7 @@
 	width: 90%;
 }
 
-bootstrap.css: 1585
-.container {
+bootstrap.css: 1585 .container {
 	padding-right: 15px;
 	padding-left: 15px;
 	margin-right: auto;

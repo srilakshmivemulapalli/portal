@@ -4972,6 +4972,9 @@ body.admin-bar .q-filter-waypoints {
 	cursor:pointer;
 	margin-bottom:40px;
 }
+.PDTOP80{
+	padding-top:80px;
+}
 /********trainings****/
 .irs-all-course-bb {
 	border-bottom: 1px solid #ebebeb;

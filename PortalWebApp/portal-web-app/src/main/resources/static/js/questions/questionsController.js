@@ -183,8 +183,11 @@ questionApp
 						}
 
 						// get pager object from service
+//						$scope.pager = PagerService.GetPager(
+//								questionsList.questionDetails.length, page,
+//								$scope.pageSize);
 						$scope.pager = PagerService.GetPager(
-								questionsList.questionDetails.length, page,
+								questionsList.totalQuestions, page,
 								$scope.pageSize);
 
 						// get current page of items

@@ -64,14 +64,14 @@ var app = angular
 		.controller(
 				'mainController',
 				function($scope, $rootScope, localStorageService, $state,
-						$http, loginLogoutService, questionService) {
+						$http, loginLogoutService, questionService,commonService) {
 					var vm = this;
 					vm.redirect = function() {
 						$state.go('addquestion');
 					}
 					vm.getProfile = function() {
 
-						vm.profile = localStorageService.get('profile');
+						vm.profile = commonService.profile;
 					}
 					vm.init = function() {
 						questionService
