@@ -3,6 +3,7 @@ package com.nisum.portal.service.impl;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,10 @@ import com.nisum.portal.service.api.UserService;
 import com.nisum.portal.service.dto.QuestionRepliesDTO;
 import com.nisum.portal.service.dto.QuestionReplyCommentsDTO;
 import com.nisum.portal.service.dto.QuestionReplysDTO;
+import com.nisum.portal.service.dto.QuestionariesDTO;
+import com.nisum.portal.service.dto.QuestionsDTO;
 import com.nisum.portal.util.QuestionReplysUtil;
+import com.nisum.portal.util.QuestionariesUtil;
 
 @Service
 public class QuestionRepliesServiceImpl implements QuestionRepliesService{
@@ -87,5 +91,14 @@ public class QuestionRepliesServiceImpl implements QuestionRepliesService{
 		} else {
 			return true;
 		}
+	}
+
+	@Override
+	public QuestionsDTO fetchMyReplyQuestions(String emailId) {
+		logger.info("QuestionRepliesServiceImpl :: fetchMyReplyQuestions :: finding reply questions");
+		emailId = emailId.substring(0, emailId.indexOf("@"))+"@nisum.com";
+		List<Questionaries> questionariesList = repliesDAO.getMyReplyQuestions(emailId);
+		QuestionsDTO questionsDTO = new QuestionsDTO();
+		return QuestionariesUtil.convertDaoToDto(questionariesList,questionsDTO,userervice);
 	}
 }

@@ -19,6 +19,8 @@ import com.nisum.portal.service.dto.Errors;
 import com.nisum.portal.service.dto.QuestionRepliesDTO;
 import com.nisum.portal.service.dto.QuestionReplyCommentsDTO;
 import com.nisum.portal.service.dto.QuestionReplysDTO;
+import com.nisum.portal.service.dto.QuestionariesDTO;
+import com.nisum.portal.service.dto.QuestionsDTO;
 import com.nisum.portal.service.dto.ReplyQuestionDTO;
 import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.exception.QuestionariesRepliesServiceException;
@@ -94,6 +96,22 @@ public class QuestionRepliesRestService {
 		}
 	}
 	
+	/**
+	 * Used to get list of question for replied by a particular email id
+	 * @param emailId
+	 * @return list of questions
+	 * @throws QuestionariesRepliesServiceException
+	 */
+	@RequestMapping(value = "/retrieve/myReplyQuestions/{emailId}", method = RequestMethod.GET)
+	public ResponseEntity<QuestionsDTO> retriveMyReplyQuestions(@PathVariable String emailId) throws QuestionariesRepliesServiceException {
+		try {
+			logger.info("QuestionRepliesRestService :: retriveMyReplyQuestion");
+			return new ResponseEntity<QuestionsDTO>(questionRepliesService.fetchMyReplyQuestions(emailId), HttpStatus.OK);
+		} catch(Exception e) {
+			logger.info("QuestionRepliesRestService :: retriveMyReplyQuestions :: Internal Server Error");
+			throw new QuestionariesRepliesServiceException(Constants.INTERNALSERVERERROR);
+		}
+	}
 	/**
 	 * exceptionHandler
 	 * 
