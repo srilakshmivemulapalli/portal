@@ -36,11 +36,11 @@ public class TrainingsServiceImpl implements TrainingsService {
 	private TrainingsDAO trainingsDAO;
 	
 	@Override
-	public Trainings saveTrainings(TrainingsDTO trainingsDTO) {
+	public TrainingsDTO saveTrainings(TrainingsDTO trainingsDTO) {
 		
 		logger.info("TrainingsServiceImpl::saveTrainings");
 	   Trainings trainings=	TrainingsServiceUtil.convertDtoToDao(trainingsDTO);
-				return trainingsDAO.saveTrainings(trainings);
+				return TrainingsServiceUtil.convertTrainingsDaoTODto(trainingsDAO.saveTrainings(trainings));
 		
 	}
 
