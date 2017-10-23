@@ -178,7 +178,7 @@
 									<td><textarea type="text"
 											ng-class="{'txtdisabled':!categoryselected[$index]}"
 											ng-disabled="!categoryselected[$index]" autogrow
-											ng-model="category.description" /></textarea></td>
+											ng-model="category.description" style="width:100%;overflow:hidden;height:100%"/></textarea></td>
 									<td>{{category.createDate | date: 'MM-dd-yyyy HH:mm:ss'}}</td>
 									<td class="CENTER"
 										ng-class="{'disabled':!categoryselected[$index]}"
