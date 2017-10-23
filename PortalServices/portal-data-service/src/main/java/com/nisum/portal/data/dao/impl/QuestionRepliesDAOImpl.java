@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import com.nisum.portal.data.dao.api.QuestionRepliesDAO;
 import com.nisum.portal.data.domain.QuestionReplies;
+import com.nisum.portal.data.domain.Questionaries;
 import com.nisum.portal.data.repository.QuestionRepliesRepository;
 
 @Configuration
@@ -38,6 +39,11 @@ public class QuestionRepliesDAOImpl implements QuestionRepliesDAO{
 	public QuestionReplies getReply(int replyId) {
 		logger.info("QuestionRepliesDAOImpl :: getReply :: finding reply by Id");
 		return questionRepliesRepository.findOne(replyId);
+	}
+	@Override
+	public List<Questionaries> getMyReplyQuestions(String emailId) {
+		logger.info("QuestionRepliesDAOImpl :: getMyReplyQuestions :: finding reply questions");
+		return questionRepliesRepository.getMyReplyQuestions(emailId);
 	}
 
 }
