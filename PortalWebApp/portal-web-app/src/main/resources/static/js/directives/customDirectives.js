@@ -1,5 +1,4 @@
-app
-		.factory(
+app.factory(
 				'PagerService',
 				function() {
 					// service definition
@@ -74,8 +73,13 @@ app
 							elem.bind("paste", function(e) {
 								var data = e.originalEvent.clipboardData
 										.getData('Text');
-								if (data.length >= limit && e.keyCode != 8
-										&& e.keyCode != 27)
+								var total = this.value.length + data.length;
+								if (total >= limit) {
+									this.value = this.value.concat(data.substr(
+											0, limit - data.length));
+								}
+								if (total >= limit || data.length >= limit
+										&& e.keyCode != 8 && e.keyCode != 27)
 									e.preventDefault();
 							});
 							elem.bind("keypress", function(e) {
@@ -118,7 +122,8 @@ app
 									var dpElement = $element.parent().hasClass(
 											'input-group') ? $element.parent()
 											: $element;
-									$scope
+									
+											$scope
 											.$watch(
 													'options',
 													function(newValue) {
@@ -201,42 +206,48 @@ app
 									dpElement.datetimepicker($scope.options);
 								}
 							};
-						} ]).directive('autogrow', function () {
-						    return {
+						} ]).directive('autogrow', function() {
+			return {
 
-						        restrict: 'A',
-						        link: function postLink(scope, element, attrs) {
-						            // hidding the scroll of textarea
-						            element.css('overflow', 'hidden');
-						            element.css("resize",'none');
-						            var update = function(){
+				restrict : 'A',
+				link : function postLink(scope, element, attrs) {
+					// hidding the scroll of textarea
+					element.css('overflow', 'hidden');
+					element.css("resize", 'none');
+					var update = function() {
 
-						                element.css("height", "auto");
-						                
-						                var height = element[0].scrollHeight;
-						           
-						                if(height > 0){
+						element.css("height", "auto");
 
-						                    element.css("height", height + "px");
-						                  }
-						                
-						            };
+						var height = element[0].scrollHeight;
 
-						            scope.$watch(attrs.ngModel, function(){
+						if (height > 0) {
 
-						                update();
-						            });
+							element.css("height", height + "px");
+						}
 
-						            attrs.$set("ngTrim", "false");
-						        }
-						      };
-						    }).filter('formatTimer', function () {
-						    	return function (input) {
-						    	    function z(n) { return (n < 10 ? '0' : '') + n; }
-						    	    var seconds = input % 60;
-						    	    var minutes = Math.floor(input % 3600 / 60);
-						    	    var hours = Math.floor(input / 3600);
-						    	    
-						    	    return {'hours':hours,'minutes':minutes,'seconds':seconds};
-						    	};
-						    })
+					};
+
+					scope.$watch(attrs.ngModel, function() {
+
+						update();
+					});
+
+					attrs.$set("ngTrim", "false");
+				}
+			};
+		}).filter('formatTimer', function() {
+			return function(input) {
+				function z(n) {
+					return (n < 10 ? '0' : '') + n;
+				}
+				var seconds = input % 60;
+				var minutes = Math.floor(input % 3600 / 60);
+				var hours = Math.floor(input / 3600);
+
+				return {
+					'hours' : hours,
+					'minutes' : minutes,
+					'seconds' : seconds
+				};
+			};
+		})

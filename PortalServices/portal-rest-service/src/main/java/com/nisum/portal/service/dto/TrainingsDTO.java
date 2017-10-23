@@ -135,8 +135,9 @@ public class TrainingsDTO {
 				+noOfStudents+",trainingStartDate="+trainingStartDate+",trainingEndDate="
 				+trainingEndDate+" ,trainingEndTime="+trainingEndTime+"+duration="+duration+
 						",trainerName="+trainerName+",displayImage="+displayImage+",noOfComments="
-				+noOfComments+",traininToUserId="+trainingToUserId+"]";		
+				+noOfComments+",trainingToUserId="+trainingToUserId+"]";	
 	}
+
 	
 	
 }

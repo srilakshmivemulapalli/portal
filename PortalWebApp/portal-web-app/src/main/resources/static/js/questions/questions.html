@@ -220,7 +220,7 @@
 											<li><a class="q-tag" href="">{{question.categoryName}}</a></li>
 										</ul>
 										<div class="clearfix"></div>
-										<a href=""> <span class="author-avatar"> <img
+										<a href="javascript:void(0);"> <span class="author-avatar"> <img
 												ng-src="{{question.displayImage}}" class="avatar" alt="" />
 										</span> <span class="author-name">{{question.emailId}}</span>
 										</a> <span class="question-time">Asked on
@@ -230,9 +230,9 @@
 							</div>
 							<div class="col-md-4 col-xs-4 q-right-content">
 								<ul class="question-statistic">
-									<li class="active" ng-show="question.questionRepliesCount>0"><span
+									<li class="active" ng-show="question.questionRepliesCount>0"><a href="#/question/{{question.questionId}}"><span
 										class="question-answers">{{question.questionRepliesCount}}
-									</span> answers</li>
+									</span></a> answers</li>
 									<li ng-show="question.questionRepliesCount<=0"><span
 										class="question-votes">{{question.questionRepliesCount}}
 									</span> answers</li>

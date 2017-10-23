@@ -1,4 +1,4 @@
-questionApp.controller('addQuestionController', function($scope,
+questionApp.controller('editQuestionController', function($scope,
 		questionService, $state, categoryService, commonService,
 		localStorageService, CategoryListModel, $timeout) {
 	$scope.categoriesList = CategoryListModel.newCategoryListInstance();
@@ -30,7 +30,7 @@ questionApp.controller('addQuestionController', function($scope,
 		})
 	}
 
-	$scope.addQuestion = {
+	$scope.editQuestion = {
 		'question' : null,
 		'categoryId' : null,
 		'description' : null,
@@ -38,7 +38,7 @@ questionApp.controller('addQuestionController', function($scope,
 	}
 
 	$scope.submitQuestion = function() {
-		questionService.addQuestion($scope.addQuestion).then(
+		questionService.editQuestion($scope.editQuestion).then(
 				function(response) {
 					if (response.errorCode) {
 						$scope.message = response.errorMessage

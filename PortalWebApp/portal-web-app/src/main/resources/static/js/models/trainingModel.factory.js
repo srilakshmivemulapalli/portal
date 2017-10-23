@@ -12,11 +12,12 @@ app.factory('TrainingModel',[function(){
 		  this.trainingStartTime=null;
 		  this.trainingEndTime=null;
 		  this.trainingPresence = null;
-		  thistrainerEmailId=null;
+		  this.trainerEmailId=null;
 		  angular.extend(this, trainingCopy);
 		  this.clone = function(otherTraining) {
 			 return new Training(otherTraining);
 		 };
+		 
 	  }
 	  
 	  return new Training({});

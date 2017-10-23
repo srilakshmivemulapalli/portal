@@ -1,5 +1,5 @@
 loginApp.controller('loginController', function($scope, $state,
-		localStorageService, loginLogoutService, $rootScope, GoogleSignin) {
+		localStorageService, loginLogoutService, $rootScope, GoogleSignin,commonService) {
 
 	// --google sign in methods
 	$scope.login = function() {
@@ -17,7 +17,8 @@ loginApp.controller('loginController', function($scope, $state,
 					$scope.message = response.errorMessage
 				} else {
 					localStorageService.set('profile', response);
-
+					commonService.profile=response;
+					commonService.emailId=response.emailId;
 					$state.go("configurations");
 				}
 			}, function(response) {

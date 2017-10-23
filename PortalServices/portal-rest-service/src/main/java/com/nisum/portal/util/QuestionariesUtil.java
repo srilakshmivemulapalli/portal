@@ -39,8 +39,8 @@ public class QuestionariesUtil {
 				questionariesDTOs.add(dto);
 			}
 			Collections.reverse(questionariesDTOs); 
-			questionsDTO.setQuestionDetails(questionariesDTOs);
 		}
+		questionsDTO.setQuestionDetails(questionariesDTOs);
 		return questionsDTO;
 	}
 
