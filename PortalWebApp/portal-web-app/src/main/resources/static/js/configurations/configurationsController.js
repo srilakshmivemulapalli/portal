@@ -4,9 +4,7 @@ adminApp
 				function($scope, $timeout, categoryService, userService,
 						roleService, localStorageService, CategoryListModel,
 						RoleListModel, UserListModel,commonService,$state) {
-					if(commonService.roleId!==1){
-						$state.go('questions');
-					}
+
 					$scope.categoriesList = CategoryListModel
 							.newCategoryListInstance();
 					$scope.rolesList = RoleListModel.newRoleListInstance();

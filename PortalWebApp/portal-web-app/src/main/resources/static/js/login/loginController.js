@@ -18,6 +18,7 @@ loginApp.controller('loginController', function($scope, $state,
 				} else {
 					localStorageService.set('profile', response);
 					commonService.profile=response;
+					commonService.userRoleName=response.role.role;
 					commonService.emailId=response.emailId;
 					$state.go("configurations");
 				}

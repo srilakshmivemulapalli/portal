@@ -27,7 +27,7 @@
 				<li ng-class="{'active': urlChanged==='/trainings'}"
 					class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1866"><a
 					href='#/trainings'>Trainings</a></li>
-				<li ng-if="mc.profile.role.roleId===1" 
+				<li ng-if="mc.profile.role.role.toLowerCase()==='admin'" 
 				ng-class="{'active': urlChanged==='/configurations'}"
 					class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1866"><a
 					href='#/configurations'>Configurations</a></li>

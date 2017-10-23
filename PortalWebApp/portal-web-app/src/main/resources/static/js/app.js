@@ -58,7 +58,7 @@ var app = angular
 												.get("profile");
 										if (profile !== (undefined || null)
 												&& $rootScope.urlChanged === '/login') {
-											if (profile.role.roleId === 1) {
+											if (profile.role.role.toLowerCase() ==='admin') {
 												$timeout(
 														function() {
 															$state
@@ -69,14 +69,15 @@ var app = angular
 													$state.go('questions');
 												}, 0);
 											}
-
-										} else if (profile !== (undefined || null)
-												&& $rootScope.urlChanged == '/configurations'
-												&& profile.role.roleId === 1) {
+										}else if (profile !== (undefined || null)
+												&& $rootScope.urlChanged == '/configurations' &&
+												profile.role.role.toLowerCase()!== 'admin'){
 											$timeout(function() {
 												$state.go('questions');
 											}, 0)
-										} else if (profile === null) {
+											
+										} 
+										else if (profile === null) {
 											$timeout(function() {
 												$state.go('login');
 											}, 0);
