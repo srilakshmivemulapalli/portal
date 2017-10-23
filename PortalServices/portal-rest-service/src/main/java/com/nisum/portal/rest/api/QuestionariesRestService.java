@@ -1,6 +1,8 @@
 package com.nisum.portal.rest.api;
 
 
+import java.util.List;
+
 import org.slf4j.Logger; 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,10 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.nisum.portal.data.domain.User;
+import com.nisum.portal.data.repository.UserProfileRepository;
+import com.nisum.portal.service.api.EmailAccount;
 import com.nisum.portal.service.api.QuestionariesService;
 import com.nisum.portal.service.dto.AddQuestionDTO;
 import com.nisum.portal.service.dto.CountDTO;
@@ -26,6 +32,7 @@ import com.nisum.portal.service.dto.QuestionsDTO;
 import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.exception.QuestionariesServiceException;
 import com.nisum.portal.util.Constants;
+import com.nisum.portal.util.MailSender;
 
 /**
  * @author nisum
@@ -37,6 +44,11 @@ public class QuestionariesRestService {
 
 	@Autowired
 	private QuestionariesService questionariesService;
+	
+	@Autowired
+	UserProfileRepository  userProfileRepository;
+	
+	private static EmailAccount emailAccount;
 	
 	/**
 	 * Questionaries
@@ -76,15 +88,27 @@ public class QuestionariesRestService {
 	 * questionariesCount
 	 * 
 	 * @return
-	 * @throws QuestionariesServiceException
+	 * @throws Exception 
 	 */
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public ResponseEntity<ServiceStatusDto> saveQuestionaries(@RequestBody AddQuestionDTO questionDTO) throws QuestionariesServiceException {
+	public ResponseEntity<ServiceStatusDto> saveQuestionaries(@RequestBody AddQuestionDTO questionDTO) throws Exception {
 		logger.info("QuestionariesRestService :: saveQuestionaries"+questionDTO.getEmailId()+"-"+questionDTO.getCategoryId()+"-"+questionDTO.getQuestion()+"-"+questionDTO.getQuestion());
+		List<User> list=userProfileRepository.findByCategoryId(questionDTO.getCategoryId());
 		ServiceStatusDto serviceStatusDto=new ServiceStatusDto();
 		serviceStatusDto.setStatus(true);
 		serviceStatusDto.setMessage(Constants.MSG_RECORD_ADD);
 		questionariesService.saveQuestions(questionDTO.getEmailId(), questionDTO.getCategoryId(), questionDTO.getQuestion(), questionDTO.getQuestion());
+		
+		StringBuilder toEmail = new StringBuilder();
+
+		for(User user : list){
+
+			toEmail.append(user.getEmailId());
+			toEmail.append(",");
+		}
+		MailSender.sendEmail(emailAccount.getAdminemail(), emailAccount.getAdminpassword(), 
+				MailSender.removeLastChar(toEmail.toString()), emailAccount.getQuestionSub(),
+				MailSender.questionMsgBody("Users", questionDTO.getQuestion(), questionDTO.getDescription()));
 		return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.OK);
 	}
 	
@@ -169,5 +193,10 @@ public class QuestionariesRestService {
 		}else {	
 			return new ResponseEntity<QuestionsDTO>(questionariesService.getQuestionariesByCategory(categoryId, new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Sort.Direction.ASC,Constants.SORT_BY_ELEMENT)), HttpStatus.OK);
 		}
+	}
+	
+	@Autowired
+	public void setEmailAccount(EmailAccount emailAccount) {
+		QuestionariesRestService.emailAccount = emailAccount;
 	}
 }
