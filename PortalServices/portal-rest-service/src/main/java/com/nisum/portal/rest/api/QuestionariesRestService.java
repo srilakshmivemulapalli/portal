@@ -44,12 +44,12 @@ public class QuestionariesRestService {
 
 	@Autowired
 	private QuestionariesService questionariesService;
-	
+
 	@Autowired
 	UserProfileRepository  userProfileRepository;
-	
+
 	private static EmailAccount emailAccount;
-	
+
 	/**
 	 * Questionaries
 	 * 
@@ -62,7 +62,7 @@ public class QuestionariesRestService {
 		System.out.println("EmailId"+emailId);
 		return new ResponseEntity<QuestionsDTO>(questionariesService.getQuestionaries(), HttpStatus.OK);
 	}
-	
+
 	/**
 	 * questionariesCount
 	 * 
@@ -83,7 +83,7 @@ public class QuestionariesRestService {
 			return new ResponseEntity<Errors>(errors, HttpStatus.OK);
 		}
 	}
-	
+
 	/**
 	 * questionariesCount
 	 * 
@@ -98,7 +98,7 @@ public class QuestionariesRestService {
 		serviceStatusDto.setStatus(true);
 		serviceStatusDto.setMessage(Constants.MSG_RECORD_ADD);
 		questionariesService.saveQuestions(questionDTO.getEmailId(), questionDTO.getCategoryId(), questionDTO.getQuestion(), questionDTO.getQuestion());
-		
+
 		StringBuilder toEmail = new StringBuilder();
 
 		for(User user : list){
@@ -106,13 +106,15 @@ public class QuestionariesRestService {
 			toEmail.append(user.getEmailId());
 			toEmail.append(",");
 		}
-		MailSender.sendEmail(emailAccount.getAdminemail(), emailAccount.getAdminpassword(), 
-				MailSender.removeLastChar(toEmail.toString()), emailAccount.getQuestionSub(),
-				MailSender.questionMsgBody("Users", questionDTO.getQuestion(), questionDTO.getDescription()));
+		if(toEmail.toString()!=null && !toEmail.toString().equals("")){
+			MailSender.sendEmail(emailAccount.getAdminemail(), emailAccount.getAdminpassword(), 
+					MailSender.removeLastChar(toEmail.toString()), emailAccount.getQuestionSub(),
+					MailSender.questionMsgBody("Users", questionDTO.getQuestion(), questionDTO.getDescription()));
+		}
 		return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.OK);
 	}
-	
-	
+
+
 	/**
 	 * Questionaries
 	 * 
@@ -124,8 +126,8 @@ public class QuestionariesRestService {
 		logger.info("QuestionariesRestService :: retriveMyQuestionaries");
 		return new ResponseEntity<QuestionsDTO>(questionariesService.fetchMyQuestionaries(emailId), HttpStatus.OK);
 	}
-	
-	
+
+
 	/**
 	 * Questionaries
 	 * 
@@ -137,7 +139,7 @@ public class QuestionariesRestService {
 		logger.info("QuestionariesRestService :: retriveAllUnansweredQuestionaries");
 		return new ResponseEntity<QuestionsDTO>(questionariesService.retriveAllUnansweredQuestionaries(), HttpStatus.OK);
 	}
-	
+
 	/**
 	 * To save Question comment
 	 * @return
@@ -156,13 +158,13 @@ public class QuestionariesRestService {
 				serviceStatusDto.setMessage(Constants.QUESTION_NOT_EXIST);
 				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.EXPECTATION_FAILED);
 			}
-			
+
 		} catch (Exception e) {
 			logger.info("QuestionariesRestService :: saveQuestionComment :: Internal Server Error");
 			throw new QuestionariesServiceException(Constants.INTERNALSERVERERROR);
 		}
 	}
-	
+
 	/**
 	 * exceptionHandler
 	 * 
@@ -187,14 +189,14 @@ public class QuestionariesRestService {
 	public ResponseEntity<QuestionsDTO> retriveQuestionariesByCategoryThroughPagination(@PathVariable Integer categoryId, Pageable pageable) throws QuestionariesServiceException {
 		//logger.info("QuestionariesRestService :: retriveQuestionariesByCategoryThroughPagination(PageNumber: "+ pageable.getPageNumber()+", PageSize: "+pageable.getPageSize()+")");
 		logger.info("QuestionariesRestService :: retriveQuestionariesByCategoryThroughPagination(PageNumber: "+ pageable.getPageNumber()+", PageSize: "+pageable.getPageSize()+")");
-	
+
 		if(categoryId==0) {
 			return new ResponseEntity<QuestionsDTO>(questionariesService.getQuestionariesByPagination(new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Sort.Direction.ASC,Constants.SORT_BY_ELEMENT)), HttpStatus.OK);
 		}else {	
 			return new ResponseEntity<QuestionsDTO>(questionariesService.getQuestionariesByCategory(categoryId, new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Sort.Direction.ASC,Constants.SORT_BY_ELEMENT)), HttpStatus.OK);
 		}
 	}
-	
+
 	@Autowired
 	public void setEmailAccount(EmailAccount emailAccount) {
 		QuestionariesRestService.emailAccount = emailAccount;
