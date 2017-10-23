@@ -14,5 +14,10 @@ var questionApp=angular.module('questionsApp', [ 'ui.router' ])
 		templateUrl:'js/questions/addquestion.html',
 		controller: 'addQuestionController'
 	})
+	.state('editquestion',{
+		url:'/editquestion',
+		templateUrl:'js/questions/editquestion.html',
+		controller: 'editQuestionController'
+	})
 })    
 		

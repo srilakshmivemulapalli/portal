@@ -1,25 +1,31 @@
-loginApp.controller('loginController', function($scope, $state, $http,
-		localStorageService) {
+loginApp.controller('loginController', function($scope, $state,
+		localStorageService, loginLogoutService, $rootScope, GoogleSignin,commonService) {
 
 	// --google sign in methods
+	$scope.login = function() {
+		GoogleSignin.signIn().then(function(authResult) {
+			var profile = authResult.getBasicProfile();
 
-	$scope.$on('event:google-plus-signin-success', function(event, authResult) {
+			$scope.profile = {
+				"userName" : profile.getName(),
+				"emailId" : profile.getEmail(),
+				"image" : profile.getImageUrl()
+			}
 
-		var profile = authResult.getBasicProfile();
-		
-		$scope.profile = {
-			"userName" : profile.getName(),
-			"emailId" : profile.getEmail(),
-			"image" : profile.getImageUrl()
-		}
-		$http.post("v1/user/create", $scope.profile).success(
-				function(response) {
-					console.log(response);
+			loginLogoutService.login($scope.profile).then(function(response) {
+				if (response.errorCode) {
+					$scope.message = response.errorMessage
+				} else {
 					localStorageService.set('profile', response);
+					commonService.profile=response;
+					commonService.emailId=response.emailId;
 					$state.go("configurations");
-				});
-	});
-	$scope.$on('event:google-plus-signin-failure', function(event, authResult) {
-		// Auth failure or signout detected
-	});
+				}
+			}, function(response) {
+				// console
+			});
+		});
+
+	};
+
 })

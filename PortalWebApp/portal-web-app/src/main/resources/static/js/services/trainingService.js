@@ -1,9 +1,9 @@
-app.factory('trainingService', function($http, $q,localStorageService) {
+app.factory('trainingService', function($http, $q,commonService) {
 	var ts={};
-	var profile=localStorageService.get('profile');
+	
 	ts.getClassroomTrainings=function() {
 		var deferred = $q.defer();
-		$http.get('v1/trainings/classroomUpcoming',{ headers: {'EmailId': profile.emailId}}).success(function(response) {
+		$http.get('v1/trainings/classroomUpcoming',{ headers: {'EmailId': commonService.emailId}}).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
@@ -12,7 +12,7 @@ app.factory('trainingService', function($http, $q,localStorageService) {
 	}
 	ts.getOnlineTrainings=function() {
 		var deferred = $q.defer();
-		$http.get('v1/trainings/onlineUpcoming',{ headers: {'EmailId': profile.emailId}}).success(function(response) {
+		$http.get('v1/trainings/onlineUpcoming',{ headers: {'EmailId': commonService.emailId}}).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
@@ -21,14 +21,32 @@ app.factory('trainingService', function($http, $q,localStorageService) {
 	}
 	ts.getMyTrainings=function() {
 		var deferred = $q.defer();
-		$http.get('v1/trainings/completed',{ headers: {'EmailId': profile.emailId}}).success(function(response) {
+		$http.get('v1/trainings/completed',{ headers: {'EmailId': commonService.emailId}}).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
 		})
 		return deferred.promise;
 	}
-	
+	ts.postTraining=function(data){
+		
+		var deferred = $q.defer();
+		$http.post('v1/trainings/saveTrainings',data).success(function(response) {
+			deferred.resolve(response);
+		}).error(function(response) {
+			deferred.reject(response);
+		})
+		return deferred.promise;
+	}
+	ts.requestUserTraining=function(data){
+		var deferred = $q.defer();
+		$http.post('v1/trainings/trainingToUser',data).success(function(response) {
+			deferred.resolve(response);
+		}).error(function(response) {
+			deferred.reject(response);
+		})
+		return deferred.promise;
+	}
 	return ts;
 	
 })

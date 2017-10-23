@@ -2,13 +2,24 @@ var app = angular
 		.module(
 				'nisumApp',
 				[ 'ui.router', 'configurationsApp', 'profileApp', 'loginApp',
-						'questionsApp', 'trainingsApp', 'directive.g+signin',
-						'LocalStorageModule', 'textAngular', 'am.multiselect' ])
+						'questionsApp', 'trainingsApp', 'LocalStorageModule',
+						'textAngular', 'am.multiselect', 'google-signin' ])
 
 		.config(function($stateProvider, $urlRouterProvider) {
 
 			$urlRouterProvider.otherwise('/login');
 		})
+		.config(
+				[
+						'GoogleSigninProvider',
+						function(GoogleSigninProvider) {
+							GoogleSigninProvider
+									.init({
+										clientId : '167391935529-bns0200aplm1inm0qpb5ie7te1g1n50t.apps.googleusercontent.com',
+										hostedDomain : 'nisum.com'
+									});
+						} ])
+
 		.run(
 				function($rootScope, $window, $state, $location,
 						localStorageService, $timeout) {
@@ -20,9 +31,9 @@ var app = angular
 
 								var urls = [ '/home', '/questions',
 										'/configurations', '/profile',
-										'/question', '/addquestion', '/trainings ',
-										'/onlineTrainings',
-										'/classRoomTrainings', '/myTrainings' ]
+										'/question', '/addquestion',
+										'/trainings', '/onlineTrainings',
+										'/classRoomTrainings', '/myTrainings','/createTraining','/editquestion']
 								if (urls.indexOf($rootScope.urlChanged) > -1) {
 									$rootScope.navBarToggle = false;
 								} else if ($rootScope.urlChanged
@@ -37,52 +48,54 @@ var app = angular
 										.get("profile");
 								if (profile !== (undefined || null)
 										&& $rootScope.urlChanged === '/login') {
+									$timeout(function() {
+										$state.go('configurations');
+									}, 0);
 
-									$state.go('configurations');
-
-								} else if(profile===null)
-								{	
-									$timeout(function(){
+								} else if (profile === null) {
+									$timeout(function() {
 										$state.go('login');
-									},0);
+									}, 0);
 
 								}
-							
 
 							})
 				})
 		.controller(
 				'mainController',
-				function($scope, $rootScope, localStorageService, $state, $http) {
+				function($scope, $rootScope, localStorageService, $state,
+						$http, loginLogoutService, questionService,commonService) {
 					var vm = this;
 					vm.redirect = function() {
 						$state.go('addquestion');
 					}
 					vm.getProfile = function() {
 
-						vm.profile = localStorageService.get('profile');
+						vm.profile = commonService.profile;
 					}
-					$http
-							.get('v1/questionaries/retrieveCount')
-							.then(
-									function(response) {
-										$rootScope.questionCount = response.data.questionCount;
-										$rootScope.userCount = response.data.userCount;
-									}, function(response) {
-										console.log(response);
-									});
+					vm.init = function() {
+						questionService
+								.getQuestionsCount()
+								.then(
+										function(response) {
+											if (response.errorCode) {
+												$scope.message = response.errorMessage
+											} else {
+												$rootScope.questionCount = response.questionCount;
+												$rootScope.userCount = response.userCount;
+											}
+										}, function(response) {
+											console.log(response);
+										});
+					}
 					vm.logout = function() {
 
-						// var auth2 = gapi.auth2.getAuthInstance();
-						// auth2.signOut().then(function () {
-						// console.log('User signed out.');
-						// })
-						localStorageService.remove('profile');
-						var url = window.location.href;
-						var navigate = url.substring(0, url.lastIndexOf("/"));
-						document.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue="
-								+ navigate + "/login";
-						sessionStorage.clear();
+						loginLogoutService.logout().then(function(response) {
+							if (response.status) {
+								$state.go('login');
+							}
+						})
+
 					}
 
 				})

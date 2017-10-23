@@ -1,6 +1,5 @@
 <div class="col-md-1 col-xs-1"></div>
-<div class="col-md-9 col-xs-9 modal-submit-questions "
-	style="padding-top: 30px;">
+<div class="col-md-9 col-xs-9 modal-submit-questions ">
 
 	<div class="col-md-12 col-xs-12">
 		<ul class="tabs-title">
@@ -10,44 +9,42 @@
 		</ul>
 	</div>
 	<div class="col-md-12 col-xs-12 body-question">
-		<form id="submit_question" ng-submit="submitQuestion();">
+		<form name="addquestionForm" id="submit_question" ng-submit="addquestionForm.$valid && submitQuestion();">
 			<input type="hidden" id="qa_nonce" name="qa_nonce" value="b1317c01be">
 			<input type="hidden" name="post_parent" value="0">
 			<div class="input-title">
 				<input type="text" class="submit-input" id="question_title"
 					name="post_title" placeholder="Your Question"
-					ng-model="addQuestion.question" /> <span id="charNum">{{150-addQuestion.question.length}}</span>
+					ng-model="addQuestion.question" limit-To='150' ng-maxlength='150' ng-minlength='2' required/> <span id="charNum">{{150-addQuestion.question.length}}</span>
 			</div>
-			<div class="form-group">
-				<label for="categoryname">Select Category:</label>
-				<div class="select-categories" id="categoryname">
-					<am-multiselect class="input-lg customselect" ng-model="addQuestion.categoryId"
-						ms-header="Select Category"
-						options="category.categoryId as category.categoryName for category in categoriesList"
-						change="selected()"></am-multiselect>
+			<div class="form-group row">
+				<label class="col-md-1" for="categoryname">Category:</label>
+				<div class="select-categories col-md-11" id="categoryname">
+					<am-multiselect class="input-lg customselect"
+						ng-model="addQuestion.categoryId" ms-header="Select Category"
+						options="category.categoryId as category.categoryName for category in categoriesList.categories"
+						required></am-multiselect>
 				</div>
-				</div>
-				<div>
-					<h3>Add Description</h3>
-				</div>
-				<div class="wp-editor-container">
+			</div>
+			<div>
+				<h3>Add Description</h3>
+			</div>
+			<div class="wp-editor-container">
 
-					<text-angular ng-model="addQuestion.description"></text-angular>
-				</div>
+				<text-angular ng-model="addQuestion.description"  required></text-angular>
+			</div>
 
-
-
-
-				<button type="submit" id="btn_submit_question"
-					class="btn-submit-question" style="margin-top: 10px;">SUBMIT
-					QUESTION</button>
-				<p class="term-texts">
-					By posting your question, you agree to the <a target="_blank"
-						href="https://qaengine.enginethemes.com/privacy/">privacy
-						policy</a> and <a target="_blank"
-						href="https://qaengine.enginethemes.com/term/">terms of
-						service.</a>
-				</p>
+			<button type="submit" id="btn_submit_question"
+				class="btn-submit-question" ng-class="{'disabled': addquestionForm.$invalid }"
+							ng-disabled="addquestionForm.$invalid" style="margin-top: 10px;">SUBMIT
+				QUESTION</button>
+			<p class="term-texts">
+				By posting your question, you agree to the <a target="_blank"
+					href="https://qaengine.enginethemes.com/privacy/">privacy
+					policy</a> and <a target="_blank"
+					href="https://qaengine.enginethemes.com/term/">terms of
+					service.</a>
+			</p>
 		</form>
 	</div>
 </div>

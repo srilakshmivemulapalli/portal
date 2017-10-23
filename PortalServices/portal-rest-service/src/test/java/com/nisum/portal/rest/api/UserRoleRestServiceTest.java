@@ -106,7 +106,7 @@ public class UserRoleRestServiceTest {
 		String role="SE";
 		when(userRoleService.deleteUserRole(id)).thenReturn(true);
 		ResponseEntity<?> actual=userRoleRestService.deleteUserRole(id);
-		assertThat(actual.getBody()).isEqualToComparingFieldByField(actual.getBody()); 
+		assertThat(actual.getBody()).isEqualToComparingFieldByField(expected); 
 	} 
 	
 	

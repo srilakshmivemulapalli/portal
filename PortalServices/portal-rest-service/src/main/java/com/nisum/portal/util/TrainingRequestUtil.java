@@ -16,7 +16,7 @@ public class TrainingRequestUtil {
 			for(TrainingRequest trainingRequests : trainingRequest){
 				TrainingRequestDTO trainingRequestDto=new TrainingRequestDTO();
 				trainingRequestDto.setTrainingRequestId(trainingRequests.getTrainingRequestId());
-				trainingRequestDto.setEmailid(trainingRequests.getEmailid());
+				trainingRequestDto.setEmailId(trainingRequests.getEmailid());
 				trainingRequestDto.setRequestTrainingTitle(trainingRequests.getRequestTrainingTitle());
 				trainingRequestDto.setDescription(trainingRequests.getDescription());
 				trainingRequestDto.setRequestedDate(trainingRequests.getRequestedDate());
@@ -29,7 +29,7 @@ public class TrainingRequestUtil {
 
 		TrainingRequest trainingRequest = new TrainingRequest();
 		trainingRequest.setTrainingRequestId(trainingRequestDTO.getTrainingRequestId());
-		trainingRequest.setEmailid(trainingRequestDTO.getEmailid());
+		trainingRequest.setEmailid(trainingRequestDTO.getEmailId());
 		trainingRequest.setRequestTrainingTitle(trainingRequestDTO.getRequestTrainingTitle());
 		trainingRequest.setDescription(trainingRequestDTO.getDescription());
 		trainingRequest.setRequestedDate(trainingRequestDTO.getRequestedDate());
@@ -38,7 +38,7 @@ public class TrainingRequestUtil {
 	public static TrainingRequestDTO convertDaoTODto(TrainingRequest trainingRequest) {
 		TrainingRequestDTO trainingRequestDTO=new TrainingRequestDTO();
 		trainingRequestDTO.setTrainingRequestId(trainingRequest.getTrainingRequestId());
-		trainingRequestDTO.setEmailid(trainingRequest.getEmailid());
+		trainingRequestDTO.setEmailId(trainingRequest.getEmailid());
 		trainingRequestDTO.setRequestTrainingTitle(trainingRequest.getRequestTrainingTitle());
 		trainingRequestDTO.setDescription(trainingRequest.getDescription());
 		trainingRequestDTO.setRequestedDate(trainingRequestDTO.getRequestedDate());

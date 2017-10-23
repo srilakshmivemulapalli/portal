@@ -107,7 +107,7 @@ public class BlogsRestService {
 	 */
 	
 	@RequestMapping(value = "/retrieve/getFile/{fileName}/{userMailId}/{blogId}", method = RequestMethod.GET)
-	public Object getFile(@PathVariable String userMailId,@PathVariable String blogId,@PathVariable String fileName) {
+	public Object getFile(@PathVariable String userMailId,@PathVariable Integer blogId,@PathVariable String fileName) {
 		logger.info("BlogsRestService :: getFile");
 		try {
 			
@@ -121,7 +121,6 @@ public class BlogsRestService {
 	        return new HttpEntity<byte[]>(document, header);
 		}
 		catch(Exception e) {
-			e.printStackTrace();
 			logger.error("BlogsRestService :: getFile Error");
 			Errors errors=new Errors();
 			errors.setErrorCode("Errors-Blogs");
@@ -169,6 +168,34 @@ public class BlogsRestService {
 			String resStatus="Success";
 			ResponseEntity<String> response=new ResponseEntity<String>(resStatus,HttpStatus.OK);
 			return response;
+		}
+		catch(Exception e) {
+			logger.error("BlogsRestService :: removeBlog Error");
+			Errors errors=new Errors();
+			errors.setErrorCode("Errors-Blogs");
+			errors.setErrorMessage(e.getMessage());
+			return new ResponseEntity<Errors>(errors, HttpStatus.OK);
+		}
+	}
+	
+	/**
+	 * removeFile
+	 * 
+	 * @return
+	 * @throws BlogServiceException
+	 */
+	
+	@RequestMapping(value = "/remove/file/{fileName}/{userMailId}/{blogId}", method = RequestMethod.DELETE)
+	public Object removeFile(@PathVariable Integer blogId,@PathVariable String userMailId,@PathVariable String fileName) throws BlogServiceException {
+		logger.info("BlogsRestService :: removeFile");
+		try {
+			if(blogService.removeFile(userMailId, blogId, fileName)) {
+				String resStatus="Success";
+				ResponseEntity<String> response=new ResponseEntity<String>(resStatus,HttpStatus.OK);
+				return response;
+			}else {
+				throw new BlogServiceException("Error while deleting file "+fileName);
+			}
 		}
 		catch(Exception e) {
 			logger.error("BlogsRestService :: removeBlog Error");

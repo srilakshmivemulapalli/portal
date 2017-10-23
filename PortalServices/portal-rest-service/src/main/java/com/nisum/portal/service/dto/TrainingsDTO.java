@@ -123,8 +123,8 @@ public class TrainingsDTO {
 	public Integer getTrainingToUserId() {
 		return trainingToUserId;
 	}
-	public void setTrainingToUserId(Integer traininToUserId) {
-		this.trainingToUserId = traininToUserId;
+	public void setTrainingToUserId(Integer trainingToUserId) {
+		this.trainingToUserId = trainingToUserId;
 	}
 	@Override
 	public String toString() {
@@ -135,8 +135,9 @@ public class TrainingsDTO {
 				+noOfStudents+",trainingStartDate="+trainingStartDate+",trainingEndDate="
 				+trainingEndDate+" ,trainingEndTime="+trainingEndTime+"+duration="+duration+
 						",trainerName="+trainerName+",displayImage="+displayImage+",noOfComments="
-				+noOfComments+",trainingToUserId="+trainingToUserId+"]";		
+				+noOfComments+",trainingToUserId="+trainingToUserId+"]";	
 	}
+
 	
 	
 }

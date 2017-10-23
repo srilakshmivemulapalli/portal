@@ -189,7 +189,6 @@ public class BlogsServiceImplTest {
 		blogDTO.setUserMailId("sjbasha@nisum.com");
 		
 		BlogsDTO expObj=blogsServiceImpl.addBlog(blogDTO);
-		//expObj.setCreatedDate(null);
 		
 		assertEquals(expObj,null);
 	}

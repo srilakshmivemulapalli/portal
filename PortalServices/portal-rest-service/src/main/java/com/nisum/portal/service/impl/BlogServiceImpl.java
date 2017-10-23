@@ -126,7 +126,7 @@ public class BlogServiceImpl implements BlogService{
 	}
 
 	@Override
-	public Path getFile(String userMailId, String blogId, String fileName) throws Exception{
+	public Path getFile(String userMailId, Integer blogId, String fileName) throws Exception{
 		logger.info("BlogServiceImpl :: getFile");
 		String fileUrl=null;
 		if((userMailId!=null)&&(blogId!=null)&&(fileName!=null)) {
@@ -135,11 +135,28 @@ public class BlogServiceImpl implements BlogService{
 			if(file.exists()) {
 				return file.toPath();
 			}else {
-				throw new BlogServiceException(fileName+" does't exist.");
+				logger.error("BlogServiceImpl :: getFile Error === "+fileName+" does't exist.");
+				throw new BlogServiceException(file.getName()+" does't exist.");
 			}
 		}else {
+			logger.error("BlogServiceImpl :: getFile Error === UserMailId or BlogId or FileName are nul");
 			throw new BlogServiceException("UserMailId or BlogId or FileName are null.");
 		}
+	}
+
+	@Override
+	public boolean removeFile(String userMailId, Integer blogId, String fileName) throws Exception {
+		logger.info("BlogServiceImpl :: removeFile");
+		if(blogDAO.blogExists(blogId)&&(userMailId!=null)) {
+			if(BlogsServiceUtil.removeBlogAttachments(blogsAttachmentPath+File.separator+userMailId+File.separator+blogId+File.separator+fileName)) {
+				logger.info("BlogServiceImpl :: removeFile -- file "+fileName+" removed.");
+			}
+			
+		}else {
+			logger.error("BlogServiceImpl :: removeFile Error === Blog/UserMailId does not exist.");
+			throw new BlogServiceException("No Blog/UserMailId found with "+blogId+"/"+userMailId);
+		}
+		return true;
 	}
 	
 }
