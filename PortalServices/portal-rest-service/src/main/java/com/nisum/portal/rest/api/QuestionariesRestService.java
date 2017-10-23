@@ -106,6 +106,7 @@ public class QuestionariesRestService {
 			toEmail.append(user.getEmailId());
 			toEmail.append(",");
 		}
+		
 		if(toEmail.toString()!=null && !toEmail.toString().equals("")){
 			MailSender.sendEmail(emailAccount.getAdminemail(), emailAccount.getAdminpassword(), 
 					MailSender.removeLastChar(toEmail.toString()), emailAccount.getQuestionSub(),
