@@ -107,11 +107,11 @@ public class TrainingsRestService {
 		logger.info("TrainingsRestService :: trainingToUser");
 	   	try
 		{
-				trainingsService.trainingToUser(trainingToUserDTO);
-				 ServiceStatusDto serviceStatusDto=new ServiceStatusDto();
+	   		TrainingToUserDTO trainingToUser=trainingsService.trainingToUser(trainingToUserDTO);
+				/* ServiceStatusDto serviceStatusDto=new ServiceStatusDto();
 				 serviceStatusDto.setStatus(true);
-				 serviceStatusDto.setMessage(Constants.TRAINING_PRESENCE);
-				 return new ResponseEntity<ServiceStatusDto>(serviceStatusDto,HttpStatus.OK);
+				 serviceStatusDto.setMessage(Constants.TRAINING_PRESENCE);*/
+				 return new ResponseEntity<TrainingToUserDTO>(trainingToUser,HttpStatus.OK);
 		}catch(Exception e)
 		{
 				 Errors error=new Errors();

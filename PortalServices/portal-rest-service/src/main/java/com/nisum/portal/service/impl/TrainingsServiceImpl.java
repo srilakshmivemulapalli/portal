@@ -128,7 +128,7 @@ public class TrainingsServiceImpl implements TrainingsService {
 			   {
 				   
 				   if(trainingTouser[0]!=null &&(trainingTouser[0].toString()).compareTo(emailId)==0)
-					   trainingsDTO.setTraininToUserId(Integer.valueOf(trainingTouser[1].toString()));
+					   trainingsDTO.setTrainingToUserId(Integer.valueOf(trainingTouser[1].toString()));
 			  }
 		    }else
 		    {
