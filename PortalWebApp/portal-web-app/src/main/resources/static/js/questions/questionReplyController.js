@@ -1,6 +1,6 @@
 questionApp.controller('questionReplyController', function($scope,
 		$stateParams, questionService, QuestionReplyListModel, commentService,
-		commonService) {
+		commonService,$state) {
 
 	$('[data-toggle="tooltip"]').tooltip();
 	$scope.replycomment = [];
@@ -27,7 +27,7 @@ questionApp.controller('questionReplyController', function($scope,
 					} else {
 
 						$scope.question.addReplyListDetails(response);
-						console.log($scope.question);
+						
 					}
 				}, function(response) {
 					console.log(response);
@@ -86,5 +86,8 @@ questionApp.controller('questionReplyController', function($scope,
 
 		});
 
+	};
+	$scope.editQuestion=function(){
+		$state.go('editquestion',{'question':$scope.question.questionDetails});
 	}
 })

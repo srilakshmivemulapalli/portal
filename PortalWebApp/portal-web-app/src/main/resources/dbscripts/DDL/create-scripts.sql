@@ -140,8 +140,8 @@ CREATE TABLE `portal`.`Trainings` (
 CREATE TABLE `portal`.`TrainingToUser`(
 `trainingToUserId` int(11) NOT NULL   AUTO_INCREMENT,
 trainingId int(11) NOT NULL,
-userId int(11) DEFAULT NULL,
-trainingPresence int(11) NOT NULL,
+userId int(11) NOT NULL,
+trainingPresence int(11) DEFAULT NULL,
 `emailId` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`trainingToUserId`)
 )ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=big5;
@@ -166,3 +166,6 @@ CREATE TABLE `portal`.`ProfileSetting` (
 
 ALTER TABLE `portal`.`TrainingRequest` 
 CHANGE COLUMN `emailId` `emailId` VARCHAR(45) NULL DEFAULT NULL ;
+
+ALTER TABLE `portal`.`TrainingRequest` 
+CHANGE COLUMN `requestTrainingTitle` `requestTrainingTitle` VARCHAR(50) NULL DEFAULT NULL ;

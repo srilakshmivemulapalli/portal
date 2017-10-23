@@ -47,6 +47,15 @@ app.factory('trainingService', function($http, $q,commonService) {
 		})
 		return deferred.promise;
 	}
+	ts.requestTraining=function(data){
+		var deferred = $q.defer();
+		$http.post('v1/trainings/addTrainingRequest',data).success(function(response) {
+			deferred.resolve(response);
+		}).error(function(response) {
+			deferred.reject(response);
+		})
+		return deferred.promise;
+	}
 	return ts;
 	
 })

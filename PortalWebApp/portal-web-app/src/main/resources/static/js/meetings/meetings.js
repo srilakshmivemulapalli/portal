@@ -1,4 +1,4 @@
-var mainApp=angular.module('meetingsApp', [ 'ui.router' ])
+var meetingApp=angular.module('meetingApp', [ 'ui.router' ])
 .config(function($stateProvider){
 	$stateProvider.state('meetings',{
 		url:'/meetings',

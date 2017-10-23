@@ -2,8 +2,11 @@ var app = angular
 		.module(
 				'nisumApp',
 				[ 'ui.router', 'configurationsApp', 'profileApp', 'loginApp',
-					'questionsApp', 'trainingsApp', 'LocalStorageModule',
-					'textAngular', 'am.multiselect','BlogsApp', 'google-signin' ])	
+
+						'questionsApp', 'trainingsApp', 'meetingApp',
+						'LocalStorageModule', 'textAngular', 'am.multiselect',
+						'google-signin','BlogsApp' ])
+
 
 		.config(function($stateProvider, $urlRouterProvider) {
 
@@ -24,46 +27,69 @@ var app = angular
 				function($rootScope, $window, $state, $location,
 						localStorageService, $timeout) {
 					$rootScope.navBarToggle = false;
-					$rootScope.$on("$locationChangeStart",
-							function(event, next, current) {
+					$rootScope
+							.$on(
+									"$locationChangeStart",
+									function(event, next, current) {
 
-								$rootScope.urlChanged = $location.path();
+										$rootScope.urlChanged = $location
+												.path();
 
-								var urls = [ '/home', '/questions',
-									'/configurations', '/profile','/createTraining','/editquestion',
-									'/question', '/addquestion','/trainings','/onlineTrainings','/classRoomTrainings','/myTrainings','/blogs','/newBlog','/blog' ]
+										var urls = [ '/home', '/questions',
+												'/configurations', '/profile',
+												'/question', '/addquestion',
+												'/trainings',
+												'/onlineTrainings',
+												'/classRoomTrainings',
+												'/myTrainings',
+												'/createTraining',
+												'/editquestion','/blogs','/newBlog','/blog','/meetings'  ]
+										if (urls.indexOf($rootScope.urlChanged) > -1) {
+											$rootScope.navBarToggle = false;
+										} else if ($rootScope.urlChanged
+												.indexOf('/question/') > -1) {
+											$rootScope.navBarToggle = false;
+										} else {
+											$rootScope.navBarToggle = true;
+										}
 
-								if (urls.indexOf($rootScope.urlChanged) > -1) {
-									$rootScope.navBarToggle = false;
-								} else if ($rootScope.urlChanged
-										.indexOf('/question/') > -1) {
-									$rootScope.navBarToggle = false;
-								} else {
-									$rootScope.navBarToggle = true;
-								}
 
-								// 
-								var profile = localStorageService
-										.get("profile");
-								if (profile !== (undefined || null)
-										&& $rootScope.urlChanged === '/login') {
-									$timeout(function() {
-										$state.go('configurations');
-									}, 0);
+										var profile = localStorageService
+												.get("profile");
+										if (profile !== (undefined || null)
+												&& $rootScope.urlChanged === '/login') {
+											if (profile.role.roleId === 1) {
+												$timeout(
+														function() {
+															$state
+																	.go('configurations');
+														}, 0);
+											} else {
+												$timeout(function() {
+													$state.go('questions');
+												}, 0);
+											}
 
-								} else if (profile === null) {
-									$timeout(function() {
-										$state.go('login');
-									}, 0);
+										} else if (profile !== (undefined || null)
+												&& $rootScope.urlChanged == '/configurations'
+												&& profile.role.roleId === 1) {
+											$timeout(function() {
+												$state.go('questions');
+											}, 0)
+										} else if (profile === null) {
+											$timeout(function() {
+												$state.go('login');
+											}, 0);
 
-								}
+										}
 
-							})
+									})
 				})
 		.controller(
 				'mainController',
 				function($scope, $rootScope, localStorageService, $state,
-						$http, loginLogoutService, questionService,commonService) {
+						$http, loginLogoutService, questionService,
+						commonService) {
 					var vm = this;
 					vm.redirect = function() {
 						$state.go('addquestion');

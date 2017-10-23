@@ -1,24 +1,39 @@
 trainingsApp.controller('createTrainingController', function($scope,
-		trainingService, $timeout, TrainingModel,
-		commonService) {
-	
-	$scope.training =TrainingModel;
-	
-	$scope.requestuserTraining = function(modalobj, opt) {
-		
-		var optObj = {
-			'trainingToUserId' : modalobj.trainingToUserId,
-			'trainingId' : modalobj.trainingId,
-			'emailId' : commonService.emailId,
-			'trainingPresence' : opt
-		}
-		trainingService.requestUserTraining(optObj).then(function(response) {
+		trainingService, $timeout, TrainingModel,$state, commonService) {
+
+	$scope.training = TrainingModel;
+	$scope.timeOptions = {
+		format : 'LT',
+	}
+	$scope.dateOptions = {
+		format : 'D/MM/YYYY',
+		minDate : new Date()
+
+	}
+	$scope.createTraining = function(trainingobj) {
+		trainingobj.trainerEmailId = commonService.emailId;
+		$scope.training = TrainingModel.clone(trainingobj);
+		trainingService.postTraining($scope.training).then(function(response) {
 			if (response.errorCode) {
 				$scope.message = response.errorMessage
 			} else {
-				console.log(response);
+				$state.go('myTrainings');
 			}
-		});
+		},function(response){
+			console.log(response);
+		})
+	};
+	$scope.requestTraining = function(reqtrainingobj) {
+		reqtrainingobj.emailid = commonService.emailId;
+		trainingService.requestTraining(reqtrainingobj).then(function(response) {
+			if (response.errorCode) {
+				$scope.message = response.errorMessage
+			} else {
+				$state.go('myTrainings');
+			}
+		},function(response){
+			console.log(response);
+		})
 	};
 
 })

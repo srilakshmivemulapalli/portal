@@ -16,6 +16,7 @@ var questionApp=angular.module('questionsApp', [ 'ui.router' ])
 	})
 	.state('editquestion',{
 		url:'/editquestion',
+		params: { question: null },
 		templateUrl:'js/questions/editquestion.html',
 		controller: 'editQuestionController'
 	})

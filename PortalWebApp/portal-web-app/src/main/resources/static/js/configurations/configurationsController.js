@@ -3,8 +3,10 @@ adminApp
 				'configurationsController',
 				function($scope, $timeout, categoryService, userService,
 						roleService, localStorageService, CategoryListModel,
-						RoleListModel, UserListModel,commonService) {
-					// $('#example').DataTable({ "order": [[ 2, "desc" ]]});
+						RoleListModel, UserListModel,commonService,$state) {
+					if(commonService.roleId!==1){
+						$state.go('questions');
+					}
 					$scope.categoriesList = CategoryListModel
 							.newCategoryListInstance();
 					$scope.rolesList = RoleListModel.newRoleListInstance();

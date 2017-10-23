@@ -10,7 +10,15 @@
 		</div>
 		<div class="col-md-10 col-xs-10">
 
-
+			<ul ng-show="question.replyDetails.length<=0"
+				class="edittooltip">
+				<!-- Follow Action -->
+				<li><a  ng-click="editQuestion();" href="javascript:void(0);" data-toggle="tooltip"
+					title="Edit" tooltip class="action follow" style=" color: #adcfed;">Edit Question <i
+						class="fa fa-pencil"></i>
+				</a></li>
+				<!-- // Follow Action -->
+			</ul>
 			<h1 ng-bind-html='question.questionDetails.question'></h1>
 
 		</div>
@@ -101,7 +109,8 @@
 							<div class="cm-content-wrap">
 								<div class="">
 									<p>
-										<span style="color: #000000;" ng-bind-html='comment.commentDescription'></span>
+										<span style="color: #000000;"
+											ng-bind-html='comment.commentDescription'></span>
 									</p>
 								</div>
 								<span class="comment-time"><span style="color: #07C;">{{comment.emailId}}
@@ -135,17 +144,20 @@
 					data-target="#questionchild-container" class="add-comment"
 					href="javascript:void(0)">Add Comment</a>
 				<div class="clearfix"></div>
-				<form class="child-reply" ng-submit="submitQuestionComment(questioncomment,question.questionDetails.questionId)">
+				<form class="child-reply"
+					ng-submit="submitQuestionComment(questioncomment,question.questionDetails.questionId)">
 
-					<div id="questionchild-container" class="child-answer-wrap collapse">
+					<div id="questionchild-container"
+						class="child-answer-wrap collapse">
 						<div class="wp-editor-container">
 							<text-angular ng-model="questioncomment"></text-angular>
 						</div>
 						<div class="row submit-wrapper">
 							<div class="col-md-3 col-xs-3">
-								<button type="submit" ng-class="{'disabled': questioncomment==''  }"
-							ng-disabled="questioncomment==''" id="submit_reply" class="btn-submit">Add
-									comment</button>
+								<button type="submit"
+									ng-class="{'disabled': questioncomment==''  }"
+									ng-disabled="questioncomment==''" id="submit_reply"
+									class="btn-submit">Add comment</button>
 							</div>
 							<div class="col-md-9 col-xs-9">
 								<a href="javascript:void(0)" class="hide-comment">Cancel</a>
@@ -239,7 +251,8 @@
 							<div class="cm-content-wrap">
 								<div class="">
 									<p>
-										<span style="color: #000000;" ng-bind-html='comment.commentDescription'></span>
+										<span style="color: #000000;"
+											ng-bind-html='comment.commentDescription'></span>
 									</p>
 								</div>
 								<span class="comment-time"><span style="color: #07C;">{{comment.emailId}}
@@ -271,10 +284,11 @@
 				</div>
 
 				<a data-toggle="collapse" class="add-comment"
-					data-target="#replychild-container{{$index}}" href="javascript:void(0)">Add
-					Comment</a>
+					data-target="#replychild-container{{$index}}"
+					href="javascript:void(0)">Add Comment</a>
 				<div class="clearfix"></div>
-				<form class="child-reply" ng-submit="submitReplyComment(replycomment[$index],reply.replyId,$index)">
+				<form class="child-reply"
+					ng-submit="submitReplyComment(replycomment[$index],reply.replyId,$index)">
 
 					<div id="replychild-container{{$index}}"
 						class="child-answer-wrap collapse">
@@ -283,9 +297,10 @@
 						</div>
 						<div class="row submit-wrapper">
 							<div class="col-md-3 col-xs-3">
-								<button type="submit" ng-class="{'disabled': (replycomment[$index]==null || replycomment[$index]==undefined || replycomment[$index]=='')  }"
-							ng-disabled="(replycomment[$index]==null || replycomment[$index]==undefined || replycomment[$index]=='') " id="submit_reply" class="btn-submit">Add
-									comment</button>
+								<button type="submit"
+									ng-class="{'disabled': (replycomment[$index]==null || replycomment[$index]==undefined || replycomment[$index]=='')  }"
+									ng-disabled="(replycomment[$index]==null || replycomment[$index]==undefined || replycomment[$index]=='') "
+									id="submit_reply" class="btn-submit">Add comment</button>
 							</div>
 							<div class="col-md-9 col-xs-9">
 								<a href="javascript:void(0)" class="hide-comment">Cancel</a>

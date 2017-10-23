@@ -1,9 +1,9 @@
 questionApp.controller('editQuestionController', function($scope,
 		questionService, $state, categoryService, commonService,
-		localStorageService, CategoryListModel, $timeout) {
+		localStorageService, CategoryListModel, $timeout, $stateParams) {
 	$scope.categoriesList = CategoryListModel.newCategoryListInstance();
 	
-	if (commonService.categoriesList !== (undefined || null)) {
+	if (commonService.categoriesList !== (undefined && null)) {
 		var list = commonService.categoriesList;
 		list.map(function(category) {
 			$scope.categoriesList.addCategories(category);
@@ -29,12 +29,16 @@ questionApp.controller('editQuestionController', function($scope,
 			console.log(response);
 		})
 	}
+	if($stateParams.question!==null && $stateParams.question!==undefined){
 
-	$scope.editQuestion = {
-		'question' : null,
-		'categoryId' : null,
-		'description' : null,
-		'emailId' : commonService.emailId
+	$scope.editQuestion = $stateParams.question;
+	$scope.categoriesList.categories.map(function(innerCategory){
+		if(innerCategory.categoryName===$scope.editQuestion.categoryName){
+			$scope.editQuestion.categoryId= innerCategory.categoryId;
+		}
+	})
+	}else{
+		$state.go('questions');
 	}
 
 	$scope.submitQuestion = function() {
