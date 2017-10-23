@@ -2,10 +2,8 @@ var app = angular
 		.module(
 				'nisumApp',
 				[ 'ui.router', 'configurationsApp', 'profileApp', 'loginApp',
-						'questionsApp', 'trainingsApp', 'LocalStorageModule',
-						'textAngular', 'am.multiselect', 'google-signin' ])
-						'questionsApp','trainingsApp','BlogsApp', 'directive.g+signin',
-						'LocalStorageModule', 'textAngular', 'am.multiselect' ])
+					'questionsApp', 'trainingsApp', 'LocalStorageModule',
+					'textAngular', 'am.multiselect','BlogsApp', 'google-signin' ])	
 
 		.config(function($stateProvider, $urlRouterProvider) {
 
@@ -32,11 +30,8 @@ var app = angular
 								$rootScope.urlChanged = $location.path();
 
 								var urls = [ '/home', '/questions',
-										'/configurations', '/profile',
-										'/question', '/addquestion',
-										'/trainings', '/onlineTrainings',
-										'/classRoomTrainings', '/myTrainings','/createTraining','/editquestion']
-										'/question', '/addquestion','/trainings','/onlineTrainings','/classRoomTrainings','/myTrainings','/blogs','/newBlog','/blog' ]
+									'/configurations', '/profile','/createTraining','/editquestion',
+									'/question', '/addquestion','/trainings','/onlineTrainings','/classRoomTrainings','/myTrainings','/blogs','/newBlog','/blog' ]
 
 								if (urls.indexOf($rootScope.urlChanged) > -1) {
 									$rootScope.navBarToggle = false;
