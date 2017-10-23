@@ -4,6 +4,8 @@ var app = angular
 				[ 'ui.router', 'configurationsApp', 'profileApp', 'loginApp',
 						'questionsApp', 'trainingsApp', 'LocalStorageModule',
 						'textAngular', 'am.multiselect', 'google-signin' ])
+						'questionsApp','trainingsApp','BlogsApp', 'directive.g+signin',
+						'LocalStorageModule', 'textAngular', 'am.multiselect' ])
 
 		.config(function($stateProvider, $urlRouterProvider) {
 
@@ -34,6 +36,8 @@ var app = angular
 										'/question', '/addquestion',
 										'/trainings', '/onlineTrainings',
 										'/classRoomTrainings', '/myTrainings','/createTraining','/editquestion']
+										'/question', '/addquestion','/trainings','/onlineTrainings','/classRoomTrainings','/myTrainings','/blogs','/newBlog','/blog' ]
+
 								if (urls.indexOf($rootScope.urlChanged) > -1) {
 									$rootScope.navBarToggle = false;
 								} else if ($rootScope.urlChanged

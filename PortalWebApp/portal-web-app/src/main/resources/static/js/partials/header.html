@@ -20,10 +20,9 @@
 					ng-class="{'active': urlChanged==='/questions' || urlChanged.indexOf('/question/') > -1}"
 					class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-12 current_page_item menu-item-20"><a
 					href='#/questions'>Questions</a></li>
-
-				<li ng-class="{'active': urlChanged==='/blog'}"
+				<li ng-class="{'active': urlChanged==='/blogs'}"
 					class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1866"><a
-					href='javascript:void(0);'>Blog</a></li>
+					href='#/blogs'>Blog</a></li>
 				<!-- ng-show="mc.profile.username=='admin@gmail.com'" -->
 				<li ng-class="{'active': urlChanged==='/trainings'}"
 					class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1866"><a
@@ -38,7 +37,7 @@
 						<form id="header_search" method="GET" action=""
 							class="disable-mobile-search">
 							<input type="text" name="keyword" required value=""
-								placeholder="Search Questions" autocomplete="off" /> <i
+								placeholder="Enter Keywords" autocomplete="off" /> <i
 								class="fa fa-search"></i>
 							<div id="search_preview" class="search-preview empty"></div>
 						</form>

@@ -1,0 +1,41 @@
+<div class="col-sm-2 paddingTop40 ng-scope" style="width:100px">
+	<nav class="nav-sidebar">
+		<ul class="nav">
+			<li class="active"><a href="javascript:;"><span
+					class="glyphicon glyphicon-star"></span>All Blogs</a></li>
+			<li class="nav-divider"></li>
+		</ul>
+	</nav>
+	<div>
+		<h3>
+			<a href="#/newBlog" class="button">Write your Blog....</a>>
+		</h3>
+	</div>
+</div>
+<div class="col-md-1 col-xs-1"></div>
+<div class="col-md-9 col-xs-9 main-content">
+	<div class="clearfix"></div>
+	<div class="col-md-6 col-xs-6 current-category"></div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-2 paddingTop20">
+			<nav class="nav-sidebar">
+				<ul class="nav">
+					<li>sidebar</li>
+					<li>{{blogData.userId}} and {{blogData.blogsId}}</li>
+				</ul>
+			</nav>
+		</div>
+		<div class="col-md-10 blogShort">
+			<h1>
+				<span>image::{{blogData.path}}</span>
+			</h1>
+			<article>{{blogData.description}}</article>
+			
+		</div>
+	</div>
+</div>
+
+
+
