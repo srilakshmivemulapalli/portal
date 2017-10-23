@@ -16,7 +16,7 @@ public interface TrainingsService {
 
 	public List<TrainingsDTO> completedTrainings();
 
-	public Trainings saveTrainings(TrainingsDTO trainingsDTO);
+	public TrainingsDTO saveTrainings(TrainingsDTO trainingsDTO);
 	
 	public TrainingToUserDTO trainingToUser(TrainingToUserDTO trainingToUserDTO);
 
