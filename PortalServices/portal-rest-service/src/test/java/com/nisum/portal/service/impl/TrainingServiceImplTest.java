@@ -42,7 +42,7 @@ public class TrainingServiceImplTest {
 		trainingFeedBackDTO.setTrainingFeedBackId(1);
 		trainingFeedBackDTO.setTrainingId(1);
 		trainingFeedBackDTO.setFeedback("Very Good");
-		trainingFeedBackDTO.setRating("Very Nice");
+		trainingFeedBackDTO.setEmailId("mbheemanapalli@nisum.com");
 		trainingFeedBackDTO.setCreateDate(timestamp);
 		PowerMockito.mockStatic(TrainingFeedBackUtil.class);
 		TrainingFeedBack feedback=new TrainingFeedBack();

@@ -13,4 +13,6 @@ public interface TrainingsFeedBackRepository extends JpaRepository<TrainingFeedB
 	TrainingFeedBack findByTrainingFeedBackId(Integer trainingFeedBackId);
 	@Query(value="Select f from TrainingFeedBack f where f.trainings.trainingId= :trainingId")
 	List<TrainingFeedBack> findByTrainingId(@Param("trainingId") Integer trainingId);
+	@Query(value="Select count(*) from TrainingFeedBack f where f.trainings.trainingId= :trainingId AND f.emailId=:emailId")
+	Integer findByTrainingIdAndEmailId(@Param("trainingId") Integer trainingId,@Param("emailId") String emailId);
 }

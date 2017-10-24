@@ -7,7 +7,7 @@ public class TrainingFeedBackDTO {
 	private Integer trainingFeedBackId;
 	private Integer trainingId;
 	private String feedback;
-	private String rating;
+	private String emailId;
 	private Timestamp createDate;
 	public Integer getTrainingFeedBackId() {
 		return trainingFeedBackId;
@@ -27,11 +27,11 @@ public class TrainingFeedBackDTO {
 	public void setFeedback(String feedback) {
 		this.feedback = feedback;
 	}
-	public String getRating() {
-		return rating;
+	public String getEmailId() {
+		return emailId;
 	}
-	public void setRating(String rating) {
-		this.rating = rating;
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
 	}
 	public Timestamp getCreateDate() {
 		return createDate;
@@ -44,8 +44,8 @@ public class TrainingFeedBackDTO {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((createDate == null) ? 0 : createDate.hashCode());
+		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
 		result = prime * result + ((feedback == null) ? 0 : feedback.hashCode());
-		result = prime * result + ((rating == null) ? 0 : rating.hashCode());
 		result = prime * result + ((trainingFeedBackId == null) ? 0 : trainingFeedBackId.hashCode());
 		result = prime * result + ((trainingId == null) ? 0 : trainingId.hashCode());
 		return result;
@@ -64,15 +64,15 @@ public class TrainingFeedBackDTO {
 				return false;
 		} else if (!createDate.equals(other.createDate))
 			return false;
+		if (emailId == null) {
+			if (other.emailId != null)
+				return false;
+		} else if (!emailId.equals(other.emailId))
+			return false;
 		if (feedback == null) {
 			if (other.feedback != null)
 				return false;
 		} else if (!feedback.equals(other.feedback))
-			return false;
-		if (rating == null) {
-			if (other.rating != null)
-				return false;
-		} else if (!rating.equals(other.rating))
 			return false;
 		if (trainingFeedBackId == null) {
 			if (other.trainingFeedBackId != null)
@@ -89,7 +89,6 @@ public class TrainingFeedBackDTO {
 	@Override
 	public String toString() {
 		return "TrainingFeedBackDTO [trainingFeedBackId=" + trainingFeedBackId + ", trainingId=" + trainingId
-				+ ", feedback=" + feedback + ", rating=" + rating + ", createDate=" + createDate + "]";
+				+ ", feedback=" + feedback + ", emailId=" + emailId + ", createDate=" + createDate + "]";
 	}
-
 }

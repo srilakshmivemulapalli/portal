@@ -19,7 +19,7 @@ public class TrainingFeedBackUtil {
 				trainingFeedBackDto.setTrainingFeedBackId(trainingFeedBacks.getTrainingFeedBackId());
 				trainingFeedBackDto.setTrainingId(trainingFeedBacks.getTrainings().getTrainingId());
 				trainingFeedBackDto.setFeedback(trainingFeedBacks.getFeedback());
-				trainingFeedBackDto.setRating(trainingFeedBacks.getRating());
+				trainingFeedBackDto.setEmailId(trainingFeedBacks.getEmailId());
 				trainingFeedBackDto.setCreateDate(trainingFeedBacks.getCreateDate());
 				trainingFeedBackDTO.add(trainingFeedBackDto);
 			}
@@ -31,7 +31,7 @@ public class TrainingFeedBackUtil {
 		trainingFeedBack.setTrainingFeedBackId(trainingFeedBackDTO.getTrainingFeedBackId());
 		trainingFeedBack.setTrainings(new Trainings(trainingFeedBackDTO.getTrainingId()));
 		trainingFeedBack.setFeedback(trainingFeedBackDTO.getFeedback());
-		trainingFeedBack.setRating(trainingFeedBackDTO.getRating());
+		trainingFeedBack.setEmailId(trainingFeedBackDTO.getEmailId());
 		trainingFeedBack.setCreateDate(trainingFeedBackDTO.getCreateDate());
 		return trainingFeedBack;
 	}
@@ -40,7 +40,7 @@ public class TrainingFeedBackUtil {
 		trainingFeedBackDTO.setTrainingFeedBackId(trainingFeedBack.getTrainingFeedBackId());
 		trainingFeedBackDTO.setTrainingId(trainingFeedBack.getTrainings().getTrainingId());
 		trainingFeedBackDTO.setFeedback(trainingFeedBack.getFeedback());
-		trainingFeedBackDTO.setRating(trainingFeedBack.getRating());
+		trainingFeedBackDTO.setEmailId(trainingFeedBack.getEmailId());
 		trainingFeedBackDTO.setCreateDate(trainingFeedBack.getCreateDate());
 		return trainingFeedBackDTO;
 	}

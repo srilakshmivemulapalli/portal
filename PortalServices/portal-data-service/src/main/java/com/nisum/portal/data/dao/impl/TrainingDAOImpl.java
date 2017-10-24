@@ -64,12 +64,10 @@ public class TrainingDAOImpl implements TrainingsDAO {
 		// TODO Auto-generated method stub
 		logger.info("TrainingDAOImpl :: addTrainingsFeedBack ::" + trainingFeedBack.toString());
 
-		Integer status;
+		Integer status=0;
 
-		TrainingFeedBack feedBack = trainingFeedBackRepository
-				.findByTrainingFeedBackId(trainingFeedBack.getTrainingFeedBackId());
-
-		if (feedBack == null) {
+Integer queryStatus = trainingFeedBackRepository.findByTrainingIdAndEmailId(trainingFeedBack.getTrainings().getTrainingId(), trainingFeedBack.getEmailId());
+		if (queryStatus==0) {
 			trainingFeedBackRepository.save(trainingFeedBack);
 			status = 1;
 		} else {
