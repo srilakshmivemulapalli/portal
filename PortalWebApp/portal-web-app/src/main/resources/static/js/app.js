@@ -2,10 +2,9 @@ var app = angular
 		.module(
 				'nisumApp',
 				[ 'ui.router', 'configurationsApp', 'profileApp', 'loginApp',
-
-						'questionsApp', 'trainingsApp', 'meetingApp',
+	'questionsApp', 'trainingsApp', 'meetingApp',
 						'LocalStorageModule', 'textAngular', 'am.multiselect',
-						'google-signin','BlogsApp' ])
+						'google-signin','BlogsApp', 'ae-datetimepicker'])
 
 
 		.config(function($stateProvider, $urlRouterProvider) {

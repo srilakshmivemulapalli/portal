@@ -29,6 +29,7 @@ trainingsApp.controller('createTrainingController', function($scope,
 			if (response.errorCode) {
 				$scope.message = response.errorMessage
 			} else {
+				
 				$state.go('myTrainings');
 			}
 		},function(response){
