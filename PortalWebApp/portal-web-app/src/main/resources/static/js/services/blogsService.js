@@ -38,7 +38,7 @@ app.factory('blogsService', function($http, $q) {
                 }
              return formData;
             },
-            data: {model: model,uploads : uploads}
+            data: {model: model, uploads : uploads}
         }).
         success(function (data, status, headers, config) {
             alert("success!");

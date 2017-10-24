@@ -1,10 +1,8 @@
-blogsApp.controller('blogsController', function($scope, blogsService,localStorageService) {
+blogsApp.controller('blogsController', function($scope,$http,blogsService,commonService) {
 	$scope.files = [];
-	$scope.model = $scope.blog;
-//	var profile=localStorageService.get('profile');
-//	$scope.blog.name = profile.getName();
-//	$scope.blog.blog.email= profile.getEmail();
-	
+	$scope.JsonData = $scope.blog;
+	$scope.profile = commonService.profile;
+
 	
 	$scope.getBlogdata = function() {
 		blogsService.getBlogs().then(function(response) {
@@ -19,13 +17,16 @@ blogsApp.controller('blogsController', function($scope, blogsService,localStorag
 	// $scope.redirectNewBlog = function() {
 	// $state.go('newBlog');
 	// }
-	$scope.saveBlog = function(model,files) {
-		console.log('data with files data :::'+model+" files :::"+files)
-//		console.log('profile::-->'+JSON.stringify(profile));
-//		console.log('profile name::-->'+blog.name);
-//		console.log('profile email-->'+blog.email);
-		
-		blogsService.saveBlog(model,files).then(function(response) {
+	$scope.saveBlog = function(JsonData,files) {
+		$scope.blog.userId = $scope.profile.userId;
+		$scope.blog.emailId = $scope.profile.emailId;
+		console.log('data with files data :::'+JsonData+" files :::"+files)
+	console.log('profile::-->'+JSON.stringify($scope.profile));
+		console.log('model::-->'+JSON.stringify($scope.model));
+		console.log('profile name::-->'+userId);
+		console.log('profile email-->'+emailId);
+		$scope.save().then(function(response) {
+		//blogsService.saveBlog(model,files).then(function(response) {
 		//saveBlogToServer().then(function(response) {
 			console.log('success...' + response);
 		}, function(response) {
@@ -33,6 +34,33 @@ blogsApp.controller('blogsController', function($scope, blogsService,localStorag
 		})
 
 	}
+	
+	$scope.save = function () {  
+        $http({  
+            method: 'POST',  
+            url: "v1/Blogs/add/addBlog",  
+//            headers: { 'Content-Type': undefined },  
+            headers:   {"Content-Type": "multipart/form-data;boundary=------------------------7d87eceb5520850c"},
+             
+            transformRequest: function (data) {  
+                var formData = new FormData();  
+                formData.append("model", angular.toJson($scope.JsonData));  
+                for (var i = 0; i < data.uploads.length; i++) {  
+                	alert("file...."+i);
+                    formData.append("file" + i, data.uploads[i]);  
+                }  
+                return formData;  
+            },  
+            data: { model: $scope.JsonData, uploads: $scope.files }  
+        }).  
+        success(function (data, status, headers, config) {  
+            alert("success!");  
+        }).  
+        error(function (data, status, headers, config) {  
+            alert("failed!");  
+        });  
+    };  
+    
 	$scope.submitBlog = function() {
 		var data = $scope.blog;
 		alert('here....sumbit:::' + JSON.stringify(data));

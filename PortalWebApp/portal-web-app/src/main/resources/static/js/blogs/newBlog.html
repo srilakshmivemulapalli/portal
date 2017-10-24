@@ -26,10 +26,12 @@ background-color:#fff
 						name="textTitle" id="txtTitle" class="form-control"
 						ng-model="blog.title" placeholder="Title" required> <br>
 					<label for="txtComment">Blog Description</label>
-					 <input type="text" rows="3" cols="50" name="textDesc" id="txtDesc" class="form-control" ng-model="blog.description" 
+					 <input type="text" rows="3" cols="50" name="textDesc" id="txtDesc" class="form-control"
 					 placeholder="Description here...." required> <br>
+				<input id="userId" name="userId"  type="hidden" ng-model="blog.userId" class="form-control" >
+				<input id="emailId" name="emailId" type="hidden"  ng-model="blog.emailId" class="form-control">
 					<div class="wp-editor-container">
-						<text-angular ng-model="blog.main"></text-angular>
+						<text-angular ng-model="blog.description"></text-angular>
 					</div>
 					<br>
 					<hr>

@@ -105,10 +105,10 @@ public class BlogsServiceUtil {
 		validateHttpRequestForUploads(request);
 		
 		String title=request.getParameter("title");
-		if(title==null) {
-			logger.error("BlogsServiceUtil :: parseRequestToGetBlogsDTO Error ==== Missing Blog title.");
-			throw new BlogServiceException("Missing Blog title.");
-		}
+//		if(title==null) {
+//			logger.error("BlogsServiceUtil :: parseRequestToGetBlogsDTO Error ==== Missing Blog title.");
+//			throw new BlogServiceException("Missing Blog title.");
+//		}
 		String description=request.getParameter("description");
 		if(description==null) {
 			logger.error("BlogsServiceUtil :: parseRequestToGetBlogsDTO Error ==== Missing Blog description.");
