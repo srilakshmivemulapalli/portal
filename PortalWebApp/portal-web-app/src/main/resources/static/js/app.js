@@ -91,8 +91,11 @@ var app = angular
 						$http, loginLogoutService, questionService,
 						commonService) {
 					var vm = this;
-					vm.redirect = function() {
+					vm.redirectQuestion = function() {
 						$state.go('addquestion');
+					}
+					vm.redirectMeeting = function() {
+						$state.go('meetings');
 					}
 					vm.getProfile = function() {
 
