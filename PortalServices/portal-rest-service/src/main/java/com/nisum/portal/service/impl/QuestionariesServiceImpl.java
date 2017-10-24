@@ -72,6 +72,24 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 		questionariesDAO.saveQuestionaries(questionaries);
 		return Constants.MSG_RECORD_ADD;
 	}
+	
+	
+	
+	@Override
+	public String updateQuestion(Integer questionId, Integer categoryId, String question, String description,String emailId) {
+		Questionaries questionaries = QuestionariesUtil.convertDtoToDao(questionId,categoriesDAO.getCategory(categoryId), question, description,emailId);
+		boolean isexist=findQuestionById(questionId);
+		logger.info("in side service ********sericeimpl.."+isexist);
+		if(isexist==true) {
+			questionariesDAO.updateQuestionaries(questionaries);
+		}else {
+			return null;
+		     //questionariesDAO.saveQuestionaries(questionaries);
+		}
+		return Constants.MSG_RECORD_UPDATE;
+	    }
+	
+
 
 	@Override
 	public QuestionsDTO fetchMyQuestionaries(String emailId) {
@@ -151,4 +169,8 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 		
 		return QuestionariesUtil.convertDaoToDto(questionariesList, questionsDTO, userervice);
 	}
+
+	
+
+	
 }

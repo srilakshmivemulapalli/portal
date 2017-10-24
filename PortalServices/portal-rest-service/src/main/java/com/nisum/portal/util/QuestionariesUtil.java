@@ -48,6 +48,11 @@ public class QuestionariesUtil {
 		return new Questionaries(categoryId,question,description,new Timestamp(System.currentTimeMillis()),emailId);
 	}
 	
+	public static Questionaries convertDtoToDao(Integer questionId, Categories categoryId, String question, String description,String emailId) {
+		return new Questionaries(questionId,categoryId,question,description,new Timestamp(System.currentTimeMillis()),emailId);
+	}
+	
+	
 	public static QuestionariesComments convertDtoToDao(String emailId, QuestionariesCommentsDTO questionComments) {
 		QuestionariesComments questionariesComments = new QuestionariesComments();
 		questionariesComments.setcommentDescription(questionComments.getcommentDescription());

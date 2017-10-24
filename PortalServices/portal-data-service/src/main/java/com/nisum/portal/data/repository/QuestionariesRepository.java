@@ -1,11 +1,12 @@
 package com.nisum.portal.data.repository;
 
-import java.util.List;  
+import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -26,6 +27,18 @@ public interface QuestionariesRepository extends JpaRepository<Questionaries,Int
 	@Transactional
     @Query(value = "SELECT q from Questionaries q where q.categoryId = :category")
 	List<Questionaries> retrieveQuestionariesByCategory(@Param("category") Categories category, Pageable pageable);
+
+	    
+    @Modifying
+	@Transactional
+	@Query(value = "UPDATE Questionaries set categoryId =:#{#questionaries.categoryId},question =:#{#questionaries.question},description =:#{#questionaries.description},emailId =:#{#questionaries.emailId} where questionId =:#{#questionaries.questionId}")
+	Integer update(@Param("questionaries") Questionaries questionaries);
+	    
+	
+	
+
+
+	
 	
 }
 
