@@ -1,27 +1,33 @@
 
 
+
 <div class="col-md-1 col-xs-1"></div>
 
-
 <div class="col-md-9 col-xs-9 main-content">
-	<div class="col-sm-2 paddingTop20" style="width: 20px">
+	<div class="col-sm-2 paddingTop20" style="width: 80px">
 		<nav class="nav-sidebar">
+		<p>&nbsp;</p>
 			<ul class="nav">
 				<li class="active"><a href="#/Blogs"><span>All Blogs</span></a></li>
 				<li class="nav-divider"></li>
 				<li class="active"><a href="#/newBlog" class="button"> <span>Write
 							your Blog....</span></a></li>
+				<li class="nav-divider"></li>
+				<li class="active"><a href="#/ownBlogs" class="button"> <span>My
+							Blogs</span></a></li>
+				<li class="nav-divider"></li>
 			</ul>
-
 		</nav>
 	</div>
-
-	<div ng-repeat="blog in blogsList ">
-		<!-- <div class="<!-- col-sm-2 paddingLeft20"> -->
+	<p>&nbsp;</p>
 		<div class="col-md-10">
 			<div class="col-sm-7">
+	<div ng-repeat="blog in blogsList ">
+		<!-- <div class="<!-- col-sm-2 paddingLeft20"> -->
+
 				<!-- onclick = getBlog(blog.id) -->
-				<div>{{blog.description}}</div>
+				<h3><a href="#/blog/{{blog.blogsId}}"><div>{{blog.title}}</div></a></h3>
+				<div><p align = "justify">{{blog.description}}</p></div>
 
 				<a href="#/blog/{{blog.blogsId}}">Read more.....</a></a>
 
