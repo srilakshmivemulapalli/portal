@@ -1,6 +1,11 @@
 package com.nisum.portal.rest.api;
 
 
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nisum.portal.data.domain.QuestionReplies;
+import com.nisum.portal.data.domain.Questionaries;
+import com.nisum.portal.data.repository.QuestionRepliesRepository;
+import com.nisum.portal.service.api.EmailAccount;
 import com.nisum.portal.service.api.QuestionRepliesService;
 import com.nisum.portal.service.dto.Errors;
 import com.nisum.portal.service.dto.QuestionRepliesDTO;
@@ -26,6 +35,7 @@ import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.exception.QuestionariesRepliesServiceException;
 import com.nisum.portal.service.exception.QuestionariesServiceException;
 import com.nisum.portal.util.Constants;
+import com.nisum.portal.util.MailSender;
 
 /**
  * @author nisum
@@ -39,7 +49,10 @@ public class QuestionRepliesRestService {
 	@Autowired
 	private QuestionRepliesService questionRepliesService;
 	
-	
+	@Autowired
+	private QuestionRepliesRepository questionRepliesRepository;   
+
+	private static EmailAccount emailAccount;
 	
 	/**
 	 * questionariesCount
@@ -61,12 +74,26 @@ public class QuestionRepliesRestService {
 	 * questionariesCount
 	 * 
 	 * @return
+	 * @throws Exception 
 	 * @throws QuestionariesServiceException
 	 */
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public ResponseEntity<QuestionRepliesDTO> saveQuestionReply(@RequestBody ReplyQuestionDTO replyQuestionDTO) throws QuestionariesRepliesServiceException {
+	public ResponseEntity<QuestionRepliesDTO> saveQuestionReply(@RequestBody ReplyQuestionDTO replyQuestionDTO) throws Exception {
 		logger.info("QuestionRepliesRestService :: saveQuestionReply"+replyQuestionDTO.getEmailId()+"-"+replyQuestionDTO.getQuestionId()+"-"+replyQuestionDTO.getReplyDescription());
-		return new ResponseEntity<QuestionRepliesDTO>(questionRepliesService.saveQuestionariesReply(replyQuestionDTO.getQuestionId(), replyQuestionDTO.getEmailId(), replyQuestionDTO.getReplyDescription()), HttpStatus.OK);
+		
+		List<QuestionReplies> lstEmail=questionRepliesRepository.getQuestionariesReply(replyQuestionDTO.getQuestionId());
+
+		Questionaries questionaries=  questionRepliesRepository.findByuserEmail(replyQuestionDTO.getQuestionId());
+
+		String userName[]=questionaries.getEmailId().split("@");
+
+		QuestionRepliesDTO questionRepliesDTO=questionRepliesService.saveQuestionariesReply(replyQuestionDTO.getQuestionId(), replyQuestionDTO.getEmailId(), replyQuestionDTO.getReplyDescription());
+		
+		MailSender.sendEmail(emailAccount.getAdminemail(), emailAccount.getAdminpassword(),
+				questionaries.getEmailId(),MailSender.removeLastChar(getEmailIds(lstEmail)), emailAccount.getSubQuestToAnser(), MailSender.ReplayToQuestionBody(userName[0], replyQuestionDTO.getReplyDescription(),String.valueOf(replyQuestionDTO.getQuestionId())));
+
+		
+		return new ResponseEntity<QuestionRepliesDTO>(questionRepliesDTO, HttpStatus.OK);
 	}
 	
 	/**
@@ -126,4 +153,32 @@ public class QuestionRepliesRestService {
 		return new ResponseEntity<Errors>(errors, HttpStatus.OK);
 	}
 
+	
+	@Autowired
+	public void setEmailAccount(EmailAccount emailAccount) {
+		QuestionRepliesRestService.emailAccount = emailAccount;
+	}
+
+	private String getEmailIds(List<QuestionReplies> lstEmail) {
+		StringBuilder toEmail = new StringBuilder();
+		Set<String> set=new HashSet<String>();
+		for(QuestionReplies questionaries : lstEmail){
+
+			toEmail.append(questionaries.getEmailid());
+			toEmail.append(",");
+
+		}
+		String email[]=toEmail.toString().split(",");
+		for(String str : email){
+			set.add(str);
+		}
+		StringBuilder emailNames=new StringBuilder();
+		Iterator<String> itr=set.iterator();
+		while(itr.hasNext()){
+
+			emailNames.append(itr.next());
+			emailNames.append(",");
+		}
+		return emailNames.toString();
+	}
 }

@@ -241,7 +241,7 @@ public class UserRestService {
 				userDto.setActiveStatus(Constants.USER_STATUS);
 				userService.saveUser(userDto);
 
-				MailSender.sendEmail(emailAccount.getAdminemail(), emailAccount.getAdminpassword(), strEmail1,
+				MailSender.sendEmail(emailAccount.getAdminemail(), emailAccount.getAdminpassword(), strEmail1,null,
 						emailAccount.getSubject(), MailSender.messageBody(userDto.getUserName()));
 
 				userInfo = userDto;

@@ -109,7 +109,7 @@ public class QuestionariesRestService {
 		
 		if(toEmail.toString()!=null && !toEmail.toString().equals("")){
 			MailSender.sendEmail(emailAccount.getAdminemail(), emailAccount.getAdminpassword(), 
-					MailSender.removeLastChar(toEmail.toString()), emailAccount.getQuestionSub(),
+					MailSender.removeLastChar(toEmail.toString()),null, emailAccount.getQuestionSub(),
 					MailSender.questionMsgBody("Users", questionDTO.getQuestion(), questionDTO.getDescription()));
 		}
 		return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.OK);

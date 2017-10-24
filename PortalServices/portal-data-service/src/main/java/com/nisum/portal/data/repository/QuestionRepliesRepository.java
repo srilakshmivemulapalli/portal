@@ -27,4 +27,8 @@ public interface QuestionRepliesRepository extends JpaRepository<QuestionReplies
 	@Transactional
 	@Query(value = "SELECT q from Questionaries q where q.questionId IN (select questId from QuestionReplies where emailid =:emailId)")
 	List<Questionaries> getMyReplyQuestions(@Param("emailId") String emailId);
+	
+	
+	@Query(value = "SELECT q from Questionaries q,QuestionReplies qr where q.questionId=qr.questId and qr.questId =:questId")
+	Questionaries findByuserEmail(@Param("questId")Integer questId);
 }
