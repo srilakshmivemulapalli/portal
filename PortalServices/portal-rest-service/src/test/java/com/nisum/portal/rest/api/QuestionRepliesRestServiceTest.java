@@ -5,6 +5,8 @@ import static org.mockito.Mockito.when;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,8 +16,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import com.nisum.portal.data.domain.Questionaries;
 import com.nisum.portal.service.api.QuestionRepliesService;
 import com.nisum.portal.service.dto.QuestionReplyCommentsDTO;
+import com.nisum.portal.service.dto.QuestionariesDTO;
+import com.nisum.portal.service.dto.QuestionsDTO;
 import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.exception.QuestionariesRepliesServiceException;
 import com.nisum.portal.util.Constants;
@@ -71,6 +76,38 @@ public class QuestionRepliesRestServiceTest {
 	@Test(expected = Exception.class)
 	public void replyCommentException() throws QuestionariesRepliesServiceException {
 		when(questionRepliesRestService.saveReplyComment(null,null)).thenThrow(questionariesRepliesServiceException);
+	}
+	
+	@Test
+	public void retriveMyReplyQuestions() throws QuestionariesRepliesServiceException {
+		List<QuestionariesDTO> questionList = new ArrayList<QuestionariesDTO>();
+		
+		QuestionariesDTO questionariesDTO = new QuestionariesDTO();
+		
+		questionariesDTO.setCategoryName("category1");
+		questionariesDTO.setDescription("description");
+		questionariesDTO.setDisplayImage("DisplayImage");
+		questionariesDTO.setDisplayName("display name");
+		questionariesDTO.setEmailId("test@nisum.com");
+		questionariesDTO.setQuestion("Question111");
+		questionariesDTO.setQuestionId(1);
+		questionariesDTO.setQuestionRepliesCount(0);
+		
+		QuestionsDTO questionsDTO = new QuestionsDTO();
+		questionsDTO.setTotalQuestions(0);
+		questionsDTO.setTotalUsers(0);
+		questionsDTO.setQuestionDetails(questionList);
+		
+		ResponseEntity<QuestionsDTO> expected = new ResponseEntity<QuestionsDTO>(questionsDTO, HttpStatus.OK);
+		when(questionRepliesService.fetchMyReplyQuestions("test@nisum.com")).thenReturn(questionsDTO);
+		ResponseEntity<QuestionsDTO> actual = questionRepliesRestService.retriveMyReplyQuestions("test@nisum.com");
+		
+		assertEquals(expected, actual);
+	}
+	
+	@Test(expected = Exception.class)
+	public void replyQuestionsException() throws QuestionariesRepliesServiceException {
+		when(questionRepliesRestService.retriveMyReplyQuestions(null)).thenThrow(questionariesRepliesServiceException);
 	}
 
 }

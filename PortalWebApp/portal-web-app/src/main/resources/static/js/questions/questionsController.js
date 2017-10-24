@@ -13,6 +13,8 @@ questionApp
 							.newQuestionListInstance();
 					$scope.retriveMyQuestionariesList = QuestionsListModel
 							.newQuestionListInstance();
+					$scope.retriveMyReplyQuestionsList = QuestionsListModel
+							.newQuestionListInstance();
 					$scope.pageSize = 5;
 
 					if (commonService.categoriesList !== (undefined || null)) {
@@ -66,6 +68,14 @@ questionApp
 										.setPage(
 												1,
 												$scope.retriveMyQuestionariesList.questions);
+							}
+						}
+						else if (attr === '#myreplies') {
+							if ($scope.retriveMyReplyQuestionsList.questions.questionDetails.length > 0) {
+								$scope
+										.setPage(
+												1,
+												$scope.retriveMyReplyQuestionsList.questions);
 							}
 						}
 					}
@@ -176,6 +186,47 @@ questionApp
 						}
 					}
 
+					
+					$scope.retriveMyReplyQuestions = function() {
+
+						if ($scope.retriveMyReplyQuestionsList.questions.questionDetails.length <= 0) {
+							questionService
+									.retriveMyReplyQuestions(
+											commonService.emailId)
+									.then(
+
+											function(response) {
+												if (response.errorCode) {
+													 $scope.message=response.errorMessage
+												 }else{
+													$scope.retriveMyReplyQuestionsList
+															.addquestion(response);
+													response.questionDetails
+															.map(function(
+																	question) {
+																$scope.retriveMyReplyQuestionsList
+																		.addquestionDetails(question);
+															})
+
+													$scope
+															.setPage(
+																	1,
+																	$scope.retriveMyReplyQuestionsList.questions);
+
+												}
+
+											})
+						} else {
+							$scope
+									.setPage(
+											1,
+											$scope.retriveMyReplyQuestionsList.questions);
+
+						}
+					}
+					
+					
+					
 					$scope.getAllQuestions();
 					$scope.pager = {};
 					$scope.setPage = function(page, questionsList) {
