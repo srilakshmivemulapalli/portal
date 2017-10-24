@@ -21,6 +21,7 @@ public class TrainingFeedBackUtil {
 				trainingFeedBackDto.setFeedback(trainingFeedBacks.getFeedback());
 				trainingFeedBackDto.setEmailId(trainingFeedBacks.getEmailId());
 				trainingFeedBackDto.setCreateDate(trainingFeedBacks.getCreateDate());
+				trainingFeedBackDto.setFeedbackStatus(trainingFeedBacks.getFeedbackStatus());
 				trainingFeedBackDTO.add(trainingFeedBackDto);
 			}
 		}
@@ -33,6 +34,7 @@ public class TrainingFeedBackUtil {
 		trainingFeedBack.setFeedback(trainingFeedBackDTO.getFeedback());
 		trainingFeedBack.setEmailId(trainingFeedBackDTO.getEmailId());
 		trainingFeedBack.setCreateDate(trainingFeedBackDTO.getCreateDate());
+		trainingFeedBack.setFeedbackStatus(trainingFeedBackDTO.getFeedbackStatus());
 		return trainingFeedBack;
 	}
 	public static TrainingFeedBackDTO convertDaoTODto(TrainingFeedBack trainingFeedBack) {
@@ -42,6 +44,7 @@ public class TrainingFeedBackUtil {
 		trainingFeedBackDTO.setFeedback(trainingFeedBack.getFeedback());
 		trainingFeedBackDTO.setEmailId(trainingFeedBack.getEmailId());
 		trainingFeedBackDTO.setCreateDate(trainingFeedBack.getCreateDate());
+		trainingFeedBackDTO.setFeedbackStatus(trainingFeedBack.getFeedbackStatus());
 		return trainingFeedBackDTO;
 	}
 }

@@ -20,7 +20,7 @@ public interface TrainingsService {
 	
 	public TrainingToUserDTO trainingToUser(TrainingToUserDTO trainingToUserDTO);
 
-	ServiceStatusDto addTrainingFeedBack(TrainingFeedBackDTO trainingFeedBackDTO);
+	TrainingFeedBackDTO addTrainingFeedBack(TrainingFeedBackDTO trainingFeedBackDTO);
 
 	ServiceStatusDto addTrainingRequest(TrainingRequestDTO trainingRequestDTO);
 

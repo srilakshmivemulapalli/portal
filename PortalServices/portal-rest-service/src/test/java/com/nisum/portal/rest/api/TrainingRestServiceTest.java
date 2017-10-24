@@ -37,7 +37,7 @@ public class TrainingRestServiceTest {
 		ServiceStatusDto statusDtoExpected=new ServiceStatusDto();
 		statusDtoExpected.setStatus(true);
 		statusDtoExpected.setMessage(Constants.MSG_RECORD_ADD);
-		when(trainingsService.addTrainingFeedBack(dto)).thenReturn(statusDtoExpected);
+		//when(trainingsService.addTrainingFeedBack(dto)).thenReturn(statusDtoExpected);
 		ResponseEntity<?> statusDtoActual = trainingsRestService.addTrainingFeedBack(dto);
 		assertEquals(statusDtoExpected, statusDtoActual.getBody());
 	}
@@ -50,7 +50,7 @@ public class TrainingRestServiceTest {
 		Errors error = new Errors();
 		error.setErrorCode("Errors-TrainingFeedBack");
 		error.setErrorMessage("Training feedback to respective training already submitted !!");
-		when(trainingsService.addTrainingFeedBack(dto)).thenReturn(statusDtoExpected);
+		//when(trainingsService.addTrainingFeedBack(dto)).thenReturn(statusDtoExpected);
 		ResponseEntity<Errors> expected = new ResponseEntity<Errors>(error, HttpStatus.NOT_ACCEPTABLE);
 		ResponseEntity<Errors> actual = (ResponseEntity<Errors>) trainingsRestService.addTrainingFeedBack(dto);
 		assertEquals(expected.getStatusCode(), actual.getStatusCode());

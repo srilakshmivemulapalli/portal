@@ -30,6 +30,7 @@ public class TrainingFeedBack implements Serializable{
 	private String feedback;
 	private String emailId;
 	private Timestamp createDate;
+	private String feedbackStatus;
 	public Integer getTrainingFeedBackId() {
 		return trainingFeedBackId;
 	}
@@ -60,13 +61,20 @@ public class TrainingFeedBack implements Serializable{
 	public void setCreateDate(Timestamp createDate) {
 		this.createDate = createDate;
 	}
+	public String getFeedbackStatus() {
+		return feedbackStatus;
+	}
+	public void setFeedbackStatus(String feedbackStatus) {
+		this.feedbackStatus = feedbackStatus;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((createDate == null) ? 0 : createDate.hashCode());
-		result = prime * result + ((feedback == null) ? 0 : feedback.hashCode());
 		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
+		result = prime * result + ((feedback == null) ? 0 : feedback.hashCode());
+		result = prime * result + ((feedbackStatus == null) ? 0 : feedbackStatus.hashCode());
 		result = prime * result + ((trainingFeedBackId == null) ? 0 : trainingFeedBackId.hashCode());
 		result = prime * result + ((trainings == null) ? 0 : trainings.hashCode());
 		return result;
@@ -85,15 +93,20 @@ public class TrainingFeedBack implements Serializable{
 				return false;
 		} else if (!createDate.equals(other.createDate))
 			return false;
+		if (emailId == null) {
+			if (other.emailId != null)
+				return false;
+		} else if (!emailId.equals(other.emailId))
+			return false;
 		if (feedback == null) {
 			if (other.feedback != null)
 				return false;
 		} else if (!feedback.equals(other.feedback))
 			return false;
-		if (emailId == null) {
-			if (other.emailId != null)
+		if (feedbackStatus == null) {
+			if (other.feedbackStatus != null)
 				return false;
-		} else if (!emailId.equals(other.emailId))
+		} else if (!feedbackStatus.equals(other.feedbackStatus))
 			return false;
 		if (trainingFeedBackId == null) {
 			if (other.trainingFeedBackId != null)
@@ -110,6 +123,8 @@ public class TrainingFeedBack implements Serializable{
 	@Override
 	public String toString() {
 		return "TrainingFeedBack [trainingFeedBackId=" + trainingFeedBackId + ", trainings=" + trainings + ", feedback="
-				+ feedback + ", emailId=" + emailId + ", createDate=" + createDate + "]";
+				+ feedback + ", emailId=" + emailId + ", createDate=" + createDate + ", feedbackStatus="
+				+ feedbackStatus + "]";
 	}
+
 }

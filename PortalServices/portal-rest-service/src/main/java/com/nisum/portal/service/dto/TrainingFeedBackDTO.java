@@ -9,6 +9,7 @@ public class TrainingFeedBackDTO {
 	private String feedback;
 	private String emailId;
 	private Timestamp createDate;
+	private String feedbackStatus;
 	public Integer getTrainingFeedBackId() {
 		return trainingFeedBackId;
 	}
@@ -39,6 +40,12 @@ public class TrainingFeedBackDTO {
 	public void setCreateDate(Timestamp createDate) {
 		this.createDate = createDate;
 	}
+	public String getFeedbackStatus() {
+		return feedbackStatus;
+	}
+	public void setFeedbackStatus(String feedbackStatus) {
+		this.feedbackStatus = feedbackStatus;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -46,6 +53,7 @@ public class TrainingFeedBackDTO {
 		result = prime * result + ((createDate == null) ? 0 : createDate.hashCode());
 		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
 		result = prime * result + ((feedback == null) ? 0 : feedback.hashCode());
+		result = prime * result + ((feedbackStatus == null) ? 0 : feedbackStatus.hashCode());
 		result = prime * result + ((trainingFeedBackId == null) ? 0 : trainingFeedBackId.hashCode());
 		result = prime * result + ((trainingId == null) ? 0 : trainingId.hashCode());
 		return result;
@@ -74,6 +82,11 @@ public class TrainingFeedBackDTO {
 				return false;
 		} else if (!feedback.equals(other.feedback))
 			return false;
+		if (feedbackStatus == null) {
+			if (other.feedbackStatus != null)
+				return false;
+		} else if (!feedbackStatus.equals(other.feedbackStatus))
+			return false;
 		if (trainingFeedBackId == null) {
 			if (other.trainingFeedBackId != null)
 				return false;
@@ -89,6 +102,7 @@ public class TrainingFeedBackDTO {
 	@Override
 	public String toString() {
 		return "TrainingFeedBackDTO [trainingFeedBackId=" + trainingFeedBackId + ", trainingId=" + trainingId
-				+ ", feedback=" + feedback + ", emailId=" + emailId + ", createDate=" + createDate + "]";
+				+ ", feedback=" + feedback + ", emailId=" + emailId + ", createDate=" + createDate + ", feedbackStatus="
+				+ feedbackStatus + "]";
 	}
 }

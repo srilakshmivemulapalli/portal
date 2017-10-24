@@ -23,7 +23,7 @@ public interface TrainingsDAO {
 
 	public TrainingToUser trainingToUser(TrainingToUser trainingToUser);
 
-	Integer addTrainingsFeedBack(TrainingFeedBack trainingFeedBack);
+	TrainingFeedBack addTrainingsFeedBack(TrainingFeedBack trainingFeedBack);
 
 	Integer addTrainingsRequest(TrainingRequest trainingRequest);
 

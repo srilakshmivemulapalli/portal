@@ -60,21 +60,10 @@ public class TrainingDAOImpl implements TrainingsDAO {
 	}
 
 	@Override
-	public Integer addTrainingsFeedBack(TrainingFeedBack trainingFeedBack) {
+	public TrainingFeedBack addTrainingsFeedBack(TrainingFeedBack trainingFeedBack) {
 		// TODO Auto-generated method stub
 		logger.info("TrainingDAOImpl :: addTrainingsFeedBack ::" + trainingFeedBack.toString());
-
-		Integer status=0;
-
-Integer queryStatus = trainingFeedBackRepository.findByTrainingIdAndEmailId(trainingFeedBack.getTrainings().getTrainingId(), trainingFeedBack.getEmailId());
-		if (queryStatus==0) {
-			trainingFeedBackRepository.save(trainingFeedBack);
-			status = 1;
-		} else {
-			status = 0;
-
-		}
-		return status;
+			return trainingFeedBackRepository.save(trainingFeedBack);
 	}
 
 	@Override
