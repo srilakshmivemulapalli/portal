@@ -24,7 +24,7 @@ trainingsApp.controller('createTrainingController', function($scope,
 		})
 	};
 	$scope.requestTraining = function(reqtrainingobj) {
-		reqtrainingobj.emailid = commonService.emailId;
+		reqtrainingobj.emailId = commonService.emailId;
 		trainingService.requestTraining(reqtrainingobj).then(function(response) {
 			if (response.errorCode) {
 				$scope.message = response.errorMessage
