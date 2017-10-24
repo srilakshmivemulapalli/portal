@@ -3,6 +3,7 @@ package com.nisum.portal.rest.api;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -143,7 +144,14 @@ public class BlogsRestService {
 	public Object updateBlog(@RequestBody BlogsDTO blogsDTO) throws BlogServiceException {
 		logger.info("BlogsRestService :: updateBlog");
 		try {
-			return blogService.updateBlog(blogsDTO);
+			BlogsDTO updatedDTO= blogService.updateBlog(blogsDTO);
+			if((updatedDTO!=null)) {
+				String path=updatedDTO.getPath();
+				if(path!=null) {
+					updatedDTO.setPath("");
+				}
+			}
+			return updatedDTO;
 		}
 		catch(Exception e) {
 			logger.error("BlogsRestService :: updateBlog Error");
@@ -199,7 +207,7 @@ public class BlogsRestService {
 			}
 		}
 		catch(Exception e) {
-			logger.error("BlogsRestService :: removeBlog Error");
+			logger.error("BlogsRestService :: removeFile Error");
 			Errors errors=new Errors();
 			errors.setErrorCode("Errors-Blogs");
 			errors.setErrorMessage(e.getMessage());
@@ -218,6 +226,13 @@ public class BlogsRestService {
 	public @ResponseBody Object addBlog(@Context HttpServletRequest request) throws BlogServiceException {
 		logger.info("BlogsRestService :: addBlog");
 		try {
+			
+			Enumeration<String> enume=request.getHeaderNames(); 
+
+			while(enume.hasMoreElements()) {
+				String headerName=enume.nextElement();
+				System.out.println(headerName+"===="+request.getHeader(headerName));
+			}
 			
 			BlogsDTO blogsDTO=blogService.parseRequestToGetBlogsDTO(request);
 			

@@ -33,10 +33,22 @@ public class BlogsDAOImplTest {
 	@Test
 	public void getAllBlogsTest() {
 		logger.info("BlogsDAOImplTest :: getAllBlogsTest");
-		List<Blogs> allBlogs=new ArrayList<Blogs>();
-		when(blogsDaoImpl.getAllBlogs()).thenReturn(allBlogs);
+		List<Blogs> blogs=new ArrayList<Blogs>();
+		
+		Integer id=new Integer(18);
+		long millis=1507111208000L;
+		Timestamp createdDate=new Timestamp(millis);
+		
+		Blogs blog=new Blogs();
+		blog.setBlogsId(id);
+		blog.setCreatedDate(createdDate);
+		blog.setDescription("aaaaaa");
+		blog.setPath("/Users/nisum/Documents/BlogAttachments/sjbasha@nisum.com/18");
+		blog.setUserId(101);
+		blogs.add(blog);
+		when(blogsDaoImpl.getAllBlogs()).thenReturn(blogs);
 		List<Blogs> expMsg=blogsDaoImpl.getAllBlogs();
-		assertEquals(expMsg,allBlogs);
+		assertEquals(expMsg,blogs);
 	}
 	
 	@Test
