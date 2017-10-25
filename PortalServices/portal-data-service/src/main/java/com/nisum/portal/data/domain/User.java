@@ -33,18 +33,18 @@ public class User implements Serializable {
 	private byte[] imageIcon;
 	private String profileName;
 	private String notifications;
-	
-	
-	
 	@OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private Set<ProfileSettings> profileSettings;
-
+	private Set<ProfileSetting> profileSettings;
 	
-	public Set<ProfileSettings> getProfileSettings() {
+	
+	
+	
+
+	public Set<ProfileSetting> getProfileSettings() {
 		return profileSettings;
 	}
 
-	public void setProfileSettings(Set<ProfileSettings> profileSettings) {
+	public void setProfileSettings(Set<ProfileSetting> profileSettings) {
 		this.profileSettings = profileSettings;
 	}
 
@@ -218,6 +218,8 @@ public class User implements Serializable {
 		this.role = role;
 	}
 
+	
+	
 	public User(int userId) {
 		this.userId = userId;
 	}

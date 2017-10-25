@@ -1,6 +1,7 @@
 package com.nisum.portal.rest.api;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
 import java.sql.Date;
@@ -15,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.nisum.portal.service.api.QuestionariesService;
+import com.nisum.portal.service.dto.AddQuestionDTO;
 import com.nisum.portal.service.dto.CountDTO;
 import com.nisum.portal.service.dto.Errors;
 import com.nisum.portal.service.dto.QuestionariesCommentsDTO;
@@ -100,6 +102,43 @@ public class QuestionariesRestServiceTest {
 	@Test(expected = Exception.class)
 	public void questionCommentException() throws QuestionariesServiceException {
 		when(questionariesRestService.saveQuestionComment(null,null)).thenThrow(questionariesServiceException);
+	}
+	
+	@Test
+	public void updateQuestionariesSuccess() throws QuestionariesServiceException {
+	AddQuestionDTO questionDTO = new AddQuestionDTO();
+	questionDTO.setQuestionId(8);
+	questionDTO.setCategoryId(2);
+	questionDTO.setEmailId("svalavala@nisum.com");
+	questionDTO.setQuestion("editing question for unit testing");
+	questionDTO.setDescription("edit description for unit test");
+	when(questionariesService.findQuestionById(questionDTO.getQuestionId())).thenReturn(true);
+	when(questionariesService.updateQuestion(questionDTO.getQuestionId(),questionDTO.getCategoryId(),questionDTO.getQuestion(),questionDTO.getDescription(),questionDTO.getEmailId()))
+	.thenReturn(Constants.MSG_RECORD_UPDATE);
+	ResponseEntity<ServiceStatusDto> actual = questionariesRestService.updateQuestionaries(questionDTO);
+	ServiceStatusDto expected = new ServiceStatusDto();
+	expected.setMessage(Constants.MSG_RECORD_UPDATE);
+	expected.setStatus(true);
+	ResponseEntity<ServiceStatusDto> expectedEntity = new ResponseEntity<ServiceStatusDto>(expected,HttpStatus.OK);
+	assertEquals(expectedEntity.getStatusCode(), actual.getStatusCode());
+	}
+
+
+	@Test
+	public void updateQuestionariesFailure() throws QuestionariesServiceException {
+	AddQuestionDTO questionDTO = new AddQuestionDTO();
+	questionDTO.setQuestionId(10);
+	questionDTO.setCategoryId(2);
+	questionDTO.setEmailId("svalavala@nisum.com");
+	questionDTO.setQuestion("editing question for unit testing");
+	questionDTO.setDescription("edit description for unit test");
+	when(questionariesService.findQuestionById(questionDTO.getQuestionId())).thenReturn(false);
+	ResponseEntity<ServiceStatusDto> actual = questionariesRestService.updateQuestionaries(questionDTO);
+	ServiceStatusDto expected = new ServiceStatusDto();
+	expected.setMessage(Constants.QUESTION_NOT_EXIST);
+	expected.setStatus(false);
+	ResponseEntity<ServiceStatusDto> expectedEntity = new ResponseEntity<ServiceStatusDto>(expected,HttpStatus.EXPECTATION_FAILED);
+	assertEquals(expectedEntity.getStatusCode(), actual.getStatusCode());
 	}
 
 }
