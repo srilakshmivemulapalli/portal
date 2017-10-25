@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.nisum.portal.service.api.BlogService;
 import com.nisum.portal.service.dto.BlogsDTO;
@@ -144,6 +143,14 @@ public class BlogsRestService {
 	public Object updateBlog(@RequestBody BlogsDTO blogsDTO) throws BlogServiceException {
 		logger.info("BlogsRestService :: updateBlog");
 		try {
+			// Setting DTO object fields that can not be updated.
+			BlogsDTO blog=blogService.getBlog(blogsDTO.getBlogsId());
+			blogsDTO.setBlogsId(blog.getBlogsId());
+			blogsDTO.setCreatedDate(blog.getCreatedDate());
+			blogsDTO.setPath(blog.getPath());
+			blogsDTO.setUserMailId(blog.getUserMailId());
+			blogsDTO.setUserId(blog.getUserId());
+			// Setting completed.
 			BlogsDTO updatedDTO= blogService.updateBlog(blogsDTO);
 			if((updatedDTO!=null)) {
 				String path=updatedDTO.getPath();
@@ -226,13 +233,6 @@ public class BlogsRestService {
 	public @ResponseBody Object addBlog(@Context HttpServletRequest request) throws BlogServiceException {
 		logger.info("BlogsRestService :: addBlog");
 		try {
-			
-			Enumeration<String> enume=request.getHeaderNames(); 
-
-			while(enume.hasMoreElements()) {
-				String headerName=enume.nextElement();
-				System.out.println(headerName+"===="+request.getHeader(headerName));
-			}
 			
 			BlogsDTO blogsDTO=blogService.parseRequestToGetBlogsDTO(request);
 			

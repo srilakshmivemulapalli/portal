@@ -2,6 +2,8 @@ package com.nisum.portal.service.impl;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.notNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -20,6 +22,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -160,16 +163,20 @@ public class BlogsServiceImplTest {
 		blogDTO.setFileNames(listValue);
 		
 		Blogs blog=new Blogs();
-		blog.setBlogsId(18);
+		blog.setBlogsId(22);
 		blog.setTitle("titleOne");
 		blog.setCreatedDate(createdDate);
 		blog.setDescription("123dddddddddd");
 		blog.setPath("/Users/nisum/Documents/BlogAttachments/sjbasha@nisum.com/22");
+		blog.setUserMailId("sjbasha@nisum.com");
 		blog.setUserId(103);
 		
 		when(blogsDAOImpl.blogExists(22)).thenReturn(true);
-		when(blogsDAOImpl.getBlog(22)).thenReturn(blog);
-		when(blogsDAOImpl.updateBlog(blog)).thenReturn(blog);
+		
+		when(blogsDAOImpl.updateBlog(any(Blogs.class))).thenReturn(blog);
+		
+		//when(blogsDAOImpl.updateBlog((Blogs)notNull())).thenReturn(blog);
+		
 		
 		BlogsDTO actMsg=(BlogsDTO) blogsServiceImpl.updateBlog(blogDTO);
 		assertThat(actMsg).isEqualToComparingFieldByField(blogDTO);
@@ -335,7 +342,7 @@ public class BlogsServiceImplTest {
 		
 		when(blogsDAOImpl.blogExists(6)).thenReturn(true);
 		
-		boolean expMsg=blogsServiceImpl.removeFile("sjbasha@nisum.com",new Integer(6),"epfuan_17Oct2017_04_44_00_PM_23Oct2017_11_14_48_PM.pdf");
+		boolean expMsg=blogsServiceImpl.removeFile("sjbasha@nisum.com",new Integer(6),"epfuan_24Oct2017_10_41_40_AM.pdf");
 		
 		assertEquals(expMsg,true);
 	}

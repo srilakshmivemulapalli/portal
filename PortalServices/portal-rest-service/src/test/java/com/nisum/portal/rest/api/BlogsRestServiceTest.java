@@ -170,6 +170,8 @@ public class BlogsRestServiceTest {
 		
 		when(blogService.updateBlog(expMesg)).thenReturn(expMesg);
 		
+		when(blogService.getBlog(id)).thenReturn(expMesg);
+		
 		BlogsDTO actMsg=(BlogsDTO)mainController.updateBlog(expMesg);
 		
 		assertThat(actMsg).isEqualToComparingFieldByField(expMesg);

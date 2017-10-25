@@ -99,15 +99,7 @@ public class BlogServiceImpl implements BlogService{
 			logger.error("BlogServiceImpl :: updateBlog Error === Blog does not exist.");
 			throw new BlogServiceException("No Blog found with id "+blogDTO.getBlogsId());
 		}
-		Blogs blog=blogDAO.getBlog(blogDTO.getBlogsId());
-		
-		// Setting DTO object fields where those fields  can not be updated.
-		blogDTO.setBlogsId(blog.getBlogsId());
-		blogDTO.setCreatedDate(blog.getCreatedDate());
-		blogDTO.setPath(blog.getPath());
-		blogDTO.setUserMailId(blog.getUserMailId());
-		blogDTO.setUserId(blog.getUserId());
-		// Setting completed.
+		Blogs blog=new Blogs();
 		
 		Blogs updatedBlog=BlogsServiceUtil.setDtoToDao(blogDTO,blog);
 		BlogsDTO updatedBlogsDTO= BlogsServiceUtil.convertDaoToDtoInstance(blogDAO.updateBlog(updatedBlog));	
