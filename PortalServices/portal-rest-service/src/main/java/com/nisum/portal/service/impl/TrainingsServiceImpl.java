@@ -2,7 +2,6 @@ package com.nisum.portal.service.impl;
 
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -36,11 +35,11 @@ public class TrainingsServiceImpl implements TrainingsService {
 	private TrainingsDAO trainingsDAO;
 	
 	@Override
-	public Trainings saveTrainings(TrainingsDTO trainingsDTO) {
+	public TrainingsDTO saveTrainings(TrainingsDTO trainingsDTO) {
 		
 		logger.info("TrainingsServiceImpl::saveTrainings");
 	   Trainings trainings=	TrainingsServiceUtil.convertDtoToDao(trainingsDTO);
-				return trainingsDAO.saveTrainings(trainings);
+				return TrainingsServiceUtil.convertTrainingsDaoTODto(trainingsDAO.saveTrainings(trainings));
 		
 	}
 
@@ -128,7 +127,7 @@ public class TrainingsServiceImpl implements TrainingsService {
 			   {
 				   
 				   if(trainingTouser[0]!=null &&(trainingTouser[0].toString()).compareTo(emailId)==0)
-					   trainingsDTO.setTraininToUserId(Integer.valueOf(trainingTouser[1].toString()));
+					   trainingsDTO.setTrainingToUserId(Integer.valueOf(trainingTouser[1].toString()));
 			  }
 		    }else
 		    {
@@ -149,12 +148,13 @@ public class TrainingsServiceImpl implements TrainingsService {
 				trainingsDTO.setDisplayImage(user.getImage());
 				trainingsDTO.setTrainerName(user.getUserName());
 			}
-			List<TrainingFeedBackDTO> comments= this.getTrainingFeedBack(trainingsDTO.getTrainingId());
-			if(comments!=null)
+			/*List<TrainingFeedBackDTO> comments= this.getTrainingFeedBack(trainingsDTO.getTrainingId());
+			if(comments!=null&&comments.size()>0)
 			{
 				trainingsDTO.setNoOfComments(comments.size());
 				
-			}
+			}*/
+			trainingsDTO.setNoOfComments(0);
 			   
 		}
 
@@ -178,28 +178,26 @@ public class TrainingsServiceImpl implements TrainingsService {
 			return TrainingsServiceUtil.convertDaoTODto(trainingsDAO.completedTraining());
 	}
 	@Override
-	public ServiceStatusDto addTrainingFeedBack(TrainingFeedBackDTO trainingFeedBackDTO) {
+	public TrainingFeedBackDTO addTrainingFeedBack(TrainingFeedBackDTO trainingFeedBackDTO) {
 		// TODO Auto-generated method stub
 		logger.info("TrainingsServiceImpl :: addTrainingFeedBack ::"+trainingFeedBackDTO.toString());
 		Date date = new Date();
-		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
 		Timestamp createdDate = new Timestamp(date.getTime());
-
-		trainingFeedBackDTO.setCreateDate(createdDate);
-		TrainingFeedBack trainingFeedBack = TrainingFeedBackUtil.convertDtoTODao(trainingFeedBackDTO);
-		logger.info("TrainingsServiceImpl :: addTrainingFeedBack ::"+trainingFeedBack.toString());
-		Integer serviceStatus = trainingsDAO.addTrainingsFeedBack(trainingFeedBack);
-
-		
-		if (serviceStatus == 1) {
-			serviceStatusDto.setStatus(true);
-			serviceStatusDto.setMessage(Constants.MSG_RECORD_ADD);
-		}else if (serviceStatus == 0) {
-			serviceStatusDto.setStatus(false);
-			serviceStatusDto.setMessage(Constants.TRAINING_FEEDBACK_EXISTS);
+		String feedback2 = trainingFeedBackDTO.getFeedback();
+		String status;
+		if(StringUtils.isNotEmpty(feedback2))
+		{
+			status="Yes";
 		}
-
-		return serviceStatusDto;
+		else
+		{
+			status="No";
+		}
+		trainingFeedBackDTO.setCreateDate(createdDate);
+		trainingFeedBackDTO.setFeedbackStatus(status);
+		TrainingFeedBack trainingFeedBack = TrainingFeedBackUtil.convertDtoTODao(trainingFeedBackDTO);
+		TrainingFeedBack feedBack = trainingsDAO.addTrainingsFeedBack(trainingFeedBack);
+		return TrainingFeedBackUtil.convertDaoTODto(feedBack);
 	}
 	
 	@Override

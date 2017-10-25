@@ -1,0 +1,57 @@
+<!-- Submitted March 7 @ 11:05pm  -->
+<style>
+body 
+{
+background-color:#333;
+margin-top:18px
+}
+.container 
+{
+padding:33px;
+background-color:#fff
+}
+</style>
+<div class="col-md-1 col-xs-1"></div>
+<div class="col-md-9 col-xs-9 main-content">
+	<div class="clearfix"></div>
+	<div class="col-md-6 col-xs-6 current-category">
+		<span>New Blog</span>
+	</div>
+	<div></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10">
+				<form name="formBlog" id="frmBlog" ng-submit="submitBlog()" method="post">
+					<label value="txtTitle">Blog Title</label> <input type="text"
+						name="textTitle" id="txtTitle" class="form-control"
+						ng-model="blog.title" placeholder="Title" required> <br>
+					<label for="txtComment">Blog Description</label>
+					 <input type="text" rows="3" cols="50" name="textDesc" id="txtDesc" class="form-control"
+					 placeholder="Description here...." required> <br>
+				<input id="userId" name="userId"  type="hidden" ng-model="blog.userId" class="form-control" >
+				<input id="emailId" name="emailId" type="hidden"  ng-model="blog.emailId" class="form-control">
+					<div class="wp-editor-container">
+						<text-angular ng-model="blog.description"></text-angular>
+					</div>
+					<br>
+					<hr>
+					<p>Attachments here....</p>
+					<input type="file" upload-files multiple onchange="angular.element(this).scope().setFiles(this)"/>
+					<div ng-show="files.length">
+						<div ng-repeat="file in files.slice(0)">
+							<span>{{file.webkitRelativePath || file.name}}</span> <button>Download</button>
+						<button ng-click ="remove(file.name)">Delete</button>
+							<!-- (<span
+								ng-switch="file.size > 1024*1024"> <span
+								ng-switch-when="true">{{file.size / 1024 / 1024 |
+									number:2}} MB</span> <span ng-switch-default>{{file.size / 1024
+									| number:2}} kB</span>
+							</span>) -->
+						</div>						
+					</div>
+					<br> <br> <input type="submit" class="btn btn-success"
+							value="Submit">
+				</form>
+
+		</div>
+	</div>

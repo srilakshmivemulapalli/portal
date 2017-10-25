@@ -166,3 +166,12 @@ CREATE TABLE `portal`.`ProfileSetting` (
 
 ALTER TABLE `portal`.`TrainingRequest` 
 CHANGE COLUMN `emailId` `emailId` VARCHAR(45) NULL DEFAULT NULL ;
+
+ALTER TABLE `portal`.`TrainingRequest` 
+CHANGE COLUMN `requestTrainingTitle` `requestTrainingTitle` VARCHAR(50) NULL DEFAULT NULL ;
+
+ALTER TABLE `portal`.`TrainingFeedBack` 
+CHANGE COLUMN `rating` `emailId` VARCHAR(50) NULL DEFAULT NULL ;
+
+ALTER TABLE `portal`.`TrainingFeedBack` 
+ADD COLUMN `feedbackStatus` VARCHAR(3) NOT NULL DEFAULT 'No' AFTER `createDate`;

@@ -14,6 +14,7 @@ public interface QuestionariesDAO {
 	Questionaries getQuestionaries(int questionId);
 	long getQuestionariesCount();
 	Questionaries saveQuestionaries(Questionaries questionaries);
+	Integer updateQuestionaries(Questionaries questionaries);
 	List<Questionaries> retriveAllUnansweredQuestionaries();
 	List<Questionaries> retrieveQuestionByPagination(Pageable pageable);
 	List<Questionaries> retrieveQuestionByCategory(Categories category, Pageable pageable);

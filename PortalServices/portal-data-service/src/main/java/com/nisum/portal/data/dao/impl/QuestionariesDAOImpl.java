@@ -37,6 +37,14 @@ public class QuestionariesDAOImpl implements QuestionariesDAO {
 	public Questionaries saveQuestionaries(Questionaries questionaries) {
 		return questionariesRepository.save(questionaries);
 	}
+	
+	
+	@Override
+	public Integer updateQuestionaries(Questionaries questionaries) {
+		return questionariesRepository.update(questionaries);
+	}
+	
+	
 	@Override
 	public List<Questionaries> fetchMyQuestionaries(String emailId) {
 		return questionariesRepository.fetchMyQuestionaries(emailId);

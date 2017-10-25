@@ -5,6 +5,8 @@ import static org.mockito.Mockito.when;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,11 +19,16 @@ import com.nisum.portal.data.dao.api.QuestionRepliesDAO;
 import com.nisum.portal.data.dao.api.QuestionReplyCommentsDAO;
 import com.nisum.portal.data.domain.QuestionReplies;
 import com.nisum.portal.data.domain.QuestionReplyComments;
+import com.nisum.portal.data.domain.Questionaries;
+import com.nisum.portal.service.api.UserService;
 import com.nisum.portal.service.dto.QuestionReplyCommentsDTO;
+import com.nisum.portal.service.dto.QuestionariesDTO;
+import com.nisum.portal.service.dto.QuestionsDTO;
 import com.nisum.portal.util.QuestionReplysUtil;
+import com.nisum.portal.util.QuestionariesUtil;
 
 @RunWith(PowerMockRunner.class) 
-@PrepareForTest(QuestionReplysUtil.class)
+@PrepareForTest({QuestionariesUtil.class,QuestionReplysUtil.class})
 public class QuestionRepliesServiceImplTest {
 	
 	
@@ -29,10 +36,13 @@ public class QuestionRepliesServiceImplTest {
 	QuestionReplyCommentsDAO questionReplyCommentsDAO;
 	
 	@InjectMocks
-	QuestionRepliesServiceImpl questionRepliesServiceImpl = new QuestionRepliesServiceImpl();
+	QuestionRepliesServiceImpl questionRepliesServiceImpl;
 	
 	@Mock
 	QuestionRepliesDAO questionRepliesDAO;
+	
+	@Mock
+	UserService userervice;
 	
 	@Test
 	public void saveQuestionComment() {
@@ -84,6 +94,46 @@ public class QuestionRepliesServiceImplTest {
 		when(questionRepliesDAO.getReply(replyId)).thenReturn(null);
 		boolean actual = questionRepliesServiceImpl.findReplyById(replyId);
 		assertEquals(false, actual);
+	}
+	
+	@Test
+	public void fetchMyReplyQuestions() {
+		
+		Questionaries questionaries = new Questionaries();
+		questionaries.setDescription("description");
+		questionaries.setEmailId("test@nisum.com");
+		questionaries.setQuestion("What is java");
+		questionaries.setQuestionId(1);
+		
+		List<Questionaries> questionsList = new ArrayList<Questionaries>();
+		questionsList.add(questionaries);
+		
+		QuestionariesDTO questionariesDTO = new QuestionariesDTO();
+		questionariesDTO.setDescription("ghjhjj");
+		questionariesDTO.setEmailId("test@nisum.com");
+		questionariesDTO.setQuestion("What is java");
+		questionariesDTO.setQuestionId(1);
+		
+		List<QuestionariesDTO> questionariesList = new ArrayList<QuestionariesDTO>();
+		questionariesList.add(questionariesDTO);
+		
+		QuestionsDTO expected = new QuestionsDTO();
+		expected.setTotalQuestions(1);
+		expected.setTotalUsers(0);
+		expected.setQuestionDetails(questionariesList);
+		
+		QuestionsDTO questionsDTO = new QuestionsDTO();
+		questionsDTO.setTotalQuestions(questionsList.size());
+		
+		when(questionRepliesDAO.getMyReplyQuestions("test@nisum.com")).thenReturn(questionsList);
+		
+		PowerMockito.mockStatic(QuestionariesUtil.class); 
+		when(QuestionariesUtil.convertDaoToDto(questionsList,questionsDTO,userervice)).thenReturn(expected);
+		
+		
+		QuestionsDTO actual = questionRepliesServiceImpl.fetchMyReplyQuestions("test@nisum.com");
+		assertEquals(expected.getTotalQuestions(), actual.getTotalQuestions());
+		
 	}
 
 }

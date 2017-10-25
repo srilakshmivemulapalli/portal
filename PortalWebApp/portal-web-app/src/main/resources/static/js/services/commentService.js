@@ -1,11 +1,11 @@
-app.factory('commentService', function($http, $q,localStorageService) {
+app.factory('commentService', function($http, $q,localStorageService,commonService) {
 
 	var cs= {};
-	var profile=localStorageService.get('profile');
+	
 	
 	cs.postQuestionComment=function(data){
 		var deferred = $q.defer();
-		$http.post('v1/questionaries/saveComment ',data,{ headers:{'EmailId':profile.emailId}}).success(function(response) {
+		$http.post('v1/questionaries/saveComment ',data,{ headers:{'EmailId':commonService.emailId}}).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
@@ -14,7 +14,7 @@ app.factory('commentService', function($http, $q,localStorageService) {
 	}
 	cs.postReplyComment=function(data){
 		var deferred = $q.defer();
-		$http.post('v1/questionreply/saveComment ',data,{ headers:{'EmailId':profile.emailId}}).success(function(response) {
+		$http.post('v1/questionreply/saveComment ',data,{ headers:{'EmailId':commonService.emailId}}).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);

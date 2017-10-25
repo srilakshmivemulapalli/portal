@@ -74,5 +74,21 @@ public class TrainingsServiceUtil {
 		trainingToUserDTO.setEmailId(trainingToUser.getEmailId());
 		return trainingToUserDTO;
 	}
+	public static TrainingsDTO convertTrainingsDaoTODto(Trainings trainings) {
+		TrainingsDTO trainingsDTO = new TrainingsDTO();
+		
+		trainingsDTO.setTrainingId(trainings.getTrainingId());
+		trainingsDTO.setTrainingTitle(trainings.getTrainingTitle());
+		trainingsDTO.setTrainerEmailId(trainings.getTrainerEmailId());
+		trainingsDTO.setTrainingStartTime(trainings.getTrainingStartTime());
+		trainingsDTO.setTrainingEndTime(trainings.getTrainingEndTime());
+		trainingsDTO.setTrainingStatus(trainings.getTrainingStatus());
+		trainingsDTO.setTrainingType(trainings.getTrainingType());
+		trainingsDTO.setDescription(trainings.getDescription());
+		trainingsDTO.setTrainingStartDate(trainings.getTrainingStartDate());
+		trainingsDTO.setTrainingEndDate(trainings.getTrainingEndDate());
+		return trainingsDTO;
+
+	}
 
 }

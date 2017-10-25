@@ -14,6 +14,8 @@ public interface QuestionariesService {
 	CountDTO getQuestionariesCount();
 	
 	String saveQuestions(String emailId, Integer categoryId, String question, String description);
+	
+	String updateQuestion(Integer questionId,Integer categoryId,String question,String description,String emailId);
 
 	QuestionsDTO fetchMyQuestionaries(String emailId);
 

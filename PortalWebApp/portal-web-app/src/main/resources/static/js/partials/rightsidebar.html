@@ -1,7 +1,7 @@
-<div class="col-md-2 disable-mobile right-sidebar">
+<div class="col-md-2 disable-mobile right-sidebar" ng-init="mc.init()">
 	<ul>
 		<li class="widget widget-btn">
-			<button type="button" class="action ask-question" ng-click="mc.redirect();"
+			<button type="button" class="action ask-question" ng-click="mc.redirectQuestion();"
 				ng-class="{'disabled': urlChanged==='/addquestion'}">
 				<i class="fa fa-plus"></i> ASK A QUESTION
 			</button>
@@ -12,13 +12,19 @@
 					<p>Questions
 					<p>
 						<span>{{questionCount}}</span>
-				</li>
+				</li>	
 				<li class="members-count">
 					<p>Members
 					<p>
 						<span>{{userCount}}</span>
 				</li>
 			</ul>
+		</li>
+		<li class="widget widget-btn">
+			<button type="button" class="action ask-question" ng-click="mc.redirectMeeting();"
+				ng-class="{'disabled': urlChanged==='/meetings'}">
+				<i class="fa fa-plus"></i> BOOK MEETING ROOM
+			</button>
 		</li>
 		<!-- END widget-statistic -->
 

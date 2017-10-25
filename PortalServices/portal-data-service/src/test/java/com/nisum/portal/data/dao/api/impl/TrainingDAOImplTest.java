@@ -66,7 +66,7 @@ public class TrainingDAOImplTest {
 		trainings.setTrainingId(1);
 		feedBack.setTrainings(trainings);
 		feedBack.setFeedback("Very Good");
-		feedBack.setRating("Very Nice");
+		feedBack.setEmailId("mbheemanapalli@nisum.com");
 		feedBack.setCreateDate(timestamp);
 		when(trainingsFeedBackRepository.findByTrainingFeedBackId(1)).thenReturn(null);
 		when(trainingsFeedBackRepository.save(feedBack)).thenReturn(new TrainingFeedBack());
@@ -82,7 +82,7 @@ public class TrainingDAOImplTest {
 		trainings.setTrainingId(1);
 		feedBack.setTrainings(trainings);
 		feedBack.setFeedback("Very Good");
-		feedBack.setRating("Very Nice");
+		feedBack.setEmailId("mbheemanapalli@nisum.com");
 		feedBack.setCreateDate(timestamp);
 		when(trainingsFeedBackRepository.findByTrainingFeedBackId(1)).thenReturn(new TrainingFeedBack());
 		assertEquals(status,trainingDAOImpl.addTrainingsFeedBack(feedBack));

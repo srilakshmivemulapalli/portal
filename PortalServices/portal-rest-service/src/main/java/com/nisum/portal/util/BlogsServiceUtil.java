@@ -105,10 +105,10 @@ public class BlogsServiceUtil {
 		validateHttpRequestForUploads(request);
 		
 		String title=request.getParameter("title");
-		if(title==null) {
-			logger.error("BlogsServiceUtil :: parseRequestToGetBlogsDTO Error ==== Missing Blog title.");
-			throw new BlogServiceException("Missing Blog title.");
-		}
+//		if(title==null) {
+//			logger.error("BlogsServiceUtil :: parseRequestToGetBlogsDTO Error ==== Missing Blog title.");
+//			throw new BlogServiceException("Missing Blog title.");
+//		}
 		String description=request.getParameter("description");
 		if(description==null) {
 			logger.error("BlogsServiceUtil :: parseRequestToGetBlogsDTO Error ==== Missing Blog description.");
@@ -218,6 +218,7 @@ public class BlogsServiceUtil {
 		//SimpleDateFormat dateFormat=new SimpleDateFormat("ddMMMYYYY_hh:mm:ss_a");
 		
 		logger.info("BlogsServiceUtil :: getCurrentTimeAsString");
+		
 		SimpleDateFormat dateFormat=new SimpleDateFormat(format);
 		
 		Timestamp timestamp=new Timestamp(System.currentTimeMillis());
@@ -231,8 +232,13 @@ public class BlogsServiceUtil {
 		logger.info("BlogsServiceUtil :: removeBlogAttachments");
 		if(file!=null) {
 			File dirPath=new File(file);
-			Path path=dirPath.toPath();
-			deleteFileOrFolder(path);
+			if(dirPath.exists()) {
+				Path path=dirPath.toPath();
+				deleteFileOrFolder(path);
+			}else {
+				logger.error("BlogsServiceUtil :: removeBlogAttachments Error ==== "+file+" does't exist.");
+				throw new BlogServiceException(dirPath.getName()+" does't exist.");
+			}
 		}else {
 			logger.error("BlogsServiceUtil :: removeBlogAttachments Error ==== "+file+" does't exist.");
 			throw new BlogServiceException(file+" does't exist.");

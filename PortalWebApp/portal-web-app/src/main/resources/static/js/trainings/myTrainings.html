@@ -1,14 +1,13 @@
 <div class="col-md-1 col-xs-1"></div>
-<div class="col-md-9 col-xs-9" style="padding-top: 30px;"
-	ng-if="!createTraining">
+<div class="col-md-9 col-xs-9" style="padding-top: 30px;">
 	<div class="col-md-1 col-xs-1">
 		<span class="back"> <i class="fa fa-angle-double-left"></i> <a
 			href="#/trainings">Back</a>
 		</span>
 	</div>
 	<div class="col-md-11 col-xs-11">
-		<button class='btn btn-primary' ng-click="openCreateTraining();"
-			style="float: right">Create Training</button>
+		<button class='btn btn-primary' ng-click="createTrainings();"
+			style="float: right">New Training</button>
 	</div>
 	<div class="col-md-12 col-xs-12">
 		<ul class="tabs-title">
@@ -16,7 +15,8 @@
 			<li><h4 class="modal-title active">My Trainings</h4></li>
 			<!-- <li><h4 class="modal-title">Request Training</h4></li>
 			<li><h4 class="modal-title">Create Training</h4></li>
- -->		</ul>
+ -->
+		</ul>
 		<div class="row irs-all-course-bb clearfix">
 			<div class="col-sm-6 col-md-6 col-lg-4 clearfix"
 				ng-repeat="training in myTrainingsList.trainings"
@@ -43,8 +43,8 @@
 					<div class="irs-lc-footer">
 						<div class="irs-lc-normal-part">
 							<ul class="list-inline">
-								<li><a href="#"><i class="fa fa-users"></i> 321</a></li>
-								<li><a href="#"><i class="fa fa-commenting"></i> 4</a></li>
+								<li><a href="#"><i class="fa fa-users"></i>{{training.noOfStudents}}</a></li>
+								<li><a href="#"><i class="fa fa-commenting"></i>{{training.noOfComments}}</a></li>
 							</ul>
 						</div>
 						<div class="irs-lc-hover-part">See Course</div>
@@ -55,124 +55,7 @@
 	</div>
 
 </div>
-<div class="col-md-9 col-xs-9" style="padding-top: 30px;"
-	ng-if="createTraining">
-	<div class="col-md-12 col-xs-12 trainingback">
-		<div class="col-md-2 col-xs-2">
-			<span class="back"> <i class="fa fa-angle-double-left"></i> <a
-				ng-click="openCreateTraining();">Back</a>
-			</span>
-		</div>
-	
 
-	</div>
-	<div class="col-md-10 col-xs-10">
-		<form name="trainingform" ng-submit="saveTraining(training);">
-			<div class="form-group row">
-				<label for="title" class="col-sm-2 col-form-label col-form-label-lg">Training
-					Title :</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control form-control-lg" id="title"
-						placeholder="Training Title" limit-To="100" ng-model="training.trainingTitle"
-						required>
-				</div>
-			</div>
-			<div class="form-group row">
-				<label for="description"
-					class="col-sm-2 col-form-label col-form-label-lg">Training
-					Description :</label>
-				<div class="col-sm-10">
-					<textarea class="form-control form-control-lg" id="description"
-						rows="3" ng-model="training.description" limit-To='500'
-						placeholder="Add Description" autogrow required></textarea>
-				</div>
-			</div>
-			<div class="form-group row">
-				<label for="type" class="col-sm-2 col-form-label col-form-label-lg">Training
-					Type :</label>
-				<div class="col-sm-10">
-					<label class="radio-inline"> <input type="radio"
-						name="optradio" value="classroom" ng-model="training.trainingType">Classroom
-						Training
-					</label> <label class="radio-inline"> <input type="radio"
-						name="optradio" value="online" ng-model="training.trainingType">Online
-						Training
-					</label>
-				</div>
-			</div>
-
-			<div class="form-group row">
-				<label for="startdate"
-					class="col-sm-2 col-form-label col-form-label-lg">Training
-					Date(s):</label>
-				<div class="col-sm-10">
-					<div class="col-md-5">
-						<div class='input-group date'>
-							<input type='text' class="form-control" datetimepicker
-								ng-model="training.trainingStartDate" placeholder="Start Date"
-								options="dateOptions" required /> <span
-								class="input-group-addon"> <span
-								class="glyphicon glyphicon-calendar"></span>
-							</span>
-						</div>
-					</div>
-					<div class="col-md-1">
-						<label>To</label>
-					</div>
-					<div class="col-md-5">
-						<div class='input-group date'>
-							<input type='text' class="form-control" datetimepicker
-								options="dateOptions" ng-model="training.trainingEndDate"
-								placeholder="End Date" required /> <span
-								class="input-group-addon"> <span
-								class="glyphicon glyphicon-calendar"></span>
-							</span>
-						</div>
-					</div>
-
-				</div>
-			</div>
-
-			<div class="form-group row">
-				<label for="time" class="col-md-2 col-form-label col-form-label-lg">Training
-					Time:</label>
-				<div class="col-md-10">
-					<div class="col-md-5">
-						<div class='input-group date'>
-							<input type='text' class="form-control"
-								ng-model="training.trainingStartTime" datetimepicker
-								options="timeOptions" required placeholder="Start Time" /> <span
-								class="input-group-addon"> <span
-								class="glyphicon glyphicon-time"></span>
-							</span>
-						</div>
-					</div>
-					<div class="col-md-1">
-						<label>To</label>
-					</div>
-					<div class="col-md-5">
-						<div class='input-group date'>
-							<input type='text' class="form-control"
-								ng-model="training.trainingEndTime" datetimepicker
-								options="timeOptions" required placeholder="End Time" /> <span
-								class="input-group-addon"> <span
-								class="glyphicon glyphicon-time"></span>
-							</span>
-						</div>
-					</div>
-
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-10">
-					<button type="submit" class="btn btn-primary">Save
-						Training</button>
-				</div>
-			</div>
-		</form>
-	</div>
-
-</div>
 <div id="trainingModal" class="modal fade" role="dialog">
 	<div class="modal-dialog">
 
@@ -183,35 +66,26 @@
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 
 				<div class="row">
-					<div class="col-md-5">
+					<div class="col-md-6">
 						<div class="irs-cdtls-feture-bot">
 							<ul class="list-group">
 								<li><a class="list-group-item" href="javascript:void(0);"><span
-										class="flaticon-business text-thm2"></span> Lecture <span
-										class="pull-right"> 12 </span></a></li>
-								<li><a class="list-group-item" href="javascript:void(0);"><span
 										class="flaticon-clock-1 text-thm2"></span> Duration <span
-										class="pull-right"> 2 hrs. </span></a></li>
+										class="pull-right">
+											{{modalTraining.customDuration.hours!==0?modalTraining.customDuration.hours+'hr(s)':''}} {{modalTraining.customDuration.minutes!==0?modalTraining.customDuration.minutes+'min(s)':''}}</span></a></li>
 								<li><a class="list-group-item" href="javascript:void(0);"><span
-										class="flaticon-pen text-thm2"></span> Quizzes <span
-										class="pull-right"> 3 </span></a></li>
-								<li><a class="list-group-item" href="javascript:void(0);"><span
-										class="flaticon-arrows-4 text-thm2"></span> Skill Level <span
-										class="pull-right"> All </span></a></li>
+										class="flaticon-arrows-4 text-thm2"></span> Skills<span
+										class="pull-right">{{modalTraining.trainingTitle}}</span></a></li>
 								<li><a class="list-group-item" href="javascript:void(0);"><span
 										class="flaticon-people-1 text-thm2"></span> Students <span
-										class="pull-right"> 321 </span></a></li>
+										class="pull-right">{{modalTraining.noOfStudents}}</span></a></li>
 								<li><a class="list-group-item" href="javascript:void(0);"><span
 										class="flaticon-globe text-thm2"></span> Language <span
 										class="pull-right"> English </span></a></li>
-								<li><a class="list-group-item irs-bbn"
-									href="javascript:void(0);"><span
-										class="flaticon-technology text-thm2"></span> Assessments <span
-										class="pull-right"> self </span></a></li>
 							</ul>
 						</div>
 					</div>
-					<div class="col-md-7">
+					<div class="col-md-6">
 						<div class="irs-courses-dtls-second-para">
 							<p>{{modalTraining.description}}</p>
 
@@ -220,10 +94,12 @@
 				</div>
 
 			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" ng-click="requestuserTraining(modalTraining,1);"
+			<div class="modal-footer" ng-if="modalTraining.trainingPresence!==2">
+				<button type="button" class="btn btn-primary"
+					ng-click="requestuserTraining(modalTraining,1);"
 					ng-if="modalTraining.trainingPresence===0">Register</button>
-				<button type="button" class="btn btn-danger" ng-click="requestuserTraining(modalTraining,0);"
+				<button type="button" class="btn btn-danger"
+					ng-click="requestuserTraining(modalTraining,0);"
 					ng-if="modalTraining.trainingPresence===1">UnRegister</button>
 			</div>
 		</div>

@@ -128,12 +128,12 @@ ul {
 }
 
 #logo {
-	padding-left: 20px;
+	/* padding-left: 20px; */
 	line-height: 80px;
 }
 
 #logo img {
-	max-height: 70px;
+	max-height: 44px;
 }
 
 #header .top-menu {
@@ -879,7 +879,6 @@ body.single-question .form-reply {
 
 .question-filter {
 	border-bottom: 1px solid #dadfea;
-	
 	margin: 0;
 }
 
@@ -1241,7 +1240,8 @@ ul.question-tags li {
 	display: block;
 	margin-bottom: 10px;
 }
-.questionspage{
+
+.questionspage {
 	border-left: 1px solid #dadfea;
 }
 
@@ -1395,7 +1395,7 @@ ul.question-tags li {
 
 .q-right-content .question-control ul li a {
 	color: #5f6f81;
-	cursor:pointer;
+	cursor: pointer;
 }
 
 .q-right-content .question-control ul li a.show-comments.active {
@@ -2702,19 +2702,29 @@ a.hiddenanchor {
 opacity
 
 
+
+
 :
 
+
  
+
 
 1;
 -webkit-transform
 
 
+
+
 :
+
 
  
 
+
 translateX
+
+
 
 
 (0);
@@ -2731,19 +2741,29 @@ translateX
 opacity
 
 
+
+
 :
 
+
  
+
 
 1;
 -moz-transform
 
 
+
+
 :
+
 
  
 
+
 translateX
+
+
 
 
 (0);
@@ -2760,19 +2780,29 @@ translateX
 opacity
 
 
+
+
 :
 
+
  
+
 
 1;
 -ms-transform
 
 
+
+
 :
+
 
  
 
+
 translateX
+
+
 
 
 (0);
@@ -2789,19 +2819,29 @@ translateX
 opacity
 
 
+
+
 :
 
+
  
+
 
 1;
 -o-transform
 
 
+
+
 :
+
 
  
 
+
 translateX
+
+
 
 
 (0);
@@ -2818,19 +2858,29 @@ keyframes fadeInLeft { 0% {
 opacity
 
 
+
+
 :
 
+
  
+
 
 1;
 transform
 
 
+
+
 :
+
 
  
 
+
 translateX
+
+
 
 
 (0);
@@ -2855,28 +2905,36 @@ translateX
 opacity
 
 
+
+
 :
 
+
  
+
 
 0;
 -webkit-transform
 
 
+
+
 :
 
+
  
+
 
 translateX
 
 
+
+
 (-20
 px
+
+
 );
-
-
-	
-
 }
 }
 @
@@ -2890,28 +2948,36 @@ px
 opacity
 
 
+
+
 :
 
+
  
+
 
 0;
 -moz-transform
 
 
+
+
 :
 
+
  
+
 
 translateX
 
 
+
+
 (-20
 px
+
+
 );
-
-
-	
-
 }
 }
 @
@@ -2925,28 +2991,36 @@ px
 opacity
 
 
+
+
 :
 
+
  
+
 
 0;
 -ms-transform
 
 
+
+
 :
 
+
  
+
 
 translateX
 
 
+
+
 (-20
 px
+
+
 );
-
-
-	
-
 }
 }
 @
@@ -2960,28 +3034,36 @@ px
 opacity
 
 
+
+
 :
 
+
  
+
 
 0;
 -o-transform
 
 
+
+
 :
 
+
  
+
 
 translateX
 
 
+
+
 (-20
 px
+
+
 );
-
-
-	
-
 }
 }
 @
@@ -2995,28 +3077,36 @@ keyframes fadeOutLeft { 0% {
 opacity
 
 
+
+
 :
 
+
  
+
 
 0;
 transform
 
 
+
+
 :
 
+
  
+
 
 translateX
 
 
+
+
 (-20
 px
+
+
 );
-
-
-	
-
 }
 }
 .fadeOutLeft {
@@ -3658,13 +3748,19 @@ body.blog ul.page-numbers {
 
 #upload_images
 
+
  
+
 
 .input-file
 
+
  
 
+
 input
+
+
 
 
 [
@@ -3677,54 +3773,82 @@ type
 background
 
 
+
+
 :
+
 
  
 
+
 #f4f5f9
+
+
 
 
 ;
 color
 
 
+
+
 :
+
 
  
 
+
 #6f7d95
+
+
 
 
 ;
 border
 
 
+
+
 :
 
+
  
+
 
 1
 px
 
+
  
+
 
 solid
 
+
  
 
+
 #c7cddb
+
+
 
 
 ;
 width
 
 
+
+
 :
+
 
  
 
+
 130
 px
+
+
 
 
 ;
@@ -4527,6 +4651,8 @@ body.admin-bar .q-filter-waypoints {
 
 
 
+
+
 @media ( max-width :1283px) {
 	.social-links ul li {
 		margin-top: 10px;
@@ -4967,10 +5093,35 @@ body.admin-bar .q-filter-waypoints {
 }
 
 .trainingback {
-	
-	color:#15a4fa;
-	cursor:pointer;
-	margin-bottom:40px;
+	color: #15a4fa;
+	cursor: pointer;
+}
+
+.PDTOP80 {
+	padding-top: 80px;
+	height: 732px;
+}
+
+.PDLFT20 {
+	padding-left: 20px;
+}
+
+.createtitle {
+	margin-bottom: 40px;
+}
+
+.navbar-brand {
+	padding: 18px 15px;
+}
+
+.edittooltip-controls {
+	right: 0;
+	position: absolute;
+	margin-right: 15px;
+}
+.trainingbottom{
+border-bottom: 1px solid #ebebeb;
+padding-bottom:15px;
 }
 /********trainings****/
 .irs-all-course-bb {
@@ -5033,7 +5184,7 @@ body.admin-bar .q-filter-waypoints {
 }
 
  */
- .irs-lc-details {
+.irs-lc-details {
 	position: relative;
 	padding: 0 40px;
 }
@@ -5159,30 +5310,33 @@ body.admin-bar .q-filter-waypoints {
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
 }
-.irs-cdtls-feture-bot{
-    border: 1px solid #e8e8e8;
-    border-radius: 5px;
-  }
-  .irs-cdtls-feture-bot li a {
-    -moz-border-bottom-colors: none;
-    -moz-border-left-colors: none;
-    -moz-border-right-colors: none;
-    -moz-border-top-colors: none;
-    border-color: -moz-use-text-color -moz-use-text-color #e8e8e8;
-    border-image: none;
-    border-radius: 0 !important;
-    border-style: none none solid;
-    border-width: medium medium 1px;
-    font-size: 16px;
-    line-height: 30px;
-    margin: 0 auto;
-    width: 95%;
-  }
-  .irs-courses-dtls-second-para > p {
-    color: #313131;
-    font-size: 18px;
-    line-height: 30px;
-  }
+
+.irs-cdtls-feture-bot {
+	border: 1px solid #e8e8e8;
+	border-radius: 5px;
+}
+
+.irs-cdtls-feture-bot li a {
+	-moz-border-bottom-colors: none;
+	-moz-border-left-colors: none;
+	-moz-border-right-colors: none;
+	-moz-border-top-colors: none;
+	border-color: -moz-use-text-color -moz-use-text-color #e8e8e8;
+	border-image: none;
+	border-radius: 0 !important;
+	border-style: none none solid;
+	border-width: medium medium 1px;
+	font-size: 16px;
+	line-height: 30px;
+	margin: 0 auto;
+	width: 95%;
+}
+
+.irs-courses-dtls-second-para>p {
+	color: #313131;
+	font-size: 18px;
+	line-height: 30px;
+}
 /***************login****************/
 .card-container.card {
 	max-width: 400px;
@@ -5315,4 +5469,129 @@ body.admin-bar .q-filter-waypoints {
 .login.forgot-password:hover, .login.forgot-password:active, .login.forgot-password:focus
 	{
 	color: rgb(12, 97, 33);
+}
+
+/***************media queries for common device breakpoints****************/
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width
+	: 480px) { /* Styles */
+}
+
+/* Smartphones (landscape) ----------- */
+@media only screen and (min-width : 321px) { /* Styles */
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width : 320px) { /* Styles */
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width
+	: 1024px) { /* Styles */
+}
+
+/* iPads (landscape) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width
+	: 1024px) and (orientation : landscape) { /* Styles */
+}
+
+/* iPads (portrait) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width
+	: 1024px) and (orientation : portrait) { /* Styles */
+}
+/**********
+iPad 3
+**********/
+@media only screen and (min-device-width : 768px) and (max-device-width
+	: 1024px) and (orientation : landscape) and
+	(-webkit-min-device-pixel-ratio : 2) { /* Styles */
+}
+
+@media only screen and (min-device-width : 768px) and (max-device-width
+	: 1024px) and (orientation : portrait) and
+	(-webkit-min-device-pixel-ratio : 2) { /* Styles */
+}
+/* Desktops and laptops ----------- */
+@media only screen and (min-width : 1224px) { /* Styles */
+}
+
+/* Large screens ----------- */
+@media only screen and (min-width : 1824px) { /* Styles */
+}
+
+/* iPhone 4 ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width
+	: 480px) and (orientation : landscape) and
+	(-webkit-min-device-pixel-ratio : 2) { /* Styles */
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width
+	: 480px) and (orientation : portrait) and
+	(-webkit-min-device-pixel-ratio : 2) { /* Styles */
+}
+
+/* iPhone 5 ----------- */
+@media only screen and (min-device-width: 320px) and (max-device-height:
+	568px) and (orientation : landscape) and (-webkit-device-pixel-ratio:
+	2) { /* Styles */
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-height:
+	568px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2)
+	{ /* Styles */
+}
+
+/* iPhone 6 ----------- */
+@media only screen and (min-device-width: 375px) and (max-device-height:
+	667px) and (orientation : landscape) and (-webkit-device-pixel-ratio:
+	2) { /* Styles */
+}
+
+@media only screen and (min-device-width: 375px) and (max-device-height:
+	667px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2)
+	{ /* Styles */
+}
+
+/* iPhone 6+ ----------- */
+@media only screen and (min-device-width: 414px) and (max-device-height:
+	736px) and (orientation : landscape) and (-webkit-device-pixel-ratio:
+	2) { /* Styles */
+}
+
+@media only screen and (min-device-width: 414px) and (max-device-height:
+	736px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2)
+	{ /* Styles */
+}
+
+/* Samsung Galaxy S3 ----------- */
+@media only screen and (min-device-width: 320px) and (max-device-height:
+	640px) and (orientation : landscape) and (-webkit-device-pixel-ratio:
+	2) { /* Styles */
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-height:
+	640px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2)
+	{ /* Styles */
+}
+
+/* Samsung Galaxy S4 ----------- */
+@media only screen and (min-device-width: 320px) and (max-device-height:
+	640px) and (orientation : landscape) and (-webkit-device-pixel-ratio:
+	3) { /* Styles */
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-height:
+	640px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 3)
+	{ /* Styles */
+}
+
+/* Samsung Galaxy S5 ----------- */
+@media only screen and (min-device-width: 360px) and (max-device-height:
+	640px) and (orientation : landscape) and (-webkit-device-pixel-ratio:
+	3) { /* Styles */
+}
+
+@media only screen and (min-device-width: 360px) and (max-device-height:
+	640px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 3)
+	{ /* Styles */
 }

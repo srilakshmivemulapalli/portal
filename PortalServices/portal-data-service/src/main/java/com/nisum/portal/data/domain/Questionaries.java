@@ -65,6 +65,19 @@ public class Questionaries implements Serializable,Comparable<Questionaries>{
 		this.createdDate = createdDate;
 		this.emailId = emailId;
 	}
+	
+	
+	
+	public Questionaries(Integer questionId, Categories categoryId, String question, String description,
+			Timestamp createdDate,String emailId) {
+		super();
+		this.questionId = questionId;
+		this.categoryId = categoryId;
+		this.question = question;
+		this.description = description;
+		this.createdDate = createdDate;
+		this.emailId = emailId;
+	}
 	/**
 	 * @return the questionReplies
 	 */

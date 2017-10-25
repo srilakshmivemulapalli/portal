@@ -16,7 +16,19 @@ public class EmailAccount {
 	@Value("${gmail.subject}")
 	private String subject;
 	
+	@Value("${gmail.question.subject}")
+	private String questionSub;
 	
+	@Value("${gmail.answer.toQuestion}")
+	private String subQuestToAnser;
+  
+	public String getSubQuestToAnser() {
+		return subQuestToAnser;
+	}
+
+	public void setSubQuestToAnser(String subQuestToAnser) {
+		this.subQuestToAnser = subQuestToAnser;
+	}
 
 	public String getAdminemail() {
 		return adminemail;
@@ -40,6 +52,14 @@ public class EmailAccount {
 
 	public void setSubject(String subject) {
 		this.subject = subject;
+	}
+
+	public String getQuestionSub() {
+		return questionSub;
+	}
+
+	public void setQuestionSub(String questionSub) {
+		this.questionSub = questionSub;
 	}
 
 	

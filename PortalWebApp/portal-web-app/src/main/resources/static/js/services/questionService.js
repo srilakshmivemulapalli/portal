@@ -1,11 +1,11 @@
-app.factory('questionService', function($http, $q,localStorageService) {
+app.factory('questionService', function($http, $q,commonService) {
 
 	var qs = {};
-	var profile=localStorageService.get('profile');
+	
 	
 	qs.getQuestions = function() {
 		var deferred = $q.defer();
-		$http.get('v1/questionaries/retrieve/allQuestions',{ headers:{'EmailId':profile.emailId}}).success(function(response) {
+		$http.get('v1/questionaries/retrieve/allQuestions',{ headers:{'EmailId':commonService.emailId}}).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
@@ -34,6 +34,15 @@ app.factory('questionService', function($http, $q,localStorageService) {
 		return deferred.promise;
 	}
 	
+	qs.getQuestionsCount = function() {
+		var deferred = $q.defer();
+		$http.get('v1/questionaries/retrieveCount').success(function(response) {
+			deferred.resolve(response);
+		}).error(function(response) {
+			deferred.reject(response);
+		})
+		return deferred.promise;
+	}
 	
 	
 	qs.addQuestion = function(data) {
@@ -68,6 +77,17 @@ app.factory('questionService', function($http, $q,localStorageService) {
 		var deferred = $q.defer();
 		$http.get('v1/questionreply/retrieve/questionReply/'+id).success(function(response) {
 			deferred.resolve(response);
+		}).error(function(response) {
+			deferred.reject(response);
+		})
+		return deferred.promise;
+	}
+	
+	qs.retriveMyReplyQuestions = function(emailId) {
+		var deferred = $q.defer();
+		$http.get('v1/questionreply/retrieve/myReplyQuestions/'+emailId).success(function(response) {
+			deferred.resolve(response);
+			console.log('in retriveMyReplyQuestions' +response)
 		}).error(function(response) {
 			deferred.reject(response);
 		})

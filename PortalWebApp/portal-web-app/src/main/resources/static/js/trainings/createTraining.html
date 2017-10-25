@@ -1,0 +1,165 @@
+<div class="col-md-1 col-xs-1"></div>
+<div class="col-md-9 col-xs-9" style="padding-top: 30px;">
+	<div class="col-md-12 col-xs-12 trainingback">
+		<div class="col-md-2 col-xs-2">
+			<span class="back"> <i class="fa fa-angle-double-left"></i> <a
+				href="#/myTrainings">Back</a>
+			</span>
+		</div>
+
+	</div>
+	<div class="col-md-12 col-xs-12 createtitle">
+		<ul class="tabs-title">
+			<li><h4 class="modal-title active">Create Training</h4></li>
+
+		</ul>
+	</div>
+	<div class="col-md-12 col-xs-12 trainingbottom">
+		<form name="trainingform" class="PDLFT20"
+			ng-submit="createTraining(training);">
+			<div class="form-group row">
+				<label for="title" class="col-sm-2 col-form-label col-form-label-lg">Training
+					Title :</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control form-control-lg" id="title"
+						placeholder="Training Title" limit-To="100"
+						ng-model="training.trainingTitle" required>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="description"
+					class="col-sm-2 col-form-label col-form-label-lg">
+					Description:</label>
+				<div class="col-sm-9">
+					<textarea class="form-control form-control-lg" id="description"
+						rows="3" ng-model="training.description" limit-To='500'
+						placeholder="Add Description" ng-maxlength="150" ng-minlength='1'
+						autogrow required></textarea>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="type" class="col-sm-2 col-form-label col-form-label-lg">Training
+					Type :</label>
+				<div class="col-sm-9">
+					<label class="radio-inline"> <input type="radio"
+						name="optradio" value="classroom" ng-model="training.trainingType"
+						required>Classroom Training
+					</label> <label class="radio-inline"> <input type="radio"
+						name="optradio" value="online" ng-model="training.trainingType"
+						required>Online Training
+					</label>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="startdate"
+					class="col-sm-2 col-form-label col-form-label-lg">Training
+					Date(s):</label>
+				<div class="col-sm-10">
+					<div class="col-md-5">
+						<div class='input-group date'>
+							<input type='text' class="form-control" datetimepicker
+								ng-model="training.trainingStartDate" placeholder="Start Date"
+								options="dateOptions" required /> <span
+								class="input-group-addon"> <span
+								class="glyphicon glyphicon-calendar"></span>
+							</span>
+						</div>
+					</div>
+					<div class="col-md-1">
+						<label>To</label>
+					</div>
+					<div class="col-md-5">
+						<div class='input-group date'>
+							<input type='text' class="form-control" datetimepicker
+								options="dateOptions" ng-model="training.trainingEndDate"
+								placeholder="End Date" required /> <span
+								class="input-group-addon"> <span
+								class="glyphicon glyphicon-calendar"></span>
+							</span>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="time" class="col-md-2 col-form-label col-form-label-lg">Training
+					Time:</label>
+				<div class="col-md-10">
+					<div class="col-md-5">
+						<div class='input-group date'>
+							<input type='text' class="form-control"
+								ng-model="training.trainingStartTime" datetimepicker
+								options="timeOptions" required placeholder="Start Time" /> <span
+								class="input-group-addon"> <span
+								class="glyphicon glyphicon-time"></span>
+							</span>
+						</div>
+					</div>
+					<div class="col-md-1">
+						<label>To</label>
+					</div>
+					<div class="col-md-5">
+						<div class='input-group date'>
+							<input type='text' class="form-control"
+								ng-model="training.trainingEndTime" datetimepicker
+								options="timeOptions" required placeholder="End Time" /> <span
+								class="input-group-addon"> <span
+								class="glyphicon glyphicon-time"></span>
+							</span>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-primary"
+						ng-disabled="trainingform.$invalid"
+						ng-class="{'disabled': trainingform.$invalid}">Create</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="col-md-12 col-xs-12 createtitle">
+		<ul class="tabs-title">
+			<li><h4 class="modal-title active">Training Request</h4></li>
+
+		</ul>
+	</div>
+	<div class="col-md-12 col-xs-12 trainingbottom">
+		<form name="requesttrainingform" class="PDLFT20"
+			ng-submit="requestTraining(reqTraining);">
+			<div class="form-group row">
+				<label for="title" class="col-sm-2 col-form-label col-form-label-lg">Training
+					Title :</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control form-control-lg" id="title"
+						placeholder="Training Title" limit-To="100"
+						ng-model="reqTraining.requestTrainingTitle" required>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="description"
+					class="col-sm-2 col-form-label col-form-label-lg">
+					Description :</label>
+				<div class="col-sm-9">
+					<textarea class="form-control form-control-lg" id="description"
+						rows="3" ng-model="reqTraining.description" limit-To='500'
+						placeholder="Add Description" ng-maxlength="150" ng-minlength='1'
+						autogrow required></textarea>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-primary"
+						ng-disabled="requesttrainingform.$invalid"
+						ng-class="{'disabled': requesttrainingform.$invalid}">Request</button>
+				</div>
+			</div>
+		</form>
+	</div>
+
+</div>

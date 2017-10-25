@@ -3,6 +3,7 @@ package com.nisum.portal.rest.api;
 import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,11 +108,11 @@ public class TrainingsRestService {
 		logger.info("TrainingsRestService :: trainingToUser");
 	   	try
 		{
-				trainingsService.trainingToUser(trainingToUserDTO);
-				 ServiceStatusDto serviceStatusDto=new ServiceStatusDto();
+	   		TrainingToUserDTO trainingToUser=trainingsService.trainingToUser(trainingToUserDTO);
+				/* ServiceStatusDto serviceStatusDto=new ServiceStatusDto();
 				 serviceStatusDto.setStatus(true);
-				 serviceStatusDto.setMessage(Constants.TRAINING_PRESENCE);
-				 return new ResponseEntity<ServiceStatusDto>(serviceStatusDto,HttpStatus.OK);
+				 serviceStatusDto.setMessage(Constants.TRAINING_PRESENCE);*/
+				 return new ResponseEntity<TrainingToUserDTO>(trainingToUser,HttpStatus.OK);
 		}catch(Exception e)
 		{
 				 Errors error=new Errors();
@@ -127,9 +128,9 @@ public class TrainingsRestService {
 	@RequestMapping(value = "/addFeedBack", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	public ResponseEntity<?> addTrainingFeedBack(@RequestBody TrainingFeedBackDTO trainingFeedBackDTO) {
 		logger.info("TrainingsRestService :: addTrainingFeedBack ::" + trainingFeedBackDTO.toString());
-		ServiceStatusDto servicedto = trainingsService.addTrainingFeedBack(trainingFeedBackDTO);
-		if (servicedto.isStatus())
-			return new ResponseEntity<ServiceStatusDto>(servicedto, HttpStatus.OK);
+		TrainingFeedBackDTO feedBackDTO = trainingsService.addTrainingFeedBack(trainingFeedBackDTO);
+		if (ObjectUtils.anyNotNull(feedBackDTO))
+			return new ResponseEntity<TrainingFeedBackDTO>(feedBackDTO, HttpStatus.OK);
 		else {
 			logger.error("FeedBack for same already Exists");
 			Errors error = new Errors();

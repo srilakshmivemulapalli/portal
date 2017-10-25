@@ -34,8 +34,8 @@
 					<div class="irs-lc-footer">
 						<div class="irs-lc-normal-part">
 							<ul class="list-inline">
-								<li><a href="#"><i class="fa fa-users"></i> 321</a></li>
-								<li><a href="#"><i class="fa fa-commenting"></i> 4</a></li>
+								<li><a href="#"><i class="fa fa-users"></i>{{training.noOfStudents}}</a></li>
+								<li><a href="#"><i class="fa fa-commenting"></i>{{training.noOfComments}}</a></li>
 							</ul>
 						</div>
 						<div class="irs-lc-hover-part">See Course</div>
@@ -56,34 +56,27 @@
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 
 				<div class="row">
-					<div class="col-md-5">
+					<div class="col-md-6">
 						<div class="irs-cdtls-feture-bot">
 							<ul class="list-group">
 								<li><a class="list-group-item" href="javascript:void(0);"><span
-										class="flaticon-business text-thm2"></span> Lecture <span
-										class="pull-right"> 12 </span></a></li>
-								<li><a class="list-group-item" href="javascript:void(0);"><span
 										class="flaticon-clock-1 text-thm2"></span> Duration <span
-										class="pull-right"> 2 hrs. </span></a></li>
+										class="pull-right">{{modalTraining.customDuration.hours!==0?modalTraining.customDuration.hours+'
+											hr(s)':''}}{{modalTraining.customDuration.minutes!==0?modalTraining.customDuration.minutes+'
+											min(s)':''}}</span></a></li>
 								<li><a class="list-group-item" href="javascript:void(0);"><span
-										class="flaticon-pen text-thm2"></span> Quizzes <span
-										class="pull-right"> 3 </span></a></li>
-								<li><a class="list-group-item" href="javascript:void(0);"><span
-										class="flaticon-arrows-4 text-thm2"></span> Skill Level <span
-										class="pull-right"> All </span></a></li>
+										class="flaticon-arrows-4 text-thm2"></span> Skills<span
+										class="pull-right">{{modalTraining.trainingTitle}}</span></a></li>
 								<li><a class="list-group-item" href="javascript:void(0);"><span
 										class="flaticon-people-1 text-thm2"></span> Students <span
-										class="pull-right"> 321 </span></a></li>
+										class="pull-right">{{modalTraining.noOfStudents}}</span></a></li>
 								<li><a class="list-group-item" href="javascript:void(0);"><span
 										class="flaticon-globe text-thm2"></span> Language <span
 										class="pull-right"> English </span></a></li>
-								<li><a class="list-group-item irs-bbn" href="javascript:void(0);"><span
-										class="flaticon-technology text-thm2"></span> Assessments <span
-										class="pull-right"> self </span></a></li>
 							</ul>
 						</div>
 					</div>
-					<div class="col-md-7">
+					<div class="col-md-6">
 						<div class="irs-courses-dtls-second-para">
 							<p>{{modalTraining.description}}</p>
 							
@@ -92,9 +85,9 @@
 				</div>
 
 			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" ng-click="editItem();" ng-if="modalTraining.trainingPresence===0">Join</button>
-				<button type="button" class="btn btn-danger" ng-click="editItem();" ng-if="modalTraining.trainingPresence===1">Cancel</button>
+			<div class="modal-footer" ng-if="modalTraining.trainingPresence!==2">
+				<button type="button" class="btn btn-primary" ng-click="requestuserTraining(modalTraining,1);" ng-if="modalTraining.trainingPresence===0">Join</button>
+				<button type="button" class="btn btn-danger" ng-click="requestuserTraining(modalTraining,0);" ng-if="modalTraining.trainingPresence===1">Cancel</button>
 			</div>
 		</div>
 
