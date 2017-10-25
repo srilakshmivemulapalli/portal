@@ -103,7 +103,6 @@ public class UserRestService {
 
 	/**
 	 * Updates single user
-	 * 
 	 * @param userDto
 	 * @return
 	 * @throws UserServiceException
