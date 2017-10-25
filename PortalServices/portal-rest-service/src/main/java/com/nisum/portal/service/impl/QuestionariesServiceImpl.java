@@ -78,16 +78,9 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 	@Override
 	public String updateQuestion(Integer questionId, Integer categoryId, String question, String description,String emailId) {
 		Questionaries questionaries = QuestionariesUtil.convertDtoToDao(questionId,categoriesDAO.getCategory(categoryId), question, description,emailId);
-		boolean isexist=findQuestionById(questionId);
-		logger.info("in side service ********sericeimpl.."+isexist);
-		if(isexist==true) {
-			questionariesDAO.updateQuestionaries(questionaries);
-		}else {
-			return null;
-		     //questionariesDAO.saveQuestionaries(questionaries);
-		}
+		questionariesDAO.updateQuestionaries(questionaries);
 		return Constants.MSG_RECORD_UPDATE;
-	    }
+	}
 	
 
 

@@ -125,30 +125,33 @@ public class QuestionariesRestService {
 	 */
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public ResponseEntity<ServiceStatusDto> updateQuestionaries(@RequestBody AddQuestionDTO questionDTO)
-			throws QuestionariesServiceException {
-		logger.info("QuestionariesRestService *****:: updateQuestionaries" + questionDTO.getEmailId() + "-"
-				+ questionDTO.getQuestionId() + "-" + questionDTO.getCategoryId() + "-" + questionDTO.getQuestion()
-				+ "-" + questionDTO.getQuestion());
-		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
-		serviceStatusDto.setStatus(true);
-		serviceStatusDto.setMessage(Constants.MSG_RECORD_UPDATE);
-		logger.info("in side service ********serice..");
-		try {
-			String question = questionariesService.updateQuestion(questionDTO.getQuestionId(),
-					questionDTO.getCategoryId(), questionDTO.getQuestion(), questionDTO.getDescription(),
-					questionDTO.getEmailId());
-			if (question != null) {
-				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.OK);
-			} else {
-				serviceStatusDto.setMessage(Constants.QUESTION_NOT_EXIST);
-				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.EXPECTATION_FAILED);
-			}
-		} catch (Exception e) {
-			logger.info("QuestionariesRestService :: saveQuestionComment :: Internal Server Error");
-			throw new QuestionariesServiceException(Constants.INTERNALSERVERERROR);
-		}
+	public ResponseEntity<ServiceStatusDto> updateQuestionaries(@RequestBody AddQuestionDTO questionDTO)throws QuestionariesServiceException {
+
+	logger.info("QuestionariesRestService *****:: updateQuestionaries" + questionDTO.getEmailId() + "-"
+	+ questionDTO.getQuestionId() + "-" + questionDTO.getCategoryId() + "-" + questionDTO.getQuestion()
+	+ "-" + questionDTO.getQuestion());
+
+	ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
+	serviceStatusDto.setStatus(true);
+	serviceStatusDto.setMessage(Constants.MSG_RECORD_UPDATE);
+	logger.info("in side service ********serice..");
+	try {
+	boolean question = questionariesService.findQuestionById(questionDTO.getQuestionId());
+	if (question) {
+	questionariesService.updateQuestion(questionDTO.getQuestionId(),questionDTO.getCategoryId(),questionDTO.getQuestion(),questionDTO.getDescription(),questionDTO.getEmailId());
+	  return new ResponseEntity<ServiceStatusDto>(serviceStatusDto,HttpStatus.OK);
+	}else {
+	serviceStatusDto.setMessage(Constants.QUESTION_NOT_EXIST);
+	serviceStatusDto.setStatus(false);
+	return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.EXPECTATION_FAILED);
 	}
+	} catch (Exception e) {
+	logger.info("QuestionariesRestService :: saveQuestionComment :: Internal Server Error");
+	throw new QuestionariesServiceException(Constants.INTERNALSERVERERROR);
+	}
+	}
+
+
 
 	/**
 	 * Questionaries
