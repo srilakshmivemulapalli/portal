@@ -6,10 +6,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.Pageable;
 
 import com.nisum.portal.data.dao.api.CategoriesDAO;
 import com.nisum.portal.data.domain.Categories;
+import com.nisum.portal.data.domain.Questionaries;
 import com.nisum.portal.data.repository.CategoriesRepository;
+import com.nisum.portal.data.repository.QuestionariesRepository;
 
 @Configuration
 public class CategoriesDAOImpl implements CategoriesDAO {
@@ -17,6 +20,9 @@ public class CategoriesDAOImpl implements CategoriesDAO {
 	private static Logger logger = LoggerFactory.getLogger(CategoriesDAOImpl.class); 
 	@Autowired
 	CategoriesRepository categoriesRepository;
+	
+	@Autowired
+	QuestionariesRepository questionariesRepository;
 
 	@Override
 	public List<Categories> getCategories() {
@@ -114,8 +120,16 @@ public class CategoriesDAOImpl implements CategoriesDAO {
 		logger.info("CategoriesDAOImpl :: deleteCategories");
 		if(categoriesRepository.findOne(categoryId) != null)
 		{
-		 categoriesRepository.delete(categoryId);
-		 return "Success";
+			Categories category = new Categories();
+			Pageable pagable = null;
+			category.setCategoryId(categoryId);
+			List<Questionaries> questionsList = questionariesRepository.retrieveQuestionariesByCategory(category, pagable);
+			if (questionsList.size() > 0) {
+				return "Can't delete category";
+			} else {
+				categoriesRepository.delete(categoryId);
+				 return "Success";
+			}
 		}
 		else
 		{

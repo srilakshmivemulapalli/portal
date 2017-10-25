@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import com.nisum.portal.data.dao.api.UserDAO;
 import com.nisum.portal.data.domain.Categories;
 import com.nisum.portal.data.domain.Questionaries;
 import com.nisum.portal.data.domain.QuestionariesComments;
+import com.nisum.portal.data.repository.CategoriesRepository;
 import com.nisum.portal.service.api.QuestionariesService;
 import com.nisum.portal.service.api.UserService;
 import com.nisum.portal.service.dto.CategoriesDTO;
@@ -47,6 +49,9 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 	@Autowired
 	private QuestionariesCommentsDAO questionariesCommentsDAO;
 	
+	@Autowired
+	CategoriesRepository categoriesRepository;
+	
 	@Override
 	public QuestionsDTO getQuestionaries() {
 		List<Questionaries> questionariesList = questionariesDAO.fetchAllQuestionaries();
@@ -68,9 +73,14 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 
 	@Override
 	public String saveQuestions(String emailId, Integer categoryId, String question, String description) {
-		Questionaries questionaries = QuestionariesUtil.convertDtoToDao(emailId, categoriesDAO.getCategory(categoryId), question, description);
-		questionariesDAO.saveQuestionaries(questionaries);
-		return Constants.MSG_RECORD_ADD;
+		Categories category = categoriesRepository.findByCategoryId(categoryId);
+		if (category == null) {
+			return Constants.CATEGORY_NOT_EXIST;
+		} else {
+			Questionaries questionaries = QuestionariesUtil.convertDtoToDao(emailId, categoriesDAO.getCategory(categoryId), question, description);
+			questionariesDAO.saveQuestionaries(questionaries);
+			return Constants.MSG_RECORD_ADD;
+		}
 	}
 	
 	

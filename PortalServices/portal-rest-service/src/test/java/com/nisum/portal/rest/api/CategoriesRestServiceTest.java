@@ -98,7 +98,7 @@ public class CategoriesRestServiceTest {
 
 		ResponseEntity<Object> expmsg = new ResponseEntity<Object>(message, HttpStatus.OK);
 		when(categoryService.deleteCategories(101)).thenReturn(serviceStatusDto);
-		ResponseEntity<ServiceStatusDto> result = mainController.deletingCategories(101);
+		ResponseEntity<?> result = mainController.deletingCategories(101);
 		System.out.println(result);
 		assertEquals(serviceStatusDto, expmsg);
 

@@ -117,12 +117,16 @@ public class CategoriesServiceImpl implements CategoriesService {
 	public ServiceStatusDto deleteCategories(Integer categoryId) {
 		logger.info("CategoriesServiceImpl :: deleteCategories");
 		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
-		if (categoriesDAO.deleteCategories(categoryId).equals("Success")) {
+		String status = categoriesDAO.deleteCategories(categoryId);
+		if (status.equals("Success")) {
 			serviceStatusDto.setStatus(true);
 			serviceStatusDto.setMessage(Constants.CATEGORY_DELETE);
-		} else if (categoriesDAO.deleteCategories(categoryId).equals("Failure")) {
+		} else if (status.equals("Failure")) {
 			serviceStatusDto.setStatus(false);
 			serviceStatusDto.setMessage(Constants.CATEGORY_NOT_EXIST);
+		} else if (status.equalsIgnoreCase(Constants.CANT_DELETE_CATEGORY)) {
+			serviceStatusDto.setStatus(false);
+			serviceStatusDto.setMessage(Constants.CANT_DELETE_CATEGORY);
 		}
 		return serviceStatusDto;
 	}

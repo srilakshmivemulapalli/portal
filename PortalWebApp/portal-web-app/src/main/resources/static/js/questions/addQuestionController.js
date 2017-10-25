@@ -3,6 +3,8 @@ questionApp.controller('addQuestionController', function($scope,
 		localStorageService, CategoryListModel, $timeout) {
 	$scope.categoriesList = CategoryListModel.newCategoryListInstance();
 	
+	$scope.message = '';
+	
 	if (commonService.categoriesList !== (undefined || null)) {
 		var list = commonService.categoriesList;
 		list.map(function(category) {
@@ -47,7 +49,7 @@ questionApp.controller('addQuestionController', function($scope,
 						$state.go('questions');
 					}
 				}, function(response) {
-					console.log(response);
+					$scope.message = response.errorMessage;
 				})
 	}
 	
