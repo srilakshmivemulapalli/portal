@@ -30,7 +30,7 @@ public class TrainingFeedBack implements Serializable{
 	private String feedback;
 	private String emailId;
 	private Timestamp createDate;
-	private String feedbackStatus;
+	private Integer feedbackStatus;
 	public Integer getTrainingFeedBackId() {
 		return trainingFeedBackId;
 	}
@@ -61,10 +61,10 @@ public class TrainingFeedBack implements Serializable{
 	public void setCreateDate(Timestamp createDate) {
 		this.createDate = createDate;
 	}
-	public String getFeedbackStatus() {
+	public Integer getFeedbackStatus() {
 		return feedbackStatus;
 	}
-	public void setFeedbackStatus(String feedbackStatus) {
+	public void setFeedbackStatus(Integer feedbackStatus) {
 		this.feedbackStatus = feedbackStatus;
 	}
 	@Override

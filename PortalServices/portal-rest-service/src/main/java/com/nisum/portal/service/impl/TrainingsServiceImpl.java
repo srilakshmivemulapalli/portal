@@ -184,14 +184,14 @@ public class TrainingsServiceImpl implements TrainingsService {
 		Date date = new Date();
 		Timestamp createdDate = new Timestamp(date.getTime());
 		String feedback2 = trainingFeedBackDTO.getFeedback();
-		String status;
+		Integer status;
 		if(StringUtils.isNotEmpty(feedback2))
 		{
-			status="Yes";
+			status=1;
 		}
 		else
 		{
-			status="No";
+			status=0;
 		}
 		trainingFeedBackDTO.setCreateDate(createdDate);
 		trainingFeedBackDTO.setFeedbackStatus(status);

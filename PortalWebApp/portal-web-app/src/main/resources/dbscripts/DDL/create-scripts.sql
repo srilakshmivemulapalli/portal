@@ -174,4 +174,4 @@ ALTER TABLE `portal`.`TrainingFeedBack`
 CHANGE COLUMN `rating` `emailId` VARCHAR(50) NULL DEFAULT NULL ;
 
 ALTER TABLE `portal`.`TrainingFeedBack` 
-ADD COLUMN `feedbackStatus` VARCHAR(3) NOT NULL DEFAULT 'No' AFTER `createDate`;
+CHANGE COLUMN `feedbackStatus` `feedbackStatus` INT(1) NOT NULL DEFAULT 0 ;
