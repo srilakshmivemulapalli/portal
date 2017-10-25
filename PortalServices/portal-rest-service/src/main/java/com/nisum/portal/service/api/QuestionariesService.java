@@ -29,5 +29,12 @@ public interface QuestionariesService {
 	
 	QuestionsDTO getQuestionariesByCategory(Integer categoryId, Pageable pageable);
 	
+	QuestionsDTO retrieveAllUnansweredQuestionariesByCategory(Integer categoryId, Pageable pageable);
 	
+	QuestionsDTO retrieveAllUnansweredQuestionariesByPagination(Pageable pageable);
+	
+	QuestionsDTO fetchMyQuestionariesByCategory(String emailId, Integer categoryId, Pageable pageable);
+	
+	QuestionsDTO fetchMyQuestionariesByPagination(String emailId, Pageable pageable);
+
 }

@@ -18,4 +18,8 @@ public interface QuestionariesDAO {
 	List<Questionaries> retriveAllUnansweredQuestionaries();
 	List<Questionaries> retrieveQuestionByPagination(Pageable pageable);
 	List<Questionaries> retrieveQuestionByCategory(Categories category, Pageable pageable);
+	List<Questionaries> retrieveAllUnansweredQuestionariesByCategory(Categories category, Pageable pageable);
+	List<Questionaries> retrieveAllUnansweredQuestionariesByPagination(Pageable pageable);
+	List<Questionaries> fetchMyQuestionariesByCategory(String emailId, Categories category, Pageable pageable);
+	List<Questionaries> fetchMyQuestionariesByPagination(String emailId, Pageable pageable);
 }

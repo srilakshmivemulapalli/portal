@@ -14,6 +14,21 @@ background-color:#fff
 <div class="col-md-1 col-xs-1"></div>
 <div class="col-md-9 col-xs-9 main-content">
 	<div class="clearfix"></div>
+		<div class="col-sm-2 paddingTop20" style="width: 80px">
+		<nav class="nav-sidebar">
+		<p>&nbsp;</p>
+			<ul class="nav">
+				<li class="active"><a href="#/Blogs"><span>All Blogs</span></a></li>
+				<li class="nav-divider"></li>
+				<li class="active"><a href="#/newBlog" class="button"> <span>Write
+							your Blog....</span></a></li>
+				<li class="nav-divider"></li>
+				<li class="active"><a href="#/ownBlogs" class="button"> <span>My
+							Blogs</span></a></li>
+				<li class="nav-divider"></li>
+			</ul>
+		</nav>
+	</div>
 	<div class="col-md-6 col-xs-6 current-category">
 		<span>New Blog</span>
 	</div>
@@ -26,8 +41,8 @@ background-color:#fff
 						name="textTitle" id="txtTitle" class="form-control"
 						ng-model="blog.title" placeholder="Title" required> <br>
 					<label for="txtComment">Blog Description</label>
-					 <input type="text" rows="3" cols="50" name="textDesc" id="txtDesc" class="form-control"
-					 placeholder="Description here...." required> <br>
+<!-- 					 <input type="text" rows="3" cols="50" name="textDesc" id="txtDesc" class="form-control"
+					 placeholder="Description here...." required> <br> -->
 				<input id="userId" name="userId"  type="hidden" ng-model="blog.userId" class="form-control" >
 				<input id="emailId" name="emailId" type="hidden"  ng-model="blog.emailId" class="form-control">
 					<div class="wp-editor-container">

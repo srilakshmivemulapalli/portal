@@ -33,6 +33,13 @@ public class BlogServiceImpl implements BlogService{
 	
 	@Value("${blogs.attachment.path}")
 	private String blogsAttachmentPath;
+	
+	
+
+	public String getBlogsAttachmentPath() {
+		return blogsAttachmentPath;
+	}
+
 
 	@Override
 	public List<BlogsDTO> getAllBlogs() throws Exception {
@@ -68,8 +75,14 @@ public class BlogServiceImpl implements BlogService{
 	public void removeBlog(Integer id,String userMailId) throws Exception {
 		logger.info("BlogServiceImpl :: removeBlog");
 		if(blogDAO.blogExists(id)&&(userMailId!=null)) {
-			if(BlogsServiceUtil.removeBlogAttachments(blogsAttachmentPath+File.separator+userMailId+File.separator+id)) {
-				logger.info("BlogServiceImpl :: removeBlog -- Blog's attachments removed.");
+			if(blogsAttachmentPath!=null) {
+				if(BlogsServiceUtil.removeBlogAttachments(blogsAttachmentPath+File.separator+userMailId+File.separator+id)) {
+					logger.info("BlogServiceImpl :: removeBlog -- Blog's attachments removed.");
+				}
+			}else {
+				if(BlogsServiceUtil.removeBlogAttachments(userMailId+File.separator+id)) {
+					logger.info("BlogServiceImpl :: removeBlog -- Blog's attachments removed.");
+				}
 			}
 			blogDAO.removeBlog(id);
 			
@@ -86,7 +99,8 @@ public class BlogServiceImpl implements BlogService{
 			logger.error("BlogServiceImpl :: updateBlog Error === Blog does not exist.");
 			throw new BlogServiceException("No Blog found with id "+blogDTO.getBlogsId());
 		}
-		Blogs blog=blogDAO.getBlog(blogDTO.getBlogsId());
+		Blogs blog=new Blogs();
+		
 		Blogs updatedBlog=BlogsServiceUtil.setDtoToDao(blogDTO,blog);
 		BlogsDTO updatedBlogsDTO= BlogsServiceUtil.convertDaoToDtoInstance(blogDAO.updateBlog(updatedBlog));	
 		String dirPath=updatedBlogsDTO.getPath();
@@ -116,7 +130,8 @@ public class BlogServiceImpl implements BlogService{
 	@Override
 	public BlogsDTO parseRequestToStoreUploads(HttpServletRequest request, String path, BlogsDTO blogsDTO) throws Exception{
 		logger.info("BlogServiceImpl :: parseRequestToStoreUploads");
-		return BlogsServiceUtil.parseRequestToStoreUploads(request, blogsAttachmentPath, blogsDTO);
+		//return BlogsServiceUtil.parseRequestToStoreUploads(request, getBlogsAttachmentPath(), blogsDTO);
+		return BlogsServiceUtil.parseRequestToStoreUploads(request, path, blogsDTO);
 	}
 
 	@Override
@@ -130,7 +145,7 @@ public class BlogServiceImpl implements BlogService{
 		logger.info("BlogServiceImpl :: getFile");
 		String fileUrl=null;
 		if((userMailId!=null)&&(blogId!=null)&&(fileName!=null)) {
-			fileUrl=blogsAttachmentPath+File.separator+userMailId+File.separator+blogId+File.separator+fileName;
+			fileUrl=getBlogsAttachmentPath()+File.separator+userMailId+File.separator+blogId+File.separator+fileName;
 			File file=new File(fileUrl);
 			if(file.exists()) {
 				return file.toPath();
@@ -148,7 +163,7 @@ public class BlogServiceImpl implements BlogService{
 	public boolean removeFile(String userMailId, Integer blogId, String fileName) throws Exception {
 		logger.info("BlogServiceImpl :: removeFile");
 		if(blogDAO.blogExists(blogId)&&(userMailId!=null)) {
-			if(BlogsServiceUtil.removeBlogAttachments(blogsAttachmentPath+File.separator+userMailId+File.separator+blogId+File.separator+fileName)) {
+			if(BlogsServiceUtil.removeBlogAttachments(getBlogsAttachmentPath()+File.separator+userMailId+File.separator+blogId+File.separator+fileName)) {
 				logger.info("BlogServiceImpl :: removeFile -- file "+fileName+" removed.");
 			}
 			

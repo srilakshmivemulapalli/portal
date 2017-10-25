@@ -1,4 +1,4 @@
-package com.nisum.portal.data.dao.impl;
+package com.nisum.portal.data.dao.api.impl;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import com.nisum.portal.data.dao.impl.QuestionariesCommentsDAOImpl;
 import com.nisum.portal.data.domain.QuestionariesComments;
 import com.nisum.portal.data.repository.QuestionariesCommentsRepository;
 @RunWith(MockitoJUnitRunner.class)

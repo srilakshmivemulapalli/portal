@@ -311,20 +311,25 @@ public class BlogsServiceUtil {
 	
 	public static boolean validateHttpRequestForUploads(HttpServletRequest request) throws Exception {
 		logger.info("BlogsServiceUtil :: validateHttpRequestForUploads");
-		List<Part> fileParts = request.getParts().stream().filter(part -> "uploads".equals(part.getName())).collect(Collectors.toList());
-		if(fileParts!=null) {
-			for (Part filePart : fileParts) {
-				String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-				
-				String[] fileNameParts=(String[]) fileName.split("\\.");
-				if((fileNameParts!=null)&&(fileNameParts.length>2)) {
-					logger.error("BlogsServiceUtil :: validateHttpRequestForUploads ==== "+" Error while creating file ==== File Name "+fileName+" contains \".\" symbol.");
-					throw new BlogServiceException(" Error while creating file ==== File Name "+fileName+" contains \".\" symbol.");
+		if(request!=null) {
+			List<Part> fileParts = request.getParts().stream().filter(part -> "uploads".equals(part.getName())).collect(Collectors.toList());
+			if(fileParts!=null) {
+				for (Part filePart : fileParts) {
+					String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+					
+					String[] fileNameParts=(String[]) fileName.split("\\.");
+					if((fileNameParts!=null)&&(fileNameParts.length>2)) {
+						logger.error("BlogsServiceUtil :: validateHttpRequestForUploads ==== "+" Error while creating file ==== File Name "+fileName+" contains \".\" symbol.");
+						throw new BlogServiceException(" Error while creating file ==== File Name "+fileName+" contains \".\" symbol.");
+					}
 				}
+			}else {
+				logger.info("BlogsServiceUtil :: validateHttpRequestForUploads === No uploads found.");
 			}
+			return true;
 		}else {
-			logger.info("BlogsServiceUtil :: validateHttpRequestForUploads === No uploads found.");
+			logger.error("BlogsServiceUtil :: validateHttpRequestForUploads === Http Request Object is null.");
+			throw new BlogServiceException(" Http Request Object is null. ");
 		}
-		return true;
 	}
 }

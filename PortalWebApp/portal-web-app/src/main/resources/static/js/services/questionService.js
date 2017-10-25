@@ -83,5 +83,16 @@ app.factory('questionService', function($http, $q,commonService) {
 		return deferred.promise;
 	}
 	
+	qs.retriveMyReplyQuestions = function(emailId) {
+		var deferred = $q.defer();
+		$http.get('v1/questionreply/retrieve/myReplyQuestions/'+emailId).success(function(response) {
+			deferred.resolve(response);
+			console.log('in retriveMyReplyQuestions' +response)
+		}).error(function(response) {
+			deferred.reject(response);
+		})
+		return deferred.promise;
+	}
+	
 	return qs;
 })

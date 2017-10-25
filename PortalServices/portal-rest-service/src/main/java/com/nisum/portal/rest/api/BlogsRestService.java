@@ -3,6 +3,7 @@ package com.nisum.portal.rest.api;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -142,7 +143,22 @@ public class BlogsRestService {
 	public Object updateBlog(@RequestBody BlogsDTO blogsDTO) throws BlogServiceException {
 		logger.info("BlogsRestService :: updateBlog");
 		try {
-			return blogService.updateBlog(blogsDTO);
+			// Setting DTO object fields that can not be updated.
+			BlogsDTO blog=blogService.getBlog(blogsDTO.getBlogsId());
+			blogsDTO.setBlogsId(blog.getBlogsId());
+			blogsDTO.setCreatedDate(blog.getCreatedDate());
+			blogsDTO.setPath(blog.getPath());
+			blogsDTO.setUserMailId(blog.getUserMailId());
+			blogsDTO.setUserId(blog.getUserId());
+			// Setting completed.
+			BlogsDTO updatedDTO= blogService.updateBlog(blogsDTO);
+			if((updatedDTO!=null)) {
+				String path=updatedDTO.getPath();
+				if(path!=null) {
+					updatedDTO.setPath("");
+				}
+			}
+			return updatedDTO;
 		}
 		catch(Exception e) {
 			logger.error("BlogsRestService :: updateBlog Error");
@@ -198,7 +214,7 @@ public class BlogsRestService {
 			}
 		}
 		catch(Exception e) {
-			logger.error("BlogsRestService :: removeBlog Error");
+			logger.error("BlogsRestService :: removeFile Error");
 			Errors errors=new Errors();
 			errors.setErrorCode("Errors-Blogs");
 			errors.setErrorMessage(e.getMessage());

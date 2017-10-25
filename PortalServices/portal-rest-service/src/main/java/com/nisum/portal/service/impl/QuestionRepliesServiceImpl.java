@@ -21,7 +21,6 @@ import com.nisum.portal.service.api.UserService;
 import com.nisum.portal.service.dto.QuestionRepliesDTO;
 import com.nisum.portal.service.dto.QuestionReplyCommentsDTO;
 import com.nisum.portal.service.dto.QuestionReplysDTO;
-import com.nisum.portal.service.dto.QuestionariesDTO;
 import com.nisum.portal.service.dto.QuestionsDTO;
 import com.nisum.portal.util.QuestionReplysUtil;
 import com.nisum.portal.util.QuestionariesUtil;
@@ -99,6 +98,7 @@ public class QuestionRepliesServiceImpl implements QuestionRepliesService{
 		emailId = emailId.substring(0, emailId.indexOf("@"))+"@nisum.com";
 		List<Questionaries> questionariesList = repliesDAO.getMyReplyQuestions(emailId);
 		QuestionsDTO questionsDTO = new QuestionsDTO();
+		questionsDTO.setTotalQuestions(questionariesList.size());
 		return QuestionariesUtil.convertDaoToDto(questionariesList,questionsDTO,userervice);
 	}
 }
