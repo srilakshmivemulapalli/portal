@@ -6,7 +6,7 @@
 		</span>
 	</div>
 	<div class="col-md-11 col-xs-11">
-		<button class='btn btn-primary' ng-click="createTrainings();"
+		<button class='btn-normal' ng-click="createTrainings();"
 			style="float: right">New Training</button>
 	</div>
 	<div class="col-md-12 col-xs-12">
@@ -92,13 +92,33 @@
 						</div>
 					</div>
 				</div>
+				<div class="row" style="margin-top: 10px;" >
+					
+					<form name="feedbackForm"
+						ng-submit="submitFeedBack(commentdescription,modalTraining.trainingId);">
+						<div class="form-group">
+							<div class="col-sm-12">
+								<textarea autogrow ng-model="commentdescription" limit-To='200'
+									ng-maxlength='200' rows="3" ng-minlength='1' required placeholder="Any FeedBack"></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-12">
+								<button type="submit" class='btn-normal'
+									ng-disabled="feedbackForm.$invalid"
+									ng-class="{'disabled':feedbackForm.$invalid}"><i class="fa fa-comment" aria-hidden="true"></i>FeedBack</button>
+							</div>
+						</div>
+					</form>
+
+				</div>
 
 			</div>
 			<div class="modal-footer" ng-if="modalTraining.trainingPresence!==2">
-				<button type="button" class="btn btn-primary"
+				<button type="button" class="btn-normal"
 					ng-click="requestuserTraining(modalTraining,1);"
 					ng-if="modalTraining.trainingPresence===0">Register</button>
-				<button type="button" class="btn btn-danger"
+				<button type="button" class="btn-cancel"
 					ng-click="requestuserTraining(modalTraining,0);"
 					ng-if="modalTraining.trainingPresence===1">UnRegister</button>
 			</div>
