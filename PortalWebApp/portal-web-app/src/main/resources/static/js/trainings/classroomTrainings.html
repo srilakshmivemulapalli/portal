@@ -7,13 +7,14 @@
 		</span>
 	</div>
 	<div class="col-md-12 col-xs-12">
-		 <ul class="tabs-title">
+		<ul class="tabs-title">
 			<li><h4 class="modal-title active">Class Room Trainings</h4></li>
 
-		</ul> 
+		</ul>
 		<div class="row irs-all-course-bb clearfix">
 			<div class="col-sm-6 col-md-6 col-lg-4 clearfix"
-				ng-repeat="training in trainingsList.trainings" ng-click="showModal(training)">
+				ng-repeat="training in trainingsList.trainings"
+				ng-click="showModal(training)">
 				<div class="irs-lc-grid style2 text-center">
 					<!-- <div class="irs-lc-grid-thumb">
                   <img class="img-responsive img-fluid" src="images/classroom-training.jpg" alt="5.jpg">
@@ -49,7 +50,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 </div>
 <div id="trainingModal" class="modal fade" role="dialog">
 	<div class="modal-dialog">
@@ -64,10 +65,11 @@
 					<div class="col-md-6">
 						<div class="irs-cdtls-feture-bot">
 							<ul class="list-group">
-								
+
 								<li><a class="list-group-item" href="javascript:void(0);"><span
 										class="flaticon-clock-1 text-thm2"></span> Duration <span
-										class="pull-right">{{modalTraining.customDuration.hours!==0?modalTraining.customDuration.hours+'hr(s)':''}} {{modalTraining.customDuration.minutes!==0?modalTraining.customDuration.minutes+'min(s)':''}}</span></a></li>
+										class="pull-right">{{modalTraining.customDuration.hours!==0?modalTraining.customDuration.hours+'hr(s)':''}}
+											{{modalTraining.customDuration.minutes!==0?modalTraining.customDuration.minutes+'min(s)':''}}</span></a></li>
 								<li><a class="list-group-item" href="javascript:void(0);"><span
 										class="flaticon-arrows-4 text-thm2"></span> Skills<span
 										class="pull-right">{{modalTraining.trainingTitle}}</span></a></li>
@@ -77,22 +79,46 @@
 								<li><a class="list-group-item" href="javascript:void(0);"><span
 										class="flaticon-globe text-thm2"></span> Language <span
 										class="pull-right"> English </span></a></li>
-								
+
 							</ul>
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="irs-courses-dtls-second-para">
 							<p>{{modalTraining.description}}</p>
-							
+
 						</div>
 					</div>
+				</div>
+				<div class="row" style="margin-top: 10px;" >
+					
+					<form name="feedbackForm"
+						ng-submit="submitFeedBack(commentdescription,modalTraining.trainingId);">
+						<div class="form-group">
+							<div class="col-sm-12">
+								<textarea autogrow ng-model="commentdescription" limit-To='200'
+									ng-maxlength='200' rows="3" ng-minlength='1' required placeholder="Any FeedBack"></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-12">
+								<button type="submit" class='btn btn-primary'
+									ng-disabled="feedbackForm.$invalid"
+									ng-class="{'disabled':feedbackForm.$invalid}"><i class="fa fa-comment" aria-hidden="true"></i>FeedBack</button>
+							</div>
+						</div>
+					</form>
+
 				</div>
 
 			</div>
 			<div class="modal-footer" ng-if="modalTraining.trainingPresence!==2">
-				<button type="button" class="btn btn-primary" ng-click="requestuserTraining(modalTraining,1);" ng-if="modalTraining.trainingPresence===0">Join</button>
-				<button type="button" class="btn btn-danger" ng-click="requestuserTraining(modalTraining,0);" ng-if="modalTraining.trainingPresence===1">Cancel</button>
+				<button type="button" class="btn btn-primary"
+					ng-click="requestuserTraining(modalTraining,1);"
+					ng-if="modalTraining.trainingPresence===0">Join</button>
+				<button type="button" class="btn btn-danger"
+					ng-click="requestuserTraining(modalTraining,0);"
+					ng-if="modalTraining.trainingPresence===1">Cancel</button>
 			</div>
 		</div>
 

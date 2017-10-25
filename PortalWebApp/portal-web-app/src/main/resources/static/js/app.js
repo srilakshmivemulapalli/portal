@@ -24,8 +24,9 @@ var app = angular
 
 		.run(
 				function($rootScope, $window, $state, $location,
-						localStorageService, $timeout) {
+						localStorageService, $timeout,commonService) {
 					$rootScope.navBarToggle = false;
+					console.log(commonService);
 					$rootScope
 							.$on(
 									"$locationChangeStart",
@@ -52,12 +53,12 @@ var app = angular
 											$rootScope.navBarToggle = true;
 										}
 
-
-										var profile = localStorageService
-												.get("profile");
+										
+										var profile = commonService.profile;
+												
 										if (profile !== (undefined || null)
 												&& $rootScope.urlChanged === '/login') {
-											if (profile.role.role.toLowerCase() ==='admin') {
+											if (commonService.userRoleName.toLowerCase() ===commonService.checkRoleName) {
 												$timeout(
 														function() {
 															$state
@@ -70,7 +71,7 @@ var app = angular
 											}
 										}else if (profile !== (undefined || null)
 												&& $rootScope.urlChanged == '/configurations' &&
-												profile.role.role.toLowerCase()!== 'admin'){
+												commonService.userRoleName.toLowerCase()!==commonService.checkRoleName){
 											$timeout(function() {
 												$state.go('questions');
 											}, 0)
@@ -91,6 +92,7 @@ var app = angular
 						$http, loginLogoutService, questionService,
 						commonService) {
 					var vm = this;
+					vm.checkRoleName=commonService.checkRoleName;
 					vm.redirectQuestion = function() {
 						$state.go('addquestion');
 					}

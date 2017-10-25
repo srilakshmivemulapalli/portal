@@ -1,5 +1,5 @@
 app.factory('loginLogoutService', function($http, $q, localStorageService,
-		GoogleSignin) {
+		GoogleSignin,commonService) {
 
 	var ls = {};
 	ls.login = function(data) {
@@ -16,8 +16,14 @@ app.factory('loginLogoutService', function($http, $q, localStorageService,
 		GoogleSignin.disconnect();
 		GoogleSignin.signOut().then(function() {
 			
-			localStorageService.remove('profile');
+			 angular.forEach(commonService.localStorageArr, function (a, b) {
+	                if (a !== undefined) {
+	                    localStorageService.remove(a);
+	                }
+	            });
+			 commonService.clearAll();
 			sessionStorage.clear();
+			
 			deferred.resolve({
 				'status' : true
 			});

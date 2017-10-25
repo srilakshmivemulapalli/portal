@@ -136,7 +136,7 @@
 					Title :</label>
 				<div class="col-sm-9">
 					<input type="text" class="form-control form-control-lg" id="title"
-						placeholder="Training Title" limit-To="100"
+						placeholder="Training Title" limit-To="100" ng-maxlength="100" ng-minlength='1'
 						ng-model="reqTraining.requestTrainingTitle" required>
 				</div>
 			</div>
@@ -147,7 +147,7 @@
 				<div class="col-sm-9">
 					<textarea class="form-control form-control-lg" id="description"
 						rows="3" ng-model="reqTraining.description" limit-To='500'
-						placeholder="Add Description" ng-maxlength="150" ng-minlength='1'
+						placeholder="Add Description" ng-maxlength="500" ng-minlength='1'
 						autogrow required></textarea>
 				</div>
 			</div>
