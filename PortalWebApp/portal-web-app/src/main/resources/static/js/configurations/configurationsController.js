@@ -10,7 +10,7 @@ adminApp
 					$scope.rolesList = RoleListModel.newRoleListInstance();
 
 					$scope.usersList = UserListModel.newUserListInstance();
-
+					$scope.checkRoleName=commonService.checkRoleName;
 					$scope.dummyUsersList = [];
 					$scope.editUsersList = [];
 					$scope.addrole = false;

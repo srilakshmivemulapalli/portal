@@ -7,197 +7,203 @@
 		<div class="errStatus" ng-if="errorMessage!='';">{{errorMessage}}</div>
 		<div class="success" ng-if="successMessage!='';">{{successMessage}}</div>
 	</div>
-	<div class="col-md-12 col-xs-12">
-		<ul class="nav nav-tabs" ng-init="getUsers();">
+
+	<div class="col-md-12 col-xs-12 sort-questions">
+		<ul id="nav-tabs" ng-init="getUsers();">
 			<li class="active"><a data-target="#1" data-toggle="tab"
 				ng-click='getUsers()'>Users</a></li>
 			<li><a data-target="#2" data-toggle="tab" ng-click='getRoles()'>Roles</a></li>
 			<li><a data-target="#3" data-toggle="tab"
 				ng-click='getCategories()'>Categories</a></li>
 		</ul>
-		<div class="tab-content ">
-			<div class="tab-pane active" id="1">
-				<div align="center" style="color: #2535A9;">
-					<h3>User details</h3>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<table class="table table-hover table-striped table-bordered">
-							<thead class="thead-inverse" align="center">
-								<tr>
-									<th>Select</th>
-
-									<th>User Name</th>
-									<th>Email</th>
-									<th>Role</th>
-									<th>Created Date</th>
-									<th>Change Role</th>
-									<th>Edit/Delete</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr ng-repeat="user in usersList.users track by $index">
-									<td><input type="checkbox" value=""
-										ng-model="userselected[$index]"
-										ng-change="userChange(user.userId,userselected[$index]);"></td>
-									
-									<td>{{user.userName}}</td>
-									<td>{{user.emailId}}</td>
-									<td>{{user.role.role}}</td>
-									<td>{{user.createDate | date: 'MM-dd-yyyy HH:mm:ss'}}</td>
-									<td><select name="mySelect" id="mySelect"
-										ng-model="user.role.roleId"
-										ng-options="role.roleId as role.role for role in rolesList.roles"
-										ng-change='' ng-disabled="!userselected[$index]"></select></td>
-									<td ng-class="{'disabled':!userselected[$index]}"
-										ng-disabled="!userselected[$index]"><img
-										class="deleteicon" src="images/delete.png"
-										ng-click="!userselected[$index]|| confirmDelete('user',user.userId);" />
-										<span
-										ng-click="!userselected[$index]|| confirmEdit('user',user);"
-										class="glyphicon glyphicon-floppy-save editicon"></span></td>
-									</td>
-								</tr>
-
-							</tbody>
-						</table>
-					</div>
-
-
-				</div>
+	</div>
+	
+	<div class="col-md-12 col-xs-12 tab-content ">
+		<div class="tab-pane active" id="1">
+			<div align="center" style="color: #2535A9;">
+				<h3>User details</h3>
 			</div>
-			<div class="tab-pane" id="2">
-				<div align="center" style="color: #2535A9;">
-					<h3>Role details</h3>
+			<div class="row">
+				<div class="col-md-12">
+					<table class="table table-hover table-striped table-bordered">
+						<thead class="thead-inverse" align="center">
+							<tr>
+								<th>Select</th>
+
+								<th>User Name</th>
+								<th>Email</th>
+								<th>Role</th>
+								<th>Created Date</th>
+								<th>Change Role</th>
+								<th>Edit/Delete</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="user in usersList.users track by $index">
+								<td><input type="checkbox" value=""
+									ng-model="userselected[$index]"
+									ng-change="userChange(user.userId,userselected[$index]);"></td>
+
+								<td>{{user.userName}}</td>
+								<td>{{user.emailId}}</td>
+								<td>{{user.role.role}}</td>
+								<td>{{user.createDate | date: 'MM-dd-yyyy HH:mm:ss'}}</td>
+								<td><select name="mySelect" id="mySelect"
+									ng-model="user.role.roleId"
+									ng-options="role.roleId as role.role for role in rolesList.roles"
+									ng-change='' ng-disabled="!userselected[$index]"></select></td>
+								<td ng-class="{'disabled':!userselected[$index]}"
+									ng-disabled="!userselected[$index]"><img
+									class="deleteicon" src="images/delete.png"
+									ng-click="!userselected[$index]|| confirmDelete('user',user.userId);" />
+									<span
+									ng-click="!userselected[$index]|| confirmEdit('user',user);"
+									class="glyphicon glyphicon-floppy-save editicon"></span></td>
+								</td>
+							</tr>
+
+						</tbody>
+					</table>
 				</div>
-				<div class="row">
-					<div class="col-md-6"></div>
-					<div class="col-md-6" ng-show="!addrole">
-						<input class='btn btn-primary' type="button" value="Add Role"
-							ng-click="addrole=true;roleobj.role='';" style="float: right;" />
-					</div>
-					<div class="col-md-6" ng-show="addrole">
-						<form name="roleadd" class="form-inline" ng-submit="addRole();">
-							<!-- addrole.$dirty &&  -->
-							<div class="form-group">
-								<label for="email"></label>Role: <input type="text"
-									class="form-control" id="role" placeholder="Role Name"
-									ng-model="roleobj.role" required>
-							</div>
-							<button type="submit" class="btn btn-primary">Add</button>
-							<button type="button" class='btn btn-danger' ng-click="clear();">Cancel</button>
-						</form>
 
 
-					</div>
-					</br> </br> </br>
-					<div class="col-md-12" style="padding-top: 20px;">
-						<table class="table table-hover table-striped table-bordered">
-							<thead class="thead-inverse">
-								<tr>
-									<th>Select</th>
-									<th>Role Name</th>
-									<th>CreatedDate</th>
-									<th>Edit/Delete</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr ng-repeat="role in rolesList.roles">
-									<td><input type="checkbox" value=""
-										ng-model="roleselected[$index]"></td>
-									<td><input type="text" ng-model="role.role"
-										ng-disabled="!roleselected[$index]" limit-To="100"
-										ng-class="{'txtdisabled': !roleselected[$index]}" required /></td>
-									<td>{{role.createdDate | date: 'MM-dd-yyyy HH:mm:ss'}}</td>
-									<td ng-disabled="!roleselected[$index] || role.role.length<0"
-										ng-class="{'disabled':!roleselected[$index] || role.role.length<0}"><img
+			</div>
+		</div>
+		<div class="tab-pane" id="2">
+			<div align="center" style="color: #2535A9;">
+				<h3>Role details</h3>
+			</div>
+			<div class="row">
+				<div class="col-md-6"></div>
+				<div class="col-md-6" ng-show="!addrole">
+					<input class='btn btn-primary' type="button" value="Add Role"
+						ng-click="addrole=true;roleobj.role='';" style="float: right;" />
+				</div>
+				<div class="col-md-6" ng-show="addrole">
+					<form name="roleadd" class="form-inline" ng-submit="addRole();">
+						<!-- addrole.$dirty &&  -->
+						<div class="form-group">
+							<label for="email"></label>Role: <input type="text"
+								class="form-control" id="role" placeholder="Role Name"
+								ng-model="roleobj.role" required>
+						</div>
+						<button type="submit" class="btn btn-primary">Add</button>
+						<button type="button" class='btn btn-danger' ng-click="clear();">Cancel</button>
+					</form>
+
+
+				</div>
+				</br> </br> </br>
+				<div class="col-md-12" style="padding-top: 20px;">
+					<table class="table table-hover table-striped table-bordered">
+						<thead class="thead-inverse">
+							<tr>
+								<th>Select</th>
+								<th>Role Name</th>
+								<th>CreatedDate</th>
+								<th>Edit/Delete</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="role in rolesList.roles">
+								<td><input ng-if="role.role!==checkRoleName"
+									type="checkbox" value="" ng-model="roleselected[$index]"></td>
+								<td><input type="text" ng-model="role.role"
+									ng-disabled="!roleselected[$index]" limit-To="100"
+									ng-class="{'txtdisabled': !roleselected[$index]}" required /></td>
+								<td>{{role.createdDate | date: 'MM-dd-yyyy HH:mm:ss'}}</td>
+								<td ng-disabled="!roleselected[$index] || role.role.length<0"
+									ng-class="{'disabled':!roleselected[$index] || role.role.length<0}">
+									<span ng-if="role.role!==checkRoleName"><img
 										class="deleteicon" src="images/delete.png"
 										ng-click="!roleselected[$index]||confirmDelete('role',role.roleId)" />
 										<span
 										ng-click="!roleselected[$index]|| confirmEdit('role',role)"
-										class="glyphicon glyphicon-floppy-save editicon"></span></td>
-								</tr>
+										class="glyphicon glyphicon-floppy-save editicon"></span></span>
+								</td>
+							</tr>
 
-							</tbody>
-						</table>
-					</div>
-
+						</tbody>
+					</table>
 				</div>
+
 			</div>
-			<div class="tab-pane" id="3">
-				<div align="center" style="color: #2535A9;">
-					<h3>Categories details</h3>
+		</div>
+		<div class="tab-pane" id="3">
+			<div align="center" style="color: #2535A9;">
+				<h3>Categories details</h3>
+			</div>
+			<div class="row">
+				<div class="col-md-3"></div>
+				<div class="col-md-9" ng-show="!addcategory">
+					<input class='btn btn-primary' type="button" value="Add Category"
+						ng-click="addcategory=true;categoryobj.categoryName='';categoryobj.description='';"
+						style="float: right;" />
 				</div>
-				<div class="row">
-					<div class="col-md-3"></div>
-					<div class="col-md-9" ng-show="!addcategory">
-						<input class='btn btn-primary' type="button" value="Add Category"
-							ng-click="addcategory=true;categoryobj.categoryName='';categoryobj.description='';"
-							style="float: right;" />
-					</div>
-					<div class="col-md-9" ng-show="addcategory">
-						<form name="addcat" class="form-inline" ng-submit="addCategory();">
-							<!-- addrole.$dirty &&  -->
-							<div class="form-group">
-								<label for="categoryname">Category:</label> <input type="text"
-									class="form-control" id="categoryname"
-									placeholder="Category Name" limit-To="100"
-									ng-model="categoryobj.categoryName" required>
-							</div>
-							<div class="form-group">
-								<label for="description">Description:</label>
-								<textarea type="text" class="form-control" id="description"
-									autogrow placeholder="Category Description"
-									ng-model="categoryobj.description" limit-To="200" required></textarea>
-							</div>
-							<button type="submit" class="btn btn-primary">Add</button>
-							<button type="button" class='btn btn-danger' ng-click="clear();">Cancel</button>
-						</form>
+				<div class="col-md-9" ng-show="addcategory">
+					<form name="addcat" class="form-inline" ng-submit="addCategory();">
+						<!-- addrole.$dirty &&  -->
+						<div class="form-group">
+							<label for="categoryname">Category:</label> <input type="text"
+								class="form-control" id="categoryname"
+								placeholder="Category Name" limit-To="100"
+								ng-model="categoryobj.categoryName" required>
+						</div>
+						<div class="form-group">
+							<label for="description">Description:</label>
+							<textarea type="text" class="form-control" id="description"
+								autogrow placeholder="Category Description"
+								ng-model="categoryobj.description" limit-To="200" required></textarea>
+						</div>
+						<button type="submit" class="btn btn-primary">Add</button>
+						<button type="button" class='btn btn-danger' ng-click="clear();">Cancel</button>
+					</form>
 
-					</div>
-					</br> </br> </br>
-					<div class="col-md-12" style="padding-top: 20px;">
-						<table class="table table-hover table-striped table-bordered">
-							<thead class="thead-inverse">
-								<tr>
-									<th>Select</th>
-									<th>Category Name</th>
-									<th>Description</th>
-									<th>Created Date</th>
-									<th>Edit/Delete</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr ng-repeat="category in categoriesList.categories">
-									<td><input type="checkbox" value=""
-										ng-model="categoryselected[$index]"></td>
-									<td><input type="text"
+				</div>
+				</br> </br> </br>
+				<div class="col-md-12" style="padding-top: 20px;">
+					<table class="table table-hover table-striped table-bordered">
+						<thead class="thead-inverse">
+							<tr>
+								<th>Select</th>
+								<th>Category Name</th>
+								<th>Description</th>
+								<th>Created Date</th>
+								<th>Edit/Delete</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="category in categoriesList.categories">
+								<td><input type="checkbox" value=""
+									ng-model="categoryselected[$index]"></td>
+								<td><input type="text"
+									ng-class="{'txtdisabled':!categoryselected[$index]}"
+									ng-disabled="!categoryselected[$index]"
+									ng-model="category.categoryName" /></td>
+								<td><textarea type="text"
 										ng-class="{'txtdisabled':!categoryselected[$index]}"
-										ng-disabled="!categoryselected[$index]"
-										ng-model="category.categoryName" /></td>
-									<td><textarea type="text"
-											ng-class="{'txtdisabled':!categoryselected[$index]}"
-											ng-disabled="!categoryselected[$index]" autogrow
-											ng-model="category.description" style="width:100%;overflow:hidden;height:100%"/></textarea></td>
-									<td>{{category.createDate | date: 'MM-dd-yyyy HH:mm:ss'}}</td>
-									<td class="CENTER"
-										ng-class="{'disabled':!categoryselected[$index]}"
-										ng-disabled="!categoryselected[$index]"><img
-										class="deleteicon" src="images/delete.png"
-										ng-click="!categoryselected[$index]|| confirmDelete('category',category);" />
-										<span
-										ng-click="!categoryselected[$index]|| confirmEdit('category',category);"
-										class="glyphicon glyphicon-floppy-save editicon"></span></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-
+										ng-disabled="!categoryselected[$index]" autogrow
+										ng-model="category.description"
+										style="width: 100%; overflow: hidden; height: 100%" /></textarea></td>
+								<td>{{category.createDate | date: 'MM-dd-yyyy HH:mm:ss'}}</td>
+								<td class="CENTER"
+									ng-class="{'disabled':!categoryselected[$index]}"
+									ng-disabled="!categoryselected[$index]"><img
+									class="deleteicon" src="images/delete.png"
+									ng-click="!categoryselected[$index]|| confirmDelete('category',category);" />
+									<span
+									ng-click="!categoryselected[$index]|| confirmEdit('category',category);"
+									class="glyphicon glyphicon-floppy-save editicon"></span></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
+
 			</div>
 		</div>
 	</div>
 </div>
+
 
 <div id="deleteModal" class="modal fade" role="dialog">
 	<div class="modal-dialog">

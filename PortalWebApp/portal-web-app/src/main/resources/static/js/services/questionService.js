@@ -55,6 +55,16 @@ app.factory('questionService', function($http, $q,commonService) {
 		})
 		return deferred.promise;
 	}
+	qs.editQuestion=function(data){
+	
+		var deferred = $q.defer();
+		$http.post('v1/questionaries/update', data).success(function(response) {
+			deferred.resolve(response);
+		}).error(function(response) {
+			deferred.reject(response);
+		})
+		return deferred.promise;
+	}
 	qs.deleteQuestion = function(questionid) {
 		var deferred = $q.defer();
 		$http.post('' + questionid).success(function(response) {
