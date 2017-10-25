@@ -151,4 +151,67 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 		
 		return QuestionariesUtil.convertDaoToDto(questionariesList, questionsDTO, userervice);
 	}
+
+	/*retrieves unanswered Questionaries based on category
+	 * (non-Javadoc)
+	 * @see com.nisum.portal.service.api.QuestionariesService#retrieveAllUnansweredQuestionariesByCategory(java.lang.Integer, org.springframework.data.domain.Pageable)
+	 */
+	@Override
+	public QuestionsDTO retrieveAllUnansweredQuestionariesByCategory(Integer categoryId, Pageable pageable) {
+		logger.info("QuestionariesServiceImpl:: retrieveAllUnansweredQuestionariesByCategory(categoryId :"+categoryId+", Pageable:"+pageable+")");
+		Categories category=categoriesDAO.getCategory(categoryId);
+		List<Questionaries> questionariesList=questionariesDAO.retrieveAllUnansweredQuestionariesByCategory(category, pageable);
+		System.out.println("unanswered list size: "+questionariesList.size());
+		QuestionsDTO questionsDTO=new QuestionsDTO();
+		questionsDTO.setTotalQuestions(questionariesList.size());
+		questionsDTO.setTotalUsers(userDAO.getUserCount());
+		return QuestionariesUtil.convertDaoToDto(questionariesList,questionsDTO,userervice);
+	}
+	
+	/*retrieves all unanswered questionaries
+	 * (non-Javadoc)
+	 * @see com.nisum.portal.service.api.QuestionariesService#retrieveAllUnansweredQuestionariesByPagination(org.springframework.data.domain.Pageable)
+	 */
+	@Override
+	public QuestionsDTO retrieveAllUnansweredQuestionariesByPagination(Pageable pageable) {
+		logger.info("QuestionariesServiceImpl:: retrieveAllUnansweredQuestionariesByPagination(PageNumber: "+pageable.getPageNumber()+", "+pageable.getPageSize()+", "+pageable.getSort());
+		List<Questionaries> questionariesList=questionariesDAO.retrieveAllUnansweredQuestionariesByPagination(pageable);
+		
+		QuestionsDTO questionsDTO = new QuestionsDTO();
+		questionsDTO.setTotalQuestions(questionariesDAO.retriveAllUnansweredQuestionaries().size());
+		questionsDTO.setTotalUsers(userDAO.getUserCount());
+		
+		return QuestionariesUtil.convertDaoToDto(questionariesList, questionsDTO, userervice);
+	}
+
+	/*retrieves questionaries for given emailId and category
+	 * (non-Javadoc)
+	 * @see com.nisum.portal.service.api.QuestionariesService#fetchMyQuestionariesByCategory(java.lang.String, java.lang.Integer, org.springframework.data.domain.Pageable)
+	 */
+	@Override
+	public QuestionsDTO fetchMyQuestionariesByCategory(String emailId, Integer categoryId, Pageable pageable) {
+		logger.info("QuestionariesServiceImpl:: fetchMyQuestionariesByCategory(emailId: "+emailId+",categoryId: "+categoryId +", PageNumber: "+pageable.getPageNumber()+", "+pageable.getPageSize()+", "+pageable.getSort());
+		emailId = emailId.substring(0, emailId.indexOf("@"))+"@nisum.com";
+		Categories category=categoriesDAO.getCategory(categoryId);
+		List<Questionaries> questionariesList = questionariesDAO.fetchMyQuestionariesByCategory(emailId, category, pageable);
+		QuestionsDTO questionsDTO = new QuestionsDTO();
+		questionsDTO.setTotalQuestions(questionariesList.size());
+		questionsDTO.setTotalUsers(userDAO.getUserCount());
+		return QuestionariesUtil.convertDaoToDto(questionariesList,questionsDTO,userervice);
+	}
+
+	/*retrieves all questionaries for given emailId
+	 * (non-Javadoc)
+	 * @see com.nisum.portal.service.api.QuestionariesService#fetchMyQuestionariesByPagination(java.lang.String, org.springframework.data.domain.Pageable)
+	 */
+	@Override
+	public QuestionsDTO fetchMyQuestionariesByPagination(String emailId, Pageable pageable) {
+		logger.info("QuestionariesServiceImpl:: fetchMyQuestionariesByPagination(emailId: "+emailId+", PageNumber: "+pageable.getPageNumber()+", "+pageable.getPageSize()+", "+pageable.getSort());
+		emailId = emailId.substring(0, emailId.indexOf("@"))+"@nisum.com";
+		List<Questionaries> questionariesList = questionariesDAO.fetchMyQuestionariesByPagination(emailId, pageable);
+		QuestionsDTO questionsDTO = new QuestionsDTO();
+		questionsDTO.setTotalQuestions(questionariesList.size());
+		questionsDTO.setTotalUsers(userDAO.getUserCount());
+		return QuestionariesUtil.convertDaoToDto(questionariesList,questionsDTO,userervice);
+	}
 }

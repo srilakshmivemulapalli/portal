@@ -156,13 +156,13 @@ public class QuestionariesRestService {
 	/**
 	 * QuestionariesByCategoryThroughPagination
 	 * 
-	 * @return
+	 * @return latest questionaries based on category through pagination
 	 * @throws QuestionariesServiceException
 	 */
 	@RequestMapping(value = "/retrieve/questionsByCategory/{categoryId}", method = RequestMethod.GET)
-	public ResponseEntity<QuestionsDTO> retriveQuestionariesByCategoryThroughPagination(@PathVariable Integer categoryId, Pageable pageable) throws QuestionariesServiceException {
-		//logger.info("QuestionariesRestService :: retriveQuestionariesByCategoryThroughPagination(PageNumber: "+ pageable.getPageNumber()+", PageSize: "+pageable.getPageSize()+")");
-		logger.info("QuestionariesRestService :: retriveQuestionariesByCategoryThroughPagination(PageNumber: "+ pageable.getPageNumber()+", PageSize: "+pageable.getPageSize()+")");
+	public ResponseEntity<QuestionsDTO> retrieveQuestionariesByCategoryThroughPagination(@PathVariable Integer categoryId, Pageable pageable) throws QuestionariesServiceException {
+		
+		logger.info("QuestionariesRestService :: retrieveQuestionariesByCategoryThroughPagination(PageNumber: "+ pageable.getPageNumber()+", PageSize: "+pageable.getPageSize()+")");
 	
 		if(categoryId==0) {
 			return new ResponseEntity<QuestionsDTO>(questionariesService.getQuestionariesByPagination(new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Sort.Direction.ASC,Constants.SORT_BY_ELEMENT)), HttpStatus.OK);
@@ -170,4 +170,39 @@ public class QuestionariesRestService {
 			return new ResponseEntity<QuestionsDTO>(questionariesService.getQuestionariesByCategory(categoryId, new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Sort.Direction.ASC,Constants.SORT_BY_ELEMENT)), HttpStatus.OK);
 		}
 	}
+	
+	/**
+	 * UnAnsweredQuestionaries
+	 * 
+	 * @return unanswered questionaries based on category through pagination
+	 * @throws QuestionariesServiceException
+	 */
+	@RequestMapping(value = "/retrieve/unanswQuestions/{categoryId}", method = RequestMethod.GET)
+	public ResponseEntity<QuestionsDTO> retrieveAllUnansweredQuestionariesByCategory(@PathVariable Integer categoryId, Pageable pageable) throws QuestionariesServiceException {
+		logger.info("QuestionariesRestService :: retriveAllUnansweredQuestionariesByCategory()");
+		if(categoryId==0) {
+			return new ResponseEntity<QuestionsDTO>(questionariesService.retrieveAllUnansweredQuestionariesByPagination(new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Sort.Direction.ASC,Constants.SORT_BY_ELEMENT)), HttpStatus.OK);
+		}else {	
+			return new ResponseEntity<QuestionsDTO>(questionariesService.retrieveAllUnansweredQuestionariesByCategory(categoryId, new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Sort.Direction.ASC,Constants.SORT_BY_ELEMENT)), HttpStatus.OK);
+		}
+	}
+		
+		/**
+		 * MyQuestionaries
+		 * 
+		 * @return Questionaries based on emailId and category through pagination 
+		 * @throws QuestionariesServiceException
+		 */
+		@RequestMapping(value = "/retrieve/myQuestions/{emailId}/{categoryId}", method = RequestMethod.GET)
+		public ResponseEntity<QuestionsDTO> retrieveMyQuestionariesByCategory(@PathVariable String emailId, @PathVariable Integer categoryId, Pageable pageable) throws QuestionariesServiceException {
+			logger.info("QuestionariesRestService :: retriveMyQuestionariesByCategory(Email id: "+emailId+", categoryId:"+categoryId);
+			if(categoryId==0 && pageable.getPageSize()==20){
+				return retriveMyQuestionaries(emailId);
+			}
+			else if(categoryId==0) {
+				return new ResponseEntity<QuestionsDTO>(questionariesService.fetchMyQuestionariesByPagination(emailId, new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Sort.Direction.ASC,Constants.SORT_BY_ELEMENT)), HttpStatus.OK);
+			}
+			return new ResponseEntity<QuestionsDTO>(questionariesService.fetchMyQuestionariesByCategory(emailId, categoryId, new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Sort.Direction.ASC,Constants.SORT_BY_ELEMENT)), HttpStatus.OK);
+		}
+		
 }

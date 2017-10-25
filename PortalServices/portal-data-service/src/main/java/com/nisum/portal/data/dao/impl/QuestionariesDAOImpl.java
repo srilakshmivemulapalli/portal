@@ -56,6 +56,27 @@ public class QuestionariesDAOImpl implements QuestionariesDAO {
 		logger.info("QuestionariesDAOImpl::retrieveQuestionByPagination(PageNumber: "+ pageable.getPageNumber()+", PageSize: "+pageable.getPageSize()+")");
 		return questionariesRepository.findAll(pageable).getContent();
 	}
+	@Override
+	public List<Questionaries> retrieveAllUnansweredQuestionariesByCategory(Categories category, Pageable pageable) {
+		logger.info("QuestionariesDAOImpl::retrieveAllUnansweredQuestionByCategory(categoryId"+category.getCategoryId()+", PageNumber: "+ pageable.getPageNumber()+", PageSize: "+pageable.getPageSize()+")");
+		return questionariesRepository.retriveAllUnansweredQuestionariesByCategory(category, pageable);
+	}
+	@Override
+	public List<Questionaries> retrieveAllUnansweredQuestionariesByPagination(Pageable pageable) {
+		logger.info("QuestionariesDAOImpl::retriveAllUnansweredQuestionariesByPagination(PageNumber: "+ pageable.getPageNumber()+", PageSize: "+pageable.getPageSize()+")");
+		return questionariesRepository.retriveAllUnansweredQuestionariesByPagination(pageable);
+	}
+	@Override
+	public List<Questionaries> fetchMyQuestionariesByCategory(String emailId, Categories category, Pageable pageable) {
+		logger.info("QuestionariesDAOImpl::fetchMyQuestionariesByCategory(emailId: "+emailId+", categoryId: "+category.getCategoryId()+",PageNumber: "+ pageable.getPageNumber()+", PageSize: "+pageable.getPageSize()+")");
+		return questionariesRepository.fetchMyQuestionariesByCategory(emailId, category, pageable);
+	}
+	@Override
+	public List<Questionaries> fetchMyQuestionariesByPagination(String emailId, Pageable pageable) {
+		logger.info("QuestionariesDAOImpl::fetchMyQuestionariesByPagination(emailId: "+emailId+", PageNumber: "+ pageable.getPageNumber()+", PageSize: "+pageable.getPageSize()+")");
+		return questionariesRepository.fetchMyQuestionariesByPagination(emailId, pageable);
+	}
+	
 
 
 }
