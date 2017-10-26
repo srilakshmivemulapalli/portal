@@ -94,9 +94,9 @@ public class QuestionRepliesRestServiceTest {
 		questionariesDTO.setQuestion("Question111");
 		questionariesDTO.setQuestionId(1);
 		questionariesDTO.setQuestionRepliesCount(0);
-		
+
 		questionList.add(questionariesDTO);
-		
+
 		QuestionsDTO questionsDTO = new QuestionsDTO();
 		questionsDTO.setTotalQuestions(0);
 		questionsDTO.setTotalUsers(0);

@@ -42,13 +42,21 @@ questionApp.controller('editQuestionController', function($scope,
 	}
 
 	$scope.submitQuestion = function() {
-		questionService.editQuestion($scope.editQuestion).then(
+		var editquestionObj={
+				'questionId':$scope.editQuestion.questionId,
+				'emailId':$scope.editQuestion.emailId,
+				'question':$scope.editQuestion.question,
+				'description':$scope.editQuestion.description,
+				'categoryId':$scope.editQuestion.categoryId
+		}
+		
+		questionService.editQuestion(editquestionObj).then(
 				function(response) {
 					if (response.errorCode) {
 						$scope.message = response.errorMessage
 					} else {
 
-						$state.go('questions');
+						$state.go('question',{questionid:$scope.editQuestion.questionId});
 					}
 				}, function(response) {
 					console.log(response);

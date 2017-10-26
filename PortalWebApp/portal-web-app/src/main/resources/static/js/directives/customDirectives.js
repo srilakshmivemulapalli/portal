@@ -114,7 +114,7 @@ app.factory(
 					var update = function() {
 
 						element.css("height", "auto");
-
+						element.css('width',"100%");
 						var height = element[0].scrollHeight;
 
 						if (height > 0) {

@@ -15,6 +15,7 @@ public class Constants {
 	public static final String CATEGORY_DESCRIPTION_ONLY_EXISTS = "Description Only Updated, Because Category Already Exists !!";
 	public static final String CATEGORY_DELETE = " Category deleted Successfully !!";
 	public static final String CATEGORY_NOT_EXIST = "Category Details doest'n Exist !!";
+	public static final String CANT_DELETE_CATEGORY ="Can't delete category";
 
 	public static final String USER_UPDATED = "User updated Successfully !!";
 	public static final String USER_DELETED = "User Deleted Successfully !!";

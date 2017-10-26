@@ -2,14 +2,19 @@ package com.nisum.portal.util;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.collections4.CollectionUtils;
 
+import com.nisum.portal.data.domain.Categories;
+import com.nisum.portal.data.domain.ProfileSetting;
 import com.nisum.portal.data.domain.ProfileSettings;
 import com.nisum.portal.data.domain.User;
 import com.nisum.portal.data.domain.UserRole;
+import com.nisum.portal.service.dto.CategoriesDTO;
+import com.nisum.portal.service.dto.ProfileSettingDto;
 import com.nisum.portal.service.dto.UserDTO;
 import com.nisum.portal.service.dto.UserRoleDTO;
 
@@ -17,14 +22,15 @@ public class UserServiceUtil {
 
 	/**
 	 * Converts List of UserDAO objects to UserDTO objects
+	 * 
 	 * @param users
 	 * @return List of UserDTO objects
 	 */
 	public static List<UserDTO> convertDaoListToDto(List<User> users) {
 		List<UserDTO> userDTO = new ArrayList<UserDTO>();
-		
+
 		if (CollectionUtils.isNotEmpty(users)) {
-			for(User user : users){
+			for (User user : users) {
 				UserDTO userDto = new UserDTO();
 				userDto.setUserId(user.getUserId());
 				userDto.setActiveStatus(user.getActiveStatus());
@@ -40,7 +46,40 @@ public class UserServiceUtil {
 				userDto.setRole(userRoleDTO);
 				userDto.setNotifications(user.getNotifications());
 				userDto.setProfileName(user.getProfileName());
-				userDto.setProfileSettings(user.getProfileSettings());
+				userDto.setProfileName(user.getProfileName());
+				Set<Categories> categories = new HashSet<Categories>();
+
+				/*
+				 * for (ProfileSetting setting : profileSetting) { Categories category =
+				 * setting.getCategoryId(); categories.add(category); }
+				 */
+
+				// ========================
+				Set<ProfileSettingDto> profileSettingsDto = new HashSet<>();
+
+				Iterator itr = user.getProfileSettings().iterator();
+				while (itr.hasNext()) {
+
+					ProfileSettingDto profileSettingDto = new ProfileSettingDto();
+
+					ProfileSetting profileSetting = (ProfileSetting) itr.next();
+					Categories category = profileSetting.getCategoryId();
+					User profileUser = profileSetting.getUserId();
+
+					CategoriesDTO categoriesDto = new CategoriesDTO();
+					categoriesDto.setCategoryId(category.getCategoryId());
+
+					UserDTO profileUserDto = new UserDTO();
+					profileUser.setUserId(profileUser.getUserId());
+
+					profileSettingDto.setCategoryId(categoriesDto);
+					profileSettingDto.setUserId(profileUserDto);
+
+					profileSettingsDto.add(profileSettingDto);
+
+				}
+				// ==============================
+				userDto.setProfileSettings(profileSettingsDto);
 				userDTO.add(userDto);
 			}
 		}
@@ -49,11 +88,11 @@ public class UserServiceUtil {
 
 	/**
 	 * Converts UserDAO object to UserDTO object
+	 * 
 	 * @param user
 	 * @return UserDTO object
 	 */
-	public static UserDTO convertDaoObjectToDto(User user) 
-	{
+	public static UserDTO convertDaoObjectToDto(User user) {
 		UserDTO userDTO = new UserDTO();
 		userDTO.setUserId(user.getUserId());
 		userDTO.setUserName(user.getUserName());
@@ -70,21 +109,53 @@ public class UserServiceUtil {
 		userDTO.setRole(userRoleDTO);
 		userDTO.setNotifications(user.getNotifications());
 		userDTO.setProfileName(user.getProfileName());
-		userDTO.setProfileSettings(user.getProfileSettings());
+		Set<Categories> categories = new HashSet<Categories>();
+		// Set<ProfileSetting> profileSettings = user.getProfileSettings();
+		/*
+		 * for (ProfileSetting setting : profileSetting) { Categories category =
+		 * setting.getCategoryId(); categories.add(category); }
+		 */
+
+		// ========================
+		Set<ProfileSettingDto> profileSettingsDto = new HashSet<>();
+
+		Iterator itr = user.getProfileSettings().iterator();
+		while (itr.hasNext()) {
+
+			ProfileSettingDto profileSettingDto = new ProfileSettingDto();
+
+			ProfileSetting profileSetting = (ProfileSetting) itr.next();
+			Categories category = profileSetting.getCategoryId();
+			User profileUser = profileSetting.getUserId();
+
+			CategoriesDTO categoriesDto = new CategoriesDTO();
+			categoriesDto.setCategoryId(category.getCategoryId());
+
+			UserDTO profileUserDto = new UserDTO();
+			profileUser.setUserId(profileUser.getUserId());
+
+			profileSettingDto.setCategoryId(categoriesDto);
+			profileSettingDto.setUserId(profileUserDto);
+
+			profileSettingsDto.add(profileSettingDto);
+
+		}
+		// ==============================
+		userDTO.setProfileSettings(profileSettingsDto);
 		return userDTO;
 
 	}
-	
+
 	/**
 	 * Converts list of user dto objects to dao list
+	 * 
 	 * @param userDtoList
 	 * @return List of user objects
 	 */
 	public static List<User> convertDtoListTODao(List<UserDTO> userDtoList) {
 		List<User> users = new ArrayList<User>();
 		if (CollectionUtils.isNotEmpty(userDtoList)) {
-			for(UserDTO userlist : userDtoList)
-			{
+			for (UserDTO userlist : userDtoList) {
 				User user = new User();
 				user.setUserId(userlist.getUserId());
 				user.setActiveStatus(userlist.getActiveStatus());
@@ -100,20 +171,28 @@ public class UserServiceUtil {
 				user.setRole(userRole);
 				user.setNotifications(userlist.getNotifications());
 				user.setProfileName(userlist.getProfileName());
-				user.setProfileSettings(userlist.getProfileSettings());
+				Set<ProfileSetting> profileSet = new HashSet<ProfileSetting>();
+				/*
+				 * for (Categories category:userlist.getProfileSettings()) { ProfileSetting
+				 * profileSetting = new ProfileSetting();
+				 * profileSetting.setCategoryId(category);
+				 * //profileSetting.setUserId(userlist.getUserId());
+				 * profileSet.add(profileSetting); }
+				 */
+				user.setProfileSettings(user.getProfileSettings());
 				users.add(user);
 			}
 		}
 		return users;
 	}
-	
+
 	/**
 	 * Converts dto object to dao object
-	 * @param userdto 
+	 * 
+	 * @param userdto
 	 * @return user object
 	 */
-	public static User convertDtoObjectTODao(UserDTO userdto) 
-	{
+	public static User convertDtoObjectTODao(UserDTO userdto) {
 		User user = new User();
 		user.setUserId(userdto.getUserId());
 		user.setUserName(userdto.getUserName());
@@ -130,21 +209,41 @@ public class UserServiceUtil {
 		user.setRole(userRole);
 		user.setNotifications(userdto.getNotifications());
 		user.setProfileName(userdto.getProfileName());
-		user.setProfileSettings(userdto.getProfileSettings());
-		
-		Set<ProfileSettings>  set= new HashSet<ProfileSettings>();
-		for(ProfileSettings ps:userdto.getProfileSettings())
-		{
-		ProfileSettings  profileSetting= new ProfileSettings(ps.getUserId(),ps.getCategoryId());
-		set.add(ps);
+		// ========================
+		Set<ProfileSetting> profileSettings = new HashSet<>();
+
+		Iterator itr = userdto.getProfileSettings().iterator();
+		while (itr.hasNext()) {
+
+			ProfileSetting profileSetting = new ProfileSetting();
+
+			ProfileSettingDto profileSettingDto = (ProfileSettingDto) itr.next();
+			CategoriesDTO categoryDto = profileSettingDto.getCategoryId();
+			UserDTO profileUserDto = profileSettingDto.getUserId();
+
+			Categories categories = new Categories();
+			categories.setCategoryId(categoryDto.getCategoryId());
+			profileUserDto.setUserId(userdto.getUserId());
+			User profileUser = new User();
+
+			profileUser.setUserId(profileUserDto.getUserId());
+
+			profileSetting.setCategoryId(categories);
+			profileSetting.setUserId(profileUser);
+
+			profileSettings.add(profileSetting);
+
 		}
-		
-		
-		
-		
-		
-		
-		user.setProfileSettings(set);
+
+		// ========================
+
+		/*
+		 * for (Categories category :userdto.getProfileSettings()) { ProfileSetting
+		 * profileSetting = new ProfileSetting();
+		 * profileSetting.setCategoryId(category); profileSetting.setUserId(user);
+		 * profileSet.add(profileSetting); }
+		 */
+		user.setProfileSettings(profileSettings);
 		return user;
 	}
 

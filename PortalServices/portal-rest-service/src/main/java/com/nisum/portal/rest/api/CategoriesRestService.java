@@ -118,20 +118,27 @@ public class CategoriesRestService {
 	}
 
 	@RequestMapping(value = "/delete/{categoryId}", method = RequestMethod.DELETE)
-	public ResponseEntity<ServiceStatusDto> deletingCategories(@PathVariable("categoryId") Integer categoryId) throws CategoryServiceException {
+	public ResponseEntity<?> deletingCategories(@PathVariable("categoryId") Integer categoryId) throws CategoryServiceException {
 		logger.info("CategoriesRestService :: deleteCategory");
 		
-		   ServiceStatusDto    servicedto = categoriesService.deleteCategories(categoryId);
-		   
-		    if(servicedto.isStatus())
-		    {
-		      	return  new ResponseEntity<ServiceStatusDto>(servicedto,HttpStatus.OK);
-		    }
-		    else 
-		    {
-			    	logger.error(Constants.CATEGORY_NOT_EXIST);
-			    	throw new CategoryServiceException(Constants.CATEGORY_NOT_EXIST);
-		    }
+		   try {
+			   ServiceStatusDto    servicedto = categoriesService.deleteCategories(categoryId);
+			   
+			    if(servicedto.isStatus())
+			    {
+			      	return  new ResponseEntity<ServiceStatusDto>(servicedto,HttpStatus.OK);
+			    }
+			    else 
+			    {
+			    	Errors error = new Errors();
+			    	error.setErrorCode("417");
+				error.setErrorMessage(servicedto.getMessage());
+			    	return  new ResponseEntity<Errors>(error,HttpStatus.EXPECTATION_FAILED);
+			    }
+		   } catch (Exception e) {
+			   logger.error("CategoriesRestService :: deleteCategory :: Internal Server Error");
+			   throw new CategoryServiceException(Constants.INTERNALSERVERERROR);
+		   }
 		
 	}
 

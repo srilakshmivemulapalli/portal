@@ -22,6 +22,8 @@ public class EmailAccount {
 	@Value("${gmail.answer.toQuestion}")
 	private String subQuestToAnser;
   
+	@Value("${gmail.training.request}")
+	private String subtrainingreq;
 	public String getSubQuestToAnser() {
 		return subQuestToAnser;
 	}
@@ -62,6 +64,11 @@ public class EmailAccount {
 		this.questionSub = questionSub;
 	}
 
-	
+	public String getSubtrainingreq() {
+		return subtrainingreq;
+	}
 
+	public void setSubtrainingreq(String subtrainingreq) {
+		this.subtrainingreq = subtrainingreq;
+	}
 }

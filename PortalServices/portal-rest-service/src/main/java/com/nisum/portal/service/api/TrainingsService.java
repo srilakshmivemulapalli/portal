@@ -22,7 +22,7 @@ public interface TrainingsService {
 
 	TrainingFeedBackDTO addTrainingFeedBack(TrainingFeedBackDTO trainingFeedBackDTO);
 
-	ServiceStatusDto addTrainingRequest(TrainingRequestDTO trainingRequestDTO);
+	ServiceStatusDto addTrainingRequest(TrainingRequestDTO trainingRequestDTO) throws Exception;
 
 	List<TrainingRequestDTO> getAllTrainingRequests();
 

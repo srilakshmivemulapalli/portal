@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+
+import com.nisum.portal.data.dao.api.ProfileSettingsDAO;
 import com.nisum.portal.data.dao.api.UserDAO;
 import com.nisum.portal.data.domain.User;
 import com.nisum.portal.service.api.UserService;
@@ -21,6 +23,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	UserDAO userDAO;
+	
+	@Autowired
+	ProfileSettingsDAO profileSettingsDAO;
 
 	private static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 	@Override
@@ -43,6 +48,8 @@ public class UserServiceImpl implements UserService {
 		User user = UserServiceUtil.convertDtoObjectTODao(userDto);
 		String userStatus = findUserById(user.getUserId());
 		if (userStatus != null) {
+			profileSettingsDAO.deleteCategory(user.getEmailId());
+
 			User userDao = userDAO.updateUser(user);
 			return UserServiceUtil.convertDaoObjectToDto(userDao);
 		} else {

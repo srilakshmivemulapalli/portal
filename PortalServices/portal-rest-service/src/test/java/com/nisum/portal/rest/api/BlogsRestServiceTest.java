@@ -316,9 +316,20 @@ public class BlogsRestServiceTest {
 	}
 	
 	@Test
-	public void uploadAttachmentTestSuccess() throws BlogServiceException {
+	public void uploadAttachmentTestSuccess() throws Exception {
 		
 		logger.info("BlogsRestServiceTest :: uploadAttachmentTestSuccess ");
+		
+		Integer id=new Integer(6);
+		long millis=1507111208000L;
+		Timestamp createdDate=new Timestamp(millis);
+		BlogsDTO expMesg=new BlogsDTO();
+		expMesg.setBlogsId(id);
+		expMesg.setCreatedDate(createdDate);
+		expMesg.setDescription("aaaaaa");
+		expMesg.setPath("bbbbbbb");
+		expMesg.setUserMailId("sjbasha@nisum.com");
+		expMesg.setUserId(101);
 		
 		String actMsg="Uploaded File(s) Successfully!!!";
 		
@@ -327,6 +338,10 @@ public class BlogsRestServiceTest {
 		when(request.getParameter("userMailId")).thenReturn("sjbasha@nisum.com");
 		
 		when(request.getParameter("blogId")).thenReturn("6");
+		
+		when(blogService.validateHttpRequestUploads(request)).thenReturn(true);
+		
+		when(blogService.getBlog(6)).thenReturn(expMesg);
 		
 		String expMsg=(String) mainController.uploadAttachment(request);
 		

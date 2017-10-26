@@ -2,6 +2,7 @@ package com.nisum.portal.rest.api;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,31 +91,40 @@ public class QuestionariesRestService {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public ResponseEntity<ServiceStatusDto> saveQuestionaries(@RequestBody AddQuestionDTO questionDTO)
-			throws Exception {
+	public ResponseEntity<?> saveQuestionaries(@RequestBody AddQuestionDTO questionDTO) throws QuestionariesServiceException {
 		logger.info("QuestionariesRestService :: saveQuestionaries" + questionDTO.getEmailId() + "-"
 				+ questionDTO.getCategoryId() + "-" + questionDTO.getQuestion() + "-" + questionDTO.getQuestion());
-		List<User> list = userProfileRepository.findByCategoryId(questionDTO.getCategoryId());
-		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
-		serviceStatusDto.setStatus(true);
-		serviceStatusDto.setMessage(Constants.MSG_RECORD_ADD);
-		questionariesService.saveQuestions(questionDTO.getEmailId(), questionDTO.getCategoryId(),
-				questionDTO.getQuestion(), questionDTO.getQuestion());
+		try {
+			List<User> list = userProfileRepository.findByCategoryId(questionDTO.getCategoryId());
 
-		StringBuilder toEmail = new StringBuilder();
+			String status = questionariesService.saveQuestions(questionDTO.getEmailId(), questionDTO.getCategoryId(),
+					questionDTO.getQuestion(), questionDTO.getQuestion());
+			ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
+			if (status.equalsIgnoreCase(Constants.CATEGORY_NOT_EXIST)) {
+				Errors error = new Errors();
+				error.setErrorCode("417");
+				error.setErrorMessage(status);
+				return new ResponseEntity<Errors>(error, HttpStatus.EXPECTATION_FAILED);	 
+			} else {
+				serviceStatusDto.setMessage(status);
+				StringBuilder toEmail = new StringBuilder();
 
-		for (User user : list) {
+				for (User user : list) {
 
-			toEmail.append(user.getEmailId());
-			toEmail.append(",");
+					toEmail.append(user.getEmailId());
+					toEmail.append(",");
+				}
+
+				if (toEmail.toString() != null && !toEmail.toString().equals("")) {
+					MailSender.sendEmail(emailAccount.getAdminemail(), emailAccount.getAdminpassword(),
+							MailSender.removeLastChar(toEmail.toString()), null, emailAccount.getQuestionSub(),
+							MailSender.questionMsgBody("Users", questionDTO.getQuestion(), questionDTO.getDescription()));
+				}
+				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.OK);	
+			}
+		} catch(Exception e) {
+			throw new QuestionariesServiceException(Constants.INTERNALSERVERERROR);
 		}
-
-		if (toEmail.toString() != null && !toEmail.toString().equals("")) {
-			MailSender.sendEmail(emailAccount.getAdminemail(), emailAccount.getAdminpassword(),
-					MailSender.removeLastChar(toEmail.toString()), null, emailAccount.getQuestionSub(),
-					MailSender.questionMsgBody("Users", questionDTO.getQuestion(), questionDTO.getDescription()));
-		}
-		return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.OK);
 	}
 
 	/**
@@ -125,30 +135,33 @@ public class QuestionariesRestService {
 	 */
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public ResponseEntity<ServiceStatusDto> updateQuestionaries(@RequestBody AddQuestionDTO questionDTO)
-			throws QuestionariesServiceException {
-		logger.info("QuestionariesRestService *****:: updateQuestionaries" + questionDTO.getEmailId() + "-"
-				+ questionDTO.getQuestionId() + "-" + questionDTO.getCategoryId() + "-" + questionDTO.getQuestion()
-				+ "-" + questionDTO.getQuestion());
-		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
-		serviceStatusDto.setStatus(true);
-		serviceStatusDto.setMessage(Constants.MSG_RECORD_UPDATE);
-		logger.info("in side service ********serice..");
-		try {
-			String question = questionariesService.updateQuestion(questionDTO.getQuestionId(),
-					questionDTO.getCategoryId(), questionDTO.getQuestion(), questionDTO.getDescription(),
-					questionDTO.getEmailId());
-			if (question != null) {
-				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.OK);
-			} else {
-				serviceStatusDto.setMessage(Constants.QUESTION_NOT_EXIST);
-				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.EXPECTATION_FAILED);
-			}
-		} catch (Exception e) {
-			logger.info("QuestionariesRestService :: saveQuestionComment :: Internal Server Error");
-			throw new QuestionariesServiceException(Constants.INTERNALSERVERERROR);
-		}
+	public ResponseEntity<ServiceStatusDto> updateQuestionaries(@RequestBody AddQuestionDTO questionDTO)throws QuestionariesServiceException {
+
+	logger.info("QuestionariesRestService *****:: updateQuestionaries" + questionDTO.getEmailId() + "-"
+	+ questionDTO.getQuestionId() + "-" + questionDTO.getCategoryId() + "-" + questionDTO.getQuestion()
+	+ "-" + questionDTO.getQuestion());
+
+	ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
+	serviceStatusDto.setStatus(true);
+	serviceStatusDto.setMessage(Constants.MSG_RECORD_UPDATE);
+	logger.info("in side service ********serice..");
+	try {
+	boolean question = questionariesService.findQuestionById(questionDTO.getQuestionId());
+	if (question) {
+	questionariesService.updateQuestion(questionDTO.getQuestionId(),questionDTO.getCategoryId(),questionDTO.getQuestion(),questionDTO.getDescription(),questionDTO.getEmailId());
+	  return new ResponseEntity<ServiceStatusDto>(serviceStatusDto,HttpStatus.OK);
+	}else {
+	serviceStatusDto.setMessage(Constants.QUESTION_NOT_EXIST);
+	serviceStatusDto.setStatus(false);
+	return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.EXPECTATION_FAILED);
 	}
+	} catch (Exception e) {
+	logger.info("QuestionariesRestService :: saveQuestionComment :: Internal Server Error");
+	throw new QuestionariesServiceException(Constants.INTERNALSERVERERROR);
+	}
+	}
+
+
 
 	/**
 	 * Questionaries

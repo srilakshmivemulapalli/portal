@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.nisum.portal.data.dao.api.TrainingsDAO;
 import com.nisum.portal.data.domain.TrainingToUser;
 import com.nisum.portal.data.domain.Trainings;
+import com.nisum.portal.service.api.EmailAccount;
 import com.nisum.portal.service.api.TrainingsService;
 import com.nisum.portal.service.api.UserService;
 import com.nisum.portal.service.dto.TrainingToUserDTO;
@@ -22,6 +23,7 @@ import com.nisum.portal.service.dto.TrainingRequestDTO;
 import com.nisum.portal.service.dto.TrainingsDTO;
 import com.nisum.portal.service.dto.UserDTO;
 import com.nisum.portal.util.Constants;
+import com.nisum.portal.util.MailSender;
 import com.nisum.portal.util.TrainingFeedBackUtil;
 import com.nisum.portal.util.TrainingRequestUtil;
 import com.nisum.portal.util.TrainingsServiceUtil;
@@ -33,6 +35,8 @@ public class TrainingsServiceImpl implements TrainingsService {
 
 	@Autowired
 	private TrainingsDAO trainingsDAO;
+	
+	private static EmailAccount emailAccount;
 	
 	@Override
 	public TrainingsDTO saveTrainings(TrainingsDTO trainingsDTO) {
@@ -184,14 +188,14 @@ public class TrainingsServiceImpl implements TrainingsService {
 		Date date = new Date();
 		Timestamp createdDate = new Timestamp(date.getTime());
 		String feedback2 = trainingFeedBackDTO.getFeedback();
-		String status;
+		Integer status;
 		if(StringUtils.isNotEmpty(feedback2))
 		{
-			status="Yes";
+			status=1;
 		}
 		else
 		{
-			status="No";
+			status=0;
 		}
 		trainingFeedBackDTO.setCreateDate(createdDate);
 		trainingFeedBackDTO.setFeedbackStatus(status);
@@ -201,7 +205,7 @@ public class TrainingsServiceImpl implements TrainingsService {
 	}
 	
 	@Override
-	public ServiceStatusDto addTrainingRequest(TrainingRequestDTO trainingRequestDTO) {
+	public ServiceStatusDto addTrainingRequest(TrainingRequestDTO trainingRequestDTO) throws Exception {
 		// TODO Auto-generated method stub
 		logger.info("TrainingsServiceImpl :: addTrainingRequest ::"+trainingRequestDTO.toString());
 		Date date = new Date();
@@ -218,6 +222,13 @@ public class TrainingsServiceImpl implements TrainingsService {
 			serviceStatusDto.setStatus(false);
 			serviceStatusDto.setMessage(Constants.TRAINING_REQUEST_EXISTS);
 		} if (serviceStatus == 1) {
+			String id = trainingRequestDTO.getEmailId();
+			//Hard coded need to add admin login address
+			String userName="mbheemanapalli@nisum.com";
+			final String topic=trainingRequestDTO.getRequestTrainingTitle();
+			final String description=trainingRequestDTO.getDescription();
+			MailSender.sendEmail(emailAccount.getAdminemail(), emailAccount.getAdminpassword() ,
+					userName, null, emailAccount.getSubtrainingreq(), MailSender.trainingReqestBody(topic,id,description));
 			serviceStatusDto.setStatus(true);
 			serviceStatusDto.setMessage(Constants.MSG_RECORD_ADD);
 		}
@@ -256,5 +267,9 @@ public class TrainingsServiceImpl implements TrainingsService {
 		List<TrainingFeedBack> list = trainingsDAO.getTrainingFeedBacksByTrainingId(trainingId);
 		return TrainingFeedBackUtil.convertDaoListToDto(list);
 	}
-	
+
+	@Autowired
+	public void setEmailAccount(EmailAccount emailAccount) {
+		TrainingsServiceImpl.emailAccount = emailAccount;
+	}
 }

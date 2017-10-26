@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.nisum.portal.data.domain.ProfileSettings;
+import com.nisum.portal.data.domain.ProfileSetting;
 import com.nisum.portal.service.dto.UserRoleDTO;
 
 /**
@@ -13,30 +13,28 @@ import com.nisum.portal.service.dto.UserRoleDTO;
  * @author nisum
  *
  */
-public class UserDTO implements Serializable{
+public class UserDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private int userId;
+	private Integer userId;
 	private String emailId;
 	private String userName;
 	private Timestamp loginDate;
-	private UserRoleDTO role;
+	private UserRoleDTO role; //===============
 	private String activeStatus;
 	private Timestamp createDate;
 	private String image;
 	private byte[] imageIcon;
 	private String notifications;
 	private String profileName;
-	private Set<ProfileSettings> profileSettings=new HashSet<>();
+	private Set<ProfileSettingDto> profileSettings = new HashSet<>();
 
-	
-
-	public Set<ProfileSettings> getProfileSettings() {
+	public Set<ProfileSettingDto> getProfileSettings() {
 		return profileSettings;
 	}
 
-	public void setProfileSettings(Set<ProfileSettings> profileSettings) {
+	public void setProfileSettings(Set<ProfileSettingDto> profileSettings) {
 		this.profileSettings = profileSettings;
 	}
 
@@ -50,6 +48,7 @@ public class UserDTO implements Serializable{
 
 	/**
 	 * Returns user id
+	 * 
 	 * @return
 	 */
 	public int getUserId() {
@@ -58,6 +57,7 @@ public class UserDTO implements Serializable{
 
 	/**
 	 * Sets user id
+	 * 
 	 * @param userId
 	 */
 	public void setUserId(int userId) {
@@ -66,6 +66,7 @@ public class UserDTO implements Serializable{
 
 	/**
 	 * Sets user email
+	 * 
 	 * @return
 	 */
 	public String getEmailId() {
@@ -74,15 +75,16 @@ public class UserDTO implements Serializable{
 
 	/**
 	 * Returns user email
+	 * 
 	 * @param emailId
 	 */
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
 	}
 
-	
 	/**
 	 * Returns user created date
+	 * 
 	 * @return
 	 */
 	public Timestamp getLoginDate() {
@@ -91,6 +93,7 @@ public class UserDTO implements Serializable{
 
 	/**
 	 * Sets user role
+	 * 
 	 * @param loginDate
 	 */
 	public void setLoginDate(Timestamp loginDate) {
@@ -99,6 +102,7 @@ public class UserDTO implements Serializable{
 
 	/**
 	 * Returns user role
+	 * 
 	 * @return
 	 */
 	public UserRoleDTO getRole() {
@@ -107,6 +111,7 @@ public class UserDTO implements Serializable{
 
 	/**
 	 * Sets role for a user
+	 * 
 	 * @param role
 	 */
 	public void setRole(UserRoleDTO role) {
@@ -115,6 +120,7 @@ public class UserDTO implements Serializable{
 
 	/**
 	 * Returns user active status
+	 * 
 	 * @return
 	 */
 	public String getActiveStatus() {
@@ -123,6 +129,7 @@ public class UserDTO implements Serializable{
 
 	/**
 	 * Sets user active status
+	 * 
 	 * @param activeStatus
 	 */
 	public void setActiveStatus(String activeStatus) {
@@ -152,6 +159,7 @@ public class UserDTO implements Serializable{
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+
 	public String getNotifications() {
 		return notifications;
 	}

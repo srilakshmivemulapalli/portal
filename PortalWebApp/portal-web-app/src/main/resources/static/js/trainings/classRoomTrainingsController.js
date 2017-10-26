@@ -40,4 +40,5 @@ trainingsApp.controller('classRoomTrainingsController', function($scope,training
 			}
 		});
 	};
+	
 })

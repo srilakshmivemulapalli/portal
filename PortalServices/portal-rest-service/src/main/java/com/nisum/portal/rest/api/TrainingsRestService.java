@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.nisum.portal.service.api.EmailAccount;
 import com.nisum.portal.service.api.TrainingsService;
 import com.nisum.portal.service.api.UserService;
 import com.nisum.portal.service.dto.Errors;
@@ -25,6 +27,7 @@ import com.nisum.portal.service.dto.TrainingRequestDTO;
 import com.nisum.portal.service.dto.TrainingsDTO;
 import com.nisum.portal.service.exception.TrainingsServiceException;
 import com.nisum.portal.util.Constants;
+import com.nisum.portal.util.MailSender;
 
 @RestController
 @RequestMapping(value ="/v1/trainings")
@@ -36,6 +39,7 @@ public class TrainingsRestService {
 	
 	@Autowired
 	private UserService userService;
+	
 
 	@RequestMapping(value = "/saveTrainings", method = RequestMethod.POST)
 	public ResponseEntity<?> saveTrainings(@RequestBody TrainingsDTO trainingsDTO) {
@@ -142,8 +146,8 @@ public class TrainingsRestService {
 	}
 
 	@RequestMapping(value = "/addTrainingRequest", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-	public ResponseEntity<?> addTrainingRequest(@RequestBody TrainingRequestDTO trainingRequestDTO) {
-
+	public ResponseEntity<?> addTrainingRequest(@RequestBody TrainingRequestDTO trainingRequestDTO) throws Exception {
+		
 		logger.info("TrainingsRestService :: addTrainingRequest ::" + trainingRequestDTO.toString());
 
 		ServiceStatusDto servicedto = trainingsService.addTrainingRequest(trainingRequestDTO);
@@ -205,4 +209,5 @@ public class TrainingsRestService {
 		}
 		
 	}
+	
 }

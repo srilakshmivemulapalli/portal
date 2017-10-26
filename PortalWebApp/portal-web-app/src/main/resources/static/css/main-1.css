@@ -479,7 +479,7 @@ a.login-url {
 	text-transform: uppercase;
 }
 
-.ask-question i, #run_pump_setup i {
+.ask-question i, #run_pump_setup i, .btn-normal i {
 	margin-right: 5px;
 	font-size: 16px;
 }
@@ -5122,6 +5122,35 @@ body.admin-bar .q-filter-waypoints {
 .trainingbottom{
 border-bottom: 1px solid #ebebeb;
 padding-bottom:15px;
+}
+.meetingbtn{
+	margin:10px;
+}
+.btn-normal{
+	width: auto;
+    height: 40px;
+    padding:10px;
+    color: #fff;
+    padding: 12px;
+    background: #3498db;
+    font-size: 13px;
+    border: none;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px
+}
+.btn-cancel{
+	width: auto;
+    height: 40px;
+    padding:12px;
+    color: #fff;
+    padding: 10px;
+    background: #d9534f;
+    font-size: 13px;
+    border: none;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px
 }
 /********trainings****/
 .irs-all-course-bb {
