@@ -18,7 +18,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import com.nisum.portal.data.dao.api.TrainingsDAO;
 import com.nisum.portal.data.domain.TrainingFeedBack;
 import com.nisum.portal.data.domain.TrainingRequest;
-import com.nisum.portal.data.domain.Trainings;
 import com.nisum.portal.data.repository.TrainingRequestRepository;
 import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.dto.TrainingFeedBackDTO;
@@ -46,7 +45,7 @@ public class TrainingServiceImplTest {
 		trainingFeedBackDTO.setCreateDate(timestamp);
 		PowerMockito.mockStatic(TrainingFeedBackUtil.class);
 		TrainingFeedBack feedback=new TrainingFeedBack();
-				feedback.setTrainings(new Trainings(1));
+				feedback.setTrainingId(1);
 				feedback.setTrainingFeedBackId(1);
 		PowerMockito.when(TrainingFeedBackUtil.convertDtoTODao(trainingFeedBackDTO)).thenReturn(feedback);
 		
