@@ -168,10 +168,7 @@ ALTER TABLE `portal`.`TrainingRequest`
 CHANGE COLUMN `emailid` `emailId` VARCHAR(45) NULL DEFAULT NULL ;
 
 ALTER TABLE `portal`.`TrainingFeedBack` 
-ADD COLUMN `rating` `emailId` VARCHAR(50) NULL DEFAULT NULL ;
-
-ALTER TABLE `portal`.`TrainingFeedBack` 
-ADD COLUMN `feedbackStatus` INT(1) NULL DEFAULT 0 AFTER `createDate`;
+CHANGE COLUMN `rating` `emailId` VARCHAR(50) NULL DEFAULT NULL ;
 
 ALTER TABLE `portal`.`TrainingRequest` 
 ADD COLUMN `requestStatus` INT(1) NULL DEFAULT 0 AFTER `requestedDate`;
