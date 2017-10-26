@@ -35,7 +35,14 @@ blogsApp
 					$scope.submitBlog = function() {
 						$scope.blog.userId = $scope.profile.userId;
 						$scope.blog.emailId = $scope.profile.emailId;
-						
+						var formData = new FormData();
+						formData.append("model", $scope.blog);
+						var filesArray = [];
+						alert($scope.files.length);
+						for (var i = 0 ; i < $scope.files.length ; i ++){
+							formData.append("uploads",$scope.files[i]);
+			            }
+						//formData.append("uploads",filesArray);
 						$http(
 								{
 									method : 'POST',
@@ -45,24 +52,8 @@ blogsApp
 //										"Content-Type" : "multipart/form-data; boundary=----WebKitFormBoundary8WLbZBEVERUXABAl"
 										"Content-Type" : undefined
 									},
-									transformRequest :angular.identity,
-									transformRequest : function(data) {
-										var formData = new FormData();
-										formData.append("model", angular
-												.toJson(data.model));
-//										formData.append("title","test");
-//										for (var i = 0; i < data.uploads.length; i++) {
-//											alert("file...." + i);
-//											formData.append("file" + i,
-//													data.uploads[i]);
-										formData.append("uploads",$scope.files);
-//										}
-										return formData;
-									},
-									data : {
-										model : $scope.blog,
-										uploads : $scope.files
-									}
+									transformRequest : angular.identity,
+									data : formData
 								}).success(
 								function(data, status, headers, config) {
 									alert("success!");

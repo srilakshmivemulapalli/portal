@@ -3,6 +3,7 @@ package com.nisum.portal.rest.api;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,9 +24,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.nisum.portal.service.api.BlogService;
 import com.nisum.portal.service.dto.BlogsDTO;
@@ -228,26 +231,14 @@ public class BlogsRestService {
 	 * @throws BlogServiceException
 	 */
 	
-	@RequestMapping(value="/add/addBlog", method=RequestMethod.POST)
-	public @ResponseBody Object addBlog(@Context HttpServletRequest request) throws BlogServiceException {
+	@RequestMapping(value="/add/addBlog", method=RequestMethod.POST,consumes = { "multipart/form-data" })
+	public @ResponseBody Object addBlog(
+	        @RequestParam(value = "uploads") MultipartFile[]  file,@RequestParam(value = "model") String userInfo,HttpServletRequest request) throws BlogServiceException {
 		logger.info("BlogsRestService :: addBlog");
 		try {
 			
-			blogService.validateHttpRequestUploads(request);
 			
-			BlogsDTO blogsDTO=blogService.parseRequestToGetBlogsDTO(request);
-			
-			BlogsDTO addedBlog=blogService.addBlog(blogsDTO);
-			
-			BlogsDTO updateBlog=blogService.parseRequestToStoreUploads(request, blogsAttachmentPath, addedBlog);
-			
-			BlogsDTO updatedBlog=blogService.updateBlog(updateBlog);
-			
-			if(updatedBlog.getPath()!=null) {
-				updatedBlog.setPath("");
-			}
-			
-			return updatedBlog;
+			return "";
 		}
 		catch(Exception e) {
 			logger.error("BlogsRestService :: addBlog Error");
