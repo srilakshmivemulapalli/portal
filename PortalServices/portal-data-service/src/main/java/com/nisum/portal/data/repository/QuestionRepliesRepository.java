@@ -29,6 +29,6 @@ public interface QuestionRepliesRepository extends JpaRepository<QuestionReplies
 	List<Questionaries> getMyReplyQuestions(@Param("emailId") String emailId);
 	
 	
-	@Query(value = "SELECT q from Questionaries q,QuestionReplies qr where q.questionId=qr.questId and qr.questId =:questId")
+	@Query(value="SELECT qst from Questionaries qst where qst.questionId =:questId")
 	Questionaries findByuserEmail(@Param("questId")Integer questId);
 }
