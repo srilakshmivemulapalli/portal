@@ -76,19 +76,19 @@
 			<div class="row">
 				<div class="col-md-6"></div>
 				<div class="col-md-6" ng-show="!addrole">
-					<input class='btn btn-primary' type="button" value="Add Role"
+					<input class='btn-normal' type="button" value="Add Role"
 						ng-click="addrole=true;roleobj.role='';" style="float: right;" />
 				</div>
 				<div class="col-md-6" ng-show="addrole">
-					<form name="roleadd" class="form-inline" ng-submit="addRole();">
+					<form name="roleadd" class="form-inline" ng-submit="addRole();" style="float: right;">
 						<!-- addrole.$dirty &&  -->
 						<div class="form-group">
-							<label for="email"></label>Role: <input type="text"
+							<input type="text"
 								class="form-control" id="role" placeholder="Role Name"
 								ng-model="roleobj.role" required>
 						</div>
-						<button type="submit" class="btn btn-primary">Add</button>
-						<button type="button" class='btn btn-danger' ng-click="clear();">Cancel</button>
+						<button type="submit" class="btn-normal">Add</button>
+						<button type="button" class='btn-cancel' ng-click="clear();">Cancel</button>
 					</form>
 
 
@@ -136,27 +136,27 @@
 			<div class="row">
 				<div class="col-md-3"></div>
 				<div class="col-md-9" ng-show="!addcategory">
-					<input class='btn btn-primary' type="button" value="Add Category"
+					<input class='btn-normal' type="button" value="Add Category"
 						ng-click="addcategory=true;categoryobj.categoryName='';categoryobj.description='';"
 						style="float: right;" />
 				</div>
 				<div class="col-md-9" ng-show="addcategory">
-					<form name="addcat" class="form-inline" ng-submit="addCategory();">
+					<form name="addcat" class="form-inline" ng-submit="addCategory();" style="float: right;">
 						<!-- addrole.$dirty &&  -->
 						<div class="form-group">
-							<label for="categoryname">Category:</label> <input type="text"
+							<input type="text"
 								class="form-control" id="categoryname"
 								placeholder="Category Name" limit-To="100"
 								ng-model="categoryobj.categoryName" required>
 						</div>
 						<div class="form-group">
-							<label for="description">Description:</label>
+							
 							<textarea type="text" class="form-control" id="description"
 								autogrow placeholder="Category Description"
 								ng-model="categoryobj.description" limit-To="200" required></textarea>
 						</div>
-						<button type="submit" class="btn btn-primary">Add</button>
-						<button type="button" class='btn btn-danger' ng-click="clear();">Cancel</button>
+						<button type="submit" class="btn-normal">Add</button>
+						<button type="button" class='btn-cancel' ng-click="clear();">Cancel</button>
 					</form>
 
 				</div>
@@ -217,9 +217,9 @@
 					{{deleteitem.name}}?</h3>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary"
+				<button type="button" class="btn-normal"
 					ng-click="deleteItem();">Ok</button>
-				<button type="button" class="btn btn-danger" data-dismiss="modal">cancel</button>
+				<button type="button" class="btn-cancel" data-dismiss="modal">cancel</button>
 			</div>
 		</div>
 
@@ -237,8 +237,8 @@
 					{{editteditem.name}}?</h3>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" ng-click="editItem();">Ok</button>
-				<button type="button" class="btn btn-danger" data-dismiss="modal">cancel</button>
+				<button type="button" class="btn-normal" ng-click="editItem();">Ok</button>
+				<button type="button" class="btn-cancel" data-dismiss="modal">cancel</button>
 			</div>
 		</div>
 

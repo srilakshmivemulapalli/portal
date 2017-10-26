@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.nisum.portal.service.api.EmailAccount;
 import com.nisum.portal.service.api.TrainingsService;
 import com.nisum.portal.service.api.UserService;
 import com.nisum.portal.service.dto.Errors;
@@ -25,6 +27,7 @@ import com.nisum.portal.service.dto.TrainingRequestDTO;
 import com.nisum.portal.service.dto.TrainingsDTO;
 import com.nisum.portal.service.exception.TrainingsServiceException;
 import com.nisum.portal.util.Constants;
+import com.nisum.portal.util.MailSender;
 
 @RestController
 @RequestMapping(value ="/v1/trainings")
@@ -36,6 +39,7 @@ public class TrainingsRestService {
 	
 	@Autowired
 	private UserService userService;
+	
 
 	@RequestMapping(value = "/saveTrainings", method = RequestMethod.POST)
 	public ResponseEntity<?> saveTrainings(@RequestBody TrainingsDTO trainingsDTO) {
@@ -142,8 +146,8 @@ public class TrainingsRestService {
 	}
 
 	@RequestMapping(value = "/addTrainingRequest", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-	public ResponseEntity<?> addTrainingRequest(@RequestBody TrainingRequestDTO trainingRequestDTO) {
-
+	public ResponseEntity<?> addTrainingRequest(@RequestBody TrainingRequestDTO trainingRequestDTO) throws Exception {
+		
 		logger.info("TrainingsRestService :: addTrainingRequest ::" + trainingRequestDTO.toString());
 
 		ServiceStatusDto servicedto = trainingsService.addTrainingRequest(trainingRequestDTO);
@@ -165,6 +169,21 @@ public class TrainingsRestService {
 		logger.info("TrainingsRestService :: getAllTrainingRequests ");
 		try {
 				return trainingsService.getAllTrainingRequests();
+			}
+			catch(Exception e) {
+				logger.error(Constants.Training_No_Data);
+				Errors error = new Errors();
+				error.setErrorCode("Error-All Trainings Requests");
+				error.setErrorMessage(Constants.Training_No_Data);
+				return new ResponseEntity<Errors>(error, HttpStatus.OK);
+			}
+	}
+	@RequestMapping(value = "/removeTrainingRequest/{id}", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
+	public Object removeTrainingRequest(@PathVariable("id") Integer trainingRequestId) throws TrainingsServiceException{
+
+		logger.info("TrainingsRestService :: removeTrainingRequest ");
+		try {
+				return trainingsService.removeTrainingRequest(trainingRequestId);
 			}
 			catch(Exception e) {
 				logger.error(Constants.Training_No_Data);
@@ -205,4 +224,5 @@ public class TrainingsRestService {
 		}
 		
 	}
+	
 }

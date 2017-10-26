@@ -40,20 +40,5 @@ trainingsApp.controller('classRoomTrainingsController', function($scope,training
 			}
 		});
 	};
-	$scope.submitFeedBack=function(description,trainingId){
-		var feedbackObj={
-				'trainingId':trainingId,
-				'emailId': commonService.emailId,
-				'feedback': description
-		}
-		trainingService.postFeedback(feedbackObj).then(function(response){
-			if (response.errorCode) {
-				$scope.message = response.errorMessage;
-			} else {
-
-				console.log(response);
-				
-			}
-		});
-	}
+	
 })

@@ -22,12 +22,14 @@ public interface TrainingsService {
 
 	TrainingFeedBackDTO addTrainingFeedBack(TrainingFeedBackDTO trainingFeedBackDTO);
 
-	ServiceStatusDto addTrainingRequest(TrainingRequestDTO trainingRequestDTO);
+	ServiceStatusDto addTrainingRequest(TrainingRequestDTO trainingRequestDTO) throws Exception;
 
 	List<TrainingRequestDTO> getAllTrainingRequests();
 
 	List<TrainingFeedBackDTO> getAllTrainingFeedBacks();
 
 	public List<TrainingFeedBackDTO> getTrainingFeedBack(Integer trainingId);
+
+	public Object removeTrainingRequest(Integer trainingRequestId);
 
 }

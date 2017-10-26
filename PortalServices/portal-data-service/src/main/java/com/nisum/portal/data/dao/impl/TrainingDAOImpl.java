@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-
+import org.apache.commons.lang3.ObjectUtils;
 import com.nisum.portal.data.dao.api.TrainingsDAO;
 import com.nisum.portal.data.domain.TrainingToUser;
 import com.nisum.portal.data.domain.Trainings;
@@ -140,6 +140,14 @@ public class TrainingDAOImpl implements TrainingsDAO {
 	public List<TrainingFeedBack> getTrainingFeedBacksByTrainingId(Integer trainingId) {
 		// TODO Auto-generated method stub
 		return trainingFeedBackRepository.findByTrainingId(trainingId);
+	}
+
+	@Override
+	public String removeTrainingRequest(Integer trainingRequestId) {
+		// TODO Auto-generated method stub
+		if(ObjectUtils.anyNotNull(trainingRequestRepository.findOne(trainingRequestId))) {
+		}
+		return null;
 	}
 }
 

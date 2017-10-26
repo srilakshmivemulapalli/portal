@@ -102,13 +102,11 @@ public class BlogsServiceUtil {
 	public static BlogsDTO parseRequestToGetBlogsDTO(HttpServletRequest request) throws Exception{
 		logger.info("BlogsServiceUtil :: parseRequestToGetBlogsDTO");
 		
-		validateHttpRequestForUploads(request);
-		
 		String title=request.getParameter("title");
-//		if(title==null) {
-//			logger.error("BlogsServiceUtil :: parseRequestToGetBlogsDTO Error ==== Missing Blog title.");
-//			throw new BlogServiceException("Missing Blog title.");
-//		}
+		if(title==null) {
+			logger.error("BlogsServiceUtil :: parseRequestToGetBlogsDTO Error ==== Missing Blog title.");
+			throw new BlogServiceException("Missing Blog title.");
+		}
 		String description=request.getParameter("description");
 		if(description==null) {
 			logger.error("BlogsServiceUtil :: parseRequestToGetBlogsDTO Error ==== Missing Blog description.");
@@ -136,7 +134,6 @@ public class BlogsServiceUtil {
 	
 	public static String parseRequestToStoreUploads(HttpServletRequest request,String dirPath) throws Exception{
 		logger.info("BlogsServiceUtil :: parseRequestToUploadFiles");
-		validateHttpRequestForUploads(request);
 		if(dirPath!=null) {
 			File dir=new File(dirPath);
 			if(!dir.exists()) {
@@ -156,7 +153,7 @@ public class BlogsServiceUtil {
 		List<Part> fileParts = request.getParts().stream().filter(part -> "uploads".equals(part.getName())).collect(Collectors.toList()); 
 		
 		// Store uploaded files into server
-		if(fileParts!=null) {
+		if((fileParts!=null)&&(!CollectionUtils.isEmpty(fileParts))) {
 			for (Part filePart : fileParts) {
 				String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
 				InputStream fileContent = filePart.getInputStream();
@@ -188,7 +185,6 @@ public class BlogsServiceUtil {
 			}
 		}else {
 			logger.error("BlogsServiceUtil :: parseRequestToStoreUploads -- No Uploads Found.");
-			return null;
 		}
 		
 		return dirPath;
@@ -312,8 +308,10 @@ public class BlogsServiceUtil {
 	public static boolean validateHttpRequestForUploads(HttpServletRequest request) throws Exception {
 		logger.info("BlogsServiceUtil :: validateHttpRequestForUploads");
 		if(request!=null) {
+			
 			List<Part> fileParts = request.getParts().stream().filter(part -> "uploads".equals(part.getName())).collect(Collectors.toList());
-			if(fileParts!=null) {
+			
+			if((fileParts!=null)&&(!CollectionUtils.isEmpty(fileParts))) {
 				for (Part filePart : fileParts) {
 					String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
 					
@@ -325,6 +323,7 @@ public class BlogsServiceUtil {
 				}
 			}else {
 				logger.info("BlogsServiceUtil :: validateHttpRequestForUploads === No uploads found.");
+				return false;
 			}
 			return true;
 		}else {
