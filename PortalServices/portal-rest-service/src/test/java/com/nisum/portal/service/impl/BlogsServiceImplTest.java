@@ -131,11 +131,13 @@ public class BlogsServiceImplTest {
 	public void removeBlog() throws Exception {
 		logger.info("BlogsServiceImplTest :: removeBlogSuccess");
 		Integer id=18;
+		String dirPath="/Users/nisum/Documents/BlogAttachments";
 		when(blogsDAOImpl.blogExists(id)).thenReturn(true);
 		//when(BlogsServiceUtil.removeBlogAttachments("/Users/nisum/Documents/BlogAttachments/sjbasha@nisum.com/18")).thenReturn(true);
 		//when(blosgServiceUtil.removeBlogAttachments("null/sjbasha@nisum.com/18")).thenReturn(true);
 		
-		blogsServiceImpl.removeBlog(id, "/Users/nisum/Documents/BlogAttachments/sjbasha@nisum.com");
+		ReflectionTestUtils.setField(blogsServiceImpl, "blogsAttachmentPath", dirPath);
+		blogsServiceImpl.removeBlog(id, "sjbasha@nisum.com");
 	}
 	
 	@Test(expected=BlogServiceException.class)
@@ -342,7 +344,7 @@ public class BlogsServiceImplTest {
 		
 		when(blogsDAOImpl.blogExists(6)).thenReturn(true);
 		
-		boolean expMsg=blogsServiceImpl.removeFile("sjbasha@nisum.com",new Integer(6),"epfuan_24Oct2017_10_41_40_AM.pdf");
+		boolean expMsg=blogsServiceImpl.removeFile("sjbasha@nisum.com",new Integer(6),"epfuan_17Oct2017_04_44_00_PM_25Oct2017_06_26_09_PM.pdf");
 		
 		assertEquals(expMsg,true);
 	}

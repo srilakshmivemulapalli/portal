@@ -80,12 +80,10 @@ public class BlogServiceImpl implements BlogService{
 					logger.info("BlogServiceImpl :: removeBlog -- Blog's attachments removed.");
 				}
 			}else {
-				if(BlogsServiceUtil.removeBlogAttachments(userMailId+File.separator+id)) {
-					logger.info("BlogServiceImpl :: removeBlog -- Blog's attachments removed.");
-				}
+				logger.error("BlogServiceImpl :: removeBlog Error === Can't found Server Location Path to store blog's attachments.");
+				throw new BlogServiceException("Internal Server Error while removing Blog's attachments.");
 			}
-			blogDAO.removeBlog(id);
-			
+			blogDAO.removeBlog(id);	
 		}else {
 			logger.error("BlogServiceImpl :: removeBlog Error === Blog/UserMailId does not exist.");
 			throw new BlogServiceException("No Blog/UserMailId found with "+id+"/"+userMailId);
@@ -173,5 +171,13 @@ public class BlogServiceImpl implements BlogService{
 		}
 		return true;
 	}
+
+
+	@Override
+	public boolean validateHttpRequestUploads(HttpServletRequest request) throws Exception {
+		logger.info("BlogServiceImpl :: validateHttpRequestUploads");
+		return BlogsServiceUtil.validateHttpRequestForUploads(request);	
+	}
+	
 	
 }

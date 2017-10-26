@@ -3,7 +3,6 @@ package com.nisum.portal.rest.api;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -234,6 +233,8 @@ public class BlogsRestService {
 		logger.info("BlogsRestService :: addBlog");
 		try {
 			
+			blogService.validateHttpRequestUploads(request);
+			
 			BlogsDTO blogsDTO=blogService.parseRequestToGetBlogsDTO(request);
 			
 			BlogsDTO addedBlog=blogService.addBlog(blogsDTO);
@@ -266,14 +267,31 @@ public class BlogsRestService {
 	@RequestMapping(value="/add/uploadAttachment", method=RequestMethod.POST)
 	public @ResponseBody Object uploadAttachment(@Context HttpServletRequest request) throws BlogServiceException {
 		logger.info("BlogsRestService :: uploadAttachment");
-		try {		
-			String userMailId=request.getParameter("userMailId");
-			String blogId=request.getParameter("blogId");
-			if((userMailId!=null)&&(blogId!=null)) {
-				blogService.uploadAttachment(request, blogsAttachmentPath+File.separator+userMailId+File.separator+blogId);
-				return "Uploaded File(s) Successfully!!!";
+		try {	
+			if(blogService.validateHttpRequestUploads(request)) {
+				String userMailId=request.getParameter("userMailId");
+				String blogId=request.getParameter("blogId");
+				BlogsDTO blogDTO=blogService.getBlog(Integer.parseInt(blogId));
+				String blogsMailId=blogDTO.getUserMailId();
+				if((userMailId!=null)&&(blogId!=null)) {
+					if((blogsMailId!=null)&&blogsMailId.equals(userMailId)) {
+						String dirPath=blogService.uploadAttachment(request, blogsAttachmentPath+File.separator+userMailId+File.separator+blogId);
+						if(dirPath!=null) {
+							String path=blogDTO.getPath();
+							if((blogDTO!=null)&&((path==null)||(!path.equals(dirPath)))) {
+								blogDTO.setPath(dirPath);
+								blogService.updateBlog(blogDTO);
+							}
+						}
+						return "Uploaded File(s) Successfully!!!";
+					}else {
+						throw new BlogServiceException("Invalid User Email Id "+userMailId);	
+					}
+				}else {
+					throw new BlogServiceException("UserMailId or BlogId are null.");
+				}
 			}else {
-				throw new BlogServiceException("UserMailId or BlogId are null.");
+				throw new BlogServiceException("No uploads found.");
 			}
 		}
 		catch(Exception e) {

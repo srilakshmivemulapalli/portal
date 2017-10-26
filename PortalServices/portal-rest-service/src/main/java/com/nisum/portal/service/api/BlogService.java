@@ -30,5 +30,7 @@ public interface BlogService {
 	Path getFile(String userMailId,Integer blogId,String fileName) throws Exception;
 	
 	boolean removeFile(String userMailId,Integer blogId,String fileName) throws Exception;
+	
+	boolean validateHttpRequestUploads(HttpServletRequest request)throws Exception;
 
 }
