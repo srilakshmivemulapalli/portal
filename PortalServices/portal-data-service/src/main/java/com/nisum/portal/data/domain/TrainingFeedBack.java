@@ -28,7 +28,6 @@ public class TrainingFeedBack implements Serializable{
 	private String feedback;
 	private String emailId;
 	private Timestamp createDate;
-	private Integer feedbackStatus;
 	public Integer getTrainingFeedBackId() {
 		return trainingFeedBackId;
 	}
@@ -53,13 +52,6 @@ public class TrainingFeedBack implements Serializable{
 	public void setCreateDate(Timestamp createDate) {
 		this.createDate = createDate;
 	}
-	public Integer getFeedbackStatus() {
-		return feedbackStatus;
-	}
-	public void setFeedbackStatus(Integer feedbackStatus) {
-		this.feedbackStatus = feedbackStatus;
-	}
-	
 	public Integer getTrainingId() {
 		return trainingId;
 	}
@@ -73,7 +65,6 @@ public class TrainingFeedBack implements Serializable{
 		result = prime * result + ((createDate == null) ? 0 : createDate.hashCode());
 		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
 		result = prime * result + ((feedback == null) ? 0 : feedback.hashCode());
-		result = prime * result + ((feedbackStatus == null) ? 0 : feedbackStatus.hashCode());
 		result = prime * result + ((trainingFeedBackId == null) ? 0 : trainingFeedBackId.hashCode());
 		result = prime * result + ((trainingId == null) ? 0 : trainingId.hashCode());
 		return result;
@@ -102,11 +93,6 @@ public class TrainingFeedBack implements Serializable{
 				return false;
 		} else if (!feedback.equals(other.feedback))
 			return false;
-		if (feedbackStatus == null) {
-			if (other.feedbackStatus != null)
-				return false;
-		} else if (!feedbackStatus.equals(other.feedbackStatus))
-			return false;
 		if (trainingFeedBackId == null) {
 			if (other.trainingFeedBackId != null)
 				return false;
@@ -122,8 +108,7 @@ public class TrainingFeedBack implements Serializable{
 	@Override
 	public String toString() {
 		return "TrainingFeedBack [trainingFeedBackId=" + trainingFeedBackId + ", trainingId=" + trainingId + ", feedback="
-				+ feedback + ", emailId=" + emailId + ", createDate=" + createDate + ", feedbackStatus="
-				+ feedbackStatus + "]";
+				+ feedback + ", emailId=" + emailId + ", createDate=" + createDate + "]";
 	}
 
 }

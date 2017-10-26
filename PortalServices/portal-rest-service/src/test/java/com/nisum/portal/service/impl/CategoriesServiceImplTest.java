@@ -23,6 +23,7 @@ import com.nisum.portal.service.dto.CategoriesDTO;
 import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.exception.CategoryServiceException;
 import com.nisum.portal.util.CategoryServiceUtil;
+import com.nisum.portal.util.Constants;
 import com.nisum.portal.util.KeyConstants;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -130,6 +131,15 @@ public class CategoriesServiceImplTest {
 		assertEquals(serviceStatusDto1.isStatus(), serviceStatusDto.isStatus());
 	}
 	
+	@Test
+	public void deleteCategoriesFailServiceTest() {
+		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
+		serviceStatusDto.setStatus(false);
+		serviceStatusDto.setMessage(Constants.CANT_DELETE_CATEGORY);
+		when(categoriesDAO.deleteCategories(101)).thenReturn(Constants.CANT_DELETE_CATEGORY);
+		ServiceStatusDto serviceStatusDto1 = categoryServiceImpl.deleteCategories(101);
+		assertEquals(serviceStatusDto1.isStatus(), serviceStatusDto.isStatus());
+	}
 	@Test
 	public void getCategoryTest() {
 		Integer id=new Integer(101);

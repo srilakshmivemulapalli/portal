@@ -96,11 +96,26 @@ public class CategoriesRestServiceTest {
 		serviceStatusDto.setStatus(true);
 		serviceStatusDto.setMessage(Constants.CATEGORY_DELETE);
 
-		ResponseEntity<Object> expmsg = new ResponseEntity<Object>(message, HttpStatus.OK);
+		ResponseEntity<Object> expmsg = new ResponseEntity<Object>(serviceStatusDto, HttpStatus.OK);
 		when(categoryService.deleteCategories(101)).thenReturn(serviceStatusDto);
 		ResponseEntity<?> result = mainController.deletingCategories(101);
 		System.out.println(result);
-		assertEquals(serviceStatusDto, expmsg);
+		assertEquals(result.getStatusCode(), expmsg.getStatusCode());
+
+	}
+	@Test
+	public void deleteCategoriesFailTest() throws CategoryServiceException {
+		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
+		serviceStatusDto.setStatus(false);
+		serviceStatusDto.setMessage(Constants.CANT_DELETE_CATEGORY);
+		Errors error = new Errors();
+		error.setErrorCode("417");
+	    error.setErrorMessage(Constants.CANT_DELETE_CATEGORY);
+		ResponseEntity<Object> expmsg = new ResponseEntity<Object>(error, HttpStatus.EXPECTATION_FAILED);
+		when(categoryService.deleteCategories(101)).thenReturn(serviceStatusDto);
+		ResponseEntity<?> result = mainController.deletingCategories(101);
+		System.out.println(result);
+		assertEquals(result.getStatusCode(), expmsg.getStatusCode());
 
 	}
 	

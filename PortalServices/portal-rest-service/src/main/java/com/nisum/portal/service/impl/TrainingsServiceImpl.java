@@ -39,147 +39,30 @@ public class TrainingsServiceImpl implements TrainingsService {
 	private static EmailAccount emailAccount;
 	
 	@Override
-	public TrainingsDTO saveTrainings(TrainingsDTO trainingsDTO) {
-		
-		logger.info("TrainingsServiceImpl::saveTrainings");
-	   Trainings trainings=	TrainingsServiceUtil.convertDtoToDao(trainingsDTO);
-				return TrainingsServiceUtil.convertTrainingsDaoTODto(trainingsDAO.saveTrainings(trainings));
+	public TrainingsDTO saveTrainings(TrainingsDTO trainingsDTO)
+	{
+		 logger.info("TrainingsServiceImpl::saveTrainings");
+	     Trainings trainings=	TrainingsServiceUtil.convertDtoToDao(trainingsDTO);
+	     return TrainingsServiceUtil.convertTrainingsDaoTODto(trainingsDAO.saveTrainings(trainings));
 		
 	}
-
-	
-	/*@Override
-	public List<TrainingsDTO> upComingTrainings(String trainingType,String email) {
-		
-		logger.info("TrainingsServiceImpl::upComingTrainings");
-		
-	List<Trainings> upcomeList=	trainingsDAO.upcomingTraining();
-    LinkedHashSet<Trainings> lst=new LinkedHashSet<Trainings>(trainingsDAO.upcomingTraining());
-	Timestamp createDate = new Timestamp(System.currentTimeMillis());
-	if(trainingType.equals("classroom"))
-	{
-	   for (Trainings trainings : lst) {
-		if(trainings.getTrainingType().equals("classroom"))
-		{
-		    if(trainings.getTrainingDate().before(createDate))
-			upcomeList.remove(trainings);
-		}
-		else 
-			upcomeList.remove(trainings);
-	 }
-	}else
-	{
-		for (Trainings trainings : lst) {
-			if(trainings.getTrainingType().equals("online"))
-			{
-			    if(trainings.getTrainingDate().before(createDate))
-				upcomeList.remove(trainings);
-			}
-			else 
-				upcomeList.remove(trainings);
-		 }
-		
-	}
-	Collections.sort(upcomeList, new Comparator<Trainings>() 
-	{
-
-		@Override
-		public int compare(Trainings t1, Trainings t2) {
-			
-			return t1.getTrainingDate().compareTo(t2.getTrainingDate());
-		}
-		
-	});
-	
-		return TrainingsServiceUtil.convertDaoTODto(upcomeList);
-	} */
 	
 	@Override
 	public List<TrainingsDTO> upComingTrainings(String trainingType,String emailId,UserService userService) {
-		logger.info("TrainingsServiceImpl::upComingTrainings");
-	//	List<Trainings> upcomeList=trainingsDAO.upcomingTraining( trainingType);
-		
-	//	List<TrainingsDTO> TrainingsDTOs=TrainingsServiceUtil.convertDaoTODto(upcomeList);
-		List<TrainingsDTO> upcomeList=TrainingsServiceUtil.convertDaoTODto(trainingsDAO.upcomingTraining( trainingType));
-		 Integer presence;
-		 List<Object[]> noOfStudents;
-		 long durationInSeconds;
-		for(TrainingsDTO trainingsDTO:upcomeList)
-		{
-			if(emailId.compareTo(trainingsDTO.getTrainerEmailId())==0)
-			{
-				trainingsDTO.setTrainingPresence(2);
-			}
-			else
-			{
-			     presence= trainingsDAO.checkTrainingPresence(emailId, trainingsDTO.getTrainingId());
-			    if(presence!=null)
-				   trainingsDTO.setTrainingPresence(presence);
-			    else
-				   trainingsDTO.setTrainingPresence(0);
-			}
-		   
-		    noOfStudents=trainingsDAO.noOfStudents(trainingsDTO.getTrainingId());
-		    if(noOfStudents.size()>0 && noOfStudents!=null )
-		    {
-			  // if(noOfStudents!=null )
-				   trainingsDTO.setNoOfStudents(noOfStudents.size());
-			   
-			  // else
-				  
-			   for(Object[] trainingTouser:noOfStudents)
-			   {
-				   
-				   if(trainingTouser[0]!=null &&(trainingTouser[0].toString()).compareTo(emailId)==0)
-					   trainingsDTO.setTrainingToUserId(Integer.valueOf(trainingTouser[1].toString()));
-			  }
-		    }else
-		    {
-		    	    trainingsDTO.setNoOfStudents(0);
-		    }
-			if(trainingsDTO.getTrainingStartTime()!=null && trainingsDTO.getTrainingEndTime()!=null)
-			{
-				long diff=  trainingsDTO.getTrainingEndTime().getTime()-trainingsDTO.getTrainingStartTime().getTime();
-				long diffHours = diff / (60 * 60 * 1000) % 24;
-				//long diffDays = diff / (24 * 60 * 60 * 1000);
-				long diffMinutes = diff / (60 * 1000) % 60;
-		        long diffSeconds = diff / 1000 % 60;
-		        durationInSeconds=(diffHours*60*60)+(diffMinutes*60)+(diffSeconds);
-				trainingsDTO.setDuration(durationInSeconds);
-			  }
-			UserDTO user=userService.getUsers().get(trainingsDTO.getTrainerEmailId());
-			if(user!=null && StringUtils.isNotEmpty(user.getImage())&&user.getUserName()!=null) {
-				trainingsDTO.setDisplayImage(user.getImage());
-				trainingsDTO.setTrainerName(user.getUserName());
-			}
-			/*List<TrainingFeedBackDTO> comments= this.getTrainingFeedBack(trainingsDTO.getTrainingId());
-			if(comments!=null&&comments.size()>0)
-			{
-				trainingsDTO.setNoOfComments(comments.size());
-				
-			}*/
-			trainingsDTO.setNoOfComments(0);
-			   
-		}
-
-		return upcomeList;
+		 logger.info("TrainingsServiceImpl::upComingTrainings");
+		 List<TrainingsDTO> upcomeList=TrainingsServiceUtil.convertDaoTODto(trainingsDAO.upcomingTraining( trainingType));
+		 this.getTrainingList(emailId, upcomeList, userService);
+		 return upcomeList;
 	}
 
 
 	@Override
-	public List<TrainingsDTO> completedTrainings() {
+	public List<TrainingsDTO> completedTrainings(String emailId,UserService userService) 
+	{
 		logger.info("TrainingsServiceImpl::completedTrainings");
-		/*List<Trainings> upcomeList=	trainingsDAO.completedTraining();
-	    LinkedHashSet<Trainings> lst=new LinkedHashSet<Trainings>(trainingsDAO.completedTraining());
-		Timestamp createDate = new Timestamp(System.currentTimeMillis());
-		for (Trainings trainings : lst) {
-			if(trainings.getTrainingStartDate().after(createDate))
-				upcomeList.remove(trainings);
-			else
-				trainings.setTrainingStatus("completed");
-		}*/
-		
-			return TrainingsServiceUtil.convertDaoTODto(trainingsDAO.completedTraining());
+		List<TrainingsDTO> completedList=TrainingsServiceUtil.convertDaoTODto(trainingsDAO.completedTraining(emailId));
+		this.getTrainingList(emailId, completedList, userService);
+		return completedList;
 	}
 	@Override
 	public TrainingFeedBackDTO addTrainingFeedBack(TrainingFeedBackDTO trainingFeedBackDTO) {
@@ -198,7 +81,6 @@ public class TrainingsServiceImpl implements TrainingsService {
 			status=0;
 		}
 		trainingFeedBackDTO.setCreateDate(createdDate);
-		trainingFeedBackDTO.setFeedbackStatus(status);
 		TrainingFeedBack trainingFeedBack = TrainingFeedBackUtil.convertDtoTODao(trainingFeedBackDTO);
 		TrainingFeedBack feedBack = trainingsDAO.addTrainingsFeedBack(trainingFeedBack);
 		return TrainingFeedBackUtil.convertDaoTODto(feedBack);
@@ -245,12 +127,12 @@ public class TrainingsServiceImpl implements TrainingsService {
 	}
 
 	@Override
-	public TrainingToUserDTO trainingToUser(TrainingToUserDTO trainingToUserDTO) {
+	public TrainingToUserDTO trainingToUser(TrainingToUserDTO trainingToUserDTO) 
+	{
 		logger.info("TrainingsServiceImpl::trainingToUser");
-		TrainingToUser trainingToUser=TrainingsServiceUtil.convertTrainingToUserDtoToDao(trainingToUserDTO);
-		
-		return TrainingsServiceUtil.convertTrainingToUserDaoToDto((trainingsDAO.trainingToUser(trainingToUser)));
-	}
+	    TrainingToUser trainingToUser=TrainingsServiceUtil.convertTrainingToUserDtoToDao(trainingToUserDTO);
+	    return TrainingsServiceUtil.convertTrainingToUserDaoToDto((trainingsDAO.trainingToUser(trainingToUser)));
+	 }
 
 
 	@Override
@@ -271,5 +153,81 @@ public class TrainingsServiceImpl implements TrainingsService {
 	@Autowired
 	public void setEmailAccount(EmailAccount emailAccount) {
 		TrainingsServiceImpl.emailAccount = emailAccount;
+	}
+	public void getTrainingList(String emailId,List<TrainingsDTO> trainingsList,UserService userService)
+	{
+		 long durationInSeconds;
+		 Integer presence;
+		 List<Object[]> noOfStudents;
+		for(TrainingsDTO trainingsDTO:trainingsList)
+		{
+			if(emailId.compareTo(trainingsDTO.getTrainerEmailId())==0)
+			{
+				trainingsDTO.setTrainingPresence(2);
+			}
+			else
+			{
+			     presence= trainingsDAO.checkTrainingPresence(emailId, trainingsDTO.getTrainingId());
+			    if(presence!=null)
+				   trainingsDTO.setTrainingPresence(presence);
+			    else
+				   trainingsDTO.setTrainingPresence(0);
+			}
+			
+			UserDTO user=userService.getUsers().get(trainingsDTO.getTrainerEmailId());
+			if(user!=null && StringUtils.isNotEmpty(user.getImage())&&user.getUserName()!=null) {
+				trainingsDTO.setDisplayImage(user.getImage());
+				trainingsDTO.setTrainerName(user.getUserName());
+			}
+			if(trainingsDTO.getTrainingStartTime()!=null && trainingsDTO.getTrainingEndTime()!=null)
+			{
+				long diff=  trainingsDTO.getTrainingEndTime().getTime()-trainingsDTO.getTrainingStartTime().getTime();
+				long diffHours = diff / (60 * 60 * 1000) % 24;
+				//long diffDays = diff / (24 * 60 * 60 * 1000);
+				long diffMinutes = diff / (60 * 1000) % 60;
+		        long diffSeconds = diff / 1000 % 60;
+		        durationInSeconds=(diffHours*60*60)+(diffMinutes*60)+(diffSeconds);
+				trainingsDTO.setDuration(durationInSeconds);
+			  }
+			  noOfStudents=trainingsDAO.noOfStudents(trainingsDTO.getTrainingId());
+			if(noOfStudents.size()>0 && noOfStudents!=null )
+		    {
+			  // if(noOfStudents!=null )
+				   trainingsDTO.setNoOfStudents(noOfStudents.size());
+			   
+			  // else
+				  
+			   for(Object[] trainingTouser:noOfStudents)
+			   {
+				   
+				   if(trainingTouser[0]!=null &&(trainingTouser[0].toString()).compareTo(emailId)==0)
+					   trainingsDTO.setTrainingToUserId(Integer.valueOf(trainingTouser[1].toString()));
+			  }
+		    }else
+		    {
+		    	    trainingsDTO.setNoOfStudents(0);
+		    }
+			List<TrainingFeedBackDTO> comments= this.getTrainingFeedBack(trainingsDTO.getTrainingId());
+			if(comments!=null&&comments.size()>0)
+			{
+				trainingsDTO.setNoOfComments(comments.size());
+				for(TrainingFeedBackDTO trainingFeedBackDTO:comments)
+				{
+					if(trainingFeedBackDTO.getEmailId().contains(emailId))
+					{
+						trainingsDTO.setCommentDescription(trainingFeedBackDTO.getFeedback());
+					     trainingsDTO.setCommentStatus(1);
+					}
+
+				}
+				
+			}else
+			{
+				 trainingsDTO.setCommentStatus(0);
+				 trainingsDTO.setNoOfComments(0);
+			}
+			
+			
+		}
 	}
 }

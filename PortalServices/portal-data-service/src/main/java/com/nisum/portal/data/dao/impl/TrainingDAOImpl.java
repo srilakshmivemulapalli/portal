@@ -52,10 +52,10 @@ public class TrainingDAOImpl implements TrainingsDAO {
 	}
 
 	@Override
-	public List<Trainings> completedTraining() {
+	public List<Trainings> completedTraining(String emailId) {
 		logger.info("TrainingDAOImpl::completedTraining");
 		//return trainingRepository.findAll();
-		return trainingRepository.fetchCompletedTrainings();
+		return trainingRepository.fetchCompletedTrainings(emailId);
 	}
 
 	@Override
@@ -120,12 +120,13 @@ public class TrainingDAOImpl implements TrainingsDAO {
 
 	@Override
 	public Integer checkTrainingPresence(String emailId, Integer trainingId) {
+		logger.info("TrainingDAOImpl::checkTrainingPresence");
 		return trainingToUserRepository.fetchTrainingPresence(emailId, trainingId);
 	}
 
 	@Override
 	public List<Object[]> noOfStudents(Integer trainingId) {
-		
+		logger.info("TrainingDAOImpl::noOfStudents");
 		return trainingToUserRepository.fetchnoOfStudent(trainingId);
 	}
 

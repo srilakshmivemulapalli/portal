@@ -23,6 +23,8 @@ public class TrainingsDTO {
 	private String displayImage;
 	private Integer noOfComments;
 	private Integer trainingToUserId;
+	private String commentDescription;
+	private Integer commentStatus;
 	public Integer getTrainingId() {
 		return trainingId;
 	}
@@ -126,6 +128,18 @@ public class TrainingsDTO {
 	public void setTrainingToUserId(Integer trainingToUserId) {
 		this.trainingToUserId = trainingToUserId;
 	}
+	public String getCommentDescription() {
+		return commentDescription;
+	}
+	public void setCommentDescription(String commentDescription) {
+		this.commentDescription = commentDescription;
+	}
+	public Integer getCommentStatus() {
+		return commentStatus;
+	}
+	public void setCommentStatus(Integer commentStatus) {
+		this.commentStatus = commentStatus;
+	}
 	@Override
 	public String toString() {
 		return "CategoriesDTO [trainingId=" + trainingId + ", description=" + description + ", trainingStartTime="
@@ -135,7 +149,8 @@ public class TrainingsDTO {
 				+noOfStudents+",trainingStartDate="+trainingStartDate+",trainingEndDate="
 				+trainingEndDate+" ,trainingEndTime="+trainingEndTime+"+duration="+duration+
 						",trainerName="+trainerName+",displayImage="+displayImage+",noOfComments="
-				+noOfComments+",trainingToUserId="+trainingToUserId+"]";	
+				+noOfComments+",trainingToUserId="+trainingToUserId+"+commentDescription="+commentDescription+"commentStatus="
+				+commentStatus+"]";	
 	}
 
 	
