@@ -30,6 +30,4 @@ public interface TrainingsService {
 
 	public List<TrainingFeedBackDTO> getTrainingFeedBack(Integer trainingId);
 
-	public Object removeTrainingRequest(Integer trainingRequestId);
-
 }

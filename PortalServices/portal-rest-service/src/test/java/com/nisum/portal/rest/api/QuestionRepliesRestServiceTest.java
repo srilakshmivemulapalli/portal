@@ -13,6 +13,8 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -92,22 +94,28 @@ public class QuestionRepliesRestServiceTest {
 		questionariesDTO.setQuestion("Question111");
 		questionariesDTO.setQuestionId(1);
 		questionariesDTO.setQuestionRepliesCount(0);
+
 		questionList.add(questionariesDTO);
+
 		QuestionsDTO questionsDTO = new QuestionsDTO();
 		questionsDTO.setTotalQuestions(0);
 		questionsDTO.setTotalUsers(0);
-		questionsDTO.setQuestionDetails(questionList);
+		questionsDTO.setQuestionDetails(questionList);  
 		
 		ResponseEntity<QuestionsDTO> expected = new ResponseEntity<QuestionsDTO>(questionsDTO, HttpStatus.OK);
-		when(questionRepliesService.fetchMyReplyQuestions("test@nisum.com")).thenReturn(questionsDTO);
-		ResponseEntity<QuestionsDTO> actual = questionRepliesRestService.retriveMyReplyQuestions("test@nisum.com");
+		
+		when(questionRepliesService.fetchMyReplyQuestions("test@nisum.com", new PageRequest(0, 3, Sort.Direction.ASC, Constants.SORT_BY_ELEMENT))).thenReturn(questionsDTO);
+		
+		System.out.println(questionRepliesRestService.retriveMyReplyQuestionsByCategory("test@nisum.com", 0, new PageRequest(0,  3)));
+		
+		ResponseEntity<QuestionsDTO> actual = questionRepliesRestService.retriveMyReplyQuestionsByCategory("test@nisum.com", 0, new PageRequest(0,  3));
 		
 		assertEquals(expected, actual);
 	}
 	
 	@Test(expected = Exception.class)
 	public void replyQuestionsException() throws QuestionariesRepliesServiceException {
-		when(questionRepliesRestService.retriveMyReplyQuestions(null)).thenThrow(questionariesRepliesServiceException);
+		when(questionRepliesRestService.retriveMyReplyQuestionsByCategory(null,0, null)).thenThrow(questionariesRepliesServiceException);
 	}
 
 }

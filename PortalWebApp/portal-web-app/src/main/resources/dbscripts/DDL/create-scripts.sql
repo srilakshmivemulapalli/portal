@@ -99,7 +99,7 @@ CREATE TABLE `portal`.`QuestionReplyComment` (
 CREATE TABLE `portal`.`TrainingRequest` (
   `trainingRequestId` int(11) NOT NULL AUTO_INCREMENT,
   `emailid` varchar(45) DEFAULT NULL,
-  `requestTrainingTitle` int(11) DEFAULT NULL,  
+  `requestTrainingTitle` varchar(45) DEFAULT NULL,  
   `description` varchar(100) DEFAULT NULL,
   `requestedDate` datetime DEFAULT NULL,
    PRIMARY KEY (`trainingRequestId`)
@@ -165,16 +165,10 @@ CREATE TABLE `portal`.`ProfileSetting` (
 ) ENGINE=InnoDB DEFAULT CHARSET=big5;
 
 ALTER TABLE `portal`.`TrainingRequest` 
-CHANGE COLUMN `emailId` `emailId` VARCHAR(45) NULL DEFAULT NULL ;
-
-ALTER TABLE `portal`.`TrainingRequest` 
-CHANGE COLUMN `requestTrainingTitle` `requestTrainingTitle` VARCHAR(50) NULL DEFAULT NULL ;
+CHANGE COLUMN `emailid` `emailId` VARCHAR(45) NULL DEFAULT NULL ;
 
 ALTER TABLE `portal`.`TrainingFeedBack` 
 CHANGE COLUMN `rating` `emailId` VARCHAR(50) NULL DEFAULT NULL ;
-
-ALTER TABLE `portal`.`TrainingFeedBack` 
-CHANGE COLUMN `feedbackStatus` `feedbackStatus` INT(1) NOT NULL DEFAULT 0 ;
 
 ALTER TABLE `portal`.`TrainingRequest` 
 ADD COLUMN `requestStatus` INT(1) NULL DEFAULT 0 AFTER `requestedDate`;

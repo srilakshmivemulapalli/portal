@@ -8,11 +8,14 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.nisum.portal.data.dao.api.CategoriesDAO;
 import com.nisum.portal.data.dao.api.QuestionRepliesDAO;
 import com.nisum.portal.data.dao.api.QuestionReplyCommentsDAO;
 import com.nisum.portal.data.dao.api.QuestionariesDAO;
+import com.nisum.portal.data.domain.Categories;
 import com.nisum.portal.data.domain.QuestionReplies;
 import com.nisum.portal.data.domain.QuestionReplyComments;
 import com.nisum.portal.data.domain.Questionaries;
@@ -28,7 +31,7 @@ import com.nisum.portal.util.QuestionariesUtil;
 @Service
 public class QuestionRepliesServiceImpl implements QuestionRepliesService{
 
-	private static Logger logger = LoggerFactory.getLogger(QuestionRepliesServiceImpl.class);
+	private static Logger logger = LoggerFactory.getLogger(QuestionRepliesServiceImpl.class); 
 	
 	@Autowired
 	private QuestionRepliesDAO repliesDAO;
@@ -45,9 +48,13 @@ public class QuestionRepliesServiceImpl implements QuestionRepliesService{
 	@Autowired
 	private QuestionRepliesDAO questionRepliesDAO;
 	
+	@Autowired
+	private CategoriesDAO categoriesDAO;
+
+	
 	@Override
 	public Integer getQuestionariesReplyCount(int questId) {
-		return repliesDAO.getQuestionariesReplyCount(questId);
+		return repliesDAO.getQuestionariesReplyCount(questId); 
 	}
 
 	@Override
@@ -93,10 +100,21 @@ public class QuestionRepliesServiceImpl implements QuestionRepliesService{
 	}
 
 	@Override
-	public QuestionsDTO fetchMyReplyQuestions(String emailId) {
+	public QuestionsDTO fetchMyReplyQuestions(String emailId, Pageable pageable) {
 		logger.info("QuestionRepliesServiceImpl :: fetchMyReplyQuestions :: finding reply questions");
 		emailId = emailId.substring(0, emailId.indexOf("@"))+"@nisum.com";
-		List<Questionaries> questionariesList = repliesDAO.getMyReplyQuestions(emailId);
+		List<Questionaries> questionariesList = repliesDAO.getMyReplyQuestions(emailId, pageable);
+		QuestionsDTO questionsDTO = new QuestionsDTO();
+		questionsDTO.setTotalQuestions(questionariesList.size());
+		return QuestionariesUtil.convertDaoToDto(questionariesList,questionsDTO,userervice);
+	}
+
+	@Override
+	public QuestionsDTO fetchMyReplyQuestionsByCategory(String emailId, Integer categoryId, Pageable pageable) {
+		logger.info("QuestionRepliesServiceImpl :: fetchMyReplyQuestionsByCategory :: finding reply questions by category");
+		emailId = emailId.substring(0, emailId.indexOf("@"))+"@nisum.com";
+		Categories category=categoriesDAO.getCategory(categoryId);
+		List<Questionaries> questionariesList = repliesDAO.getMyReplyQuestionsByCategory(emailId, category, pageable);
 		QuestionsDTO questionsDTO = new QuestionsDTO();
 		questionsDTO.setTotalQuestions(questionariesList.size());
 		return QuestionariesUtil.convertDaoToDto(questionariesList,questionsDTO,userervice);

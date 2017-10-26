@@ -178,21 +178,6 @@ public class TrainingsRestService {
 				return new ResponseEntity<Errors>(error, HttpStatus.OK);
 			}
 	}
-	@RequestMapping(value = "/removeTrainingRequest/{id}", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
-	public Object removeTrainingRequest(@PathVariable("id") Integer trainingRequestId) throws TrainingsServiceException{
-
-		logger.info("TrainingsRestService :: removeTrainingRequest ");
-		try {
-				return trainingsService.removeTrainingRequest(trainingRequestId);
-			}
-			catch(Exception e) {
-				logger.error(Constants.Training_No_Data);
-				Errors error = new Errors();
-				error.setErrorCode("Error-All Trainings Requests");
-				error.setErrorMessage(Constants.Training_No_Data);
-				return new ResponseEntity<Errors>(error, HttpStatus.OK);
-			}
-	}
 	@RequestMapping(value = "/getAllTrainingFeedBack", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
 	public Object getAllTrainingFeedBacks() throws TrainingsServiceException{
 

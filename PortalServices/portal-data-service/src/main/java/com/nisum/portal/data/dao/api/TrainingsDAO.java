@@ -35,5 +35,4 @@ public interface TrainingsDAO {
 
 	List<TrainingFeedBack> getTrainingFeedBacksByTrainingId(Integer trainingId);
 
-	public Object removeTrainingRequest(Integer trainingRequestId);
 }

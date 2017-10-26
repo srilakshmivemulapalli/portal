@@ -17,7 +17,7 @@ public class UserDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Integer userId;
+	private int userId;
 	private String emailId;
 	private String userName;
 	private Timestamp loginDate;

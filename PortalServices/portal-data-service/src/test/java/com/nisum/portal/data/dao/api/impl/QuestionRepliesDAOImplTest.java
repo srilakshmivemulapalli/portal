@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.data.domain.PageRequest;
 
 import com.nisum.portal.data.dao.impl.QuestionRepliesDAOImpl;
 import com.nisum.portal.data.domain.Questionaries;
@@ -32,13 +33,13 @@ public class QuestionRepliesDAOImplTest {
 		questionaries.setEmailId("test@nisum.com");
 		questionaries.setQuestion("What is java");
 		questionaries.setQuestionId(1);
-		
+	
 		List<Questionaries> questionsList = new ArrayList<Questionaries>();
 		questionsList.add(questionaries);
 		
-		when(questionRepliesRepository.getMyReplyQuestions("test@nisum.com")).thenReturn(questionsList);
+		when(questionRepliesRepository.getMyReplyQuestions("test@nisum.com", new PageRequest(0, 3))).thenReturn(questionsList);
 		
-		List<Questionaries> expected = questionRepliesDAOImpl.getMyReplyQuestions("test@nisum.com");
+		List<Questionaries> expected = questionRepliesDAOImpl.getMyReplyQuestions("test@nisum.com", new PageRequest(0, 3));
 		assertEquals(expected.size(), questionsList.size());
 	}
 

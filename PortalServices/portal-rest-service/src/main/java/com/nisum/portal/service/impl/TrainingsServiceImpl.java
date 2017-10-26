@@ -268,12 +268,6 @@ public class TrainingsServiceImpl implements TrainingsService {
 		return TrainingFeedBackUtil.convertDaoListToDto(list);
 	}
 
-
-	@Override
-	public Object removeTrainingRequest(Integer trainingRequestId) {
-		// TODO Auto-generated method stub
-		return trainingsDAO.removeTrainingRequest(trainingRequestId);
-	}
 	@Autowired
 	public void setEmailAccount(EmailAccount emailAccount) {
 		TrainingsServiceImpl.emailAccount = emailAccount;

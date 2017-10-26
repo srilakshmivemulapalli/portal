@@ -9,6 +9,9 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -129,13 +132,17 @@ public class QuestionRepliesRestService {
 	 * @return list of questions
 	 * @throws QuestionariesRepliesServiceException
 	 */
-	@RequestMapping(value = "/retrieve/myReplyQuestions/{emailId}", method = RequestMethod.GET)
-	public ResponseEntity<QuestionsDTO> retriveMyReplyQuestions(@PathVariable String emailId) throws QuestionariesRepliesServiceException {
+	@RequestMapping(value = "/retrieve/myReplyQuestions/{emailId}/{categoryId}", method = RequestMethod.GET)
+	public ResponseEntity<QuestionsDTO> retriveMyReplyQuestionsByCategory(@PathVariable String emailId, @PathVariable Integer categoryId, Pageable pageable) throws QuestionariesRepliesServiceException {
 		try {
-			logger.info("QuestionRepliesRestService :: retriveMyReplyQuestion");
-			return new ResponseEntity<QuestionsDTO>(questionRepliesService.fetchMyReplyQuestions(emailId), HttpStatus.OK);
-		} catch(Exception e) {
-			logger.info("QuestionRepliesRestService :: retriveMyReplyQuestions :: Internal Server Error");
+				logger.info("QuestionRepliesRestService :: retriveMyReplyQuestionByCategory");
+				if(categoryId==0) { 
+					return new ResponseEntity<QuestionsDTO>(questionRepliesService.fetchMyReplyQuestions(emailId, new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Sort.Direction.ASC, Constants.SORT_BY_ELEMENT)), HttpStatus.OK);
+				}else {
+					return new ResponseEntity<QuestionsDTO>(questionRepliesService.fetchMyReplyQuestionsByCategory(emailId, categoryId, new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Sort.Direction.ASC, Constants.SORT_BY_ELEMENT)), HttpStatus.OK);
+				}
+			} catch(Exception e) {
+			logger.info("QuestionRepliesRestService :: retriveMyReplyQuestionsByCategory :: Internal Server Error");
 			throw new QuestionariesRepliesServiceException(Constants.INTERNALSERVERERROR);
 		}
 	}
@@ -148,7 +155,7 @@ public class QuestionRepliesRestService {
 	@ExceptionHandler(QuestionariesRepliesServiceException.class)
 	public ResponseEntity<Errors> exceptionHandler(Exception ex) {
 		Errors errors = new Errors();
-		errors.setErrorCode("Error-Categories");
+		errors.setErrorCode("Error-QuestionReplies");
 		errors.setErrorMessage(ex.getMessage());
 		return new ResponseEntity<Errors>(errors, HttpStatus.OK);
 	}
