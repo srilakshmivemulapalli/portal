@@ -9,15 +9,13 @@ import com.nisum.portal.data.domain.Trainings;
 
 public interface TrainingsDAO {
 
-
-//	public List<Trainings> upcomingTraining();
 	
 	public List<Object[]> noOfStudents(Integer trainingId);
 	
 
 	public List<Trainings> upcomingTraining(String trainingType);
 
-	public List<Trainings> completedTraining();
+	public List<Trainings> completedTraining(String emailId);
 
 	public Trainings saveTrainings(Trainings trainings);
 

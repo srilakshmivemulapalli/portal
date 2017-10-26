@@ -14,7 +14,7 @@ public interface TrainingsService {
 	
 	public List<TrainingsDTO> upComingTrainings(String trainingType,String emailId,UserService userService);
 
-	public List<TrainingsDTO> completedTrainings();
+	public List<TrainingsDTO> completedTrainings(String emailId, UserService userService);
 
 	public TrainingsDTO saveTrainings(TrainingsDTO trainingsDTO);
 	
