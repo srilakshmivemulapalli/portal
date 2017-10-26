@@ -6,7 +6,10 @@ import static org.mockito.Mockito.when;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.json.HTTP;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -15,12 +18,16 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import com.nisum.portal.data.domain.User;
+import com.nisum.portal.data.domain.UserRole;
+import com.nisum.portal.data.repository.UserProfileRepository;
 import com.nisum.portal.service.api.QuestionariesService;
 import com.nisum.portal.service.dto.AddQuestionDTO;
 import com.nisum.portal.service.dto.CountDTO;
 import com.nisum.portal.service.dto.Errors;
 import com.nisum.portal.service.dto.QuestionariesCommentsDTO;
 import com.nisum.portal.service.dto.ServiceStatusDto;
+import com.nisum.portal.service.exception.QuestionariesRepliesServiceException;
 import com.nisum.portal.service.exception.QuestionariesServiceException;
 import com.nisum.portal.util.Constants;
 
@@ -35,6 +42,9 @@ public class QuestionariesRestServiceTest {
 	
 	@InjectMocks
 	QuestionariesServiceException questionariesServiceException;
+	
+	@Mock
+	UserProfileRepository userProfileRepository;
 	
 	
 	@Test
@@ -139,6 +149,77 @@ public class QuestionariesRestServiceTest {
 	expected.setStatus(false);
 	ResponseEntity<ServiceStatusDto> expectedEntity = new ResponseEntity<ServiceStatusDto>(expected,HttpStatus.EXPECTATION_FAILED);
 	assertEquals(expectedEntity.getStatusCode(), actual.getStatusCode());
+	}
+	
+	@Test
+	public void saveQuestionaries() throws QuestionariesServiceException {
+		
+		AddQuestionDTO req = new AddQuestionDTO();
+		req.setCategoryId(1);
+		req.setDescription("description");
+		req.setEmailId("test@nisuum.com");
+		req.setQuestion("what is question");
+		
+		User user = new User();
+		UserRole role = new UserRole();
+		role.setRole("admin");
+		role.setRoleId(1);
+		List<User> userList = new ArrayList<User>();
+		user.setActiveStatus("yes");
+		user.setEmailId("test@nisum.com");
+		user.setImage("imkdsdjsndjsdnjsdn");
+		user.setUserName("userName");
+		user.setNotifications("true");
+		user.setRole(role);
+		userList.add(user);
+		when(userProfileRepository.findByCategoryId(req.getCategoryId())).thenReturn(userList);
+		String status = "Success";
+		when(questionariesService.saveQuestions(req.getEmailId(), req.getCategoryId(),
+					req.getQuestion(), req.getQuestion())).thenReturn(status);
+		
+		ServiceStatusDto expected = new ServiceStatusDto();
+		expected.setMessage(status);
+		
+		ResponseEntity<?> actual = questionariesRestService.saveQuestionaries(req);
+		assertEquals(HttpStatus.OK, actual.getStatusCode());
+	}
+	
+	@Test
+	public void saveQuestionariesFail() throws QuestionariesServiceException {
+		
+		AddQuestionDTO req = new AddQuestionDTO();
+		req.setCategoryId(1);
+		req.setDescription("description");
+		req.setEmailId("test@nisuum.com");
+		req.setQuestion("what is question");
+		
+		User user = new User();
+		UserRole role = new UserRole();
+		role.setRole("admin");
+		role.setRoleId(1);
+		List<User> userList = new ArrayList<User>();
+		user.setActiveStatus("yes");
+		user.setEmailId("test@nisum.com");
+		user.setImage("imkdsdjsndjsdnjsdn");
+		user.setUserName("userName");
+		user.setNotifications("true");
+		user.setRole(role);
+		userList.add(user);
+		when(userProfileRepository.findByCategoryId(req.getCategoryId())).thenReturn(userList);
+		String status = "Category Details doest'n Exist !!";
+		when(questionariesService.saveQuestions(req.getEmailId(), req.getCategoryId(),
+					req.getQuestion(), req.getQuestion())).thenReturn(status);
+		
+		ServiceStatusDto expected = new ServiceStatusDto();
+		expected.setMessage(status);
+		
+		ResponseEntity<?> actual = questionariesRestService.saveQuestionaries(req);
+		assertEquals(HttpStatus.EXPECTATION_FAILED, actual.getStatusCode());
+	}
+
+	@Test(expected = Exception.class)
+	public void addQuestionsException() throws QuestionariesServiceException {
+		when(questionariesRestService.saveQuestionaries(null)).thenThrow(questionariesServiceException);
 	}
 
 }
