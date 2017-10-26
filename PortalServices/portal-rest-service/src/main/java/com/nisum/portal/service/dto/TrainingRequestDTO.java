@@ -8,6 +8,7 @@ public class TrainingRequestDTO {
 	private String requestTrainingTitle;
 	private String description;
 	private Timestamp requestedDate;
+	private Integer requestStatus;
 	public Integer getTrainingRequestId() {
 		return trainingRequestId;
 	}
@@ -38,12 +39,19 @@ public class TrainingRequestDTO {
 	public void setRequestedDate(Timestamp requestedDate) {
 		this.requestedDate = requestedDate;
 	}
+	public Integer getRequestStatus() {
+		return requestStatus;
+	}
+	public void setRequestStatus(Integer requestStatus) {
+		this.requestStatus = requestStatus;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
+		result = prime * result + ((requestStatus == null) ? 0 : requestStatus.hashCode());
 		result = prime * result + ((requestTrainingTitle == null) ? 0 : requestTrainingTitle.hashCode());
 		result = prime * result + ((requestedDate == null) ? 0 : requestedDate.hashCode());
 		result = prime * result + ((trainingRequestId == null) ? 0 : trainingRequestId.hashCode());
@@ -68,6 +76,11 @@ public class TrainingRequestDTO {
 				return false;
 		} else if (!emailId.equals(other.emailId))
 			return false;
+		if (requestStatus == null) {
+			if (other.requestStatus != null)
+				return false;
+		} else if (!requestStatus.equals(other.requestStatus))
+			return false;
 		if (requestTrainingTitle == null) {
 			if (other.requestTrainingTitle != null)
 				return false;
@@ -87,8 +100,8 @@ public class TrainingRequestDTO {
 	}
 	@Override
 	public String toString() {
-		return "TrainingRequestDTO [trainingRequestId=" + trainingRequestId + ", emailid=" + emailId
+		return "TrainingRequestDTO [trainingRequestId=" + trainingRequestId + ", emailId=" + emailId
 				+ ", requestTrainingTitle=" + requestTrainingTitle + ", description=" + description + ", requestedDate="
-				+ requestedDate + "]";
+				+ requestedDate + ", requestStatus=" + requestStatus + "]";
 	}
 }

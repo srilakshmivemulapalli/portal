@@ -175,3 +175,6 @@ CHANGE COLUMN `rating` `emailId` VARCHAR(50) NULL DEFAULT NULL ;
 
 ALTER TABLE `portal`.`TrainingFeedBack` 
 CHANGE COLUMN `feedbackStatus` `feedbackStatus` INT(1) NOT NULL DEFAULT 0 ;
+
+ALTER TABLE `portal`.`TrainingRequest` 
+ADD COLUMN `requestStatus` INT(1) NULL DEFAULT 0 AFTER `requestedDate`;

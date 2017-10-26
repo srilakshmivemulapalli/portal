@@ -58,7 +58,7 @@ public class TrainingRestServiceTest {
 		assertEquals(expected.getBody().getErrorMessage(), actual.getBody().getErrorMessage());
 	}
 	@Test
-	public void addTrainingRequestTest() {
+	public void addTrainingRequestTest() throws Exception {
 		TrainingRequestDTO dto=new TrainingRequestDTO();
 		ServiceStatusDto statusDtoExpected = new ServiceStatusDto();
 		statusDtoExpected.setStatus(true);
@@ -68,7 +68,7 @@ public class TrainingRestServiceTest {
 		assertEquals(statusDtoExpected, statusDtoActual.getBody());
 	}
 	@Test
-	public void addTrainingRequestFailureTest()
+	public void addTrainingRequestFailureTest() throws Exception
 	{
 		TrainingRequestDTO dto = new TrainingRequestDTO();
 		ServiceStatusDto statusDtoExpected=new ServiceStatusDto();
