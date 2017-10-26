@@ -20,6 +20,7 @@ public class TrainingRequestUtil {
 				trainingRequestDto.setRequestTrainingTitle(trainingRequests.getRequestTrainingTitle());
 				trainingRequestDto.setDescription(trainingRequests.getDescription());
 				trainingRequestDto.setRequestedDate(trainingRequests.getRequestedDate());
+				trainingRequestDto.setRequestStatus(trainingRequests.getRequestStatus());
 				trainingRequestDTO.add(trainingRequestDto);
 			}
 		}
@@ -33,6 +34,7 @@ public class TrainingRequestUtil {
 		trainingRequest.setRequestTrainingTitle(trainingRequestDTO.getRequestTrainingTitle());
 		trainingRequest.setDescription(trainingRequestDTO.getDescription());
 		trainingRequest.setRequestedDate(trainingRequestDTO.getRequestedDate());
+		trainingRequest.setRequestStatus(trainingRequestDTO.getRequestStatus());
 		return trainingRequest;
 	}
 	public static TrainingRequestDTO convertDaoTODto(TrainingRequest trainingRequest) {
@@ -42,6 +44,7 @@ public class TrainingRequestUtil {
 		trainingRequestDTO.setRequestTrainingTitle(trainingRequest.getRequestTrainingTitle());
 		trainingRequestDTO.setDescription(trainingRequest.getDescription());
 		trainingRequestDTO.setRequestedDate(trainingRequestDTO.getRequestedDate());
+		trainingRequestDTO.setRequestStatus(trainingRequest.getRequestStatus());
 		return trainingRequestDTO;
 	}
 }

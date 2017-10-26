@@ -72,7 +72,7 @@ public class TrainingServiceImplTest {
 		//assertEquals(serviceStatusDto.getMessage(), actual.getMessage());
 	}
 	@Test
-	public void addTrainingRequesSuccesstTest(){
+	public void addTrainingRequesSuccesstTest() throws Exception{
 		TrainingRequestDTO trainingRequestDTO = new TrainingRequestDTO();
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		trainingRequestDTO.setRequestedDate(timestamp);
@@ -95,7 +95,7 @@ public class TrainingServiceImplTest {
 		assertEquals(expectedStatus.getMessage(), actualStatus.getMessage());
 	}
 	@Test
-	public void addTrainingRequestFailureTest() {
+	public void addTrainingRequestFailureTest() throws Exception {
 		TrainingRequestDTO dto = new TrainingRequestDTO();
 		TrainingRequest dao = TrainingRequestUtil.convertDtoTODao(dto);
 		ServiceStatusDto expectedStatus = new ServiceStatusDto();

@@ -121,7 +121,29 @@ public class MailSender {
 
 	}
 
+	public static String trainingReqestBody(String topic,String id,String description){
 
+		StringBuilder sb = new StringBuilder();
+
+		sb.append("<html><head></head><title></title>");
+		sb.append("<body style='font-size:12px;font-family:Trebuchet MS;'>");
+		sb.append("<i><b>Hi Admin,</b></i>");
+		sb.append("<br><br>");
+		sb.append("<i> I am Looking for training on "+"<b><font color=red>"+topic+"</font></b></i>");
+		sb.append("<br><br>");
+		sb.append("<i>Description :</i>");
+		sb.append("<br><br>");
+		sb.append("<i>"+description+"</i>");
+		sb.append("<br><br>");
+		sb.append("<i>Please do Needful and If There is a plan to arrange training on this, "+topic+" Please Let me Know</i>");
+		sb.append("<br><br>");
+		sb.append("<i>Regards,</i>");
+		sb.append("<br><br>");
+		sb.append("<i><b><font color=red>"+id+".</font><b></i>");
+		
+		return sb.toString();
+
+	}
 	public static String removeLastChar(String str) {
 		return str.substring(0,str.length()-1);
 	}
