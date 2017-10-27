@@ -1,6 +1,7 @@
 package com.nisum.portal.service.dto;
 
 import java.sql.Timestamp;
+import java.util.Map;
 
 public class TrainingsDTO {
 
@@ -23,7 +24,7 @@ public class TrainingsDTO {
 	private String displayImage;
 	private Integer noOfComments;
 	private Integer trainingToUserId;
-	private String commentDescription;
+	private Map<String,String> commentDescriptions;
 	private Integer commentStatus;
 	public Integer getTrainingId() {
 		return trainingId;
@@ -128,11 +129,12 @@ public class TrainingsDTO {
 	public void setTrainingToUserId(Integer trainingToUserId) {
 		this.trainingToUserId = trainingToUserId;
 	}
-	public String getCommentDescription() {
-		return commentDescription;
+	
+	public Map<String, String> getCommentDescriptions() {
+		return commentDescriptions;
 	}
-	public void setCommentDescription(String commentDescription) {
-		this.commentDescription = commentDescription;
+	public void setCommentDescriptions(Map<String, String> commentDescriptions) {
+		this.commentDescriptions = commentDescriptions;
 	}
 	public Integer getCommentStatus() {
 		return commentStatus;
@@ -149,7 +151,7 @@ public class TrainingsDTO {
 				+noOfStudents+",trainingStartDate="+trainingStartDate+",trainingEndDate="
 				+trainingEndDate+" ,trainingEndTime="+trainingEndTime+"+duration="+duration+
 						",trainerName="+trainerName+",displayImage="+displayImage+",noOfComments="
-				+noOfComments+",trainingToUserId="+trainingToUserId+"+commentDescription="+commentDescription+"commentStatus="
+				+noOfComments+",trainingToUserId="+trainingToUserId+"+commentDescriptions="+commentDescriptions+"commentStatus="
 				+commentStatus+"]";	
 	}
 

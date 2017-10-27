@@ -2,6 +2,7 @@ package com.nisum.portal.service.impl;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -208,6 +209,7 @@ public class TrainingsServiceImpl implements TrainingsService {
 		    	    trainingsDTO.setNoOfStudents(0);
 		    }
 			List<TrainingFeedBackDTO> comments= this.getTrainingFeedBack(trainingsDTO.getTrainingId());
+			LinkedHashMap<String,String> commentList=new LinkedHashMap<String,String>();
 			if(comments!=null&&comments.size()>0)
 			{
 				trainingsDTO.setNoOfComments(comments.size());
@@ -215,11 +217,19 @@ public class TrainingsServiceImpl implements TrainingsService {
 				{
 					if(trainingFeedBackDTO.getEmailId().contains(emailId))
 					{
-						trainingsDTO.setCommentDescription(trainingFeedBackDTO.getFeedback());
+						//trainingsDTO.setCommentDescription(trainingFeedBackDTO.getFeedback());
 					     trainingsDTO.setCommentStatus(1);
+					}
+					if(emailId.compareTo(trainingsDTO.getTrainerEmailId())==0)
+					{
+						UserDTO commentedUser=userService.getUsers().get(trainingFeedBackDTO.getEmailId());
+						if(commentedUser!=null &&commentedUser.getUserName()!=null) 
+					      commentList.put(commentedUser.getUserName(), trainingFeedBackDTO.getFeedback());
 					}
 
 				}
+				
+				   trainingsDTO.setCommentDescriptions(commentList);
 				
 			}else
 			{
