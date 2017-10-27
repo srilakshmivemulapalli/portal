@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -18,15 +19,22 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import com.nisum.portal.data.dao.api.TrainingsDAO;
 import com.nisum.portal.data.domain.TrainingFeedBack;
 import com.nisum.portal.data.domain.TrainingRequest;
+import com.nisum.portal.data.domain.TrainingToUser;
+import com.nisum.portal.data.domain.Trainings;
 import com.nisum.portal.data.repository.TrainingRequestRepository;
+import com.nisum.portal.service.api.UserService;
 import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.dto.TrainingFeedBackDTO;
 import com.nisum.portal.service.dto.TrainingRequestDTO;
+import com.nisum.portal.service.dto.TrainingToUserDTO;
+import com.nisum.portal.service.dto.TrainingsDTO;
+import com.nisum.portal.service.dto.UserDTO;
 import com.nisum.portal.util.TrainingFeedBackUtil;
 import com.nisum.portal.util.TrainingRequestUtil;
+import com.nisum.portal.util.TrainingsServiceUtil;
 //@RunWith(MockitoJUnitRunner.class)
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({TrainingFeedBackUtil.class,TrainingRequestUtil.class})
+@PrepareForTest({TrainingFeedBackUtil.class,TrainingRequestUtil.class,TrainingsServiceUtil.class})
 public class TrainingServiceImplTest {
 	@InjectMocks
 	TrainingsServiceImpl trainingsServiceImpl;
@@ -34,6 +42,9 @@ public class TrainingServiceImplTest {
 	TrainingsDAO trainingsDAO;
 	@Mock
 	TrainingRequestRepository trainingRequestRepository;
+	
+	@Mock
+	UserService userService;
 	@Test
 	public void addTrainingFeedBackSuccessTest(){
 		TrainingFeedBackDTO trainingFeedBackDTO = new TrainingFeedBackDTO();
@@ -112,4 +123,70 @@ public class TrainingServiceImplTest {
 		List<TrainingRequestDTO> actual = trainingsServiceImpl.getAllTrainingRequests();
 		assertEquals(expected, actual);
 	}
+	
+	@Test
+	public void saveTrainingsTest(){
+		
+		TrainingsDTO trainingDto=new  TrainingsDTO();
+		trainingDto.setDescription("JAVA ADvance");
+		trainingDto.setTrainingId(1);
+		trainingDto.setTrainingStatus("Created");
+		trainingDto.setTrainerEmailId("trainer1@nisum.com");
+		trainingDto.setTrainingTitle("JAVA");
+		trainingDto.setTrainingType("TECH");
+		trainingDto.setTrainingStartDate(new Timestamp(new Date(2017-10-30).getTime()));
+		trainingDto.setTrainingEndDate(new Timestamp(new Date(2017-11-30).getTime()));
+		trainingDto.setTrainingEndTime(new Timestamp(new Date(2017-10-30).getTime()));
+		trainingDto.setTrainingStartTime(new Timestamp(new Date(2017-10-30).getTime()));
+		
+		PowerMockito.mockStatic(TrainingsServiceUtil.class);
+		
+		Trainings training=new Trainings();
+		training.setTrainingId(1);
+		
+		PowerMockito.when(TrainingsServiceUtil.convertDtoToDao(trainingDto)).thenReturn(training);
+		when(trainingsDAO.saveTrainings(training)).thenReturn(training);
+		PowerMockito.when(TrainingsServiceUtil.convertTrainingsDaoTODto(training)).thenReturn(trainingDto);
+		
+		TrainingsDTO actual=trainingsServiceImpl.saveTrainings(trainingDto); 
+		
+		System.out.println(actual.getTrainingTitle());
+		assertEquals(trainingDto.getTrainingId(), actual.getTrainingId());
+	
+	}
+
+	@Test
+	public void upComingTrainingsTest(){
+		List<TrainingsDTO> upcomeList=new ArrayList<TrainingsDTO>();
+		UserDTO user=new UserDTO();
+		String email=user.getEmailId();
+		
+		PowerMockito.mockStatic(TrainingsServiceUtil.class);
+		PowerMockito.when(TrainingsServiceUtil.convertDaoTODto(trainingsDAO.upcomingTraining("classroom"))).thenReturn(upcomeList);
+		List<TrainingsDTO> actual=trainingsServiceImpl.upComingTrainings("classroom", email, userService);
+		assertEquals(upcomeList,actual);
+	}
+	
+	@Test
+	public void completedTrainingsTest(){
+		List<TrainingsDTO> dtoList=new ArrayList<TrainingsDTO>();
+		List<Trainings>trainingList=new ArrayList<Trainings>();
+		UserDTO user=new UserDTO();
+		String email=user.getEmailId();
+		PowerMockito.mockStatic(TrainingsServiceUtil.class);
+		PowerMockito.when(TrainingsServiceUtil.convertDaoTODto(trainingList)).thenReturn(dtoList);
+		List<TrainingsDTO> actualList=trainingsServiceImpl.completedTrainings(email, userService);
+		assertEquals(dtoList,actualList);
+	}
+	
+	@Test
+	public void trainingToUser(){
+		TrainingToUserDTO expected=new TrainingToUserDTO();
+		TrainingToUser trainingToUser=new TrainingToUser();
+		PowerMockito.mockStatic(TrainingsServiceUtil.class);
+		PowerMockito.when(TrainingsServiceUtil.convertTrainingToUserDaoToDto(trainingsDAO.trainingToUser(trainingToUser))).thenReturn(expected);
+		TrainingToUserDTO actual=trainingsServiceImpl.trainingToUser(expected);
+		assertEquals(expected,actual);
+	}
+
 }
