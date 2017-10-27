@@ -1,8 +1,8 @@
 <div class="col-md-1 col-xs-1"></div>
 <div class="col-md-9 col-xs-9 main-content" style="padding-top: 30px;">
-	<div class="col-md-6 col-xs-6 current-category">
+	<!-- <div class="col-md-6 col-xs-6 current-category">
 		<span>Configurations</span>
-	</div>
+	</div> -->
 	<div class="col-md-12 col-xs-12">
 		<div class="errStatus" ng-if="errorMessage!='';">{{errorMessage}}</div>
 		<div class="success" ng-if="successMessage!='';">{{successMessage}}</div>
@@ -15,9 +15,11 @@
 			<li><a data-target="#2" data-toggle="tab" ng-click='getRoles()'>Roles</a></li>
 			<li><a data-target="#3" data-toggle="tab"
 				ng-click='getCategories()'>Categories</a></li>
+			<li><a data-target="#4" data-toggle="tab"
+				ng-click='getTrainingRequests()'>Approve Training's</a></li>
 		</ul>
 	</div>
-	
+
 	<div class="col-md-12 col-xs-12 tab-content ">
 		<div class="tab-pane active" id="1">
 			<div align="center" style="color: #2535A9;">
@@ -76,19 +78,19 @@
 			<div class="row">
 				<div class="col-md-6"></div>
 				<div class="col-md-6" ng-show="!addrole">
-					<input class='btn-normal' type="button" value="Add Role"
+					<input class='custombtn btn-normal' type="button" value="Add Role"
 						ng-click="addrole=true;roleobj.role='';" style="float: right;" />
 				</div>
 				<div class="col-md-6" ng-show="addrole">
-					<form name="roleadd" class="form-inline" ng-submit="addRole();" style="float: right;">
+					<form name="roleadd" class="form-inline" ng-submit="addRole();"
+						style="float: right;">
 						<!-- addrole.$dirty &&  -->
 						<div class="form-group">
-							<input type="text"
-								class="form-control" id="role" placeholder="Role Name"
-								ng-model="roleobj.role" required>
+							<input type="text" class="form-control" id="role"
+								placeholder="Role Name" ng-model="roleobj.role" required>
 						</div>
-						<button type="submit" class="btn-normal">Add</button>
-						<button type="button" class='btn-cancel' ng-click="clear();">Cancel</button>
+						<button type="submit" class="custombtn btn-normal">Add</button>
+						<button type="button" class='custombtn btn-cancel' ng-click="clear();">Cancel</button>
 					</form>
 
 
@@ -136,27 +138,27 @@
 			<div class="row">
 				<div class="col-md-3"></div>
 				<div class="col-md-9" ng-show="!addcategory">
-					<input class='btn-normal' type="button" value="Add Category"
+					<input class='custombtn btn-normal' type="button" value="Add Category"
 						ng-click="addcategory=true;categoryobj.categoryName='';categoryobj.description='';"
 						style="float: right;" />
 				</div>
 				<div class="col-md-9" ng-show="addcategory">
-					<form name="addcat" class="form-inline" ng-submit="addCategory();" style="float: right;">
+					<form name="addcat" class="form-inline" ng-submit="addCategory();"
+						style="float: right;">
 						<!-- addrole.$dirty &&  -->
 						<div class="form-group">
-							<input type="text"
-								class="form-control" id="categoryname"
+							<input type="text" class="form-control" id="categoryname"
 								placeholder="Category Name" limit-To="100"
 								ng-model="categoryobj.categoryName" required>
 						</div>
 						<div class="form-group">
-							
+
 							<textarea type="text" class="form-control" id="description"
 								autogrow placeholder="Category Description"
 								ng-model="categoryobj.description" limit-To="200" required></textarea>
 						</div>
-						<button type="submit" class="btn-normal">Add</button>
-						<button type="button" class='btn-cancel' ng-click="clear();">Cancel</button>
+						<button type="submit" class="custombtn btn-normal">Add</button>
+						<button type="button" class='custombtn btn-cancel' ng-click="clear();">Cancel</button>
 					</form>
 
 				</div>
@@ -201,6 +203,83 @@
 
 			</div>
 		</div>
+		<div class="tab-pane" id="4">
+			<!-- <div align="center" style="color: #2535A9;">
+				<h3>Trainings details</h3>
+			</div>
+ -->
+			<div class="trainingstable row">
+				<div class="col-md-12 col-xs-12">
+					<div class="col-md-4 col-xs-4">
+						<h4>Training</h4>
+					</div>
+					<div class="col-md-offset-4 col-xs-offset-4 col-md-2 col-xs-2">
+						<h4>Status</h4>
+					</div>
+					<div class="col-md-2 col-xs-2">
+						<h4>Approval</h4>
+					</div>
+				</div>
+
+				<div class="col-md-12 col-xs-12 list-group">
+					<div class=" col-md-12 col-xs-12 list-group-item">
+						<div class="col-md-4 col-xs-4">
+							<h4>Java training</h4>
+							<p>from 29 sep,2017- 29 sep,2017</p>
+						</div>
+						<div class="col-md-4 col-xs-4">
+							<p>11:30AM -12:30PM</p>
+						</div>
+						<div class="col-md-2 col-xs-2">
+							<p style="color: red;">pending</p>
+							<!-- <p style="color:green;">Approved</p> -->
+						</div>
+						<div class="col-md-2 col-xs-2">
+							
+								<button class="custombtn btn-approve">Approve</button>
+							
+								<button class="custombtn btn-reject">Reject</button>
+					
+						</div>
+						<!-- 
+					<a href="javascript:void(0);" class="">
+						<h4 class="list-group-item-heading">Java training</h4>
+						<p class="list-group-item-text">HTML stands for HyperText
+							Markup Language. HTML is the main markup language for describing
+							the structure of Web pages.</p>
+					</a> <a href="javascript:void(0);" class="list-group-item active">
+						<h4 class="list-group-item-heading">What is Bootstrap?</h4>
+						<p class="list-group-item-text">Bootstrap is a powerful
+							front-end framework for faster and easier web development. It is
+							a collection of HTML and CSS based design template.</p>
+					</a> <a href="javascript:void(0);" class="list-group-item">
+						<h4 class="list-group-item-heading">What is CSS?</h4>
+						<p class="list-group-item-text">CSS stands for Cascading Style
+							Sheet. CSS allows you to specify various style properties for a
+							given HTML element such as colors, backgrounds, fonts etc.</p>
+					</a> -->
+					</div>
+					<div class=" col-md-12 col-xs-12 list-group-item">
+						<div class="col-md-4 col-xs-4">
+							<h4>C++ training</h4>
+							<p>from 29 sep,2017- 30 sep,2017</p>
+						</div>
+						<div class="col-md-4 col-xs-4">
+							<p>1:30PM -2:30PM</p>
+						</div>
+						<div class="col-md-2 col-xs-2">
+							<!-- 	<p style="color:red;">pending</p> -->
+							<p style="color: green;">Approved</p>
+						</div>
+						<div class="col-md-2 col-xs-2">
+							<!-- <button class="btn-normal">Approve</button>
+						<button class="btn-cancel">Cancel</button> -->
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -217,9 +296,8 @@
 					{{deleteitem.name}}?</h3>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn-normal"
-					ng-click="deleteItem();">Ok</button>
-				<button type="button" class="btn-cancel" data-dismiss="modal">cancel</button>
+				<button type="button" class="custombtn btn-normal" ng-click="deleteItem();">Ok</button>
+				<button type="button" class="custombtn btn-cancel" data-dismiss="modal">cancel</button>
 			</div>
 		</div>
 
@@ -237,8 +315,8 @@
 					{{editteditem.name}}?</h3>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn-normal" ng-click="editItem();">Ok</button>
-				<button type="button" class="btn-cancel" data-dismiss="modal">cancel</button>
+				<button type="button" class="custombtn btn-normal" ng-click="editItem();">Ok</button>
+				<button type="button" class="custombtn btn-cancel" data-dismiss="modal">cancel</button>
 			</div>
 		</div>
 

@@ -5,5 +5,10 @@ var meetingApp=angular.module('meetingApp', [ 'ui.router' ])
 		templateUrl:'js/meetings/meetings.html',
 		controller: 'meetingsController'
 	})
+	$stateProvider.state('addmeeting',{
+		url:'/addmeeting',
+		templateUrl:'js/meetings/addmeeting.html',
+		controller: 'addMeetingController'
+	})
 })    
 		

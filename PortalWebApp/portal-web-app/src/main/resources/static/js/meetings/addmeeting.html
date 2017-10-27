@@ -1,0 +1,106 @@
+<div class="col-md-1 col-xs-1"></div>
+<div class="col-md-9 col-xs-9" style="padding-top: 30px;">
+	<div class="col-md-7 col-xs-7">
+		<form name="meetingForm">
+			<div class="form-group row">
+				<label class="control-label col-sm-2" for="meeting">Meeting:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="meeting"
+						placeholder="Meeting Title" ng-model="meeting.title" required>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="control-label col-sm-2" for="location">Location:</label>
+				<div class="col-sm-10">
+					<am-multiselect id="location" class="" ng-model="meeting.location"
+						ms-header="Select Location"
+						options="c for c in ['India','Us','Pakisthan']"
+						change="pageSelected()" required style="float:left"></am-multiselect>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="control-label col-sm-2" for="description">Description:</label>
+				<div class="col-sm-10">
+					<textarea class="form-control form-control-lg" id="description"
+						rows="3" ng-model="meeting.description" limit-To='500'
+						placeholder="Add Description" ng-maxlength="150" ng-minlength='1'
+						autogrow required></textarea>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="control-label col-sm-2" for="meeting">Select
+					Date:</label>
+				<div class="col-sm-10">
+					<div class='input-group date'>
+						<input type='text' class="form-control" datetimepicker
+							ng-model="meeting.date" placeholder="Meeting Date"
+							options="dateOptions" required /> <span
+							class="input-group-addon"> <span
+							class="glyphicon glyphicon-calendar"></span>
+						</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="time" class="col-md-2 col-form-label col-form-label-lg">Training
+					Time:</label>
+				<div class="col-md-10">
+					<div class="col-md-5">
+						<div class='input-group date'>
+							<input type='text' class="form-control"
+								ng-model="meeting.meetingStartTime" datetimepicker
+								options="timeOptions" required placeholder="Start Time" /> <span
+								class="input-group-addon"> <span
+								class="glyphicon glyphicon-time"></span>
+							</span>
+						</div>
+					</div>
+					<div class="col-md-1">
+						<label>To</label>
+					</div>
+					<div class="col-md-5">
+						<div class='input-group date'>
+							<input type='text' class="form-control"
+								ng-model="meeting.meetingEndTime" datetimepicker
+								options="timeOptions" required placeholder="End Time" /> <span
+								class="input-group-addon"> <span
+								class="glyphicon glyphicon-time"></span>
+							</span>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="control-label col-sm-2" for="attendance"># of
+					Attendees:</label>
+				<div class="col-sm-10">
+					<input type="number" ng-model="meeting.attendees"
+						class="form-control" id="meeting" placeholder="No of members">
+				</div>
+			</div>
+			<div class="form-group row">
+
+				<div class="col-sm-offset-4 col-sm-5">
+					<input type="submit" class="btn-normal" value="Book Meeting" />
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="col-md-5 col-xs-5">
+		<div class="meetingbtn col-md-offset-2 col-xs-offset-2 col-md-8 col-xs-8">
+			<button type="button" class="action ask-question">
+				<i class="fa fa-cutlery" aria-hidden="true"></i>FOOD BOOKING
+			</button>
+
+		</div>
+		<div class="meetingbtn col-md-offset-2 col-xs-offset-2 col-md-8 col-xs-8">
+			<button type="button" class="action ask-question">
+				<i class="fa fa-group"></i>CONFERENCE ROOM
+				BOOKING
+			</button>
+		</div>
+	</div>
+
+</div>

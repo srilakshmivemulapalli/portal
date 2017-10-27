@@ -243,6 +243,8 @@ adminApp
 															.deleteCatgory($scope.deleteitem.itemId);
 
 													$scope.clear();
+													localStorageService.set('categoriesList',$scope.categoriesList.categories);
+													commonService.categoriesList=$scope.categoriesList.categories;
 												}
 											},
 											function(response) {
@@ -335,6 +337,8 @@ adminApp
 													$scope.successMessage = response.message;
 
 													$scope.clear();
+													localStorageService.set('categoriesList',$scope.categoriesList.categories);
+													commonService.categoriesList=$scope.categoriesList.categories;
 													$timeout(
 															function() {
 																$scope.successMessage = '';

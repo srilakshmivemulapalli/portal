@@ -97,7 +97,7 @@ var app = angular
 						$state.go('addquestion');
 					}
 					vm.redirectMeeting = function() {
-						$state.go('meetings');
+						$state.go('addmeeting');
 					}
 					vm.getProfile = function() {
 

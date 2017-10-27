@@ -237,7 +237,7 @@ public class QuestionariesRestService {
 	 * @return latest questionaries based on category through pagination
 	 * @throws QuestionariesServiceException
 	 */
-	@RequestMapping(value = "/retrieve/questionsByCategory/{categoryId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/retrieve/allQuestions/{categoryId}", method = RequestMethod.GET)
 	public ResponseEntity<QuestionsDTO> retrieveQuestionariesByCategoryThroughPagination(
 			@PathVariable Integer categoryId, Pageable pageable) throws QuestionariesServiceException {
 
