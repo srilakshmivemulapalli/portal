@@ -2,10 +2,9 @@ var app = angular
 		.module(
 				'nisumApp',
 				[ 'ui.router', 'configurationsApp', 'profileApp', 'loginApp',
-	'questionsApp', 'trainingsApp', 'meetingApp',
+						'questionsApp', 'trainingsApp', 'meetingApp',
 						'LocalStorageModule', 'textAngular', 'am.multiselect',
-						'google-signin','BlogsApp', 'ae-datetimepicker'])
-
+						'google-signin', 'BlogsApp', 'ae-datetimepicker' ])
 
 		.config(function($stateProvider, $urlRouterProvider) {
 
@@ -24,7 +23,7 @@ var app = angular
 
 		.run(
 				function($rootScope, $window, $state, $location,
-						localStorageService, $timeout,commonService) {
+						localStorageService, $timeout, commonService) {
 					$rootScope.navBarToggle = false;
 					console.log(commonService);
 					$rootScope
@@ -34,31 +33,19 @@ var app = angular
 
 										$rootScope.urlChanged = $location
 												.path();
-
-										var urls = [ '/home', '/questions',
-												'/configurations', '/profile',
-												'/question', '/addquestion',
-												'/trainings',
-												'/onlineTrainings',
-												'/classRoomTrainings',
-												'/myTrainings',
-												'/createTraining',
-												'/editquestion','/blogs','/newBlog','/blog','/meetings'  ]
-										if (urls.indexOf($rootScope.urlChanged) > -1) {
-											$rootScope.navBarToggle = false;
-										} else if ($rootScope.urlChanged
-												.indexOf('/question/') > -1) {
-											$rootScope.navBarToggle = false;
-										} else {
+										var urls = [];
+										if ($rootScope.urlChanged === '/login') {
 											$rootScope.navBarToggle = true;
+										} else {
+											$rootScope.navBarToggle = false;
 										}
 
-										
 										var profile = commonService.profile;
-												
+
 										if (profile !== (undefined || null)
 												&& $rootScope.urlChanged === '/login') {
-											if (commonService.userRoleName.toLowerCase() ===commonService.checkRoleName) {
+											if (commonService.userRoleName
+													.toLowerCase() === commonService.checkRoleName) {
 												$timeout(
 														function() {
 															$state
@@ -69,15 +56,15 @@ var app = angular
 													$state.go('questions');
 												}, 0);
 											}
-										}else if (profile !== (undefined || null)
-												&& $rootScope.urlChanged == '/configurations' &&
-												commonService.userRoleName.toLowerCase()!==commonService.checkRoleName){
+										} else if (profile !== (undefined || null)
+												&& $rootScope.urlChanged == '/configurations'
+												&& commonService.userRoleName
+														.toLowerCase() !== commonService.checkRoleName) {
 											$timeout(function() {
 												$state.go('questions');
 											}, 0)
-											
-										} 
-										else if (profile === null) {
+
+										} else if (profile === null) {
 											$timeout(function() {
 												$state.go('login');
 											}, 0);
@@ -92,7 +79,7 @@ var app = angular
 						$http, loginLogoutService, questionService,
 						commonService) {
 					var vm = this;
-					vm.checkRoleName=commonService.checkRoleName;
+					vm.checkRoleName = commonService.checkRoleName;
 					vm.redirectQuestion = function() {
 						$state.go('addquestion');
 					}
