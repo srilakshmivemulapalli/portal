@@ -44,14 +44,24 @@ public class QuestionRepliesDAOImpl implements QuestionRepliesDAO{
 		return questionRepliesRepository.findOne(replyId);
 	}
 	@Override
-	public List<Questionaries> getMyReplyQuestions(String emailId, Pageable pageable) {
-		logger.info("QuestionRepliesDAOImpl :: getMyReplyQuestions :: finding reply questions");
-		return questionRepliesRepository.getMyReplyQuestions(emailId, pageable);
+	public List<Questionaries> getMyReplyQuestionsByPagination(String emailId, Pageable pageable) {
+		logger.info("QuestionRepliesDAOImpl :: getMyReplyQuestionsByPagination :: finding reply questions");
+		return questionRepliesRepository.getMyReplyQuestionsByPagination(emailId, pageable);
 	}
 	@Override
-	public List<Questionaries> getMyReplyQuestionsByCategory(String emailId, Categories category, Pageable pageable) {
-		logger.info("QuestionRepliesDAOImpl :: getMyReplyQuestionsByCategory :: finding reply questions by category"+category);
-		return questionRepliesRepository.getMyReplyQuestionsByCategory(emailId, category, pageable);
+	public List<Questionaries> getMyReplyQuestionsByCategoryThroughPagination(String emailId, Categories category, Pageable pageable) {
+		logger.info("QuestionRepliesDAOImpl :: getMyReplyQuestionsByCategoryThroughPagination :: finding reply questions by category"+category);
+		return questionRepliesRepository.getMyReplyQuestionsByCategoryThroughPagination(emailId, category, pageable);
+	}
+	@Override
+	public List<Questionaries> getMyReplyQuestions(String emailId) {
+		logger.info("QuestionRepliesDAOImpl :: getMyReplyQuestions :: finding reply questions for given emailId"+emailId);
+		return questionRepliesRepository.getMyReplyQuestions(emailId);
+	}
+	@Override
+	public List<Questionaries> getMyReplyQuestionsByCategory(String emailId, Categories category) {
+		logger.info("QuestionRepliesDAOImpl :: getMyReplyQuestionsByCategory :: finding reply questions by category");
+		return questionRepliesRepository.getMyReplyQuestionsByCategory(emailId, category);
 	}
 
 }

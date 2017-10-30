@@ -244,20 +244,20 @@ public class QuestionariesRestService {
 		logger.info("QuestionariesRestService :: retrieveQuestionariesByCategoryThroughPagination(PageNumber: "
 				+ pageable.getPageNumber() + ", PageSize: " + pageable.getPageSize() + ")");
 		try {
-				if (categoryId == 0) {
+				if (categoryId == 0) { 
 					return new ResponseEntity<QuestionsDTO>(
 							questionariesService.getQuestionariesByPagination(new PageRequest(pageable.getPageNumber(),
-									pageable.getPageSize(), Sort.Direction.ASC, Constants.SORT_BY_ELEMENT)),
+									pageable.getPageSize(), Sort.Direction.DESC, Constants.SORT_BY_ELEMENT)),
 							HttpStatus.OK);
 				} else {
 					return new ResponseEntity<QuestionsDTO>(questionariesService.getQuestionariesByCategory(categoryId,
-							new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Sort.Direction.ASC,
+							new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Sort.Direction.DESC,
 									Constants.SORT_BY_ELEMENT)),
 							HttpStatus.OK);
 				}
 		} catch (Exception e) {
 			logger.info("QuestionariesRestService :: retrieveQuestionariesByCategoryThroughPagination :: Internal Server Error");
-			throw new QuestionariesServiceException(Constants.INTERNALSERVERERROR);
+			throw new QuestionariesServiceException(Constants.INTERNALSERVERERROR); 
 		}
 	}
 
@@ -272,15 +272,15 @@ public class QuestionariesRestService {
 			Pageable pageable) throws QuestionariesServiceException {
 		logger.info("QuestionariesRestService :: retriveAllUnansweredQuestionariesByCategory()");
 		try {
-				if (categoryId == 0) {
+				if (categoryId == 0) {  
 					return new ResponseEntity<QuestionsDTO>(questionariesService
 							.retrieveAllUnansweredQuestionariesByPagination(new PageRequest(pageable.getPageNumber(),
-									pageable.getPageSize(), Sort.Direction.ASC, Constants.SORT_BY_ELEMENT)),
-							HttpStatus.OK);
+									pageable.getPageSize(), Sort.Direction.DESC, Constants.SORT_BY_ELEMENT)),
+							HttpStatus.OK); 
 				} else {
 					return new ResponseEntity<QuestionsDTO>(questionariesService
 							.retrieveAllUnansweredQuestionariesByCategory(categoryId, new PageRequest(pageable.getPageNumber(),
-									pageable.getPageSize(), Sort.Direction.ASC, Constants.SORT_BY_ELEMENT)),
+									pageable.getPageSize(), Sort.Direction.DESC, Constants.SORT_BY_ELEMENT)),
 							HttpStatus.OK);
 				}
 		} catch (Exception e) {
@@ -305,12 +305,12 @@ public class QuestionariesRestService {
 					return retriveMyQuestionaries(emailId);
 				} else if (categoryId == 0) {
 					return new ResponseEntity<QuestionsDTO>(questionariesService.fetchMyQuestionariesByPagination(emailId,
-							new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Sort.Direction.ASC,
+							new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Sort.Direction.DESC,
 									Constants.SORT_BY_ELEMENT)),
 							HttpStatus.OK);
 				}else {
 				return new ResponseEntity<QuestionsDTO>(questionariesService.fetchMyQuestionariesByCategory(emailId, categoryId,
-						new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Sort.Direction.ASC,
+						new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Sort.Direction.DESC,
 								Constants.SORT_BY_ELEMENT)),
 						HttpStatus.OK);
 				}
