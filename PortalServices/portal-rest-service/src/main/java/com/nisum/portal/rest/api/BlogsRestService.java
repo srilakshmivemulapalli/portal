@@ -235,28 +235,22 @@ public class BlogsRestService {
 	 */
 	
 	@RequestMapping(value="/add/addBlog", method=RequestMethod.POST,consumes = { "multipart/form-data" })
-	public @ResponseBody Object addBlog(
-	        @RequestParam(value = "uploads") MultipartFile[]  file,HttpServletRequest request) throws BlogServiceException {
+	public @ResponseBody Object addBlog(@RequestParam(value = "uploads") MultipartFile[]  files,HttpServletRequest request) throws BlogServiceException {
 		logger.info("BlogsRestService :: addBlog");
 		try {
-			String Local_FOLDER = "//Users//nisum//Desktop//test//";
-			for(int i=0;i<file.length;i++)
-			{
-				System.out.println(file[i].getOriginalFilename());
-				
-				byte[] bytes = file[i].getBytes();
-	            Path path = Paths.get(Local_FOLDER + file[i].getOriginalFilename());
-	            System.out.println(path.toAbsolutePath());
-	            Files.write(path, bytes);
-				
-				//file[i].transferTo(filedest);
-				}
-			 
-				System.out.println(request.getParameter("title"));
-				System.out.println(request.getParameter("description"));
-				System.out.println(request.getParameter("userId"));
-				System.out.println(request.getParameter("emailId"));
-			return "";
+			BlogsDTO blogsDTO=blogService.parseRequestToGetBlogsDTO(request);
+			
+			BlogsDTO addedBlog=blogService.addBlog(blogsDTO);
+			
+			BlogsDTO updateBlog=blogService.parseRequestToStoreUploads(files, blogsAttachmentPath, addedBlog);
+			
+			BlogsDTO updatedBlog=blogService.updateBlog(updateBlog);
+			
+			if(updatedBlog.getPath()!=null) {
+				updatedBlog.setPath("");
+			}
+			
+			return updatedBlog;
 		}
 		catch(Exception e) {
 			logger.error("BlogsRestService :: addBlog Error");
@@ -274,17 +268,18 @@ public class BlogsRestService {
 	 * @throws BlogServiceException
 	 */
 	@RequestMapping(value="/add/uploadAttachment", method=RequestMethod.POST)
-	public @ResponseBody Object uploadAttachment(@Context HttpServletRequest request) throws BlogServiceException {
+	public @ResponseBody Object uploadAttachment(@RequestParam(value = "uploads") MultipartFile[]  files,HttpServletRequest request) throws BlogServiceException {
 		logger.info("BlogsRestService :: uploadAttachment");
 		try {	
-			if(blogService.validateHttpRequestUploads(request)) {
-				String userMailId=request.getParameter("userMailId");
+			//if(blogService.validateHttpRequestUploads(request)) {
+			if((files!=null)&&(files.length!=0)) {
+				String userMailId=request.getParameter("emailId");
 				String blogId=request.getParameter("blogId");
 				BlogsDTO blogDTO=blogService.getBlog(Integer.parseInt(blogId));
 				String blogsMailId=blogDTO.getUserMailId();
 				if((userMailId!=null)&&(blogId!=null)) {
 					if((blogsMailId!=null)&&blogsMailId.equals(userMailId)) {
-						String dirPath=blogService.uploadAttachment(request, blogsAttachmentPath+File.separator+userMailId+File.separator+blogId);
+						String dirPath=blogService.uploadAttachmentUI(files, blogsAttachmentPath+File.separator+userMailId+File.separator+blogId);
 						if(dirPath!=null) {
 							String path=blogDTO.getPath();
 							if((blogDTO!=null)&&((path==null)||(!path.equals(dirPath)))) {
@@ -297,7 +292,7 @@ public class BlogsRestService {
 						throw new BlogServiceException("Invalid User Email Id "+userMailId);	
 					}
 				}else {
-					throw new BlogServiceException("UserMailId or BlogId are null.");
+					throw new BlogServiceException("User MailId or BlogId are null.");
 				}
 			}else {
 				throw new BlogServiceException("No uploads found.");

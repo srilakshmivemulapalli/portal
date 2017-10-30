@@ -14,6 +14,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,10 +24,12 @@ import javax.servlet.http.Part;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.nisum.portal.data.domain.Blogs;
 
@@ -99,6 +102,29 @@ public class BlogsServiceUtil {
 		}
 	}
 	
+	public static BlogsDTO convertJSONObjectToBlogsDTO(JSONObject jsonObject) throws Exception{
+		logger.info("BlogsServiceUtil :: convertJSONObjectToBlogsDTO");
+		if(jsonObject!=null) {
+			String title=jsonObject.getString("title");
+			
+			String description=jsonObject.getString("description");
+			
+			Integer userId=(Integer) jsonObject.get("userId");
+			
+			String userMailId=jsonObject.getString("emailId");
+			
+			
+			
+			BlogsDTO blogsDTO=new BlogsDTO();
+			blogsDTO.setTitle(title);
+			blogsDTO.setDescription(description);
+			blogsDTO.setUserId(userId);
+			blogsDTO.setUserMailId(userMailId);
+			return blogsDTO;
+		}
+		return null;
+	}
+	
 	public static BlogsDTO parseRequestToGetBlogsDTO(HttpServletRequest request) throws Exception{
 		logger.info("BlogsServiceUtil :: parseRequestToGetBlogsDTO");
 		
@@ -117,7 +143,7 @@ public class BlogsServiceUtil {
 			logger.error("BlogsServiceUtil :: parseRequestToGetBlogsDTO Error ==== Missing  UserId.");
 			throw new BlogServiceException("Missing  UserId.");
 		}
-		String userMailId=request.getParameter("userMailId");
+		String userMailId=request.getParameter("emailId");
 		if(userMailId==null) {
 			logger.error("BlogsServiceUtil :: parseRequestToGetBlogsDTO Error ==== Missing User Mail ID.");
 			throw new BlogServiceException("Missing User Mail ID.");
@@ -130,6 +156,64 @@ public class BlogsServiceUtil {
 		blogsDTO.setUserId(Integer.parseInt(userId));
 		blogsDTO.setUserMailId(userMailId);
 		return blogsDTO;
+	}
+	
+	public static String parseRequestToStoreUploadsUI(MultipartFile[] file,String dirPath) throws Exception{
+		logger.info("BlogsServiceUtil :: parseRequestToUploadFiles");
+		if(dirPath!=null) {
+			File dir=new File(dirPath);
+			if(!dir.exists()) {
+				if(dir.mkdirs()) {
+					logger.info("BlogsServiceUtil :: parseRequestToStoreUploads -- directory "+dirPath+" created.");
+				}else {
+					logger.error("BlogsServiceUtil :: parseRequestToStoreUploads -- error while creating directory "+dirPath);
+					throw new BlogServiceException("error while creating directory "+dirPath);
+				}
+			}
+		}else {
+			logger.error("BlogsServiceUtil :: parseRequestToStoreUploads -- Directory Path is null");
+			throw new BlogServiceException(" Directory Path is null ");
+		}
+		
+		// Get all uploaded files
+		List<MultipartFile> fileParts =  Arrays.asList(file);
+		
+		// Store uploaded files into server
+		if((fileParts!=null)&&(!CollectionUtils.isEmpty(fileParts))) {
+			for (MultipartFile filePart : fileParts) {
+				String fileName = filePart.getOriginalFilename();
+				InputStream fileContent = filePart.getInputStream();
+				
+				String[] fileNameParts=(String[]) fileName.split("\\.");
+				if((fileNameParts!=null)&&(fileNameParts.length==2)) {
+					String newFileName=fileNameParts[0]+"_"+getCurrentTimeAsString("ddMMMYYYY_hh_mm_ss_a");
+					newFileName=newFileName+"."+fileNameParts[1];
+					if(dirPath!=null) {
+						String newFilePath=dirPath+File.separator+newFileName;
+						File newFile=new File(newFilePath);
+						if(newFile.createNewFile()) {
+							logger.info("BlogsServiceUtil :: parseRequestToStoreUploads -- file "+newFilePath+" created.");
+							OutputStream outStream=new FileOutputStream(newFile);
+							IOUtils.copy(fileContent, outStream);
+						}else {
+							logger.error("BlogsServiceUtil :: parseRequestToStoreUploads -- Error while creating file "+newFileName);
+							throw new BlogServiceException(" Error while creating file "+newFileName);
+						}
+						
+					}else {
+						logger.error("BlogsServiceUtil :: parseRequestToStoreUploads -- Error while creating file "+newFileName);
+						throw new BlogServiceException(" Error while creating file "+newFileName);
+					}
+				}else {
+					logger.error("BlogsServiceUtil :: parseRequestToStoreUploads -- Error while creating file ==== File Name "+fileName+" contains \".\" symbol.");
+					throw new BlogServiceException(" Error while creating file ==== File Name "+fileName+" contains \".\" symbol.");
+				}
+			}
+		}else {
+			logger.error("BlogsServiceUtil :: parseRequestToStoreUploads -- No Uploads Found.");
+		}
+		
+		return dirPath;
 	}
 	
 	public static String parseRequestToStoreUploads(HttpServletRequest request,String dirPath) throws Exception{
@@ -190,7 +274,65 @@ public class BlogsServiceUtil {
 		return dirPath;
 	}
 	
-	public static BlogsDTO parseRequestToStoreUploads(HttpServletRequest request,String dirPath,BlogsDTO blogsDTO) throws Exception{
+	public static String parseRequestToStoreUploadsUI(MultipartFile file,String dirPath) throws Exception{
+		logger.info("BlogsServiceUtil :: parseRequestToUploadFiles");
+		if(dirPath!=null) {
+			File dir=new File(dirPath);
+			if(!dir.exists()) {
+				if(dir.mkdirs()) {
+					logger.info("BlogsServiceUtil :: parseRequestToStoreUploadsUI -- directory "+dirPath+" created.");
+				}else {
+					logger.error("BlogsServiceUtil :: parseRequestToStoreUploadsUI -- error while creating directory "+dirPath);
+					throw new BlogServiceException("error while creating directory "+dirPath);
+				}
+			}
+		}else {
+			logger.error("BlogsServiceUtil :: parseRequestToStoreUploadsUI -- Directory Path is null");
+			throw new BlogServiceException(" Directory Path is null ");
+		}
+		
+		// Get all uploaded files
+		List<MultipartFile> fileParts = Arrays.asList(file) ;
+		
+		// Store uploaded files into server
+		if((fileParts!=null)&&(!CollectionUtils.isEmpty(fileParts))) {
+			for (MultipartFile filePart : fileParts) {
+				String fileName =filePart.getOriginalFilename();
+				InputStream fileContent = filePart.getInputStream();
+				
+				String[] fileNameParts=(String[]) fileName.split("\\.");
+				if((fileNameParts!=null)&&(fileNameParts.length==2)) {
+					String newFileName=fileNameParts[0]+"_"+getCurrentTimeAsString("ddMMMYYYY_hh_mm_ss_a");
+					newFileName=newFileName+"."+fileNameParts[1];
+					if(dirPath!=null) {
+						String newFilePath=dirPath+File.separator+newFileName;
+						File newFile=new File(newFilePath);
+						if(newFile.createNewFile()) {
+							logger.info("BlogsServiceUtil :: parseRequestToStoreUploadsUI -- file "+newFilePath+" created.");
+							OutputStream outStream=new FileOutputStream(newFile);
+							IOUtils.copy(fileContent, outStream);
+						}else {
+							logger.error("BlogsServiceUtil :: parseRequestToStoreUploadsUI -- Error while creating file "+newFileName);
+							throw new BlogServiceException(" Error while creating file "+newFileName);
+						}
+						
+					}else {
+						logger.error("BlogsServiceUtil :: parseRequestToStoreUploadsUI -- Error while creating file "+newFileName);
+						throw new BlogServiceException(" Error while creating file "+newFileName);
+					}
+				}else {
+					logger.error("BlogsServiceUtil :: parseRequestToStoreUploadsUI -- Error while creating file ==== File Name "+fileName+" contains \".\" symbol.");
+					throw new BlogServiceException(" Error while creating file ==== File Name "+fileName+" contains \".\" symbol.");
+				}
+			}
+		}else {
+			logger.error("BlogsServiceUtil :: parseRequestToStoreUploadsUI -- No Uploads Found.");
+		}
+		
+		return dirPath;
+	}
+	
+	public static BlogsDTO parseRequestToStoreUploads(MultipartFile[] files,String dirPath,BlogsDTO blogsDTO) throws Exception{
 		logger.info("BlogsServiceUtil :: parseRequestToStoreUploads");
 		
 		// Compose directory path to store files
@@ -200,7 +342,7 @@ public class BlogsServiceUtil {
 		if((dirPath!=null)&&(userMailId!=null)&&(blogId!=0)) {
 			path=dirPath+File.separator+userMailId+File.separator+blogId;
 			// Call parseRequestToStoreUploads(-,-) to store uploads.
-			String resltPath=parseRequestToStoreUploads(request,path);
+			String resltPath=parseRequestToStoreUploadsUI(files,path);
 			blogsDTO.setPath(resltPath);
 		}else {
 			logger.error("BlogsServiceUtil :: parseRequestToStoreUploads -- Directory Path or UserMailId or BlogId is null");
