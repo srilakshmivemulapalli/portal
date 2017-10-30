@@ -17,6 +17,7 @@ questionApp
 							.newQuestionListInstance();
 					$scope.pageSize = 5;
 
+
 					if (commonService.categoriesList !== (undefined || null)) {
 						var list = commonService.categoriesList;
 						list.map(function(category) {
@@ -24,228 +25,199 @@ questionApp
 							$scope.categoriesList.addCategories(category);
 
 						})
+						var categoryObj = {
+							'categoryId' : 0,
+							'categoryName' : 'All'
+						};
+						$scope.categoriesList.addCategories(categoryObj);
 					} else {
-						categoryService.getCategories().then(
-								function(response) {
+						categoryService
+								.getCategories()
+								.then(
+										function(response) {
 
-									if (response.errorCode) {
-										$scope.message = repsonse.errorMessage;
-									} else {
-										response.map(function(category) {
-											$scope.categoriesList
-													.addCategories(category);
+											if (response.errorCode) {
+												$scope.message = repsonse.errorMessage;
+											} else {
+												response
+														.map(function(category) {
+															$scope.categoriesList
+																	.addCategories(category);
+														});
+												var categoryObj = {
+													'categoryId' : 0,
+													'categoryName' : 'All'
+												};
+												$scope.categoriesList
+														.addCategories(categoryObj);
+
+												localStorageService.set(
+														'categoriesList',
+														response);
+												commonService.categoriesList = response;
+
+											}
+
+										}, function(response) {
+											console.log(response);
 										})
-										localStorageService.set(
-												'categoriesList', response);
-										commonService.categoriesList=response;
-									}
-
-								}, function(response) {
-									console.log(response);
-								})
 
 					}
-					$scope.pageSelected = function() {
+					$scope.categoryId = 0;
+					$scope.filterSelected = function() {
 
 						var attr = $('#nav-tabs .active > a').attr(
 								'data-target');
 						if (attr === '#all') {
-
-							if ($scope.questionsList.questions.questionDetails.length > 0) {
-								$scope.setPage(1,
-										$scope.questionsList.questions);
-							}
+							$scope.getAllQuestions(1);
 						} else if (attr === '#unanswered') {
-							if ($scope.unAnsweredQuestionsList.questions.questionDetails.length > 0) {
-								$scope
-										.setPage(
-												1,
-												$scope.unAnsweredQuestionsList.questions);
-							}
+							$scope.getAllUnansweredQuestions(1);
 						} else if (attr === '#myposts') {
-							if ($scope.retriveMyQuestionariesList.questions.questionDetails.length > 0) {
-								$scope
-										.setPage(
-												1,
-												$scope.retriveMyQuestionariesList.questions);
-							}
-						}
-						else if (attr === '#myreplies') {
-							if ($scope.retriveMyReplyQuestionsList.questions.questionDetails.length > 0) {
-								$scope
-										.setPage(
-												1,
-												$scope.retriveMyReplyQuestionsList.questions);
-							}
+							$scope.retriveMyQuestionaries(1);
+						} else if (attr === '#myreplies') {
+							$scope.retriveMyReplyQuestions(1);
 						}
 					}
 
-					$scope.getAllQuestions = function() {
+					$scope.getAllQuestions = function(page) {
 
-						if ($scope.questionsList.questions.questionDetails.length <= 0) {
-							questionService
-									.getQuestions()
-									.then(
-											function(response) {
-												if (response.errorCode) {
-													 $scope.message=response.errorMessage
-												 }
-												else{
-													$scope.questionsList
-															.addquestion(response);
-													response.questionDetails
-															.map(function(
-																	question) {
-																$scope.questionsList
-																		.addquestionDetails(question);
-															})
-													$rootScope.questionCount = response.totalQuestions;
-													$rootScope.userCount = response.totalUsers;
-													$scope
-															.setPage(
-																	1,
-																	$scope.questionsList.questions);
-												}
+						questionService
+								.getQuestions($scope.categoryId, page - 1,
+										$scope.pageSize)
+								.then(
+										function(response) {
+											if (response.errorCode) {
+												$scope.message = response.errorMessage
+											} else {
+												$scope.questionsList.questions.questionDetails = [];
+												console.log(response);
+												$scope.questionsList
+														.addquestion(response);
+												response.questionDetails
+														.map(function(question) {
+															$scope.questionsList
+																	.addquestionDetails(question);
+														})
+												$rootScope.questionCount = response.totalQuestions;
+												$rootScope.userCount = response.totalUsers;
 
-											})
-						} else {
-							$scope.setPage(1, $scope.questionsList.questions);
-						}
+												$scope
+														.setPage(
+																page,
+																$scope.questionsList.questions);
+
+											}
+
+										})
 					}
 
-					$scope.getAllUnansweredQuestions = function() {
+					$scope.getAllUnansweredQuestions = function(page) {
 
-						if ($scope.unAnsweredQuestionsList.questions.questionDetails.length <= 0) {
-							questionService
-									.getAllUnansweredQuestions()
-									.then(
-											function(response) {
-												if (response.errorCode) {
-													 $scope.message=response.errorMessage
-												 }
-												else{
-													$scope.unAnsweredQuestionsList
-															.addquestion(response);
-													response.questionDetails
-															.map(function(
-																	question) {
-																$scope.unAnsweredQuestionsList
-																		.addquestionDetails(question);
-															})
+						questionService
+								.getAllUnansweredQuestions($scope.categoryId,
+										page - 1, $scope.pageSize)
+								.then(
+										function(response) {
+											if (response.errorCode) {
+												$scope.message = response.errorMessage
+											} else {
+												$scope.unAnsweredQuestionsList.questions.questionDetails = [];
+												$scope.unAnsweredQuestionsList
+														.addquestion(response);
+												response.questionDetails
+														.map(function(question) {
+															$scope.unAnsweredQuestionsList
+																	.addquestionDetails(question);
+														})
 
-													$scope
-															.setPage(
-																	1,
-																	$scope.unAnsweredQuestionsList.questions);
+												$scope
+														.setPage(
+																page,
+																$scope.unAnsweredQuestionsList.questions);
 
-												}
-											})
+											}
+										})
 
-						} else {
-
-							$scope.setPage(1,
-									$scope.unAnsweredQuestionsList.questions);
-						}
 					}
 
-					$scope.retriveMyQuestionaries = function() {
+					$scope.retriveMyQuestionaries = function(page) {
 
-						if ($scope.retriveMyQuestionariesList.questions.questionDetails.length <= 0) {
-							questionService
-									.retriveMyQuestionaries(
-											commonService.emailId)
-									.then(
+						questionService
+								.retriveMyQuestionaries(commonService.emailId,
+										$scope.categoryId, page - 1,
+										$scope.pageSize)
+								.then(
 
-											function(response) {
-												if (response.errorCode) {
-													 $scope.message=response.errorMessage
-												 }else{
-													$scope.retriveMyQuestionariesList
-															.addquestion(response);
-													response.questionDetails
-															.map(function(
-																	question) {
-																$scope.retriveMyQuestionariesList
-																		.addquestionDetails(question);
-															})
+										function(response) {
+											if (response.errorCode) {
+												$scope.message = response.errorMessage
+											} else {
+												$scope.retriveMyQuestionariesList.questions.questionDetails = [];
+												$scope.retriveMyQuestionariesList
+														.addquestion(response);
+												response.questionDetails
+														.map(function(question) {
+															$scope.retriveMyQuestionariesList
+																	.addquestionDetails(question);
+														})
 
-													$scope
-															.setPage(
-																	1,
-																	$scope.retriveMyQuestionariesList.questions);
+												$scope
+														.setPage(
+																page,
+																$scope.retriveMyQuestionariesList.questions);
 
-												}
+											}
 
-											})
-						} else {
-							$scope
-									.setPage(
-											1,
-											$scope.retriveMyQuestionariesList.questions);
+										})
+					}
 
-						}
+					$scope.retriveMyReplyQuestions = function(page) {
+
+						questionService
+								.retriveMyReplyQuestions(commonService.emailId,
+										$scope.categoryId, page - 1,
+										$scope.pageSize)
+								.then(
+
+										function(response) {
+											if (response.errorCode) {
+												$scope.message = response.errorMessage
+											} else {
+												$scope.retriveMyReplyQuestionsList.questions.questionDetails = [];
+												$scope.retriveMyReplyQuestionsList
+														.addquestion(response);
+												response.questionDetails
+														.map(function(question) {
+															$scope.retriveMyReplyQuestionsList
+																	.addquestionDetails(question);
+														})
+
+												$scope
+														.setPage(
+																page,
+																$scope.retriveMyReplyQuestionsList.questions);
+
+											}
+
+										})
+
 					}
 
 					
-					$scope.retriveMyReplyQuestions = function() {
-
-						if ($scope.retriveMyReplyQuestionsList.questions.questionDetails.length <= 0) {
-							questionService
-									.retriveMyReplyQuestions(
-											commonService.emailId)
-									.then(
-
-											function(response) {
-												if (response.errorCode) {
-													 $scope.message=response.errorMessage
-												 }else{
-													$scope.retriveMyReplyQuestionsList
-															.addquestion(response);
-													response.questionDetails
-															.map(function(
-																	question) {
-																$scope.retriveMyReplyQuestionsList
-																		.addquestionDetails(question);
-															})
-
-													$scope
-															.setPage(
-																	1,
-																	$scope.retriveMyReplyQuestionsList.questions);
-
-												}
-
-											})
-						} else {
-							$scope
-									.setPage(
-											1,
-											$scope.retriveMyReplyQuestionsList.questions);
-
-						}
-					}
-					
-					
-					
-					$scope.getAllQuestions();
-					$scope.pager = {};
 					$scope.setPage = function(page, questionsList) {
+						$scope.pager = {};
 						if (page < 1 || page > $scope.pager.totalPages) {
 							return;
 						}
 
 						// get pager object from service
-//						$scope.pager = PagerService.GetPager(
-//								questionsList.questionDetails.length, page,
-//								$scope.pageSize);
 						$scope.pager = PagerService.GetPager(
 								questionsList.totalQuestions, page,
 								$scope.pageSize);
 
 						// get current page of items
-						$scope.items = questionsList.questionDetails.slice(
-								$scope.pager.startIndex,
-								$scope.pager.endIndex + 1);
+						$scope.items = questionsList.questionDetails;
+
 					}
 
 				})

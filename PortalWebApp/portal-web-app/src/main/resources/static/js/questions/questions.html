@@ -1,5 +1,6 @@
-<div class="col-md-1 col-xs-1"></div>
-<div class="col-md-9 col-xs-9 main-content questionspage">
+
+<div
+	class="col-md-offset-1 col-xs-offset-1 col-md-9 col-xs-9 main-content questionspage">
 	<div class="clearfix"></div>
 	<div class="row select-category">
 		<div class="col-md-6 col-xs-6 current-category">
@@ -9,12 +10,12 @@
 			<div class="select-categories-wrapper">
 				<div class="outer-filter-wrapper">
 					<div class="select-categories-filter">
-						<span class="label-filter">Filter by</span>
+						<span class="label-filter">Filter by Category</span>
 						<div>
 							<am-multiselect class="customselect" ng-model="categoryId"
 								ms-header="Select Category"
 								options="category.categoryId as category.categoryName for category in categoriesList.categories"
-								change="selected()"></am-multiselect>
+								change="filterSelected()"></am-multiselect>
 
 						</div>
 
@@ -36,15 +37,15 @@
 	<div class="row question-filter" id="question_filter">
 		<div class="col-md-6 col-xs-6 sort-questions">
 			<ul id="nav-tabs">
-				<li class="active">
-				<a data-target="#all" data-toggle="tab" ng-click="getAllQuestions();">Latest</a></li>
+				<li class="active"><a data-target="#all" data-toggle="tab"
+					ng-click="getAllQuestions(1);">Latest</a></li>
 				<li><a data-target="#unanswered" data-toggle="tab"
-					ng-click='getAllUnansweredQuestions()'>Unanswered</a></li>
+					ng-click='getAllUnansweredQuestions(1)'>Unanswered</a></li>
 				<li><a class="" data-target="#myposts" data-toggle="tab"
-					ng-click='retriveMyQuestionaries()'>My Posts</a></li>
-					
-					<li><a class="" data-target="#myreplies" data-toggle="tab"
-					ng-click='retriveMyReplyQuestions()'>My Reply Questions</a></li>
+					ng-click='retriveMyQuestionaries(1)'>My Posts</a></li>
+
+				<li><a class="" data-target="#myreplies" data-toggle="tab"
+					ng-click='retriveMyReplyQuestions(1)'>My Reply Questions</a></li>
 			</ul>
 		</div>
 		<div class="col-md-6 col-xs-6">
@@ -54,7 +55,7 @@
 					<am-multiselect class="" ng-model="pageSize"
 						ms-header="Select PageSize"
 						options="c.id for c in [{'id':20},{'id':15},{'id':10},{'id':5}]"
-						change="pageSelected()"></am-multiselect>
+						change="filterSelected()"></am-multiselect>
 				</div>
 			</div>
 		</div>
@@ -118,9 +119,10 @@
 							ng-click="setPage(pager.currentPage - 1,questionsList.questions)">Previous</a></li>
 						<li class="page-numbers" ng-repeat="page in pager.pages"><a
 							ng-class="{current:pager.currentPage === page}"
-							ng-click="setPage(page,questionsList.questions)">{{page}}</a></li>
+							ng-click="getAllQuestions(page);">{{page}}</a></li>
 						<li ng-class="{disabled:pager.currentPage === pager.totalPages}">
-							<a ng-click="setPage(pager.currentPage + 1,questionsList.questions)">Next</a>
+							<a
+							ng-click="setPage(pager.currentPage + 1,questionsList.questions)">Next</a>
 						</li>
 						<li ng-class="{disabled:pager.currentPage === pager.totalPages}">
 							<a ng-click="setPage(pager.totalPages,questionsList.questions)">Last</a>
@@ -187,12 +189,14 @@
 							ng-click="setPage(pager.currentPage - 1,unAnsweredQuestionsList.questions)">Previous</a></li>
 						<li class="page-numbers" ng-repeat="page in pager.pages"><a
 							ng-class="{current:pager.currentPage === page}"
-							ng-click="setPage(page,unAnsweredQuestionsList.questions)">{{page}}</a></li>
+							ng-click="getAllUnansweredQuestions(page);">{{page}}</a></li>
 						<li ng-class="{disabled:pager.currentPage === pager.totalPages}">
-							<a ng-click="setPage(pager.currentPage + 1,unAnsweredQuestionsList.questions)">Next</a>
+							<a
+							ng-click="setPage(pager.currentPage + 1,unAnsweredQuestionsList.questions)">Next</a>
 						</li>
 						<li ng-class="{disabled:pager.currentPage === pager.totalPages}">
-							<a ng-click="setPage(pager.totalPages,unAnsweredQuestionsList.questions)">Last</a>
+							<a
+							ng-click="setPage(pager.totalPages,unAnsweredQuestionsList.questions)">Last</a>
 						</li>
 					</ul>
 
@@ -200,12 +204,10 @@
 			</div>
 
 		</div>
-		
-<div class="tab-pane" id="myreplies">
+		<div class="tab-pane" id="myposts">
 			<div class="main-questions-list">
 				<ul id="main_questions_list">
-					<li
-						ng-repeat="question in items"
+					<li ng-repeat="question in items"
 						class="question-item question type-question status-publish hentry question_category-business qa_tag-business-2 qa_tag-technology-2">
 						<div>
 							<div class="col-md-8 col-xs-8 q-left-content">
@@ -224,7 +226,7 @@
 											<li><a class="q-tag" href="">{{question.categoryName}}</a></li>
 										</ul>
 										<div class="clearfix"></div>
-										<a href="javascript:void(0);"> <span class="author-avatar"> <img
+										<a href=""> <span class="author-avatar"> <img
 												ng-src="{{question.displayImage}}" class="avatar" alt="" />
 										</span> <span class="author-name">{{question.emailId}}</span>
 										</a> <span class="question-time">Asked on
@@ -234,9 +236,84 @@
 							</div>
 							<div class="col-md-4 col-xs-4 q-right-content">
 								<ul class="question-statistic">
-									<li class="active" ng-show="question.questionRepliesCount>0"><a href="#/question/{{question.questionId}}"><span
+									<li class="active" ng-show="question.questionRepliesCount>0"><span
 										class="question-answers">{{question.questionRepliesCount}}
-									</span></a> answers</li>
+									</span> answers</li>
+									<li ng-show="question.questionRepliesCount<=0"><span
+										class="question-votes">{{question.questionRepliesCount}}
+									</span> answers</li>
+								</ul>
+								<div class="pumping"></div>
+							</div>
+
+							<div class="clearfix"></div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<!-- END MAIN-QUESTIONS-LIST -->
+			<div class="row paginations home">
+				<div class="col-md-12">
+					<ul class="pagination">
+						<li ng-class="{disabled:pager.currentPage === 1}"><a
+							ng-click="setPage(1,unAnsweredQuestionsList.questions)">First</a></li>
+						<li ng-class="{disabled:pager.currentPage === 1}"><a
+							ng-click="setPage(pager.currentPage - 1,unAnsweredQuestionsList.questions)">Previous</a></li>
+						<li class="page-numbers" ng-repeat="page in pager.pages"><a
+							ng-class="{current:pager.currentPage === page}"
+							ng-click="retriveMyQuestionaries(page);">{{page}}</a></li>
+						<li ng-class="{disabled:pager.currentPage === pager.totalPages}">
+							<a
+							ng-click="setPage(pager.currentPage + 1,unAnsweredQuestionsList.questions)">Next</a>
+						</li>
+						<li ng-class="{disabled:pager.currentPage === pager.totalPages}">
+							<a
+							ng-click="setPage(pager.totalPages,unAnsweredQuestionsList.questions)">Last</a>
+						</li>
+					</ul>
+
+				</div>
+			</div>
+
+		</div>
+		
+		<div class="tab-pane" id="myreplies">
+			<div class="main-questions-list">
+				<ul id="main_questions_list">
+					<li ng-repeat="question in items"
+						class="question-item question type-question status-publish hentry question_category-business qa_tag-business-2 qa_tag-technology-2">
+						<div>
+							<div class="col-md-8 col-xs-8 q-left-content">
+								<div class="q-ltop-content">
+									<h2>
+										<a href="#/question/{{question.questionId}}"
+											class="question-title" ng-bind-html='question.question'></a>
+									</h2>
+								</div>
+								<div class="q-lbtm-content">
+									<div class="question-excerpt">
+										<p ng-bind-html='question.description'></p>
+									</div>
+									<div class="question-cat">
+										<ul class="question-tags">
+											<li><a class="q-tag" href="">{{question.categoryName}}</a></li>
+										</ul>
+										<div class="clearfix"></div>
+										<a href="javascript:void(0);"> <span class="author-avatar">
+												<img ng-src="{{question.displayImage}}" class="avatar"
+												alt="" />
+										</span> <span class="author-name">{{question.emailId}}</span>
+										</a> <span class="question-time">Asked on
+											{{question.createdDate | date: 'MMM dd, yyyy'}} </span>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4 col-xs-4 q-right-content">
+								<ul class="question-statistic">
+									<li class="active" ng-show="question.questionRepliesCount>0"><a
+										href="#/question/{{question.questionId}}"><span
+											class="question-answers">{{question.questionRepliesCount}}
+										</span></a> answers</li>
 									<li ng-show="question.questionRepliesCount<=0"><span
 										class="question-votes">{{question.questionRepliesCount}}
 									</span> answers</li>
@@ -250,19 +327,21 @@
 			</div>
 			<div class="row paginations home">
 				<div class="col-md-12">
-					<ul class="pagination" ng-if="pager.currentPage !== pager.totalPages">
+					<ul class="pagination">
 						<li ng-class="{disabled:pager.currentPage === 1}"><a
 							ng-click="setPage(1,retriveMyReplyQuestionsList.questions)">First</a></li>
 						<li ng-class="{disabled:pager.currentPage === 1}"><a
 							ng-click="setPage(pager.currentPage - 1,retriveMyReplyQuestionsList.questions)">Previous</a></li>
 						<li class="page-numbers" ng-repeat="page in pager.pages"><a
 							ng-class="{current:pager.currentPage === page}"
-							ng-click="setPage(page,retriveMyReplyQuestionsList.questions)">{{page}}</a></li>
-						<li ng-class="{disabled:pager.currentPage === pager.totalPages}">
-							<a ng-click="setPage(pager.currentPage + 1,retriveMyReplyQuestionsList.questions)">Next</a>
+							ng-click="retriveMyReplyQuestions(page)">{{page}}</a></li>
+							<li ng-class="{disabled:pager.currentPage === pager.totalPages}">
+							<a
+							ng-click="setPage(pager.currentPage + 1,retriveMyReplyQuestionsList.questions)">Next</a>
 						</li>
 						<li ng-class="{disabled:pager.currentPage === pager.totalPages}">
-							<a ng-click="setPage(pager.totalPages,retriveMyReplyQuestionsList.questions)">Last</a>
+							<a
+							ng-click="setPage(pager.totalPages,retriveMyReplyQuestionsList.questions)">Last</a>
 						</li>
 					</ul>
 
