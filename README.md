@@ -10,3 +10,7 @@ Just navigate to the directory you want to use and enter the following command:
 python -m SimpleHTTPServer 8000
 
 You may want to change the port if you already have something running on 8000, but other than that the command doesn't require much alteration. It's a great little snippet to keep in mind (or in your TextExpander shortcuts) for the next time you need a quick little web server.
+
+# How to Setup a Local Web Server using Grunt #
+
+http://www.beekeeperstudio.com/2016/11/how-to-setup-a-local-web-server-using-grunt/
