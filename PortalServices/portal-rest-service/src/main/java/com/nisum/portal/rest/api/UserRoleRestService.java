@@ -117,38 +117,53 @@ public class UserRoleRestService {
 	public ResponseEntity<ServiceStatusDto> updateUserRole(@RequestBody UserRole userRole) throws UserRoleServiceException{					
 		logger.info("UserRoleService :: userrole");	 
 		try {
-			
-			String newRoleName=userRole.getRole();
-			Integer roleId=userRole.getRoleId();
-			UserRole role = userRoleService.findUserById(roleId);
-			String existedRoleName = role.getRole();
-			ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
-			if(role!=null && newRoleName!= null && newRoleName.trim().length() > 0 && 
-					!newRoleName.equalsIgnoreCase(existedRoleName)){			
-					userRoleService.updateUserRole(userRole);	
-					serviceStatusDto.setMessage(Constants.USER_ROLE_UPDATED);
-					return new ResponseEntity<ServiceStatusDto>(serviceStatusDto,HttpStatus.OK);
+		boolean roleExisted = false;
+		String newRoleName=userRole.getRole();
+		Integer roleId=userRole.getRoleId();
+		UserRole role = userRoleService.findUserById(roleId);
+		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
+		if(role!=null && newRoleName!= null && newRoleName.trim().length() > 0 ){
 
-			} else {
-				serviceStatusDto.setMessage(Constants.USER_ROLE_CANNOTBE_SAME);
-				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto,HttpStatus.EXPECTATION_FAILED);
+		    List<UserRoleDTO> existingRoles = userRoleService.getUserRole();
+		    for(UserRoleDTO roleDto : existingRoles) {
 
+		   	  if(roleDto.getRole().equalsIgnoreCase(newRoleName)) {
 
-			}
-		} catch (Exception e) {
-			throw new UserRoleServiceException(Constants.INTERNALSERVERERROR);
+		   	  roleExisted = true;
+
+		   	  break;
+
+		   	  }
+
+		    }
+		    if(!roleExisted){
+
+		userRoleService.updateUserRole(userRole);
+
+		serviceStatusDto.setMessage(Constants.USER_ROLE_UPDATED);
+
+		return new ResponseEntity<ServiceStatusDto>(serviceStatusDto,HttpStatus.OK);
+
+		    }else {
+
+		        serviceStatusDto.setMessage(Constants.USER_ROLE_CANNOTBE_SAME);
+
+		return new ResponseEntity<ServiceStatusDto>(serviceStatusDto,HttpStatus.EXPECTATION_FAILED);
+
+		    }
+
+		} else {
+
+		serviceStatusDto.setMessage(Constants.USER_ROLE_CANNOTBE_SAME);
+
+		return new ResponseEntity<ServiceStatusDto>(serviceStatusDto,HttpStatus.EXPECTATION_FAILED);
 		}
 
-	}
+		} catch (Exception e) {
 
+		throw new UserRoleServiceException(Constants.INTERNALSERVERERROR);
 
-	@ExceptionHandler(UserRoleServiceException.class)
-	public ResponseEntity<Errors> exceptionHandler(Exception ex) {
-		Errors error = new Errors();
-		error.setErrorCode("Errors -UsersRole");
-		error.setErrorMessage(ex.getMessage());
-		return new ResponseEntity<Errors>(error, HttpStatus.OK);
-	}
+		}
 
-
+		}
 }

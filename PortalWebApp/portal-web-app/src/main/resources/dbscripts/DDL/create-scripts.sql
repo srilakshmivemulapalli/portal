@@ -109,11 +109,9 @@ CREATE TABLE `portal`.`TrainingFeedBack` (
   `trainingFeedBackId` int(11) NOT NULL AUTO_INCREMENT,
   `trainingId` int(11) DEFAULT NULL, 
   `feedback` varchar(200) DEFAULT NULL,
-  `rating` varchar(20) DEFAULT NULL,
+  `emailId` VARCHAR(50) NOT NULL,
   `createDate` datetime DEFAULT NULL,
-  PRIMARY KEY (`trainingFeedBackId`),
-  KEY `fk_trainings_id_idx` (`trainingId`),
-  CONSTRAINT `fk_trainings_id` FOREIGN KEY (`trainingId`)   REFERENCES `Trainings` (`trainingId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  PRIMARY KEY (`trainingFeedBackId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=big5;
 
 ALTER TABLE `portal`.`User` 
@@ -166,9 +164,6 @@ CREATE TABLE `portal`.`ProfileSetting` (
 
 ALTER TABLE `portal`.`TrainingRequest` 
 CHANGE COLUMN `emailid` `emailId` VARCHAR(45) NULL DEFAULT NULL ;
-
-ALTER TABLE `portal`.`TrainingFeedBack` 
-CHANGE COLUMN `rating` `emailId` VARCHAR(50) NULL DEFAULT NULL ;
 
 ALTER TABLE `portal`.`TrainingRequest` 
 ADD COLUMN `requestStatus` INT(1) NULL DEFAULT 0 AFTER `requestedDate`;

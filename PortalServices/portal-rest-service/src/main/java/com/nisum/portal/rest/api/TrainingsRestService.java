@@ -68,6 +68,7 @@ public class TrainingsRestService {
 			    List<TrainingsDTO> upcomingList=	trainingsService.upComingTrainings("classroom",emailId,userService);
 		    		return new ResponseEntity<List<TrainingsDTO>>(upcomingList,HttpStatus.OK);
 	        } catch(Exception e){
+	        	logger.error(Constants.TRAINING_NOT_FETCH);
 		    	     Errors error=new Errors();
 		    	     error.setErrorCode("Error-upcoming Trainings");
 		    	     error.setErrorMessage(Constants.TRAINING_NOT_FETCH);
@@ -83,6 +84,7 @@ public class TrainingsRestService {
 			    List<TrainingsDTO> upcomingList=	trainingsService.upComingTrainings("online",emailId,userService);
 		    		return new ResponseEntity<List<TrainingsDTO>>(upcomingList,HttpStatus.OK);
 	        } catch(Exception e){
+	        	logger.error(Constants.TRAINING_NOT_FETCH);
 		    	     Errors error=new Errors();
 		    	     error.setErrorCode("Error-upcoming Trainings");
 		    	     error.setErrorMessage(Constants.TRAINING_NOT_FETCH);
@@ -92,12 +94,13 @@ public class TrainingsRestService {
 
 
 	@RequestMapping(value="/completed",method = RequestMethod.GET)
-	public ResponseEntity<?> completedTrainings() throws TrainingsServiceException {
+	public ResponseEntity<?> completedTrainings(@RequestHeader("emailId") String emailId) throws TrainingsServiceException {
 		logger.info("TrainingsRestService :: completedTrainings");
 		try {
-				List<TrainingsDTO> upcomingList = trainingsService.completedTrainings();
+				List<TrainingsDTO> upcomingList = trainingsService.completedTrainings(emailId,userService);
 				return new ResponseEntity<List<TrainingsDTO>>(upcomingList, HttpStatus.OK);
 		    }catch(Exception e) {
+		     	logger.error(Constants.TRAINING_NOT_FETCH);
 				Errors error = new Errors();
 				error.setErrorCode("Error-completed Trainings");
 				error.setErrorMessage(Constants.TRAINING_NOT_FETCH);

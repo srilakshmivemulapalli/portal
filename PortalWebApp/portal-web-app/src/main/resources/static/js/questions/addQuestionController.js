@@ -1,56 +1,61 @@
-questionApp.controller('addQuestionController', function($scope,
-		questionService, $state, categoryService, commonService,
-		localStorageService, CategoryListModel, $timeout) {
-	$scope.categoriesList = CategoryListModel.newCategoryListInstance();
-	
-	$scope.message = '';
-	
-	if (commonService.categoriesList !== (undefined || null)) {
-		var list = commonService.categoriesList;
-		list.map(function(category) {
-			$scope.categoriesList.addCategories(category);
-		})
+questionApp
+		.controller(
+				'addQuestionController',
+				function($scope, questionService, $state, categoryService,
+						commonService, localStorageService, CategoryListModel,
+						$timeout) {
+					$scope.categoriesList = CategoryListModel
+							.newCategoryListInstance();
 
-	} else {
-		categoryService.getCategories().then(function(response) {
+					$scope.message = '';
 
-			if (response.errorCode) {
-				$scope.message = response.errorMessage
-			} else {
+					if (commonService.categoriesList.length > 0) {
+						commonService.categoriesList.map(function(category) {
+							$scope.categoriesList.addCategories(category);
+						})
 
-				response.map(function(category) {
-
-					$scope.categoriesList.addCategories(category);
-
-				})
-				localStorageService.set('categoriesList', response);
-				commonService.categoriesList = response;
-			}
-
-		}, function(response) {
-			console.log(response);
-		})
-	}
-
-	$scope.addQuestion = {
-		'question' : null,
-		'categoryId' : null,
-		'description' : null,
-		'emailId' : commonService.emailId
-	}
-
-	$scope.submitQuestion = function() {
-		questionService.addQuestion($scope.addQuestion).then(
-				function(response) {
-					if (response.errorCode) {
-						$scope.message = response.errorMessage
 					} else {
+						categoryService
+								.getCategories()
+								.then(
+										function(response) {
+											if (response.errorCode) {
+												$scope.message = response.erroMessage;
+											} else {
+												response
+														.map(function(
+																innerCategory) {
+															$scope.categoriesList
+																	.addCategories(innerCategory);
 
-						$state.go('questions');
+														})
+												localStorageService
+														.set(
+																'categoriesList',
+																$scope.categoriesList.categories);
+												commonService.categoriesList = $scope.categoriesList.categories;
+											}
+										});
 					}
-				}, function(response) {
-					$scope.message = response.errorMessage;
-				})
-	}
-	
-});
+
+					$scope.addQuestion = {
+						'question' : null,
+						'categoryId' : null,
+						'description' : null,
+						'emailId' : commonService.emailId
+					}
+
+					$scope.submitQuestion = function() {
+						questionService.addQuestion($scope.addQuestion).then(
+								function(response) {
+									if (response.errorCode) {
+										$scope.message = response.errorMessage
+									} else {
+
+										$state.go('questions');
+									}
+								}, function(response) {
+									$scope.message = response.errorMessage;
+								})
+					}
+				});

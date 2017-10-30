@@ -1,12 +1,12 @@
-<div class="col-md-1 col-xs-1"></div>
-<div class="col-md-9 col-xs-9" style="padding-top: 30px;">
+
+<div class="col-md-offset-1 col-xs-offset-1 col-md-9 col-xs-9" style="padding-top: 30px;">
 	<div class="col-md-1 col-xs-1">
 		<span class="back"> <i class="fa fa-angle-double-left"></i> <a
 			href="#/trainings">Back</a>
 		</span>
 	</div>
 	<div class="col-md-11 col-xs-11">
-		<button class='btn-normal' ng-click="createTrainings();"
+		<button class='custombtn btn-normal' ng-click="createTrainings();"
 			style="float: right">New Training</button>
 	</div>
 	<div class="col-md-12 col-xs-12">
@@ -104,7 +104,7 @@
 						</div>
 						<div class="form-group">
 							<div class="col-sm-12">
-								<button type="submit" class='btn-normal'
+								<button type="submit" class='custombtn btn-normal'
 									ng-disabled="feedbackForm.$invalid"
 									ng-class="{'disabled':feedbackForm.$invalid}"><i class="fa fa-comment" aria-hidden="true"></i>FeedBack</button>
 							</div>
@@ -115,10 +115,10 @@
 
 			</div>
 			<div class="modal-footer" ng-if="modalTraining.trainingPresence!==2">
-				<button type="button" class="btn-normal"
+				<button type="button" class="custombtn btn-normal"
 					ng-click="requestuserTraining(modalTraining,1);"
 					ng-if="modalTraining.trainingPresence===0">Register</button>
-				<button type="button" class="btn-cancel"
+				<button type="button" class="custombtn btn-cancel"
 					ng-click="requestuserTraining(modalTraining,0);"
 					ng-if="modalTraining.trainingPresence===1">UnRegister</button>
 			</div>

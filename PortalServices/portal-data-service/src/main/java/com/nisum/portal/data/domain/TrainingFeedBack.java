@@ -24,24 +24,15 @@ public class TrainingFeedBack implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="trainingFeedBackId")
 	private Integer trainingFeedBackId;
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "trainingId", referencedColumnName = "trainingId")
-	private Trainings trainings;
+	private Integer trainingId;
 	private String feedback;
 	private String emailId;
 	private Timestamp createDate;
-	private Integer feedbackStatus;
 	public Integer getTrainingFeedBackId() {
 		return trainingFeedBackId;
 	}
 	public void setTrainingFeedBackId(Integer trainingFeedBackId) {
 		this.trainingFeedBackId = trainingFeedBackId;
-	}
-	public Trainings getTrainings() {
-		return trainings;
-	}
-	public void setTrainings(Trainings trainings) {
-		this.trainings = trainings;
 	}
 	public String getFeedback() {
 		return feedback;
@@ -61,11 +52,11 @@ public class TrainingFeedBack implements Serializable{
 	public void setCreateDate(Timestamp createDate) {
 		this.createDate = createDate;
 	}
-	public Integer getFeedbackStatus() {
-		return feedbackStatus;
+	public Integer getTrainingId() {
+		return trainingId;
 	}
-	public void setFeedbackStatus(Integer feedbackStatus) {
-		this.feedbackStatus = feedbackStatus;
+	public void setTrainingId(Integer trainingId) {
+		this.trainingId = trainingId;
 	}
 	@Override
 	public int hashCode() {
@@ -74,9 +65,8 @@ public class TrainingFeedBack implements Serializable{
 		result = prime * result + ((createDate == null) ? 0 : createDate.hashCode());
 		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
 		result = prime * result + ((feedback == null) ? 0 : feedback.hashCode());
-		result = prime * result + ((feedbackStatus == null) ? 0 : feedbackStatus.hashCode());
 		result = prime * result + ((trainingFeedBackId == null) ? 0 : trainingFeedBackId.hashCode());
-		result = prime * result + ((trainings == null) ? 0 : trainings.hashCode());
+		result = prime * result + ((trainingId == null) ? 0 : trainingId.hashCode());
 		return result;
 	}
 	@Override
@@ -103,28 +93,22 @@ public class TrainingFeedBack implements Serializable{
 				return false;
 		} else if (!feedback.equals(other.feedback))
 			return false;
-		if (feedbackStatus == null) {
-			if (other.feedbackStatus != null)
-				return false;
-		} else if (!feedbackStatus.equals(other.feedbackStatus))
-			return false;
 		if (trainingFeedBackId == null) {
 			if (other.trainingFeedBackId != null)
 				return false;
 		} else if (!trainingFeedBackId.equals(other.trainingFeedBackId))
 			return false;
-		if (trainings == null) {
-			if (other.trainings != null)
+		if (trainingId == null) {
+			if (other.trainingId != null)
 				return false;
-		} else if (!trainings.equals(other.trainings))
+		} else if (!trainingId.equals(other.trainingId))
 			return false;
 		return true;
 	}
 	@Override
 	public String toString() {
-		return "TrainingFeedBack [trainingFeedBackId=" + trainingFeedBackId + ", trainings=" + trainings + ", feedback="
-				+ feedback + ", emailId=" + emailId + ", createDate=" + createDate + ", feedbackStatus="
-				+ feedbackStatus + "]";
+		return "TrainingFeedBack [trainingFeedBackId=" + trainingFeedBackId + ", trainingId=" + trainingId + ", feedback="
+				+ feedback + ", emailId=" + emailId + ", createDate=" + createDate + "]";
 	}
 
 }

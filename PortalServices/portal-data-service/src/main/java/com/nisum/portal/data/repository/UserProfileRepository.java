@@ -19,6 +19,7 @@ public interface UserProfileRepository extends JpaRepository<ProfileSetting, Str
 	@Query(value = "delete from ProfileSetting where userId = (select userId from User where emailid = :emailid)")
 	int deleteProfiles(@Param("emailid") String emailid);
 	
-	@Query(value = "SELECT user FROM User user, ProfileSettings pf where user.userId= pf.userId and pf.categoryId=:categoryId")
-	List<User> findByCategoryId(@Param("categoryId")Integer categoryId);
+	@Transactional
+	@Query(value = "SELECT user FROM User user, ProfileSetting pf where user.userId = pf.userId.userId and pf.categoryId.categoryId = :categoryId")
+	List<User> findByCategoryId(@Param("categoryId") Integer categoryId);
 }

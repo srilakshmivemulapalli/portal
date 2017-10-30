@@ -10,7 +10,6 @@ import org.apache.commons.collections4.CollectionUtils;
 
 import com.nisum.portal.data.domain.Categories;
 import com.nisum.portal.data.domain.ProfileSetting;
-import com.nisum.portal.data.domain.ProfileSettings;
 import com.nisum.portal.data.domain.User;
 import com.nisum.portal.data.domain.UserRole;
 import com.nisum.portal.service.dto.CategoriesDTO;

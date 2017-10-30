@@ -1,6 +1,6 @@
 package com.nisum.portal.service.impl;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat; 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
@@ -17,14 +17,17 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+
 
 import com.nisum.portal.data.dao.api.CategoriesDAO;
 import com.nisum.portal.data.dao.api.QuestionariesCommentsDAO;
 import com.nisum.portal.data.dao.api.QuestionariesDAO;
 import com.nisum.portal.data.dao.api.UserDAO;
 import com.nisum.portal.data.domain.Categories;
+<<<<<<< HEAD
 import com.nisum.portal.data.domain.Questionaries;
 import com.nisum.portal.data.domain.QuestionariesComments;
 import com.nisum.portal.service.api.UserService;
@@ -32,6 +35,14 @@ import com.nisum.portal.service.dto.CountDTO;
 import com.nisum.portal.service.dto.QuestionariesCommentsDTO;
 import com.nisum.portal.service.dto.QuestionariesDTO;
 import com.nisum.portal.service.dto.QuestionsDTO;
+=======
+import com.nisum.portal.data.domain.QuestionReplies;
+import com.nisum.portal.data.domain.Questionaries;
+import com.nisum.portal.data.domain.QuestionariesComments;
+import com.nisum.portal.data.repository.CategoriesRepository;
+import com.nisum.portal.service.dto.CountDTO;
+import com.nisum.portal.service.dto.QuestionariesCommentsDTO;
+>>>>>>> 36d8d76a346f53fe44057353ee99836521bc92b3
 import com.nisum.portal.util.Constants;
 import com.nisum.portal.util.QuestionariesUtil;
 
@@ -57,6 +68,9 @@ public class QuestionariesServiceImplTest {
 	@Mock
 	UserService userService;
  
+
+	CategoriesRepository categoriesRepository;
+
 	
 	@Test
 	public void getQuestionariesCountTestSuccess() {
@@ -434,4 +448,41 @@ List<QuestionariesDTO> questionList = new ArrayList<QuestionariesDTO>();
 		assertEquals(expected.getTotalQuestions(), actual.getTotalQuestions());
 	} 
 	
+=======
+	public void saveQuestion() {
+		Categories category = new Categories();
+		category.setCategoryId(1);
+		category.setCategoryName("java");
+		category.setDescription("description");
+		
+		Questionaries questions = new Questionaries();
+		List<QuestionariesComments> comments = new ArrayList<QuestionariesComments>();
+		List<QuestionReplies> replies = new ArrayList<QuestionReplies>();
+		questions.setCategoryId(category);
+		questions.setDescription("description");
+		questions.setEmailId("test@nisum.com");
+		questions.setQuestion("question");
+		questions.setQuestionariesComments(comments);
+		questions.setQuestionId(1);
+		questions.setQuestionReplies(replies);
+		
+		when(categoriesDAO.getCategory(1)).thenReturn(category);
+		when(categoriesRepository.findByCategoryId(category.getCategoryId())).thenReturn(category);
+		PowerMockito.mockStatic(QuestionariesUtil.class);
+		PowerMockito.when(QuestionariesUtil.convertDtoToDao("test@nisum.com", category, questions.getQuestion(), questions.getDescription())).thenReturn(questions);
+		when(questionariesDAO.saveQuestionaries(questions)).thenReturn(questions);
+		
+		String actual = questionariesServiceImpl.saveQuestions("test@nisum.com", category.getCategoryId(), questions.getQuestion(), questions.getDescription());
+		assertEquals(actual,Constants.MSG_RECORD_ADD);
+		
+	}
+	
+	@Test
+	public void saveQuestionFail() {
+		when(categoriesRepository.findByCategoryId(1111)).thenReturn(null);
+		String expected = questionariesServiceImpl.saveQuestions("test@nisum.com", null, null, null);
+		assertEquals(expected, Constants.CATEGORY_NOT_EXIST);
+		
+	}
+>>>>>>> 36d8d76a346f53fe44057353ee99836521bc92b3
 }

@@ -1,13 +1,17 @@
 package com.nisum.portal.rest.api;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.ObjectInputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Context;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +22,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.JsonSerializer;
 import com.nisum.portal.service.api.BlogService;
 import com.nisum.portal.service.dto.BlogsDTO;
 import com.nisum.portal.service.dto.Errors;
@@ -228,33 +234,36 @@ public class BlogsRestService {
 	 * @throws BlogServiceException
 	 */
 	
-	@RequestMapping(value="/add/addBlog", method=RequestMethod.POST)
-	public @ResponseBody Object addBlog(@Context HttpServletRequest request) throws BlogServiceException {
+	@RequestMapping(value="/add/addBlog", method=RequestMethod.POST,consumes = { "multipart/form-data" })
+	public @ResponseBody Object addBlog(
+	        @RequestParam(value = "uploads") MultipartFile[]  file,HttpServletRequest request) throws BlogServiceException {
 		logger.info("BlogsRestService :: addBlog");
 		try {
-			
-			blogService.validateHttpRequestUploads(request);
-			
-			BlogsDTO blogsDTO=blogService.parseRequestToGetBlogsDTO(request);
-			
-			BlogsDTO addedBlog=blogService.addBlog(blogsDTO);
-			
-			BlogsDTO updateBlog=blogService.parseRequestToStoreUploads(request, blogsAttachmentPath, addedBlog);
-			
-			BlogsDTO updatedBlog=blogService.updateBlog(updateBlog);
-			
-			if(updatedBlog.getPath()!=null) {
-				updatedBlog.setPath("");
-			}
-			
-			return updatedBlog;
+			String Local_FOLDER = "//Users//nisum//Desktop//test//";
+			for(int i=0;i<file.length;i++)
+			{
+				System.out.println(file[i].getOriginalFilename());
+				
+				byte[] bytes = file[i].getBytes();
+	            Path path = Paths.get(Local_FOLDER + file[i].getOriginalFilename());
+	            System.out.println(path.toAbsolutePath());
+	            Files.write(path, bytes);
+				
+				//file[i].transferTo(filedest);
+				}
+			 
+				System.out.println(request.getParameter("title"));
+				System.out.println(request.getParameter("description"));
+				System.out.println(request.getParameter("userId"));
+				System.out.println(request.getParameter("emailId"));
+			return "";
 		}
 		catch(Exception e) {
 			logger.error("BlogsRestService :: addBlog Error");
 			Errors errors=new Errors();
 			errors.setErrorCode("Errors-Blogs");
 			errors.setErrorMessage(e.getMessage());
-			return new ResponseEntity<Errors>(errors, HttpStatus.OK);
+			return new ResponseEntity<Errors>(errors, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	

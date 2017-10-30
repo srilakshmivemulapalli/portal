@@ -1,6 +1,9 @@
 package com.nisum.portal.service.dto;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class TrainingsDTO {
 
@@ -23,6 +26,8 @@ public class TrainingsDTO {
 	private String displayImage;
 	private Integer noOfComments;
 	private Integer trainingToUserId;
+	private ArrayList<LinkedHashMap<String,String>> commentDescriptions;
+	private Integer commentStatus;
 	public Integer getTrainingId() {
 		return trainingId;
 	}
@@ -126,6 +131,18 @@ public class TrainingsDTO {
 	public void setTrainingToUserId(Integer trainingToUserId) {
 		this.trainingToUserId = trainingToUserId;
 	}
+	public ArrayList<LinkedHashMap<String, String>> getCommentDescriptions() {
+		return commentDescriptions;
+	}
+	public void setCommentDescriptions(ArrayList<LinkedHashMap<String, String>> commentDescriptions) {
+		this.commentDescriptions = commentDescriptions;
+	}
+	public Integer getCommentStatus() {
+		return commentStatus;
+	}
+	public void setCommentStatus(Integer commentStatus) {
+		this.commentStatus = commentStatus;
+	}
 	@Override
 	public String toString() {
 		return "CategoriesDTO [trainingId=" + trainingId + ", description=" + description + ", trainingStartTime="
@@ -135,7 +152,8 @@ public class TrainingsDTO {
 				+noOfStudents+",trainingStartDate="+trainingStartDate+",trainingEndDate="
 				+trainingEndDate+" ,trainingEndTime="+trainingEndTime+"+duration="+duration+
 						",trainerName="+trainerName+",displayImage="+displayImage+",noOfComments="
-				+noOfComments+",trainingToUserId="+trainingToUserId+"]";	
+				+noOfComments+",trainingToUserId="+trainingToUserId+"+commentDescriptions="+commentDescriptions+"commentStatus="
+				+commentStatus+"]";	
 	}
 
 	

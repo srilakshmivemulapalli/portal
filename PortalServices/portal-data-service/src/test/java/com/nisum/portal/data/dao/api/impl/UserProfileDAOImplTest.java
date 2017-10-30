@@ -10,7 +10,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import com.nisum.portal.data.dao.impl.ProfileSettingsDAOImpl;
-import com.nisum.portal.data.domain.ProfileSettings;
+import com.nisum.portal.data.domain.Categories;
+import com.nisum.portal.data.domain.ProfileSetting;
 import com.nisum.portal.data.domain.User;
 import com.nisum.portal.data.repository.UserRepository;
 
@@ -29,10 +30,18 @@ public class UserProfileDAOImplTest {
 	public void updateUserProfileSuccessTest() 
 	{ 
 	
-		ProfileSettings profile=new ProfileSettings();
+		
+		User userId = new User();
+		Categories categoryiId = new Categories();
+		userId.setUserId(2);
+		categoryiId.setCategoryId(1);
+		ProfileSetting profile=new ProfileSetting();
+		
 		profile.setProfileId(2);
-		profile.setUserId(2);
-		profile.setCategoryId(3);		
+		profile.setUserId(userId);
+		profile.setCategoryId(categoryiId);	
+		
+		
 		User user = new User();
 		user.setUserId(1);
 		user.setEmailId("test@test.com");
@@ -47,10 +56,15 @@ public class UserProfileDAOImplTest {
 	public void updateUserProfileFailureTest() 
 	{ 	
 		
-		ProfileSettings profile=new ProfileSettings();
+		User userId = new User();
+		Categories categoryiId = new Categories();
+		userId.setUserId(2);
+		categoryiId.setCategoryId(1);
+		ProfileSetting profile=new ProfileSetting();
+		
 		profile.setProfileId(2);
-		profile.setUserId(2);
-		profile.setCategoryId(3);		
+		profile.setUserId(userId);
+		profile.setCategoryId(categoryiId);			
 		User user = new User();
 		user.setUserId(1);
 		user.setEmailId("test@test.com");

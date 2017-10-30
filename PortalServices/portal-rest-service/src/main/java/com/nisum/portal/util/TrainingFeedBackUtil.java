@@ -17,11 +17,10 @@ public class TrainingFeedBackUtil {
 			for(TrainingFeedBack trainingFeedBacks : trainingFeedBack){
 				TrainingFeedBackDTO trainingFeedBackDto = new TrainingFeedBackDTO();
 				trainingFeedBackDto.setTrainingFeedBackId(trainingFeedBacks.getTrainingFeedBackId());
-				trainingFeedBackDto.setTrainingId(trainingFeedBacks.getTrainings().getTrainingId());
+				trainingFeedBackDto.setTrainingId(trainingFeedBacks.getTrainingId());
 				trainingFeedBackDto.setFeedback(trainingFeedBacks.getFeedback());
 				trainingFeedBackDto.setEmailId(trainingFeedBacks.getEmailId());
 				trainingFeedBackDto.setCreateDate(trainingFeedBacks.getCreateDate());
-				trainingFeedBackDto.setFeedbackStatus(trainingFeedBacks.getFeedbackStatus());
 				trainingFeedBackDTO.add(trainingFeedBackDto);
 			}
 		}
@@ -30,21 +29,19 @@ public class TrainingFeedBackUtil {
 	public static TrainingFeedBack convertDtoTODao(TrainingFeedBackDTO trainingFeedBackDTO) {
 		TrainingFeedBack trainingFeedBack = new TrainingFeedBack();
 		trainingFeedBack.setTrainingFeedBackId(trainingFeedBackDTO.getTrainingFeedBackId());
-		trainingFeedBack.setTrainings(new Trainings(trainingFeedBackDTO.getTrainingId()));
 		trainingFeedBack.setFeedback(trainingFeedBackDTO.getFeedback());
+		trainingFeedBack.setTrainingId(trainingFeedBackDTO.getTrainingId());
 		trainingFeedBack.setEmailId(trainingFeedBackDTO.getEmailId());
 		trainingFeedBack.setCreateDate(trainingFeedBackDTO.getCreateDate());
-		trainingFeedBack.setFeedbackStatus(trainingFeedBackDTO.getFeedbackStatus());
 		return trainingFeedBack;
 	}
 	public static TrainingFeedBackDTO convertDaoTODto(TrainingFeedBack trainingFeedBack) {
 		TrainingFeedBackDTO trainingFeedBackDTO=new TrainingFeedBackDTO();
 		trainingFeedBackDTO.setTrainingFeedBackId(trainingFeedBack.getTrainingFeedBackId());
-		trainingFeedBackDTO.setTrainingId(trainingFeedBack.getTrainings().getTrainingId());
+		trainingFeedBackDTO.setTrainingId(trainingFeedBack.getTrainingId());
 		trainingFeedBackDTO.setFeedback(trainingFeedBack.getFeedback());
 		trainingFeedBackDTO.setEmailId(trainingFeedBack.getEmailId());
 		trainingFeedBackDTO.setCreateDate(trainingFeedBack.getCreateDate());
-		trainingFeedBackDTO.setFeedbackStatus(trainingFeedBack.getFeedbackStatus());
 		return trainingFeedBackDTO;
 	}
 }
