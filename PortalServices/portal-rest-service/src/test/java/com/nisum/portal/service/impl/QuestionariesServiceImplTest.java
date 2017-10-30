@@ -27,7 +27,7 @@ import com.nisum.portal.data.dao.api.QuestionariesCommentsDAO;
 import com.nisum.portal.data.dao.api.QuestionariesDAO;
 import com.nisum.portal.data.dao.api.UserDAO;
 import com.nisum.portal.data.domain.Categories;
-<<<<<<< HEAD
+
 import com.nisum.portal.data.domain.Questionaries;
 import com.nisum.portal.data.domain.QuestionariesComments;
 import com.nisum.portal.service.api.UserService;
@@ -35,14 +35,13 @@ import com.nisum.portal.service.dto.CountDTO;
 import com.nisum.portal.service.dto.QuestionariesCommentsDTO;
 import com.nisum.portal.service.dto.QuestionariesDTO;
 import com.nisum.portal.service.dto.QuestionsDTO;
-=======
 import com.nisum.portal.data.domain.QuestionReplies;
 import com.nisum.portal.data.domain.Questionaries;
 import com.nisum.portal.data.domain.QuestionariesComments;
 import com.nisum.portal.data.repository.CategoriesRepository;
 import com.nisum.portal.service.dto.CountDTO;
 import com.nisum.portal.service.dto.QuestionariesCommentsDTO;
->>>>>>> 36d8d76a346f53fe44057353ee99836521bc92b3
+
 import com.nisum.portal.util.Constants;
 import com.nisum.portal.util.QuestionariesUtil;
 
