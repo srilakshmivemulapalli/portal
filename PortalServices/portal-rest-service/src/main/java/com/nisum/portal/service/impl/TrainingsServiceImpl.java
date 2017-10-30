@@ -221,8 +221,10 @@ public class TrainingsServiceImpl implements TrainingsService {
 					nameComment=new LinkedHashMap<String,String>();
 					if(trainingFeedBackDTO.getEmailId().contains(emailId))
 					{
-						//trainingsDTO.setCommentDescription(trainingFeedBackDTO.getFeedback());
-					     trainingsDTO.setCommentStatus(1);
+						 if(trainingsDTO.getTrainingStartDate().compareTo(new Date())>0)
+							 trainingsDTO.setCommentStatus(2);
+						 else
+					         trainingsDTO.setCommentStatus(0);
 					}
 					if(emailId.compareTo(trainingsDTO.getTrainerEmailId())==0)
 					{
@@ -240,7 +242,10 @@ public class TrainingsServiceImpl implements TrainingsService {
 				
 			}else
 			{
-				 trainingsDTO.setCommentStatus(0);
+				 if(trainingsDTO.getTrainingStartDate().compareTo(new Date())>0)
+					 trainingsDTO.setCommentStatus(2);
+				 else
+				     trainingsDTO.setCommentStatus(1);
 				 trainingsDTO.setNoOfComments(0);
 			}
 			
