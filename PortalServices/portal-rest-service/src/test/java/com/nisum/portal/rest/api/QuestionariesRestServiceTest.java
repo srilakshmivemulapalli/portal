@@ -15,6 +15,8 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -26,6 +28,8 @@ import com.nisum.portal.service.dto.AddQuestionDTO;
 import com.nisum.portal.service.dto.CountDTO;
 import com.nisum.portal.service.dto.Errors;
 import com.nisum.portal.service.dto.QuestionariesCommentsDTO;
+import com.nisum.portal.service.dto.QuestionariesDTO;
+import com.nisum.portal.service.dto.QuestionsDTO;
 import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.exception.QuestionariesRepliesServiceException;
 import com.nisum.portal.service.exception.QuestionariesServiceException;
@@ -222,4 +226,239 @@ public class QuestionariesRestServiceTest {
 		when(questionariesRestService.saveQuestionaries(null)).thenThrow(questionariesServiceException);
 	}
 
+	@Test
+	public void retrieveQuestionariesByPaginationTest() throws QuestionariesServiceException {
+		
+		List<QuestionariesDTO> questionList = new ArrayList<QuestionariesDTO>();
+		
+		QuestionariesDTO questionariesDTO = new QuestionariesDTO();
+		
+		questionariesDTO.setCategoryName("category1");
+		questionariesDTO.setDescription("description");
+		questionariesDTO.setDisplayImage("DisplayImage");
+		questionariesDTO.setDisplayName("display name");
+		questionariesDTO.setEmailId("test@nisum.com");
+		questionariesDTO.setQuestion("Question111");
+		questionariesDTO.setQuestionId(1);
+		questionariesDTO.setQuestionRepliesCount(0);
+
+		questionList.add(questionariesDTO);
+
+		QuestionsDTO questionsDTO = new QuestionsDTO();
+		questionsDTO.setTotalQuestions(0);
+		questionsDTO.setTotalUsers(0);
+		questionsDTO.setQuestionDetails(questionList);  
+		
+		ResponseEntity<QuestionsDTO> expected=new ResponseEntity<QuestionsDTO>(questionsDTO, HttpStatus.OK);
+		
+		when(questionariesService.getQuestionariesByPagination(new PageRequest(0, 3, Sort.Direction.DESC, Constants.SORT_BY_ELEMENT))).thenReturn(questionsDTO);
+		
+		ResponseEntity<QuestionsDTO> actual=questionariesRestService.retrieveQuestionariesByCategoryThroughPagination(0, new PageRequest(0, 3));
+		
+		assertEquals(expected, actual);
+		
+	} 
+	
+	
+	@Test
+	public void retrieveQuestionariesByCategoryTest() throws QuestionariesServiceException {
+		
+		List<QuestionariesDTO> questionList = new ArrayList<QuestionariesDTO>();
+		
+		QuestionariesDTO questionariesDTO = new QuestionariesDTO();
+		
+		questionariesDTO.setCategoryName("category1");
+		questionariesDTO.setDescription("description");
+		questionariesDTO.setDisplayImage("DisplayImage");
+		questionariesDTO.setDisplayName("display name");
+		questionariesDTO.setEmailId("test@nisum.com");
+		questionariesDTO.setQuestion("Question111");
+		questionariesDTO.setQuestionId(1);
+		questionariesDTO.setQuestionRepliesCount(0);
+
+		questionList.add(questionariesDTO);
+
+		QuestionsDTO questionsDTO = new QuestionsDTO();
+		questionsDTO.setTotalQuestions(0);
+		questionsDTO.setTotalUsers(0);
+		questionsDTO.setQuestionDetails(questionList);  
+		
+		ResponseEntity<QuestionsDTO> expected=new ResponseEntity<QuestionsDTO>(questionsDTO, HttpStatus.OK);
+		
+		when(questionariesService.getQuestionariesByCategory(1, new PageRequest(0, 3, Sort.Direction.DESC, Constants.SORT_BY_ELEMENT))).thenReturn(questionsDTO);
+		
+		ResponseEntity<QuestionsDTO> actual=questionariesRestService.retrieveQuestionariesByCategoryThroughPagination(1, new PageRequest(0, 3));
+		
+		assertEquals(expected, actual);
+		
+	} 
+	
+	@Test(expected = Exception.class)
+	public void retrieveQuestionariesByCategoryException() throws  QuestionariesServiceException {
+		
+		when(questionariesRestService.retrieveQuestionariesByCategoryThroughPagination(null, null)).thenThrow(questionariesServiceException);
+	}
+	
+	
+	@Test
+	public void retrieveAllUnansweredQuestionariesByPaginationTest() throws QuestionariesServiceException {
+		
+		List<QuestionariesDTO> questionList = new ArrayList<QuestionariesDTO>();
+		
+		QuestionariesDTO questionariesDTO = new QuestionariesDTO();
+		
+		questionariesDTO.setCategoryName("category1");
+		questionariesDTO.setDescription("description");
+		questionariesDTO.setDisplayImage("DisplayImage");
+		questionariesDTO.setDisplayName("display name");
+		questionariesDTO.setEmailId("test@nisum.com");
+		questionariesDTO.setQuestion("Question111");
+		questionariesDTO.setQuestionId(1);
+		questionariesDTO.setQuestionRepliesCount(0);
+
+		questionList.add(questionariesDTO);
+
+		QuestionsDTO questionsDTO = new QuestionsDTO();
+		questionsDTO.setTotalQuestions(0);
+		questionsDTO.setTotalUsers(0);
+		questionsDTO.setQuestionDetails(questionList);  
+		
+		ResponseEntity<QuestionsDTO> expected=new ResponseEntity<QuestionsDTO>(questionsDTO, HttpStatus.OK);
+		
+		when(questionariesService.retrieveAllUnansweredQuestionariesByPagination(new PageRequest(0, 3, Sort.Direction.DESC, Constants.SORT_BY_ELEMENT))).thenReturn(questionsDTO);
+		
+		ResponseEntity<QuestionsDTO> actual=questionariesRestService.retrieveAllUnansweredQuestionariesByCategory(0, new PageRequest(0, 3));
+		
+		assertEquals(expected, actual);	
+	}
+	@Test
+	public void retrieveUnansweredQuestionariesByCategoryTest() throws QuestionariesServiceException {
+		
+		List<QuestionariesDTO> questionList = new ArrayList<QuestionariesDTO>();
+		
+		QuestionariesDTO questionariesDTO = new QuestionariesDTO();
+		
+		questionariesDTO.setCategoryName("category1");
+		questionariesDTO.setDescription("description");
+		questionariesDTO.setDisplayImage("DisplayImage");
+		questionariesDTO.setDisplayName("display name");
+		questionariesDTO.setEmailId("test@nisum.com");
+		questionariesDTO.setQuestion("Question111");
+		questionariesDTO.setQuestionId(1);
+		questionariesDTO.setQuestionRepliesCount(0);
+
+		questionList.add(questionariesDTO);
+
+		QuestionsDTO questionsDTO = new QuestionsDTO();
+		questionsDTO.setTotalQuestions(0);
+		questionsDTO.setTotalUsers(0);
+		questionsDTO.setQuestionDetails(questionList);  
+		
+		ResponseEntity<QuestionsDTO> expected=new ResponseEntity<QuestionsDTO>(questionsDTO, HttpStatus.OK);
+		
+		when(questionariesService.retrieveAllUnansweredQuestionariesByCategory(1, new PageRequest(0, 3, Sort.Direction.DESC, Constants.SORT_BY_ELEMENT))).thenReturn(questionsDTO);
+		
+		ResponseEntity<QuestionsDTO> actual=questionariesRestService.retrieveAllUnansweredQuestionariesByCategory(1, new PageRequest(0, 3));
+		
+		assertEquals(expected, actual);
+	}
+
+
+	@Test
+	public void retrieveMyQuestionariesTest() throws QuestionariesServiceException {
+		
+		List<QuestionariesDTO> questionList = new ArrayList<QuestionariesDTO>();
+		
+		QuestionariesDTO questionariesDTO = new QuestionariesDTO();
+		
+		questionariesDTO.setCategoryName("category1");
+		questionariesDTO.setDescription("description");
+		questionariesDTO.setDisplayImage("DisplayImage");
+		questionariesDTO.setDisplayName("display name");
+		questionariesDTO.setEmailId("test@nisum.com");
+		questionariesDTO.setQuestion("Question111");
+		questionariesDTO.setQuestionId(1);
+		questionariesDTO.setQuestionRepliesCount(0);
+
+		questionList.add(questionariesDTO);
+
+		QuestionsDTO questionsDTO = new QuestionsDTO();
+		questionsDTO.setTotalQuestions(0);
+		questionsDTO.setTotalUsers(0);
+		questionsDTO.setQuestionDetails(questionList);  
+		
+		ResponseEntity<QuestionsDTO> expected=new ResponseEntity<QuestionsDTO>(questionsDTO, HttpStatus.OK);
+		
+		when(questionariesService.fetchMyQuestionaries("test@nisum.com")).thenReturn(questionsDTO);
+		
+		ResponseEntity<QuestionsDTO> actual=questionariesRestService.retrieveMyQuestionariesByCategory("test@nisum.com", 0, new PageRequest(0, 20));
+		
+		assertEquals(expected, actual);	
+	}
+	
+	
+	@Test
+	public void retrieveMyQuestionariesByPaginationTest() throws QuestionariesServiceException {
+		
+		List<QuestionariesDTO> questionList = new ArrayList<QuestionariesDTO>();
+		
+		QuestionariesDTO questionariesDTO = new QuestionariesDTO();
+		
+		questionariesDTO.setCategoryName("category1");
+		questionariesDTO.setDescription("description");
+		questionariesDTO.setDisplayImage("DisplayImage");
+		questionariesDTO.setDisplayName("display name");
+		questionariesDTO.setEmailId("test@nisum.com");
+		questionariesDTO.setQuestion("Question111");
+		questionariesDTO.setQuestionId(1);
+		questionariesDTO.setQuestionRepliesCount(0);
+
+		questionList.add(questionariesDTO);
+
+		QuestionsDTO questionsDTO = new QuestionsDTO();
+		questionsDTO.setTotalQuestions(0);
+		questionsDTO.setTotalUsers(0);
+		questionsDTO.setQuestionDetails(questionList);  
+		
+		ResponseEntity<QuestionsDTO> expected=new ResponseEntity<QuestionsDTO>(questionsDTO, HttpStatus.OK);
+		
+		when(questionariesService.fetchMyQuestionariesByPagination("test@nisum.com", new PageRequest(0, 3, Sort.Direction.DESC, Constants.SORT_BY_ELEMENT))).thenReturn(questionsDTO);
+		
+		ResponseEntity<QuestionsDTO> actual=questionariesRestService.retrieveMyQuestionariesByCategory("test@nisum.com", 0, new PageRequest(0, 3));
+		
+		assertEquals(expected, actual);	
+	}
+	
+	@Test
+	public void retrieveMyQuestionariesByCategoryTest() throws QuestionariesServiceException {
+		
+		List<QuestionariesDTO> questionList = new ArrayList<QuestionariesDTO>();
+		
+		QuestionariesDTO questionariesDTO = new QuestionariesDTO();
+		
+		questionariesDTO.setCategoryName("category1");
+		questionariesDTO.setDescription("description");
+		questionariesDTO.setDisplayImage("DisplayImage");
+		questionariesDTO.setDisplayName("display name");
+		questionariesDTO.setEmailId("test@nisum.com");
+		questionariesDTO.setQuestion("Question111");
+		questionariesDTO.setQuestionId(1);
+		questionariesDTO.setQuestionRepliesCount(0);
+
+		questionList.add(questionariesDTO);
+
+		QuestionsDTO questionsDTO = new QuestionsDTO();
+		questionsDTO.setTotalQuestions(0);
+		questionsDTO.setTotalUsers(0);
+		questionsDTO.setQuestionDetails(questionList);  
+		
+		ResponseEntity<QuestionsDTO> expected=new ResponseEntity<QuestionsDTO>(questionsDTO, HttpStatus.OK);
+		
+		when(questionariesService.fetchMyQuestionariesByCategory("test@nisum.com", 1, new PageRequest(0, 3, Sort.Direction.DESC, Constants.SORT_BY_ELEMENT))).thenReturn(questionsDTO);
+		
+		ResponseEntity<QuestionsDTO> actual=questionariesRestService.retrieveMyQuestionariesByCategory("test@nisum.com", 1, new PageRequest(0, 3));
+		
+		assertEquals(expected, actual); 
+	}
 }
+ 

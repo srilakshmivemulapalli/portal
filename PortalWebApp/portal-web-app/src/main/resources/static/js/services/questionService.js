@@ -3,9 +3,9 @@ app.factory('questionService', function($http, $q,commonService) {
 	var qs = {};
 	
 	
-	qs.getQuestions = function() {
+	qs.getQuestions = function(categoryId,startindex,questioncount) {
 		var deferred = $q.defer();
-		$http.get('v1/questionaries/retrieve/allQuestions',{ headers:{'EmailId':commonService.emailId}}).success(function(response) {
+		$http.get('v1/questionaries/retrieve/allQuestions/'+categoryId+'?page='+startindex+'&size='+questioncount,{ headers:{'EmailId':commonService.emailId}}).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
@@ -14,9 +14,9 @@ app.factory('questionService', function($http, $q,commonService) {
 	}
 	
 	
-	qs.getAllUnansweredQuestions = function() {
+	qs.getAllUnansweredQuestions = function(categoryId,startindex,questioncount) {
 		var deferred = $q.defer();
-		$http.get('v1/questionaries/retrieve/unanswQuestions').success(function(response) {
+		$http.get('v1/questionaries/retrieve/unanswQuestions/'+categoryId+'?page='+startindex+'&size='+questioncount).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
@@ -24,17 +24,27 @@ app.factory('questionService', function($http, $q,commonService) {
 		return deferred.promise;
 	}
 	
-	qs.retriveMyQuestionaries = function(emailId) {
+	qs.retriveMyQuestionaries = function(emailId,categoryId,startindex,questioncount) {
 		var deferred = $q.defer();
-		$http.get('v1/questionaries/retrieve/myQuestions/'+emailId).success(function(response) {
+		$http.get('v1/questionaries/retrieve/myQuestions/'+emailId+'/'+categoryId+'?page='+startindex+'&size='+questioncount).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
 		})
 		return deferred.promise;
 	}
-	
+	qs.retriveMyReplyQuestions = function(emailId,categoryId,startindex,questioncount) {
+		var deferred = $q.defer();
+		$http.get('v1/questionreply/retrieve/myReplyQuestions/'+emailId+'/'+categoryId+'?page='+startindex+'&size='+questioncount).success(function(response) {
+			deferred.resolve(response);
+			console.log('in retriveMyReplyQuestions' +response)
+		}).error(function(response) {
+			deferred.reject(response);
+		})
+		return deferred.promise;
+	}
 	qs.getQuestionsCount = function() {
+		
 		var deferred = $q.defer();
 		$http.get('v1/questionaries/retrieveCount').success(function(response) {
 			deferred.resolve(response);
@@ -93,16 +103,7 @@ app.factory('questionService', function($http, $q,commonService) {
 		return deferred.promise;
 	}
 	
-	qs.retriveMyReplyQuestions = function(emailId) {
-		var deferred = $q.defer();
-		$http.get('v1/questionreply/retrieve/myReplyQuestions/'+emailId).success(function(response) {
-			deferred.resolve(response);
-			console.log('in retriveMyReplyQuestions' +response)
-		}).error(function(response) {
-			deferred.reject(response);
-		})
-		return deferred.promise;
-	}
+	
 	
 	return qs;
 })

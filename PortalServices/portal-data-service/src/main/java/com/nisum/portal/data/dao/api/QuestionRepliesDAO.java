@@ -15,6 +15,8 @@ public interface QuestionRepliesDAO {
 	List<QuestionReplies> getQuestionariesReply(int questId);
 	QuestionReplies saveQuestionReplies(QuestionReplies questionReplies);
 	QuestionReplies getReply(int replyId);
-	List<Questionaries> getMyReplyQuestions(String emailId, Pageable pageable);
-	List<Questionaries> getMyReplyQuestionsByCategory(String emailId, Categories category, Pageable pageable);
+	List<Questionaries> getMyReplyQuestions(String emailId);
+	List<Questionaries> getMyReplyQuestionsByCategory(String emailId, Categories category);
+	List<Questionaries> getMyReplyQuestionsByPagination(String emailId, Pageable pageable);
+	List<Questionaries> getMyReplyQuestionsByCategoryThroughPagination(String emailId, Categories category, Pageable pageable);
 }

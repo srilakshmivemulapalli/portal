@@ -137,9 +137,9 @@ public class QuestionRepliesRestService {
 		try {
 				logger.info("QuestionRepliesRestService :: retriveMyReplyQuestionByCategory");
 				if(categoryId==0) { 
-					return new ResponseEntity<QuestionsDTO>(questionRepliesService.fetchMyReplyQuestions(emailId, new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Sort.Direction.ASC, Constants.SORT_BY_ELEMENT)), HttpStatus.OK);
+					return new ResponseEntity<QuestionsDTO>(questionRepliesService.fetchMyReplyQuestionsByPagination(emailId, new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Sort.Direction.DESC, Constants.SORT_BY_ELEMENT)), HttpStatus.OK);
 				}else {
-					return new ResponseEntity<QuestionsDTO>(questionRepliesService.fetchMyReplyQuestionsByCategory(emailId, categoryId, new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Sort.Direction.ASC, Constants.SORT_BY_ELEMENT)), HttpStatus.OK);
+					return new ResponseEntity<QuestionsDTO>(questionRepliesService.fetchMyReplyQuestionsByCategory(emailId, categoryId, new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Sort.Direction.DESC, Constants.SORT_BY_ELEMENT)), HttpStatus.OK);
 				}
 			} catch(Exception e) {
 			logger.info("QuestionRepliesRestService :: retriveMyReplyQuestionsByCategory :: Internal Server Error");
