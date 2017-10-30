@@ -1,6 +1,7 @@
 package com.nisum.portal.service.impl;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -209,12 +210,15 @@ public class TrainingsServiceImpl implements TrainingsService {
 		    	    trainingsDTO.setNoOfStudents(0);
 		    }
 			List<TrainingFeedBackDTO> comments= this.getTrainingFeedBack(trainingsDTO.getTrainingId());
-			LinkedHashMap<String,String> commentList=new LinkedHashMap<String,String>();
+			LinkedHashMap<String,String> nameComment;
+			ArrayList<LinkedHashMap<String,String>> commentsList =new ArrayList<LinkedHashMap<String,String>>();
 			if(comments!=null&&comments.size()>0)
 			{
 				trainingsDTO.setNoOfComments(comments.size());
 				for(TrainingFeedBackDTO trainingFeedBackDTO:comments)
 				{
+					
+					nameComment=new LinkedHashMap<String,String>();
 					if(trainingFeedBackDTO.getEmailId().contains(emailId))
 					{
 						//trainingsDTO.setCommentDescription(trainingFeedBackDTO.getFeedback());
@@ -224,12 +228,15 @@ public class TrainingsServiceImpl implements TrainingsService {
 					{
 						UserDTO commentedUser=userService.getUsers().get(trainingFeedBackDTO.getEmailId());
 						if(commentedUser!=null &&commentedUser.getUserName()!=null) 
-					      commentList.put(commentedUser.getUserName(), trainingFeedBackDTO.getFeedback());
+						{
+							nameComment.put("name",commentedUser.getUserName());
+							nameComment.put("description", trainingFeedBackDTO.getFeedback());
+						}
 					}
-
+					commentsList.add(nameComment);
 				}
 				
-				   trainingsDTO.setCommentDescriptions(commentList);
+				   trainingsDTO.setCommentDescriptions(commentsList);
 				
 			}else
 			{
