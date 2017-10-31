@@ -1,10 +1,10 @@
 
 
 
-<div class="col-md-1 col-xs-1"></div>
+<div class="col-md-0 col-xs-0"></div>
 
-<div class="col-md-9 col-xs-9 main-content">
-	<div class="col-sm-2 paddingTop20" style="width: 80px">
+<div class="col-md-10 col-xs-10 main-content">
+	<div class="col-sm-2 paddingTop20" style="width: 180px">
 		<nav class="nav-sidebar">
 		<p>&nbsp;</p>
 			<ul class="nav">
@@ -20,22 +20,26 @@
 		</nav>
 	</div>
 	<p>&nbsp;</p>
-		<div class="col-md-10">
-			<div class="col-sm-7">
+		<div class="col-md-2">
+			<div class="col-sm-2">
 	<div ng-repeat="blog in blogsList ">
 		<!-- <div class="<!-- col-sm-2 paddingLeft20"> -->
-
-				<!-- onclick = getBlog(blog.id) -->
-				<h3><a href="#/blog/{{blog.blogsId}}"><div>{{blog.title}}</div></a></h3>
-				<div><p align = "justify">{{blog.description}}</p></div>
-
-				<a href="#/blog/{{blog.blogsId}}">Read more.....</a></a>
-
-				<div>
-					<span class="badge badge-success">created time
-						{{blog.createdDate | date : 'dd:mm:yyyy:hh:mm:ss'}}</span>
-				</div>
-				<span>so far in our blog and our website</span>
+		<div class="container">
+			  <div class="row" style="width:900px;">
+			    <div class="col-sm-2"></div>
+			    <div class="col-sm-11">
+			    	
+					<span> <b>Blog-Uncategorized -</b> </span>
+					<span> <b>No Comments</b> </span><br>
+					<span style="padding-left: 30px;font-size: 25px;color: #434b63"><b>Template: Sticky</b></span><br><br>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					<a href="#/blogs">READ MORE</a>
+					<span class="badge"style="float:right;background-color: #BBD9FC;color:black;margin:3px;">Date:January 7, 2012 </span>
+					<span class="badge" style="float:right;background-color: #BBD9FC;color:black;margin:3px;">CreatedBy:EmailId</span>
+					
+					
+			    </div>
+			  </div>
 				<hr>
 			</div>
 		</div>
