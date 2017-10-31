@@ -28,7 +28,7 @@ import com.nisum.portal.data.domain.BookMeetingRoom;
 		@Query(value = "SELECT bm from BookMeetingRoom bm where bm.emailId = :emailId")
 		public List<BookMeetingRoom> getUserBooking(@Param("emailId") String emailId);
 		
-		@Query(value = "SELECT bm from BookMeetingRoom bm where bm.beginTime =:beginTime and bm.endTime =:endTime")
+		@Query(value = "SELECT bm from BookMeetingRoom bm where (:beginTime BETWEEN bm.beginTime AND bm.endTime) OR  (:endTime BETWEEN bm.beginTime AND bm.endTime)")
 		public BookMeetingRoom getMeetingRoomForTimePeriod(@Param("beginTime") Timestamp beginTime, @Param("endTime") Timestamp endTime);
 		
 	}
