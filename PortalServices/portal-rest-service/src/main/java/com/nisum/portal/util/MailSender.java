@@ -127,9 +127,9 @@ public class MailSender {
 
 		sb.append("<html><head></head><title></title>");
 		sb.append("<body style='font-size:12px;font-family:Trebuchet MS;'>");
-		sb.append("<i><b>Hi Admin,</b></i>");
+		sb.append("<i><b>Hi ,</b></i>");
 		sb.append("<br><br>");
-		sb.append("<i> I am Looking for training on "+"<b><font color=red>"+topic+"</font></b></i>");
+		sb.append("<i> I am "+id+", Looking for training on "+"<b><font color=red>"+topic+"</font></b></i>");
 		sb.append("<br><br>");
 		sb.append("<i>Description :</i>");
 		sb.append("<br><br>");
@@ -137,9 +137,12 @@ public class MailSender {
 		sb.append("<br><br>");
 		sb.append("<i>Please do Needful and If There is a plan to arrange training on this, "+topic+" Please Let me Know</i>");
 		sb.append("<br><br>");
+		sb.append("<i>This is an auto generated e-mail. Please check this in Nisum portal. Thanking you.</i>");
+		sb.append("<br><br>");
+		sb.append("<br><br>");
 		sb.append("<i>Regards,</i>");
 		sb.append("<br><br>");
-		sb.append("<i><b><font color=red>"+id+".</font><b></i>");
+		sb.append("<font color=red><i>Nisum Portal Application.</i></font>");
 		
 		return sb.toString();
 

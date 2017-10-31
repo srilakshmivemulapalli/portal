@@ -70,8 +70,7 @@ public class TrainingsServiceImpl implements TrainingsService {
 	public TrainingFeedBackDTO addTrainingFeedBack(TrainingFeedBackDTO trainingFeedBackDTO) {
 		// TODO Auto-generated method stub
 		logger.info("TrainingsServiceImpl :: addTrainingFeedBack ::"+trainingFeedBackDTO.toString());
-		Date date = new Date();
-		Timestamp createdDate = new Timestamp(date.getTime());
+		Timestamp createdDate = new Timestamp(System.currentTimeMillis());
 		String feedback2 = trainingFeedBackDTO.getFeedback();
 		Integer status;
 		if(StringUtils.isNotEmpty(feedback2))
@@ -85,38 +84,40 @@ public class TrainingsServiceImpl implements TrainingsService {
 		trainingFeedBackDTO.setCreateDate(createdDate);
 		TrainingFeedBack trainingFeedBack = TrainingFeedBackUtil.convertDtoTODao(trainingFeedBackDTO);
 		TrainingFeedBack feedBack = trainingsDAO.addTrainingsFeedBack(trainingFeedBack);
-		return TrainingFeedBackUtil.convertDaoTODto(feedBack);
+		TrainingFeedBackDTO feedBackDTO =  TrainingFeedBackUtil.convertDaoTODto(feedBack);
+		return feedBackDTO;
 	}
 	
 	@Override
-	public ServiceStatusDto addTrainingRequest(TrainingRequestDTO trainingRequestDTO) throws Exception {
+	public ServiceStatusDto addTrainingRequest(TrainingRequestDTO trainingRequestDTO,UserService userService) throws Exception {
 		// TODO Auto-generated method stub
 		logger.info("TrainingsServiceImpl :: addTrainingRequest ::"+trainingRequestDTO.toString());
-		Date date = new Date();
-		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
-		Timestamp createdDate = new Timestamp(date.getTime());
+		
+		Timestamp createdDate = new Timestamp(System.currentTimeMillis());
 
 		trainingRequestDTO.setRequestedDate(createdDate);
 		TrainingRequest trainingRequest = TrainingRequestUtil.convertDtoTODao(trainingRequestDTO);
 		logger.info("TrainingsServiceImpl :: addTrainingFeedBack ::"+trainingRequest.toString());
 		
 		Integer serviceStatus = trainingsDAO.addTrainingsRequest(trainingRequest);
-
-		if (serviceStatus == 0) {
-			serviceStatusDto.setStatus(false);
-			serviceStatusDto.setMessage(Constants.TRAINING_REQUEST_EXISTS);
-		} if (serviceStatus == 1) {
-			String id = trainingRequestDTO.getEmailId();
-			//Hard coded need to add admin login address
-			String userName="mbheemanapalli@nisum.com";
-			final String topic=trainingRequestDTO.getRequestTrainingTitle();
-			final String description=trainingRequestDTO.getDescription();
-			MailSender.sendEmail(emailAccount.getAdminemail(), emailAccount.getAdminpassword() ,
-					userName, null, emailAccount.getSubtrainingreq(), MailSender.trainingReqestBody(topic,id,description));
+		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
+		 if (serviceStatus == 1) {
 			serviceStatusDto.setStatus(true);
 			serviceStatusDto.setMessage(Constants.MSG_RECORD_ADD);
+			final String toUserEmailId = trainingRequestDTO.getEmailId();
+			UserDTO user=userService.getUsers().get(trainingRequestDTO.getEmailId());
+			final String userName=user.getUserName();
+			//Hard coded need to add admin login address
+			final String toAdminEmailId="mbheemanapalli@nisum.com";
+			final String title=trainingRequestDTO.getRequestTrainingTitle();
+			final String description=trainingRequestDTO.getDescription();
+				MailSender.sendEmail(emailAccount.getAdminemail(), emailAccount.getAdminpassword(),
+					toAdminEmailId, toUserEmailId, emailAccount.getSubtrainingreq(), MailSender.trainingReqestBody(title, userName, description));
 		}
-
+		else if(serviceStatus == 0){
+			serviceStatusDto.setStatus(false);
+			serviceStatusDto.setMessage(Constants.TRAINING_REQUEST_EXISTS);
+		}
 		return serviceStatusDto;
 	}
 
@@ -135,14 +136,6 @@ public class TrainingsServiceImpl implements TrainingsService {
 	    TrainingToUser trainingToUser=TrainingsServiceUtil.convertTrainingToUserDtoToDao(trainingToUserDTO);
 	    return TrainingsServiceUtil.convertTrainingToUserDaoToDto((trainingsDAO.trainingToUser(trainingToUser)));
 	 }
-
-
-	@Override
-	public List<TrainingFeedBackDTO> getAllTrainingFeedBacks() {
-		// TODO Auto-generated method stub
-		List<TrainingFeedBack> feedBacks = trainingsDAO.getTrainingFeedBacks();
-		return TrainingFeedBackUtil.convertDaoListToDto(feedBacks);
-	}
 
 
 	@Override
