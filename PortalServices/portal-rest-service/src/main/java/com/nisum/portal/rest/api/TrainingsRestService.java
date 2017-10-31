@@ -93,7 +93,7 @@ public class TrainingsRestService {
 	}
 
 
-	@RequestMapping(value="/completed",method = RequestMethod.GET)
+	@RequestMapping(value="/getUserTrainings",method = RequestMethod.GET)
 	public ResponseEntity<?> completedTrainings(@RequestHeader("emailId") String emailId) throws TrainingsServiceException {
 		logger.info("TrainingsRestService :: completedTrainings");
 		try {
