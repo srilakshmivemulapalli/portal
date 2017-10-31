@@ -1,17 +1,15 @@
 package com.nisum.portal.rest.api;
 
-import java.io.ByteArrayInputStream;
+
 import java.io.File;
-import java.io.ObjectInputStream;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.core.Context;
 
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +29,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.JsonSerializer;
 import com.nisum.portal.service.api.BlogService;
 import com.nisum.portal.service.dto.BlogsDTO;
 import com.nisum.portal.service.dto.Errors;
 import com.nisum.portal.service.exception.BlogServiceException;
 import com.nisum.portal.util.BlogsServiceUtil;
-
 
 /**
  * @author nisum
@@ -93,7 +88,9 @@ public class BlogsRestService {
 		logger.info("BlogsRestService :: getBlog");
 		try {
 			BlogsDTO blogsDTO=blogService.getBlog(id);
-			blogsDTO.setPath("");
+			if(blogsDTO!=null) {
+				blogsDTO.setPath("");
+			}
 			return blogsDTO;
 		}
 		catch(Exception e) {
@@ -149,21 +146,26 @@ public class BlogsRestService {
 		logger.info("BlogsRestService :: updateBlog");
 		try {
 			// Setting DTO object fields that can not be updated.
-			BlogsDTO blog=blogService.getBlog(blogsDTO.getBlogsId());
-			blogsDTO.setBlogsId(blog.getBlogsId());
-			blogsDTO.setCreatedDate(blog.getCreatedDate());
-			blogsDTO.setPath(blog.getPath());
-			blogsDTO.setUserMailId(blog.getUserMailId());
-			blogsDTO.setUserId(blog.getUserId());
-			// Setting completed.
-			BlogsDTO updatedDTO= blogService.updateBlog(blogsDTO);
-			if((updatedDTO!=null)) {
-				String path=updatedDTO.getPath();
-				if(path!=null) {
-					updatedDTO.setPath("");
+			if(blogsDTO!=null) {
+				BlogsDTO blog=blogService.getBlog(blogsDTO.getBlogsId());
+				blogsDTO.setBlogsId(blog.getBlogsId());
+				blogsDTO.setCreatedDate(blog.getCreatedDate());
+				blogsDTO.setPath(blog.getPath());
+				blogsDTO.setUserMailId(blog.getUserMailId());
+				blogsDTO.setUserId(blog.getUserId());
+				// Setting completed.
+				BlogsDTO updatedDTO= blogService.updateBlog(blogsDTO);
+				if((updatedDTO!=null)) {
+					String path=updatedDTO.getPath();
+					if(path!=null) {
+						updatedDTO.setPath("");
+					}
 				}
+				return updatedDTO;
+			}else {
+				throw new BlogServiceException("Unable to process request as blog object is empty :"+blogsDTO);
 			}
-			return updatedDTO;
+			
 		}
 		catch(Exception e) {
 			logger.error("BlogsRestService :: updateBlog Error");
@@ -238,6 +240,8 @@ public class BlogsRestService {
 	public @ResponseBody Object addBlog(@RequestParam(value = "uploads") MultipartFile[]  files,HttpServletRequest request) throws BlogServiceException {
 		logger.info("BlogsRestService :: addBlog");
 		try {
+			blogService.validateRequestUploads(files);
+			
 			BlogsDTO blogsDTO=blogService.parseRequestToGetBlogsDTO(request);
 			
 			BlogsDTO addedBlog=blogService.addBlog(blogsDTO);
@@ -267,7 +271,7 @@ public class BlogsRestService {
 	 * @return
 	 * @throws BlogServiceException
 	 */
-	@RequestMapping(value="/add/uploadAttachment", method=RequestMethod.POST)
+	@RequestMapping(value="/add/uploadAttachment", method=RequestMethod.POST,consumes = { "multipart/form-data" })
 	public @ResponseBody Object uploadAttachment(@RequestParam(value = "uploads") MultipartFile[]  files,HttpServletRequest request) throws BlogServiceException {
 		logger.info("BlogsRestService :: uploadAttachment");
 		try {	
@@ -277,12 +281,12 @@ public class BlogsRestService {
 				String blogId=request.getParameter("blogId");
 				BlogsDTO blogDTO=blogService.getBlog(Integer.parseInt(blogId));
 				String blogsMailId=blogDTO.getUserMailId();
-				if((userMailId!=null)&&(blogId!=null)) {
+				if((blogDTO!=null)&&(userMailId!=null)&&(blogId!=null)) {
 					if((blogsMailId!=null)&&blogsMailId.equals(userMailId)) {
 						String dirPath=blogService.uploadAttachmentUI(files, blogsAttachmentPath+File.separator+userMailId+File.separator+blogId);
 						if(dirPath!=null) {
 							String path=blogDTO.getPath();
-							if((blogDTO!=null)&&((path==null)||(!path.equals(dirPath)))) {
+							if(((path==null)||(!path.equals(dirPath)))) {
 								blogDTO.setPath(dirPath);
 								blogService.updateBlog(blogDTO);
 							}
@@ -300,6 +304,32 @@ public class BlogsRestService {
 		}
 		catch(Exception e) {
 			logger.error("BlogsRestService :: uploadAttachment Error");
+			Errors errors=new Errors();
+			errors.setErrorCode("Errors-Blogs");
+			errors.setErrorMessage(e.getMessage());
+			return new ResponseEntity<Errors>(errors, HttpStatus.OK);
+		}
+	}
+	
+	/**
+	 * getAllBlogsByUserMailId
+	 * 
+	 * @return
+	 * @throws BlogServiceException
+	 */
+	
+	@RequestMapping(value = "/retrieve/getAllBlogsByUserMailId/{userMailId}/", method = RequestMethod.GET)
+	public Object getAllBlogsByUserMailId(@PathVariable String userMailId) throws BlogServiceException {
+		logger.info("BlogsRestService :: getAllBlogsByUserMailId");
+		try {
+			List<BlogsDTO> blogsDTO= blogService.getAllBlogsByEmailId(userMailId);
+			for(BlogsDTO blogDTO : blogsDTO) {
+				blogDTO.setPath("");
+			}
+			return blogsDTO;
+		}
+		catch(Exception e) {
+			logger.error("BlogsRestService :: getAllBlogsByUserMailId Error");
 			Errors errors=new Errors();
 			errors.setErrorCode("Errors-Blogs");
 			errors.setErrorMessage(e.getMessage());

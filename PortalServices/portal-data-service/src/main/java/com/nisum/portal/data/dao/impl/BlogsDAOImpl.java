@@ -52,5 +52,11 @@ public class BlogsDAOImpl implements BlogsDAO {
 		Blogs addedBlog=blogsRepository.save(blog);
 		return addedBlog;
 	}
+	@Override
+	public List<Blogs> getAllBlogsByUserMailId(String userMailId) {
+		logger.info("BlogsDAOImpl :: getAllBlogsByUserMailId");
+		return blogsRepository.findByUserMailId(userMailId);
+
+	}
 
 }

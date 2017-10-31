@@ -176,6 +176,7 @@ public class BlogsServiceUtil {
 		}
 		
 		// Get all uploaded files
+		//List<Part> fileParts = request.getParts().stream().filter(part -> "uploads".equals(part.getName())).collect(Collectors.toList());
 		List<MultipartFile> fileParts =  Arrays.asList(file);
 		
 		// Store uploaded files into server
@@ -412,7 +413,10 @@ public class BlogsServiceUtil {
 	}
 	public static HttpHeaders setFileTypeForHttpHeader(HttpHeaders headers,String fileName) throws Exception {
 		logger.info("BlogsServiceUtil :: setFileTypeForHttpHeader");
-		String[] fileNameSplit=fileName.split("\\.");
+		String[] fileNameSplit=null;
+		if(fileName!=null) {
+			fileNameSplit=fileName.split("\\.");
+		}
 		if((fileNameSplit!=null)&&(fileNameSplit[fileNameSplit.length-1])!=null) {
 			headers.setContentType(new MediaType("application", fileNameSplit[fileNameSplit.length-1]));
 		}else {
@@ -447,30 +451,33 @@ public class BlogsServiceUtil {
 		
 	}
 	
-	public static boolean validateHttpRequestForUploads(HttpServletRequest request) throws Exception {
-		logger.info("BlogsServiceUtil :: validateHttpRequestForUploads");
-		if(request!=null) {
+	public static boolean validateRequestForUploads(MultipartFile[]  files) throws Exception {
+		logger.info("BlogsServiceUtil :: validateRequestForUploads");
+		if((files!=null) &&(files.length!=0)){
 			
-			List<Part> fileParts = request.getParts().stream().filter(part -> "uploads".equals(part.getName())).collect(Collectors.toList());
+			//List<Part> fileParts = request.getParts().stream().filter(part -> "uploads".equals(part.getName())).collect(Collectors.toList());
+			List<MultipartFile> fileParts = Arrays.asList(files);
 			
 			if((fileParts!=null)&&(!CollectionUtils.isEmpty(fileParts))) {
-				for (Part filePart : fileParts) {
-					String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+				//for (Part filePart : fileParts) {
+				for (MultipartFile filePart : fileParts) {
+					//String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+					String fileName = filePart.getOriginalFilename();
 					
 					String[] fileNameParts=(String[]) fileName.split("\\.");
 					if((fileNameParts!=null)&&(fileNameParts.length>2)) {
-						logger.error("BlogsServiceUtil :: validateHttpRequestForUploads ==== "+" Error while creating file ==== File Name "+fileName+" contains \".\" symbol.");
+						logger.error("BlogsServiceUtil :: validateRequestForUploads ==== "+" Error while creating file ==== File Name "+fileName+" contains \".\" symbol.");
 						throw new BlogServiceException(" Error while creating file ==== File Name "+fileName+" contains \".\" symbol.");
 					}
 				}
 			}else {
-				logger.info("BlogsServiceUtil :: validateHttpRequestForUploads === No uploads found.");
+				logger.info("BlogsServiceUtil :: validateRequestForUploads === No uploads found.");
 				return false;
 			}
 			return true;
 		}else {
-			logger.error("BlogsServiceUtil :: validateHttpRequestForUploads === Http Request Object is null.");
-			throw new BlogServiceException(" Http Request Object is null. ");
+			logger.error("BlogsServiceUtil :: validateRequestForUploads === No uploads found");
+			throw new BlogServiceException(" No uploads found. ");
 		}
 	}
 }

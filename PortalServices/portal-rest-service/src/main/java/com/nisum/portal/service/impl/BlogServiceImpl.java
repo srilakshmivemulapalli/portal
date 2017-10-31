@@ -16,15 +16,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 
-
-
 import com.nisum.portal.data.dao.api.BlogsDAO;
 import com.nisum.portal.data.domain.Blogs;
 import com.nisum.portal.service.api.BlogService;
 import com.nisum.portal.service.dto.BlogsDTO;
 import com.nisum.portal.service.exception.BlogServiceException;
 import com.nisum.portal.util.BlogsServiceUtil;
-
 
 @Service
 public class BlogServiceImpl implements BlogService{
@@ -172,13 +169,6 @@ public class BlogServiceImpl implements BlogService{
 
 
 	@Override
-	public boolean validateHttpRequestUploads(HttpServletRequest request) throws Exception {
-		logger.info("BlogServiceImpl :: validateHttpRequestUploads");
-		return BlogsServiceUtil.validateHttpRequestForUploads(request);	
-	}
-
-
-	@Override
 	public BlogsDTO convertJSONObjectToBlogsDTO(JSONObject jsonObject) throws Exception {
 		logger.info("BlogServiceImpl :: convertJSONObjectToBlogsDTO");
 		return BlogsServiceUtil.convertJSONObjectToBlogsDTO(jsonObject);
@@ -197,6 +187,28 @@ public class BlogServiceImpl implements BlogService{
 		logger.info("BlogServiceImpl :: parseRequestToStoreUploads");
 		//return BlogsServiceUtil.parseRequestToStoreUploads(request, getBlogsAttachmentPath(), blogsDTO);
 		return BlogsServiceUtil.parseRequestToStoreUploads(file, path, blogsDTO);
+	}
+
+
+	@Override
+	public List<BlogsDTO> getAllBlogsByEmailId(String userMailId) {
+		logger.info("BlogServiceImpl :: getAllBlogsByEmailId");
+		List<Blogs> blogsList=blogDAO.getAllBlogsByUserMailId(userMailId);
+		List<BlogsDTO> blogsDTO=BlogsServiceUtil.convertDaoTODto(blogsList);
+		for(BlogsDTO blogDTO : blogsDTO) {
+			String dirPath=blogDTO.getPath();
+			if((dirPath!=null)&&(!StringUtils.isEmpty(dirPath))) {
+				blogDTO.setFileNames(BlogsServiceUtil.getAllFiles(dirPath,blogDTO.getBlogsId()));
+			}
+		}
+		return blogsDTO;	
+	}
+
+
+	@Override
+	public boolean validateRequestUploads(MultipartFile[] files) throws Exception {
+		logger.info("BlogServiceImpl :: validateRequestUploads");
+		return BlogsServiceUtil.validateRequestForUploads(files);	
 	}
 	
 	

@@ -35,8 +35,10 @@ public interface BlogService {
 	
 	boolean removeFile(String userMailId,Integer blogId,String fileName) throws Exception;
 	
-	boolean validateHttpRequestUploads(HttpServletRequest request)throws Exception;
+	boolean validateRequestUploads(MultipartFile[]  files)throws Exception;
 	
 	BlogsDTO convertJSONObjectToBlogsDTO(JSONObject jsonObject) throws Exception;
+	
+	List<BlogsDTO> getAllBlogsByEmailId(String userMailId);
 
 }

@@ -339,7 +339,7 @@ public class BlogsRestServiceTest {
 		
 		when(request.getParameter("blogId")).thenReturn("6");
 		
-		when(blogService.validateHttpRequestUploads(request)).thenReturn(true);
+		//when(blogService.validateRequestUploads(request)).thenReturn(true);
 		
 		when(blogService.getBlog(6)).thenReturn(expMesg);
 		

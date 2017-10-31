@@ -17,5 +17,7 @@ public interface BlogsDAO {
 	Blogs addBlog(Blogs blog);
 	
 	boolean blogExists(Integer id);
+	
+	List<Blogs> getAllBlogsByUserMailId(String userMailId);
 
 }
