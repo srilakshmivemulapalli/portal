@@ -14,7 +14,7 @@ public class LocationUtil {
 		if (CollectionUtils.isNotEmpty(location)) {
 			for(Location locationDAO : location){
 				LocationDTO locationDTO = new LocationDTO();
-				locationDTO.setDescription(locationDAO.getDescription());
+				
 				locationDTO.setLocationId(locationDAO.getLocationId());
 				locationDTO.setName(locationDAO.getName());
 				
@@ -29,7 +29,6 @@ public class LocationUtil {
 	public static Location convertDtoToDao(LocationDTO locationDTO){
 		
 		Location locationDAO = new Location();
-		locationDAO.setDescription(locationDTO.getDescription());
 		locationDAO.setLocationId(locationDTO.getLocationId());
 		locationDAO.setName(locationDTO.getName());
 		

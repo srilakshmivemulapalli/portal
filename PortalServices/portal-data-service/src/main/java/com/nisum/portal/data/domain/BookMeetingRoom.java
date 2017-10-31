@@ -34,7 +34,7 @@ public class BookMeetingRoom {
 	private int bookMeetingRoomId;
 	private String meetingTitle;
 	private String emailId;
-	@OneToOne(cascade=CascadeType.ALL,fetch = FetchType.LAZY)
+	@OneToOne
 	@JoinColumn(name = "meetingRoomId", referencedColumnName = "meetingRoomId")
 	private MeetingRoom meetingRoom;
 	
@@ -43,10 +43,10 @@ public class BookMeetingRoom {
 	private Timestamp endTime;
 	
 	private int headCount;
-	private Timestamp createdTime;
-	private Timestamp updatedTime;
+	private Timestamp createdDate;
+	private Timestamp bookingDate;
 	
-	@OneToOne(cascade=CascadeType.ALL,fetch = FetchType.LAZY)
+	@OneToOne
 	@JoinColumn(name = "locationId", referencedColumnName = "locationId")
 	private Location location;
 	
@@ -114,6 +114,34 @@ public class BookMeetingRoom {
 	public void setEndTime(Timestamp endTime) {
 		this.endTime = endTime;
 	}
+	/**
+	 * @return the createdDate
+	 */
+	public Timestamp getCreatedDate() {
+		return createdDate;
+	}
+
+	/**
+	 * @param createdDate the createdDate to set
+	 */
+	public void setCreatedDate(Timestamp createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	/**
+	 * @return the bookingDate
+	 */
+	public Timestamp getBookingDate() {
+		return bookingDate;
+	}
+
+	/**
+	 * @param bookingDate the bookingDate to set
+	 */
+	public void setBookingDate(Timestamp bookingDate) {
+		this.bookingDate = bookingDate;
+	}
+
 	
 	
 	/* (non-Javadoc)
@@ -124,17 +152,15 @@ public class BookMeetingRoom {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((beginTime == null) ? 0 : beginTime.hashCode());
-		
 		result = prime * result + bookMeetingRoomId;
-		result = prime * result + ((createdTime == null) ? 0 : createdTime.hashCode());
+		result = prime * result + ((bookingDate == null) ? 0 : bookingDate.hashCode());
+		result = prime * result + ((createdDate == null) ? 0 : createdDate.hashCode());
+		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
 		result = prime * result + ((endTime == null) ? 0 : endTime.hashCode());
-		
 		result = prime * result + headCount;
 		result = prime * result + ((location == null) ? 0 : location.hashCode());
 		result = prime * result + ((meetingRoom == null) ? 0 : meetingRoom.hashCode());
 		result = prime * result + ((meetingTitle == null) ? 0 : meetingTitle.hashCode());
-		result = prime * result + ((updatedTime == null) ? 0 : updatedTime.hashCode());
-		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
 		return result;
 	}
 	/* (non-Javadoc)
@@ -154,20 +180,28 @@ public class BookMeetingRoom {
 				return false;
 		} else if (!beginTime.equals(other.beginTime))
 			return false;
-		
 		if (bookMeetingRoomId != other.bookMeetingRoomId)
 			return false;
-		if (createdTime == null) {
-			if (other.createdTime != null)
+		if (bookingDate == null) {
+			if (other.bookingDate != null)
 				return false;
-		} else if (!createdTime.equals(other.createdTime))
+		} else if (!bookingDate.equals(other.bookingDate))
+			return false;
+		if (createdDate == null) {
+			if (other.createdDate != null)
+				return false;
+		} else if (!createdDate.equals(other.createdDate))
+			return false;
+		if (emailId == null) {
+			if (other.emailId != null)
+				return false;
+		} else if (!emailId.equals(other.emailId))
 			return false;
 		if (endTime == null) {
 			if (other.endTime != null)
 				return false;
 		} else if (!endTime.equals(other.endTime))
 			return false;
-		
 		if (headCount != other.headCount)
 			return false;
 		if (location == null) {
@@ -185,16 +219,6 @@ public class BookMeetingRoom {
 				return false;
 		} else if (!meetingTitle.equals(other.meetingTitle))
 			return false;
-		if (updatedTime == null) {
-			if (other.updatedTime != null)
-				return false;
-		} else if (!updatedTime.equals(other.updatedTime))
-			return false;
-		if (emailId == null) {
-			if (other.emailId != null)
-				return false;
-		} else if (!emailId.equals(other.emailId))
-			return false;
 		return true;
 	}
 	public int getHeadCount() {
@@ -203,28 +227,16 @@ public class BookMeetingRoom {
 	public void setHeadCount(int headCount) {
 		this.headCount = headCount;
 	}
-	public Timestamp getCreatedTime() {
-		return createdTime;
-	}
-	public void setCreatedTime(Timestamp createdTime) {
-		this.createdTime = createdTime;
-	}
-	public Timestamp getUpdatedTime() {
-		return updatedTime;
-	}
-	public void setUpdatedTime(Timestamp updatedTime) {
-		this.updatedTime = updatedTime;
-	}
+	
 		/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "BookMeetingRoom [emailId=" + emailId + ", bookMeetingRoomId=" + bookMeetingRoomId + ", meetingTitle="
-				+ meetingTitle + ", meetingRoom=" + meetingRoom + ", beginTime=" + beginTime + ", endTime=" + endTime
-				+ ", headCount="
-				+ headCount + ", createdTime=" + createdTime + ", updatedTime=" + updatedTime + ", location=" + location
-				+ "]";
+		return "BookMeetingRoom [bookMeetingRoomId=" + bookMeetingRoomId + ", meetingTitle=" + meetingTitle
+				+ ", emailId=" + emailId + ", meetingRoom=" + meetingRoom + ", beginTime=" + beginTime + ", endTime="
+				+ endTime + ", headCount=" + headCount + ", createdDate=" + createdDate + ", bookingDate=" + bookingDate
+				+ ", location=" + location + "]";
 	}
 	
 }
