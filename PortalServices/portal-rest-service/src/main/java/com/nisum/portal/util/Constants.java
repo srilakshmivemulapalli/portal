@@ -45,6 +45,10 @@ public class Constants {
 	public static final String TRAINING_REQUEST_EXISTS = "Training Request Already Raised !!";
 	public static final String TRAINING_NOT_FETCH="Error While Fetching the Record!!!";
 	
+	public static final String MEETINGS_EMPTY = "Meeting List empty";
+	public static final String USER_BOOKING_EMPTY = "User booking List empty";
+	public static final String MEETINGS_ROOMS_EMPTY = "Available rooms List empty";
+	
 	// Email configuration for new user account
 		public static final String GMAIL_SMTP="mail.smtp.auth";
 		

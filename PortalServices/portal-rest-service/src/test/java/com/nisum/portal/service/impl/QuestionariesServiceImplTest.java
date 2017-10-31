@@ -1,7 +1,7 @@
 package com.nisum.portal.service.impl;
 
-import static org.assertj.core.api.Assertions.assertThat; 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 import java.sql.Date;
@@ -13,35 +13,26 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-
 
 import com.nisum.portal.data.dao.api.CategoriesDAO;
 import com.nisum.portal.data.dao.api.QuestionariesCommentsDAO;
 import com.nisum.portal.data.dao.api.QuestionariesDAO;
 import com.nisum.portal.data.dao.api.UserDAO;
 import com.nisum.portal.data.domain.Categories;
-
+import com.nisum.portal.data.domain.QuestionReplies;
 import com.nisum.portal.data.domain.Questionaries;
 import com.nisum.portal.data.domain.QuestionariesComments;
+import com.nisum.portal.data.repository.CategoriesRepository;
 import com.nisum.portal.service.api.UserService;
 import com.nisum.portal.service.dto.CountDTO;
 import com.nisum.portal.service.dto.QuestionariesCommentsDTO;
 import com.nisum.portal.service.dto.QuestionariesDTO;
 import com.nisum.portal.service.dto.QuestionsDTO;
-import com.nisum.portal.data.domain.QuestionReplies;
-import com.nisum.portal.data.domain.Questionaries;
-import com.nisum.portal.data.domain.QuestionariesComments;
-import com.nisum.portal.data.repository.CategoriesRepository;
-import com.nisum.portal.service.dto.CountDTO;
-import com.nisum.portal.service.dto.QuestionariesCommentsDTO;
-
 import com.nisum.portal.util.Constants;
 import com.nisum.portal.util.QuestionariesUtil;
 
