@@ -1,6 +1,8 @@
 package com.nisum.portal.service.dto;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class TrainingsDTO {
@@ -24,7 +26,7 @@ public class TrainingsDTO {
 	private String displayImage;
 	private Integer noOfComments;
 	private Integer trainingToUserId;
-	private Map<String,String> commentDescriptions;
+	private ArrayList<LinkedHashMap<String,String>> commentDescriptions;
 	private Integer commentStatus;
 	public Integer getTrainingId() {
 		return trainingId;
@@ -129,11 +131,10 @@ public class TrainingsDTO {
 	public void setTrainingToUserId(Integer trainingToUserId) {
 		this.trainingToUserId = trainingToUserId;
 	}
-	
-	public Map<String, String> getCommentDescriptions() {
+	public ArrayList<LinkedHashMap<String, String>> getCommentDescriptions() {
 		return commentDescriptions;
 	}
-	public void setCommentDescriptions(Map<String, String> commentDescriptions) {
+	public void setCommentDescriptions(ArrayList<LinkedHashMap<String, String>> commentDescriptions) {
 		this.commentDescriptions = commentDescriptions;
 	}
 	public Integer getCommentStatus() {

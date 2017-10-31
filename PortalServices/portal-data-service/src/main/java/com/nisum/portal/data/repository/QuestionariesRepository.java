@@ -33,6 +33,16 @@ public interface QuestionariesRepository extends JpaRepository<Questionaries,Int
 	
 	@Transactional
     @Query(value = "SELECT q from Questionaries q where q.categoryId = :category")
+	List<Questionaries> retrieveQuestionariesCountByCategory(@Param("category") Categories category);
+	/**
+	 * 
+	 * @param category
+	 * @param pageable
+	 * @return list of questionaries based on category through pagination
+	 */
+	
+	@Transactional
+    @Query(value = "SELECT q from Questionaries q where q.categoryId = :category")
 	List<Questionaries> retrieveQuestionariesByCategory(@Param("category") Categories category, Pageable pageable);
 
 	    
@@ -43,8 +53,18 @@ public interface QuestionariesRepository extends JpaRepository<Questionaries,Int
 	    
 	
 	
-	/**
+    /**
 	 * retrieves all unanswered questionaries based on category
+	 * @param category
+	 * @param pageable
+	 * @return list of questionaries
+	 */
+	
+	@Transactional
+	@Query(value = "SELECT  distinct q FROM Questionaries q where q.questionId not in (SELECT  distinct qr.questId FROM QuestionReplies qr ) and q.categoryId = :category")
+	List<Questionaries> retriveAllUnansweredQuestionariesCountByCategory(@Param("category") Categories category);
+	/**
+	 * retrieves all unanswered questionaries based on category through pagination
 	 * @param category
 	 * @param pageable
 	 * @return list of questionaries
@@ -63,8 +83,20 @@ public interface QuestionariesRepository extends JpaRepository<Questionaries,Int
 	@Query(value = "SELECT  distinct q FROM Questionaries q where q.questionId not in (SELECT  distinct qr.questId FROM QuestionReplies qr )")
 	List<Questionaries> retriveAllUnansweredQuestionariesByPagination(Pageable pageable);
 	
+	
 	/**
 	 * retrieve questionaries for given category and particular emailId 
+	 * @param emailId
+	 * @param category
+	 * @param pageable
+	 * @return list of questionaries
+	 */
+	@Transactional
+    @Query(value = "SELECT q from Questionaries q where q.emailId = :emailId and q.categoryId = :category")
+	List<Questionaries> fetchMyQuestionariesCountByCategory(@Param("emailId") String emailId, @Param("category") Categories category);
+	
+	/**
+	 * retrieve questionaries for given category and particular emailId through pagination
 	 * @param emailId
 	 * @param category
 	 * @param pageable

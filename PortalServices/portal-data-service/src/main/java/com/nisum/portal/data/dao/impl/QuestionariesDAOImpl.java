@@ -55,10 +55,16 @@ public class QuestionariesDAOImpl implements QuestionariesDAO {
 	}
 	
 	@Override
+	public List<Questionaries> retrieveQuestionCountByCategory(Categories category) {
+		logger.info("QuestionariesDAOImpl::retrieveQuestionCountByCategory(categoryId: "+category.getCategoryId()+")");
+		return questionariesRepository.retrieveQuestionariesCountByCategory(category);
+	}
+	@Override
 	public List<Questionaries> retrieveQuestionByCategory(Categories category, Pageable pageable) {
-		logger.info("QuestionariesDAOImpl::retrieveQuestionByCategory(categoryId: "+category.getCategoryId()+", PageNumber: "+ pageable.getPageNumber()+", PageSize: "+pageable.getPageSize()+")");
+		logger.info("QuestionariesDAOImpl::retrieveQuestionByCategoryThroughPagination(categoryId: "+category.getCategoryId()+", PageNumber: "+ pageable.getPageNumber()+", PageSize: "+pageable.getPageSize()+")");
 		return questionariesRepository.retrieveQuestionariesByCategory(category, pageable);
 	}
+	
 	@Override
 	public List<Questionaries> retrieveQuestionByPagination(Pageable pageable) {
 		logger.info("QuestionariesDAOImpl::retrieveQuestionByPagination(PageNumber: "+ pageable.getPageNumber()+", PageSize: "+pageable.getPageSize()+")");
@@ -82,9 +88,16 @@ public class QuestionariesDAOImpl implements QuestionariesDAO {
 	@Override
 	public List<Questionaries> fetchMyQuestionariesByPagination(String emailId, Pageable pageable) {
 		logger.info("QuestionariesDAOImpl::fetchMyQuestionariesByPagination(emailId: "+emailId+", PageNumber: "+ pageable.getPageNumber()+", PageSize: "+pageable.getPageSize()+")");
-		return questionariesRepository.fetchMyQuestionariesByPagination(emailId, pageable);
+		return questionariesRepository.fetchMyQuestionariesByPagination(emailId, pageable); 
 	}
-	
-
-
+	@Override
+	public List<Questionaries> retrieveAllUnansweredQuestionariesCountByCategory(Categories category) {
+		logger.info("QuestionariesDAOImpl::retrieveAllUnansweredQuestionariesCountByCategory(categoryId"+category.getCategoryId()+")");
+		return questionariesRepository.retriveAllUnansweredQuestionariesCountByCategory(category);
+	}
+	@Override
+	public List<Questionaries> fetchMyQuestionariesCountByCategory(String emailId, Categories category) {
+		logger.info("QuestionariesDAOImpl::fetchMyQuestionariesCountByCategory(emailId: "+emailId+", categoryId: "+category.getCategoryId()+")");
+		return questionariesRepository.fetchMyQuestionariesCountByCategory(emailId, category);
+	}
 }

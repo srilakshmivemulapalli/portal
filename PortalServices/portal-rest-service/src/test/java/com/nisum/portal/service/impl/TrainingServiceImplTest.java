@@ -1,17 +1,32 @@
 package com.nisum.portal.service.impl;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
+import javax.mail.Authenticator;
+import javax.mail.Folder;
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Store;
+
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -22,6 +37,7 @@ import com.nisum.portal.data.domain.TrainingRequest;
 import com.nisum.portal.data.domain.TrainingToUser;
 import com.nisum.portal.data.domain.Trainings;
 import com.nisum.portal.data.repository.TrainingRequestRepository;
+import com.nisum.portal.service.api.EmailAccount;
 import com.nisum.portal.service.api.UserService;
 import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.dto.TrainingFeedBackDTO;
@@ -32,19 +48,34 @@ import com.nisum.portal.service.dto.UserDTO;
 import com.nisum.portal.util.TrainingFeedBackUtil;
 import com.nisum.portal.util.TrainingRequestUtil;
 import com.nisum.portal.util.TrainingsServiceUtil;
-//@RunWith(MockitoJUnitRunner.class)
+import com.nisum.portal.service.dto.UserDTO;
+import com.nisum.portal.util.MailSender;
+import com.nisum.portal.util.QuestionReplysUtil;
+import com.nisum.portal.util.QuestionariesUtil;
+import com.nisum.portal.util.TrainingFeedBackUtil;
+import com.nisum.portal.util.TrainingRequestUtil;
+
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({TrainingFeedBackUtil.class,TrainingRequestUtil.class,TrainingsServiceUtil.class})
+@PrepareForTest({TrainingsServiceUtil.class,TrainingFeedBackUtil.class,TrainingRequestUtil.class,Session.class})
 public class TrainingServiceImplTest {
+	
 	@InjectMocks
 	TrainingsServiceImpl trainingsServiceImpl;
+	
 	@Mock
 	TrainingsDAO trainingsDAO;
+	
 	@Mock
 	TrainingRequestRepository trainingRequestRepository;
 	
 	@Mock
 	UserService userService;
+
+	@Mock
+	Map<String, UserDTO> map;
+	
+	private EmailAccount emailAccount;
+	
 	@Test
 	public void addTrainingFeedBackSuccessTest(){
 		TrainingFeedBackDTO trainingFeedBackDTO = new TrainingFeedBackDTO();
@@ -54,50 +85,50 @@ public class TrainingServiceImplTest {
 		trainingFeedBackDTO.setFeedback("Very Good");
 		trainingFeedBackDTO.setEmailId("mbheemanapalli@nisum.com");
 		trainingFeedBackDTO.setCreateDate(timestamp);
-		PowerMockito.mockStatic(TrainingFeedBackUtil.class);
 		TrainingFeedBack feedback=new TrainingFeedBack();
-				feedback.setTrainingId(1);
-				feedback.setTrainingFeedBackId(1);
+		feedback.setTrainingFeedBackId(1);
+		feedback.setTrainingId(1);
+		feedback.setFeedback("Very Good");
+		feedback.setEmailId("mbheemanapalli@nisum.com");
+		feedback.setCreateDate(timestamp);
+		PowerMockito.mockStatic(TrainingFeedBackUtil.class);
 		PowerMockito.when(TrainingFeedBackUtil.convertDtoTODao(trainingFeedBackDTO)).thenReturn(feedback);
-		
-		Integer status=1;
-		//when(trainingsDAO.addTrainingsFeedBack(feedback)).thenReturn(status);
-		//ServiceStatusDto actualStatus = trainingsServiceImpl.addTrainingFeedBack(trainingFeedBackDTO);
-		ServiceStatusDto expectedStatus = new ServiceStatusDto();
-		expectedStatus.setStatus(true);
-		expectedStatus.setMessage("Record Added Successfully !!");
-		//assertEquals(expectedStatus.isStatus(), actualStatus.isStatus());
-		//assertEquals(expectedStatus.getMessage(),actualStatus.getMessage());
+		Mockito.when(trainingsDAO.addTrainingsFeedBack(feedback)).thenReturn(feedback);
+		PowerMockito.when(TrainingFeedBackUtil.convertDaoTODto(feedback)).thenReturn(trainingFeedBackDTO);
+		TrainingFeedBackDTO actual = trainingsServiceImpl.addTrainingFeedBack(trainingFeedBackDTO);
+		assertEquals(trainingFeedBackDTO.getTrainingFeedBackId(), actual.getTrainingFeedBackId());
+		assertEquals(trainingFeedBackDTO.getTrainingId(), actual.getTrainingId());
+		assertEquals(trainingFeedBackDTO.getFeedback(), actual.getFeedback());
+		assertEquals(trainingFeedBackDTO.getEmailId(), actual.getEmailId());
+		assertEquals(trainingFeedBackDTO.getCreateDate(), actual.getCreateDate());
 	}
-	@Test
-	public void addTrainingFeedBackFailureTest() {
-		TrainingFeedBackDTO trainingFeedBackDTO = new TrainingFeedBackDTO();
-		TrainingFeedBack dao = TrainingFeedBackUtil.convertDtoTODao(trainingFeedBackDTO);
-		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
-		serviceStatusDto.setStatus(false);
-		serviceStatusDto.setMessage("Training feedback to respective training already submitted !!");
-		//when(trainingsDAO.addTrainingsFeedBack(dao)).thenReturn(0);
-		//ServiceStatusDto actual = trainingsServiceImpl.addTrainingFeedBack(trainingFeedBackDTO);
-		//assertEquals(serviceStatusDto.isStatus(), actual.isStatus());
-		//assertEquals(serviceStatusDto.getMessage(), actual.getMessage());
-	}
+	
 	@Test
 	public void addTrainingRequesSuccesstTest() throws Exception{
-		TrainingRequestDTO trainingRequestDTO = new TrainingRequestDTO();
+		//Assigning system time
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		trainingRequestDTO.setRequestedDate(timestamp);
-		trainingRequestDTO.setEmailId("mahesh@gmail.com");
-		trainingRequestDTO.setRequestTrainingTitle("Java8 Features");
+		//Created Training DTO Object 
+		TrainingRequestDTO trainingRequestDTO = new TrainingRequestDTO();
 		trainingRequestDTO.setTrainingRequestId(1);
+		trainingRequestDTO.setEmailId("mbheemanapalli@nisum.com");
+		trainingRequestDTO.setRequestTrainingTitle("Java8 Features");
 		trainingRequestDTO.setDescription("It is latest version");
-		PowerMockito.mockStatic(TrainingRequestUtil.class);
+		trainingRequestDTO.setRequestedDate(timestamp);
+		trainingRequestDTO.setRequestStatus(0);
 		TrainingRequest request = new TrainingRequest();
 		request.setTrainingRequestId(1);
+		request.setEmailid("mbheemanapalli@nisum.com");
+		request.setRequestTrainingTitle("Java8 Features");
+		request.setDescription("It is latest version");
+		request.setRequestedDate(timestamp);  
+		request.setRequestStatus(0);
+		PowerMockito.mockStatic(TrainingRequestUtil.class);
 		PowerMockito.when(TrainingRequestUtil.convertDtoTODao(trainingRequestDTO)).thenReturn(request);
 		Integer status=1;
-		when(trainingsDAO.addTrainingsRequest(request)).thenReturn(status);
+		Mockito.when(trainingsDAO.addTrainingsRequest(request)).thenReturn(status);
+		PowerMockito.when(TrainingRequestUtil.convertDaoTODto(request)).thenReturn(trainingRequestDTO);
 		ServiceStatusDto actualStatus = new ServiceStatusDto();
-		actualStatus= trainingsServiceImpl.addTrainingRequest(trainingRequestDTO);
+		actualStatus= trainingsServiceImpl.addTrainingRequest(trainingRequestDTO, userService);
 		ServiceStatusDto expectedStatus = new ServiceStatusDto();
 		expectedStatus.setStatus(true);
 		expectedStatus.setMessage("Record Added Successfully !!");
@@ -112,7 +143,7 @@ public class TrainingServiceImplTest {
 		expectedStatus.setStatus(false);
 		expectedStatus.setMessage("Training Request Already Raised !!");
 		when(trainingsDAO.addTrainingsRequest(dao)).thenReturn(0);
-		ServiceStatusDto actualStatus = trainingsServiceImpl.addTrainingRequest(dto);
+		ServiceStatusDto actualStatus = trainingsServiceImpl.addTrainingRequest(dto, userService);
 		assertEquals(expectedStatus.isStatus(), actualStatus.isStatus());
 		assertEquals(expectedStatus.getMessage(), actualStatus.getMessage());
 	}

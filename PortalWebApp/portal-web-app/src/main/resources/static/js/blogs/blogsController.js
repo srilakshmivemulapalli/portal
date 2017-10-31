@@ -15,9 +15,6 @@ blogsApp
 
 					}
 					$scope.getBlogdata();
-					// $scope.redirectNewBlog = function() {
-					// $state.go('newBlog');
-					// }
 					$scope.saveBlog = function(JsonData, files) {
 						$scope.blog.userId = $scope.profile.userId;
 						$scope.blog.emailId = $scope.profile.emailId;
@@ -36,20 +33,19 @@ blogsApp
 						$scope.blog.userId = $scope.profile.userId;
 						$scope.blog.emailId = $scope.profile.emailId;
 						var formData = new FormData();
-						formData.append("model", $scope.blog);
-						var filesArray = [];
-						alert($scope.files.length);
+						formData.append("model", angular.toJson($scope.blog));
+						formData.append("title",$scope.blog.title);
+						formData.append("description",$scope.blog.description);
+						formData.append("userId",$scope.profile.userId);
+						formData.append("emailId",$scope.profile.emailId);
 						for (var i = 0 ; i < $scope.files.length ; i ++){
 							formData.append("uploads",$scope.files[i]);
 			            }
-						//formData.append("uploads",filesArray);
 						$http(
 								{
 									method : 'POST',
 									url : "v1/Blogs/add/addBlog",
-									//            headers: { 'Content-Type': undefined },  
 									headers : {
-//										"Content-Type" : "multipart/form-data; boundary=----WebKitFormBoundary8WLbZBEVERUXABAl"
 										"Content-Type" : undefined
 									},
 									transformRequest : angular.identity,

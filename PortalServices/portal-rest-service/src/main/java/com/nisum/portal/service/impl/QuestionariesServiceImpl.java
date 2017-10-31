@@ -151,7 +151,7 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 		Categories category=categoriesDAO.getCategory(categoryId);
 		List<Questionaries> allQuestionariesList=questionariesDAO.retrieveQuestionByCategory(category, pageable);
 		QuestionsDTO questionsDTO = new QuestionsDTO();
-		questionsDTO.setTotalQuestions(allQuestionariesList.size());
+		questionsDTO.setTotalQuestions(questionariesDAO.retrieveQuestionCountByCategory(category).size()); 
 		questionsDTO.setTotalUsers(userDAO.getUserCount());
 		
 		return QuestionariesUtil.convertDaoToDto(allQuestionariesList, questionsDTO,userervice);
@@ -182,9 +182,8 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 		logger.info("QuestionariesServiceImpl:: retrieveAllUnansweredQuestionariesByCategory(categoryId :"+categoryId+", Pageable:"+pageable+")");
 		Categories category=categoriesDAO.getCategory(categoryId);
 		List<Questionaries> questionariesList=questionariesDAO.retrieveAllUnansweredQuestionariesByCategory(category, pageable);
-		System.out.println("unanswered list size: "+questionariesList.size());
 		QuestionsDTO questionsDTO=new QuestionsDTO();
-		questionsDTO.setTotalQuestions(questionariesList.size());
+		questionsDTO.setTotalQuestions(questionariesDAO.retrieveAllUnansweredQuestionariesCountByCategory(category).size());
 		questionsDTO.setTotalUsers(userDAO.getUserCount());
 		return QuestionariesUtil.convertDaoToDto(questionariesList,questionsDTO,userervice);
 	}
@@ -216,7 +215,7 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 		Categories category=categoriesDAO.getCategory(categoryId);
 		List<Questionaries> questionariesList = questionariesDAO.fetchMyQuestionariesByCategory(emailId, category, pageable);
 		QuestionsDTO questionsDTO = new QuestionsDTO();
-		questionsDTO.setTotalQuestions(questionariesList.size());
+		questionsDTO.setTotalQuestions(questionariesDAO.fetchMyQuestionariesCountByCategory(emailId, category).size());
 		questionsDTO.setTotalUsers(userDAO.getUserCount());
 		return QuestionariesUtil.convertDaoToDto(questionariesList,questionsDTO,userervice);
 	}
@@ -231,9 +230,9 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 		emailId = emailId.substring(0, emailId.indexOf("@"))+"@nisum.com";
 		List<Questionaries> questionariesList = questionariesDAO.fetchMyQuestionariesByPagination(emailId, pageable);
 		QuestionsDTO questionsDTO = new QuestionsDTO();
-		questionsDTO.setTotalQuestions(questionariesList.size());
+		questionsDTO.setTotalQuestions(questionariesDAO.fetchMyQuestionaries(emailId).size());
 		questionsDTO.setTotalUsers(userDAO.getUserCount());
-		return QuestionariesUtil.convertDaoToDto(questionariesList,questionsDTO,userervice);
+		return QuestionariesUtil.convertDaoToDto(questionariesList,questionsDTO,userervice); 
 	}
 
 }

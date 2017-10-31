@@ -14,6 +14,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.data.domain.PageRequest;
 
 import com.nisum.portal.data.dao.impl.QuestionRepliesDAOImpl;
+import com.nisum.portal.data.domain.Categories;
 import com.nisum.portal.data.domain.Questionaries;
 import com.nisum.portal.data.repository.QuestionRepliesRepository;
 
@@ -25,6 +26,8 @@ public class QuestionRepliesDAOImplTest {
 	
 	@InjectMocks
 	QuestionRepliesDAOImpl questionRepliesDAOImpl;
+	
+	
 	@Test
 	public void getMyReplyQuestions() {
 		
@@ -37,10 +40,49 @@ public class QuestionRepliesDAOImplTest {
 		List<Questionaries> questionsList = new ArrayList<Questionaries>();
 		questionsList.add(questionaries);
 		
-		when(questionRepliesRepository.getMyReplyQuestions("test@nisum.com", new PageRequest(0, 3))).thenReturn(questionsList);
+		when(questionRepliesRepository.getMyReplyQuestions("test@nisum.com")).thenReturn(questionsList);
 		
-		List<Questionaries> expected = questionRepliesDAOImpl.getMyReplyQuestions("test@nisum.com", new PageRequest(0, 3));
-		assertEquals(expected.size(), questionsList.size());
+		List<Questionaries> expected = questionRepliesDAOImpl.getMyReplyQuestions("test@nisum.com");
+		assertEquals(expected, questionsList);
+	}
+	@Test
+	public void getMyReplyQuestionsByPagination() {
+		
+		Questionaries questionaries = new Questionaries();
+		questionaries.setDescription("description");
+		questionaries.setEmailId("test@nisum.com");
+		questionaries.setQuestion("What is java");
+		questionaries.setQuestionId(1);
+	
+		List<Questionaries> questionsList = new ArrayList<Questionaries>();
+		questionsList.add(questionaries);
+		
+		when(questionRepliesRepository.getMyReplyQuestionsByPagination("test@nisum.com", new PageRequest(0, 3))).thenReturn(questionsList);
+		
+		List<Questionaries> expected = questionRepliesDAOImpl.getMyReplyQuestionsByPagination("test@nisum.com", new PageRequest(0, 3));
+		assertEquals(expected, questionsList);
+	}
+	
+	
+	@Test
+	public void getMyReplyQuestionsByCategory() {
+		
+		Questionaries questionaries = new Questionaries();
+		questionaries.setDescription("description");
+		questionaries.setEmailId("test@nisum.com");
+		questionaries.setQuestion("What is java");
+		questionaries.setQuestionId(1);
+	
+		List<Questionaries> questionsList = new ArrayList<Questionaries>();
+		questionsList.add(questionaries);
+		
+		Categories category = new Categories();
+		category.setCategoryId(1);
+		
+		when(questionRepliesRepository.getMyReplyQuestionsByCategoryThroughPagination("test@nisum.com", category, new PageRequest(0, 3))).thenReturn(questionsList);
+		
+		List<Questionaries> expected = questionRepliesDAOImpl.getMyReplyQuestionsByCategoryThroughPagination("test@nisum.com", category, new PageRequest(0, 3));
+		assertEquals(expected, questionsList);
 	}
 
 }

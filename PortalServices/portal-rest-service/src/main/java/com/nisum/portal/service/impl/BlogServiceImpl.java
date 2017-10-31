@@ -6,11 +6,14 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.servlet.http.HttpServletRequest;
 
 
@@ -125,12 +128,7 @@ public class BlogServiceImpl implements BlogService{
 		return BlogsServiceUtil.parseRequestToGetBlogsDTO(request);
 	}
 
-	@Override
-	public BlogsDTO parseRequestToStoreUploads(HttpServletRequest request, String path, BlogsDTO blogsDTO) throws Exception{
-		logger.info("BlogServiceImpl :: parseRequestToStoreUploads");
-		//return BlogsServiceUtil.parseRequestToStoreUploads(request, getBlogsAttachmentPath(), blogsDTO);
-		return BlogsServiceUtil.parseRequestToStoreUploads(request, path, blogsDTO);
-	}
+	
 
 	@Override
 	public String uploadAttachment(HttpServletRequest request, String path) throws Exception {
@@ -177,6 +175,28 @@ public class BlogServiceImpl implements BlogService{
 	public boolean validateHttpRequestUploads(HttpServletRequest request) throws Exception {
 		logger.info("BlogServiceImpl :: validateHttpRequestUploads");
 		return BlogsServiceUtil.validateHttpRequestForUploads(request);	
+	}
+
+
+	@Override
+	public BlogsDTO convertJSONObjectToBlogsDTO(JSONObject jsonObject) throws Exception {
+		logger.info("BlogServiceImpl :: convertJSONObjectToBlogsDTO");
+		return BlogsServiceUtil.convertJSONObjectToBlogsDTO(jsonObject);
+	}
+
+
+	@Override
+	public String uploadAttachmentUI(MultipartFile[] file, String path) throws Exception {
+		logger.info("BlogServiceImpl :: uploadAttachmentUI");
+		return BlogsServiceUtil.parseRequestToStoreUploadsUI(file, path);
+	}
+
+
+	@Override
+	public BlogsDTO parseRequestToStoreUploads(MultipartFile[] file, String path, BlogsDTO blogsDTO) throws Exception {
+		logger.info("BlogServiceImpl :: parseRequestToStoreUploads");
+		//return BlogsServiceUtil.parseRequestToStoreUploads(request, getBlogsAttachmentPath(), blogsDTO);
+		return BlogsServiceUtil.parseRequestToStoreUploads(file, path, blogsDTO);
 	}
 	
 	

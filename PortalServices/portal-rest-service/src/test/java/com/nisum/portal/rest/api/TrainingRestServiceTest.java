@@ -15,8 +15,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -46,12 +44,11 @@ public class TrainingRestServiceTest {
 	@Test
 	public void addTrainingFeedBackTest() {
 		TrainingFeedBackDTO dto=new TrainingFeedBackDTO();
-		ServiceStatusDto statusDtoExpected=new ServiceStatusDto();
-		statusDtoExpected.setStatus(true);
-		statusDtoExpected.setMessage(Constants.MSG_RECORD_ADD);
-		//when(trainingsService.addTrainingFeedBack(dto)).thenReturn(statusDtoExpected);
+		dto.setTrainingFeedBackId(1);
+		dto.setTrainingId(1);
+		when(trainingsService.addTrainingFeedBack(dto)).thenReturn(dto);
 		ResponseEntity<?> statusDtoActual = trainingsRestService.addTrainingFeedBack(dto);
-		assertEquals(statusDtoExpected, statusDtoActual.getBody());
+		assertEquals(dto, statusDtoActual.getBody());
 	}
 	@Test
 	public void addTrainingFeedBackFailureTest() {
@@ -75,7 +72,7 @@ public class TrainingRestServiceTest {
 		ServiceStatusDto statusDtoExpected = new ServiceStatusDto();
 		statusDtoExpected.setStatus(true);
 		statusDtoExpected.setMessage(Constants.MSG_RECORD_ADD);
-		when(trainingsService.addTrainingRequest(dto)).thenReturn(statusDtoExpected);
+		when(trainingsService.addTrainingRequest(dto, userService)).thenReturn(statusDtoExpected);
 		ResponseEntity<?> statusDtoActual = trainingsRestService.addTrainingRequest(dto);
 		assertEquals(statusDtoExpected, statusDtoActual.getBody());
 	}
@@ -89,7 +86,7 @@ public class TrainingRestServiceTest {
 		Errors error = new Errors();
 		error.setErrorCode("Errors-TrainingRequest");
 		error.setErrorMessage("Training Request Already Raised !!");
-		when(trainingsService.addTrainingRequest(dto)).thenReturn(statusDtoExpected);
+		when(trainingsService.addTrainingRequest(dto, userService)).thenReturn(statusDtoExpected);
 		ResponseEntity<Errors> expected = new ResponseEntity<Errors>(error, HttpStatus.NOT_ACCEPTABLE);
 		ResponseEntity<Errors> actual = (ResponseEntity<Errors>) trainingsRestService.addTrainingRequest(dto);
 		assertEquals(expected.getStatusCode(), actual.getStatusCode());

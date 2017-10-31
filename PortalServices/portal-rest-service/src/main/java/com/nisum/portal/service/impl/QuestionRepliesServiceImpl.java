@@ -1,7 +1,7 @@
 package com.nisum.portal.service.impl;
 
 
-import java.sql.Timestamp;
+import java.sql.Timestamp; 
 import java.util.Date;
 import java.util.List;
 
@@ -100,12 +100,12 @@ public class QuestionRepliesServiceImpl implements QuestionRepliesService{
 	}
 
 	@Override
-	public QuestionsDTO fetchMyReplyQuestions(String emailId, Pageable pageable) {
-		logger.info("QuestionRepliesServiceImpl :: fetchMyReplyQuestions :: finding reply questions");
+	public QuestionsDTO fetchMyReplyQuestionsByPagination(String emailId, Pageable pageable) {
+		logger.info("QuestionRepliesServiceImpl :: fetchMyReplyQuestionsByPagination :: finding reply questions");
 		emailId = emailId.substring(0, emailId.indexOf("@"))+"@nisum.com";
-		List<Questionaries> questionariesList = repliesDAO.getMyReplyQuestions(emailId, pageable);
+		List<Questionaries> questionariesList = repliesDAO.getMyReplyQuestionsByPagination(emailId, pageable);
 		QuestionsDTO questionsDTO = new QuestionsDTO();
-		questionsDTO.setTotalQuestions(questionariesList.size());
+		questionsDTO.setTotalQuestions(repliesDAO.getMyReplyQuestions(emailId).size());
 		return QuestionariesUtil.convertDaoToDto(questionariesList,questionsDTO,userervice);
 	}
 
@@ -114,9 +114,9 @@ public class QuestionRepliesServiceImpl implements QuestionRepliesService{
 		logger.info("QuestionRepliesServiceImpl :: fetchMyReplyQuestionsByCategory :: finding reply questions by category");
 		emailId = emailId.substring(0, emailId.indexOf("@"))+"@nisum.com";
 		Categories category=categoriesDAO.getCategory(categoryId);
-		List<Questionaries> questionariesList = repliesDAO.getMyReplyQuestionsByCategory(emailId, category, pageable);
+		List<Questionaries> questionariesList = repliesDAO.getMyReplyQuestionsByCategoryThroughPagination(emailId, category, pageable);
 		QuestionsDTO questionsDTO = new QuestionsDTO();
-		questionsDTO.setTotalQuestions(questionariesList.size());
+		questionsDTO.setTotalQuestions(repliesDAO.getMyReplyQuestionsByCategory(emailId, category).size());
 		return QuestionariesUtil.convertDaoToDto(questionariesList,questionsDTO,userervice);
 	}
 }

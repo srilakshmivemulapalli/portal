@@ -25,7 +25,7 @@ public class QuestionariesUtil {
 		if (CollectionUtils.isNotEmpty(questionariesList)) {
 			for (Questionaries questionaries : questionariesList) {
 				QuestionariesDTO dto = new  QuestionariesDTO();
-				dto.setCreatedDate(questionaries.getCreatedDate());
+				dto.setCreatedDate(questionaries.getCreatedDate()); 
 				dto.setDescription(questionaries.getDescription());
 				dto.setQuestion(questionaries.getQuestion());
 				dto.setQuestionId(questionaries.getQuestionId());
