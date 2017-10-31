@@ -93,7 +93,7 @@ public class TrainingsRestService {
 	}
 
 
-	@RequestMapping(value="/completed",method = RequestMethod.GET)
+	@RequestMapping(value="/getUserTrainings",method = RequestMethod.GET)
 	public ResponseEntity<?> completedTrainings(@RequestHeader("emailId") String emailId) throws TrainingsServiceException {
 		logger.info("TrainingsRestService :: completedTrainings");
 		try {
@@ -210,6 +210,26 @@ public class TrainingsRestService {
 			error.setErrorMessage(Constants.Training_No_FeedBacks);
 			return new ResponseEntity<Errors>(error, HttpStatus.OK);
 		}
+		
+	}
+	@RequestMapping(value ="/getMyTrainings", method = RequestMethod.GET)
+	public ResponseEntity<?> getMyTrainings(@RequestHeader("emailId") String trainerEmailId)
+	{
+		logger.info("TrainingsRestService :: getMyTrainings");
+		try
+		{
+		 List<TrainingsDTO> trainingsList=trainingsService.getMyTrainings(trainerEmailId,userService);
+		 return new ResponseEntity<List<TrainingsDTO>>(trainingsList,HttpStatus.OK);
+		}catch(Exception e)
+		{
+			logger.error(Constants.TRAINING_NOT_FETCH);
+			Errors error = new Errors();
+			error.setErrorCode("Error-getMyTrainings");
+			error.setErrorMessage(Constants.TRAINING_NOT_FETCH);
+			return new ResponseEntity<Errors>(error, HttpStatus.OK);
+	   
+		}
+
 		
 	}
 	

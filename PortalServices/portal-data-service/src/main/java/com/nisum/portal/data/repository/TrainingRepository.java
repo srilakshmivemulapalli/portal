@@ -20,4 +20,8 @@ public interface TrainingRepository extends JpaRepository<Trainings,Integer>{
 	@Query(value="SELECT t from Trainings t where t.trainingId IN (SELECT tu.trainingId from TrainingToUser tu  where "+
 			"tu.emailId= :emailId and tu.trainingPresence=1 )order by t.trainingStartDate desc")
     List<Trainings> fetchCompletedTrainings(@Param("emailId") String emailId);
+	
+	@Transactional
+	@Query(value="SELECT t from Trainings t where t.trainerEmailId=:trainerEmailId order by trainingStartDate asc")
+	List<Trainings> getMyTrainings(@Param("trainerEmailId") String trainerEmailId);
 }

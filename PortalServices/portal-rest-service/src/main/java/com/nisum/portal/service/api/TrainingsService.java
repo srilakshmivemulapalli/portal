@@ -29,5 +29,7 @@ public interface TrainingsService {
 	List<TrainingFeedBackDTO> getAllTrainingFeedBacks();
 
 	public List<TrainingFeedBackDTO> getTrainingFeedBack(Integer trainingId);
+	
+	public List<TrainingsDTO> getMyTrainings(String emailId,UserService userService);
 
 }
