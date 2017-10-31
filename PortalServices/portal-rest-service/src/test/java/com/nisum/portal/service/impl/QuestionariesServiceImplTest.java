@@ -138,51 +138,49 @@ public class QuestionariesServiceImplTest {
 	public void getQuestionariesByCategoryTest() {
 		
 		List<QuestionariesDTO> questionList = new ArrayList<QuestionariesDTO>();
-		
+
 		QuestionariesDTO questionariesDTO = new QuestionariesDTO();
-		
-			questionariesDTO.setCategoryName("category1");
-			questionariesDTO.setDescription("description");
-			questionariesDTO.setDisplayImage("DisplayImage");
-			questionariesDTO.setDisplayName("display name");
-			questionariesDTO.setEmailId("test@nisum.com");
-			questionariesDTO.setQuestion("Question111");
-			questionariesDTO.setQuestionId(1);
-			questionariesDTO.setQuestionRepliesCount(0);
+
+		questionariesDTO.setCategoryName("category1");
+		questionariesDTO.setDescription("description");
+		questionariesDTO.setDisplayImage("DisplayImage");
+		questionariesDTO.setDisplayName("display name");
+		questionariesDTO.setEmailId("test@nisum.com");
+		questionariesDTO.setQuestion("Question111");
+		questionariesDTO.setQuestionId(1);
+		questionariesDTO.setQuestionRepliesCount(0);
 
 		questionList.add(questionariesDTO);
 
-		
-		
 		Categories category = new Categories();
 		category.setCategoryId(1);
 		category.setCategoryName("JAVA");
-		
-		List<Questionaries> questionariesList=new ArrayList<>();
-		
+
+		List<Questionaries> questionariesList = new ArrayList<>();
+
 		Questionaries questionaries = new Questionaries();
-			questionaries.setEmailId("test@nisum.com");
-			questionaries.setQuestion("what is abc");
-			questionaries.setQuestionId(1);
-			questionaries.setCategoryId(category);
-			questionaries.setCreatedDate(new Timestamp(System.currentTimeMillis()));
-			questionaries.setDescription("description");
-	
-		
+		questionaries.setEmailId("test@nisum.com");
+		questionaries.setQuestion("what is abc");
+		questionaries.setQuestionId(1);
+		questionaries.setCategoryId(category);
+		questionaries.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+		questionaries.setDescription("description");
+
 		questionariesList.add(questionaries);
-		
-		
+
 		QuestionsDTO expected = new QuestionsDTO();
 		expected.setTotalQuestions(questionariesList.size());
-		expected.setTotalUsers(1); 
-		
+		expected.setTotalUsers(1);
+
 		when(userDAO.getUserCount()).thenReturn((long) 1);
 		when(categoriesDAO.getCategory(1)).thenReturn(category);
 		when(questionariesDAO.retrieveQuestionCountByCategory(category)).thenReturn(questionariesList);
-		when(questionariesDAO.retrieveQuestionByCategory(category, new PageRequest(0, 3, Sort.Direction.ASC, Constants.SORT_BY_ELEMENT))).thenReturn(questionariesList);
-		
-		QuestionsDTO actual=questionariesServiceImpl.getQuestionariesByCategory(1, new PageRequest(0,3, Sort.Direction.ASC, Constants.SORT_BY_ELEMENT)); 
-		
+		when(questionariesDAO.retrieveQuestionByCategory(category,
+				new PageRequest(0, 3, Sort.Direction.ASC, Constants.SORT_BY_ELEMENT))).thenReturn(questionariesList);
+
+		QuestionsDTO actual = questionariesServiceImpl.getQuestionariesByCategory(1,
+				new PageRequest(0, 3, Sort.Direction.ASC, Constants.SORT_BY_ELEMENT));
+
 		assertEquals(expected.getTotalQuestions(), actual.getTotalQuestions());
 	} 
 	
@@ -191,50 +189,49 @@ public class QuestionariesServiceImplTest {
 	public void getQuestionariesByPaginationTest() {
 		
 		List<QuestionariesDTO> questionList = new ArrayList<QuestionariesDTO>();
-		
+
 		QuestionariesDTO questionariesDTO = new QuestionariesDTO();
-		
-			questionariesDTO.setCategoryName("category1");
-			questionariesDTO.setDescription("description");
-			questionariesDTO.setDisplayImage("DisplayImage");
-			questionariesDTO.setDisplayName("display name");
-			questionariesDTO.setEmailId("test@nisum.com");
-			questionariesDTO.setQuestion("Question111");
-			questionariesDTO.setQuestionId(1);
-			questionariesDTO.setQuestionRepliesCount(0);
+
+		questionariesDTO.setCategoryName("category1");
+		questionariesDTO.setDescription("description");
+		questionariesDTO.setDisplayImage("DisplayImage");
+		questionariesDTO.setDisplayName("display name");
+		questionariesDTO.setEmailId("test@nisum.com");
+		questionariesDTO.setQuestion("Question111");
+		questionariesDTO.setQuestionId(1);
+		questionariesDTO.setQuestionRepliesCount(0);
 
 		questionList.add(questionariesDTO);
 
-		
-		
 		Categories category = new Categories();
 		category.setCategoryId(1);
 		category.setCategoryName("JAVA");
-		
-		List<Questionaries> questionariesList=new ArrayList<>();
-		
+
+		List<Questionaries> questionariesList = new ArrayList<>();
+
 		Questionaries questionaries = new Questionaries();
-			questionaries.setEmailId("test@nisum.com");
-			questionaries.setQuestion("what is abc");
-			questionaries.setQuestionId(1);
-			questionaries.setCategoryId(category);
-			questionaries.setCreatedDate(new Timestamp(System.currentTimeMillis()));
-			questionaries.setDescription("description");
-	
-		
+		questionaries.setEmailId("test@nisum.com");
+		questionaries.setQuestion("what is abc");
+		questionaries.setQuestionId(1);
+		questionaries.setCategoryId(category);
+		questionaries.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+		questionaries.setDescription("description");
+
 		questionariesList.add(questionaries);
-		
-		
+
 		QuestionsDTO expected = new QuestionsDTO();
 		expected.setTotalQuestions(questionariesList.size());
-		expected.setTotalUsers(1); 
-		
+		expected.setTotalUsers(1);
+
 		when(userDAO.getUserCount()).thenReturn((long) 1);
 		when(questionariesDAO.getQuestionariesCount()).thenReturn((long) 1);
-		when(questionariesDAO.retrieveQuestionByPagination(new PageRequest(0, 3, Sort.Direction.ASC, Constants.SORT_BY_ELEMENT))).thenReturn(questionariesList);
-		
-		QuestionsDTO actual=questionariesServiceImpl.getQuestionariesByPagination(new PageRequest(0,3, Sort.Direction.ASC, Constants.SORT_BY_ELEMENT)); 
-		
+		when(questionariesDAO
+				.retrieveQuestionByPagination(new PageRequest(0, 3, Sort.Direction.ASC, Constants.SORT_BY_ELEMENT)))
+						.thenReturn(questionariesList);
+
+		QuestionsDTO actual = questionariesServiceImpl
+				.getQuestionariesByPagination(new PageRequest(0, 3, Sort.Direction.ASC, Constants.SORT_BY_ELEMENT));
+
 		assertEquals(expected.getTotalQuestions(), actual.getTotalQuestions());
 	} 
 	
@@ -242,51 +239,50 @@ public class QuestionariesServiceImplTest {
 	@Test
 	public void retrieveAllunansweredQuestionariesByCategoryTest() {
 		
-List<QuestionariesDTO> questionList = new ArrayList<QuestionariesDTO>();
-		
+		List<QuestionariesDTO> questionList = new ArrayList<QuestionariesDTO>();
+
 		QuestionariesDTO questionariesDTO = new QuestionariesDTO();
-		
-			questionariesDTO.setCategoryName("category1");
-			questionariesDTO.setDescription("description");
-			questionariesDTO.setDisplayImage("DisplayImage");
-			questionariesDTO.setDisplayName("display name");
-			questionariesDTO.setEmailId("test@nisum.com");
-			questionariesDTO.setQuestion("Question111");
-			questionariesDTO.setQuestionId(1);
-			questionariesDTO.setQuestionRepliesCount(0);
+
+		questionariesDTO.setCategoryName("category1");
+		questionariesDTO.setDescription("description");
+		questionariesDTO.setDisplayImage("DisplayImage");
+		questionariesDTO.setDisplayName("display name");
+		questionariesDTO.setEmailId("test@nisum.com");
+		questionariesDTO.setQuestion("Question111");
+		questionariesDTO.setQuestionId(1);
+		questionariesDTO.setQuestionRepliesCount(0);
 
 		questionList.add(questionariesDTO);
 
-		
-		
 		Categories category = new Categories();
 		category.setCategoryId(1);
 		category.setCategoryName("JAVA");
-		
-		List<Questionaries> questionariesList=new ArrayList<>();
-		
+
+		List<Questionaries> questionariesList = new ArrayList<>();
+
 		Questionaries questionaries = new Questionaries();
-			questionaries.setEmailId("test@nisum.com");
-			questionaries.setQuestion("what is abc");
-			questionaries.setQuestionId(1);
-			questionaries.setCategoryId(category);
-			questionaries.setCreatedDate(new Timestamp(System.currentTimeMillis()));
-			questionaries.setDescription("description");
-	
-		
+		questionaries.setEmailId("test@nisum.com");
+		questionaries.setQuestion("what is abc");
+		questionaries.setQuestionId(1);
+		questionaries.setCategoryId(category);
+		questionaries.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+		questionaries.setDescription("description");
+
 		questionariesList.add(questionaries);
-		
-		
+
 		QuestionsDTO expected = new QuestionsDTO();
 		expected.setTotalQuestions(questionariesList.size());
-		expected.setTotalUsers(1); 
-		
+		expected.setTotalUsers(1);
+
 		when(userDAO.getUserCount()).thenReturn((long) 1);
 		when(categoriesDAO.getCategory(1)).thenReturn(category);
-		when(questionariesDAO.retrieveAllUnansweredQuestionariesByCategory(category, new PageRequest(0, 3, Sort.Direction.ASC, Constants.SORT_BY_ELEMENT))).thenReturn(questionariesList);
-		when(questionariesDAO.retrieveAllUnansweredQuestionariesCountByCategory(category)).thenReturn(questionariesList);
-		QuestionsDTO actual=questionariesServiceImpl.retrieveAllUnansweredQuestionariesByCategory(1, new PageRequest(0,3, Sort.Direction.ASC, Constants.SORT_BY_ELEMENT)); 
-		
+		when(questionariesDAO.retrieveAllUnansweredQuestionariesByCategory(category,
+				new PageRequest(0, 3, Sort.Direction.ASC, Constants.SORT_BY_ELEMENT))).thenReturn(questionariesList);
+		when(questionariesDAO.retrieveAllUnansweredQuestionariesCountByCategory(category))
+				.thenReturn(questionariesList);
+		QuestionsDTO actual = questionariesServiceImpl.retrieveAllUnansweredQuestionariesByCategory(1,
+				new PageRequest(0, 3, Sort.Direction.ASC, Constants.SORT_BY_ELEMENT));
+
 		assertEquals(expected.getTotalQuestions(), actual.getTotalQuestions());
 	} 
 	
@@ -295,51 +291,49 @@ List<QuestionariesDTO> questionList = new ArrayList<QuestionariesDTO>();
 	public void retrieveAllunansweredQuestionariesByPaginationTest() {
 		
 		List<QuestionariesDTO> questionList = new ArrayList<QuestionariesDTO>();
-		
+
 		QuestionariesDTO questionariesDTO = new QuestionariesDTO();
-		
-			questionariesDTO.setCategoryName("category1");
-			questionariesDTO.setDescription("description");
-			questionariesDTO.setDisplayImage("DisplayImage");
-			questionariesDTO.setDisplayName("display name");
-			questionariesDTO.setEmailId("test@nisum.com");
-			questionariesDTO.setQuestion("Question111");
-			questionariesDTO.setQuestionId(1);
-			questionariesDTO.setQuestionRepliesCount(0);
+
+		questionariesDTO.setCategoryName("category1");
+		questionariesDTO.setDescription("description");
+		questionariesDTO.setDisplayImage("DisplayImage");
+		questionariesDTO.setDisplayName("display name");
+		questionariesDTO.setEmailId("test@nisum.com");
+		questionariesDTO.setQuestion("Question111");
+		questionariesDTO.setQuestionId(1);
+		questionariesDTO.setQuestionRepliesCount(0);
 
 		questionList.add(questionariesDTO);
 
-		
-		
 		Categories category = new Categories();
 		category.setCategoryId(1);
 		category.setCategoryName("JAVA");
-		
-		List<Questionaries> questionariesList=new ArrayList<>();
-		
+
+		List<Questionaries> questionariesList = new ArrayList<>();
+
 		Questionaries questionaries = new Questionaries();
-			questionaries.setEmailId("test@nisum.com");
-			questionaries.setQuestion("what is abc");
-			questionaries.setQuestionId(1);
-			questionaries.setCategoryId(category);
-			questionaries.setCreatedDate(new Timestamp(System.currentTimeMillis()));
-			questionaries.setDescription("description");
-	
-		
+		questionaries.setEmailId("test@nisum.com");
+		questionaries.setQuestion("what is abc");
+		questionaries.setQuestionId(1);
+		questionaries.setCategoryId(category);
+		questionaries.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+		questionaries.setDescription("description");
+
 		questionariesList.add(questionaries);
-		
-		
+
 		QuestionsDTO expected = new QuestionsDTO();
 		expected.setTotalQuestions(questionariesList.size());
-		expected.setTotalUsers(1); 
-		
+		expected.setTotalUsers(1);
+
 		when(userDAO.getUserCount()).thenReturn((long) 1);
 		when(questionariesDAO.getQuestionariesCount()).thenReturn((long) 1);
 		when(questionariesDAO.retriveAllUnansweredQuestionaries()).thenReturn(questionariesList);
-		when(questionariesDAO.retrieveAllUnansweredQuestionariesByPagination(new PageRequest(0, 3, Sort.Direction.ASC, Constants.SORT_BY_ELEMENT))).thenReturn(questionariesList);
-		
-		QuestionsDTO actual=questionariesServiceImpl.retrieveAllUnansweredQuestionariesByPagination(new PageRequest(0,3, Sort.Direction.ASC, Constants.SORT_BY_ELEMENT)); 
-		
+		when(questionariesDAO.retrieveAllUnansweredQuestionariesByPagination(
+				new PageRequest(0, 3, Sort.Direction.ASC, Constants.SORT_BY_ELEMENT))).thenReturn(questionariesList);
+
+		QuestionsDTO actual = questionariesServiceImpl.retrieveAllUnansweredQuestionariesByPagination(
+				new PageRequest(0, 3, Sort.Direction.ASC, Constants.SORT_BY_ELEMENT));
+
 		assertEquals(expected.getTotalQuestions(), actual.getTotalQuestions());
 	} 
 	
@@ -347,52 +341,49 @@ List<QuestionariesDTO> questionList = new ArrayList<QuestionariesDTO>();
 	public void fetchMyQuestionariesByCategoryTest() {
 		
 		List<QuestionariesDTO> questionList = new ArrayList<QuestionariesDTO>();
-		
+
 		QuestionariesDTO questionariesDTO = new QuestionariesDTO();
-		
-			questionariesDTO.setCategoryName("category1");
-			questionariesDTO.setDescription("description");
-			questionariesDTO.setDisplayImage("DisplayImage");
-			questionariesDTO.setDisplayName("display name");
-			questionariesDTO.setEmailId("test@nisum.com");
-			questionariesDTO.setQuestion("Question111");
-			questionariesDTO.setQuestionId(1);
-			questionariesDTO.setQuestionRepliesCount(0);
+
+		questionariesDTO.setCategoryName("category1");
+		questionariesDTO.setDescription("description");
+		questionariesDTO.setDisplayImage("DisplayImage");
+		questionariesDTO.setDisplayName("display name");
+		questionariesDTO.setEmailId("test@nisum.com");
+		questionariesDTO.setQuestion("Question111");
+		questionariesDTO.setQuestionId(1);
+		questionariesDTO.setQuestionRepliesCount(0);
 
 		questionList.add(questionariesDTO);
 
-		
-		
 		Categories category = new Categories();
 		category.setCategoryId(1);
 		category.setCategoryName("category1");
-		
-		List<Questionaries> questionariesList=new ArrayList<>();
-		
+
+		List<Questionaries> questionariesList = new ArrayList<>();
+
 		Questionaries questionaries = new Questionaries();
-			questionaries.setEmailId("test@nisum.com");
-			questionaries.setQuestion("Question111");
-			questionaries.setQuestionId(1);
-			questionaries.setCategoryId(category);
-			questionaries.setDescription("description");
-	
-		
+		questionaries.setEmailId("test@nisum.com");
+		questionaries.setQuestion("Question111");
+		questionaries.setQuestionId(1);
+		questionaries.setCategoryId(category);
+		questionaries.setDescription("description");
+
 		questionariesList.add(questionaries);
-		
-		
+
 		QuestionsDTO expected = new QuestionsDTO();
 		expected.setTotalQuestions(questionariesList.size());
-		expected.setTotalUsers(1); 
+		expected.setTotalUsers(1);
 		expected.setQuestionDetails(questionList);
-		
+
 		when(userDAO.getUserCount()).thenReturn((long) 1);
 		when(categoriesDAO.getCategory(1)).thenReturn(category);
-		when(questionariesDAO.fetchMyQuestionariesByCategory("test@nisum.com", category, new PageRequest(0, 3, Sort.Direction.ASC, Constants.SORT_BY_ELEMENT))).thenReturn(questionariesList);
-		when(questionariesDAO.fetchMyQuestionariesCountByCategory("test@nisum.com", category)).thenReturn(questionariesList);
-		QuestionsDTO actual=questionariesServiceImpl.fetchMyQuestionariesByCategory("test@nisum.com", 1, new PageRequest(0,3, Sort.Direction.ASC, Constants.SORT_BY_ELEMENT)); 
-		
-		//assertThat(actual).isEqualToComparingFieldByField(expected);
-		
+		when(questionariesDAO.fetchMyQuestionariesByCategory("test@nisum.com", category,
+				new PageRequest(0, 3, Sort.Direction.ASC, Constants.SORT_BY_ELEMENT))).thenReturn(questionariesList);
+		when(questionariesDAO.fetchMyQuestionariesCountByCategory("test@nisum.com", category))
+				.thenReturn(questionariesList);
+		QuestionsDTO actual = questionariesServiceImpl.fetchMyQuestionariesByCategory("test@nisum.com", 1,
+				new PageRequest(0, 3, Sort.Direction.ASC, Constants.SORT_BY_ELEMENT));
+
 		assertEquals(expected.getTotalQuestions(), actual.getTotalQuestions());
 	} 
 	
@@ -400,54 +391,51 @@ List<QuestionariesDTO> questionList = new ArrayList<QuestionariesDTO>();
 	public void fetchMyQuestionariesByPaginationTest() {
 		
 		List<QuestionariesDTO> questionList = new ArrayList<QuestionariesDTO>();
-		
+
 		QuestionariesDTO questionariesDTO = new QuestionariesDTO();
-		
-			questionariesDTO.setCategoryName("category1");
-			questionariesDTO.setDescription("description");
-			questionariesDTO.setDisplayImage("DisplayImage");
-			questionariesDTO.setDisplayName("display name");
-			questionariesDTO.setEmailId("test@nisum.com");
-			questionariesDTO.setQuestion("Question111");
-			questionariesDTO.setQuestionId(1);
-			questionariesDTO.setQuestionRepliesCount(0);
+
+		questionariesDTO.setCategoryName("category1");
+		questionariesDTO.setDescription("description");
+		questionariesDTO.setDisplayImage("DisplayImage");
+		questionariesDTO.setDisplayName("display name");
+		questionariesDTO.setEmailId("test@nisum.com");
+		questionariesDTO.setQuestion("Question111");
+		questionariesDTO.setQuestionId(1);
+		questionariesDTO.setQuestionRepliesCount(0);
 
 		questionList.add(questionariesDTO);
 
-		
-		
 		Categories category = new Categories();
 		category.setCategoryId(1);
 		category.setCategoryName("JAVA");
-		
-		List<Questionaries> questionariesList=new ArrayList<>();
-		
+
+		List<Questionaries> questionariesList = new ArrayList<>();
+
 		Questionaries questionaries = new Questionaries();
-			questionaries.setEmailId("test@nisum.com");
-			questionaries.setQuestion("what is abc");
-			questionaries.setQuestionId(1);
-			questionaries.setCategoryId(category);
-			questionaries.setCreatedDate(new Timestamp(System.currentTimeMillis()));
-			questionaries.setDescription("description");
-	
-		
+		questionaries.setEmailId("test@nisum.com");
+		questionaries.setQuestion("what is abc");
+		questionaries.setQuestionId(1);
+		questionaries.setCategoryId(category);
+		questionaries.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+		questionaries.setDescription("description");
+
 		questionariesList.add(questionaries);
-		
-		
+
 		QuestionsDTO expected = new QuestionsDTO();
 		expected.setTotalQuestions(questionariesList.size());
-		expected.setTotalUsers(1); 
-		
+		expected.setTotalUsers(1);
+
 		when(userDAO.getUserCount()).thenReturn((long) 1);
-		when(questionariesDAO.fetchMyQuestionariesByPagination("test@nisum.com", new PageRequest(0, 3, Sort.Direction.ASC, Constants.SORT_BY_ELEMENT))).thenReturn(questionariesList);
+		when(questionariesDAO.fetchMyQuestionariesByPagination("test@nisum.com",
+				new PageRequest(0, 3, Sort.Direction.ASC, Constants.SORT_BY_ELEMENT))).thenReturn(questionariesList);
 		when(questionariesDAO.fetchMyQuestionaries("test@nisum.com")).thenReturn(questionariesList);
-		
-		QuestionsDTO actual=questionariesServiceImpl.fetchMyQuestionariesByPagination("test@nisum.com", new PageRequest(0,3, Sort.Direction.ASC, Constants.SORT_BY_ELEMENT)); 
-		
+
+		QuestionsDTO actual = questionariesServiceImpl.fetchMyQuestionariesByPagination("test@nisum.com",
+				new PageRequest(0, 3, Sort.Direction.ASC, Constants.SORT_BY_ELEMENT));
+
 		assertEquals(expected.getTotalQuestions(), actual.getTotalQuestions());
 	} 
 	
-=======
 	public void saveQuestion() {
 		Categories category = new Categories();
 		category.setCategoryId(1);
@@ -483,5 +471,4 @@ List<QuestionariesDTO> questionList = new ArrayList<QuestionariesDTO>();
 		assertEquals(expected, Constants.CATEGORY_NOT_EXIST);
 		
 	}
->>>>>>> 36d8d76a346f53fe44057353ee99836521bc92b3
 }
