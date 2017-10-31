@@ -212,5 +212,25 @@ public class TrainingsRestService {
 		}
 		
 	}
+	@RequestMapping(value ="/getMyTrainings", method = RequestMethod.GET)
+	public ResponseEntity<?> getMyTrainings(@RequestHeader("emailId") String trainerEmailId)
+	{
+		logger.info("TrainingsRestService :: getMyTrainings");
+		try
+		{
+		 List<TrainingsDTO> trainingsList=trainingsService.getMyTrainings(trainerEmailId,userService);
+		 return new ResponseEntity<List<TrainingsDTO>>(trainingsList,HttpStatus.OK);
+		}catch(Exception e)
+		{
+			logger.error(Constants.TRAINING_NOT_FETCH);
+			Errors error = new Errors();
+			error.setErrorCode("Error-getMyTrainings");
+			error.setErrorMessage(Constants.TRAINING_NOT_FETCH);
+			return new ResponseEntity<Errors>(error, HttpStatus.OK);
+	   
+		}
+
+		
+	}
 	
 }

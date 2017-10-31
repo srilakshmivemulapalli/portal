@@ -142,6 +142,12 @@ public class TrainingDAOImpl implements TrainingsDAO {
 		return trainingFeedBackRepository.findByTrainingId(trainingId);
 	}
 
+	@Override
+	public List<Trainings> getMyTrainings(String trainerEmailId) {
+		logger.info("TrainingDAOImpl::getMyTrainings");
+		return trainingRepository.getMyTrainings(trainerEmailId);
+	}
+
 }
 
 

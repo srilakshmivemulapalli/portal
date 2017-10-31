@@ -225,6 +225,9 @@ public class TrainingsServiceImpl implements TrainingsService {
 							 trainingsDTO.setCommentStatus(2);
 						 else
 					         trainingsDTO.setCommentStatus(0);
+					}else
+					{
+						     trainingsDTO.setCommentStatus(1);
 					}
 					if(emailId.compareTo(trainingsDTO.getTrainerEmailId())==0)
 					{
@@ -234,8 +237,8 @@ public class TrainingsServiceImpl implements TrainingsService {
 							nameComment.put("name",commentedUser.getUserName());
 							nameComment.put("description", trainingFeedBackDTO.getFeedback());
 						}
+						commentsList.add(nameComment);
 					}
-					commentsList.add(nameComment);
 				}
 				
 				   trainingsDTO.setCommentDescriptions(commentsList);
@@ -251,5 +254,13 @@ public class TrainingsServiceImpl implements TrainingsService {
 			
 			
 		}
+	}
+
+	@Override
+	public List<TrainingsDTO> getMyTrainings(String trainerEmailId,UserService userService) {
+		logger.info("TrainingsServiceImpl :: getMyTrainings");
+		 List<TrainingsDTO> myTrainingList=TrainingsServiceUtil.convertDaoTODto(trainingsDAO.getMyTrainings(trainerEmailId))	;	
+		 this.getTrainingList(trainerEmailId, myTrainingList, userService);
+		return myTrainingList;
 	}
 }
