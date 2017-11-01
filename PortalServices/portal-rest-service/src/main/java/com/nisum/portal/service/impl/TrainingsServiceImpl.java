@@ -264,7 +264,8 @@ public class TrainingsServiceImpl implements TrainingsService {
 	{
 		for(TrainingsDTO trainingsDTO:trainingsList)
 		{
-			trainingsDTO.setTrainingPresence(3); // disable Join option in MyTrainings Part
+			if(trainingsDTO.getTrainingStartDate().compareTo(new Date())<0)
+			trainingsDTO.setTrainingPresence(2); // disable Join option in MyTrainings Part
 		}
 		
 	}
