@@ -13,6 +13,12 @@ app.factory('TrainingModel',[function(){
 		  this.trainingEndTime=null;
 		  this.trainingPresence = null;
 		  this.trainerEmailId=null;
+		  this.commentStatus=null;
+		  this.commentDescriptions=[];
+		  this.noOfComments=null;
+		  this.noOfStudents=null;
+		  this.trainingToUserId=null;
+		  this.displayImage=null;
 		  angular.extend(this, trainingCopy);
 		  this.clone = function(otherTraining) {
 			 return new Training(otherTraining);

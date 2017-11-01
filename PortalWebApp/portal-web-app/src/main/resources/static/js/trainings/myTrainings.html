@@ -1,5 +1,6 @@
 
-<div class="col-md-offset-1 col-xs-offset-1 col-md-9 col-xs-9" style="padding-top: 30px;">
+<div class="col-md-offset-1 col-xs-offset-1 col-md-9 col-xs-9"
+	style="padding-top: 30px;" ng-init="getuserTrainings();">
 	<div class="col-md-1 col-xs-1">
 		<span class="back"> <i class="fa fa-angle-double-left"></i> <a
 			href="#/trainings">Back</a>
@@ -10,75 +11,228 @@
 			style="float: right">New Training</button>
 	</div>
 	<div class="col-md-12 col-xs-12">
-		<ul class="tabs-title">
+		<div class="col-md-12 col-xs-12">
+			<ul class="tabs-title" ng-init="getUsers();">
+				<li class="active"><h4 data-target="#usertrainings"
+					data-toggle="tab" ng-click='getUserTrainings()'>User Trainings</h4></li>
+				<li><h4 data-target="#mytrainings" data-toggle="tab"
+					ng-click='getMyTrainings()'>My Trainings</h4></li>
 
-			<li><h4 class="modal-title active">My Trainings</h4></li>
-			<!-- <li><h4 class="modal-title">Request Training</h4></li>
-			<li><h4 class="modal-title">Create Training</h4></li>
- -->
-		</ul>
-		<div class="row irs-all-course-bb clearfix">
-			<div class="col-sm-6 col-md-6 col-lg-4 clearfix"
-				ng-repeat="training in myTrainingsList.trainings"
-				ng-click="showModal(training)">
-				<div class="irs-lc-grid style2 text-center">
-					<!-- <div class="irs-lc-grid-thumb">
-                  <img class="img-responsive img-fluid" src="images/classroom-training.jpg" alt="5.jpg">
-                  <div class="irs-lc-overlay"></div>
-                  <div class="irs-lc-price">free</div>
-                </div> -->
-					<div class="irs-lc-details">
-						<div class="irs-lc-teacher-info">
-							<div class="irs-lct-thumb">
-								<img src="images/userlogo.jpg" alt="s3.png">
+			</ul>
+		</div>
+
+		<div class="tab-content">
+			<div class="tab-pane active row irs-all-course-bb clearfix"
+				id="usertrainings">
+				<div class="col-sm-6 col-md-6 col-lg-4 clearfix"
+					ng-repeat="training in userTrainingsList.trainings"
+					ng-click="showUserModal(training)">
+					<div class="irs-lc-grid style2 text-center">
+						<div class="irs-lc-details">
+							<div class="irs-lc-teacher-info">
+								<div class="irs-lct-thumb" ng-if="training.displayImage==null">
+									<img src="images/userlogo.jpg" alt="s3.png">
+								</div>
+								<div class="irs-lct-thumb" ng-if="training.displayImage!==null">
+									<img ng-src="{{training.displayImage}}" alt="s3.png">
+								</div>
+								<div class="irs-lct-info">
+									with <span class="text-thm2">{{training.trainerName}}</span>
+								</div>
 							</div>
-							<div class="irs-lct-info">
-								with <span class="text-thm2">{{training.trainerName}}</span>
+							<h4>
+								<a href="javascript:void(0);">{{training.trainingTitle}}</a>
+							</h4>
+						</div>
+						<div class="irs-lc-footer">
+							<div class="irs-lc-normal-part">
+								<ul class="list-inline">
+									<li><a href="#"><i class="fa fa-users"></i>{{training.noOfStudents}}</a></li>
+									<li><a href="#"><i class="fa fa-commenting"></i>{{training.noOfComments}}</a></li>
+								</ul>
 							</div>
+							<div class="irs-lc-hover-part">See Course</div>
 						</div>
-						<h4>
-							<a href="javascript:void(0);">{{training.trainingTitle}}</a>
-						</h4>
-					</div>
-					<div class="irs-lc-footer">
-						<div class="irs-lc-normal-part">
-							<ul class="list-inline">
-								<li><a href="#"><i class="fa fa-users"></i>{{training.noOfStudents}}</a></li>
-								<li><a href="#"><i class="fa fa-commenting"></i>{{training.noOfComments}}</a></li>
-							</ul>
-						</div>
-						<div class="irs-lc-hover-part">See Course</div>
 					</div>
 				</div>
+			</div>
+			<div class="tab-pane row irs-all-course-bb clearfix" id="mytrainings">
+				<div class="col-sm-6 col-md-6 col-lg-4 clearfix"
+					ng-repeat="training in myTrainingsList.trainings"
+					ng-click="showMyModal(training)">
+					<div class="irs-lc-grid style2 text-center">
+						<div class="irs-lc-details">
+							<div class="irs-lc-teacher-info">
+								<div class="irs-lct-thumb" ng-if="training.displayImage==null">
+									<img src="images/userlogo.jpg" alt="s3.png">
+								</div>
+								<div class="irs-lct-thumb" ng-if="training.displayImage!==null">
+									<img ng-src="{{training.displayImage}}" alt="s3.png">
+								</div>
+								<div class="irs-lct-info">
+									with <span class="text-thm2">{{training.trainerName}}</span>
+								</div>
+							</div>
+							<h4>
+								<a href="javascript:void(0);">{{training.trainingTitle}}</a>
+							</h4>
+						</div>
+						<div class="irs-lc-footer">
+							<div class="irs-lc-normal-part">
+								<ul class="list-inline">
+									<li><a href="#"><i class="fa fa-users"></i>{{training.noOfStudents}}</a></li>
+									<li><a href="#"><i class="fa fa-commenting"></i>{{training.noOfComments}}</a></li>
+								</ul>
+							</div>
+							<div class="irs-lc-hover-part">See Course</div>
+						</div>
+					</div>
+				</div>
+
 			</div>
 		</div>
 	</div>
 
 </div>
 
-<div id="trainingModal" class="modal fade" role="dialog">
+<div id="userTrainingModal" class="modal fade" role="dialog">
 	<div class="modal-dialog">
 
 		<!-- Modal content-->
 		<div class="modal-content">
 
 			<div class="modal-body">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<button type="button" class="close" data-dismiss="modal"
+					ng-click="modalUserTraining={};">&times;</button>
 
 				<div class="row">
 					<div class="col-md-6">
 						<div class="irs-cdtls-feture-bot">
 							<ul class="list-group">
-								<li><a class="list-group-item" href="javascript:void(0);"><span
-										class="flaticon-clock-1 text-thm2"></span> Duration <span
-										class="pull-right">
-											{{modalTraining.customDuration.hours!==0?modalTraining.customDuration.hours+'hr(s)':''}} {{modalTraining.customDuration.minutes!==0?modalTraining.customDuration.minutes+'min(s)':''}}</span></a></li>
+								<li><a class="list-group-item" href="javascript:void(0);">Start
+										Time<span class="pull-right">
+											{{modalUserTraining.trainingStartTime | date:'hh:mm a' }}</span>
+								</a></li>
+								 <!-- <li><a class="list-group-item" href="javascript:void(0);">End
+										Time<span class="pull-right"> {{modalUserTraining.trainingEndTime }}</span>
+								</a>
+								</li> -->
+								<li><a class="list-group-item" href="javascript:void(0);">
+										Duration <span class="pull-right">
+											{{modalUserTraining.customDuration.hours!==0?modalUserTraining.customDuration.hours+'hr(s)':''}}
+											{{modalUserTraining.customDuration.minutes!==0?modalUserTraining.customDuration.minutes+'min(s)':''}}</span>
+								</a></li>
+								<li><a class="list-group-item" href="javascript:void(0);">Start
+										Date<span class="pull-right">
+											{{modalUserTraining.trainingStartDate | date:'dd MMM,yy'}}</span>
+								</a></li>
+								<li><a class="list-group-item" href="javascript:void(0);">End
+										Date<span class="pull-right">
+											{{modalUserTraining.trainingEndDate | date:'dd MMM,yy'}}</span>
+								</a></li>
+								<li><a class="list-group-item" href="javascript:void(0);"></span>
+										Skills<span class="pull-right">{{modalUserTraining.trainingTitle}}</span></a></li>
+								<li><a class="list-group-item" href="javascript:void(0);">
+										Students <span class="pull-right">{{modalUserTraining.noOfStudents}}</span>
+								</a></li>
+								<li><a class="list-group-item" href="javascript:void(0);"></span>
+										Language <span class="pull-right"> English </span></a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="irs-courses-dtls-second-para">
+							<p>{{modalUserTraining.description}}</p>
+
+						</div>
+					</div>
+				</div>
+				<div class="row" style="margin-top: 10px;"
+					ng-show="modalUserTraining.commentStatus==1">
+
+					<form name="feedbackForm"
+						ng-submit="submitFeedBack(commentdescription,modalUserTraining.trainingId);">
+						<div class="form-group">
+							<div class="col-sm-12">
+								<textarea autogrow ng-model="commentdescription" limit-To='200'
+									ng-maxlength='200' rows="3" ng-minlength='1' required
+									placeholder="Any FeedBack"></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-12">
+								<button type="submit" class='custombtn btn-normal'
+									ng-disabled="feedbackForm.$invalid"
+									ng-class="{'disabled':feedbackForm.$invalid}">
+									<i class="fa fa-comment" aria-hidden="true"></i>FeedBack
+								</button>
+							</div>
+						</div>
+					</form>
+
+				</div>
+				<div class="row" style="margin-top: 10px;">
+					<div class="col-md-12 col-xs-12">
+						<h4>{{modalUserTraining.feedbackMessage}}</h4>
+					</div>
+				</div>
+				
+
+			</div>
+			<div class="modal-footer"
+				ng-if="modalUserTraining.trainingPresence!==2">
+				<button type="button" class="custombtn btn-normal"
+					ng-click="showConfirmModal()"
+					ng-if="modalUserTraining.trainingPresence===0">Register</button>
+				<button type="button" class="custombtn btn-cancel"
+					ng-click="showConfirmModal()"
+					ng-if="modalUserTraining.trainingPresence===1">UnRegister</button>
+			</div>
+			
+		</div>
+
+	</div>
+</div>
+<div id="MyTrainingModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+
+			<div class="modal-body">
+				<button type="button" class="close" data-dismiss="modal"
+					ng-click="modalMyTraining={};">&times;</button>
+
+				<div class="row">
+					<div class="col-md-6">
+						<div class="irs-cdtls-feture-bot">
+							<ul class="list-group">
+								<li><a class="list-group-item" href="javascript:void(0);">Start
+										Time<span class="pull-right">
+											{{modalMyTraining.trainingStartTime | date:'hh:mm a' }}</span>
+								</a></li>
+								<!-- <li><a class="list-group-item" href="javascript:void(0);">End
+										Time<span class="pull-right"> {{modalMyTraining.trainingEndTime }}</span>
+								</a></li>-->
+								<li><a class="list-group-item" href="javascript:void(0);">
+										Duration <span class="pull-right">
+											{{modalMyTraining.customDuration.hours!==0?modalMyTraining.customDuration.hours+'hr(s)':''}}
+											{{modalMyTraining.customDuration.minutes!==0?modalMyTraining.customDuration.minutes+'min(s)':''}}</span>
+								</a></li>
+								<li><a class="list-group-item" href="javascript:void(0);">Start
+										Date<span class="pull-right">
+											{{modalMyTraining.trainingStartDate | date:'dd MMM,yy'}}</span>
+								</a></li>
+								<li><a class="list-group-item" href="javascript:void(0);">End
+										Date<span class="pull-right">
+											{{modalMyTraining.trainingEndDate | date:'dd MMM,yy'}}</span>
+								</a></li>
 								<li><a class="list-group-item" href="javascript:void(0);"><span
 										class="flaticon-arrows-4 text-thm2"></span> Skills<span
-										class="pull-right">{{modalTraining.trainingTitle}}</span></a></li>
+										class="pull-right">{{modalMyTraining.trainingTitle}}</span></a></li>
 								<li><a class="list-group-item" href="javascript:void(0);"><span
 										class="flaticon-people-1 text-thm2"></span> Students <span
-										class="pull-right">{{modalTraining.noOfStudents}}</span></a></li>
+										class="pull-right">{{modalMyTraining.noOfStudents}}</span></a></li>
 								<li><a class="list-group-item" href="javascript:void(0);"><span
 										class="flaticon-globe text-thm2"></span> Language <span
 										class="pull-right"> English </span></a></li>
@@ -87,43 +241,48 @@
 					</div>
 					<div class="col-md-6">
 						<div class="irs-courses-dtls-second-para">
-							<p>{{modalTraining.description}}</p>
+							<p>{{modalMyTraining.description}}</p>
 
 						</div>
 					</div>
 				</div>
-				<div class="row" style="margin-top: 10px;" >
-					
-					<form name="feedbackForm"
-						ng-submit="submitFeedBack(commentdescription,modalTraining.trainingId);">
-						<div class="form-group">
-							<div class="col-sm-12">
-								<textarea autogrow ng-model="commentdescription" limit-To='200'
-									ng-maxlength='200' rows="3" ng-minlength='1' required placeholder="Any FeedBack"></textarea>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-sm-12">
-								<button type="submit" class='custombtn btn-normal'
-									ng-disabled="feedbackForm.$invalid"
-									ng-class="{'disabled':feedbackForm.$invalid}"><i class="fa fa-comment" aria-hidden="true"></i>FeedBack</button>
-							</div>
-						</div>
-					</form>
+				<div class="row" style="margin-top: 10px;" ng-if="modalMyTraining.commentDescriptions.length>0">
+					<div class="col-md-12 col-xs-12 list-group">
+						<h2>Comments</h2>
+						<div class="list-group-item"
+							ng-repeat="comment in modalMyTraining.commentDescriptions">
+							<h4>{{comment.name}}</h4>
+							<P ng-bind-html='comment.description'></p>
 
+						</div>
+					</div>
 				</div>
 
-			</div>
-			<div class="modal-footer" ng-if="modalTraining.trainingPresence!==2">
-				<button type="button" class="custombtn btn-normal"
-					ng-click="requestuserTraining(modalTraining,1);"
-					ng-if="modalTraining.trainingPresence===0">Register</button>
-				<button type="button" class="custombtn btn-cancel"
-					ng-click="requestuserTraining(modalTraining,0);"
-					ng-if="modalTraining.trainingPresence===1">UnRegister</button>
 			</div>
 		</div>
 
 	</div>
 </div>
+<div id="confirmModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+
+			<div class="modal-body">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h5 ng-if="modalUserTraining.trainingPresence==0">Are you sure. Do you want to Register for the Training?</h5>
+				<h5 ng-if="modalUserTraining.trainingPresence==1">Are you sure. Do you want to UnRegister for the Training?</h5>
+			</div>
+			<div class="modal-footer">
+				
+				<button type="button" ng-if="modalUserTraining.trainingPresence==1" class="custombtn btn-normal" ng-click="requestuserTraining(modalUserTraining,0);">Ok</button>
+				<button type="button" ng-if="modalUserTraining.trainingPresence==0" class="custombtn btn-normal" ng-click="requestuserTraining(modalUserTraining,1);">Ok</button>
+				<button type="button" class="custombtn btn-cancel" data-dismiss="modal">cancel</button>
+			</div>
+		</div>
+
+	</div>
+</div>
+
 

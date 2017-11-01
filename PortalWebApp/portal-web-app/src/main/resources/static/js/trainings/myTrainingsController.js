@@ -2,18 +2,43 @@ trainingsApp.controller('myTrainingsController', function($scope,
 		trainingService, TrainingListModel, $timeout, TrainingModel,
 		commonService, $filter, $state) {
 	$scope.myTrainingsList = TrainingListModel.newTrainingListInstance();
-	$scope.showModal = function(training) {
-		$('#trainingModal').modal('show');
-		$scope.modalTraining = training;
-		$scope.modalTraining.customDuration = $filter('formatTimer')(
+	$scope.userTrainingsList = TrainingListModel.newTrainingListInstance();
+	$scope.feedbackMessage='';
+	$scope.showUserModal = function(training) {
+		$('#userTrainingModal').modal('show');
+		$scope.modalUserTraining = training;
+		$scope.modalUserTraining.customDuration = $filter('formatTimer')(
 				training.duration);
 	}
-
+	$scope.showMyModal = function(training) {
+		$('#MyTrainingModal').modal('show');
+		$scope.modalMyTraining = training;
+		$scope.modalMyTraining.customDuration = $filter('formatTimer')(
+				training.duration);
+	}
+	$scope.showConfirmModal=function(){
+		$("#confirmModal").modal({backdrop:'static',keyboard:false, show:true});
+	}
+	$scope.getuserTrainings = function() {
+		trainingService.getUserTrainings().then(function(response) {
+			if (response.errorCode) {
+				$scope.message = response.errorMessage
+			} else {
+				console.log(response);
+				response.map(function(innerObj) {
+					$scope.userTrainingsList.addtrainings(innerObj);
+				})
+			}
+		}, function(response) {
+			
+		})
+	}
 	$scope.getMyTrainings = function() {
 		trainingService.getMyTrainings().then(function(response) {
 			if (response.errorCode) {
 				$scope.message = response.errorMessage
 			} else {
+				console.log(response);
 				response.map(function(innerObj) {
 					$scope.myTrainingsList.addtrainings(innerObj);
 				})
@@ -22,8 +47,6 @@ trainingsApp.controller('myTrainingsController', function($scope,
 
 		})
 	}
-
-	$scope.getMyTrainings();
 
 	$scope.createTrainings = function() {
 		$state.go('createTraining');
@@ -42,7 +65,11 @@ trainingsApp.controller('myTrainingsController', function($scope,
 			if (response.errorCode) {
 				$scope.message = response.errorMessage
 			} else {
-				console.log(response);
+				$scope.userTrainingsList.editTraining(response);
+				$scope.modalUserTraining.trainingPresence=response.trainingPresence;
+				$scope.userTrainingsList.deleteTraining(response);
+				$("#confirmModal").modal('hide');
+				$("#userTrainingModal").modal('hide');
 			}
 		});
 	};
@@ -56,8 +83,9 @@ trainingsApp.controller('myTrainingsController', function($scope,
 			if (response.errorCode) {
 				$scope.message = response.errorMessage;
 			} else {
-
-				console.log(response);
+				$scope.userTrainingsList.editCommentStatus(response);
+				$scope.modalUserTraining.commentStatus=response.commentStatus;
+				$scope.modalUserTraining.feedbackMessage="FeedBack submitted successfully";
 				
 			}
 		});

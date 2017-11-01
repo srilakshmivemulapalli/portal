@@ -214,16 +214,22 @@ public class TrainingsServiceImpl implements TrainingsService {
 				{
 					
 					nameComment=new LinkedHashMap<String,String>();
-					if(trainingFeedBackDTO.getEmailId().contains(emailId))
-					{
-						 if(trainingsDTO.getTrainingStartDate().compareTo(new Date())>0)
-							 trainingsDTO.setCommentStatus(2);
-						 else
-					         trainingsDTO.setCommentStatus(0);
-					}else
-					{
-						     trainingsDTO.setCommentStatus(1);
-					}
+					 if(trainingsDTO.getTrainingStartDate().compareTo(new Date())>0)
+					 {
+						 trainingsDTO.setCommentStatus(2);
+						 
+					 }
+					 else
+					 {
+						 if(trainingFeedBackDTO.getEmailId().contains(emailId))
+						{
+			
+						         trainingsDTO.setCommentStatus(0);
+						}else
+						{
+							     trainingsDTO.setCommentStatus(1);
+						}
+					 }
 					if(emailId.compareTo(trainingsDTO.getTrainerEmailId())==0)
 					{
 						UserDTO commentedUser=userService.getUsers().get(trainingFeedBackDTO.getEmailId());

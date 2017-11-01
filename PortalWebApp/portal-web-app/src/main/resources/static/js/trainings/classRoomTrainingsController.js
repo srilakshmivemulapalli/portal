@@ -6,6 +6,9 @@ trainingsApp.controller('classRoomTrainingsController', function($scope,training
 		$scope.modalTraining=training;
 		$scope.modalTraining.customDuration=$filter('formatTimer')(training.duration);
 	}
+	$scope.showConfirmModal=function(){
+		$("#confirmModal").modal({backdrop:'static',keyboard:false, show:true});
+	}
 	$scope.getTrainings=function(){
 		trainingService.getClassroomTrainings().then(function(response){
 			
@@ -13,6 +16,7 @@ trainingsApp.controller('classRoomTrainingsController', function($scope,training
 				$scope.message = response.errorMessage
 			} else {
 				response.map(function(innerObj){
+					
 					$scope.trainingsList.addtrainings(innerObj);
 				})
 			}
@@ -34,9 +38,9 @@ trainingsApp.controller('classRoomTrainingsController', function($scope,training
 			if (response.errorCode) {
 				$scope.message = response.errorMessage
 			} else {
-
-				console.log(response);
-				$('#trainingModal').modal('hide');	
+				$scope.trainingsList.editTraining(response);
+				$scope.modalTraining.trainingPresence=response.trainingPresence;
+				$("#confirmModal").modal('hide');
 			}
 		});
 	};

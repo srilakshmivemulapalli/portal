@@ -19,9 +19,18 @@ app.factory('trainingService', function($http, $q,commonService) {
 		})
 		return deferred.promise;
 	}
+	ts.getUserTrainings=function() {
+		var deferred = $q.defer();
+		$http.get('v1/trainings/getUserTrainings',{ headers: {'EmailId': commonService.emailId}}).success(function(response) {
+			deferred.resolve(response);
+		}).error(function(response) {
+			deferred.reject(response);
+		})
+		return deferred.promise;
+	}
 	ts.getMyTrainings=function() {
 		var deferred = $q.defer();
-		$http.get('v1/trainings/completed',{ headers: {'EmailId': commonService.emailId}}).success(function(response) {
+		$http.get('v1/trainings/getMyTrainings',{ headers: {'EmailId': commonService.emailId}}).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
