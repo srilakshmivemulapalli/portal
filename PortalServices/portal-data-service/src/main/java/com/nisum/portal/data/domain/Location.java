@@ -23,7 +23,7 @@ public class Location {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int locationId;
 	private String name;
-	private String description;
+	
 	
 	
 	public Location(int locationId) {
@@ -40,7 +40,7 @@ public class Location {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		
 		result = prime * result + locationId;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
@@ -57,11 +57,7 @@ public class Location {
 		if (getClass() != obj.getClass())
 			return false;
 		Location other = (Location) obj;
-		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
+		
 		if (locationId != other.locationId)
 			return false;
 		if (name == null) {
@@ -83,18 +79,13 @@ public class Location {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Location [locationId=" + locationId + ", name=" + name + ", description=" + description + "]";
+		return "Location [locationId=" + locationId + ", name=" + name + "]";
 	}
 	
 	

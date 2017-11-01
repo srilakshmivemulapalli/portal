@@ -31,7 +31,7 @@ public class MeetingRoomImpl implements MeetingRoomService {
 				 meetingRoomDAO.save(meetingRoom);	
 				 return "Saved Successfully...";
 			}else{
-				tempMeetingRoom.setName(meetingRoom.getName());
+				
 				tempMeetingRoom.setDescription(meetingRoom.getDescription());
 				 meetingRoomDAO.save(tempMeetingRoom);
 				return  "Updated Successfully...";

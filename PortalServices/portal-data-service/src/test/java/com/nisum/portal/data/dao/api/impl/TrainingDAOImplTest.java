@@ -48,7 +48,7 @@ public class TrainingDAOImplTest {
 		trainingRequest.setRequestTrainingTitle("Java_Thread");
 		trainingRequest.setDescription("I have Basic Idea On Java Thread, Technical Training");
 		when(trainingRequestRepository.findByTrainingRequestId(1)).thenReturn(null);
-		when(trainingRequestRepository.save(trainingRequest)).thenReturn(new TrainingRequest());
+		when(trainingRequestRepository.save(trainingRequest)).thenReturn(trainingRequest);
 		assertEquals(status, trainingDAOImpl.addTrainingsRequest(trainingRequest));
 	}
 	@Test
@@ -59,12 +59,11 @@ public class TrainingDAOImplTest {
 		trainingRequest.setEmailid("mahesh@gmail.com");
 		trainingRequest.setRequestTrainingTitle("Java_Thread");
 		trainingRequest.setDescription("I have Basic Idea On Java Thread, Technical Training");
-		when(trainingRequestRepository.findByTrainingRequestId(1)).thenReturn(new TrainingRequest());
+		when(trainingRequestRepository.findByTrainingRequestId(1)).thenReturn(trainingRequest);
 		assertEquals(status, trainingDAOImpl.addTrainingsRequest(trainingRequest));
 	}
 	@Test
 	public void addTrainingFeedBackTest() {
-		Integer status=1;
 		Timestamp timestamp=new Timestamp(System.currentTimeMillis());
 		TrainingFeedBack feedBack=new TrainingFeedBack();
 		feedBack.setTrainingFeedBackId(1);
@@ -72,23 +71,11 @@ public class TrainingDAOImplTest {
 		feedBack.setFeedback("Very Good");
 		feedBack.setEmailId("mbheemanapalli@nisum.com");
 		feedBack.setCreateDate(timestamp);
-		when(trainingsFeedBackRepository.findByTrainingId(1)).thenReturn(null);
-		when(trainingsFeedBackRepository.save(feedBack)).thenReturn(new TrainingFeedBack());
-		assertEquals(status,trainingDAOImpl.addTrainingsFeedBack(feedBack));
+		when(trainingsFeedBackRepository.save(feedBack)).thenReturn(feedBack);
+		TrainingFeedBack feedBack2 = trainingDAOImpl.addTrainingsFeedBack(feedBack);
+		assertEquals(feedBack,feedBack2);
 	}
-	@Test
-	public void addTrainingFeedBackFailureTest() {
-		Integer status=0;
-		Timestamp timestamp=new Timestamp(System.currentTimeMillis());
-		TrainingFeedBack feedBack=new TrainingFeedBack();
-		feedBack.setTrainingFeedBackId(1);
-		feedBack.setTrainingId(1);
-		feedBack.setFeedback("Very Good");
-		feedBack.setEmailId("mbheemanapalli@nisum.com");
-		feedBack.setCreateDate(timestamp);
-		//when(trainingsFeedBackRepository.findByTrainingId(1)).thenReturn(new TrainingFeedBack());
-		//assertEquals(status,trainingDAOImpl.addTrainingsFeedBack(feedBack));
-	}
+	
 	@Test
 	public void getAllTrainingRequestsTest()
 	{

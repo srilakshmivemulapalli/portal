@@ -18,7 +18,10 @@ public class MeetingRoomUtil {
 				meetingRoomDTO.setDescription(meetingRoomDAO.getDescription());
 				meetingRoomDTO.setLocationId(meetingRoomDAO.getLocation());
 				meetingRoomDTO.setMeetingRoomId(meetingRoomDAO.getMeetingRoomId());
-				meetingRoomDTO.setName(meetingRoomDAO.getName());
+				meetingRoomDTO.setBeginTime(meetingRoomDAO.getBeginTime());
+				meetingRoomDTO.setEndTime(meetingRoomDAO.getEndTime());
+				meetingRoomDTO.setStartDate(meetingRoomDAO.getStartDate());
+				
 				meetingRoomDTOList.add(meetingRoomDTO);
 				
 			}
@@ -32,7 +35,9 @@ public class MeetingRoomUtil {
 		meetingRoomDTO.setDescription(meetingRoom.getDescription());
 		meetingRoomDTO.setLocationId(meetingRoom.getLocation());
 		meetingRoomDTO.setMeetingRoomId(meetingRoom.getMeetingRoomId());
-		meetingRoomDTO.setName(meetingRoom.getName());
+		meetingRoomDTO.setBeginTime(meetingRoom.getBeginTime());
+		meetingRoomDTO.setEndTime(meetingRoom.getEndTime());
+		meetingRoomDTO.setStartDate(meetingRoom.getStartDate());
 		
 		
 		return meetingRoomDTO;
@@ -47,9 +52,10 @@ public static MeetingRoom convertDtoObjectToDao(MeetingRoomDTO meetingRoomDTO)
 		MeetingRoom meetingRoom = new MeetingRoom();
 		meetingRoom.setDescription(meetingRoomDTO.getDescription());
 		meetingRoom.setLocation(meetingRoomDTO.getLocationId());
-	meetingRoom.setMeetingRoomId(meetingRoomDTO.getMeetingRoomId());
-		meetingRoom.setName(meetingRoomDTO.getName());
-		
+	     meetingRoom.setMeetingRoomId(meetingRoomDTO.getMeetingRoomId());
+	     meetingRoom.setBeginTime(meetingRoomDTO.getBeginTime());
+	     meetingRoom.setEndTime(meetingRoomDTO.getEndTime());
+	     meetingRoom.setStartDate(meetingRoomDTO.getStartDate());
 		
 		return meetingRoom;
 		

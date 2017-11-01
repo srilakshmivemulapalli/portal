@@ -3,13 +3,6 @@
  */
 package com.nisum.portal.service.dto;
 
-
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 /**
  * 
  * @author nisum
@@ -21,7 +14,7 @@ public class LocationDTO {
 	
 	private int locationId;
 	private String name;
-	private String description;
+	
 	public int getLocationId() {
 		return locationId;
 	}
@@ -34,15 +27,10 @@ public class LocationDTO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
+	
 	@Override
 	public String toString() {
-		return "Location [locationId=" + locationId + ", name=" + name + ", description=" + description + "]";
+		return "Location [locationId=" + locationId + ", name=" + name + "]";
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
@@ -51,7 +39,7 @@ public class LocationDTO {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		
 		result = prime * result + locationId;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
@@ -68,11 +56,7 @@ public class LocationDTO {
 		if (getClass() != obj.getClass())
 			return false;
 		LocationDTO other = (LocationDTO) obj;
-		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
+		
 		if (locationId != other.locationId)
 			return false;
 		if (name == null) {

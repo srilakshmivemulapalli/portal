@@ -3,6 +3,8 @@
  */
 package com.nisum.portal.service.dto;
 
+import java.sql.Timestamp;
+
 /**
  * 
  * @author nisum
@@ -14,22 +16,14 @@ package com.nisum.portal.service.dto;
 
 public class MeetingRoomDTO {
 	
-	private String name;
+	
 	private String description;
     private int meetingRoomId;
     private int locationId;
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+    private Timestamp beginTime;
+	private Timestamp endTime;
+	private Timestamp startDate;
+	
 	/**
 	 * @return the description
 	 */
@@ -66,6 +60,42 @@ public class MeetingRoomDTO {
 	public void setLocationId(int locationId) {
 		this.locationId = locationId;
 	}
+	/**
+	 * @return the beginTime
+	 */
+	public Timestamp getBeginTime() {
+		return beginTime;
+	}
+	/**
+	 * @param beginTime the beginTime to set
+	 */
+	public void setBeginTime(Timestamp beginTime) {
+		this.beginTime = beginTime;
+	}
+	/**
+	 * @return the endTime
+	 */
+	public Timestamp getEndTime() {
+		return endTime;
+	}
+	/**
+	 * @param endTime the endTime to set
+	 */
+	public void setEndTime(Timestamp endTime) {
+		this.endTime = endTime;
+	}
+	/**
+	 * @return the startedDate
+	 */
+	public Timestamp getStartDate() {
+		return startDate;
+	}
+	/**
+	 * @param startedDate the startedDate to set
+	 */
+	public void setStartDate(Timestamp startDate) {
+		this.startDate = startDate;
+	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -73,10 +103,12 @@ public class MeetingRoomDTO {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((beginTime == null) ? 0 : beginTime.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + ((endTime == null) ? 0 : endTime.hashCode());
 		result = prime * result + locationId;
 		result = prime * result + meetingRoomId;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
 		return result;
 	}
 	/* (non-Javadoc)
@@ -91,19 +123,29 @@ public class MeetingRoomDTO {
 		if (getClass() != obj.getClass())
 			return false;
 		MeetingRoomDTO other = (MeetingRoomDTO) obj;
+		if (beginTime == null) {
+			if (other.beginTime != null)
+				return false;
+		} else if (!beginTime.equals(other.beginTime))
+			return false;
 		if (description == null) {
 			if (other.description != null)
 				return false;
 		} else if (!description.equals(other.description))
 			return false;
+		if (endTime == null) {
+			if (other.endTime != null)
+				return false;
+		} else if (!endTime.equals(other.endTime))
+			return false;
 		if (locationId != other.locationId)
 			return false;
 		if (meetingRoomId != other.meetingRoomId)
 			return false;
-		if (name == null) {
-			if (other.name != null)
+		if (startDate == null) {
+			if (other.startDate != null)
 				return false;
-		} else if (!name.equals(other.name))
+		} else if (!startDate.equals(other.startDate))
 			return false;
 		return true;
 	}
@@ -112,8 +154,9 @@ public class MeetingRoomDTO {
 	 */
 	@Override
 	public String toString() {
-		return "MeetingRoomDTO [name=" + name + ", description=" + description + ", meetingRoomId=" + meetingRoomId
-				+ ", locationId=" + locationId + "]";
+		return "MeetingRoomDTO [description=" + description + ", meetingRoomId=" + meetingRoomId + ", locationId="
+				+ locationId + ", beginTime=" + beginTime + ", endTime=" + endTime + ", startDate=" + startDate
+				+ "]";
 	}
 	
 	

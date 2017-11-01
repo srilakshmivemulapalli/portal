@@ -24,6 +24,9 @@ public class BookMeetingRoomDTO {
 	private Timestamp endTime;
 	private String emailId;
 	private int locationId;
+	private Timestamp createdDate;
+	private Timestamp bookingDate;
+	
 	
 	
 	/**
@@ -47,10 +50,11 @@ public class BookMeetingRoomDTO {
 		int result = 1;
 		result = prime * result + ((beginTime == null) ? 0 : beginTime.hashCode());
 		result = prime * result + bookMeetingRoomId;
+		result = prime * result + ((bookingDate == null) ? 0 : bookingDate.hashCode());
+		result = prime * result + ((createdDate == null) ? 0 : createdDate.hashCode());
 		result = prime * result + ((createdTime == null) ? 0 : createdTime.hashCode());
 		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
 		result = prime * result + ((endTime == null) ? 0 : endTime.hashCode());
-		
 		result = prime * result + headCount;
 		result = prime * result + locationId;
 		result = prime * result + meetingRoomId;
@@ -77,6 +81,16 @@ public class BookMeetingRoomDTO {
 			return false;
 		if (bookMeetingRoomId != other.bookMeetingRoomId)
 			return false;
+		if (bookingDate == null) {
+			if (other.bookingDate != null)
+				return false;
+		} else if (!bookingDate.equals(other.bookingDate))
+			return false;
+		if (createdDate == null) {
+			if (other.createdDate != null)
+				return false;
+		} else if (!createdDate.equals(other.createdDate))
+			return false;
 		if (createdTime == null) {
 			if (other.createdTime != null)
 				return false;
@@ -91,7 +105,7 @@ public class BookMeetingRoomDTO {
 			if (other.endTime != null)
 				return false;
 		} else if (!endTime.equals(other.endTime))
-		
+			return false;
 		if (headCount != other.headCount)
 			return false;
 		if (locationId != other.locationId)
@@ -161,6 +175,30 @@ public class BookMeetingRoomDTO {
 		this.updatedTime = updatedTime;
 	}
 	
+	/**
+	 * @return the createdDate
+	 */
+	public Timestamp getCreatedDate() {
+		return createdDate;
+	}
+	/**
+	 * @param createdDate the createdDate to set
+	 */
+	public void setCreatedDate(Timestamp createdDate) {
+		this.createdDate = createdDate;
+	}
+	/**
+	 * @return the bookingDate
+	 */
+	public Timestamp getBookingDate() {
+		return bookingDate;
+	}
+	/**
+	 * @param bookingDate the bookingDate to set
+	 */
+	public void setBookingDate(Timestamp bookingDate) {
+		this.bookingDate = bookingDate;
+	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -168,7 +206,9 @@ public class BookMeetingRoomDTO {
 	public String toString() {
 		return "BookMeetingRoomDTO [bookMeetingRoomId=" + bookMeetingRoomId + ", meetingTitle=" + meetingTitle
 				+ ", meetingRoomId=" + meetingRoomId + ", beginTime=" + beginTime + ", endTime=" + endTime
-				+ ", emailId=" + emailId + ", locationId=" + locationId + ",  headCount=" + headCount + ", createdTime=" + createdTime + ", updatedTime=" + updatedTime + "]";
+				+ ", emailId=" + emailId + ", locationId=" + locationId + ", createdDate=" + createdDate
+				+ ", bookingDate=" + bookingDate + ", headCount=" + headCount + ", createdTime=" + createdTime
+				+ ", updatedTime=" + updatedTime + "]";
 	}
 	/**
 	 * @return the meetingRoomId
