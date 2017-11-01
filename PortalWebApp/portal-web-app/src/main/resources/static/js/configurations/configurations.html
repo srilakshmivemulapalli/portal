@@ -1,14 +1,14 @@
 
-<div class="col-md-offset-1 col-xs-offset-1 col-md-9 col-xs-9 main-content" style="padding-top: 30px;">
-	<!-- <div class="col-md-6 col-xs-6 current-category">
+<div class="col-md-offset-1 col-xs-offset-1 col-sm-offset-1 col-lg-offset-1 col-xl-offset-1 col-md-9 col-xs-9 col-sm-9 col-lg-9 col-xl-9 main-content" style="padding-top: 30px;">
+	<!-- <div class="col-md-6 col-xs-6 col-sm-6 col-lg-6 col-xl-6 current-category">
 		<span>Configurations</span>
 	</div> -->
-	<div class="col-md-12 col-xs-12">
+	<div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xl-12">
 		<div class="errStatus" ng-if="errorMessage!='';">{{errorMessage}}</div>
 		<div class="success" ng-if="successMessage!='';">{{successMessage}}</div>
 	</div>
 
-	<div class="col-md-12 col-xs-12 sort-questions">
+	<div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xl-12 sort-questions">
 		<ul id="nav-tabs" ng-init="getUsers();">
 			<li class="active"><a data-target="#1" data-toggle="tab"
 				ng-click='getUsers()'>Users</a></li>
@@ -20,13 +20,13 @@
 		</ul>
 	</div>
 
-	<div class="col-md-12 col-xs-12 tab-content ">
+	<div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xl-12 tab-content ">
 		<div class="tab-pane active" id="1">
 			<div align="center" style="color: #2535A9;">
 				<h3>User details</h3>
 			</div>
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xl-12">
 					<table class="table table-hover table-striped table-bordered">
 						<thead class="thead-inverse" align="center">
 							<tr>
@@ -76,12 +76,12 @@
 				<h3>Role details</h3>
 			</div>
 			<div class="row">
-				<div class="col-md-6"></div>
-				<div class="col-md-6" ng-show="!addrole">
+				<div class="col-md-6 col-xs-6 col-sm-6 col-lg-6 col-xl-6"></div>
+				<div class="col-md-6 col-xs-6 col-sm-6 col-lg-6 col-xl-6" ng-show="!addrole">
 					<input class='custombtn btn-normal' type="button" value="Add Role"
 						ng-click="addrole=true;roleobj.role='';" style="float: right;" />
 				</div>
-				<div class="col-md-6" ng-show="addrole">
+				<div class="col-md-6 col-xs-6 col-sm-6 col-lg-6 col-xl-6" ng-show="addrole">
 					<form name="roleadd" class="form-inline" ng-submit="addRole();"
 						style="float: right;">
 						<!-- addrole.$dirty &&  -->
@@ -96,7 +96,7 @@
 
 				</div>
 				</br> </br> </br>
-				<div class="col-md-12" style="padding-top: 20px;">
+				<div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xl-12" style="padding-top: 20px;">
 					<table class="table table-hover table-striped table-bordered">
 						<thead class="thead-inverse">
 							<tr>
@@ -136,13 +136,13 @@
 				<h3>Categories details</h3>
 			</div>
 			<div class="row">
-				<div class="col-md-3"></div>
-				<div class="col-md-9" ng-show="!addcategory">
+				<div class="col-md-3 col-xs-3 col-sm-3 col-lg-3 col-xl-3"></div>
+				<div class="col-md-9 col-xs-9 col-sm-9 col-lg-9 col-xl-9" ng-show="!addcategory">
 					<input class='custombtn btn-normal' type="button" value="Add Category"
 						ng-click="addcategory=true;categoryobj.categoryName='';categoryobj.description='';"
 						style="float: right;" />
 				</div>
-				<div class="col-md-9" ng-show="addcategory">
+				<div class="col-md-9 col-xs-9 col-sm-9 col-lg-9 col-xl-9" ng-show="addcategory">
 					<form name="addcat" class="form-inline" ng-submit="addCategory();"
 						style="float: right;">
 						<!-- addrole.$dirty &&  -->
@@ -163,7 +163,7 @@
 
 				</div>
 				</br> </br> </br>
-				<div class="col-md-12" style="padding-top: 20px;">
+				<div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xl-12" style="padding-top: 20px;">
 					<table class="table table-hover table-striped table-bordered">
 						<thead class="thead-inverse">
 							<tr>
@@ -209,32 +209,32 @@
 			</div>
  -->
 			<div class="trainingstable row">
-				<div class="col-md-12 col-xs-12">
-					<div class="col-md-4 col-xs-4">
+				<div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xl-12">
+					<div class="col-md-4 col-xs-4 col-sm-4 col-lg-4 col-xl-4">
 						<h4>Training</h4>
 					</div>
-					<div class="col-md-offset-4 col-xs-offset-4 col-md-2 col-xs-2">
+					<div class="col-md-offset-4 col-xs-offset-4 col-sm-offset-4 col-lg-offset-4 col-xl-offset-4 col-md-2 col-xs-2 col-sm-2 col-lg-2 col-xl-2">
 						<h4>Status</h4>
 					</div>
-					<div class="col-md-2 col-xs-2">
+					<div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 col-xl-2">
 						<h4>Approval</h4>
 					</div>
 				</div>
 
-				<div class="col-md-12 col-xs-12 list-group">
-					<div class=" col-md-12 col-xs-12 list-group-item">
-						<div class="col-md-4 col-xs-4">
+				<div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xl-12 list-group">
+					<div class=" col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xl-12 list-group-item">
+						<div class="col-md-4 col-xs-4 col-sm-4 col-lg-4 col-xl-4">
 							<h4>Java training</h4>
 							<p>from 29 sep,2017- 29 sep,2017</p>
 						</div>
-						<div class="col-md-4 col-xs-4">
+						<div class="col-md-4 col-xs-4 col-sm-4 col-lg-4 col-xl-4">
 							<p>11:30AM -12:30PM</p>
 						</div>
-						<div class="col-md-2 col-xs-2">
+						<div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 col-xl-2">
 							<p style="color: red;">pending</p>
 							<!-- <p style="color:green;">Approved</p> -->
 						</div>
-						<div class="col-md-2 col-xs-2">
+						<div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 col-xl-2">
 							
 								<button class="custombtn btn-approve">Approve</button>
 							
@@ -259,19 +259,19 @@
 							given HTML element such as colors, backgrounds, fonts etc.</p>
 					</a> -->
 					</div>
-					<div class=" col-md-12 col-xs-12 list-group-item">
-						<div class="col-md-4 col-xs-4">
+					<div class=" col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xl-12 list-group-item">
+						<div class="col-md-4 col-xs-4 col-sm-4 col-lg-4 col-xl-4">
 							<h4>C++ training</h4>
 							<p>from 29 sep,2017- 30 sep,2017</p>
 						</div>
-						<div class="col-md-4 col-xs-4">
+						<div class="col-md-4 col-xs-4 col-sm-4 col-lg-4 col-xl-4">
 							<p>1:30PM -2:30PM</p>
 						</div>
-						<div class="col-md-2 col-xs-2">
+						<div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 col-xl-2">
 							<!-- 	<p style="color:red;">pending</p> -->
 							<p style="color: green;">Approved</p>
 						</div>
-						<div class="col-md-2 col-xs-2">
+						<div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 col-xl-2">
 							<!-- <button class="btn-normal">Approve</button>
 						<button class="btn-cancel">Cancel</button> -->
 						</div>
