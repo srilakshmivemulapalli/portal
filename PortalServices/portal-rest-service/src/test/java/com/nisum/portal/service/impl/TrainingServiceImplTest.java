@@ -2,7 +2,6 @@ package com.nisum.portal.service.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.sql.Timestamp;
@@ -20,13 +19,11 @@ import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Store;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -48,15 +45,10 @@ import com.nisum.portal.service.dto.UserDTO;
 import com.nisum.portal.util.TrainingFeedBackUtil;
 import com.nisum.portal.util.TrainingRequestUtil;
 import com.nisum.portal.util.TrainingsServiceUtil;
-import com.nisum.portal.service.dto.UserDTO;
 import com.nisum.portal.util.MailSender;
-import com.nisum.portal.util.QuestionReplysUtil;
-import com.nisum.portal.util.QuestionariesUtil;
-import com.nisum.portal.util.TrainingFeedBackUtil;
-import com.nisum.portal.util.TrainingRequestUtil;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({TrainingsServiceUtil.class,TrainingFeedBackUtil.class,TrainingRequestUtil.class,Session.class})
+@PrepareForTest({TrainingsServiceUtil.class,TrainingFeedBackUtil.class,TrainingRequestUtil.class,MailSender.class})
 public class TrainingServiceImplTest {
 	
 	@InjectMocks
@@ -71,10 +63,10 @@ public class TrainingServiceImplTest {
 	@Mock
 	UserService userService;
 
+	@InjectMocks
+	Map<String, UserDTO> map=new HashMap<String,UserDTO>();
 	@Mock
-	Map<String, UserDTO> map;
-	
-	private EmailAccount emailAccount;
+	EmailAccount emailAccount;
 	
 	@Test
 	public void addTrainingFeedBackSuccessTest(){
@@ -128,12 +120,86 @@ public class TrainingServiceImplTest {
 		Mockito.when(trainingsDAO.addTrainingsRequest(request)).thenReturn(status);
 		PowerMockito.when(TrainingRequestUtil.convertDaoTODto(request)).thenReturn(trainingRequestDTO);
 		ServiceStatusDto actualStatus = new ServiceStatusDto();
+		//Get TrainingDTO data
+		String id = trainingRequestDTO.getEmailId();
+		//when(trainingRequestDTO.getEmailId()).thenReturn(id);
+		String title = trainingRequestDTO.getRequestTrainingTitle();
+		//when(trainingRequestDTO.getRequestTrainingTitle()).thenReturn(title);
+		String description = trainingRequestDTO.getDescription();
+		//when(trainingRequestDTO.getDescription()).thenReturn(description);
+		//Create UserDTO
+		UserDTO dto=new UserDTO();
+		dto.setActiveStatus("Yes");
+		dto.setCreateDate(timestamp);
+		dto.setEmailId(id);
+		dto.setLoginDate(timestamp);
+		dto.setNotifications("Yes");
+		dto.setProfileName("user");
+		dto.setUserName("Mahesh");
+		map.put(id, dto);
+		
+		Mockito.when(userService.getUsers()).thenReturn(map);
+		//Mockito.when(map.get(trainingRequestDTO.getEmailId())).thenReturn(dto);
+		UserDTO dto2 = map.get(trainingRequestDTO.getEmailId());
+		String userName = dto.getUserName();
+		assertEquals(userName, dto2.getUserName());
+		StringBuilder sb = new StringBuilder();
+		sb.append("<html><head></head><title></title>");
+		sb.append("<body style='font-size:12px;font-family:Trebuchet MS;'>");
+		sb.append("<i><b>Hi ,</b></i>");
+		sb.append("<br><br>");
+		sb.append("<i> I am Mahesh, Looking for training on "+"<b><font color=red>Java8 Features</font></b></i>");
+		sb.append("<br><br>");
+		sb.append("<i>Description :</i>");
+		sb.append("<br><br>");
+		sb.append("<i>"+description+"</i>");
+		sb.append("<br><br>");
+		sb.append("<i>Please do Needful and If There is a plan to arrange training on this, Java8 Features Please Let me Know</i>");
+		sb.append("<br><br>");
+		sb.append("<i>This is an auto generated e-mail. Please check this in Nisum portal. Thanking you.</i>");
+		sb.append("<br><br>");
+		sb.append("<br><br>");
+		sb.append("<i>Regards,</i>");
+		sb.append("<br><br>");
+		sb.append("<font color=red><i>Nisum Portal Application.</i></font>");
+		String requestBody = sb.toString();
+		PowerMockito.mockStatic(MailSender.class);
+		PowerMockito.when(MailSender.trainingReqestBody(title, userName, description)).thenReturn(requestBody);
+		String userId = "portalnisum@gmail.com";
+		when(emailAccount.getAdminemail()).thenReturn("portalnisum@gmail.com");
+		String password="nisum@123";
+		when(emailAccount.getAdminpassword()).thenReturn(password);
+		when(emailAccount.getSubtrainingreq()).thenReturn("New Training Request Raised from Nisum Portal");
+		MailSender.sendEmail(emailAccount.getAdminemail(), emailAccount.getAdminpassword(), id, id, emailAccount.getSubtrainingreq(), requestBody);
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable","true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
+		Authenticator authenticator = new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(userId, password);
+			}
+		};
+		Session session = Session.getInstance(props,authenticator);
+		Store store = session.getStore("pop3");
+		store.connect("gmail.com", emailAccount.getAdminemail().substring(0, emailAccount.getAdminemail().indexOf('@')), password);
+		Folder folder = store.getFolder("inbox");
+		folder.open(Folder.READ_ONLY);
+		  Message[] msg = folder.getMessages();
+		  
+		  assertTrue(msg.length == 1);
+		  assertEquals(emailAccount.getSubtrainingreq(), msg[0].getSubject());
+		  assertEquals(requestBody, msg[0].getContent());
+		  folder.close(true);
+		  store.close();
 		actualStatus= trainingsServiceImpl.addTrainingRequest(trainingRequestDTO, userService);
 		ServiceStatusDto expectedStatus = new ServiceStatusDto();
 		expectedStatus.setStatus(true);
 		expectedStatus.setMessage("Record Added Successfully !!");
 		assertEquals(expectedStatus.isStatus(), actualStatus.isStatus());
 		assertEquals(expectedStatus.getMessage(), actualStatus.getMessage());
+		
 	}
 	@Test
 	public void addTrainingRequestFailureTest() throws Exception {

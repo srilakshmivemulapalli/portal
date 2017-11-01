@@ -111,8 +111,9 @@ public class TrainingsServiceImpl implements TrainingsService {
 			final String toAdminEmailId="mbheemanapalli@nisum.com";
 			final String title=trainingRequestDTO.getRequestTrainingTitle();
 			final String description=trainingRequestDTO.getDescription();
-				MailSender.sendEmail(emailAccount.getAdminemail(), emailAccount.getAdminpassword(),
-					toAdminEmailId, toUserEmailId, emailAccount.getSubtrainingreq(), MailSender.trainingReqestBody(title, userName, description));
+			String reqestBody = MailSender.trainingReqestBody(title, userName, description);	
+			MailSender.sendEmail(emailAccount.getAdminemail(), emailAccount.getAdminpassword(),
+					toAdminEmailId, toUserEmailId, emailAccount.getSubtrainingreq(),reqestBody);
 		}
 		else if(serviceStatus == 0){
 			serviceStatusDto.setStatus(false);
