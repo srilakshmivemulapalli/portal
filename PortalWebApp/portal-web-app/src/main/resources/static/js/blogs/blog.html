@@ -1,21 +1,22 @@
+<div class="col-md-0 col-xs-0"></div>
 
-<div class="col-md-1 col-xs-1"></div>
-<div class="col-md-9 col-xs-9 main-content">
-	<div class="col-sm-2 paddingTop20" style="width: 80px">
+<div class="col-md-10 col-xs-10 main-content">
+	<div class="col-sm-2 paddingTop20" style="width: 180px">
 		<nav class="nav-sidebar">
-			<p>&nbsp;</p>
+		<p>&nbsp;</p>
 			<ul class="nav">
 				<li class="active"><a href="#/blogs"><span>All Blogs</span></a></li>
 				<li class="nav-divider"></li>
 				<li class="active"><a href="#/newBlog" class="button"> <span>Write
 							your Blog....</span></a></li>
 				<li class="nav-divider"></li>
-				<li class="inactive"><a href="#/blogs" class="button"> <span>My
+				<li class="active"><a href="#/myBlogs" class="button"> <span>My
 							Blogs</span></a></li>
 				<li class="nav-divider"></li>
 			</ul>
 		</nav>
 	</div>
+	<p>&nbsp;</p>
 	<div class="col-sm-10 paddingTop20">
 		<div class="col-md-10 blogShort">
 			<h1>{{blogData.title}}</h1>
@@ -24,11 +25,10 @@
 			<div>{{blogData.createdDate | date : 'dd/mm/yyyy'}}</div>
 			Created By ::
 			<div>{{blogData.userMailId}}</div>
-			Attachments Here....
 			<p>&nbsp</p>
 			<div ng-repeat="file in blogData.fileNames.slice(0)">
 <!-- 				 <a href="javascript:void(0)" ng-click="download(file,blogData.blogsId,blogData.userMailId)">{{file}}</a>
- -->				 {{file}}<a href="v1/Blogs/retrieve/getFile/{{file}}/{{blogData.userMailId}}/{{blogData.blogsId}}"><i class="fa fa-download" aria-hidden="true"></i></a>
+ -->				 {{file}}&ensp;<a href="v1/Blogs/retrieve/getFile/{{file}}/{{blogData.userMailId}}/{{blogData.blogsId}}" class='ng-button'>download</a>
 				 </div>
 			</div>
 		</div>
