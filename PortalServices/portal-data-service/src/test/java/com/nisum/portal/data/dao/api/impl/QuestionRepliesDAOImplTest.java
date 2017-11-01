@@ -65,7 +65,7 @@ public class QuestionRepliesDAOImplTest {
 	
 	
 	@Test
-	public void getMyReplyQuestionsByCategory() {
+	public void getMyReplyQuestionsByCategoryThroughPagination() {
 		
 		Questionaries questionaries = new Questionaries();
 		questionaries.setDescription("description");
@@ -82,6 +82,27 @@ public class QuestionRepliesDAOImplTest {
 		when(questionRepliesRepository.getMyReplyQuestionsByCategoryThroughPagination("test@nisum.com", category, new PageRequest(0, 3))).thenReturn(questionsList);
 		
 		List<Questionaries> expected = questionRepliesDAOImpl.getMyReplyQuestionsByCategoryThroughPagination("test@nisum.com", category, new PageRequest(0, 3));
+		assertEquals(expected, questionsList);
+	}
+	
+	@Test
+	public void getMyReplyQuestionsByCategory() {
+		
+		Questionaries questionaries = new Questionaries();
+		questionaries.setDescription("description");
+		questionaries.setEmailId("test@nisum.com");
+		questionaries.setQuestion("What is java");
+		questionaries.setQuestionId(1);
+	
+		List<Questionaries> questionsList = new ArrayList<Questionaries>();
+		questionsList.add(questionaries);
+		
+		Categories category = new Categories();
+		category.setCategoryId(1);
+		
+		when(questionRepliesRepository.getMyReplyQuestionsByCategory("test@nisum.com", category)).thenReturn(questionsList);
+		
+		List<Questionaries> expected = questionRepliesDAOImpl.getMyReplyQuestionsByCategory("test@nisum.com", category);
 		assertEquals(expected, questionsList);
 	}
 

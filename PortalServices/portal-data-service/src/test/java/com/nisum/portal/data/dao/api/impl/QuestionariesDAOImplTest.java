@@ -181,5 +181,51 @@ public class QuestionariesDAOImplTest {
 		
 	}
 	
+	@Test
+	public void retrieveAllUnansweredQuestionariesCountByCategoryTest() {
+		
+		Questionaries questionaries = new Questionaries();
+			questionaries.setDescription("description");
+			questionaries.setEmailId("test@nisum.com");
+			questionaries.setQuestion("What is java");
+			questionaries.setQuestionId(1);
+
+		List<Questionaries> questionariesExpected = new ArrayList<>();
+			questionariesExpected.add(questionaries);
+
+		Categories category = new Categories();
+			category.setCategoryId(1);
+
+		when(questionariesRepository.retriveAllUnansweredQuestionariesCountByCategory(category))
+				.thenReturn(questionariesExpected);
+
+		List<Questionaries> actual = questionariesDAOImpl.retrieveAllUnansweredQuestionariesCountByCategory(category);
+
+		assertEquals(questionariesExpected, actual);
+	}
+	
+	@Test
+	public void fetchMyQuestionariesCountByCategoryTest() {
+		
+		Questionaries questionaries = new Questionaries();
+			questionaries.setDescription("description");
+			questionaries.setEmailId("test@nisum.com");
+			questionaries.setQuestion("What is java");
+			questionaries.setQuestionId(1);
+
+		List<Questionaries> questionariesExpected = new ArrayList<>();
+			questionariesExpected.add(questionaries);
+
+		Categories category = new Categories();
+			category.setCategoryId(1);
+
+		when(questionariesRepository.fetchMyQuestionariesCountByCategory("test@nisum.com", category))
+				.thenReturn(questionariesExpected);
+
+		List<Questionaries> actual = questionariesDAOImpl.fetchMyQuestionariesCountByCategory("test@nisum.com", category);
+
+		assertEquals(questionariesExpected, actual);
+	}
+	
 	
 }
