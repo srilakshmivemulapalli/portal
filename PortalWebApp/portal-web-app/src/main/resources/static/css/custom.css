@@ -483,7 +483,7 @@ ul.tabs-title{
 	margin-right: 30px;
 	cursor: pointer;
 }
-.tabs-title li .active{
+.tabs-title .active{
 	border-bottom: 4px solid #f39c12;
 	padding: 15px 0px;
 }

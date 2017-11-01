@@ -51,7 +51,7 @@ questionApp
 									if (response.errorCode) {
 										$scope.message = response.errorMessage
 									} else {
-
+										
 										$state.go('questions');
 									}
 								}, function(response) {

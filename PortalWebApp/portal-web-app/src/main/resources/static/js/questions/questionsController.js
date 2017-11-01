@@ -90,7 +90,7 @@ questionApp
 												$scope.message = response.errorMessage
 											} else {
 												$scope.questionsList.questions.questionDetails = [];
-												console.log(response);
+												
 												$scope.questionsList
 														.addquestion(response);
 												response.questionDetails
@@ -98,8 +98,8 @@ questionApp
 															$scope.questionsList
 																	.addquestionDetails(question);
 														})
-												$rootScope.questionCount = response.totalQuestions;
-												$rootScope.userCount = response.totalUsers;
+//												$rootScope.questionCount = response.totalQuestions;
+//												$rootScope.userCount = response.totalUsers;
 
 												$scope
 														.setPage(

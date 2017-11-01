@@ -25,7 +25,7 @@ var app = angular
 				function($rootScope, $window, $state, $location,
 						localStorageService, $timeout, commonService) {
 					$rootScope.navBarToggle = false;
-					console.log(commonService);
+					
 					$rootScope
 							.$on(
 									"$locationChangeStart",

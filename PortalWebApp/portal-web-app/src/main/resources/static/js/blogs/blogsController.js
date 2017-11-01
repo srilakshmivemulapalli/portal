@@ -18,7 +18,7 @@ blogsApp
 					$scope.getMyBlogs = function() {
 						blogsService.getMyBlogs(emailId).then(function(response) {
 							$scope.myBlogsList = response;
-							console.log('MyBlogsList::'+myBlogsList);
+							console.log('MyBlogsList::',$scope.myBlogsList);
 						}, function(response) {
 							console.log('error....' + response);
 						})

@@ -65,11 +65,21 @@
 					<div class="col-md-6">
 						<div class="irs-cdtls-feture-bot">
 							<ul class="list-group">
-
+								<li><a class="list-group-item" href="javascript:void(0);">Start
+										Time<span class="pull-right"> {{modalTraining.trainingStartTime | date:'hh:mm a' }}</span>
+								</a></li>
 								<li><a class="list-group-item" href="javascript:void(0);"><span
 										class="flaticon-clock-1 text-thm2"></span> Duration <span
 										class="pull-right">{{modalTraining.customDuration.hours!==0?modalTraining.customDuration.hours+'hr(s)':''}}
 											{{modalTraining.customDuration.minutes!==0?modalTraining.customDuration.minutes+'min(s)':''}}</span></a></li>
+								<li><a class="list-group-item" href="javascript:void(0);">Start
+										Date<span class="pull-right"> {{modalTraining.trainingStartDate | date:'dd MMM,yy'}}</span>
+								</a>
+								</li>
+								<li><a class="list-group-item" href="javascript:void(0);">End
+										Date<span class="pull-right"> {{modalTraining.trainingEndDate | date:'dd MMM,yy'}}</span>
+								</a>
+								</li>
 								<li><a class="list-group-item" href="javascript:void(0);"><span
 										class="flaticon-arrows-4 text-thm2"></span> Skills<span
 										class="pull-right">{{modalTraining.trainingTitle}}</span></a></li>
@@ -92,15 +102,39 @@
 				</div>
 
 			</div>
-			<div class="modal-footer" ng-if="modalTraining.trainingPresence!==2">
+			<div class="modal-footer"
+				ng-if="modalTraining.trainingPresence!==2">
 				<button type="button" class="custombtn btn-normal"
-					ng-click="requestuserTraining(modalTraining,1);"
-					ng-if="modalTraining.trainingPresence===0">Join</button>
+					ng-click="showConfirmModal()"
+					ng-if="modalTraining.trainingPresence===0">Register</button>
 				<button type="button" class="custombtn btn-cancel"
-					ng-click="requestuserTraining(modalTraining,0);"
-					ng-if="modalTraining.trainingPresence===1">Cancel</button>
+					ng-click="showConfirmModal()"
+					ng-if="modalTraining.trainingPresence===1">UnRegister</button>
 			</div>
 		</div>
 
 	</div>
 </div>
+
+<div id="confirmModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+
+			<div class="modal-body">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h5 ng-if="modalTraining.trainingPresence==0">Are you sure. Do you want to Register for the Training?</h5>
+				<h5 ng-if="modalTraining.trainingPresence==1">Are you sure. Do you want to UnRegister for the Training?</h5>
+			</div>
+			<div class="modal-footer">
+				
+				<button type="button" ng-if="modalTraining.trainingPresence==1" class="custombtn btn-normal" ng-click="requestuserTraining(modalTraining,0);">Yes</button>
+				<button type="button" ng-if="modalTraining.trainingPresence==0" class="custombtn btn-normal" ng-click="requestuserTraining(modalTraining,1);">Yes</button>
+				<button type="button" class="custombtn btn-cancel" data-dismiss="modal">No</button>
+			</div>
+		</div>
+
+	</div>
+</div>
+
