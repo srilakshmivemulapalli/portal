@@ -15,5 +15,10 @@ var blogsApp=angular.module('BlogsApp', [ 'ui.router' ])
 		templateUrl:'js/blogs/blog.html',
 		controller:'blogController'
 	})
+		.state('myblogs',{
+		url:'/myBlogs',
+		templateUrl:'js/blogs/myBlogs.html',
+		controller:'blogsController'
+	})
 })    
 	

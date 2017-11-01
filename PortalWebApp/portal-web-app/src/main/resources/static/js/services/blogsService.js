@@ -15,9 +15,19 @@ app.factory('blogsService', function($http, $q) {
 		var deferred = $q.defer();
 
 		$http.get('v1/Blogs/retrieve/'+ blogId).success(function(response) {
-			console.log('responce...'+response)
+			console.log('responce...'+JSON.stringify(response));
 			deferred.resolve(response);
 		}).error(function(response) {
+			deferred.reject(response);
+		})
+		return deferred.promise;
+	}
+	bs.download = function(fileName,emailId,blogId){
+		var deferred = $q.defer();
+		$http.get('v1/Blogs/retrieve/getFile/'+ fileName+'/'+emailId+'/'+blogId).success(function(response) {
+			console.log('responce...success');
+			deferred.resolve(response);
+			}).error(function(response) {
 			deferred.reject(response);
 		})
 		return deferred.promise;
