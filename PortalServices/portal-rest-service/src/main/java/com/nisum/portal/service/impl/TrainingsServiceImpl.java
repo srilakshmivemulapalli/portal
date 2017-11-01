@@ -64,6 +64,7 @@ public class TrainingsServiceImpl implements TrainingsService {
 		logger.info("TrainingsServiceImpl::completedTrainings");
 		List<TrainingsDTO> completedList=TrainingsServiceUtil.convertDaoTODto(trainingsDAO.completedTraining(emailId));
 		this.getTrainingList(emailId, completedList, userService);
+		this.disableOptedTrainings(completedList);
 		return completedList;
 	}
 	@Override
@@ -254,7 +255,17 @@ public class TrainingsServiceImpl implements TrainingsService {
 	public List<TrainingsDTO> getMyTrainings(String trainerEmailId,UserService userService) {
 		logger.info("TrainingsServiceImpl :: getMyTrainings");
 		 List<TrainingsDTO> myTrainingList=TrainingsServiceUtil.convertDaoTODto(trainingsDAO.getMyTrainings(trainerEmailId))	;	
-		 this.getTrainingList(trainerEmailId, myTrainingList, userService);
+		 this.getTrainingList(trainerEmailId, myTrainingList, userService); 
+		 this.disableOptedTrainings(myTrainingList);
 		return myTrainingList;
+	}
+	
+	public void disableOptedTrainings(List<TrainingsDTO> trainingsList)
+	{
+		for(TrainingsDTO trainingsDTO:trainingsList)
+		{
+			trainingsDTO.setTrainingPresence(3); // disable Join option in MyTrainings Part
+		}
+		
 	}
 }

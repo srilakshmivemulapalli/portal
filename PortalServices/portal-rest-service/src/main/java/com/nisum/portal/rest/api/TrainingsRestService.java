@@ -135,7 +135,10 @@ public class TrainingsRestService {
 		logger.info("TrainingsRestService :: addTrainingFeedBack ::" + trainingFeedBackDTO.toString());
 		TrainingFeedBackDTO feedBackDTO = trainingsService.addTrainingFeedBack(trainingFeedBackDTO);
 		if (ObjectUtils.anyNotNull(feedBackDTO))
+		{
+			feedBackDTO.setCommentStatus(0);
 			return new ResponseEntity<TrainingFeedBackDTO>(feedBackDTO, HttpStatus.OK);
+		}
 		else {
 			logger.error("FeedBack for same already Exists");
 			Errors error = new Errors();

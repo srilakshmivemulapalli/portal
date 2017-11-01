@@ -9,6 +9,7 @@ public class TrainingFeedBackDTO {
 	private String feedback;
 	private String emailId;
 	private Timestamp createDate;
+	private Integer commentStatus;
 	public Integer getTrainingFeedBackId() {
 		return trainingFeedBackId;
 	}
@@ -39,6 +40,12 @@ public class TrainingFeedBackDTO {
 	public void setCreateDate(Timestamp createDate) {
 		this.createDate = createDate;
 	}
+	public Integer getCommentStatus() {
+		return commentStatus;
+	}
+	public void setCommentStatus(Integer commentStatus) {
+		this.commentStatus = commentStatus;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -48,6 +55,8 @@ public class TrainingFeedBackDTO {
 		result = prime * result + ((feedback == null) ? 0 : feedback.hashCode());
 		result = prime * result + ((trainingFeedBackId == null) ? 0 : trainingFeedBackId.hashCode());
 		result = prime * result + ((trainingId == null) ? 0 : trainingId.hashCode());
+		result = prime * result + ((commentStatus == null) ? 0 : commentStatus.hashCode());
+
 		return result;
 	}
 	@Override
@@ -84,11 +93,16 @@ public class TrainingFeedBackDTO {
 				return false;
 		} else if (!trainingId.equals(other.trainingId))
 			return false;
+		if (commentStatus == null) {
+			if (other.commentStatus != null)
+				return false;
+		} else if (!commentStatus.equals(other.commentStatus))
+			return false;
 		return true;
 	}
 	@Override
 	public String toString() {
 		return "TrainingFeedBackDTO [trainingFeedBackId=" + trainingFeedBackId + ", trainingId=" + trainingId
-				+ ", feedback=" + feedback + ", emailId=" + emailId + ", createDate=" + createDate + "]";
+				+ ", feedback=" + feedback + ", emailId=" + emailId + ", createDate=" + createDate + ",commentStatus="+commentStatus+"]";
 	}
 }
