@@ -53,6 +53,11 @@ blogsApp
 								}).success(
 								function(data, status, headers, config) {
 									alert("success!");
+									$scope.blog={};
+									$scope.files=[];
+									alert('clear here....');
+									angular.element("input[type='file']").val(null);
+									//angular.copy({},$scope.files);
 								}).error(
 								function(data, status, headers, config) {
 									alert("failed!");

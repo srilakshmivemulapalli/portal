@@ -5,29 +5,32 @@
 		<nav class="nav-sidebar">
 			<p>&nbsp;</p>
 			<ul class="nav">
-				<li class="active"><a href="#/Blogs"><span>All Blogs</span></a></li>
+				<li class="active"><a href="#/blogs"><span>All Blogs</span></a></li>
 				<li class="nav-divider"></li>
 				<li class="active"><a href="#/newBlog" class="button"> <span>Write
 							your Blog....</span></a></li>
 				<li class="nav-divider"></li>
-				<li class="active"><a href="#/ownBlogs" class="button"> <span>My
+				<li class="inactive"><a href="#/blogs" class="button"> <span>My
 							Blogs</span></a></li>
 				<li class="nav-divider"></li>
 			</ul>
 		</nav>
 	</div>
-<div class="col-sm-2 paddingTop20">
-
-	<ul class="nav">
-		<li>sidebar</li>
-		<li>{{blogData.userId}} and {{blogData.blogsId}}</li>
-	</ul>
-</div>
-<div class="col-md-10 blogShort">
-
-	<article>{{blogData.description}}</article>
-
-</div>
-
-</div>
+	<div class="col-sm-10 paddingTop20">
+		<div class="col-md-10 blogShort">
+			<h1>{{blogData.title}}</h1>
+			<article ng-bind-html="blogData.description"></article>
+			Created Date ::
+			<div>{{blogData.createdDate | date : 'dd/mm/yyyy'}}</div>
+			Created By ::
+			<div>{{blogData.userMailId}}</div>
+			Attachments Here....
+			<p>&nbsp</p>
+			<div ng-repeat="file in blogData.fileNames.slice(0)">
+<!-- 				 <a href="javascript:void(0)" ng-click="download(file,blogData.blogsId,blogData.userMailId)">{{file}}</a>
+ -->				 {{file}}<a href="v1/Blogs/retrieve/getFile/{{file}}/{{blogData.userMailId}}/{{blogData.blogsId}}"><i class="fa fa-download" aria-hidden="true"></i></a>
+				 </div>
+			</div>
+		</div>
+	</div>
 
