@@ -13,6 +13,17 @@ public class EmailAccount {
 	@Value("${gmail.password}")
 	private String adminpassword;
 	
+	@Value("${gmail.admin.email}")
+	private String adminemailId;
+	
+	public String getAdminemailId() {
+		return adminemailId;
+	}
+
+	public void setAdminemailId(String adminemailId) {
+		this.adminemailId = adminemailId;
+	}
+
 	@Value("${gmail.subject}")
 	private String subject;
 	
@@ -24,6 +35,7 @@ public class EmailAccount {
   
 	@Value("${gmail.training.request}")
 	private String subtrainingreq;
+	
 	public String getSubQuestToAnser() {
 		return subQuestToAnser;
 	}
