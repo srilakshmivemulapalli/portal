@@ -19,17 +19,9 @@ background-color:#fff
 <div class="col-md-2 col-xs-2 col-sm-2 col-xl-2 col-lg-2 paddingTop20" style="width: 180px">
 		<nav class="nav-sidebar" >
 		<p>&nbsp;</p>
-			<ul class="nav">
-				<li class="active"><a href="#/blogs"><span>All Blogs</span></a></li>
-				<li class="nav-divider"></li>
-				<li class="active"><a href="#/newBlog" class="button"> <span>Write
-							your Blog....</span></a></li>
-				<li class="nav-divider"></li>
-				<li class="active"><a href="#/myBlogs" class="button"> <span>My
-							Blogs</span></a></li>
-				<li class="nav-divider"></li>
-			</ul>
-		</nav>
+			<div class="col-md-10 col-xs-10 col-sm-10 col-lg-10 col-xl-10 blogShort" style="float:right">
+			<span class="back"> <i class="fa fa-angle-double-left"></i> <a href="#/blogs">Back</a>
+		</span>
 	</div>
 	<p>&nbsp;</p>
 
@@ -40,7 +32,7 @@ background-color:#fff
 	<div></div>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-10 col-xs-10 col-sm-10 col-xl-10 col-lg-10">
+			<div class="col-md-10">
 				<form name="formBlog" id="frmBlog" ng-submit="submitBlog()" method="post">
 					<label value="txtTitle">Blog Title</label> <input type="text"
 						name="textTitle" id="txtTitle" class="form-control"
