@@ -822,6 +822,9 @@ body.single-question .form-reply {
 	padding: 0;
 	padding-top: 30px;
 }
+.blog back i a{
+float:right;
+}
 
 .main-content>.row {
 	margin: 0;
@@ -5809,4 +5812,9 @@ iPad 3
 @media only screen and (min-device-width: 360px) and (max-device-height:
 	640px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 3)
 	{ /* Styles */
+}
+.blogborder{
+border:  1px solid grey;
+margin-top:12px;
+
 }

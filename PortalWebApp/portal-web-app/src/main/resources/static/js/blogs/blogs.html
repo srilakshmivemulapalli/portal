@@ -27,7 +27,7 @@
 				<li ng-repeat="blog in allBlogsList">
 					<div class="blog-wrapper">
 
-						<div class="col-md-8 col-xs-8">
+						<div class="col-md-12 col-xs-12">
 							<div class="blog-content">
 								<!-- Post Info -->
 								<div class="blog-info">
@@ -47,12 +47,14 @@
 									<a href="#/blog/{{blog.blogsId}}">T{{blog.title}}</a>
 								</h2>
 								<div>
-									<p ng-bind-html='blog.description | limitTo:150'></p>
+									<p ng-bind-html='(blog.description | limitTo:200) +"..."'></p>
 								</div>
 								<a href="#/blog/{{blog.blogsId}}"> READ MORE<i
 									class="fa fa-arrow-circle-o-right"></i>
 								</a>
+								
 							</div>
+							
 						</div>
 					</div>
 				</li>
@@ -65,7 +67,7 @@
 				<li ng-repeat="blog in myBlogsList">
 					<div class="blog-wrapper">
 
-						<div class="col-md-8 col-xs-8">
+						<div class="col-md-12 col-xs-12">
 							<div class="blog-content">
 								<!-- Post Info -->
 								<div class="blog-info">
@@ -85,7 +87,7 @@
 									<a href="#/blog/{{blog.blogId}}">T{{blog.title}}</a>
 								</h2>
 								<div>
-									<p ng-bind-html='blog.description'></p>
+									<p ng-bind-html='(blog.description | limitTo:200 )+"..."'></p>
 								</div>
 								<a href="#/blog/{{blog.blogId}}"> READ MORE<i
 									class="fa fa-arrow-circle-o-right"></i>
