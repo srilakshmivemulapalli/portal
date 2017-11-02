@@ -128,7 +128,6 @@ CREATE TABLE `portal`.`Trainings` (
   `trainerEmailId` varchar(100) DEFAULT NULL,
   `trainingStartDate` datetime DEFAULT NULL,
  `trainingEndDate` datetime DEFAULT NULL,
-  `trainingStatus` varchar(100) DEFAULT NULL,
   `trainingType` varchar(100) DEFAULT NULL,
     `trainingStartTime` datetime DEFAULT NULL,
     `trainingEndTime` datetime DEFAULT NULL,

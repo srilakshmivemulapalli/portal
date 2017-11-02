@@ -22,7 +22,6 @@ public class TrainingsServiceUtil {
 				trainingsDTO.setTrainerEmailId(trainings.getTrainerEmailId());
 				trainingsDTO.setTrainingStartTime(trainings.getTrainingStartTime());
 				trainingsDTO.setTrainingEndTime(trainings.getTrainingEndTime());
-				trainingsDTO.setTrainingStatus(trainings.getTrainingStatus());
 				trainingsDTO.setTrainingType(trainings.getTrainingType());
 				trainingsDTO.setDescription(trainings.getDescription());
 				trainingsDTO.setTrainingStartDate(trainings.getTrainingStartDate());
@@ -43,7 +42,6 @@ public class TrainingsServiceUtil {
 		trainings.setTrainerEmailId(trainingsDTO.getTrainerEmailId());
 		trainings.setTrainingStartTime(trainingsDTO.getTrainingStartTime());
 		trainings.setTrainingEndTime(trainingsDTO.getTrainingEndTime());
-		trainings.setTrainingStatus(trainingsDTO.getTrainingStatus());
 		trainings.setTrainingType(trainingsDTO.getTrainingType());
 		trainings.setDescription(trainingsDTO.getDescription());
 		trainings.setTrainingStartDate(trainingsDTO.getTrainingStartDate());
@@ -82,7 +80,6 @@ public class TrainingsServiceUtil {
 		trainingsDTO.setTrainerEmailId(trainings.getTrainerEmailId());
 		trainingsDTO.setTrainingStartTime(trainings.getTrainingStartTime());
 		trainingsDTO.setTrainingEndTime(trainings.getTrainingEndTime());
-		trainingsDTO.setTrainingStatus(trainings.getTrainingStatus());
 		trainingsDTO.setTrainingType(trainings.getTrainingType());
 		trainingsDTO.setDescription(trainings.getDescription());
 		trainingsDTO.setTrainingStartDate(trainings.getTrainingStartDate());

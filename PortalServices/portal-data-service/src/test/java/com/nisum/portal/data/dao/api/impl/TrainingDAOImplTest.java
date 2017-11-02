@@ -100,7 +100,7 @@ public class TrainingDAOImplTest {
 		
 		trainings.setDescription("JAVA ADvance");
 		trainings.setTrainingId(1);
-		trainings.setTrainingStatus("Created");
+		//trainings.setTrainingStatus("Created");
 		trainings.setTrainerEmailId("trainer1@nisum.com");
 		trainings.setTrainingTitle("JAVA");
 		trainings.setTrainingType("TECH");

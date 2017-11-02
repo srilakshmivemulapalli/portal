@@ -25,7 +25,6 @@ public class Trainings {
 	private Timestamp trainingStartTime;
 	private String trainerEmailId;
 	private String trainingTitle;
-	private String trainingStatus;
 	private String trainingType;
 	private Timestamp trainingStartDate;
 	private Timestamp trainingEndDate;
@@ -65,12 +64,6 @@ public class Trainings {
 	}
 	public void setTrainingEndTime(Timestamp trainingEndTime) {
 		this.trainingEndTime = trainingEndTime;
-	}
-	public String getTrainingStatus() {
-		return trainingStatus;
-	}
-	public void setTrainingStatus(String trainingStatus) {
-		this.trainingStatus = trainingStatus;
 	}
 	public String getTrainingType() {
 		return trainingType;
@@ -119,11 +112,6 @@ public class Trainings {
 				return false;
 		} else if (!trainerEmailId.equals(other.trainerEmailId))
 			return false;
-		if (trainingStatus == null) {
-			if (other.trainingStatus != null)
-				return false;
-		} else if (!trainingStatus.equals(other.trainingStatus))
-			return false;
 		if (trainingType == null) {
 			if (other.trainingType != null)
 				return false;
@@ -163,7 +151,6 @@ public class Trainings {
 		result = prime * result + ((trainingEndDate == null) ? 0 : trainingEndDate.hashCode());
 		result = prime * result + ((trainerEmailId == null) ? 0 : trainerEmailId.hashCode());
 		result = prime * result + ((trainingTitle == null) ? 0 : trainingTitle.hashCode());
-		result = prime * result + ((trainingStatus == null) ? 0 : trainingStatus.hashCode());
 		result = prime * result + ((trainingType == null) ? 0 : trainingType.hashCode());
 		result = prime * result + ((trainingStartTime == null) ? 0 : trainingStartTime.hashCode());
 		result = prime * result + ((trainingEndTime == null) ? 0 : trainingEndTime.hashCode());
@@ -175,7 +162,7 @@ public class Trainings {
 	public String toString() {
 		return "Trainings [trainingId=" + trainingId + ", description=" + description + ", trainingStartTime="
 				+ trainingStartTime + ", trainerName=" + trainerEmailId +  ", trainingTitle="
-						+ trainingTitle+ " , trainingStatus=" +trainingStatus+ ",trainingType="
+						+ trainingTitle+ ",trainingType="
 				+ trainingType+",trainingStartDate="+trainingStartDate+",trainingEndDate="+trainingEndDate+",trainingEndTime="+trainingEndTime+"]";		
 	}
 	public Trainings(Integer trainingId) {

@@ -227,7 +227,6 @@ public class TrainingServiceImplTest {
 		TrainingsDTO trainingDto=new  TrainingsDTO();
 		trainingDto.setDescription("JAVA ADvance");
 		trainingDto.setTrainingId(1);
-		trainingDto.setTrainingStatus("Created");
 		trainingDto.setTrainerEmailId("trainer1@nisum.com");
 		trainingDto.setTrainingTitle("JAVA");
 		trainingDto.setTrainingType("TECH");

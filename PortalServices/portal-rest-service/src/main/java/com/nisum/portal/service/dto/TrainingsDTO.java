@@ -14,7 +14,6 @@ public class TrainingsDTO {
 	private Timestamp trainingStartTime;
 	private String trainerEmailId;
 	private String trainingTitle;
-	private String trainingStatus;
 	private String trainingType;
 	private Integer trainingPresence;
 	private Integer noOfStudents;
@@ -33,12 +32,6 @@ public class TrainingsDTO {
 	}
 	public void setTrainingId(Integer trainingId) {
 		this.trainingId = trainingId;
-	}
-	public String getTrainingStatus() {
-		return trainingStatus;
-	}
-	public void setTrainingStatus(String trainingStatus) {
-		this.trainingStatus = trainingStatus;
 	}
 	public String getTrainingType() {
 		return trainingType;
@@ -147,7 +140,7 @@ public class TrainingsDTO {
 	public String toString() {
 		return "CategoriesDTO [trainingId=" + trainingId + ", description=" + description + ", trainingStartTime="
 				+ trainingStartTime + ", trainerEmailId=" + trainerEmailId +  ", trainingTitle="
-				+ trainingTitle+ " , trainingStatus=" +trainingStatus+ ",trainingType="
+				+ trainingTitle+ ",trainingType="
 				+ trainingType+",trainingPresence="+trainingPresence+",noOfStudents="
 				+noOfStudents+",trainingStartDate="+trainingStartDate+",trainingEndDate="
 				+trainingEndDate+" ,trainingEndTime="+trainingEndTime+"+duration="+duration+

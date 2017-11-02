@@ -124,7 +124,6 @@ public class TrainingRestServiceTest {
 		
 		dto.setDescription("JAVA ADvance");
 		dto.setTrainingId(1);
-		dto.setTrainingStatus("Created");
 		dto.setTrainerEmailId("trainer1@nisum.com");
 		dto.setTrainingTitle("JAVA");
 		dto.setTrainingType("TECH");
