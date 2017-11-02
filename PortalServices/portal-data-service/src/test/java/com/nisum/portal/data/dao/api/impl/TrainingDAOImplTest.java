@@ -178,4 +178,13 @@ public class TrainingDAOImplTest {
 		List<TrainingFeedBack> actual=trainingDAOImpl.getTrainingFeedBacksByTrainingId(trainingId);
 		assertEquals(list,actual);
 	}
+	
+	@Test
+	public void getMyTrainingsTest(){
+		List<Trainings> expected=new ArrayList<Trainings>();
+		String trainerEmailId="trainer1@nisum.com";
+		Mockito.when(trainingRepository.getMyTrainings(trainerEmailId)).thenReturn(expected);
+		List<Trainings> actual=trainingDAOImpl.getMyTrainings(trainerEmailId);
+		assertEquals(expected,actual);
+	}
 }

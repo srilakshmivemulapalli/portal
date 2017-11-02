@@ -284,5 +284,26 @@ public class TrainingServiceImplTest {
 		TrainingToUserDTO actual=trainingsServiceImpl.trainingToUser(expected);
 		assertEquals(expected,actual);
 	}
+	
+	@Test
+	public void getTrainingFeedBackTest(){
+		List<TrainingFeedBack> trainingFeedBackList=new ArrayList<TrainingFeedBack>();
+		List<TrainingFeedBackDTO> dtoList=new ArrayList<TrainingFeedBackDTO>();
+		PowerMockito.mockStatic(TrainingFeedBackUtil.class);
+		PowerMockito.when(TrainingFeedBackUtil.convertDaoListToDto(trainingFeedBackList)).thenReturn(dtoList);
+		List<TrainingFeedBackDTO> actualList=trainingsServiceImpl.getTrainingFeedBack(1);
+		assertEquals(dtoList,actualList);
+	}
+	
+	
+	@Test
+	public void getMyTrainingsTest(){
+		List<Trainings> dtoList=new ArrayList<Trainings>();
+		List<TrainingsDTO> expected=new ArrayList<TrainingsDTO>();
+		String email="trainer1@nisum.com";
+		PowerMockito.mockStatic(TrainingsServiceUtil.class);
+		PowerMockito.when(TrainingsServiceUtil.convertDaoTODto(dtoList)).thenReturn(expected);
+		List<TrainingsDTO> actual=trainingsServiceImpl.getMyTrainings(email, userService);
+	}
 
 }

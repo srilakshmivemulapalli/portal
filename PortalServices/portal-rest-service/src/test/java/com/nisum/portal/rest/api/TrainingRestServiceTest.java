@@ -15,6 +15,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -280,11 +281,19 @@ public class TrainingRestServiceTest {
 	@Test
 	public void getTrainingFeedBacksByTrainingId() throws TrainingsServiceException{
 		List<TrainingFeedBackDTO> expected=new ArrayList<TrainingFeedBackDTO>();
+		
+		TrainingFeedBackDTO dto=new TrainingFeedBackDTO();
+		dto.setEmailId("test@nisum.com");
+		
+		expected.add(dto);
 		TrainingsDTO trainingDto=new TrainingsDTO();
 		trainingDto.setTrainingId(1);
 		int trainingId=trainingDto.getTrainingId();
 		when(trainingsService.getTrainingFeedBack(trainingId)).thenReturn(expected);
 		Object actual=trainingsRestService.getTrainingFeedBacksByTrainingId(trainingId);
+		assertThat(actual).isEqualToComparingFieldByField(expected);
+		//assertEquals(expected,actual);
+		
 	}
 	
 	@Test
@@ -303,6 +312,16 @@ public class TrainingRestServiceTest {
 		statusDtoExpected.setStatus(false);
 		statusDtoExpected.setMessage("Get Training FeedBacks By TrainingId failed");
 		assertEquals(expected.getBody(), error);
+	}
+	
+	@Test
+	public void getMyTrainings(){
+		TrainingsDTO trainingDto=new TrainingsDTO();
+		String email=trainingDto.getTrainerEmailId();
+		List<TrainingsDTO> trainingsList=new ArrayList<TrainingsDTO>();
+		when(trainingsService.getMyTrainings(email, userService)).thenReturn(trainingsList);
+		ResponseEntity<?>  actual=trainingsRestService.getMyTrainings(email);
+		assertThat(actual.getBody()).isEqualToComparingFieldByField(trainingsList);
 	}
 
 }
