@@ -13,7 +13,7 @@ public class LocationDTO {
 	
 	
 	private int locationId;
-	private String name;
+	private String locationName;
 	
 	public int getLocationId() {
 		return locationId;
@@ -21,16 +21,16 @@ public class LocationDTO {
 	public void setLocationId(int locationId) {
 		this.locationId = locationId;
 	}
-	public String getName() {
-		return name;
+	public String getLocationName() {
+		return locationName;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setLocationName(String locationName) {
+		this.locationName = locationName;
 	}
 	
 	@Override
 	public String toString() {
-		return "Location [locationId=" + locationId + ", name=" + name + "]";
+		return "Location [locationId=" + locationId + ", name=" + locationName + "]";
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
@@ -41,7 +41,7 @@ public class LocationDTO {
 		int result = 1;
 		
 		result = prime * result + locationId;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((locationName == null) ? 0 : locationName.hashCode());
 		return result;
 	}
 	/* (non-Javadoc)
@@ -59,10 +59,10 @@ public class LocationDTO {
 		
 		if (locationId != other.locationId)
 			return false;
-		if (name == null) {
-			if (other.name != null)
+		if (locationName == null) {
+			if (other.locationName != null)
 				return false;
-		} else if (!name.equals(other.name))
+		} else if (!locationName.equals(other.locationName))
 			return false;
 		return true;
 	}

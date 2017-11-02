@@ -35,11 +35,11 @@ public class LocationServiceImplTest {
 	public void setUp() {
 		locationDTO = new LocationDTO();
 		locationDTO.setLocationId(1);
-		locationDTO.setName("INDIA");
+		locationDTO.setLocationName("INDIA");
 
 		location = new Location();
 		location.setLocationId(1);
-		location.setName("INDIA");
+		location.setLocationName("INDIA");
 
 	}
 
@@ -81,7 +81,7 @@ public class LocationServiceImplTest {
 		LocationDTO locationDTO1 = new LocationDTO();
 
 		locationDTO1.setLocationId(2);
-		locationDTO1.setName("US");
+		locationDTO1.setLocationName("US");
 
 		expectedLocationList.add(locationDTO1);
 
@@ -91,7 +91,7 @@ public class LocationServiceImplTest {
 
 		Location location1 = new Location();
 		location1.setLocationId(2);
-		location1.setName("US");
+		location1.setLocationName("US");
 		locationList.add(location1);
 
 		when(locationDAOImpl.getAllLocation()).thenReturn(locationList);

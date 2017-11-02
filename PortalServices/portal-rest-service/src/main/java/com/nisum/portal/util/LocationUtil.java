@@ -16,7 +16,7 @@ public class LocationUtil {
 				LocationDTO locationDTO = new LocationDTO();
 				
 				locationDTO.setLocationId(locationDAO.getLocationId());
-				locationDTO.setName(locationDAO.getName());
+				locationDTO.setLocationName(locationDAO.getLocationName());
 				
 				
 				locationDTOList.add(locationDTO);
@@ -30,7 +30,7 @@ public class LocationUtil {
 		
 		Location locationDAO = new Location();
 		locationDAO.setLocationId(locationDTO.getLocationId());
-		locationDAO.setName(locationDTO.getName());
+		locationDAO.setLocationName(locationDTO.getLocationName());
 		
 		return locationDAO;
 		

@@ -32,7 +32,7 @@ public class LocationDAOImplTest {
 	public void setUp() {
 		expected = new Location();
 		expected.setLocationId(1);
-		expected.setName("INDIA");
+		expected.setLocationName("INDIA");
 
 	}
 
@@ -55,7 +55,7 @@ public class LocationDAOImplTest {
 
 		Location location1 = new Location();
 		location1.setLocationId(2);
-		location1.setName("US");
+		location1.setLocationName("US");
 		expectedLocation.add(location1);
 
 		when(locationRepository.findAll()).thenReturn(expectedLocation);

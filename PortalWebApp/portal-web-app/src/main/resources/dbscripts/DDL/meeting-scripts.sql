@@ -32,6 +32,7 @@ CREATE TABLE `portal`.`MeetingRoom`  (
 
 CREATE TABLE  `portal`.`Location` (
  `locationId` int(11) NOT NULL AUTO_INCREMENT,
- `name` varchar(255) DEFAULT NULL,
+ `locationName` varchar(255) DEFAULT NULL,
  PRIMARY KEY (`locationId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+

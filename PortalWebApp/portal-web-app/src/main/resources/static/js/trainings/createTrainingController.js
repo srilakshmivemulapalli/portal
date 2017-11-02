@@ -11,8 +11,12 @@ trainingsApp.controller('createTrainingController', function($scope,
 
 	}
 	$scope.createTraining = function(trainingobj) {
+		var startDate=trainingobj.trainingStartDate.split("T");
+		var startTime=trainingobj.trainingStartTime.split("T");
+		trainingobj.trainingStartDate=startDate[0]+"T"+startTime[1];
 		trainingobj.trainerEmailId = commonService.emailId;
 		$scope.training = TrainingModel.clone(trainingobj);
+		
 		trainingService.postTraining($scope.training).then(function(response) {
 			if (response.errorCode) {
 				$scope.message = response.errorMessage

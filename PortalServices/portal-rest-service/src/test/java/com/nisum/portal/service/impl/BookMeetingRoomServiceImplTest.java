@@ -73,7 +73,7 @@ public class BookMeetingRoomServiceImplTest {
 
 		Location location = new Location();
 		location.setLocationId(1);
-		location.setName("INDIA");
+		location.setLocationName("INDIA");
 
 		BookMeetingRoom bookMeetingRoom = new BookMeetingRoom();
 		bookMeetingRoom.setBookMeetingRoomId(0);
@@ -129,7 +129,7 @@ public class BookMeetingRoomServiceImplTest {
 
 		Location location = new Location();
 		location.setLocationId(1);
-		location.setName("INDIA");
+		location.setLocationName("INDIA");
 
 		BookMeetingRoom bookMeetingRoom = new BookMeetingRoom();
 		bookMeetingRoom.setBookMeetingRoomId(1);
@@ -184,7 +184,7 @@ public class BookMeetingRoomServiceImplTest {
 
 		Location location = new Location();
 		location.setLocationId(1);
-		location.setName("INDIA");
+		location.setLocationName("INDIA");
 
 		BookMeetingRoom bookMeetingRoom = new BookMeetingRoom();
 		bookMeetingRoom.setBookMeetingRoomId(1);
@@ -248,7 +248,7 @@ public class BookMeetingRoomServiceImplTest {
 		meetingRoom.setStartDate(new Timestamp(System.currentTimeMillis()));
 		Location location = new Location();
 		location.setLocationId(1);
-		location.setName("INDIA");
+		location.setLocationName("INDIA");
 
 		BookMeetingRoom bookMeetingRoom = new BookMeetingRoom();
 		bookMeetingRoom.setBookMeetingRoomId(1);

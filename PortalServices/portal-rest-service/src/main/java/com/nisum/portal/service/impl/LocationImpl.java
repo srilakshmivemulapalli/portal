@@ -32,7 +32,7 @@ public class LocationImpl implements LocationService{
 				locationDAO.registerLocation(locationDao);	
 			return	"Saved Successfully...";
 			}else{
-				tempLocation.setName(location.getName());
+				tempLocation.setLocationName(location.getLocationName());
 				
 			    locationDAO.registerLocation(tempLocation);
 				
