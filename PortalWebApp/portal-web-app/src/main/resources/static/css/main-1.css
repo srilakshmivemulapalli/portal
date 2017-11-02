@@ -818,8 +818,9 @@ body.single-question .form-reply {
 }
 /* ======================================= */
 .main-content {
-	min-height: 800px;
+	
 	padding: 0;
+	padding-top: 30px;
 }
 
 .main-content>.row {
@@ -3635,8 +3636,8 @@ body.blog ul.page-numbers {
 
 .blog-wrapper {
 	padding: 15px 0 30px;
-	border-top: 1px solid #ccc;
-}
+	/* border-bottom: 1px solid #ccc;
+ */}
 
 .blog-wrapper .author-wrapper {
 	text-align: center;
@@ -4516,6 +4517,7 @@ body.admin-bar .q-filter-waypoints {
 #main_posts_list h2 {
 	text-align: center;
 }
+
 /* ---------------------------------------- */
 /* S E A R C H  R E V I E W    S T Y L E  	*/
 /* ---------------------------------------- */
@@ -5287,7 +5289,10 @@ body.admin-bar .q-filter-waypoints {
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px
 }
-
+a.custombtn, a.customtn:hover{
+	cursor:pointer;
+	color: #fff;
+}
 .btn-normal {
 	background: #3498db;
 }
@@ -5311,6 +5316,26 @@ body.admin-bar .q-filter-waypoints {
 	padding: 6px;
 	background: #e23434;
 }
+.commentheader{
+margin-left:20px;
+color:#33bad6;
+}
+.comment para{
+padding-left:20px;
+}
+.commentheader i{
+margin:3px;
+}
+. comment para{
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-left: 25px;
+}
+
 
 /********trainings****/
 .irs-all-course-bb {
@@ -5397,8 +5422,9 @@ body.admin-bar .q-filter-waypoints {
 
 .irs-lct-info {
 	font-size: 16px;
-	line-height: 50px;
-	margin-top: 10px;
+min-height: 50px;
+margin-top: 10px;
+padding-top: 15px;
 }
 
 .irs-lc-details>h4 {
@@ -5783,23 +5809,4 @@ iPad 3
 @media only screen and (min-device-width: 360px) and (max-device-height:
 	640px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 3)
 	{ /* Styles */
-}
-.commentheader{
-margin-left:20px;
-color:#33bad6;
-}
-.comment para{
-padding-left:20px;
-}
-.commentheader i{
-margin:3px;
-}
-. comment para{
-    position: relative;
-    display: block;
-    padding: 10px 15px;
-    margin-bottom: -1px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    margin-left: 25px;
 }

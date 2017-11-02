@@ -1,45 +1,100 @@
-<div class="col-md-0 col-xs-0 col-sm-0 col-xl-0 col-lg-0"></div>
-
-<div class="col-md-10 col-xs-10 col-sm-10 col-xl-10 col-lg-10 main-content">
-	<div class="col-md-2 col-xs-2 col-sm-2 col-xl-2 col-lg-2 paddingTop20" style="width: 180px">
-		<nav class="nav-sidebar">
-		<p>&nbsp;</p>
-			<ul class="nav">
-				<li class="active"><a href="#/blogs"><span>All Blogs</span></a></li>
-				<li class="nav-divider"></li>
-				<li class="active"><a href="#/newBlog" class="button"> <span>Write
-							your Blog....</span></a></li>
-				<li class="nav-divider"></li>
-				<li class="active"><a href="#/myBlogs" class="button"> <span>My
-							Blogs</span></a></li>
-				<li class="nav-divider"></li>
-			</ul>
-		</nav>
+<div
+	class="col-md-offset-1 col-mxs-offset-1 col-md-9 col-xs-9 main-content questionspage">
+	<div class="row select-category">
+		<div class="col-md-6 col-xs-6 current-category">
+			<span>All Blogs</span>
+		</div>
+		<div class="col-md-6 col-xs-6">
+			<a class="custombtn btn-normal pull-right" href="#/newBlog">Add Blog</a>
+		</div>
 	</div>
-	<p>&nbsp;</p>
-		<div class="col-md-2 col-xs-2 col-sm-2 col-xl-2 col-lg-2">
-			<div class="col-md-2 col-xs-2 col-sm-2 col-xl-2 col-lg-2">
-	<div ng-repeat="blog in blogsList ">
-		<!-- <div class="<!-- col-md-2 col-xs-2 col-sm-2 col-xl-2 col-lg-2 paddingLeft20"> -->
-		<div class="container">
-			  <div class="row" style="width:900px;">
-			    <div class="col-md-2 col-xs-2 col-sm-2 col-xl-2 col-lg-2"></div>
-			    <div class="col-md-11 col-xs-11 col-sm-11 col-xl-11 col-lg-11">
-			    	
-					<span> <b>Blog-Uncategorized -</b> </span>
-					<span> <b>No Comments</b> </span><br>
-					<span style="padding-left: 30px;font-size: 25px;color: #434b64"><b>{{blog.title}}</b></span><br><br>
-					<div class="para"><p>{{blog.description}}</p></div>
-					<a href="#/blog/{{blog.blogsId}}">READ MORE</a>
-					<span class="badge"style="float:right;background-color: #BBD9FC;color:black;margin:3px;">{{blog.createdDate | date : 'dd:mm:yyyy'}}</span>
-					<span class="badge" style="float:right;background-color: #BBD9FC;color:black;margin:3px;">{{blog.userMailId}}</span>
-					
-					
-			    </div>
-			  </div>
-				<hr>
-			</div>
+
+	<div class="row question-filter" id="question_filter">
+		<div class="col-md-8 col-xs-8 sort-questions">
+			<ul id="nav-tabs">
+				<li class="active"><a data-target="#allblogs" data-toggle="tab"
+					ng-click="getAllBlogs();">Latest</a></li>
+				<li><a data-target="#myblogs" data-toggle="tab"
+					ng-click='getMyBlogs()'>My Blogs</a></li>
+
+			</ul>
+		</div>
+	</div>
+
+	<div class="tab-content">
+		<div class="col-md-12 tab-pane active" id="allblogs">
+			<ul id="main_posts_list">
+				<li ng-repeat="blog in allBlogsList">
+					<div class="blog-wrapper">
+
+						<div class="col-md-8 col-xs-8">
+							<div class="blog-content">
+								<!-- Post Info -->
+								<div class="blog-info">
+									<span> <span>{{blog.userMailId}}</span>
+									</span> <span>{{blog.createdDate | date : 'dd:mm:yyyy'}} </span> <span
+										class="tag"> <a
+										href="https://qaengine.enginethemes.com/blog/category/blog/"
+										rel="category tag">Blog</a>-<a
+										href="https://qaengine.enginethemes.com/blog/category/uncategorized/"
+										rel="category tag">Uncategorized</a>
+									</span> <span class="cmt"> <i class="fa fa-comments"></i>No
+										Comments
+									</span>
+								</div>
+								<!-- End / Post Info -->
+								<h2>
+									<a href="#/blog/{{blog.blogsId}}">T{{blog.title}}</a>
+								</h2>
+								<div>
+									<p ng-bind-html='blog.description | limitTo:150'></p>
+								</div>
+								<a href="#/blog/{{blog.blogsId}}"> READ MORE<i
+									class="fa fa-arrow-circle-o-right"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+
+		</div>
+
+		<div class="col-md-12 tab-pane" id="myblogs">
+			<ul id="main_posts_list">
+				<li ng-repeat="blog in myBlogsList">
+					<div class="blog-wrapper">
+
+						<div class="col-md-8 col-xs-8">
+							<div class="blog-content">
+								<!-- Post Info -->
+								<div class="blog-info">
+									<span> <span>{{blog.userMailId}}</span>
+									</span> <span>{{blog.createdDate | date : 'dd:mm:yyyy'}} </span> <span
+										class="tag"> <a
+										href="https://qaengine.enginethemes.com/blog/category/blog/"
+										rel="category tag">Blog</a>-<a
+										href="https://qaengine.enginethemes.com/blog/category/uncategorized/"
+										rel="category tag">Uncategorized</a>
+									</span> <span class="cmt"> <i class="fa fa-comments"></i>No
+										Comments
+									</span>
+								</div>
+								<!-- End / Post Info -->
+								<h2>
+									<a href="#/blog/{{blog.blogId}}">T{{blog.title}}</a>
+								</h2>
+								<div>
+									<p ng-bind-html='blog.description'></p>
+								</div>
+								<a href="#/blog/{{blog.blogId}}"> READ MORE<i
+									class="fa fa-arrow-circle-o-right"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
 		</div>
 	</div>
 </div>
-

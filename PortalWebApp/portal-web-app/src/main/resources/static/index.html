@@ -23,8 +23,7 @@
 	href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
 <!-- <link href="webjars/bootstrap/3.3.7/css/bootstrap.min.css"
 	rel='stylesheet' /> -->
-<link rel="stylesheet" type="text/css"
-	href="css/multiselect.css" />
+<link rel="stylesheet" type="text/css" href="css/multiselect.css" />
 
 
 <link rel='stylesheet' id='bootstrap-css'
@@ -67,31 +66,31 @@
 </head>
 <body ng-app="nisumApp"
 	class="home page-template page-template-page-questions page-template-page-questions-php page page-id-12 cbp-spmenu-push">
-	<div class="sampleClass"></div>
+
 	<div class="container-fluid">
 		<div class="row" ng-controller="mainController as mc">
 
 			<div ng-if="!navBarToggle">
 				<div ng-include="'js/partials/header.html'"></div>
 			</div>
-	
-			<div class="PDTOP80">
-				<ui-view></ui-view>
-				<!-- main views -->
+			
+				<div class="PDTOP80">
+					<ui-view></ui-view>
+					<!-- main views -->
 
-				<div ng-if="!navBarToggle">
-					<div class="rightbar" ng-include="'js/partials/rightsidebar.html'"></div>
+					<div ng-if="!navBarToggle">
+						<div class="rightbar" ng-include="'js/partials/rightsidebar.html'"></div>
+					</div>
+					<!-- END RIGHT-SIDEBAR -->
 				</div>
-				<!-- END RIGHT-SIDEBAR -->
-			</div>
 		
 			<div class="col-md-12 col-sm-12 col-lg-12 col-xl-12 footer">
-		<div class="row" id="footer-row">
-			<div id="footer-container"
-				class="container page-container homecontainer" align="center">
-				&copy; 2017 Nisum Technologies, Inc.</div>
-		</div>
-	</div>
+				<div class="row" id="footer-row">
+					<div id="footer-container"
+						class="container page-container homecontainer" align="center">
+						&copy; 2017 Nisum Technologies, Inc.</div>
+				</div>
+			</div>
 			<!-- END RIGHT-SIDEBAR -->
 		</div>
 		<!-- END ROW -->
@@ -115,16 +114,16 @@
 	</div>
 	<style>
 .footer {
-    height: 27px;
-    background-color: #4B4F60;
-    color: white;
-    padding-top: 6px;
-    font-family: 'Roboto Condensed', sans-serif;
-    bottom: 0;
+	height: 27px;
+	background-color: #4B4F60;
+	color: white;
+	padding-top: 6px;
+	font-family: 'Roboto Condensed', sans-serif;
+	bottom: 0;
 }
 
 Inherited from body.home.page-template.page-template-page-questions.page-template-page-questions-php.page.page-id-12.cbp-spmenu-push.ng-scope
-main-1.css:22
+main-1.css: 22
 
 
 .page-container {
@@ -138,7 +137,7 @@ bootstrap.css: 1585 .container {
 	margin-left: auto;
 }
 </style>
-	
+
 
 
 	<!-- MODAL EDIT PROFILE / CHANGE PASS -->
@@ -223,8 +222,9 @@ bootstrap.css: 1585 .container {
 	<script src='bower_components/moment/min/moment.min.js'></script>
 	<script src="bower_components/jquery/dist/jquery.js"></script>
 	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-	<script src='bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js'></script>
-	
+	<script
+		src='bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js'></script>
+
 
 	<!-- angular scripts -->
 	<script src="bower_components/underscore/underscore.js"></script>
@@ -238,14 +238,14 @@ bootstrap.css: 1585 .container {
 	<script src="js/common/multiselect-tpls.js"></script>
 	<script src="js/directives/angular-datetimepicker.js"></script>
 	<script src="js/directives/google-plus-signin.js"></script>
-	
+
 	<script
 		src='http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.5.0/textAngular-rangy.min.js'></script>
 	<script
 		src='http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.5.0/textAngular-sanitize.min.js'></script>
 	<script
 		src='http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.5.0/textAngular.min.js'></script>
-		
+
 	<!-- module scripts -->
 	<script src='js/blogs/blogs.js'></script>
 	<script src='js/questions/questions.js'></script>
@@ -302,5 +302,7 @@ bootstrap.css: 1585 .container {
 	<script src='js/models/questionReplyListModel.factory.js'></script>
 	<script src='js/models/trainingModel.factory.js'></script>
 	<script src='js/models/trainingListModel.factory.js'></script>
+	<script src='js/models/locationModel.factory.js'></script>
+	<script src="js/models/locationListModel.factory.js"></script>
 </body>
 </html>

@@ -5,7 +5,7 @@ var blogsApp=angular.module('BlogsApp', [ 'ui.router' ])
 		templateUrl:'js/blogs/blogs.html',
 		controller:'blogsController'
 	})
-	.state('newblog',{
+	.state('newBlog',{
 		url:'/newBlog',
 		templateUrl:'js/blogs/newBlog.html',
 		controller:'blogsController'

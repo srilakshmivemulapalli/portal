@@ -6,9 +6,9 @@ blogsApp
 					$scope.profile = commonService.profile;
 					var emailId = $scope.profile.emailId;
 
-					$scope.getBlogdata = function() {
+					$scope.getAllBlogs = function() {
 						blogsService.getBlogs().then(function(response) {
-							$scope.blogsList = response;
+							$scope.allBlogsList = response;
 
 						}, function(response) {
 							console.log('error....' + response);
@@ -24,8 +24,8 @@ blogsApp
 						})
 
 					}
-					$scope.getBlogdata();
-					$scope.getMyBlogs();
+					$scope.getAllBlogs();
+					
 					$scope.saveBlog = function(JsonData, files) {
 						$scope.blog.userId = $scope.profile.userId;
 						$scope.blog.emailId = $scope.profile.emailId;
@@ -35,11 +35,6 @@ blogsApp
 							console.log('error...' + response);
 						})
 					}
-
-					$scope.save = function() {
-						
-					};
-
 					$scope.submitBlog = function() {
 						$scope.blog.userId = $scope.profile.userId;
 						$scope.blog.emailId = $scope.profile.emailId;

@@ -8,6 +8,9 @@ meetingApp.controller('addMeetingController', function($scope,
 			minDate : new Date(),
 			defaultDate: new Date()
 	}
+	$scope.timeOptions = {
+			format : 'LT',
+		}
 	$scope.getAllLocations = function() {
 		meetingService.getLocations().then(function(response) {
 			if (response.errorCode) {
