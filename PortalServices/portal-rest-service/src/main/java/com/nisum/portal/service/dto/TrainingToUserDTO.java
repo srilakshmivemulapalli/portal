@@ -8,7 +8,6 @@ public class TrainingToUserDTO implements Serializable{
 
 	private Integer trainingToUserId;
 	private Integer trainingId;
-	private Integer userId;
 	private Integer trainingPresence;
 	private String emailId;
 	public Integer getTrainingToUserId() {
@@ -22,12 +21,6 @@ public class TrainingToUserDTO implements Serializable{
 	}
 	public void setTrainingId(Integer trainingId) {
 		this.trainingId = trainingId;
-	}
-	public Integer getUserId() {
-		return userId;
-	}
-	public void setUserId(Integer userId) {
-		this.userId = userId;
 	}
 	public Integer getTrainingPresence() {
 		return trainingPresence;
@@ -43,8 +36,7 @@ public class TrainingToUserDTO implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "TrainingToUserDTO [trainingToUserId=" + trainingToUserId + ", trainingId=" + trainingId + ", userId="
-				+ userId + ",trainingPresence="+trainingPresence+",emailId="+emailId+"]";
+		return "TrainingToUserDTO [trainingToUserId=" + trainingToUserId + ", trainingId=" + trainingId + ",trainingPresence="+trainingPresence+",emailId="+emailId+"]";
 	}
 
 }

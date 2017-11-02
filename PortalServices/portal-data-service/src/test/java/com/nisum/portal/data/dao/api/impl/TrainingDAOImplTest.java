@@ -164,7 +164,7 @@ public class TrainingDAOImplTest {
 		trainingToUser.setTrainingId(5);
 		trainingToUser.setTrainingPresence(40);
 		trainingToUser.setTrainingToUserId(5);
-		trainingToUser.setUserId(5);
+		//trainingToUser.setUserId(5);
 		Mockito.when(TrainingToUserRepository.save(trainingToUser)).thenReturn(trainingToUser);
 		TrainingToUser actual=trainingDAOImpl.trainingToUser(trainingToUser);
 		assertEquals(trainingToUser,actual);
@@ -177,5 +177,14 @@ public class TrainingDAOImplTest {
 		Mockito.when(trainingsFeedBackRepository.findByTrainingId(trainingId)).thenReturn(list);
 		List<TrainingFeedBack> actual=trainingDAOImpl.getTrainingFeedBacksByTrainingId(trainingId);
 		assertEquals(list,actual);
+	}
+	
+	@Test
+	public void getMyTrainingsTest(){
+		List<Trainings> expected=new ArrayList<Trainings>();
+		String trainerEmailId="trainer1@nisum.com";
+		Mockito.when(trainingRepository.getMyTrainings(trainerEmailId)).thenReturn(expected);
+		List<Trainings> actual=trainingDAOImpl.getMyTrainings(trainerEmailId);
+		assertEquals(expected,actual);
 	}
 }

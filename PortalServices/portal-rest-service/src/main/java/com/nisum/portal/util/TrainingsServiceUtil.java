@@ -56,7 +56,6 @@ public class TrainingsServiceUtil {
 		TrainingToUser trainingToUser=new TrainingToUser();
 		trainingToUser.setTrainingToUserId(trainingToUserDTO.getTrainingToUserId());
 		trainingToUser.setTrainingId(trainingToUserDTO.getTrainingId());
-		trainingToUser.setUserId(trainingToUserDTO.getUserId());
 		trainingToUser.setTrainingPresence(trainingToUserDTO.getTrainingPresence());
 		trainingToUser.setEmailId(trainingToUserDTO.getEmailId());
 		
@@ -67,7 +66,6 @@ public class TrainingsServiceUtil {
 		TrainingToUserDTO trainingToUserDTO=new TrainingToUserDTO();
 		trainingToUserDTO.setTrainingToUserId(trainingToUser.getTrainingToUserId());
 		trainingToUserDTO.setTrainingId(trainingToUser.getTrainingId());
-		trainingToUserDTO.setUserId(trainingToUser.getUserId());
 		trainingToUserDTO.setTrainingPresence(trainingToUser.getTrainingPresence());
 		trainingToUserDTO.setEmailId(trainingToUser.getEmailId());
 		return trainingToUserDTO;
