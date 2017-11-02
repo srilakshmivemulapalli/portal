@@ -75,7 +75,7 @@ public class TrainingDAOImpl implements TrainingsDAO {
 				TrainingToUser trainingToUser2=new TrainingToUser();
 				trainingToUser2.setTrainingId(trainingToUser.getTrainingId());
 				trainingToUser2.setTrainingPresence(trainingToUser.getTrainingPresence());
-				trainingToUser2.setUserId(trainingToUser.getUserId());
+				//trainingToUser2.setUserId(trainingToUser.getUserId());
 				trainingToUser2.setEmailId(trainingToUser.getEmailId());
 			
 				trainingToUserRepository.save(trainingToUser2);

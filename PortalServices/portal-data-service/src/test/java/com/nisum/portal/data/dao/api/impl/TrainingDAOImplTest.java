@@ -164,7 +164,7 @@ public class TrainingDAOImplTest {
 		trainingToUser.setTrainingId(5);
 		trainingToUser.setTrainingPresence(40);
 		trainingToUser.setTrainingToUserId(5);
-		trainingToUser.setUserId(5);
+		//trainingToUser.setUserId(5);
 		Mockito.when(TrainingToUserRepository.save(trainingToUser)).thenReturn(trainingToUser);
 		TrainingToUser actual=trainingDAOImpl.trainingToUser(trainingToUser);
 		assertEquals(trainingToUser,actual);

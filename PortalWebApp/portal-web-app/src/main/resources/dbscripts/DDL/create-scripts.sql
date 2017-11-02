@@ -137,7 +137,6 @@ CREATE TABLE `portal`.`Trainings` (
 CREATE TABLE `portal`.`TrainingToUser`(
 `trainingToUserId` int(11) NOT NULL   AUTO_INCREMENT,
 trainingId int(11) NOT NULL,
-userId int(11) NOT NULL,
 trainingPresence int(11) DEFAULT NULL,
 `emailId` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`trainingToUserId`)

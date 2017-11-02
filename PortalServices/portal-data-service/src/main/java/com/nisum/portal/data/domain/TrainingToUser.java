@@ -19,7 +19,6 @@ public class TrainingToUser implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer trainingToUserId;
 	private Integer trainingId;
-	private Integer userId;
 	private Integer trainingPresence;
 	private String emailId;
 	public Integer getTrainingToUserId() {
@@ -34,13 +33,6 @@ public class TrainingToUser implements Serializable {
 	public void setTrainingId(Integer trainingId) {
 		this.trainingId = trainingId;
 	}
-	public Integer getUserId() {
-		return userId;
-	}
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
-	
 	public Integer getTrainingPresence() {
 		return trainingPresence;
 	}
@@ -72,11 +64,6 @@ public class TrainingToUser implements Serializable {
 				return false;
 		} else if (!trainingId.equals(other.trainingId))
 			return false;
-		if (userId == null) {
-			if (other.userId != null)
-				return false;
-		} else if (!userId.equals(other.userId))
-			return false;
 		if (trainingPresence == null) {
 			if (other.trainingPresence != null)
 				return false;
@@ -97,7 +84,6 @@ public class TrainingToUser implements Serializable {
 		int result = 1;
 		result = prime * result + ((trainingToUserId == null) ? 0 : trainingToUserId.hashCode());
 		result = prime * result + ((trainingId == null) ? 0 : trainingId.hashCode());
-		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		result = prime * result + ((trainingPresence == null) ? 0 : trainingPresence.hashCode());
 		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
 		return result;
@@ -105,8 +91,7 @@ public class TrainingToUser implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "TrainingToUser [trainingToUserId=" + trainingToUserId + ", trainingId=" + trainingId + ", userId="
-				+ userId + ",trainingPresence="+trainingPresence+",emailId="+emailId+"]";		
+		return "TrainingToUser [trainingToUserId=" + trainingToUserId + ", trainingId=" + trainingId + ",trainingPresence="+trainingPresence+",emailId="+emailId+"]";		
 	}
 	
 
