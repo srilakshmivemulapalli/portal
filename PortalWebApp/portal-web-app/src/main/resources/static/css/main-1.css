@@ -5784,3 +5784,22 @@ iPad 3
 	640px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 3)
 	{ /* Styles */
 }
+.commentheader{
+margin-left:20px;
+color:#33bad6;
+}
+.comment para{
+padding-left:20px;
+}
+.commentheader i{
+margin:3px;
+}
+. comment para{
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-left: 25px;
+}

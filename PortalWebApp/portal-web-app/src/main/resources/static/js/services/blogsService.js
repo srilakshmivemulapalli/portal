@@ -44,7 +44,7 @@ app.factory('blogsService', function($http, $q) {
  
 	bs.saveBlog = function(model,uploads) {
 		var deferred = $q.defer();
-		alert("sending data to server");
+		
         $http({
             method: 'POST',
             url: "v1/Blogs/add/addBlog",
@@ -60,11 +60,11 @@ app.factory('blogsService', function($http, $q) {
             data: {model: model, uploads : uploads}
         }).
         success(function (data, status, headers, config) {
-            alert("success!");
+            
             deferred.resolve(response);
         }).
         error(function (data, status, headers, config) {
-            alert("failed!");
+            
             deferred.reject(response);
         });
     };

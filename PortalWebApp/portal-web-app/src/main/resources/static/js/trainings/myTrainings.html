@@ -1,17 +1,17 @@
 
-<div class="col-md-offset-1 col-xs-offset-1 col-md-9 col-xs-9"
+<div class="col-md-offset-1 col-xs-offset-1 col-sm-offset-1 col-lg-offset-1 col-xl-offset-1 col-md-9 col-xs-9 col-sm-9 col-xl-9 col-lg-9"
 	style="padding-top: 30px;" ng-init="getuserTrainings();">
-	<div class="col-md-1 col-xs-1">
+	<div class="col-md-1 col-xs-1 col-sm-1 col-xl-1 col-lg-1">
 		<span class="back"> <i class="fa fa-angle-double-left"></i> <a
 			href="#/trainings">Back</a>
 		</span>
 	</div>
-	<div class="col-md-11 col-xs-11">
+	<div class="col-md-11 col-xs-11 col-sm-11 col-xl-11 col-lg-11">
 		<button class='custombtn btn-normal' ng-click="createTrainings();"
 			style="float: right">New Training</button>
 	</div>
-	<div class="col-md-12 col-xs-12">
-		<div class="col-md-12 col-xs-12">
+	<div class="col-md-12 col-xs-12 col-sm-12 col-xl-12 col-lg-12">
+		<div class="col-md-12 col-xs-12 col-sm-12 col-xl-12 col-lg-12">
 			<ul class="tabs-title" ng-init="getUsers();">
 				<li class="active"><h4 data-target="#usertrainings"
 					data-toggle="tab" ng-click='getUserTrainings()'>User Trainings</h4></li>
@@ -24,7 +24,7 @@
 		<div class="tab-content">
 			<div class="tab-pane active row irs-all-course-bb clearfix"
 				id="usertrainings">
-				<div class="col-sm-6 col-md-6 col-lg-4 clearfix"
+				<div class="col-md-6 col-xs-6 col-sm-6 col-xl-6 col-lg-6 clearfix"
 					ng-repeat="training in userTrainingsList.trainings"
 					ng-click="showUserModal(training)">
 					<div class="irs-lc-grid style2 text-center">
@@ -57,7 +57,7 @@
 				</div>
 			</div>
 			<div class="tab-pane row irs-all-course-bb clearfix" id="mytrainings">
-				<div class="col-sm-6 col-md-6 col-lg-4 clearfix"
+				<div class="col-md-6 col-xs-6 col-sm-6 col-xl-6 col-lg-6 clearfix"
 					ng-repeat="training in myTrainingsList.trainings"
 					ng-click="showMyModal(training)">
 					<div class="irs-lc-grid style2 text-center">
@@ -106,7 +106,7 @@
 					ng-click="modalUserTraining={};">&times;</button>
 
 				<div class="row">
-					<div class="col-md-6">
+					<div class="col-md-6 col-xs-6 col-sm-6 col-xl-6 col-lg-6">
 						<div class="irs-cdtls-feture-bot">
 							<ul class="list-group">
 								<li><a class="list-group-item" href="javascript:void(0);">Start
@@ -140,7 +140,7 @@
 							</ul>
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-6 col-xs-6 col-sm-6 col-xl-6 col-lg-6">
 						<div class="irs-courses-dtls-second-para">
 							<p>{{modalUserTraining.description}}</p>
 
@@ -153,14 +153,14 @@
 					<form name="feedbackForm"
 						ng-submit="submitFeedBack(commentdescription,modalUserTraining.trainingId);">
 						<div class="form-group">
-							<div class="col-sm-12">
+							<div class="col-md-6 col-xs-6 col-sm-6 col-xl-6 col-lg-6">
 								<textarea autogrow ng-model="commentdescription" limit-To='200'
 									ng-maxlength='200' rows="3" ng-minlength='1' required
 									placeholder="Any FeedBack"></textarea>
 							</div>
 						</div>
 						<div class="form-group">
-							<div class="col-sm-12">
+							<div class="col-md-6 col-xs-6 col-sm-6 col-xl-6 col-lg-6">
 								<button type="submit" class='custombtn btn-normal'
 									ng-disabled="feedbackForm.$invalid"
 									ng-class="{'disabled':feedbackForm.$invalid}">
@@ -172,7 +172,7 @@
 
 				</div>
 				<div class="row" style="margin-top: 10px;">
-					<div class="col-md-12 col-xs-12">
+					<div class="col-md-6 col-xs-6 col-sm-6 col-xl-6 col-lg-6">
 						<h4>{{modalUserTraining.feedbackMessage}}</h4>
 					</div>
 				</div>
@@ -204,7 +204,7 @@
 					ng-click="modalMyTraining={};">&times;</button>
 
 				<div class="row">
-					<div class="col-md-6">
+					<div class="col-md-6 col-xs-6 col-sm-6 col-xl-6 col-lg-6">
 						<div class="irs-cdtls-feture-bot">
 							<ul class="list-group">
 								<li><a class="list-group-item" href="javascript:void(0);">Start
@@ -239,7 +239,7 @@
 							</ul>
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-6 col-xs-6 col-sm-6 col-xl-6 col-lg-6">
 						<div class="irs-courses-dtls-second-para">
 							<p>{{modalMyTraining.description}}</p>
 
@@ -247,17 +247,16 @@
 					</div>
 				</div>
 				<div class="row" style="margin-top: 10px;" ng-if="modalMyTraining.commentDescriptions.length>0">
-					<div class="col-md-12 col-xs-12 list-group">
-						<h2>Comments</h2>
+					<div class="col-md-12 col-xs-12 col-sm-12 col-xl-12 col-lg-12 list-group ">
+						<b><h5 class="commentheader"></b><i class="fa fa-comments-o" style="margin:3px;"></i>Comments</h5>
 						<div class="list-group-item"
 							ng-repeat="comment in modalMyTraining.commentDescriptions">
-							<h4>{{comment.name}}</h4>
-							<P ng-bind-html='comment.description'></p>
+							<h6><b>{{comment.name}}</b></h6>
+							<P class="comment para" ng-bind-html='comment.description'></p>
 
 						</div>
 					</div>
-				</div>
-
+					</div>
 			</div>
 		</div>
 
