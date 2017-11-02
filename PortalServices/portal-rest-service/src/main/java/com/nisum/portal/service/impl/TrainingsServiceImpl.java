@@ -105,16 +105,13 @@ public class TrainingsServiceImpl implements TrainingsService {
 		 if (serviceStatus == 1) {
 			serviceStatusDto.setStatus(true);
 			serviceStatusDto.setMessage(Constants.MSG_RECORD_ADD);
-			final String toUserEmailId = trainingRequestDTO.getEmailId();
 			UserDTO user=userService.getUsers().get(trainingRequestDTO.getEmailId());
 			final String userName=user.getUserName();
-			//Hard coded need to add admin login address
-			final String toAdminEmailId="mbheemanapalli@nisum.com";
 			final String title=trainingRequestDTO.getRequestTrainingTitle();
 			final String description=trainingRequestDTO.getDescription();
 			String reqestBody = MailSender.trainingReqestBody(title, userName, description);	
 			MailSender.sendEmail(emailAccount.getAdminemail(), emailAccount.getAdminpassword(),
-					toAdminEmailId, toUserEmailId, emailAccount.getSubtrainingreq(),reqestBody);
+					emailAccount.getAdminemailId(), trainingRequestDTO.getEmailId(), emailAccount.getSubtrainingreq(),reqestBody);
 		}
 		else if(serviceStatus == 0){
 			serviceStatusDto.setStatus(false);
