@@ -40,8 +40,8 @@ public class QuestionariesDAOImpl implements QuestionariesDAO {
 	
 	
 	@Override
-	public Integer updateQuestionaries(Questionaries questionaries) {
-		return questionariesRepository.update(questionaries);
+	public Questionaries updateQuestionaries(Questionaries questionaries) {
+		return questionariesRepository.save(questionaries);
 	}
 	
 	

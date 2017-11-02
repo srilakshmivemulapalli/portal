@@ -64,6 +64,7 @@ public class TrainingsServiceImpl implements TrainingsService {
 		logger.info("TrainingsServiceImpl::completedTrainings");
 		List<TrainingsDTO> completedList=TrainingsServiceUtil.convertDaoTODto(trainingsDAO.completedTraining(emailId));
 		this.getTrainingList(emailId, completedList, userService);
+		this.disableOptedTrainings(completedList);
 		return completedList;
 	}
 	@Override
@@ -111,8 +112,9 @@ public class TrainingsServiceImpl implements TrainingsService {
 			final String toAdminEmailId="mbheemanapalli@nisum.com";
 			final String title=trainingRequestDTO.getRequestTrainingTitle();
 			final String description=trainingRequestDTO.getDescription();
-				MailSender.sendEmail(emailAccount.getAdminemail(), emailAccount.getAdminpassword(),
-					toAdminEmailId, toUserEmailId, emailAccount.getSubtrainingreq(), MailSender.trainingReqestBody(title, userName, description));
+			String reqestBody = MailSender.trainingReqestBody(title, userName, description);	
+			MailSender.sendEmail(emailAccount.getAdminemail(), emailAccount.getAdminpassword(),
+					toAdminEmailId, toUserEmailId, emailAccount.getSubtrainingreq(),reqestBody);
 		}
 		else if(serviceStatus == 0){
 			serviceStatusDto.setStatus(false);
@@ -253,7 +255,18 @@ public class TrainingsServiceImpl implements TrainingsService {
 	public List<TrainingsDTO> getMyTrainings(String trainerEmailId,UserService userService) {
 		logger.info("TrainingsServiceImpl :: getMyTrainings");
 		 List<TrainingsDTO> myTrainingList=TrainingsServiceUtil.convertDaoTODto(trainingsDAO.getMyTrainings(trainerEmailId))	;	
-		 this.getTrainingList(trainerEmailId, myTrainingList, userService);
+		 this.getTrainingList(trainerEmailId, myTrainingList, userService); 
+		 this.disableOptedTrainings(myTrainingList);
 		return myTrainingList;
+	}
+	
+	public void disableOptedTrainings(List<TrainingsDTO> trainingsList)
+	{
+		for(TrainingsDTO trainingsDTO:trainingsList)
+		{
+			if(trainingsDTO.getTrainingStartDate().compareTo(new Date())<0)
+			trainingsDTO.setTrainingPresence(2); // disable Join option in MyTrainings Part
+		}
+		
 	}
 }

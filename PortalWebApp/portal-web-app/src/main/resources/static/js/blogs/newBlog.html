@@ -11,25 +11,30 @@ padding:33px;
 background-color:#fff
 }
 </style>
-<div class="col-md-1 col-xs-1"></div>
-<div class="col-md-9 col-xs-9 main-content">
+<div class="col-md-0 col-xs-0"></div>
+<div class="col-md-10 col-xs-10 main-content">
+
 	<div class="clearfix"></div>
-		<div class="col-sm-2 paddingTop20" style="width: 80px">
-		<nav class="nav-sidebar">
+
+<div class="col-sm-2 paddingTop20" style="width: 180px">
+		<nav class="nav-sidebar" >
 		<p>&nbsp;</p>
 			<ul class="nav">
-				<li class="active"><a href="#/Blogs"><span>All Blogs</span></a></li>
+				<li class="active"><a href="#/blogs"><span>All Blogs</span></a></li>
 				<li class="nav-divider"></li>
 				<li class="active"><a href="#/newBlog" class="button"> <span>Write
 							your Blog....</span></a></li>
 				<li class="nav-divider"></li>
-				<li class="active"><a href="#/ownBlogs" class="button"> <span>My
+				<li class="active"><a href="#/myBlogs" class="button"> <span>My
 							Blogs</span></a></li>
 				<li class="nav-divider"></li>
 			</ul>
 		</nav>
 	</div>
-	<div class="col-md-6 col-xs-6 current-category">
+	<p>&nbsp;</p>
+
+	
+	<div class="col-sm-10 col-xs-6 current-category">
 		<span>New Blog</span>
 	</div>
 	<div></div>
@@ -52,10 +57,9 @@ background-color:#fff
 					<hr>
 					<p>Attachments here....</p>
 					<input type="file" upload-files multiple onchange="angular.element(this).scope().setFiles(this)"/>
-					<div ng-show="files.length">
-						<div ng-repeat="file in files.slice(0)">
-							<span>{{file.webkitRelativePath || file.name}}</span> <button>Download</button>
-						<button ng-click ="remove(file.name)">Delete</button>
+					<div ng-repeat="file in files.slice(0)">
+							<span>{{file.webkitRelativePath || file.name}}</span>
+						<p>&nbsp;</p><a href= "javascript:void(0)" ng-click ="remove(file.name)">Delete</a>
 							<!-- (<span
 								ng-switch="file.size > 1024*1024"> <span
 								ng-switch-when="true">{{file.size / 1024 / 1024 |
@@ -63,10 +67,13 @@ background-color:#fff
 									| number:2}} kB</span>
 							</span>) -->
 						</div>						
-					</div>
+					
 					<br> <br> <input type="submit" class="btn btn-success"
 							value="Submit">
+								<input type="reset" class="btn btn-reset"
+							value="Reset">
 				</form>
 
 		</div>
+	</div>
 	</div>

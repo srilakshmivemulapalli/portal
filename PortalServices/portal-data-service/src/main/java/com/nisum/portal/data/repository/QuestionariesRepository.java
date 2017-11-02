@@ -46,11 +46,11 @@ public interface QuestionariesRepository extends JpaRepository<Questionaries,Int
 	List<Questionaries> retrieveQuestionariesByCategory(@Param("category") Categories category, Pageable pageable);
 
 	    
-    @Modifying
+    /*@Modifying
 	@Transactional
 	@Query(value = "UPDATE Questionaries set categoryId =:#{#questionaries.categoryId},question =:#{#questionaries.question},description =:#{#questionaries.description},emailId =:#{#questionaries.emailId} where questionId =:#{#questionaries.questionId}")
 	Integer update(@Param("questionaries") Questionaries questionaries);
-	    
+	*/    
 	
 	
     /**

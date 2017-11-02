@@ -4,6 +4,7 @@ blogsApp
 				function($scope, $http, blogsService, commonService) {
 					$scope.files = [];
 					$scope.profile = commonService.profile;
+					var emailId = $scope.profile.emailId;
 
 					$scope.getBlogdata = function() {
 						blogsService.getBlogs().then(function(response) {
@@ -14,7 +15,17 @@ blogsApp
 						})
 
 					}
+					$scope.getMyBlogs = function() {
+						blogsService.getMyBlogs(emailId).then(function(response) {
+							$scope.myBlogsList = response;
+							console.log('MyBlogsList::'+myBlogsList);
+						}, function(response) {
+							console.log('error....' + response);
+						})
+
+					}
 					$scope.getBlogdata();
+					$scope.getMyBlogs();
 					$scope.saveBlog = function(JsonData, files) {
 						$scope.blog.userId = $scope.profile.userId;
 						$scope.blog.emailId = $scope.profile.emailId;
@@ -53,6 +64,11 @@ blogsApp
 								}).success(
 								function(data, status, headers, config) {
 									alert("success!");
+									$scope.blog={};
+									$scope.files=[];
+									alert('clear here....');
+									angular.element("input[type='file']").val(null);
+									//angular.copy({},$scope.files);
 								}).error(
 								function(data, status, headers, config) {
 									alert("failed!");
