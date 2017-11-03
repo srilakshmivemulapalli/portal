@@ -1,0 +1,40 @@
+<div class="col-md-0 col-xs-0 col-sm-0 col-lg-0 col-xl-0"></div>
+
+<div
+	class="col-md-10 col-xs-10 col-sm-10 col-lg-10 col-xl-10 main-content">
+	<div class="col-md-6 col-xs-6">
+		<a class="custombtn btn-normal pull-right"
+			href="#/editBlog/{{blogData.blogsId}}">Edit Blog</a>
+	</div>
+		<div class="col-md-6 col-xs-6">
+		<a class="custombtn btn-normal pull-left"
+			href="#/editBlog/{{blogData.blogsId}}">Remove Blog</a>
+	</div>
+	<p>&nbsp;</p>
+	<div
+		class="col-md-10 col-xs-10 col-sm-10 col-lg-10 col-xl-10 paddingTop20">
+		<div
+			class="col-md-10 col-xs-10 col-sm-10 col-lg-10 col-xl-10 blogShort">
+			<div
+				class="col-md-10 col-xs-10 col-sm-10 col-lg-10 col-xl-10 blogShort"
+				style="float: right">
+				<span class="back"> <i class="fa fa-angle-double-left"></i> <a
+					href="#/blogs">Back</a>
+				</span>
+				<h1>{{blogData.title}}</h1>
+				<article ng-bind-html="blogData.description"></article>
+				Created Date ::
+				<div>{{blogData.createdDate | date : 'dd/mm/yyyy'}}</div>
+				Created By ::
+				<div>{{blogData.userMailId}}</div>
+				<p>&nbsp</p>
+				<div ng-repeat="file in blogData.fileNames.slice(0)">
+					<!-- 				 <a href="javascript:void(0)" ng-click="download(file,blogData.blogsId,blogData.userMailId)">{{file}}</a>
+ -->
+					{{file}}&ensp;<a
+						href="v1/Blogs/retrieve/getFile/{{file}}/{{blogData.userMailId}}/{{blogData.blogsId}}"
+						class='ng-button'>download</a>
+				</div>
+			</div>
+		</div>
+	</div>

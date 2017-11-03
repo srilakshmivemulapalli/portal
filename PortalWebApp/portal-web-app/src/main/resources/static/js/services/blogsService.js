@@ -41,7 +41,16 @@ app.factory('blogsService', function($http, $q) {
 		})
 		return deferred.promise;
 	}
- 
+	bs.updateBlog = function(data)
+	{
+		var deferred = $q.defer();
+		$http.post('v1/Blogs/update',data).success(function(response) {
+			deferred.resolve(response);
+		}).error(function(response) {
+			deferred.reject(response);
+		})
+		return deferred.promise;
+	}
 	bs.saveBlog = function(model,uploads) {
 		var deferred = $q.defer();
 		

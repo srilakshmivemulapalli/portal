@@ -1,46 +1,36 @@
 <div class="col-md-0 col-xs-0 col-sm-0 col-xl-0 col-lg-0"></div>
 
-<div class="col-md-10 col-xs-10 col-sm-10 col-xl-10 col-lg-10 main-content">
-	<div class="col-md-2 col-xs-2 col-sm-2 col-xl-2 col-lg-2 paddingTop20" style="width: 180px">
-		<nav class="nav-sidebar">
-		<p>&nbsp;</p>
-			<ul class="nav">
-				<li class="active"><a href="#/blogs"><span>All Blogs</span></a></li>
-				<li class="nav-divider"></li>
-				<li class="active"><a href="#/newBlog" class="button"> <span>Write
-							your Blog....</span></a></li>
-				<li class="nav-divider"></li>
-				<li class="active"><a href="#/myBlogs" class="button"> <span>My
-							Blogs</span></a></li>
-				<li class="nav-divider"></li>
-			</ul>
-		</nav>
-	</div>
-	<p>&nbsp;</p>
+<div
+	class="col-md-10 col-xs-10 col-sm-10 col-xl-10 col-lg-10 main-content">
+	<div class="col-md-2 col-xs-2 col-sm-2 col-xl-2 col-lg-2">
 		<div class="col-md-2 col-xs-2 col-sm-2 col-xl-2 col-lg-2">
-			<div class="col-md-2 col-xs-2 col-sm-2 col-xl-2 col-lg-2">
-	<div ng-repeat="blog in myBlogsList ">
-		<!-- <div class="<!-- col-md-2 col-xs-2 col-sm-2 col-xl-2 col-lg-2 paddingLeft20"> -->
-		<div class="container">
-			  <div class="row" style="width:900px;">
-			    <div class="col-md-2 col-xs-2 col-sm-2 col-xl-2 col-lg-2"></div>
-			    <div class="col-md-11 col-xs-11 col-sm-11 col-xl-11 col-lg-11">
-			    	
-					<span> <b>Blog-Uncategorized -</b> </span>
-					<span> <b>No Comments</b> </span><br>
-					<span style="padding-left: 30px;font-size: 25px;color: #434b64"><b>{{blog.title}}</b></span><br><br>
-					<div class="para"><p>{{blog.description}}</p></div>
-					<a href="#/blog/{{blog.blogsId}}">READ MORE</a>
-					<span class="badge"style="float:right;background-color: #BBD9FC;color:black;margin:3px;">{{blog.createdDate | date : 'dd:mm:yyyy'}}</span>
-					<span class="badge" style="float:right;background-color: #BBD9FC;color:black;margin:3px;">{{blog.userMailId}}</span>
-					
-					
-			    </div>
-			  </div>
-				<hr>
+			<div ng-repeat="blog in myBlogsList">
+				<!-- <div class="<!-- col-md-2 col-xs-2 col-sm-2 col-xl-2 col-lg-2 paddingLeft20"> -->
+				<div class="container">
+					<div class="row" style="width: 900px;">
+						<div class="col-md-2 col-xs-2 col-sm-2 col-xl-2 col-lg-2"></div>
+						<div class="col-md-11 col-xs-11 col-sm-11 col-xl-11 col-lg-11">
+
+							<span> <b>Blog-Uncategorized -</b>
+							</span> <span> <b>No Comments</b>
+							</span><br> <span
+								style="padding-left: 30px; font-size: 25px; color: #434b64"><b>{{blog.title}}</b></span><br>
+							<br>
+							<div class="para">
+								<p>{{blog.description}}</p>
+							</div>
+							<a href="#/blog/{{blog.blogsId}}">READ MORE...</a> <span
+								class="badge"
+								style="float: right; background-color: #BBD9FC; color: black; margin: 3px;">{{blog.createdDate
+								| date : 'dd:mm:yyyy'}}</span> <span class="badge"
+								style="float: right; background-color: #BBD9FC; color: black; margin: 3px;">{{blog.userMailId}}</span>
+
+
+					<hr>
+						</div>
+					</div>
+
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
-
-	

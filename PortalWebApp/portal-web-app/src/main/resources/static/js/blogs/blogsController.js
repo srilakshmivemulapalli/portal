@@ -16,6 +16,7 @@ blogsApp
 
 					}
 					$scope.getMyBlogs = function() {
+						console.log('MyBlogsList::getMyBlogs');
 						blogsService.getMyBlogs(emailId).then(function(response) {
 							$scope.myBlogsList = response;
 							console.log('MyBlogsList::',$scope.myBlogsList);
@@ -61,7 +62,6 @@ blogsApp
 									alert("success!");
 									$scope.blog={};
 									$scope.files=[];
-									alert('clear here....');
 									angular.element("input[type='file']").val(null);
 									//angular.copy({},$scope.files);
 								}).error(

@@ -20,5 +20,15 @@ var blogsApp=angular.module('BlogsApp', [ 'ui.router' ])
 		templateUrl:'js/blogs/myBlogs.html',
 		controller:'blogsController'
 	})
+		.state('editBlog',{
+		url:'/editBlog/:blogId',
+		templateUrl:'js/blogs/editBlog.html',
+		controller:'MyblogController'
+	})
+			.state('myBlog',{
+		url:'/myBlog/:blogId',
+		templateUrl:'js/blogs/myBlog.html',
+		controller:'MyblogController'
+	})
 })    
 	
