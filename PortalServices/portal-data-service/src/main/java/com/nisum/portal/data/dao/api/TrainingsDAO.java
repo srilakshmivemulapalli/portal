@@ -33,4 +33,6 @@ public interface TrainingsDAO {
 	
 	public List<Trainings> getMyTrainings(String emailId);
 
+	public Integer updateTrainingRequest(TrainingRequest request, int i);
+
 }

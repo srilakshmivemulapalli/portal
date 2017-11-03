@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nisum.portal.service.api.TrainingsService;
@@ -218,6 +219,27 @@ public class TrainingsRestService {
 		}
 
 		
+	}
+	@RequestMapping(value = "/updateTrainingRequest", method = RequestMethod.PUT, consumes = "application/json", produces = "application/json")
+	public Object updateTrainingRequests(@RequestBody TrainingRequestDTO dto, @RequestParam("action") String action){
+
+		logger.info("TrainingsRestService :: updateTrainingRequests ");
+		Integer requests = trainingsService.updateTrainingRequests(dto, action);
+		try {
+				if(requests>0)
+				{
+					return new ResponseEntity<>(Constants.MSG_RECORD_UPDATE,HttpStatus.OK);
+				}
+				else
+					return new ResponseEntity<>(Constants.MSG_RECORD_NOT_UPDATE,HttpStatus.OK);
+			}
+			catch(Exception e) {
+				logger.error(Constants.Training_No_Data);
+				Errors error = new Errors();
+				error.setErrorCode("Error-All Trainings Requests");
+				error.setErrorMessage(Constants.Training_No_Data);
+				return new ResponseEntity<Errors>(error, HttpStatus.OK);
+			}
 	}
 	
 }

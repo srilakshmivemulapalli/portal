@@ -143,6 +143,14 @@ public class TrainingDAOImpl implements TrainingsDAO {
 		return trainingRepository.getMyTrainings(trainerEmailId);
 	}
 
+	@Override
+	public Integer updateTrainingRequest(TrainingRequest request, int i) {
+		// TODO Auto-generated method stub
+		logger.info("TrainingDAOImpl::updateTrainingRequest");
+		return trainingRequestRepository.updateRequest(request.getTrainingRequestId(),i);
+	}
+
+
 }
 
 

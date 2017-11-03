@@ -29,4 +29,6 @@ public interface TrainingsService {
 	
 	public List<TrainingsDTO> getMyTrainings(String emailId,UserService userService);
 
+	public Integer updateTrainingRequests(TrainingRequestDTO dto, String action);
+
 }

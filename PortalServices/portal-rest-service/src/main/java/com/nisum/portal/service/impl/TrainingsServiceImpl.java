@@ -272,4 +272,21 @@ public class TrainingsServiceImpl implements TrainingsService {
 		}
 		
 	}
+
+	@Override
+	public Integer updateTrainingRequests(TrainingRequestDTO dto, String action) {
+		// TODO Auto-generated method stub
+		Integer status = 0;
+		TrainingRequest request = TrainingRequestUtil.convertDtoTODao(dto);
+		if(StringUtils.isNotEmpty(action)&&action.equalsIgnoreCase("approve"))
+		{
+			status=trainingsDAO.updateTrainingRequest(request, 1);
+		}
+		else if(StringUtils.isNotEmpty(action)&&action.equalsIgnoreCase("reject"))
+		{
+			status=trainingsDAO.updateTrainingRequest(request,2);
+		}
+		return status;
+	}
+
 }
