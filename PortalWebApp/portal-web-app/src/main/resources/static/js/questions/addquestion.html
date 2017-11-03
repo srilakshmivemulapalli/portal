@@ -1,44 +1,48 @@
 
-<div class="col-md-offset-1 col-xs-offset-1 col-sm-offset-1 col-lg-offset-1 col-xl-offset-1 col-md-9 col-xs-9 col-sm-9 col-xl-9 col-lg-9 modal-submit-questions ">
+<div
+	class="col-md-offset-1 col-xs-offset-1 col-sm-offset-1 col-lg-offset-1 col-xl-offset-1 col-md-9 col-xs-9 col-sm-9 col-xl-9 col-lg-9 modal-submit-questions ">
 	<div class="col-md-12 col-xs-12 col-sm-12 col-xl-12 col-lg-12">
 		<div class="errStatus" ng-if="message!='';">{{message}}</div>
 	</div>
-	<div class="col-md-12 col-xs-12 col-sm-12 col-xl-12 col-lg-12">
-		<ul class="tabs-title">
-			<li id="title-tab-question"><h4 class="modal-title active"
-					id="tab-question">Ask a Question</h4> </a></li>
+	<div
+		class="col-md-12 col-xs-12 col-sm-12 col-xl-12 col-lg-12 sort-questions createtitle">
+		<ul>
+			<li class="active"><a>Ask a Question</a></li>
 
 		</ul>
 	</div>
-	<div class="col-md-12 col-xs-12 col-sm-12 col-xl-12 col-lg-12 body-question">
-		<form name="addquestionForm" id="submit_question" ng-submit="addquestionForm.$valid && submitQuestion();">
+	<div
+		class="col-md-12 col-xs-12 col-sm-12 col-xl-12 col-lg-12 body-question">
+		<form name="addquestionForm" id="submit_question"
+			ng-submit="addquestionForm.$valid && submitQuestion();">
 			<input type="hidden" id="qa_nonce" name="qa_nonce" value="b1317c01be">
 			<input type="hidden" name="post_parent" value="0">
 			<div class="input-title">
 				<input type="text" class="submit-input" id="question_title"
 					name="post_title" placeholder="Your Question"
-					ng-model="addQuestion.question" limit-To='150' ng-maxlength='150' ng-minlength='2' required/> <span id="charNum">{{150-addQuestion.question.length}}</span>
+					ng-model="addQuestion.question" limit-To='150' ng-maxlength='150'
+					ng-minlength='2' required /> <span id="charNum">{{150-addQuestion.question.length}}</span>
 			</div>
 			<div class="form-group row">
-				<label class="col-md-1 col-xs-1 col-sm-1 col-xl-1 col-lg-1" for="categoryname">Category:</label>
-				<div class="select-categories col-md-11 col-xs-11 col-sm-11 col-xl-11 col-lg-11" id="categoryname">
-					<am-multiselect class="input-lg customselect"
-						ng-model="addQuestion.categoryId" ms-header="Select Category"
-						options="category.categoryId as category.categoryName for category in categoriesList.categories"
-						required></am-multiselect>
-				</div>
+
+				<am-multiselect class="input-lg customselect"
+					ng-model="addQuestion.categoryId" ms-header="Select Category"
+					options="category.categoryId as category.categoryName for category in categoriesList.categories"
+					required></am-multiselect>
 			</div>
+
 			<div>
-				<h3>Add Description</h3>
+				<h5>Add Description:</h5>
 			</div>
 			<div class="wp-editor-container">
 
-				<text-angular ng-model="addQuestion.description"  required></text-angular>
+				<text-angular ng-model="addQuestion.description" required></text-angular>
 			</div>
 
 			<button type="submit" id="btn_submit_question"
-				class="btn-submit-question" ng-class="{'disabled': addquestionForm.$invalid }"
-							ng-disabled="addquestionForm.$invalid" style="margin-top: 10px;">SUBMIT
+				class="btn-submit-question"
+				ng-class="{'disabled': addquestionForm.$invalid }"
+				ng-disabled="addquestionForm.$invalid" style="margin-top: 10px;">SUBMIT
 				QUESTION</button>
 			<p class="term-texts">
 				By posting your question, you agree to the <a target="_blank"

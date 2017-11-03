@@ -12,13 +12,13 @@
 			style="float: right">New Training</button>
 	</div>
 	<div class="col-md-12 col-xs-12 col-sm-12 col-xl-12 col-lg-12">
-		<div class="col-md-12 col-xs-12 col-sm-12 col-xl-12 col-lg-12">
-			<ul class="tabs-title" ng-init="getUsers();">
-				<li class="active"><h4 data-target="#usertrainings"
+		<div class="col-md-12 col-xs-12 col-sm-12 col-xl-12 col-lg-12 sort-questions">
+			<ul ng-init="getUsers();">
+				<li class="active"><a data-target="#usertrainings"
 						data-toggle="tab" ng-click='getUserTrainings()'>User
-						Trainings</h4></li>
-				<li><h4 data-target="#mytrainings" data-toggle="tab"
-						ng-click='getMyTrainings()'>My Trainings</h4></li>
+						Trainings</h4></a>
+				<li><a data-target="#mytrainings" data-toggle="tab"
+						ng-click='getMyTrainings()'>My Trainings</a></li>
 
 			</ul>
 		</div>
