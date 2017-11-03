@@ -59,7 +59,7 @@ blogsApp
 									data : formData
 								}).success(
 								function(data, status, headers, config) {
-									alert("success!");
+									alert("Blog Saved Successfully!");
 									$scope.blog={};
 									$scope.files=[];
 									angular.element("input[type='file']").val(null);
@@ -76,7 +76,6 @@ blogsApp
 						});
 					});
 					$scope.setFiles = function(element) {
-						alert('setFiles');
 						$scope.$apply(function(scope) {
 							console.log('files:', element.files);
 							// Turn the FileList object into an Array
@@ -86,7 +85,6 @@ blogsApp
 						});
 					};
 					$scope.remove = function(obj) {
-						alert('remove');
 						for (var i = $scope.files.length - 1; i >= 0; i--) {
 							if ($scope.files[i].name === obj) {
 								$scope.files.splice(i, 1);

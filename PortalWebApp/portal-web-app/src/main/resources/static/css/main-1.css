@@ -5814,11 +5814,18 @@ iPad 3
 	{ /* Styles */
 }
 .blogborder{
-    border-style: solid;
-    border-color: #ccc;
+   
+    display: block;
+    border-bottom: 1px solid #ccc;
     margin-top: 12px;
     margin-left: -30px;
     margin-right: -30px;
     color:
 
+}
+.cmt-one{
+color:#dd6851;
+}
+.cmt-one i{
+margin-right:5px;
 }

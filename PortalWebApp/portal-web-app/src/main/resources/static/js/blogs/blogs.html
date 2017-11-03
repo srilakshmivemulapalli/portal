@@ -29,7 +29,7 @@
 					<div class="blog-wrapper">
 
 						<div class="col-md-12 col-xs-12">
-							<div class="blog-content">
+							<div class="blog-content" >
 								<!-- Post Info -->
 								<div class="blog-info">
 									<span> <span>{{blog.userMailId}}</span>
@@ -38,9 +38,9 @@
 									</span>
 								</div>
 								<!-- End / Post Info -->
-								<h2>
+								<h4>
 									<a href="#/blog/{{blog.blogsId}}">T{{blog.title}}</a>
-								</h2>
+								</h4>
 								<div>
 									<p ng-bind-html='(blog.description | limitTo:200) +"..."'></p>
 								</div>
@@ -63,6 +63,9 @@
 					<div class="blog-wrapper">
 
 						<div class="col-md-12 col-xs-12">
+    
+    
+    
 							<div class="blog-content">
 								<!-- Post Info -->
 								<div class="blog-info">
@@ -72,15 +75,16 @@
 									</span>
 								</div>
 								<!-- End / Post Info -->
-								<h2>
-									<a href="#/myBlog/{{blog.blogsId}}">{{blog.title}}</a>
-								</h2>
+								<h4>
+									<a href="#/blog/{{blog.blogsId}}">{{blog.title}}</a>
+								</h4>
 								<div>
 									<p ng-bind-html='(blog.description | limitTo:200 )+"..."'></p>
 								</div>
-								<a href="#/myBlog/{{blog.blogsId}}"> READ MORE<i
+								<a href="#/blog/{{blog.blogsId}}"> READ MORE<i
 									class="fa fa-arrow-circle-o-right"></i>
 								</a>
+								<hr>
 							</div>
 						</div>
 					</div>
