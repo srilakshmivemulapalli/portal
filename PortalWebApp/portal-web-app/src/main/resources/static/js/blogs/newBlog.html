@@ -1,71 +1,52 @@
-<!-- Submitted March 7 @ 11:05pm  -->
-<style>
-body 
-{
-background-color:#333;
-margin-top:18px
-}
-.container 
-{
-padding:33px;
-background-color:#fff
-}
-</style>
-<div class="col-md-0 col-xs-0 col-sm-0 col-xl-0 col-lg-0"></div>
-<div class="col-md-10 col-xs-10 col-sm-10 col-xl-10 col-lg-10 main-content">
 
-	<div class="clearfix"></div>
+<div
+	class="col-md-offset-1 col-xs-offset-1 col-xl-offset-1 col-lg-offset-1  col-sm-offset-1 col-md-9 col-xs-9 col-sm-9 col-xl-9 col-lg-9 main-content">
 
-<div class="col-md-2 col-xs-2 col-sm-2 col-xl-2 col-lg-2 paddingTop20" style="width: 180px">
-		<nav class="nav-sidebar" >
-		<p>&nbsp;</p>
-			<div class="col-md-10 col-xs-10 col-sm-10 col-lg-10 col-xl-10 blogShort" style="float:right">
-			<span class="back"> <i class="fa fa-angle-double-left"></i> <a href="#/blogs">Back</a>
+
+	<div class="col-md-1 col-xs-1 col-sm-1 col-lg-1 col-xl-1 blogShort">
+		<span class="back"> <i class="fa fa-angle-double-left"></i> <a
+			href="#/blogs">Back</a>
 		</span>
 	</div>
-	<p>&nbsp;</p>
-
-	
-	<div class="col-md-10 col-xs-10 col-sm-10 col-xl-10 col-lg-10 current-category">
+	<div
+		class="col-md-12 col-xs-12 col-sm-12 col-xl-12 col-lg-12 current-category">
 		<span>New Blog</span>
 	</div>
-	<div></div>
-	<div class="container">
-		<div class="row">
-			<div class="col-md-10">
-				<form name="formBlog" id="frmBlog" ng-submit="submitBlog()" method="post">
-					<label value="txtTitle">Blog Title</label> <input type="text"
-						name="textTitle" id="txtTitle" class="form-control"
-						ng-model="blog.title" placeholder="Title" required> <br>
-					<label for="txtComment">Blog Description</label>
-<!-- 					 <input type="text" rows="3" cols="50" name="textDesc" id="txtDesc" class="form-control"
+	<div class="col-md-12 col-xs-12 col-sm-12 col-xl-12 col-lg-12 ">
+		<form name="formBlog" id="frmBlog" ng-submit="submitBlog()"
+			method="post">
+			<label value="txtTitle">Blog Title</label> <input type="text"
+				name="textTitle" id="txtTitle" class="form-control"
+				ng-model="blog.title" placeholder="Title" required> <br>
+			<label for="txtComment">Blog Description</label>
+			<!-- 					 <input type="text" rows="3" cols="50" name="textDesc" id="txtDesc" class="form-control"
 					 placeholder="Description here...." required> <br> -->
-				<input id="userId" name="userId"  type="hidden" ng-model="blog.userId" class="form-control" >
-				<input id="emailId" name="emailId" type="hidden"  ng-model="blog.emailId" class="form-control">
-					<div class="wp-editor-container">
-						<text-angular ng-model="blog.description"></text-angular>
-					</div>
-					<br>
-					<hr>
-					<p>Attachments here....</p>
-					<input type="file" upload-files multiple onchange="angular.element(this).scope().setFiles(this)"/>
-					<div ng-repeat="file in files.slice(0)">
-							<span>{{file.webkitRelativePath || file.name}}</span>
-						<p>&nbsp;</p><a href= "javascript:void(0)" ng-click ="remove(file.name)">Delete</a>
-							<!-- (<span
+			<input id="userId" name="userId" type="hidden" ng-model="blog.userId"
+				class="form-control"> <input id="emailId" name="emailId"
+				type="hidden" ng-model="blog.emailId" class="form-control">
+			<div class="wp-editor-container">
+				<text-angular ng-model="blog.description"></text-angular>
+			</div>
+			<br>
+			<p>Attachments here....</p>
+			<input type="file" upload-files multiple
+				onchange="angular.element(this).scope().setFiles(this)" />
+			<div ng-repeat="file in files.slice(0)">
+				<span>{{file.webkitRelativePath || file.name}}</span>
+				<p>&nbsp;</p>
+				<a href="javascript:void(0)" ng-click="remove(file.name)">Delete</a>
+				<!-- (<span
 								ng-switch="file.size > 1024*1024"> <span
 								ng-switch-when="true">{{file.size / 1024 / 1024 |
 									number:2}} MB</span> <span ng-switch-default>{{file.size / 1024
 									| number:2}} kB</span>
 							</span>) -->
-						</div>						
-					
-					<br> <br> <input type="submit" class="btn btn-success"
-							value="Submit">
-								<input type="reset" class="btn btn-reset"
-							value="Reset">
-				</form>
+			</div>
 
-		</div>
+			<br> <br> <input type="submit" class="btn btn-success"
+				value="Submit"> <input type="reset" class="btn btn-reset"
+				value="Reset">
+		</form>
+
 	</div>
-	</div>
+</div>
