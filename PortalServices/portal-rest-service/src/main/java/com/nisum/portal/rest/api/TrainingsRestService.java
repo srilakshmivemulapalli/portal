@@ -21,6 +21,7 @@ import com.nisum.portal.service.api.TrainingsService;
 import com.nisum.portal.service.api.UserService;
 import com.nisum.portal.service.dto.Errors;
 import com.nisum.portal.service.dto.TrainingToUserDTO;
+import com.nisum.portal.service.dto.TrainingsApproveDTO;
 import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.dto.TrainingFeedBackDTO;
 import com.nisum.portal.service.dto.TrainingRequestDTO;
@@ -241,5 +242,41 @@ public class TrainingsRestService {
 				return new ResponseEntity<Errors>(error, HttpStatus.OK);
 			}
 	}
+	@RequestMapping(value="/getAllTrainings",method=RequestMethod.GET,produces = "application/json")
+	public ResponseEntity<?> getAllTrainings()
+	{
+		logger.info("TrainingsRestService :: getAllTrainings");
+		try
+		{
+		TrainingsApproveDTO trainingsApproveDTO=trainingsService.getAllTrainings();
+		 return new ResponseEntity<TrainingsApproveDTO>(trainingsApproveDTO,HttpStatus.OK);
+		}catch(Exception e){
+        	logger.error(Constants.TRAINING_NOT_FETCH);
+	    	     Errors error=new Errors();
+	    	     error.setErrorCode("Error-upcoming Trainings");
+	    	     error.setErrorMessage(Constants.TRAINING_NOT_FETCH);
+	         return new ResponseEntity<Errors>(error,HttpStatus.OK);
+			
+		}
+		
+	}
+	@RequestMapping(value="/updateTrainingStatus",method=RequestMethod.PUT,consumes = "application/json",produces = "application/json")
+		public ResponseEntity<?> updateTrainingStatus(@RequestBody TrainingsDTO trainingsDTO)
+		{
+		logger.info("TrainingsRestService :: getAllTrainings");
+		try
+		{
+		TrainingsDTO trainings=trainingsService.updateTrainingStatus(trainingsDTO);
+		 return new ResponseEntity<TrainingsDTO>(trainings,HttpStatus.OK);
+		}catch(Exception e) {
+			logger.error(Constants.TRAINING_NOT_PRESENCE);
+			Errors error = new Errors();
+			error.setErrorCode("Error-All Trainings Requests");
+			error.setErrorMessage(Constants.TRAINING_NOT_PRESENCE);
+			return new ResponseEntity<Errors>(error, HttpStatus.OK);
+		}
+		}
+	
+	
 	
 }

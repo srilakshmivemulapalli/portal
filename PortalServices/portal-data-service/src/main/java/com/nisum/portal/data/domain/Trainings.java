@@ -29,6 +29,7 @@ public class Trainings {
 	private Timestamp trainingStartDate;
 	private Timestamp trainingEndDate;
 	private Timestamp trainingEndTime;
+	private Integer trainingStatus;
 	public Integer getTrainingId() {
 		return trainingId;
 	}
@@ -83,6 +84,12 @@ public class Trainings {
 	public void setTrainingEndDate(Timestamp trainingEndDate) {
 		this.trainingEndDate = trainingEndDate;
 	}
+	public Integer getTrainingStatus() {
+		return trainingStatus;
+	}
+	public void setTrainingStatus(Integer trainingStatus) {
+		this.trainingStatus = trainingStatus;
+	}
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -132,6 +139,11 @@ public class Trainings {
 				return false;
 		} else if (!trainingEndTime.equals(other.trainingEndTime))
 			return false;
+		if (trainingStatus == null) {
+			if (other.trainingStatus != null)
+				return false;
+		} else if (!trainingStatus.equals(other.trainingStatus))
+			return false;
 		
 		return true;
 	}
@@ -154,6 +166,7 @@ public class Trainings {
 		result = prime * result + ((trainingType == null) ? 0 : trainingType.hashCode());
 		result = prime * result + ((trainingStartTime == null) ? 0 : trainingStartTime.hashCode());
 		result = prime * result + ((trainingEndTime == null) ? 0 : trainingEndTime.hashCode());
+		result = prime * result + ((trainingStatus == null) ? 0 : trainingStatus.hashCode());
 		
 		return result;
 	}
@@ -163,7 +176,8 @@ public class Trainings {
 		return "Trainings [trainingId=" + trainingId + ", description=" + description + ", trainingStartTime="
 				+ trainingStartTime + ", trainerName=" + trainerEmailId +  ", trainingTitle="
 						+ trainingTitle+ ",trainingType="
-				+ trainingType+",trainingStartDate="+trainingStartDate+",trainingEndDate="+trainingEndDate+",trainingEndTime="+trainingEndTime+"]";		
+				+ trainingType+",trainingStartDate="+trainingStartDate+",trainingEndDate="+trainingEndDate+",trainingEndTime="+trainingEndTime
+				+",trainingStatus="+trainingStatus+"]";		
 	}
 	public Trainings(Integer trainingId) {
 		this.trainingId = trainingId;

@@ -26,6 +26,7 @@ public class TrainingsServiceUtil {
 				trainingsDTO.setDescription(trainings.getDescription());
 				trainingsDTO.setTrainingStartDate(trainings.getTrainingStartDate());
 				trainingsDTO.setTrainingEndDate(trainings.getTrainingEndDate());
+				trainingsDTO.setTrainingStatus(trainings.getTrainingStatus());
 				
 				trainingsDTOs.add(trainingsDTO);
 			}
@@ -46,7 +47,7 @@ public class TrainingsServiceUtil {
 		trainings.setDescription(trainingsDTO.getDescription());
 		trainings.setTrainingStartDate(trainingsDTO.getTrainingStartDate());
 		trainings.setTrainingEndDate(trainingsDTO.getTrainingEndDate());
-		
+		trainings.setTrainingStatus(trainingsDTO.getTrainingStatus());
 		return trainings;
 		
 	}
@@ -82,6 +83,7 @@ public class TrainingsServiceUtil {
 		trainingsDTO.setDescription(trainings.getDescription());
 		trainingsDTO.setTrainingStartDate(trainings.getTrainingStartDate());
 		trainingsDTO.setTrainingEndDate(trainings.getTrainingEndDate());
+		trainingsDTO.setTrainingStatus(trainings.getTrainingStatus());
 		return trainingsDTO;
 
 	}

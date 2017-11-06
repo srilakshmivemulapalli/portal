@@ -3,6 +3,7 @@ package com.nisum.portal.service.api;
 import java.util.List;
 
 import com.nisum.portal.service.dto.TrainingToUserDTO;
+import com.nisum.portal.service.dto.TrainingsApproveDTO;
 import com.nisum.portal.service.dto.TrainingsDTO;
 import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.dto.TrainingFeedBackDTO;
@@ -30,5 +31,9 @@ public interface TrainingsService {
 	public List<TrainingsDTO> getMyTrainings(String emailId,UserService userService);
 
 	public Integer updateTrainingRequests(TrainingRequestDTO dto, String action);
+	
+	public TrainingsApproveDTO getAllTrainings();
+	
+	public TrainingsDTO updateTrainingStatus(TrainingsDTO trainingsDTO);
 
 }

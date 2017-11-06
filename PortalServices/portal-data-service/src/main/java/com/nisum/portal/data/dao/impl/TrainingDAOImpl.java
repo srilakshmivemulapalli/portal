@@ -150,6 +150,28 @@ public class TrainingDAOImpl implements TrainingsDAO {
 		return trainingRequestRepository.updateRequest(request.getTrainingRequestId(),i);
 	}
 
+	@Override
+	public List<Trainings> getAllTrainings() {
+		logger.info("TrainingDAOImpl::getAllTrainings");
+		return trainingRepository.findAll();
+	}
+
+	@Override
+	public Trainings updateTrainingStatus(Trainings trainings) {
+		logger.info("TrainingDAOImpl::updateTrainingStatus");
+		Trainings training=	trainingRepository.findOne(trainings.getTrainingId());
+		if(training!=null)
+		{
+			if(trainings.getTrainingStatus()!=null)
+			{
+				training.setTrainingStatus(trainings.getTrainingStatus());
+			     trainingRepository.save(training);
+			}
+			
+		}
+		return training;
+	}
+
 
 }
 
