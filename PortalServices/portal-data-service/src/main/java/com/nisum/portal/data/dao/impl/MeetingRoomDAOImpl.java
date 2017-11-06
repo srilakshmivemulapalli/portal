@@ -1,5 +1,6 @@
 package com.nisum.portal.data.dao.impl;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -31,9 +32,9 @@ public class MeetingRoomDAOImpl implements MeetingRoomDAO {
 
 	 }
 	 
-	 public List<MeetingRoom> findAllByLocationId(int locationId){
-		 logger.info("In MeetingRoomDAOImpl class....findAllByLocationId()....");
-		return  meetingRoomRepository.findAllByLocationId(locationId);
+	 public List<MeetingRoom> findAllByLocationIdAndDate(int locationId, Timestamp startDate){
+		 logger.info("In MeetingRoomDAOImpl class....findAllByLocationIdAndDate()....");
+		return  meetingRoomRepository.findAllByLocationIdAndDate(locationId,startDate);
 		 
 	 }
 

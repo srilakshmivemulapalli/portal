@@ -43,8 +43,7 @@ public class BookMeetingRoom {
 	private Timestamp endTime;
 	
 	private int headCount;
-	private Timestamp createdDate;
-	private Timestamp bookingDate;
+	
 	
 	@OneToOne
 	@JoinColumn(name = "locationId", referencedColumnName = "locationId")
@@ -114,33 +113,7 @@ public class BookMeetingRoom {
 	public void setEndTime(Timestamp endTime) {
 		this.endTime = endTime;
 	}
-	/**
-	 * @return the createdDate
-	 */
-	public Timestamp getCreatedDate() {
-		return createdDate;
-	}
-
-	/**
-	 * @param createdDate the createdDate to set
-	 */
-	public void setCreatedDate(Timestamp createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	/**
-	 * @return the bookingDate
-	 */
-	public Timestamp getBookingDate() {
-		return bookingDate;
-	}
-
-	/**
-	 * @param bookingDate the bookingDate to set
-	 */
-	public void setBookingDate(Timestamp bookingDate) {
-		this.bookingDate = bookingDate;
-	}
+	
 
 	
 	
@@ -153,8 +126,7 @@ public class BookMeetingRoom {
 		int result = 1;
 		result = prime * result + ((beginTime == null) ? 0 : beginTime.hashCode());
 		result = prime * result + bookMeetingRoomId;
-		result = prime * result + ((bookingDate == null) ? 0 : bookingDate.hashCode());
-		result = prime * result + ((createdDate == null) ? 0 : createdDate.hashCode());
+		
 		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
 		result = prime * result + ((endTime == null) ? 0 : endTime.hashCode());
 		result = prime * result + headCount;
@@ -182,16 +154,7 @@ public class BookMeetingRoom {
 			return false;
 		if (bookMeetingRoomId != other.bookMeetingRoomId)
 			return false;
-		if (bookingDate == null) {
-			if (other.bookingDate != null)
-				return false;
-		} else if (!bookingDate.equals(other.bookingDate))
-			return false;
-		if (createdDate == null) {
-			if (other.createdDate != null)
-				return false;
-		} else if (!createdDate.equals(other.createdDate))
-			return false;
+		
 		if (emailId == null) {
 			if (other.emailId != null)
 				return false;
@@ -235,7 +198,7 @@ public class BookMeetingRoom {
 	public String toString() {
 		return "BookMeetingRoom [bookMeetingRoomId=" + bookMeetingRoomId + ", meetingTitle=" + meetingTitle
 				+ ", emailId=" + emailId + ", meetingRoom=" + meetingRoom + ", beginTime=" + beginTime + ", endTime="
-				+ endTime + ", headCount=" + headCount + ", createdDate=" + createdDate + ", bookingDate=" + bookingDate
+				+ endTime + ", headCount=" + headCount 
 				+ ", location=" + location + "]";
 	}
 	

@@ -1,5 +1,6 @@
 package com.nisum.portal.data.dao.api;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.nisum.portal.data.domain.MeetingRoom;
@@ -9,6 +10,6 @@ public interface MeetingRoomDAO {
 	
 	 MeetingRoom save( MeetingRoom meetingRoom);
 	 
-	public List<MeetingRoom> findAllByLocationId(int locationId);
+	List<MeetingRoom> findAllByLocationIdAndDate(int locationId,Timestamp startDate);
 
 }

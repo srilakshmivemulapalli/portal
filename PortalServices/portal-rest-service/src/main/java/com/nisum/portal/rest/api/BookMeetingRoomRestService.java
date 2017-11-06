@@ -23,10 +23,7 @@ import com.nisum.portal.service.dto.Errors;
 import com.nisum.portal.service.dto.LocationDTO;
 import com.nisum.portal.service.dto.MeetingRoomDTO;
 import com.nisum.portal.service.dto.ServiceStatusDto;
-import com.nisum.portal.service.exception.BookMeetingRoomException;
-import com.nisum.portal.service.exception.LocationException;
-import com.nisum.portal.service.exception.MeetingRoomException;
-import com.nisum.portal.service.exception.QuestionariesServiceException;
+import com.nisum.portal.service.exception.BookMeetingRoomRestServiceException;
 import com.nisum.portal.util.Constants;
 
 @RestController
@@ -45,7 +42,7 @@ public class BookMeetingRoomRestService {
 	LocationService locationService;
 	
 	@RequestMapping(value = "/registerMeetingRoom", method = RequestMethod.POST)
-	public ResponseEntity<?> registerMeetingRoom(@RequestBody MeetingRoomDTO meetingRoom) throws MeetingRoomException{
+	public ResponseEntity<?> registerMeetingRoom(@RequestBody MeetingRoomDTO meetingRoom) throws BookMeetingRoomRestServiceException{
 		logger.info(".....In registerMeetingRoom() controller...");
 		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
 		try {
@@ -54,15 +51,15 @@ public class BookMeetingRoomRestService {
 			serviceStatusDto.setMessage(message);
 		return new ResponseEntity<ServiceStatusDto>(serviceStatusDto,HttpStatus.OK);
 	}catch(Exception e){
-		throw new MeetingRoomException(Constants.INTERNALSERVERERROR);
+		throw new BookMeetingRoomRestServiceException(Constants.INTERNALSERVERERROR);
 	}
 }		
 	
-	@RequestMapping(value = "/getAllMeetingRoom/{locationId}", method = RequestMethod.GET)
-	public ResponseEntity<?> getAllMeetingRoom(@PathVariable int locationId) throws MeetingRoomException{
+	@RequestMapping(value = "/getAllbookedMeetingRoom/{locationId}/{startDate}", method = RequestMethod.GET)
+	public ResponseEntity<?> getAllMeetingRoom(@PathVariable int locationId,@PathVariable Timestamp startDate) throws BookMeetingRoomRestServiceException{
 		logger.info(".....In getAllMeetingRoom() controller...");
 		try {
-			List<MeetingRoomDTO> meetingsList = meetingRoomService.getAllMeetingRoom(locationId);
+			List<MeetingRoomDTO> meetingsList = meetingRoomService.getAllMeetingRoom(locationId,startDate);
 			if (meetingsList.size() == 0) {
 				ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
 				serviceStatusDto.setMessage(Constants.MEETINGS_EMPTY);
@@ -71,33 +68,33 @@ public class BookMeetingRoomRestService {
 				return new ResponseEntity<List<MeetingRoomDTO>>(meetingsList, HttpStatus.OK);
 			}
 		} catch(Exception e) {
-			throw new MeetingRoomException(Constants.INTERNALSERVERERROR);
+			throw new BookMeetingRoomRestServiceException(Constants.INTERNALSERVERERROR);
 		}
 	}
 	
 	
 	@RequestMapping(value = "/getAvailableMeetingRoom/{locationId}/{beginTime}/{endTime}", method = RequestMethod.GET)
-	public ResponseEntity<?> getAvailableMeetingRoom(@PathVariable int locationId, @PathVariable Timestamp beginTime, @PathVariable Timestamp endTime) throws MeetingRoomException{
+	public ResponseEntity<?> getAvailableMeetingRoom(@PathVariable int locationId, @PathVariable Timestamp beginTime, @PathVariable Timestamp endTime) throws BookMeetingRoomRestServiceException{
 		logger.info("In getAvailableMeetingRoom() controller....");
 		try {
 		List<MeetingRoomDTO> meetingList = bookMeetingRoomService.getAvailableMeetingRoom(locationId, beginTime, endTime);
 		if(meetingList.size()==0) {
-			ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
-			serviceStatusDto.setMessage(Constants.MEETINGS_ROOMS_EMPTY);
-			return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.NO_CONTENT);
+			Errors error = new Errors();
+			error.setErrorMessage(Constants.MEETINGS_ROOMS_EMPTY);
+			return new ResponseEntity<Errors>(error, HttpStatus.NO_CONTENT);
 			
 		}else {
 			return new ResponseEntity<List<MeetingRoomDTO>>(meetingList, HttpStatus.OK);
 		}
 		}catch(Exception e) {
-			throw new MeetingRoomException(Constants.INTERNALSERVERERROR);
+			throw new BookMeetingRoomRestServiceException(Constants.INTERNALSERVERERROR);
 		}	
 		
 		
 	}
 	
 	@RequestMapping(value = "/bookMeetingRoom", method = RequestMethod.POST)
-	public  ResponseEntity<?> bookMeetingRoom(@RequestBody BookMeetingRoomDTO bookMeetingRoom) throws MeetingRoomException{
+	public  ResponseEntity<?> bookMeetingRoom(@RequestBody BookMeetingRoomDTO bookMeetingRoom) throws BookMeetingRoomRestServiceException{
 		logger.info(".....In bookMeetingRoom() controller...");
 		String message = bookMeetingRoomService.bookMeetingRoom(bookMeetingRoom);
 		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
@@ -106,12 +103,12 @@ public class BookMeetingRoomRestService {
 		return new ResponseEntity<ServiceStatusDto>(serviceStatusDto,HttpStatus.OK);
 		
 		}catch(Exception e){
-			throw new MeetingRoomException(Constants.INTERNALSERVERERROR);
+			throw new BookMeetingRoomRestServiceException(Constants.INTERNALSERVERERROR);
 		}
 	}
 	
 	@RequestMapping(value = "/getUserBooking/{emailId}", method = RequestMethod.GET)
-	public ResponseEntity<?> getUserBooking(@PathVariable String emailId) throws BookMeetingRoomException{
+	public ResponseEntity<?> getUserBooking(@PathVariable String emailId) throws BookMeetingRoomRestServiceException{
 		logger.info("In getUserBooking() controller....");
 		emailId = emailId.substring(0, emailId.indexOf("@"))+"@nisum.com";
 		System.out.println("emaiId"+emailId);
@@ -127,7 +124,7 @@ public class BookMeetingRoomRestService {
 		}
 			
 		}catch(Exception e){
-			throw new BookMeetingRoomException(Constants.INTERNALSERVERERROR);
+			throw new BookMeetingRoomRestServiceException(Constants.INTERNALSERVERERROR);
 			
 		}
 		
@@ -135,7 +132,7 @@ public class BookMeetingRoomRestService {
 	}
 	
 	@RequestMapping(value = "/registerLocation", method = RequestMethod.POST)
-	public ResponseEntity<?> registerLocation(@RequestBody LocationDTO location) throws LocationException{
+	public ResponseEntity<?> registerLocation(@RequestBody LocationDTO location) throws BookMeetingRoomRestServiceException{
 		logger.info(".....In registerLocation() controller...");
 		String message = locationService.registerLocation(location);
 		ServiceStatusDto serviceStatusDto=new ServiceStatusDto();
@@ -145,7 +142,7 @@ public class BookMeetingRoomRestService {
 			return new ResponseEntity<ServiceStatusDto>(serviceStatusDto,HttpStatus.OK);
 			
 		}catch(Exception e){
-			throw new LocationException(Constants.INTERNALSERVERERROR);
+			throw new BookMeetingRoomRestServiceException(Constants.INTERNALSERVERERROR,e);
 		}
 		
 		
@@ -153,14 +150,14 @@ public class BookMeetingRoomRestService {
 	}
 	
 	@RequestMapping(value = "/getAllLocation", method = RequestMethod.GET)
-	public ResponseEntity<?> getAllLocation() throws LocationException{
+	public ResponseEntity<?> getAllLocation() throws BookMeetingRoomRestServiceException{
 		logger.info(".....In getAllLocation() controller...");
 		
 		try {
 		List<LocationDTO> locationList = locationService.getAllLocation();
 		if(locationList.size()==0) {
 			ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
-			serviceStatusDto.setMessage(Constants.USER_BOOKING_EMPTY);
+			serviceStatusDto.setMessage(Constants.LOCATIONS_EMPTY);
 			return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.NO_CONTENT);
 			
 		}else {
@@ -169,7 +166,7 @@ public class BookMeetingRoomRestService {
 			}
 			
 		}catch(Exception e){
-			throw new LocationException(Constants.INTERNALSERVERERROR);
+			throw new BookMeetingRoomRestServiceException(Constants.INTERNALSERVERERROR);
 		}
 		
 		
@@ -181,13 +178,15 @@ public class BookMeetingRoomRestService {
 	 * @param ex
 	 * @return
 	 */
-	@ExceptionHandler(QuestionariesServiceException.class)
+	@ExceptionHandler(BookMeetingRoomRestServiceException.class)
 	public ResponseEntity<Errors> exceptionHandler(Exception ex) {
 		Errors errors = new Errors();
 		errors.setErrorCode("Error-Meetings");
 		errors.setErrorMessage(ex.getMessage());
 		return new ResponseEntity<Errors>(errors, HttpStatus.OK);
 	}
+	
+	
 
 
 

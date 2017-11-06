@@ -21,12 +21,12 @@ public class BookMeetingRoomUtil {
 				BookMeetingRoomDTO bookMeetingRoomDTO = new BookMeetingRoomDTO();
 				bookMeetingRoomDTO.setBeginTime(bookMeetingRoomDAO.getBeginTime());
 				bookMeetingRoomDTO.setBookMeetingRoomId(bookMeetingRoomDAO.getBookMeetingRoomId());
-				bookMeetingRoomDTO.setBookingDate(bookMeetingRoomDAO.getBookingDate());
+		
 				bookMeetingRoomDTO.setEndTime(bookMeetingRoomDAO.getEndTime());
 				bookMeetingRoomDTO.setHeadCount(bookMeetingRoomDAO.getHeadCount());
 				//bookMeetingRoomDTO.setMeetingRoomDTO(bookMeetingRoomDAO.getMeetingRoom());
 				bookMeetingRoomDTO.setMeetingTitle(bookMeetingRoomDAO.getMeetingTitle());
-				bookMeetingRoomDTO.setCreatedDate(bookMeetingRoomDAO.getCreatedDate());
+		
 				bookMeetingRoomDTO.setEmailId(bookMeetingRoomDAO.getEmailId());
 				bookMeetingRoomDTO.setLocationId(bookMeetingRoomDAO.getLocation().getLocationId());
 				bookMeetingRoomDTO.setMeetingRoomId(bookMeetingRoomDAO.getMeetingRoom().getMeetingRoomId());
@@ -43,11 +43,11 @@ public class BookMeetingRoomUtil {
 		BookMeetingRoomDTO bookMeetingRoomDTO = new BookMeetingRoomDTO();
 		bookMeetingRoomDTO.setBeginTime(bookMeetingRoom.getBeginTime());
 		bookMeetingRoomDTO.setBookMeetingRoomId(bookMeetingRoom.getBookMeetingRoomId());
-		bookMeetingRoomDTO.setCreatedDate(bookMeetingRoom.getCreatedDate());
+	
 		bookMeetingRoomDTO.setEndTime(bookMeetingRoom.getEndTime());
 		bookMeetingRoomDTO.setHeadCount(bookMeetingRoom.getHeadCount());
 		bookMeetingRoomDTO.setMeetingTitle(bookMeetingRoom.getMeetingTitle());
-		bookMeetingRoomDTO.setBookingDate(bookMeetingRoom.getBookingDate());
+		
 		bookMeetingRoomDTO.setEmailId(bookMeetingRoom.getEmailId());
 		bookMeetingRoomDTO.setLocationId(bookMeetingRoom.getLocation().getLocationId());
 		
@@ -70,11 +70,11 @@ public class BookMeetingRoomUtil {
 		BookMeetingRoom bookMeetingRoom = new BookMeetingRoom();
 		bookMeetingRoom.setBeginTime(bookMeetingRoomDTO.getBeginTime());
 		bookMeetingRoom.setBookMeetingRoomId(bookMeetingRoomDTO.getBookMeetingRoomId());
-		bookMeetingRoom.setCreatedDate(bookMeetingRoomDTO.getCreatedDate());
+		
 		bookMeetingRoom.setEndTime(bookMeetingRoomDTO.getEndTime());
 		bookMeetingRoom.setHeadCount(bookMeetingRoomDTO.getHeadCount());
 		bookMeetingRoom.setMeetingTitle(bookMeetingRoomDTO.getMeetingTitle());
-		bookMeetingRoom.setBookingDate(bookMeetingRoomDTO.getBookingDate());
+		
 		bookMeetingRoom.setEmailId(bookMeetingRoomDTO.getEmailId());
 		
 		bookMeetingRoom.setLocation(new Location(bookMeetingRoomDTO.getLocationId()));

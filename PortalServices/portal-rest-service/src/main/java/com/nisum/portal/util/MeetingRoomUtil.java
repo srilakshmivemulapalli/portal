@@ -15,12 +15,10 @@ public class MeetingRoomUtil {
 		if (CollectionUtils.isNotEmpty(meetingRoom)) {
 			for(MeetingRoom meetingRoomDAO : meetingRoom){
 				MeetingRoomDTO meetingRoomDTO = new MeetingRoomDTO();
-				meetingRoomDTO.setDescription(meetingRoomDAO.getDescription());
+				meetingRoomDTO.setMeetingRoomName(meetingRoomDAO.getMeetingRoomName());
 				meetingRoomDTO.setLocationId(meetingRoomDAO.getLocation());
 				meetingRoomDTO.setMeetingRoomId(meetingRoomDAO.getMeetingRoomId());
-				meetingRoomDTO.setBeginTime(meetingRoomDAO.getBeginTime());
-				meetingRoomDTO.setEndTime(meetingRoomDAO.getEndTime());
-				meetingRoomDTO.setStartDate(meetingRoomDAO.getStartDate());
+				
 				
 				meetingRoomDTOList.add(meetingRoomDTO);
 				
@@ -32,12 +30,11 @@ public class MeetingRoomUtil {
 	public static MeetingRoomDTO convertDaoObjectToDto(MeetingRoom meetingRoom) 
 	{
 		MeetingRoomDTO meetingRoomDTO = new MeetingRoomDTO();
-		meetingRoomDTO.setDescription(meetingRoom.getDescription());
+		meetingRoomDTO.setMeetingRoomName(meetingRoom.getMeetingRoomName());
 		meetingRoomDTO.setLocationId(meetingRoom.getLocation());
 		meetingRoomDTO.setMeetingRoomId(meetingRoom.getMeetingRoomId());
-		meetingRoomDTO.setBeginTime(meetingRoom.getBeginTime());
-		meetingRoomDTO.setEndTime(meetingRoom.getEndTime());
-		meetingRoomDTO.setStartDate(meetingRoom.getStartDate());
+		
+		
 		
 		
 		return meetingRoomDTO;
@@ -50,12 +47,11 @@ public class MeetingRoomUtil {
 public static MeetingRoom convertDtoObjectToDao(MeetingRoomDTO meetingRoomDTO) 
 {
 		MeetingRoom meetingRoom = new MeetingRoom();
-		meetingRoom.setDescription(meetingRoomDTO.getDescription());
+		meetingRoom.setMeetingRoomName(meetingRoomDTO.getMeetingRoomName());
 		meetingRoom.setLocation(meetingRoomDTO.getLocationId());
 	     meetingRoom.setMeetingRoomId(meetingRoomDTO.getMeetingRoomId());
-	     meetingRoom.setBeginTime(meetingRoomDTO.getBeginTime());
-	     meetingRoom.setEndTime(meetingRoomDTO.getEndTime());
-	     meetingRoom.setStartDate(meetingRoomDTO.getStartDate());
+	     
+	     
 		
 		return meetingRoom;
 		

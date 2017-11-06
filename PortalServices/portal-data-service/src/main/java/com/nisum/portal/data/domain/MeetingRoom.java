@@ -24,11 +24,13 @@ import javax.persistence.Table;
 public class MeetingRoom {
 	
 	
-	private Timestamp beginTime;
-	private Timestamp endTime;
-	private Timestamp startDate;
 	
-	private String description;
+	
+	
+	private String meetingRoomName;
+	
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int meetingRoomId;
@@ -55,42 +57,20 @@ public class MeetingRoom {
 	public void setLocation(int location) {
 		this.location = location;
 	}
+	
 	/**
-	 * @return the beginTime
+	 * @return the meetingRoomName
 	 */
-	public Timestamp getBeginTime() {
-		return beginTime;
+	public String getMeetingRoomName() {
+		return meetingRoomName;
 	}
 	/**
-	 * @param beginTime the beginTime to set
+	 * @param meetingRoomName the meetingRoomName to set
 	 */
-	public void setBeginTime(Timestamp beginTime) {
-		this.beginTime = beginTime;
+	public void setMeetingRoomName(String meetingRoomName) {
+		this.meetingRoomName = meetingRoomName;
 	}
-	/**
-	 * @return the endTime
-	 */
-	public Timestamp getEndTime() {
-		return endTime;
-	}
-	/**
-	 * @param endTime the endTime to set
-	 */
-	public void setEndTime(Timestamp endTime) {
-		this.endTime = endTime;
-	}
-	/**
-	 * @return the startedDate
-	 */
-	public Timestamp getStartDate() {
-		return startDate;
-	}
-	/**
-	 * @param startedDate the startedDate to set
-	 */
-	public void setStartDate(Timestamp startDate) {
-		this.startDate = startDate;
-	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -98,12 +78,11 @@ public class MeetingRoom {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((beginTime == null) ? 0 : beginTime.hashCode());
-		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((endTime == null) ? 0 : endTime.hashCode());
+		
 		result = prime * result + location;
 		result = prime * result + meetingRoomId;
-		result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
+		result = prime * result + ((meetingRoomName == null) ? 0 : meetingRoomName.hashCode());
+		
 		return result;
 	}
 	/* (non-Javadoc)
@@ -118,30 +97,17 @@ public class MeetingRoom {
 		if (getClass() != obj.getClass())
 			return false;
 		MeetingRoom other = (MeetingRoom) obj;
-		if (beginTime == null) {
-			if (other.beginTime != null)
-				return false;
-		} else if (!beginTime.equals(other.beginTime))
-			return false;
-		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
-		if (endTime == null) {
-			if (other.endTime != null)
-				return false;
-		} else if (!endTime.equals(other.endTime))
-			return false;
+		
 		if (location != other.location)
 			return false;
 		if (meetingRoomId != other.meetingRoomId)
 			return false;
-		if (startDate == null) {
-			if (other.startDate != null)
+		if (meetingRoomName == null) {
+			if (other.meetingRoomName != null)
 				return false;
-		} else if (!startDate.equals(other.startDate))
+		} else if (!meetingRoomName.equals(other.meetingRoomName))
 			return false;
+		
 		return true;
 	}
 	
@@ -153,19 +119,14 @@ public class MeetingRoom {
 	}
 	
 	
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "MeetingRoom [beginTime=" + beginTime + ", endTime=" + endTime + ", startDate=" + startDate
-				+ ", description=" + description + ", meetingRoomId=" + meetingRoomId + ", location=" + location + "]";
+		return "MeetingRoom [meetingRoomName=" + meetingRoomName + ", meetingRoomId=" + meetingRoomId + ", location=" + location
+				+ "]";
 	}
 	
 }

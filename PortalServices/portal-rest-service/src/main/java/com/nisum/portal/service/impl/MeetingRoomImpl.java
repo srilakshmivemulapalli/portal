@@ -1,5 +1,6 @@
 package com.nisum.portal.service.impl;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -32,15 +33,15 @@ public class MeetingRoomImpl implements MeetingRoomService {
 				 return "Saved Successfully...";
 			}else{
 				
-				tempMeetingRoom.setDescription(meetingRoom.getDescription());
+				tempMeetingRoom.setMeetingRoomName(meetingRoom.getMeetingRoomName());
 				 meetingRoomDAO.save(tempMeetingRoom);
 				return  "Updated Successfully...";
 			}
 	}
 	
-	public List<MeetingRoomDTO> getAllMeetingRoom(int locationId){
+	public List<MeetingRoomDTO> getAllMeetingRoom(int locationId,Timestamp startDate){
 		logger.info("In MeetingRoomImpl....getAllMeetingRoom()....");
-		List<MeetingRoom> meetingRoomList = meetingRoomDAO.findAllByLocationId(locationId);
+		List<MeetingRoom> meetingRoomList = meetingRoomDAO.findAllByLocationIdAndDate(locationId,startDate);
 		return MeetingRoomUtil.convertDaoListToDto(meetingRoomList);
 	}
 
