@@ -16,7 +16,7 @@ public class TrainingRequest {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="TrainingRequestId")
 	private Integer trainingRequestId;
-	private String emailid;
+	private String emailId;
 	private String requestTrainingTitle;
 	private String description;
 	private Timestamp requestedDate;
@@ -28,10 +28,10 @@ public class TrainingRequest {
 		this.trainingRequestId = trainingRequestId;
 	}
 	public String getEmailid() {
-		return emailid;
+		return emailId;
 	}
 	public void setEmailid(String emailid) {
-		this.emailid = emailid;
+		this.emailId = emailid;
 	}
 	public String getRequestTrainingTitle() {
 		return requestTrainingTitle;
@@ -62,7 +62,7 @@ public class TrainingRequest {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((emailid == null) ? 0 : emailid.hashCode());
+		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
 		result = prime * result + ((requestStatus == null) ? 0 : requestStatus.hashCode());
 		result = prime * result + ((requestTrainingTitle == null) ? 0 : requestTrainingTitle.hashCode());
 		result = prime * result + ((requestedDate == null) ? 0 : requestedDate.hashCode());
@@ -83,10 +83,10 @@ public class TrainingRequest {
 				return false;
 		} else if (!description.equals(other.description))
 			return false;
-		if (emailid == null) {
-			if (other.emailid != null)
+		if (emailId == null) {
+			if (other.emailId != null)
 				return false;
-		} else if (!emailid.equals(other.emailid))
+		} else if (!emailId.equals(other.emailId))
 			return false;
 		if (requestStatus == null) {
 			if (other.requestStatus != null)
@@ -112,7 +112,7 @@ public class TrainingRequest {
 	}
 	@Override
 	public String toString() {
-		return "TrainingRequest [trainingRequestId=" + trainingRequestId + ", emailid=" + emailid
+		return "TrainingRequest [trainingRequestId=" + trainingRequestId + ", emailId=" + emailId
 				+ ", requestTrainingTitle=" + requestTrainingTitle + ", description=" + description + ", requestedDate="
 				+ requestedDate + ", requestStatus=" + requestStatus + "]";
 	}

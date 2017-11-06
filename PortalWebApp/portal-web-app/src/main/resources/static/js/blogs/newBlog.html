@@ -28,7 +28,7 @@
 				class="form-control"> <input id="emailId" name="emailId"
 				type="hidden" ng-model="blog.emailId" class="form-control">
 			<div class="wp-editor-container">
-				<text-angular ng-model="blog.description"></text-angular>
+				<text-angular ng-model="blog.description" required></text-angular>
 			</div>
 			<br>
 			<p>Attachments here....</p>
@@ -45,10 +45,17 @@
 									| number:2}} kB</span>
 							</span>) -->
 			</div>
-
-			<br> <br> <input type="submit" class="btn btn-success"
-				value="Submit"> <input type="reset" class="btn btn-reset"
-				value="Reset">
+			 <input type="submit" class="custombtn btn-normal"
+				value="Submit Blog" ng-class="{'disabled':formBlog.$invalid}"
+				ng-disabled="formBlog.$invalid"> <!-- <input type="reset" class="btn btn-reset"
+				value="Reset"> -->
+				<p class="term-texts">
+				By posting your blog, you agree to the <a target="_blank"
+					href="javascript:void(0);">privacy
+					policy</a> and <a target="_blank"
+					href="javascript:void(0);">terms of
+					service.</a>
+			</p>
 		</form>
 
 	</div>
