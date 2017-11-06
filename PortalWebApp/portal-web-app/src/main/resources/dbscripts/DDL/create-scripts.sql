@@ -165,3 +165,6 @@ CHANGE COLUMN `emailid` `emailId` VARCHAR(45) NULL DEFAULT NULL ;
 
 ALTER TABLE `portal`.`TrainingRequest` 
 ADD COLUMN `requestStatus` INT(1) NULL DEFAULT 0 AFTER `requestedDate`;
+
+ALTER TABLE `portal`.`Trainings` 
+ADD COLUMN `trainingStatus` INT NULL DEFAULT NULL AFTER `trainingEndTime`;
