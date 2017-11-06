@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.Sort;
 
 import com.nisum.portal.data.dao.api.BlogsDAO;
 import com.nisum.portal.data.domain.Blogs;
@@ -20,7 +21,8 @@ public class BlogsDAOImpl implements BlogsDAO {
 	@Override
 	public List<Blogs> getAllBlogs() {
 		logger.info("BlogsDAOImpl :: getAllBlogs");
-		return blogsRepository.findAll();
+		//return blogsRepository.findAll();
+		return blogsRepository.findAllByOrderByCreatedDateDesc();
 	}
 	@Override
 	public Blogs getBlog(Integer id) {
@@ -55,8 +57,8 @@ public class BlogsDAOImpl implements BlogsDAO {
 	@Override
 	public List<Blogs> getAllBlogsByUserMailId(String userMailId) {
 		logger.info("BlogsDAOImpl :: getAllBlogsByUserMailId");
-		return blogsRepository.findByUserMailId(userMailId);
-
+		//return blogsRepository.findByUserMailId(userMailId);
+		return blogsRepository.findAllByUserMailIdOrderByCreatedDateDesc(userMailId);
 	}
 
 }

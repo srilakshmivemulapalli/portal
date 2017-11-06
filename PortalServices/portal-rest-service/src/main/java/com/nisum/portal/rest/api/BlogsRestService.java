@@ -240,7 +240,7 @@ public class BlogsRestService {
 	public @ResponseBody Object addBlog(@RequestParam(value = "uploads") MultipartFile[]  files,HttpServletRequest request) throws BlogServiceException {
 		logger.info("BlogsRestService :: addBlog");
 		try {
-			blogService.validateRequestUploads(files);
+			//blogService.validateRequestUploads(files);
 			
 			BlogsDTO blogsDTO=blogService.parseRequestToGetBlogsDTO(request);
 			
@@ -283,7 +283,7 @@ public class BlogsRestService {
 				String blogsMailId=blogDTO.getUserMailId();
 				if((blogDTO!=null)&&(userMailId!=null)&&(blogId!=null)) {
 					if((blogsMailId!=null)&&blogsMailId.equals(userMailId)) {
-						String dirPath=blogService.uploadAttachmentUI(files, blogsAttachmentPath+File.separator+userMailId+File.separator+blogId);
+						String dirPath=blogService.uploadAttachment(files, blogsAttachmentPath+File.separator+userMailId+File.separator+blogId);
 						if(dirPath!=null) {
 							String path=blogDTO.getPath();
 							if(((path==null)||(!path.equals(dirPath)))) {

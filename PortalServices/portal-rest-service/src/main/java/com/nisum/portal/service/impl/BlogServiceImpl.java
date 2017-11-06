@@ -127,11 +127,7 @@ public class BlogServiceImpl implements BlogService{
 
 	
 
-	@Override
-	public String uploadAttachment(HttpServletRequest request, String path) throws Exception {
-		logger.info("BlogServiceImpl :: uploadAttachment");
-		return BlogsServiceUtil.parseRequestToStoreUploads(request,path);
-	}
+	
 
 	@Override
 	public Path getFile(String userMailId, Integer blogId, String fileName) throws Exception{
@@ -176,8 +172,8 @@ public class BlogServiceImpl implements BlogService{
 
 
 	@Override
-	public String uploadAttachmentUI(MultipartFile[] file, String path) throws Exception {
-		logger.info("BlogServiceImpl :: uploadAttachmentUI");
+	public String uploadAttachment(MultipartFile[] file, String path) throws Exception {
+		logger.info("BlogServiceImpl :: uploadAttachment");
 		return BlogsServiceUtil.parseRequestToStoreUploadsUI(file, path);
 	}
 
@@ -202,13 +198,6 @@ public class BlogServiceImpl implements BlogService{
 			}
 		}
 		return blogsDTO;	
-	}
-
-
-	@Override
-	public boolean validateRequestUploads(MultipartFile[] files) throws Exception {
-		logger.info("BlogServiceImpl :: validateRequestUploads");
-		return BlogsServiceUtil.validateRequestForUploads(files);	
 	}
 	
 	

@@ -9,6 +9,7 @@ import com.nisum.portal.data.domain.Blogs;
 public interface BlogsRepository extends JpaRepository<Blogs, Integer> {
 	
 	Blogs findByBlogsId(Integer blogsId);
-	List<Blogs> findByUserMailId(String userMailId);
+	List<Blogs> findAllByUserMailIdOrderByCreatedDateDesc(String userMailId);
+	List<Blogs> findAllByOrderByCreatedDateDesc();
 
 }

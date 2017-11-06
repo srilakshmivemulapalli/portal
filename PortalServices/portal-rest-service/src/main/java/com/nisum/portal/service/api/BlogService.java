@@ -27,15 +27,13 @@ public interface BlogService {
 	
 	BlogsDTO parseRequestToStoreUploads(MultipartFile[] file,String path,BlogsDTO blogsDTO) throws Exception;
 	
-	String uploadAttachment(HttpServletRequest request,String path) throws Exception;
+	//String uploadAttachment(HttpServletRequest request,String path) throws Exception;
 	
-	String uploadAttachmentUI(MultipartFile[] file,String path) throws Exception;
+	String uploadAttachment(MultipartFile[] file,String path) throws Exception;
 	
 	Path getFile(String userMailId,Integer blogId,String fileName) throws Exception;
 	
 	boolean removeFile(String userMailId,Integer blogId,String fileName) throws Exception;
-	
-	boolean validateRequestUploads(MultipartFile[]  files)throws Exception;
 	
 	BlogsDTO convertJSONObjectToBlogsDTO(JSONObject jsonObject) throws Exception;
 	

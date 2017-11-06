@@ -8,7 +8,7 @@ import java.io.OutputStream;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
+
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.sql.Timestamp;
@@ -16,10 +16,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.Part;
+
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.IOUtils;
@@ -185,29 +184,25 @@ public class BlogsServiceUtil {
 				String fileName = filePart.getOriginalFilename();
 				InputStream fileContent = filePart.getInputStream();
 				
-				String[] fileNameParts=(String[]) fileName.split("\\.");
-				if((fileNameParts!=null)&&(fileNameParts.length==2)) {
-					String newFileName=fileNameParts[0]+"_"+getCurrentTimeAsString("ddMMMYYYY_hh_mm_ss_a");
-					newFileName=newFileName+"."+fileNameParts[1];
-					if(dirPath!=null) {
-						String newFilePath=dirPath+File.separator+newFileName;
-						File newFile=new File(newFilePath);
-						if(newFile.createNewFile()) {
-							logger.info("BlogsServiceUtil :: parseRequestToStoreUploads -- file "+newFilePath+" created.");
-							OutputStream outStream=new FileOutputStream(newFile);
-							IOUtils.copy(fileContent, outStream);
-						}else {
-							logger.error("BlogsServiceUtil :: parseRequestToStoreUploads -- Error while creating file "+newFileName);
-							throw new BlogServiceException(" Error while creating file "+newFileName);
-						}
-						
+				String fileExtension=StringUtils.substringAfterLast(fileName, ".");
+				String fileRelativeName=StringUtils.substringBeforeLast(fileName, ".");
+				String newFileName=fileRelativeName+"_"+getCurrentTimeAsString("ddMMMYYYY_hh_mm_ss_a");
+				newFileName=newFileName+"."+fileExtension;
+				if(dirPath!=null) {
+					String newFilePath=dirPath+File.separator+newFileName;
+					File newFile=new File(newFilePath);
+					if(newFile.createNewFile()) {
+						logger.info("BlogsServiceUtil :: parseRequestToStoreUploads -- file "+newFilePath+" created.");
+						OutputStream outStream=new FileOutputStream(newFile);
+						IOUtils.copy(fileContent, outStream);
 					}else {
 						logger.error("BlogsServiceUtil :: parseRequestToStoreUploads -- Error while creating file "+newFileName);
 						throw new BlogServiceException(" Error while creating file "+newFileName);
 					}
+					
 				}else {
-					logger.error("BlogsServiceUtil :: parseRequestToStoreUploads -- Error while creating file ==== File Name "+fileName+" contains \".\" symbol.");
-					throw new BlogServiceException(" Error while creating file ==== File Name "+fileName+" contains \".\" symbol.");
+					logger.error("BlogsServiceUtil :: parseRequestToStoreUploads -- Error while creating file "+newFileName);
+					throw new BlogServiceException(" Error while creating file "+newFileName);
 				}
 			}
 		}else {
@@ -217,121 +212,9 @@ public class BlogsServiceUtil {
 		return dirPath;
 	}
 	
-	public static String parseRequestToStoreUploads(HttpServletRequest request,String dirPath) throws Exception{
-		logger.info("BlogsServiceUtil :: parseRequestToUploadFiles");
-		if(dirPath!=null) {
-			File dir=new File(dirPath);
-			if(!dir.exists()) {
-				if(dir.mkdirs()) {
-					logger.info("BlogsServiceUtil :: parseRequestToStoreUploads -- directory "+dirPath+" created.");
-				}else {
-					logger.error("BlogsServiceUtil :: parseRequestToStoreUploads -- error while creating directory "+dirPath);
-					throw new BlogServiceException("error while creating directory "+dirPath);
-				}
-			}
-		}else {
-			logger.error("BlogsServiceUtil :: parseRequestToStoreUploads -- Directory Path is null");
-			throw new BlogServiceException(" Directory Path is null ");
-		}
-		
-		// Get all uploaded files
-		List<Part> fileParts = request.getParts().stream().filter(part -> "uploads".equals(part.getName())).collect(Collectors.toList()); 
-		
-		// Store uploaded files into server
-		if((fileParts!=null)&&(!CollectionUtils.isEmpty(fileParts))) {
-			for (Part filePart : fileParts) {
-				String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-				InputStream fileContent = filePart.getInputStream();
-				
-				String[] fileNameParts=(String[]) fileName.split("\\.");
-				if((fileNameParts!=null)&&(fileNameParts.length==2)) {
-					String newFileName=fileNameParts[0]+"_"+getCurrentTimeAsString("ddMMMYYYY_hh_mm_ss_a");
-					newFileName=newFileName+"."+fileNameParts[1];
-					if(dirPath!=null) {
-						String newFilePath=dirPath+File.separator+newFileName;
-						File newFile=new File(newFilePath);
-						if(newFile.createNewFile()) {
-							logger.info("BlogsServiceUtil :: parseRequestToStoreUploads -- file "+newFilePath+" created.");
-							OutputStream outStream=new FileOutputStream(newFile);
-							IOUtils.copy(fileContent, outStream);
-						}else {
-							logger.error("BlogsServiceUtil :: parseRequestToStoreUploads -- Error while creating file "+newFileName);
-							throw new BlogServiceException(" Error while creating file "+newFileName);
-						}
-						
-					}else {
-						logger.error("BlogsServiceUtil :: parseRequestToStoreUploads -- Error while creating file "+newFileName);
-						throw new BlogServiceException(" Error while creating file "+newFileName);
-					}
-				}else {
-					logger.error("BlogsServiceUtil :: parseRequestToStoreUploads -- Error while creating file ==== File Name "+fileName+" contains \".\" symbol.");
-					throw new BlogServiceException(" Error while creating file ==== File Name "+fileName+" contains \".\" symbol.");
-				}
-			}
-		}else {
-			logger.error("BlogsServiceUtil :: parseRequestToStoreUploads -- No Uploads Found.");
-		}
-		
-		return dirPath;
-	}
 	
-	public static String parseRequestToStoreUploadsUI(MultipartFile file,String dirPath) throws Exception{
-		logger.info("BlogsServiceUtil :: parseRequestToUploadFiles");
-		if(dirPath!=null) {
-			File dir=new File(dirPath);
-			if(!dir.exists()) {
-				if(dir.mkdirs()) {
-					logger.info("BlogsServiceUtil :: parseRequestToStoreUploadsUI -- directory "+dirPath+" created.");
-				}else {
-					logger.error("BlogsServiceUtil :: parseRequestToStoreUploadsUI -- error while creating directory "+dirPath);
-					throw new BlogServiceException("error while creating directory "+dirPath);
-				}
-			}
-		}else {
-			logger.error("BlogsServiceUtil :: parseRequestToStoreUploadsUI -- Directory Path is null");
-			throw new BlogServiceException(" Directory Path is null ");
-		}
-		
-		// Get all uploaded files
-		List<MultipartFile> fileParts = Arrays.asList(file) ;
-		
-		// Store uploaded files into server
-		if((fileParts!=null)&&(!CollectionUtils.isEmpty(fileParts))) {
-			for (MultipartFile filePart : fileParts) {
-				String fileName =filePart.getOriginalFilename();
-				InputStream fileContent = filePart.getInputStream();
-				
-				String[] fileNameParts=(String[]) fileName.split("\\.");
-				if((fileNameParts!=null)&&(fileNameParts.length==2)) {
-					String newFileName=fileNameParts[0]+"_"+getCurrentTimeAsString("ddMMMYYYY_hh_mm_ss_a");
-					newFileName=newFileName+"."+fileNameParts[1];
-					if(dirPath!=null) {
-						String newFilePath=dirPath+File.separator+newFileName;
-						File newFile=new File(newFilePath);
-						if(newFile.createNewFile()) {
-							logger.info("BlogsServiceUtil :: parseRequestToStoreUploadsUI -- file "+newFilePath+" created.");
-							OutputStream outStream=new FileOutputStream(newFile);
-							IOUtils.copy(fileContent, outStream);
-						}else {
-							logger.error("BlogsServiceUtil :: parseRequestToStoreUploadsUI -- Error while creating file "+newFileName);
-							throw new BlogServiceException(" Error while creating file "+newFileName);
-						}
-						
-					}else {
-						logger.error("BlogsServiceUtil :: parseRequestToStoreUploadsUI -- Error while creating file "+newFileName);
-						throw new BlogServiceException(" Error while creating file "+newFileName);
-					}
-				}else {
-					logger.error("BlogsServiceUtil :: parseRequestToStoreUploadsUI -- Error while creating file ==== File Name "+fileName+" contains \".\" symbol.");
-					throw new BlogServiceException(" Error while creating file ==== File Name "+fileName+" contains \".\" symbol.");
-				}
-			}
-		}else {
-			logger.error("BlogsServiceUtil :: parseRequestToStoreUploadsUI -- No Uploads Found.");
-		}
-		
-		return dirPath;
-	}
+	
+	
 	
 	public static BlogsDTO parseRequestToStoreUploads(MultipartFile[] files,String dirPath,BlogsDTO blogsDTO) throws Exception{
 		logger.info("BlogsServiceUtil :: parseRequestToStoreUploads");
@@ -449,35 +332,5 @@ public class BlogsServiceUtil {
 			return null;
 		}
 		
-	}
-	
-	public static boolean validateRequestForUploads(MultipartFile[]  files) throws Exception {
-		logger.info("BlogsServiceUtil :: validateRequestForUploads");
-		if((files!=null) &&(files.length!=0)){
-			
-			//List<Part> fileParts = request.getParts().stream().filter(part -> "uploads".equals(part.getName())).collect(Collectors.toList());
-			List<MultipartFile> fileParts = Arrays.asList(files);
-			
-			if((fileParts!=null)&&(!CollectionUtils.isEmpty(fileParts))) {
-				//for (Part filePart : fileParts) {
-				for (MultipartFile filePart : fileParts) {
-					//String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-					String fileName = filePart.getOriginalFilename();
-					
-					String[] fileNameParts=(String[]) fileName.split("\\.");
-					if((fileNameParts!=null)&&(fileNameParts.length>2)) {
-						logger.error("BlogsServiceUtil :: validateRequestForUploads ==== "+" Error while creating file ==== File Name "+fileName+" contains \".\" symbol.");
-						throw new BlogServiceException(" Error while creating file ==== File Name "+fileName+" contains \".\" symbol.");
-					}
-				}
-			}else {
-				logger.info("BlogsServiceUtil :: validateRequestForUploads === No uploads found.");
-				return false;
-			}
-			return true;
-		}else {
-			logger.error("BlogsServiceUtil :: validateRequestForUploads === No uploads found");
-			throw new BlogServiceException(" No uploads found. ");
-		}
 	}
 }
