@@ -34,20 +34,18 @@ public class MeetingRoomServiceImplTest {
 	@Before
 	public void setUp() {
 		meetingRoom = new MeetingRoom();
-		meetingRoom.setBeginTime(new Timestamp(System.currentTimeMillis()));
-		meetingRoom.setEndTime(new Timestamp(System.currentTimeMillis()));
+		
 		meetingRoom.setMeetingRoomId(1);
-		meetingRoom.setDescription("description");
+		meetingRoom.setMeetingRoomName("description");
 		meetingRoom.setLocation(1);
-		meetingRoom.setStartDate(new Timestamp(System.currentTimeMillis()));
+		
 
 		meetingRoomDTO = new MeetingRoomDTO();
-		meetingRoomDTO.setBeginTime(meetingRoom.getBeginTime());
-		meetingRoomDTO.setEndTime(meetingRoom.getEndTime());
+		
 		meetingRoomDTO.setMeetingRoomId(meetingRoom.getMeetingRoomId());
-		meetingRoomDTO.setDescription(meetingRoom.getDescription());
+		meetingRoomDTO.setMeetingRoomName(meetingRoom.getMeetingRoomName());
 		meetingRoomDTO.setLocationId(1);
-		meetingRoomDTO.setStartDate(meetingRoom.getStartDate());
+		
 	}
 
 	@Test
@@ -61,9 +59,9 @@ public class MeetingRoomServiceImplTest {
 
 		expected.add(meetingRoomDTO);
 
-		when(meetingRoomDAOImpl.findAllByLocationId(locationId)).thenReturn(meetingRoomList);
+		when(meetingRoomDAOImpl.findAllByLocationIdAndDate(locationId,new Timestamp(System.currentTimeMillis()))).thenReturn(meetingRoomList);
 
-		List<MeetingRoomDTO> meetingRoomActual = meetingRoomServiceImpl.getAllMeetingRoom(locationId);
+		List<MeetingRoomDTO> meetingRoomActual = meetingRoomServiceImpl.getAllMeetingRoom(locationId,new Timestamp(System.currentTimeMillis()));
 			
 	}
 	

@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
+
 import java.util.List;
 
 import org.junit.Before;
@@ -35,12 +35,10 @@ public class MeetingRoomDAOImplTest {
 	@Before
 	public void setUp() {
 		meetingRoom = new MeetingRoom();
-		meetingRoom.setStartDate(new Timestamp(System.currentTimeMillis()));
-		meetingRoom.setBeginTime(new Timestamp(System.currentTimeMillis()));
-		meetingRoom.setEndTime(new Timestamp(System.currentTimeMillis() * 20L));
+		
 		meetingRoom.setLocation(1);
 		meetingRoom.setMeetingRoomId(1);
-		meetingRoom.setDescription("description");
+		meetingRoom.setMeetingRoomName("description");
 	}
 
 	@Test
@@ -59,12 +57,10 @@ public class MeetingRoomDAOImplTest {
 	public void saveMeetingRoomTest() {
 
 		MeetingRoom meetingRoom = new MeetingRoom();
-		meetingRoom.setStartDate(new Timestamp(System.currentTimeMillis()));
-		meetingRoom.setBeginTime(new Timestamp(System.currentTimeMillis()));
-		meetingRoom.setEndTime(new Timestamp(System.currentTimeMillis() * 20L));
+		
 		meetingRoom.setLocation(1);
 		meetingRoom.setMeetingRoomId(1);
-		meetingRoom.setDescription("description");
+		meetingRoom.setMeetingRoomName("description");
 
 		when(meetingRoomRepository.save(meetingRoom)).thenReturn(meetingRoom);
 
@@ -78,11 +74,12 @@ public class MeetingRoomDAOImplTest {
 	public void findAllByLocationId() {
 
 		int locationId = 1;
+		
 
 		meetingRoomExpectedList.add(meetingRoom);
 
-		when(meetingRoomRepository.findAllByLocationId(locationId)).thenReturn(meetingRoomExpectedList);
-		List<MeetingRoom> actual = meetingRoomDAOImpl.findAllByLocationId(locationId);
+		when(meetingRoomRepository.findAllByLocationIdAndDate(locationId, new Timestamp(System.currentTimeMillis()))).thenReturn(meetingRoomExpectedList);
+		List<MeetingRoom> actual = meetingRoomDAOImpl.findAllByLocationIdAndDate(locationId, new Timestamp(System.currentTimeMillis()));
 
 		assertEquals(meetingRoomExpectedList, actual);
 

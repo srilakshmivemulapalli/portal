@@ -64,13 +64,11 @@ public class BookMeetingRoomServiceImplTest {
 		bookMeetingRoomDTO.setUpdatedTime(new Timestamp(System.currentTimeMillis()));
 
 		MeetingRoom meetingRoom = new MeetingRoom();
-		meetingRoom.setBeginTime(new Timestamp(System.currentTimeMillis()));
-		meetingRoom.setEndTime(new Timestamp(System.currentTimeMillis()));
+		
 		meetingRoom.setMeetingRoomId(0);
-		meetingRoom.setDescription("description");
+		meetingRoom.setMeetingRoomName("description");
 		meetingRoom.setLocation(1);
-		meetingRoom.setStartDate(new Timestamp(System.currentTimeMillis()));
-
+		
 		Location location = new Location();
 		location.setLocationId(1);
 		location.setLocationName("INDIA");
@@ -81,8 +79,7 @@ public class BookMeetingRoomServiceImplTest {
 		bookMeetingRoom.setEmailId("test@nisum.com");
 		bookMeetingRoom.setBeginTime(new Timestamp(System.currentTimeMillis()));
 		bookMeetingRoom.setEndTime(new Timestamp(System.currentTimeMillis()));
-		bookMeetingRoom.setCreatedDate(new Timestamp(System.currentTimeMillis()));
-		bookMeetingRoom.setBookingDate(new Timestamp(System.currentTimeMillis()));
+		
 		bookMeetingRoom.setHeadCount(20);
 		bookMeetingRoom.setMeetingRoom(meetingRoom);
 		bookMeetingRoom.setLocation(location);
@@ -120,12 +117,11 @@ public class BookMeetingRoomServiceImplTest {
 		bookMeetingRoomDTO.setUpdatedTime(new Timestamp(System.currentTimeMillis()));
 
 		MeetingRoom meetingRoom = new MeetingRoom();
-		meetingRoom.setBeginTime(new Timestamp(System.currentTimeMillis()));
-		meetingRoom.setEndTime(new Timestamp(System.currentTimeMillis()));
+		
 		meetingRoom.setMeetingRoomId(1);
-		meetingRoom.setDescription("description");
+		meetingRoom.setMeetingRoomName("description");
 		meetingRoom.setLocation(1);
-		meetingRoom.setStartDate(new Timestamp(System.currentTimeMillis()));
+		
 
 		Location location = new Location();
 		location.setLocationId(1);
@@ -137,8 +133,7 @@ public class BookMeetingRoomServiceImplTest {
 		bookMeetingRoom.setEmailId("test@nisum.com");
 		bookMeetingRoom.setBeginTime(new Timestamp(System.currentTimeMillis()));
 		bookMeetingRoom.setEndTime(new Timestamp(System.currentTimeMillis()));
-		bookMeetingRoom.setCreatedDate(new Timestamp(System.currentTimeMillis()));
-		bookMeetingRoom.setBookingDate(new Timestamp(System.currentTimeMillis()));
+		
 		bookMeetingRoom.setHeadCount(20);
 		bookMeetingRoom.setMeetingRoom(meetingRoom);
 		bookMeetingRoom.setLocation(location);
@@ -175,12 +170,11 @@ public class BookMeetingRoomServiceImplTest {
 		bookMeetingRoomDTO.setUpdatedTime(new Timestamp(System.currentTimeMillis()));
 
 		MeetingRoom meetingRoom = new MeetingRoom();
-		meetingRoom.setBeginTime(new Timestamp(System.currentTimeMillis()));
-		meetingRoom.setEndTime(new Timestamp(System.currentTimeMillis()));
+		
 		meetingRoom.setMeetingRoomId(1);
-		meetingRoom.setDescription("description");
+		meetingRoom.setMeetingRoomName("description");
 		meetingRoom.setLocation(1);
-		meetingRoom.setStartDate(new Timestamp(System.currentTimeMillis()));
+		
 
 		Location location = new Location();
 		location.setLocationId(1);
@@ -192,8 +186,7 @@ public class BookMeetingRoomServiceImplTest {
 		bookMeetingRoom.setEmailId("test@nisum.com");
 		bookMeetingRoom.setBeginTime(new Timestamp(System.currentTimeMillis()));
 		bookMeetingRoom.setEndTime(new Timestamp(System.currentTimeMillis()));
-		bookMeetingRoom.setCreatedDate(new Timestamp(System.currentTimeMillis()));
-		bookMeetingRoom.setBookingDate(new Timestamp(System.currentTimeMillis()));
+		
 		bookMeetingRoom.setHeadCount(20);
 		bookMeetingRoom.setMeetingRoom(meetingRoom);
 		bookMeetingRoom.setLocation(location);
@@ -240,12 +233,11 @@ public class BookMeetingRoomServiceImplTest {
 	public void getUserBooking() {
 
 		MeetingRoom meetingRoom = new MeetingRoom();
-		meetingRoom.setBeginTime(new Timestamp(System.currentTimeMillis()));
-		meetingRoom.setEndTime(new Timestamp(System.currentTimeMillis()));
+		
 		meetingRoom.setMeetingRoomId(1);
-		meetingRoom.setDescription("description");
+		meetingRoom.setMeetingRoomName("description");
 		meetingRoom.setLocation(1);
-		meetingRoom.setStartDate(new Timestamp(System.currentTimeMillis()));
+		
 		Location location = new Location();
 		location.setLocationId(1);
 		location.setLocationName("INDIA");
@@ -256,8 +248,7 @@ public class BookMeetingRoomServiceImplTest {
 		bookMeetingRoom.setEmailId("test@nisum.com");
 		bookMeetingRoom.setBeginTime(new Timestamp(System.currentTimeMillis()));
 		bookMeetingRoom.setEndTime(new Timestamp(System.currentTimeMillis()));
-		bookMeetingRoom.setCreatedDate(new Timestamp(System.currentTimeMillis()));
-		bookMeetingRoom.setBookingDate(new Timestamp(System.currentTimeMillis()));
+		
 		bookMeetingRoom.setHeadCount(20);
 		bookMeetingRoom.setMeetingRoom(meetingRoom);
 		bookMeetingRoom.setLocation(location);
@@ -273,13 +264,13 @@ public class BookMeetingRoomServiceImplTest {
 		bookMeetingRoomDTO.setEndTime(bookMeetingRoom.getEndTime());
 		bookMeetingRoomDTO.setBookMeetingRoomId(bookMeetingRoom.getBookMeetingRoomId());
 		bookMeetingRoomDTO.setMeetingRoomId(1);
-		bookMeetingRoomDTO.setCreatedDate(bookMeetingRoom.getCreatedDate());
+		
 		bookMeetingRoomDTO.setMeetingTitle(bookMeetingRoom.getMeetingTitle());
 		bookMeetingRoomDTO.setEmailId(bookMeetingRoom.getEmailId());
 		bookMeetingRoomDTO.setLocationId(1);
-		bookMeetingRoomDTO.setBookingDate(bookMeetingRoom.getBookingDate());
+		
 		bookMeetingRoomDTO.setHeadCount(bookMeetingRoom.getHeadCount());
-		bookMeetingRoomDTO.setCreatedDate(bookMeetingRoom.getCreatedDate());
+		
 
 		expected.add(bookMeetingRoomDTO);
 
@@ -293,23 +284,21 @@ public class BookMeetingRoomServiceImplTest {
 	@Test
 	public void getAvailableMeetingRoomTest() {
 		MeetingRoom meetingRoom = new MeetingRoom();
-		meetingRoom.setBeginTime(new Timestamp(System.currentTimeMillis()));
-		meetingRoom.setEndTime(new Timestamp(System.currentTimeMillis()));
+		
 		meetingRoom.setMeetingRoomId(1);
-		meetingRoom.setDescription("description");
+		meetingRoom.setMeetingRoomName("description");
 		meetingRoom.setLocation(1);
-		meetingRoom.setStartDate(new Timestamp(System.currentTimeMillis()));
+		
 		List<MeetingRoom> meetingRoomList = new ArrayList<>();
 
 		meetingRoomList.add(meetingRoom);
 
 		MeetingRoomDTO meetingRoomDTO = new MeetingRoomDTO();
-		meetingRoomDTO.setBeginTime(meetingRoom.getBeginTime());
-		meetingRoomDTO.setEndTime(meetingRoom.getEndTime());
+	
 		meetingRoomDTO.setMeetingRoomId(meetingRoom.getMeetingRoomId());
-		meetingRoomDTO.setDescription(meetingRoom.getDescription());
+		meetingRoomDTO.setMeetingRoomName(meetingRoom.getMeetingRoomName());
 		meetingRoomDTO.setLocationId(1);
-		meetingRoomDTO.setStartDate(meetingRoom.getStartDate());
+		
 
 		List<MeetingRoomDTO> expected = new ArrayList<>();
 		expected.add(meetingRoomDTO);
