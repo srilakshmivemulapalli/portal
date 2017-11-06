@@ -25,6 +25,8 @@ public interface BlogService {
 	
 	BlogsDTO parseRequestToGetBlogsDTO(HttpServletRequest request) throws Exception;
 	
+	BlogsDTO parseRequestToGetBlogsDTOForUpdate(HttpServletRequest request) throws Exception;
+	
 	BlogsDTO parseRequestToStoreUploads(MultipartFile[] file,String path,BlogsDTO blogsDTO) throws Exception;
 	
 	//String uploadAttachment(HttpServletRequest request,String path) throws Exception;

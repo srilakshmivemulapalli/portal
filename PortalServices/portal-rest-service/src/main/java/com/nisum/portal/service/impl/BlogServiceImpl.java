@@ -199,6 +199,13 @@ public class BlogServiceImpl implements BlogService{
 		}
 		return blogsDTO;	
 	}
+
+
+	@Override
+	public BlogsDTO parseRequestToGetBlogsDTOForUpdate(HttpServletRequest request) throws Exception {
+		logger.info("BlogServiceImpl :: parseRequestToGetBlogsDTOForUpdate");
+		return BlogsServiceUtil.parseRequestToGetBlogsDTOForUpdate(request);
+	}
 	
 	
 }

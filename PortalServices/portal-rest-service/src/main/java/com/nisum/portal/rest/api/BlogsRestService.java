@@ -135,6 +135,50 @@ public class BlogsRestService {
 	
 	
 	/**
+	 * updateBlogAndAttachments
+	 * 
+	 * @return
+	 * @throws BlogServiceException
+	 */
+	
+	@RequestMapping(value = "/update/updateBlogAndAttachments", method = RequestMethod.PUT,consumes = { "multipart/form-data" })
+	public Object updateBlogAndAttachments(@RequestParam(value = "uploads") MultipartFile[]  files,HttpServletRequest request) throws BlogServiceException {
+		logger.info("BlogsRestService :: updateBlogAndAttachments");
+		try {
+			BlogsDTO blogsDTO=blogService.parseRequestToGetBlogsDTOForUpdate(request);
+			if(blogsDTO!=null) {
+				Integer blogId=blogsDTO.getBlogsId();
+				BlogsDTO blog=blogService.getBlog(blogId);
+				// Setting DTO object fields that can not be updated.
+				blogsDTO.setCreatedDate(blog.getCreatedDate());
+				blogsDTO.setPath(blog.getPath());
+				blogsDTO.setUserMailId(blog.getUserMailId());
+				blogsDTO.setUserId(blog.getUserId());
+				// Setting completed.
+				BlogsDTO updateBlog=blogService.parseRequestToStoreUploads(files, blogsAttachmentPath, blogsDTO);
+				BlogsDTO updatedDTO= blogService.updateBlog(updateBlog);
+				if((updatedDTO!=null)) {
+					String path=updatedDTO.getPath();
+					if(path!=null) {
+						updatedDTO.setPath("");
+					}
+				}
+				return updatedDTO;
+			}else {
+				throw new BlogServiceException("Unable to process request as blog object is empty :"+blogsDTO);
+			}
+			
+		}
+		catch(Exception e) {
+			logger.error("BlogsRestService :: updateBlogAndAttachments Error");
+			Errors errors=new Errors();
+			errors.setErrorCode("Errors-Blogs");
+			errors.setErrorMessage(e.getMessage());
+			return new ResponseEntity<Errors>(errors, HttpStatus.OK);
+		}
+	}
+	
+	/**
 	 * updateBlog
 	 * 
 	 * @return

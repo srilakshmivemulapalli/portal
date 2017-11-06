@@ -157,6 +157,33 @@ public class BlogsServiceUtil {
 		return blogsDTO;
 	}
 	
+	public static BlogsDTO parseRequestToGetBlogsDTOForUpdate(HttpServletRequest request) throws Exception{
+		logger.info("BlogsServiceUtil :: parseRequestToGetBlogsDTOForUpdate");
+		
+		String blogId=request.getParameter("blogId");
+		if(blogId==null) {
+			logger.error("BlogsServiceUtil :: parseRequestToGetBlogsDTOForUpdate Error ==== Missing Blog ID.");
+			throw new BlogServiceException("Missing Blog Id.");
+		}
+		String title=request.getParameter("title");
+		if(title==null) {
+			logger.error("BlogsServiceUtil :: parseRequestToGetBlogsDTOForUpdate Error ==== Missing Blog title.");
+			throw new BlogServiceException("Missing Blog title.");
+		}
+		String description=request.getParameter("description");
+		if(description==null) {
+			logger.error("BlogsServiceUtil :: parseRequestToGetBlogsDTOForUpdate Error ==== Missing Blog description.");
+			throw new BlogServiceException("Missing Blog description.");
+		}
+		
+		
+		BlogsDTO blogsDTO=new BlogsDTO();
+		blogsDTO.setBlogsId(Integer.parseInt(blogId));
+		blogsDTO.setTitle(title);
+		blogsDTO.setDescription(description);
+		return blogsDTO;
+	}
+	
 	public static String parseRequestToStoreUploadsUI(MultipartFile[] file,String dirPath) throws Exception{
 		logger.info("BlogsServiceUtil :: parseRequestToUploadFiles");
 		if(dirPath!=null) {
