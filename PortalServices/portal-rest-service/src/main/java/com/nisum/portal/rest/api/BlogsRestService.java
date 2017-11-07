@@ -64,7 +64,7 @@ public class BlogsRestService {
 			for(BlogsDTO blogDTO : blogsDTO) {
 				blogDTO.setPath("");
 			}
-			return blogsDTO;
+			return new ResponseEntity<List<BlogsDTO>>(blogsDTO,HttpStatus.OK);
 		}
 		catch(Exception e) {
 			logger.error("BlogsRestService :: getAllBlogs Error ");
@@ -91,7 +91,7 @@ public class BlogsRestService {
 			if(blogsDTO!=null) {
 				blogsDTO.setPath("");
 			}
-			return blogsDTO;
+			return new ResponseEntity<BlogsDTO>(blogsDTO,HttpStatus.OK);
 		}
 		catch(Exception e) {
 			logger.error("BlogsRestService :: getBlog ");
@@ -163,7 +163,7 @@ public class BlogsRestService {
 						updatedDTO.setPath("");
 					}
 				}
-				return updatedDTO;
+				return new ResponseEntity<BlogsDTO>(updatedDTO,HttpStatus.OK);
 			}else {
 				throw new BlogServiceException("Unable to process request as blog object is empty :"+blogsDTO);
 			}
@@ -189,9 +189,9 @@ public class BlogsRestService {
 	public Object updateBlog(@RequestBody BlogsDTO blogsDTO) throws BlogServiceException {
 		logger.info("BlogsRestService :: updateBlog");
 		try {
-			// Setting DTO object fields that can not be updated.
 			if(blogsDTO!=null) {
 				BlogsDTO blog=blogService.getBlog(blogsDTO.getBlogsId());
+				// Setting DTO object fields that can not be updated.
 				blogsDTO.setBlogsId(blog.getBlogsId());
 				blogsDTO.setCreatedDate(blog.getCreatedDate());
 				blogsDTO.setPath(blog.getPath());
@@ -205,7 +205,7 @@ public class BlogsRestService {
 						updatedDTO.setPath("");
 					}
 				}
-				return updatedDTO;
+				return new ResponseEntity<BlogsDTO>(updatedDTO,HttpStatus.OK);
 			}else {
 				throw new BlogServiceException("Unable to process request as blog object is empty :"+blogsDTO);
 			}
@@ -232,9 +232,8 @@ public class BlogsRestService {
 		logger.info("BlogsRestService :: removeBlog");
 		try {
 			blogService.removeBlog(id,userMailId);
-			String resStatus="Success";
-			ResponseEntity<String> response=new ResponseEntity<String>(resStatus,HttpStatus.OK);
-			return response;
+			String resStatus="Blog Removed Successfully.";
+			return new ResponseEntity<String>(resStatus,HttpStatus.OK);
 		}
 		catch(Exception e) {
 			logger.error("BlogsRestService :: removeBlog Error");
@@ -257,9 +256,8 @@ public class BlogsRestService {
 		logger.info("BlogsRestService :: removeFile");
 		try {
 			if(blogService.removeFile(userMailId, blogId, fileName)) {
-				String resStatus="Success";
-				ResponseEntity<String> response=new ResponseEntity<String>(resStatus,HttpStatus.OK);
-				return response;
+				String resStatus="File Removed Successfully.";
+				return new ResponseEntity<String>(resStatus,HttpStatus.OK);
 			}else {
 				throw new BlogServiceException("Error while deleting file "+fileName);
 			}
@@ -298,7 +296,7 @@ public class BlogsRestService {
 				updatedBlog.setPath("");
 			}
 			
-			return updatedBlog;
+			return new ResponseEntity<BlogsDTO>(updatedBlog,HttpStatus.OK);
 		}
 		catch(Exception e) {
 			logger.error("BlogsRestService :: addBlog Error");
@@ -335,7 +333,7 @@ public class BlogsRestService {
 								blogService.updateBlog(blogDTO);
 							}
 						}
-						return "Uploaded File(s) Successfully!!!";
+						return new ResponseEntity<String>("Uploaded File(s) Successfully!!!",HttpStatus.OK);
 					}else {
 						throw new BlogServiceException("Invalid User Email Id "+userMailId);	
 					}
@@ -370,7 +368,7 @@ public class BlogsRestService {
 			for(BlogsDTO blogDTO : blogsDTO) {
 				blogDTO.setPath("");
 			}
-			return blogsDTO;
+			return new ResponseEntity<List<BlogsDTO>>(blogsDTO,HttpStatus.OK);
 		}
 		catch(Exception e) {
 			logger.error("BlogsRestService :: getAllBlogsByUserMailId Error");
