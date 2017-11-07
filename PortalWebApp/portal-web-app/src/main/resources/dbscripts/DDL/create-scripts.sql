@@ -168,3 +168,16 @@ ADD COLUMN `requestStatus` INT(1) NULL DEFAULT 0 AFTER `requestedDate`;
 
 ALTER TABLE `portal`.`Trainings` 
 ADD COLUMN `trainingStatus` INT NULL DEFAULT NULL AFTER `trainingEndTime`;
+
+-- Notifications Table Creation Script
+CREATE TABLE `Notifications` (
+  `NotificationId` int(11) NOT NULL AUTO_INCREMENT,
+  `NotificationType` varchar(45) NOT NULL,
+  `NotificationNavId` int(11) NOT NULL,
+  `CategoryId` int(11) NOT NULL,
+  `EmailId` varchar(45) NOT NULL,
+  `CreatedDate` datetime NOT NULL,
+  PRIMARY KEY (`NotificationId`),
+  KEY `CategoryId_idx` (`CategoryId`),
+  CONSTRAINT `CategoryId` FOREIGN KEY (`CategoryId`) REFERENCES `Categories` (`categoryId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8
