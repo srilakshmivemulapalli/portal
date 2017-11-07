@@ -1,7 +1,8 @@
-blogsApp.controller('blogController', function($scope, blogsService,
+blogsApp.controller('blogController', function($scope, blogsService,commonService,
 		$stateParams,$window) {
 	$scope.getBlog = function() {
 		var id = $stateParams.blogId;
+		 $scope.emailId = commonService.emailId;
 		
 		blogsService.getBlog(id).then(function(response) {
 			$scope.blogData = response;
@@ -10,6 +11,7 @@ blogsApp.controller('blogController', function($scope, blogsService,
 			console.log('error....' + response);
 		})
 	}
+	
 	$scope.download = function(fileName,blogsId,emailId) {
 		$window.open(blogsService.download(fileName,emailId,blogsId)
 		.then(function(response) {

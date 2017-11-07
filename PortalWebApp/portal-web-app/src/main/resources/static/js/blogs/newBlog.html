@@ -35,26 +35,25 @@
 			<input type="file" upload-files multiple
 				onchange="angular.element(this).scope().setFiles(this)" />
 			<div ng-repeat="file in files.slice(0)">
-				<span>{{file.webkitRelativePath || file.name}}</span>
-				<p>&nbsp;</p>
-				<a href="javascript:void(0)" ng-click="remove(file.name)">Delete</a>
-				<!-- (<span
-								ng-switch="file.size > 1024*1024"> <span
-								ng-switch-when="true">{{file.size / 1024 / 1024 |
-									number:2}} MB</span> <span ng-switch-default>{{file.size / 1024
-									| number:2}} kB</span>
-							</span>) -->
+				<span>{{file.webkitRelativePath || file.name}}</span> <a
+					href="javascript:void(0)" ng-click="remove(file.name)">Delete</a> 
+<!-- 					<span
+					ng-switch="file.size > 1024*1024"> <span
+					ng-switch-when="true">{{file.size / 1024 / 1024 |number:2}}
+						MB</span> <span ng-switch-default>{{file.size / 1024| number:2}}
+						kB</span>
+				</span> -->
 			</div>
-			 <input type="submit" class="custombtn btn-normal"
-				value="Submit Blog" ng-class="{'disabled':formBlog.$invalid}"
-				ng-disabled="formBlog.$invalid"> <!-- <input type="reset" class="btn btn-reset"
+
+			<input type="submit" class="custombtn btn-normal" value="Submit Blog"
+				ng-class="{'disabled':formBlog.$invalid}"
+				ng-disabled="formBlog.$invalid">
+			<!-- <input type="reset" class="btn btn-reset"
 				value="Reset"> -->
-				<p class="term-texts">
+			<p class="term-texts">
 				By posting your blog, you agree to the <a target="_blank"
-					href="javascript:void(0);">privacy
-					policy</a> and <a target="_blank"
-					href="javascript:void(0);">terms of
-					service.</a>
+					href="javascript:void(0);">privacy policy</a> and <a
+					target="_blank" href="javascript:void(0);">terms of service.</a>
 			</p>
 		</form>
 

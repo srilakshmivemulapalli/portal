@@ -1,7 +1,7 @@
 blogsApp
 		.controller(
 				'blogsController',
-				function($scope, $http, blogsService, commonService) {
+				function($scope, $http, blogsService, commonService,$location) {
 					$scope.files = [];
 					$scope.profile = commonService.profile;
 					var emailId = $scope.profile.emailId;
@@ -59,14 +59,15 @@ blogsApp
 									data : formData
 								}).success(
 								function(data, status, headers, config) {
-									alert("Blog Saved Successfully!");
+									alert("Blog Added Successfully!...");
 									$scope.blog={};
 									$scope.files=[];
 									angular.element("input[type='file']").val(null);
+									$location.url('/blogs');
 									//angular.copy({},$scope.files);
 								}).error(
 								function(data, status, headers, config) {
-									alert("failed!");
+									alert("Blog saving Failed!");
 								});
 					}
 					$scope.$on("fileSelected", function(event, args) {
@@ -92,22 +93,6 @@ blogsApp
 						}
 					};
 
-					blogsApp.directive('fileUpload', function() {
-						return {
-							scope : true, //create a new scope
-							link : function(scope, el, attrs) {
-								el.bind('change', function(event) {
-									var files = event.target.files;
-									//iterate files since 'multiple' may be specified on the element
-									for (var i = 0; i < files.length; i++) {
-										//emit event upward
-										scope.$emit("fileSelected", {
-											file : files[i]
-										});
-									}
-								});
-							}
-						};
-					});
+					
 
 				});

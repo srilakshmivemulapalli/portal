@@ -20,6 +20,18 @@ app.factory('blogsService', function($http, $q) {
 		})
 		return deferred.promise;
 	}
+	bs.remove = function(fileName,emailId,blogId){
+		var deferred = $q.defer();
+		console.log('hitting link'+'v1/Blogs/remove/file/'+ fileName+'/'+emailId+'/'+blogId);
+		$http.delete('v1/Blogs/remove/file/'+ fileName+'/'+emailId+'/'+blogId).success(function(response) {
+			console.log('responce...success');
+			deferred.resolve(response);
+			}).error(function(response) {
+			deferred.reject(response);
+		})
+		return deferred.promise;
+		
+	}
 	bs.getBlog = function(blogId) {
 		var deferred = $q.defer();
 
@@ -41,10 +53,11 @@ app.factory('blogsService', function($http, $q) {
 		})
 		return deferred.promise;
 	}
-	bs.updateBlog = function(data)
+	bs.updateBlog = function(blog)
 	{
 		var deferred = $q.defer();
-		$http.post('v1/Blogs/update',data).success(function(response) {
+		console.log('update blog...'+JSON.stringify(blog));
+		$http.put('v1/Blogs/update',blog).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
