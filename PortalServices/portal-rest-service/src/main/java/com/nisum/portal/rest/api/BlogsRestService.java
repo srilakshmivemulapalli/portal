@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -257,7 +258,9 @@ public class BlogsRestService {
 		try {
 			if(blogService.removeFile(userMailId, blogId, fileName)) {
 				String resStatus="File Removed Successfully.";
-				return new ResponseEntity<String>(resStatus,HttpStatus.OK);
+				JSONObject jsonObj=new JSONObject();
+				jsonObj.append("result", resStatus);
+				return new ResponseEntity<String>(jsonObj.toString(),HttpStatus.OK);
 			}else {
 				throw new BlogServiceException("Error while deleting file "+fileName);
 			}
