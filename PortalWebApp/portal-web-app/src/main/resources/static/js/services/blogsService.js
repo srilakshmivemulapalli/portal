@@ -22,15 +22,12 @@ app.factory('blogsService', function($http, $q) {
 	}
 	bs.remove = function(fileName,emailId,blogId){
 		var deferred = $q.defer();
-		console.log('hitting link'+'v1/Blogs/remove/file/'+ fileName+'/'+emailId+'/'+blogId);
 		$http.delete('v1/Blogs/remove/file/'+ fileName+'/'+emailId+'/'+blogId).success(function(response) {
-			console.log('responce...success');
 			deferred.resolve(response);
 			}).error(function(response) {
 			deferred.reject(response);
 		})
 		return deferred.promise;
-		
 	}
 	bs.getBlog = function(blogId) {
 		var deferred = $q.defer();

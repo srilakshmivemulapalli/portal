@@ -18,10 +18,10 @@
 	<div class="col-md-12 col-xs-12 col-sm-12 col-xl-12 col-lg-12 ">
 		<form name="formBlog" id="frmBlog" ng-submit="submitBlog()"
 			method="post">
-			<label value="txtTitle">Blog Title</label> <input type="text"
+			<label value="txtTitle"><h4>Title</h4></label> <input type="text"
 				name="textTitle" id="txtTitle" class="form-control"
 				ng-model="blog.title" placeholder="Title" required> <br>
-			<label for="txtComment">Blog Description</label>
+			<label for="txtComment"><h4>Start writing blog here....</h4></label>
 			<!-- 					 <input type="text" rows="3" cols="50" name="textDesc" id="txtDesc" class="form-control"
 					 placeholder="Description here...." required> <br> -->
 			<input id="userId" name="userId" type="hidden" ng-model="blog.userId"
@@ -33,7 +33,7 @@
 			<br>
 			<p>Attachments here....</p>
 			<input type="file" upload-files multiple
-				onchange="angular.element(this).scope().setFiles(this)" />
+				onchange="angular.element(this).scope().setFiles(this)" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf"/>
 			<div ng-repeat="file in files.slice(0)">
 				<span>{{file.webkitRelativePath || file.name}}</span> <a
 					href="javascript:void(0)" ng-click="remove(file.name)">Delete</a> 
@@ -44,7 +44,7 @@
 						kB</span>
 				</span> -->
 			</div>
-
+			&nbsp;
 			<input type="submit" class="custombtn btn-normal" value="Submit Blog"
 				ng-class="{'disabled':formBlog.$invalid}"
 				ng-disabled="formBlog.$invalid">

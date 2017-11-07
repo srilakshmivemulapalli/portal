@@ -40,16 +40,15 @@
 						<div ng-repeat="file in attachments.slice(0)">
 							<!-- <span>{{file.webkitRelativePath || file.name}}</span> -->
 							<span>{{file}}</span> <a href="javascript:void(0)"
-								ng-click="remove(file)">delete</a>
+								ng-click="remove(file)"><i class="fa fa-trash"></i></a>
 						</div>
-						&nbsp; <input type="file" file-upload multiple
-							
+						&nbsp; <input type="file" file-upload multiple onchange="angular.element(this).scope().setFiles(this)"
 							accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" />
 							<!-- onchange="angular.element(this).scope().setFiles(this)" -->
 						<div ng-repeat="file in files.slice(0)">
 							 <span>{{file.webkitRelativePath || file.name}}</span>
 							<!-- <span>{{file}}</span>  --><a href="javascript:void(0)"
-								ng-click="removeFile(file)">remove</a>
+								ng-click="removeFile(file)"><i class="material-icons">delete</i></a>
 						</div>
 
 						<br> <br>

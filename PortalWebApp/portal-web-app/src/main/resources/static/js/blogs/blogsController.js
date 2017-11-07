@@ -67,7 +67,7 @@ blogsApp
 									//angular.copy({},$scope.files);
 								}).error(
 								function(data, status, headers, config) {
-									alert("Blog saving Failed!");
+									alert("Blog Adding Failed!");
 								});
 					}
 					$scope.$on("fileSelected", function(event, args) {
@@ -80,7 +80,18 @@ blogsApp
 						$scope.$apply(function(scope) {
 							console.log('files:', element.files);
 							// Turn the FileList object into an Array
+							var filesCount = element.files.length;
+							if (filesCount>5)
+								{
+								alert('No of files exceeded');
+								elements.files = null;
+								}
 							for (var i = 0; i < element.files.length; i++) {
+								if((element.files[i].size/(1024*1024))>5.0)
+								{
+									alert(element.files[i].name+'--File exceeded limit  of 2mb cannot be added');
+									continue;
+								}
 								$scope.files.push(element.files[i])
 							}
 						});
