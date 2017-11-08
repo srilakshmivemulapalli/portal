@@ -64,9 +64,9 @@ blogsApp
 										elements.files = null;
 									}
 									for (var i = 0; i < element.files.length; i++) {
-										if ((element.files[i].size / (1024 * 1024)) > 5.0) {
+										if ((element.files[i].size / (1024 * 1024)) > 1.0) {
 											alert(element.files[i].name
-													+ '--File exceeded limit  of 2mb cannot be added');
+													+ '--File size exceeded limit of 1 mb cannot be added');
 											continue;
 										}
 										$scope.files.push(element.files[i])
