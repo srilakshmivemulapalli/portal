@@ -286,11 +286,13 @@ public class BlogsServiceUtil {
 				deleteFileOrFolder(path);
 			}else {
 				logger.error("BlogsServiceUtil :: removeBlogAttachments Error ==== "+file+" does't exist.");
-				throw new BlogServiceException(dirPath.getName()+" does't exist.");
+				//throw new BlogServiceException(dirPath.getName()+" does't exist.");
+				return false;
 			}
 		}else {
 			logger.error("BlogsServiceUtil :: removeBlogAttachments Error ==== "+file+" does't exist.");
-			throw new BlogServiceException(file+" does't exist.");
+			//throw new BlogServiceException(file+" does't exist.");
+			return false;
 		}
 		return true;
 	}

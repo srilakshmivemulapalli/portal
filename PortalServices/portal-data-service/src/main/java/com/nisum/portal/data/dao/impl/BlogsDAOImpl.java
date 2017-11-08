@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import com.nisum.portal.data.dao.api.BlogsDAO;
@@ -59,6 +61,16 @@ public class BlogsDAOImpl implements BlogsDAO {
 		logger.info("BlogsDAOImpl :: getAllBlogsByUserMailId");
 		//return blogsRepository.findByUserMailId(userMailId);
 		return blogsRepository.findAllByUserMailIdOrderByCreatedDateDesc(userMailId);
+	}
+	@Override
+	public List<Blogs> getAllBlogsPagination(Integer page, Integer size) {
+		logger.info("BlogsDAOImpl :: getAllBlogsPagination");
+		return blogsRepository.findAllBlogsPaginationOrderByDateDesc(new PageRequest(page,size));
+	}
+	@Override
+	public List<Blogs> getAllBlogsPaginationByMailId(String userMailId, Integer page, Integer size) {
+		logger.info("BlogsDAOImpl :: getAllBlogsPaginationByMailId");
+		return blogsRepository.findAllBlogsPaginationByUserMailIdOrderByDateDesc(userMailId, new PageRequest(page,size));
 	}
 
 }

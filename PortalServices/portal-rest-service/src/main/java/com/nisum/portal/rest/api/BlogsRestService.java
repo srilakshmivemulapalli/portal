@@ -78,6 +78,59 @@ public class BlogsRestService {
 	}
 	
 	/**
+	 * getAllBlogsPagination
+	 * 
+	 * @return
+	 * @throws BlogServiceException
+	 */
+	@RequestMapping(value = "/retrieve/allBlogsPagination/{pageNum}/{pageSize}", method = RequestMethod.GET)
+	public Object getAllBlogsPagination(@PathVariable Integer pageNum,@PathVariable Integer pageSize) throws BlogServiceException {
+		logger.info("BlogsRestService :: getAllBlogsPagination");
+		try {
+			List<BlogsDTO> blogsDTO= blogService.getAllBlogsPaination(pageNum, pageSize);
+			for(BlogsDTO blogDTO : blogsDTO) {
+				blogDTO.setPath("");
+			}
+			return new ResponseEntity<List<BlogsDTO>>(blogsDTO,HttpStatus.OK);
+		}
+		catch(Exception e) {
+			logger.error("BlogsRestService :: getAllBlogsPagination Error ");
+			Errors errors=new Errors();
+			errors.setErrorCode("Errors-Blogs");
+			errors.setErrorMessage(e.getMessage());
+			return new ResponseEntity<Errors>(errors, HttpStatus.OK);
+		}
+		
+	}
+	
+	/**
+	 * getAllBlogsPaginationByMailId
+	 * 
+	 * @return
+	 * @throws BlogServiceException
+	 */
+	@RequestMapping(value = "/retrieve/allBlogsPaginationByMailId/{mailId}/{pageNum}/{pageSize}", method = RequestMethod.GET)
+	public Object getAllBlogsPaginationByMailId(@PathVariable String mailId,@PathVariable Integer pageNum,@PathVariable Integer pageSize) throws BlogServiceException {
+		logger.info("BlogsRestService :: getAllBlogsPaginationByMailId");
+		try {
+			List<BlogsDTO> blogsDTO= blogService.getAllBlogsPainationByMailId(mailId, pageNum, pageSize);
+			for(BlogsDTO blogDTO : blogsDTO) {
+				blogDTO.setPath("");
+			}
+			return new ResponseEntity<List<BlogsDTO>>(blogsDTO,HttpStatus.OK);
+		}
+		catch(Exception e) {
+			logger.error("BlogsRestService :: getAllBlogsPaginationByMailId Error ");
+			Errors errors=new Errors();
+			errors.setErrorCode("Errors-Blogs");
+			errors.setErrorMessage(e.getMessage());
+			return new ResponseEntity<Errors>(errors, HttpStatus.OK);
+		}
+		
+	}
+
+	
+	/**
 	 * getBlog
 	 * 
 	 * @return
@@ -234,7 +287,9 @@ public class BlogsRestService {
 		try {
 			blogService.removeBlog(id,userMailId);
 			String resStatus="Blog Removed Successfully.";
-			return new ResponseEntity<String>(resStatus,HttpStatus.OK);
+			JSONObject jsonObj=new JSONObject();
+			jsonObj.append("result", resStatus);
+			return new ResponseEntity<String>(jsonObj.toString(),HttpStatus.OK);
 		}
 		catch(Exception e) {
 			logger.error("BlogsRestService :: removeBlog Error");

@@ -19,5 +19,9 @@ public interface BlogsDAO {
 	boolean blogExists(Integer id);
 	
 	List<Blogs> getAllBlogsByUserMailId(String userMailId);
+	
+	List<Blogs> getAllBlogsPagination(Integer page,Integer size);
+	
+	List<Blogs> getAllBlogsPaginationByMailId(String userMailId,Integer page,Integer size);
 
 }

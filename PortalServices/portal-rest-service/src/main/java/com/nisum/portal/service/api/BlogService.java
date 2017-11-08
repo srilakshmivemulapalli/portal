@@ -40,5 +40,9 @@ public interface BlogService {
 	BlogsDTO convertJSONObjectToBlogsDTO(JSONObject jsonObject) throws Exception;
 	
 	List<BlogsDTO> getAllBlogsByEmailId(String userMailId);
+	
+	List<BlogsDTO> getAllBlogsPaination(Integer page,Integer size);
+	
+	List<BlogsDTO> getAllBlogsPainationByMailId(String mailId,Integer page,Integer size);
 
 }

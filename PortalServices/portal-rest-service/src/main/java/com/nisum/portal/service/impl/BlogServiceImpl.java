@@ -206,6 +206,22 @@ public class BlogServiceImpl implements BlogService{
 		logger.info("BlogServiceImpl :: parseRequestToGetBlogsDTOForUpdate");
 		return BlogsServiceUtil.parseRequestToGetBlogsDTOForUpdate(request);
 	}
+
+
+	@Override
+	public List<BlogsDTO> getAllBlogsPaination(Integer page, Integer size) {
+		logger.info("BlogServiceImpl :: getAllBlogsPaination");
+		List<Blogs> blogsList=blogDAO.getAllBlogsPagination(page, size);
+		return BlogsServiceUtil.convertDaoTODto(blogsList);
+	}
+
+
+	@Override
+	public List<BlogsDTO> getAllBlogsPainationByMailId(String mailId, Integer page, Integer size) {
+		logger.info("BlogServiceImpl :: getAllBlogsPaination");
+		List<Blogs> blogsList=blogDAO.getAllBlogsPaginationByMailId(mailId, page, size);
+		return BlogsServiceUtil.convertDaoTODto(blogsList);
+	}
 	
 	
 }
