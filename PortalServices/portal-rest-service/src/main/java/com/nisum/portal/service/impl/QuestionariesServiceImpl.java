@@ -190,12 +190,17 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 		//List<Questionaries> questionariesAllList = questionariesDAO.fetchAllQuestionaries();
 		List<QuestionariesDTO> questionariesForSearchkey = new ArrayList<QuestionariesDTO>();
 		searchKey = searchKey.toLowerCase();
+		String[] words = searchKey.split(" ");
+		
 		if(questionsDTO.getQuestionDetails() == null || (questionsDTO.getQuestionDetails()!=null && questionsDTO.getQuestionDetails().isEmpty())){
 			this.getAllQuestionaries();
 		}
 		for(QuestionariesDTO questionariesDTO : questionsDTO.getQuestionDetails()){
-			if(questionariesDTO.getQuestion().toLowerCase().contains(searchKey)){
+			for (String word : words) {
+				
+			if(questionariesDTO.getQuestion().toLowerCase().contains(word)){
 				questionariesForSearchkey.add(questionariesDTO);
+			}
 			}
 		}
 		int totalFoundQuestionariesSize = questionariesForSearchkey.size();
