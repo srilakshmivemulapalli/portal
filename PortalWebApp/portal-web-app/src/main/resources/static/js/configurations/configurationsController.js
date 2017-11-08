@@ -3,7 +3,7 @@ adminApp
 				'configurationsController',
 				function($scope, $timeout, categoryService, userService,
 						roleService, localStorageService, CategoryListModel,
-						RoleListModel, UserListModel,commonService,$state) {
+						RoleListModel, UserListModel,trainingService,commonService,$state) {
 
 					$scope.categoriesList = CategoryListModel
 							.newCategoryListInstance();
@@ -86,6 +86,19 @@ adminApp
 									console.log(response);
 								})
 					}
+					$scope.getTrainingRequests=function(){
+						trainingService.getTrainingRequests().then(function(response){
+								if(response.errorCode){
+									$scope.errorMessage=response.errorMessage;
+								}
+								else{
+									console.log(response);
+								}
+						},function(resposne){
+								console.log(response);
+						});
+					}
+					
 					$scope.addRole = function() {
 						roleService
 								.addRole($scope.roleobj)
