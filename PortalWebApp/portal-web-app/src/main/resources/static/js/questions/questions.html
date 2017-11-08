@@ -114,18 +114,18 @@
 				<div class="col-md-12">
 					<ul class="pagination">
 						<li ng-class="{disabled:pager.currentPage === 1}"><a
-							ng-click="setPage(1,questionsList.questions)">First</a></li>
+							ng-click="getAllQuestions(1,$scope.searchKey)">First</a></li>
 						<li ng-class="{disabled:pager.currentPage === 1}"><a
-							ng-click="setPage(pager.currentPage - 1,questionsList.questions)">Previous</a></li>
+							ng-click="getAllQuestions(pager.currentPage - 1,$scope.searchKey)">Previous</a></li>
 						<li class="page-numbers" ng-repeat="page in pager.pages"><a
 							ng-class="{current:pager.currentPage === page}"
-							ng-click="getAllQuestions(page);">{{page}}</a></li>
+							ng-click="getAllQuestions(page,$scope.searchKey);">{{page}}</a></li>
 						<li ng-class="{disabled:pager.currentPage === pager.totalPages}">
 							<a
-							ng-click="setPage(pager.currentPage + 1,questionsList.questions)">Next</a>
+							ng-click="getAllQuestions(pager.currentPage + 1,$scope.searchKey)">Next</a>
 						</li>
 						<li ng-class="{disabled:pager.currentPage === pager.totalPages}">
-							<a ng-click="setPage(pager.totalPages,questionsList.questions)">Last</a>
+							<a ng-click="getAllQuestions(pager.totalPages,$scope.searchKey)">Last</a>
 						</li>
 					</ul>
 

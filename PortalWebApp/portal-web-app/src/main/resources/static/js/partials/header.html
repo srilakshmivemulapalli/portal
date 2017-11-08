@@ -35,11 +35,11 @@
 					class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1866"><a
 					href='#/meetings'>Meetings Room</a></li> 
 				<li><div class="header-search-wrapper">
-						<form id="header_search" method="GET" action=""
+						<form id="header_search"
 							class="disable-mobile-search">
 							<input type="text" name="keyword" required value=""
-								placeholder="Enter Keywords" autocomplete="off" /> <i
-								class="fa fa-search"></i>
+								placeholder="Enter Keywords" ng-model="mc.searchkey" autocomplete="off" /> <i
+								class="fa fa-search" ng-click="mc.searchQuestions(mc.searchkey);"></i>
 							<div id="search_preview" class="search-preview empty"></div>
 						</form>
 					</div></li>

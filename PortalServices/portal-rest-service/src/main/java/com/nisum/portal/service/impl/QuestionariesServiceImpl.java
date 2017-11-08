@@ -1,10 +1,10 @@
 package com.nisum.portal.service.impl;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +21,9 @@ import com.nisum.portal.data.domain.QuestionariesComments;
 import com.nisum.portal.data.repository.CategoriesRepository;
 import com.nisum.portal.service.api.QuestionariesService;
 import com.nisum.portal.service.api.UserService;
-import com.nisum.portal.service.dto.CategoriesDTO;
 import com.nisum.portal.service.dto.CountDTO;
 import com.nisum.portal.service.dto.QuestionariesCommentsDTO;
+import com.nisum.portal.service.dto.QuestionariesDTO;
 import com.nisum.portal.service.dto.QuestionsDTO;
 import com.nisum.portal.util.Constants;
 import com.nisum.portal.util.QuestionariesUtil;
@@ -52,6 +52,8 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 	@Autowired
 	CategoriesRepository categoriesRepository;
 	
+	private static QuestionsDTO  questionsDTO = new QuestionsDTO();
+	
 	@Override
 	public QuestionsDTO getQuestionaries() {
 		List<Questionaries> questionariesList = questionariesDAO.fetchAllQuestionaries();
@@ -78,12 +80,17 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 			return Constants.CATEGORY_NOT_EXIST;
 		} else {
 			Questionaries questionaries = QuestionariesUtil.convertDtoToDao(emailId, categoriesDAO.getCategory(categoryId), question, description);
-			questionariesDAO.saveQuestionaries(questionaries);
+			questionaries = questionariesDAO.saveQuestionaries(questionaries);
+			
+			List<QuestionariesDTO> dtoList = questionsDTO.getQuestionDetails();
+			QuestionariesDTO questionariesDTO = QuestionariesUtil.convertQuestionariesToQuestionariesDTO(questionaries, userervice);
+			if(questionariesDTO !=null){
+				dtoList.add(questionariesDTO);
+				questionsDTO.setQuestionDetails(dtoList);
+			}
 			return Constants.MSG_RECORD_ADD;
 		}
 	}
-	
-	
 	
 	@Override
 	public String updateQuestion(Integer questionId, Integer categoryId, String question, String description,String emailId) {
@@ -172,6 +179,39 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 		
 		return QuestionariesUtil.convertDaoToDto(questionariesList, questionsDTO, userervice);
 	}
+	
+	/*retrieving all questionaries through search key with pagination 
+	 * (non-Javadoc)
+	 * @see com.nisum.portal.service.api.QuestionariesService#getQuestionariesByPagination(org.springframework.data.domain.Pageable)
+	 */
+	@Override
+	public QuestionsDTO getQuestionariesBySearchKeyPagination(Pageable pageable,String searchKey) {
+		logger.info("QuestionariesServiceImpl:: getQuestionariesBySearchKeyPagination(PageNumber: "+pageable.getPageNumber()+", "+pageable.getPageSize()+", "+pageable.getSort() + " Search key : "+searchKey);
+		//List<Questionaries> questionariesAllList = questionariesDAO.fetchAllQuestionaries();
+		List<QuestionariesDTO> questionariesForSearchkey = new ArrayList<QuestionariesDTO>();
+		searchKey = searchKey.toLowerCase();
+		if(questionsDTO.getQuestionDetails() == null || (questionsDTO.getQuestionDetails()!=null && questionsDTO.getQuestionDetails().isEmpty())){
+			this.getAllQuestionaries();
+		}
+		for(QuestionariesDTO questionariesDTO : questionsDTO.getQuestionDetails()){
+			if(questionariesDTO.getQuestion().toLowerCase().contains(searchKey)){
+				questionariesForSearchkey.add(questionariesDTO);
+			}
+		}
+		int totalFoundQuestionariesSize = questionariesForSearchkey.size();
+		int fromIndex = pageable.getPageNumber();
+		fromIndex = (fromIndex*pageable.getPageSize());
+		int toIndex = fromIndex +  pageable.getPageSize();
+		if(questionariesForSearchkey.size() < toIndex){
+			toIndex = questionariesForSearchkey.size();
+		}
+		questionariesForSearchkey = questionariesForSearchkey.subList(fromIndex,toIndex);
+		QuestionsDTO questionsDTO = new QuestionsDTO();
+		questionsDTO.setTotalQuestions(totalFoundQuestionariesSize);
+		questionsDTO.setTotalUsers(userDAO.getUserCount());
+		
+		return QuestionariesUtil.convertQuestionariesDTOToQuestionsDTO(questionariesForSearchkey, questionsDTO, userervice);
+	}
 
 	/*retrieves unanswered Questionaries based on category
 	 * (non-Javadoc)
@@ -234,5 +274,9 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 		questionsDTO.setTotalUsers(userDAO.getUserCount());
 		return QuestionariesUtil.convertDaoToDto(questionariesList,questionsDTO,userervice); 
 	}
-
+	
+	private void getAllQuestionaries(){
+		questionsDTO = this.getQuestionaries();
+	}
+	
 }

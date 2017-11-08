@@ -239,16 +239,24 @@ public class QuestionariesRestService {
 	 */
 	@RequestMapping(value = "/retrieve/allQuestions/{categoryId}", method = RequestMethod.GET)
 	public ResponseEntity<QuestionsDTO> retrieveQuestionariesByCategoryThroughPagination(
-			@PathVariable Integer categoryId, Pageable pageable) throws QuestionariesServiceException {
+			@PathVariable Integer categoryId, Pageable pageable, String searchKey) throws QuestionariesServiceException {
 
 		logger.info("QuestionariesRestService :: retrieveQuestionariesByCategoryThroughPagination(PageNumber: "
 				+ pageable.getPageNumber() + ", PageSize: " + pageable.getPageSize() + ")");
 		try {
 				if (categoryId == 0) { 
-					return new ResponseEntity<QuestionsDTO>(
-							questionariesService.getQuestionariesByPagination(new PageRequest(pageable.getPageNumber(),
-									pageable.getPageSize(), Sort.Direction.DESC, Constants.SORT_BY_ELEMENT)),
-							HttpStatus.OK);
+				    if(searchKey != null && !searchKey.equals("")&&!searchKey.equals("undefined")){
+				    	return new ResponseEntity<QuestionsDTO>(
+								questionariesService.getQuestionariesBySearchKeyPagination(new PageRequest(pageable.getPageNumber(),
+										pageable.getPageSize(), Sort.Direction.DESC, Constants.SORT_BY_ELEMENT),searchKey),
+								HttpStatus.OK);
+				    }else {
+				    	return new ResponseEntity<QuestionsDTO>(
+								questionariesService.getQuestionariesByPagination(new PageRequest(pageable.getPageNumber(),
+										pageable.getPageSize(), Sort.Direction.DESC, Constants.SORT_BY_ELEMENT)),
+								HttpStatus.OK);
+				    }
+					
 				} else {
 					return new ResponseEntity<QuestionsDTO>(questionariesService.getQuestionariesByCategory(categoryId,
 							new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Sort.Direction.DESC,

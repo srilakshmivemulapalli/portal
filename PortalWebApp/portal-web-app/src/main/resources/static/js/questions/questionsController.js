@@ -78,12 +78,20 @@ questionApp
 							$scope.retriveMyReplyQuestions(1);
 						}
 					}
+					
+					 $rootScope.$on("getAllQuestionsEvent", function(event, args){
+						 $scope.items = [];
+						 $scope.searchKey = args.searchKey;
+						 $scope.getAllQuestions(1,args.searchKey);
+				      });
 
-					$scope.getAllQuestions = function(page) {
-
+					$scope.getAllQuestions = function(page,searchKey) {
+						if(searchKey == undefined){
+							searchKey = $scope.searchKey;
+						}
 						questionService
 								.getQuestions($scope.categoryId, page - 1,
-										$scope.pageSize)
+										$scope.pageSize , searchKey)
 								.then(
 										function(response) {
 											if (response.errorCode) {
@@ -100,15 +108,11 @@ questionApp
 														})
 //												$rootScope.questionCount = response.totalQuestions;
 //												$rootScope.userCount = response.totalUsers;
-
-												$scope
-														.setPage(
-																page,
-																$scope.questionsList.questions);
+                                                
+												$scope.setPage(page,$scope.questionsList.questions);
 
 											}
-
-										})
+										});
 					}
 
 					$scope.getAllUnansweredQuestions = function(page) {

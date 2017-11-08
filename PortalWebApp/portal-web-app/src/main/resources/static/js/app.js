@@ -105,6 +105,13 @@ var app = angular
 											console.log(response);
 										});
 					}
+					vm.searchQuestions=function(searchKey){
+						if(searchKey == undefined || searchKey == ''){
+							alert('Please enter search key word');
+							return false;
+						}
+						$rootScope.$emit("getAllQuestionsEvent", {'searchKey':searchKey});
+					}
 					vm.logout = function() {
 
 						loginLogoutService.logout().then(function(response) {

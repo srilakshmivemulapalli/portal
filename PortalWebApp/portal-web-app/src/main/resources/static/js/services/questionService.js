@@ -3,9 +3,10 @@ app.factory('questionService', function($http, $q,commonService) {
 	var qs = {};
 	
 	
-	qs.getQuestions = function(categoryId,startindex,questioncount) {
+	qs.getQuestions = function(categoryId,startindex,questioncount,searchKey) {
 		var deferred = $q.defer();
-		$http.get('v1/questionaries/retrieve/allQuestions/'+categoryId+'?page='+startindex+'&size='+questioncount,{ headers:{'EmailId':commonService.emailId}}).success(function(response) {
+		
+		$http.get('v1/questionaries/retrieve/allQuestions/'+categoryId+'?searchKey='+searchKey+'&page='+startindex+'&size='+questioncount,{ headers:{'EmailId':commonService.emailId}}).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);

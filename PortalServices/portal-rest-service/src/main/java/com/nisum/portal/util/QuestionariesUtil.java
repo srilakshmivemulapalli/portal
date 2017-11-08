@@ -17,7 +17,6 @@ import com.nisum.portal.service.dto.QuestionsDTO;
 import com.nisum.portal.service.dto.UserDTO;
 
 public class QuestionariesUtil {
-
 	
 	public static QuestionsDTO convertDaoToDto(List<Questionaries> questionariesList,QuestionsDTO questionsDTO, UserService userervice) {
 		
@@ -42,6 +41,30 @@ public class QuestionariesUtil {
 		}
 		questionsDTO.setQuestionDetails(questionariesDTOs);
 		return questionsDTO;
+	}
+    public static QuestionsDTO convertQuestionariesDTOToQuestionsDTO(List<QuestionariesDTO> questionariesDTOList,QuestionsDTO questionsDTO, UserService userervice) {
+	    Collections.reverse(questionariesDTOList); 
+		questionsDTO.setQuestionDetails(questionariesDTOList);
+		return questionsDTO;
+	}
+    
+    public static QuestionariesDTO convertQuestionariesToQuestionariesDTO(Questionaries questionaries,UserService userervice) {
+    	if (questionaries !=null) {
+			QuestionariesDTO dto = new  QuestionariesDTO();
+			dto.setCreatedDate(questionaries.getCreatedDate()); 
+			dto.setDescription(questionaries.getDescription());
+			dto.setQuestion(questionaries.getQuestion());
+			dto.setQuestionId(questionaries.getQuestionId());
+			dto.setCategoryName(questionaries.getCategoryId().getCategoryName());
+			dto.setEmailId(questionaries.getEmailId());
+			dto.setQuestionRepliesCount(questionaries.getQuestionReplies()!=null ? questionaries.getQuestionReplies().size() : 0);
+			UserDTO user = userervice.getUsers().get(questionaries.getEmailId());
+			if(user!=null && StringUtils.isNotEmpty(user.getImage())) {
+				dto.setDisplayImage(user.getImage());
+			}
+			return dto;
+		}
+		return null;
 	}
 
 	public static Questionaries convertDtoToDao(String emailId, Categories categoryId, String question, String description) {

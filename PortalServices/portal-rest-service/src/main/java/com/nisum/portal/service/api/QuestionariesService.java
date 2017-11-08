@@ -36,5 +36,7 @@ public interface QuestionariesService {
 	QuestionsDTO fetchMyQuestionariesByCategory(String emailId, Integer categoryId, Pageable pageable);
 	
 	QuestionsDTO fetchMyQuestionariesByPagination(String emailId, Pageable pageable);
-
+	
+	public QuestionsDTO getQuestionariesBySearchKeyPagination(Pageable pageable,String searchKey);
+	
 }
