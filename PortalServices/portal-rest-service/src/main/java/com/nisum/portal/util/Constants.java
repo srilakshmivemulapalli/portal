@@ -71,5 +71,7 @@ public class Constants {
 		//Notifications
 		public static final String NOTIFICATION_TYPE_QUESTION="Questionaries";
 		
+		public static final String YES="Y";
+		
 
 }
