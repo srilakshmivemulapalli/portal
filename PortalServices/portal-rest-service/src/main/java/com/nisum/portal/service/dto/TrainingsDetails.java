@@ -2,20 +2,19 @@ package com.nisum.portal.service.dto;
 
 import java.util.List;
 
-public class TrainingsApproveDTO {
+public class TrainingsDetails {
+
 	private static final long serialVersionUID = 1L;
-	
-	/*private Integer noOfClassTrainings;
+
+	private Integer noOfClassTrainings;
 	private Integer noOfOnlineTrainings;
 	private Integer noOfClassPendings;
 	private Integer noOfOnlinePendings;
 	private Integer noOfClassApprovals;
-	private Integer noOfOnlineApprovals;*/
-	private List<TrainingsDTO> trainings;
-	private TrainingsDetails trainingsDetails;
-	/*private Integer noOfClassRejected;
-	private Integer noOfOnlineRejected;*/
-/*	public Integer getNoOfClassTrainings() {
+	private Integer noOfOnlineApprovals;
+	private Integer noOfClassRejected;
+	private Integer noOfOnlineRejected;
+	public Integer getNoOfClassTrainings() {
 		return noOfClassTrainings;
 	}
 	public void setNoOfClassTrainings(Integer noOfClassTrainings) {
@@ -50,14 +49,8 @@ public class TrainingsApproveDTO {
 	}
 	public void setNoOfOnlineApprovals(Integer noOfOnlineApprovals) {
 		this.noOfOnlineApprovals = noOfOnlineApprovals;
-	}*/
-	public List<TrainingsDTO> getTrainings() {
-		return trainings;
 	}
-	public void setTrainings(List<TrainingsDTO> trainings) {
-		this.trainings = trainings;
-	}
-	/*public Integer getNoOfClassRejected() {
+	public Integer getNoOfClassRejected() {
 		return noOfClassRejected;
 	}
 	public void setNoOfClassRejected(Integer noOfClassRejected) {
@@ -68,27 +61,14 @@ public class TrainingsApproveDTO {
 	}
 	public void setNoOfOnlineRejected(Integer noOfOnlineRejected) {
 		this.noOfOnlineRejected = noOfOnlineRejected;
-	}*/
-	/*public String toString() {
+	}
+	
+	@Override
+	public String toString() {
 		
 		return "TrainingsApproveDTO [noOfClassTrainings="+noOfClassTrainings+", noOfOnlineTrainings="
 		+noOfOnlineTrainings+",noOfClassPendings=+noOfClassPendings+,noOfOnlinePendings="+noOfOnlinePendings
 		+",noOfClassApprovals="+noOfClassApprovals+",noOfOnlineApprovals="+noOfOnlineApprovals+",noOfClassRejected="+
-		noOfClassRejected+",noOfOnlineRejected="+noOfOnlineRejected+",trainings="+trainings+"]";
-	}*/
-	
-	public TrainingsDetails getTrainingsDetails() {
-		return trainingsDetails;
+		noOfClassRejected+",noOfOnlineRejected="+noOfOnlineRejected+"]";
 	}
-	public void setTrainingsDetails(TrainingsDetails trainingsDetails) {
-		this.trainingsDetails = trainingsDetails;
-	}
-	@Override
-	public String toString() {
-			
-			return "TrainingsApproveDTO [trainings="+trainings+",trainingsDetails="+trainingsDetails+"]";
-		}
-	
-
-
 }

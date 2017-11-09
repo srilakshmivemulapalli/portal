@@ -29,6 +29,9 @@ public class TrainingsDTO {
 	private Integer commentStatus;
 	private Integer trainingStatus;
 	private String trainingRemarks;
+	private TrainingsDetails trainingsDetails;
+	//private Integer noOfClassApprovals;
+	//private Integer noOfOnlineApprovals;
 	public Integer getTrainingId() {
 		return trainingId;
 	}
@@ -150,6 +153,24 @@ public class TrainingsDTO {
 	public void setTrainingRemarks(String trainingRemarks) {
 		this.trainingRemarks = trainingRemarks;
 	}
+	/*public Integer getNoOfClassApprovals() {
+		return noOfClassApprovals;
+	}
+	public void setNoOfClassApprovals(Integer noOfClassApprovals) {
+		this.noOfClassApprovals = noOfClassApprovals;
+	}
+	public Integer getNoOfOnlineApprovals() {
+		return noOfOnlineApprovals;
+	}
+	public void setNoOfOnlineApprovals(Integer noOfOnlineApprovals) {
+		this.noOfOnlineApprovals = noOfOnlineApprovals;
+	}*/
+	public TrainingsDetails getTrainingsDetails() {
+		return trainingsDetails;
+	}
+	public void setTrainingsDetails(TrainingsDetails trainingsDetails) {
+		this.trainingsDetails = trainingsDetails;
+	}
 	@Override
 	public String toString() {
 		return "CategoriesDTO [trainingId=" + trainingId + ", description=" + description + ", trainingStartTime="
@@ -160,8 +181,10 @@ public class TrainingsDTO {
 				+trainingEndDate+" ,trainingEndTime="+trainingEndTime+"+duration="+duration+
 						",trainerName="+trainerName+",displayImage="+displayImage+",noOfComments="
 				+noOfComments+",trainingToUserId="+trainingToUserId+"+commentDescriptions="+commentDescriptions+"commentStatus="
-				+commentStatus+",trainingStatus="+trainingStatus+",trainingRemarks="+trainingRemarks+"]";	
+				+commentStatus+",trainingStatus="+trainingStatus+",trainingRemarks="
+				+trainingRemarks+",trainingsDetails="+trainingsDetails+"]";	
 	}
+	
 
 	
 	

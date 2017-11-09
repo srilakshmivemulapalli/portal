@@ -24,6 +24,7 @@ import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.dto.TrainingFeedBackDTO;
 import com.nisum.portal.service.dto.TrainingRequestDTO;
 import com.nisum.portal.service.dto.TrainingsDTO;
+import com.nisum.portal.service.dto.TrainingsDetails;
 import com.nisum.portal.service.dto.UserDTO;
 import com.nisum.portal.util.Constants;
 import com.nisum.portal.util.MailSender;
@@ -294,8 +295,9 @@ public class TrainingsServiceImpl implements TrainingsService {
 	public TrainingsApproveDTO getAllTrainings() {
 		 logger.info("TrainingsServiceImpl::getAllTrainings");
 		 List<TrainingsDTO> tainingsList=TrainingsServiceUtil.convertDaoTODto(trainingsDAO.getAllTrainings());
+		// TrainingsDetails trainingDetails=new TrainingsDetails();
 		 TrainingsApproveDTO trainingsApproveDTO=new TrainingsApproveDTO();
-		 int classCount=0;
+		/* int classCount=0;
 		 int onlineCount=0;
 		 int classPending=0;
 		 int onlinePending=0;
@@ -332,17 +334,19 @@ public class TrainingsServiceImpl implements TrainingsService {
 			 }
 			 
 		}
-		 trainingsApproveDTO.setNoOfClassTrainings(classCount);
-		 trainingsApproveDTO.setNoOfClassPendings(classPending);
-		 trainingsApproveDTO.setNoOfClassApprovals(classApproval);
-		 trainingsApproveDTO.setNoOfClassRejected(classRejected);
+		 trainingDetails.setNoOfClassTrainings(classCount);
+		 trainingDetails.setNoOfClassPendings(classPending);
+		 trainingDetails.setNoOfClassApprovals(classApproval);
+		 trainingDetails.setNoOfClassRejected(classRejected);
 		 
-		 trainingsApproveDTO.setNoOfOnlineTrainings(onlineCount);
-		 trainingsApproveDTO.setNoOfOnlinePendings(onlinePending);
-		 trainingsApproveDTO.setNoOfOnlineApprovals(onlineApproval);
-		 trainingsApproveDTO.setNoOfOnlineRejected(onlineRejected);
+		 trainingDetails.setNoOfOnlineTrainings(onlineCount);
+		 trainingDetails.setNoOfOnlinePendings(onlinePending);
+		 trainingDetails.setNoOfOnlineApprovals(onlineApproval);
+		 trainingDetails.setNoOfOnlineRejected(onlineRejected);*/
 		 
+		 TrainingsDetails trainingDetails=	this.getTrainingDetails(tainingsList);
 		 trainingsApproveDTO.setTrainings(tainingsList);
+		 trainingsApproveDTO.setTrainingsDetails(trainingDetails);
 		 
 		return trainingsApproveDTO;
 	}
@@ -351,7 +355,127 @@ public class TrainingsServiceImpl implements TrainingsService {
 	public TrainingsDTO updateTrainingStatus(TrainingsDTO trainingsDTO) {
 		logger.info("TrainingsServiceImpl :: updateTrainingStatus");
 		 Trainings trainings=TrainingsServiceUtil.convertDtoToDao(trainingsDTO);
-		return TrainingsServiceUtil.convertTrainingsDaoTODto(trainingsDAO.updateTrainingStatus(trainings));
+		 List<TrainingsDTO> tainingsList=TrainingsServiceUtil.convertDaoTODto(trainingsDAO.getAllTrainings());
+		 //int classApproval=0;
+		// int onlineApproval=0;
+		 /*for (TrainingsDTO trainingDTO : tainingsList) {
+			 if(trainingDTO.getTrainingType()!=null && trainingDTO.getTrainingType().equals("classroom"))
+			 {
+				 if(trainingDTO.getTrainingStatus()!=null&&trainingDTO.getTrainingStatus()==2)
+					 classApproval++;
+			 }
+			 if(trainingDTO.getTrainingType()!=null && trainingDTO.getTrainingType().equals("online"))
+			 {
+				 if(trainingDTO.getTrainingStatus()!=null&&trainingDTO.getTrainingStatus()==2)
+					 onlineApproval++;
+				 
+			 }
+		 }*/
+           
+		 TrainingsDTO training=TrainingsServiceUtil.convertTrainingsDaoTODto(trainingsDAO.updateTrainingStatus(trainings));
+		 TrainingsDetails trainingsDetail=new TrainingsDetails();
+		 TrainingsDetails trainingsDetails= this.getTrainingDetails(tainingsList);
+		 if(training.getTrainingType()!=null && training.getTrainingType()!=null)
+		 {
+			  if(training.getTrainingType().equals("classroom") )
+			  {
+				  trainingsDetail.setNoOfClassPendings(trainingsDetails.getNoOfClassPendings()-1);
+                     if(training.getTrainingStatus()==2)
+                     {
+				        trainingsDetail.setNoOfClassApprovals(trainingsDetails.getNoOfClassApprovals()+1);
+				        trainingsDetail.setNoOfClassRejected(trainingsDetails.getNoOfClassRejected());
+                     }
+                     if(training.getTrainingStatus()==0)
+                     {
+                     	 trainingsDetail.setNoOfClassRejected(trainingsDetails.getNoOfClassRejected()+1);
+                     	trainingsDetail.setNoOfClassApprovals(trainingsDetails.getNoOfClassApprovals());
+                     }
+			  }
+		      else
+		      {
+		    	      trainingsDetail.setNoOfClassPendings(trainingsDetails.getNoOfClassPendings());
+		    	      trainingsDetail.setNoOfClassApprovals(trainingsDetails.getNoOfClassApprovals());
+		    	      trainingsDetail.setNoOfClassRejected(trainingsDetails.getNoOfClassRejected());
+		      }
+		     if(training.getTrainingType().equals("online") )
+		     {
+		          trainingsDetail.setNoOfOnlinePendings(trainingsDetails.getNoOfOnlinePendings()-1);
+		         	 if( training.getTrainingStatus()==2)
+		         	 {
+				     	  trainingsDetail.setNoOfOnlineApprovals(trainingsDetails.getNoOfOnlineApprovals()+1);
+				     	 trainingsDetail.setNoOfOnlineRejected(trainingsDetails.getNoOfOnlineRejected());
+		         	 }
+		         	 if( training.getTrainingStatus()==0)
+		         	 {
+		         		trainingsDetail.setNoOfOnlineRejected(trainingsDetails.getNoOfOnlineRejected()+1);
+		         		trainingsDetail.setNoOfOnlineApprovals(trainingsDetails.getNoOfOnlineApprovals());
+		         	 }
+		     	  
+		     }
+		     else
+		     {    trainingsDetail.setNoOfOnlinePendings(trainingsDetails.getNoOfOnlinePendings());
+		    	      trainingsDetail.setNoOfOnlineApprovals(trainingsDetails.getNoOfOnlineApprovals());
+		    	      trainingsDetail.setNoOfOnlineRejected(trainingsDetails.getNoOfOnlineRejected());
+		     }
+		 }
+			    	  trainingsDetail.setNoOfClassTrainings(trainingsDetails.getNoOfClassTrainings());
+				  trainingsDetail.setNoOfOnlineTrainings(trainingsDetails.getNoOfOnlineTrainings());
+				  training.setTrainingsDetails(trainingsDetail);
+
+		 return training;
+	}
+	
+	public TrainingsDetails getTrainingDetails(List<TrainingsDTO> tainingsList)
+	{
+		TrainingsDetails trainingDetails=new TrainingsDetails();
+		 int classCount=0;
+		 int onlineCount=0;
+		 int classPending=0;
+		 int onlinePending=0;
+		 int classApproval=0;
+		 int onlineApproval=0;
+		 int classRejected=0;
+		 int onlineRejected=0;
+		for (TrainingsDTO trainingsDTO : tainingsList) {
+			 if(trainingsDTO.getTrainingType()!=null && trainingsDTO.getTrainingType().equals("classroom"))
+			 {
+				 classCount++;
+				 if(trainingsDTO.getTrainingStatus()!=null )
+				 {
+					 if(trainingsDTO.getTrainingStatus()==1)
+						 classPending++;
+					 if(trainingsDTO.getTrainingStatus()==2)
+						 classApproval++;
+					 if(trainingsDTO.getTrainingStatus()==0)
+						 classRejected++;
+				 }
+			 }
+			 if(trainingsDTO.getTrainingType()!=null && trainingsDTO.getTrainingType().equals("online"))
+			 {
+				 onlineCount++;
+				 if(trainingsDTO.getTrainingStatus()!=null )
+				 {
+					 if(trainingsDTO.getTrainingStatus()==1)
+						 onlinePending++;
+					 if(trainingsDTO.getTrainingStatus()==2)
+						 onlineApproval++;
+					 if(trainingsDTO.getTrainingStatus()==0)
+						 onlineRejected++;
+				 }
+			 }
+			 
+		}
+		 trainingDetails.setNoOfClassTrainings(classCount);
+		 trainingDetails.setNoOfClassPendings(classPending);
+		 trainingDetails.setNoOfClassApprovals(classApproval);
+		 trainingDetails.setNoOfClassRejected(classRejected);
+		 
+		 trainingDetails.setNoOfOnlineTrainings(onlineCount);
+		 trainingDetails.setNoOfOnlinePendings(onlinePending);
+		 trainingDetails.setNoOfOnlineApprovals(onlineApproval);
+		 trainingDetails.setNoOfOnlineRejected(onlineRejected);
+		return trainingDetails;
+		
 	}
 
 }
