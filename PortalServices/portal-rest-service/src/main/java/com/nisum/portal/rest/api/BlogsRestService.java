@@ -83,7 +83,7 @@ public class BlogsRestService {
 	 * @return
 	 * @throws BlogServiceException
 	 */
-	@RequestMapping(value = "/retrieve/allBlogsCont", method = RequestMethod.GET)
+	@RequestMapping(value = "/retrieve/allBlogsCount", method = RequestMethod.GET)
 	public Object getAllBlogsCount() throws BlogServiceException {
 		logger.info("BlogsRestService :: getAllBlogsCount");
 		try {
