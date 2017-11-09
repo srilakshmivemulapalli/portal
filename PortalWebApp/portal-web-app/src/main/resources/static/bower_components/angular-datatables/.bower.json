@@ -69,5 +69,6 @@
   },
   "_source": "https://github.com/l-lin/angular-datatables.git",
   "_target": "0.6.2",
-  "_originalSource": "angular-datatables"
+  "_originalSource": "angular-datatables",
+  "_direct": true
 }

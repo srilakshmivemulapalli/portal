@@ -28,7 +28,15 @@ adminApp
 
 						"role" : ""
 
-					}
+					};
+					$scope.requestObj={
+							'id': -1,
+							'status': -1,
+							'emailId': '',
+							'name': ''
+							'trainingRemarks':'';
+					
+					};
 					$scope.getUsers = function() {
 						$scope.getRoles();
 						$scope.clear();
@@ -93,10 +101,15 @@ adminApp
 								}
 								else{
 									console.log(response);
+									$scope.trainingList=response;
 								}
 						},function(resposne){
 								console.log(response);
 						});
+						
+					}
+					$scope.requestApproval = function(){
+						
 					}
 					
 					$scope.addRole = function() {
@@ -117,9 +130,9 @@ adminApp
 										},
 										function(response) { // optional
 											$scope.errorMessage = response.errorMessage;
-											$timeout(function() {
-												$scope.errorMessage = '';
-											}, 5000);
+//											$timeout(function() {
+//												$scope.errorMessage = '';
+//											}, 5000);
 
 										});
 					}
@@ -142,9 +155,9 @@ adminApp
 										},
 										function(response) { // optional
 											$scope.errorMessage = response.errorMessage;
-											$timeout(function() {
-												$scope.errorMessage = '';
-											}, 5000);
+//											$timeout(function() {
+//												$scope.errorMessage = '';
+//											}, 5000);
 
 										});
 					};
@@ -205,9 +218,9 @@ adminApp
 											},
 											function(response) {
 												$scope.errorMessage = response.errorMessage;
-												$timeout(function() {
-													$scope.errorMessage = '';
-												}, 5000);
+//												$timeout(function() {
+//													$scope.errorMessage = '';
+//												}, 5000);
 											});
 
 						} else if ($scope.deleteitem.name === 'role') {
@@ -232,9 +245,9 @@ adminApp
 											},
 											function(response) {
 												$scope.errorMessage = response.errorMessage;
-												$timeout(function() {
-													$scope.errorMessage = '';
-												}, 5000);
+//												$timeout(function() {
+//													$scope.errorMessage = '';
+//												}, 5000);
 											});
 
 						} else if ($scope.deleteitem.name === 'category') {
@@ -262,9 +275,9 @@ adminApp
 											},
 											function(response) {
 												$scope.errorMessage = response.errorMessage;
-												$timeout(function() {
-													$scope.errorMessage = '';
-												}, 5000);
+//												$timeout(function() {
+//													$scope.errorMessage = '';
+//												}, 5000);
 											});
 						}
 						$('#deleteModal').modal('hide');
@@ -301,9 +314,9 @@ adminApp
 											},
 											function(response) {
 												$scope.errorMessage = response.errorMessage;
-												$timeout(function() {
-													$scope.errorMessage = '';
-												}, 5000);
+//												$timeout(function() {
+//													$scope.errorMessage = '';
+//												}, 5000);
 											});
 
 						} else if ($scope.editteditem.name === 'role') {
@@ -329,9 +342,9 @@ adminApp
 											},
 											function(response) {
 												$scope.errorMessage = response.message;
-												$timeout(function() {
-													$scope.errorMessage = '';
-												}, 5000);
+//												$timeout(function() {
+//													$scope.errorMessage = '';
+//												}, 5000);
 											});
 						} else if ($scope.editteditem.name === 'category') {
 
@@ -348,7 +361,7 @@ adminApp
 													console
 															.log($scope.categoriesList);
 													$scope.successMessage = response.message;
-
+													
 													$scope.clear();
 													localStorageService.set('categoriesList',$scope.categoriesList.categories);
 													commonService.categoriesList=$scope.categoriesList.categories;
@@ -361,10 +374,10 @@ adminApp
 											},
 											function(response) {
 												$scope.errorMessage = response.errorMessage;
-
-												$timeout(function() {
-													$scope.errorMessage = '';
-												}, 5000);
+//
+//												$timeout(function() {
+//													$scope.errorMessage = '';
+//												}, 5000);
 											});
 						}
 						$('#editModal').modal('hide');
@@ -385,9 +398,13 @@ adminApp
 							"role" : ""
 
 						}
+						$scope.errorMessage='';
+							
 						$scope.userselected = [];
 						$scope.roleselected = [];
 						$scope.categoryselected = [];
 
 					}
+					
+					
 				});

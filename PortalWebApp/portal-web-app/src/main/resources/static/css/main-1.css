@@ -5258,7 +5258,7 @@ body.admin-bar .q-filter-waypoints {
 }
 
 .createtitle {
-	margin-bottom: 40px;
+	margin-bottom: 20px;
 }
 
 .navbar-brand {
@@ -5827,5 +5827,40 @@ iPad 3
 color:#dd6851;
 }
 .cmt-one i{
-margin-right:5px;
+ margin-right:5px;
+}
+.classstate{
+	float:right;
+	width:30%;
+	margin-bottom:35px;
+}
+.classstate .leftstate,.rightstate{
+	width: 50%;
+	float:left;
+}
+.leftstate span,.rightstate span{
+	width:50%;
+	float:left; 
+}
+.leftstate p,.rightstate p{
+color: #3498db;
+font-size: 16px;
+}
+.leftstate p span,.rightstate p span{
+float: right;
+color: #333;
+font-size:13px;
+}
+    
+ .classstate .green{
+ color:green;	
+}
+.classstate .orange{
+ color:orange;	
+}
+.classstate .red{
+ color:red;	
+}
+table.data_table{
+	border:1px solid;
 }

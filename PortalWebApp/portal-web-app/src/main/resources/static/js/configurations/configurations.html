@@ -1,5 +1,6 @@
 
-<div class="col-md-offset-1 col-xs-offset-1 col-sm-offset-1 col-lg-offset-1 col-xl-offset-1 col-md-9 col-xs-9 col-sm-9 col-lg-9 col-xl-9 main-content">
+<div
+	class="col-md-offset-1 col-xs-offset-1 col-sm-offset-1 col-lg-offset-1 col-xl-offset-1 col-md-9 col-xs-9 col-sm-9 col-lg-9 col-xl-9 main-content">
 	<!-- <div class="col-md-6 col-xs-6 col-sm-6 col-lg-6 col-xl-6 current-category">
 		<span>Configurations</span>
 	</div> -->
@@ -8,7 +9,8 @@
 		<div class="success" ng-if="successMessage!='';">{{successMessage}}</div>
 	</div>
 
-	<div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xl-12 sort-questions">
+	<div
+		class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xl-12 sort-questions">
 		<ul id="nav-tabs" ng-init="getUsers();">
 			<li class="active"><a data-target="#1" data-toggle="tab"
 				ng-click='getUsers()'>Users</a></li>
@@ -20,7 +22,8 @@
 		</ul>
 	</div>
 
-	<div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xl-12 tab-content ">
+	<div
+		class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xl-12 tab-content ">
 		<div class="tab-pane active" id="1">
 			<div align="center" style="color: #2535A9;">
 				<h3>User details</h3>
@@ -37,7 +40,7 @@
 								<th>Role</th>
 								<th>Created Date</th>
 								<th>Change Role</th>
-								<th>Edit/Delete</th>
+								<th>Edit</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -55,9 +58,9 @@
 									ng-options="role.roleId as role.role for role in rolesList.roles"
 									ng-change='' ng-disabled="!userselected[$index]"></select></td>
 								<td ng-class="{'disabled':!userselected[$index]}"
-									ng-disabled="!userselected[$index]"><img
+									ng-disabled="!userselected[$index]"><!-- <img
 									class="deleteicon" src="images/delete.png"
-									ng-click="!userselected[$index]|| confirmDelete('user',user.userId);" />
+									ng-click="!userselected[$index]|| confirmDelete('user',user.userId);" /> -->
 									<span
 									ng-click="!userselected[$index]|| confirmEdit('user',user);"
 									class="glyphicon glyphicon-floppy-save editicon"></span></td>
@@ -77,11 +80,13 @@
 			</div>
 			<div class="row">
 				<div class="col-md-6 col-xs-6 col-sm-6 col-lg-6 col-xl-6"></div>
-				<div class="col-md-6 col-xs-6 col-sm-6 col-lg-6 col-xl-6" ng-show="!addrole">
+				<div class="col-md-6 col-xs-6 col-sm-6 col-lg-6 col-xl-6"
+					ng-show="!addrole">
 					<input class='custombtn btn-normal' type="button" value="Add Role"
 						ng-click="addrole=true;roleobj.role='';" style="float: right;" />
 				</div>
-				<div class="col-md-6 col-xs-6 col-sm-6 col-lg-6 col-xl-6" ng-show="addrole">
+				<div class="col-md-6 col-xs-6 col-sm-6 col-lg-6 col-xl-6"
+					ng-show="addrole">
 					<form name="roleadd" class="form-inline" ng-submit="addRole();"
 						style="float: right;">
 						<!-- addrole.$dirty &&  -->
@@ -90,20 +95,22 @@
 								placeholder="Role Name" ng-model="roleobj.role" required>
 						</div>
 						<button type="submit" class="custombtn btn-normal">Add</button>
-						<button type="button" class='custombtn btn-cancel' ng-click="clear();">Cancel</button>
+						<button type="button" class='custombtn btn-cancel'
+							ng-click="clear();">Cancel</button>
 					</form>
 
 
 				</div>
 				</br> </br> </br>
-				<div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xl-12" style="padding-top: 20px;">
+				<div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xl-12"
+					style="padding-top: 20px;">
 					<table class="table table-hover table-striped table-bordered">
 						<thead class="thead-inverse">
 							<tr>
 								<th>Select</th>
 								<th>Role Name</th>
 								<th>CreatedDate</th>
-								<th>Edit/Delete</th>
+								<th>Edit</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -116,9 +123,9 @@
 								<td>{{role.createdDate | date: 'MM-dd-yyyy HH:mm:ss'}}</td>
 								<td ng-disabled="!roleselected[$index] || role.role.length<0"
 									ng-class="{'disabled':!roleselected[$index] || role.role.length<0}">
-									<span ng-if="role.role!==checkRoleName"><img
+									<span ng-if="role.role!==checkRoleName"><!-- <img
 										class="deleteicon" src="images/delete.png"
-										ng-click="!roleselected[$index]||confirmDelete('role',role.roleId)" />
+										ng-click="!roleselected[$index]||confirmDelete('role',role.roleId)" /> -->
 										<span
 										ng-click="!roleselected[$index]|| confirmEdit('role',role)"
 										class="glyphicon glyphicon-floppy-save editicon"></span></span>
@@ -137,12 +144,15 @@
 			</div>
 			<div class="row">
 				<div class="col-md-3 col-xs-3 col-sm-3 col-lg-3 col-xl-3"></div>
-				<div class="col-md-9 col-xs-9 col-sm-9 col-lg-9 col-xl-9" ng-show="!addcategory">
-					<input class='custombtn btn-normal' type="button" value="Add Category"
+				<div class="col-md-9 col-xs-9 col-sm-9 col-lg-9 col-xl-9"
+					ng-show="!addcategory">
+					<input class='custombtn btn-normal' type="button"
+						value="Add Category"
 						ng-click="addcategory=true;categoryobj.categoryName='';categoryobj.description='';"
 						style="float: right;" />
 				</div>
-				<div class="col-md-9 col-xs-9 col-sm-9 col-lg-9 col-xl-9" ng-show="addcategory">
+				<div class="col-md-9 col-xs-9 col-sm-9 col-lg-9 col-xl-9"
+					ng-show="addcategory">
 					<form name="addcat" class="form-inline" ng-submit="addCategory();"
 						style="float: right;">
 						<!-- addrole.$dirty &&  -->
@@ -158,12 +168,14 @@
 								ng-model="categoryobj.description" limit-To="200" required></textarea>
 						</div>
 						<button type="submit" class="custombtn btn-normal">Add</button>
-						<button type="button" class='custombtn btn-cancel' ng-click="clear();">Cancel</button>
+						<button type="button" class='custombtn btn-cancel'
+							ng-click="clear();">Cancel</button>
 					</form>
 
 				</div>
 				</br> </br> </br>
-				<div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xl-12" style="padding-top: 20px;">
+				<div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xl-12"
+					style="padding-top: 20px;">
 					<table class="table table-hover table-striped table-bordered">
 						<thead class="thead-inverse">
 							<tr>
@@ -171,7 +183,7 @@
 								<th>Category Name</th>
 								<th>Description</th>
 								<th>Created Date</th>
-								<th>Edit/Delete</th>
+								<th>Edit</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -188,11 +200,11 @@
 										ng-model="category.description"
 										style="width: 100%; overflow: hidden; height: 100%" /></textarea></td>
 								<td>{{category.createDate | date: 'MM-dd-yyyy HH:mm:ss'}}</td>
-								<td class="CENTER"
+								<td
 									ng-class="{'disabled':!categoryselected[$index]}"
-									ng-disabled="!categoryselected[$index]"><img
+									ng-disabled="!categoryselected[$index]"><!-- <img
 									class="deleteicon" src="images/delete.png"
-									ng-click="!categoryselected[$index]|| confirmDelete('category',category);" />
+									ng-click="!categoryselected[$index]|| confirmDelete('category',category);" /> -->
 									<span
 									ng-click="!categoryselected[$index]|| confirmEdit('category',category);"
 									class="glyphicon glyphicon-floppy-save editicon"></span></td>
@@ -208,40 +220,86 @@
 				<h3>Trainings details</h3>
 			</div>
  -->
-			<div class="trainingstable row">
-				<div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xl-12">
+			<!-- <div class="trainingstable row"> -->
+			
+			<div class="classstate">
+			 <div class="leftstate">
+			 <p>Online<span>{{trainingList.noOfClassTrainings}}</span></p>
+				 <span class="green">Approved </span><span>{{trainingList.noOfClassApprovals}}</span>
+				 <span class="orange">Pending </span><span>{{trainingList.noOfClassPendings}}</span>
+				 <span class="red">Rejected</span><span>{{trainingList.noOfClassRejected}}</span> 
+			 </div>
+			 <div class="rightstate">
+			 <p>Classroom<span>{{trainingList.noOfOnlineTrainings}}</span></p>
+				 <span class="green">Approved </span><span>{{trainingList.noOfOnlineApprovals}}</span>
+				 <span class="orange">Pending </span><span>{{trainingList.noOfOnlinePendings}}</span>
+				 <span class="red">Rejected</span><span>{{trainingList.noOfOnlineRejected}}</span>
+			 </div>
+			</div>
+			
+			<table datatable="ng" class="data_table">
+				<thead>
+					<tr>
+						<th>Training</th>
+						<th>Date&Time</th>
+						<th>Training Type</th>
+						<th>Status</th>
+						<th>Approval</th>
+					</tr>
+				</thead>
+				<tbody>
+				 <tr dt-rows ng-repeat="training in trainingList.trainings">
+                    <td><h4>{{ training.trainingTitle }}</h4></td>
+                    <td><p>{{ training.trainingStartDate | date: 'dd MMM,yyyy'}}-{{ training.trainingEndDate | date: 'dd MMM,yyyy'}}</p>
+                    		<p>{{ training.trainingStartDate | date: 'hh:mma'}}-{{ training.trainingEndDate | date: 'hh:mma'}}</p></td>
+                    <td><p>{{training.trainingType }}</p></td>
+                    <td><p ng-if="training.trainingStatus===1" style="color: orange;">Pending</p>
+                    <p ng-if="training.trainingStatus===0" style="color: green;">Approved</p>
+                    <p ng-if="training.trainingStatus===2" style="color: red;">Rejected</p></td>
+                    <td>		
+                    <div ng-if="training.trainingStatus===1">
+                    <button class="custombtn btn-approve" ng-click = "approve()">Approve</button>
+					<button class="custombtn btn-reject" data-toggle="modal" data-target="#remarkModal">Reject</button></div></td> 
+                </tr>
+				</tbody>
+			</table>
+
+			<!-- <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xl-12">
+				<div class="col-md-4 col-xs-4 col-sm-4 col-lg-4 col-xl-4">
+					<h4>Training</h4>
+				</div>
+				<div
+					class="col-md-offset-4 col-xs-offset-4 col-sm-offset-4 col-lg-offset-4 col-xl-offset-4 col-md-2 col-xs-2 col-sm-2 col-lg-2 col-xl-2">
+					<h4>Status</h4>
+				</div>
+				<div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 col-xl-2">
+					<h4>Approval</h4>
+				</div>
+			</div>
+
+			<div
+				class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xl-12 list-group">
+				<div
+					class=" col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xl-12 list-group-item">
 					<div class="col-md-4 col-xs-4 col-sm-4 col-lg-4 col-xl-4">
-						<h4>Training</h4>
+						<h4>Java training</h4>
+						<p>from 29 sep,2017- 29 sep,2017</p>
 					</div>
-					<div class="col-md-offset-4 col-xs-offset-4 col-sm-offset-4 col-lg-offset-4 col-xl-offset-4 col-md-2 col-xs-2 col-sm-2 col-lg-2 col-xl-2">
-						<h4>Status</h4>
+					<div class="col-md-4 col-xs-4 col-sm-4 col-lg-4 col-xl-4">
+						<p>11:30AM -12:30PM</p>
 					</div>
 					<div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 col-xl-2">
-						<h4>Approval</h4>
+						<p style="color: red;">pending</p>
+						<p style="color:green;">Approved</p>
 					</div>
-				</div>
+					<div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 col-xl-2">
 
-				<div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xl-12 list-group">
-					<div class=" col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xl-12 list-group-item">
-						<div class="col-md-4 col-xs-4 col-sm-4 col-lg-4 col-xl-4">
-							<h4>Java training</h4>
-							<p>from 29 sep,2017- 29 sep,2017</p>
-						</div>
-						<div class="col-md-4 col-xs-4 col-sm-4 col-lg-4 col-xl-4">
-							<p>11:30AM -12:30PM</p>
-						</div>
-						<div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 col-xl-2">
-							<p style="color: red;">pending</p>
-							<!-- <p style="color:green;">Approved</p> -->
-						</div>
-						<div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 col-xl-2">
-							
-								<button class="custombtn btn-approve">Approve</button>
-							
-								<button class="custombtn btn-reject">Reject</button>
+						<button class="custombtn btn-approve">Approve</button>
+
+						<button class="custombtn btn-reject">Reject</button>
+
+					</div>
 					
-						</div>
-						<!-- 
 					<a href="javascript:void(0);" class="">
 						<h4 class="list-group-item-heading">Java training</h4>
 						<p class="list-group-item-text">HTML stands for HyperText
@@ -257,30 +315,31 @@
 						<p class="list-group-item-text">CSS stands for Cascading Style
 							Sheet. CSS allows you to specify various style properties for a
 							given HTML element such as colors, backgrounds, fonts etc.</p>
-					</a> -->
-					</div>
-					<div class=" col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xl-12 list-group-item">
-						<div class="col-md-4 col-xs-4 col-sm-4 col-lg-4 col-xl-4">
-							<h4>C++ training</h4>
-							<p>from 29 sep,2017- 30 sep,2017</p>
-						</div>
-						<div class="col-md-4 col-xs-4 col-sm-4 col-lg-4 col-xl-4">
-							<p>1:30PM -2:30PM</p>
-						</div>
-						<div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 col-xl-2">
-							<!-- 	<p style="color:red;">pending</p> -->
-							<p style="color: green;">Approved</p>
-						</div>
-						<div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 col-xl-2">
-							<!-- <button class="btn-normal">Approve</button>
-						<button class="btn-cancel">Cancel</button> -->
-						</div>
-
-					</div>
+					</a>
 				</div>
-			</div>
+				<div
+					class=" col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xl-12 list-group-item">
+					<div class="col-md-4 col-xs-4 col-sm-4 col-lg-4 col-xl-4">
+						<h4>C++ training</h4>
+						<p>from 29 sep,2017- 30 sep,2017</p>
+					</div>
+					<div class="col-md-4 col-xs-4 col-sm-4 col-lg-4 col-xl-4">
+						<p>1:30PM -2:30PM</p>
+					</div>
+					<div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 col-xl-2">
+							<p style="color:red;">pending</p>
+						<p style="color: green;">Approved</p>
+					</div>
+					<div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 col-xl-2">
+						<button class="btn-normal">Approve</button>
+						<button class="btn-cancel">Cancel</button>
+					</div>
+
+				</div>
+			</div> -->
 		</div>
 	</div>
+</div>
 </div>
 
 
@@ -296,8 +355,32 @@
 					{{deleteitem.name}}?</h3>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="custombtn btn-normal" ng-click="deleteItem();">Ok</button>
-				<button type="button" class="custombtn btn-cancel" data-dismiss="modal">cancel</button>
+				<button type="button" class="custombtn btn-normal"
+					ng-click="deleteItem();">Ok</button>
+				<button type="button" class="custombtn btn-cancel"
+					data-dismiss="modal">cancel</button>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<div id="remarkModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			
+			<div class="modal-body">
+				<h3>Remarks</h3>
+				<textarea rows="4" cols="50" id="focusText" autogrow ng-model="requestObj.trainingRemarks"></textarea>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="custombtn btn-normal" ng-class="{'disabled':requestObj.trainingRemarks===''}"
+					ng-disabled="requestObj.trainingRemarks===''"
+					ng-click="requestApproval();">Ok</button>
+				<button type="button" class="custombtn btn-cancel"
+					data-dismiss="modal">cancel</button>
 			</div>
 		</div>
 
@@ -315,8 +398,10 @@
 					{{editteditem.name}}?</h3>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="custombtn btn-normal" ng-click="editItem();">Ok</button>
-				<button type="button" class="custombtn btn-cancel" data-dismiss="modal">cancel</button>
+				<button type="button" class="custombtn btn-normal"
+					ng-click="editItem();">Ok</button>
+				<button type="button" class="custombtn btn-cancel"
+					data-dismiss="modal">cancel</button>
 			</div>
 		</div>
 

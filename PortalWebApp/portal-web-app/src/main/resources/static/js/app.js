@@ -4,7 +4,7 @@ var app = angular
 				[ 'ui.router', 'configurationsApp', 'profileApp', 'loginApp',
 						'questionsApp', 'trainingsApp', 'meetingApp',
 						'LocalStorageModule', 'textAngular', 'am.multiselect',
-						'google-signin', 'BlogsApp', 'ae-datetimepicker' ])
+						'google-signin', 'BlogsApp', 'ae-datetimepicker','datatables' ])
 
 		.config(function($stateProvider, $urlRouterProvider) {
 

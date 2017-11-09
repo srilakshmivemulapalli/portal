@@ -1,7 +1,7 @@
 trainingsApp.controller('createTrainingController', function($scope,
 		trainingService, $timeout, TrainingModel,$state, commonService) {
 
-	$scope.training = TrainingModel;
+	
 	$scope.timeOptions = {
 		format : 'LT',
 	}
@@ -15,6 +15,7 @@ trainingsApp.controller('createTrainingController', function($scope,
 		var startTime=trainingobj.trainingStartTime.split("T");
 		trainingobj.trainingStartDate=startDate[0]+"T"+startTime[1];
 		trainingobj.trainerEmailId = commonService.emailId;
+		trainingobj.trainingStatus=1;
 		$scope.training = TrainingModel.clone(trainingobj);
 		
 		trainingService.postTraining($scope.training).then(function(response) {
