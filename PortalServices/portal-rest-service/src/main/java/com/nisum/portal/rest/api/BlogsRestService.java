@@ -72,7 +72,32 @@ public class BlogsRestService {
 			Errors errors=new Errors();
 			errors.setErrorCode("Errors-Blogs");
 			errors.setErrorMessage(e.getMessage());
-			return new ResponseEntity<Errors>(errors, HttpStatus.OK);
+			return new ResponseEntity<Errors>(errors, HttpStatus.BAD_GATEWAY);
+		}
+		
+	}
+	
+	/**
+	 * getAllBlogsCount
+	 * 
+	 * @return
+	 * @throws BlogServiceException
+	 */
+	@RequestMapping(value = "/retrieve/allBlogsCont", method = RequestMethod.GET)
+	public Object getAllBlogsCount() throws BlogServiceException {
+		logger.info("BlogsRestService :: getAllBlogsCount");
+		try {
+			Long blogsCount=blogService.getAllBlogsCount();
+			JSONObject jsonObj=new JSONObject();
+			jsonObj.append("count", blogsCount);
+			return new ResponseEntity<String>(jsonObj.toString(),HttpStatus.OK);
+		}
+		catch(Exception e) {
+			logger.error("BlogsRestService :: getAllBlogs Error ");
+			Errors errors=new Errors();
+			errors.setErrorCode("Errors-Blogs");
+			errors.setErrorMessage(e.getMessage());
+			return new ResponseEntity<Errors>(errors, HttpStatus.BAD_GATEWAY);
 		}
 		
 	}
@@ -98,7 +123,7 @@ public class BlogsRestService {
 			Errors errors=new Errors();
 			errors.setErrorCode("Errors-Blogs");
 			errors.setErrorMessage(e.getMessage());
-			return new ResponseEntity<Errors>(errors, HttpStatus.OK);
+			return new ResponseEntity<Errors>(errors, HttpStatus.BAD_GATEWAY);
 		}
 		
 	}
@@ -124,7 +149,7 @@ public class BlogsRestService {
 			Errors errors=new Errors();
 			errors.setErrorCode("Errors-Blogs");
 			errors.setErrorMessage(e.getMessage());
-			return new ResponseEntity<Errors>(errors, HttpStatus.OK);
+			return new ResponseEntity<Errors>(errors, HttpStatus.BAD_GATEWAY);
 		}
 		
 	}
@@ -152,7 +177,7 @@ public class BlogsRestService {
 			Errors errors=new Errors();
 			errors.setErrorCode("Errors-Blogs");
 			errors.setErrorMessage(e.getMessage());
-			return new ResponseEntity<Errors>(errors, HttpStatus.OK);
+			return new ResponseEntity<Errors>(errors, HttpStatus.BAD_GATEWAY);
 		}
 	}
 	
@@ -182,7 +207,7 @@ public class BlogsRestService {
 			Errors errors=new Errors();
 			errors.setErrorCode("Errors-Blogs");
 			errors.setErrorMessage(e.getMessage());
-			return new ResponseEntity<Errors>(errors, HttpStatus.OK);
+			return new ResponseEntity<Errors>(errors, HttpStatus.BAD_GATEWAY);
 		}
 
 	}
@@ -200,6 +225,8 @@ public class BlogsRestService {
 		logger.info("BlogsRestService :: updateBlogAndAttachments");
 		try {
 			BlogsDTO blogsDTO=blogService.parseRequestToGetBlogsDTOForUpdate(request);
+			BlogsDTO updateBlog=null;
+			BlogsDTO updatedDTO=null;
 			if(blogsDTO!=null) {
 				Integer blogId=blogsDTO.getBlogsId();
 				BlogsDTO blog=blogService.getBlog(blogId);
@@ -209,15 +236,36 @@ public class BlogsRestService {
 				blogsDTO.setUserMailId(blog.getUserMailId());
 				blogsDTO.setUserId(blog.getUserId());
 				// Setting completed.
-				BlogsDTO updateBlog=blogService.parseRequestToStoreUploads(files, blogsAttachmentPath, blogsDTO);
-				BlogsDTO updatedDTO= blogService.updateBlog(updateBlog);
+				
+				if((files!=null)&&(files.length!=0)) {
+					updateBlog=blogService.parseRequestToStoreUploads(files, blogsAttachmentPath, blogsDTO);
+					if(!updateBlog.getTitle().equals(blog.getTitle())||!updateBlog.getDescription().equals(blog.getDescription())||(!updateBlog.getPath().equals(blog.getPath()))) {
+						updatedDTO= blogService.updateBlog(updateBlog);
+					}	
+				}
+				if(updateBlog==null) {
+					if(!blogsDTO.getTitle().equals(blog.getTitle())||!blogsDTO.getDescription().equals(blog.getDescription())) {
+						updatedDTO= blogService.updateBlog(blogsDTO);
+					}
+				}
+				
 				if((updatedDTO!=null)) {
 					String path=updatedDTO.getPath();
 					if(path!=null) {
 						updatedDTO.setPath("");
 					}
+					return new ResponseEntity<BlogsDTO>(updatedDTO,HttpStatus.OK);
+				}else {
+					JSONObject jsonObj=new JSONObject();
+					if((updateBlog==null)||(updateBlog.getPath()==null)||!updateBlog.getPath().equals(blog.getPath())) {
+						jsonObj.append("result", "No modification found to update the Blog.");
+						return new ResponseEntity<String>(jsonObj.toString(),HttpStatus.BAD_REQUEST);
+					}else {
+						jsonObj.append("result", "File(s) uploaded successfully.");
+						return new ResponseEntity<String>(jsonObj.toString(),HttpStatus.OK);
+					}
 				}
-				return new ResponseEntity<BlogsDTO>(updatedDTO,HttpStatus.OK);
+				
 			}else {
 				throw new BlogServiceException("Unable to process request as blog object is empty :"+blogsDTO);
 			}
@@ -228,7 +276,7 @@ public class BlogsRestService {
 			Errors errors=new Errors();
 			errors.setErrorCode("Errors-Blogs");
 			errors.setErrorMessage(e.getMessage());
-			return new ResponseEntity<Errors>(errors, HttpStatus.OK);
+			return new ResponseEntity<Errors>(errors, HttpStatus.BAD_GATEWAY);
 		}
 	}
 	
@@ -252,14 +300,22 @@ public class BlogsRestService {
 				blogsDTO.setUserMailId(blog.getUserMailId());
 				blogsDTO.setUserId(blog.getUserId());
 				// Setting completed.
-				BlogsDTO updatedDTO= blogService.updateBlog(blogsDTO);
+				BlogsDTO updatedDTO=null;
+				if(!blogsDTO.getTitle().equals(blog.getTitle())||!blogsDTO.getDescription().equals(blog.getDescription())) {
+					updatedDTO= blogService.updateBlog(blogsDTO);
+				}
 				if((updatedDTO!=null)) {
 					String path=updatedDTO.getPath();
 					if(path!=null) {
 						updatedDTO.setPath("");
 					}
+					return new ResponseEntity<BlogsDTO>(updatedDTO,HttpStatus.OK);
+				}else {
+					String resStatus="No modification found to update the Blog.";
+					JSONObject jsonObj=new JSONObject();
+					jsonObj.append("result", resStatus);
+					return new ResponseEntity<String>(jsonObj.toString(),HttpStatus.BAD_REQUEST);
 				}
-				return new ResponseEntity<BlogsDTO>(updatedDTO,HttpStatus.OK);
 			}else {
 				throw new BlogServiceException("Unable to process request as blog object is empty :"+blogsDTO);
 			}
@@ -270,7 +326,7 @@ public class BlogsRestService {
 			Errors errors=new Errors();
 			errors.setErrorCode("Errors-Blogs");
 			errors.setErrorMessage(e.getMessage());
-			return new ResponseEntity<Errors>(errors, HttpStatus.OK);
+			return new ResponseEntity<Errors>(errors, HttpStatus.BAD_GATEWAY);
 		}
 	}
 	
@@ -296,7 +352,7 @@ public class BlogsRestService {
 			Errors errors=new Errors();
 			errors.setErrorCode("Errors-Blogs");
 			errors.setErrorMessage(e.getMessage());
-			return new ResponseEntity<Errors>(errors, HttpStatus.OK);
+			return new ResponseEntity<Errors>(errors, HttpStatus.BAD_GATEWAY);
 		}
 	}
 	
@@ -317,7 +373,7 @@ public class BlogsRestService {
 				jsonObj.append("result", resStatus);
 				return new ResponseEntity<String>(jsonObj.toString(),HttpStatus.OK);
 			}else {
-				throw new BlogServiceException("Error while deleting file "+fileName);
+				throw new BlogServiceException(fileName+" does't exist.");
 			}
 		}
 		catch(Exception e) {
@@ -325,7 +381,7 @@ public class BlogsRestService {
 			Errors errors=new Errors();
 			errors.setErrorCode("Errors-Blogs");
 			errors.setErrorMessage(e.getMessage());
-			return new ResponseEntity<Errors>(errors, HttpStatus.OK);
+			return new ResponseEntity<Errors>(errors, HttpStatus.BAD_GATEWAY);
 		}
 	}
 	
@@ -407,7 +463,7 @@ public class BlogsRestService {
 			Errors errors=new Errors();
 			errors.setErrorCode("Errors-Blogs");
 			errors.setErrorMessage(e.getMessage());
-			return new ResponseEntity<Errors>(errors, HttpStatus.OK);
+			return new ResponseEntity<Errors>(errors, HttpStatus.BAD_GATEWAY);
 		}
 	}
 	
@@ -433,7 +489,7 @@ public class BlogsRestService {
 			Errors errors=new Errors();
 			errors.setErrorCode("Errors-Blogs");
 			errors.setErrorMessage(e.getMessage());
-			return new ResponseEntity<Errors>(errors, HttpStatus.OK);
+			return new ResponseEntity<Errors>(errors, HttpStatus.BAD_GATEWAY);
 		}
 	}
 	
@@ -449,6 +505,6 @@ public class BlogsRestService {
 
 		errors.setErrorCode("Errors-Blogs");
 		errors.setErrorMessage(ex.getMessage());
-		return new ResponseEntity<Errors>(errors, HttpStatus.OK);
+		return new ResponseEntity<Errors>(errors, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 }

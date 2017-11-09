@@ -154,13 +154,14 @@ public class BlogServiceImpl implements BlogService{
 		if(blogDAO.blogExists(blogId)&&(userMailId!=null)) {
 			if(BlogsServiceUtil.removeBlogAttachments(getBlogsAttachmentPath()+File.separator+userMailId+File.separator+blogId+File.separator+fileName)) {
 				logger.info("BlogServiceImpl :: removeFile -- file "+fileName+" removed.");
+				return true;
 			}
+			return false;
 			
 		}else {
 			logger.error("BlogServiceImpl :: removeFile Error === Blog/UserMailId does not exist.");
 			throw new BlogServiceException("No Blog/UserMailId found with "+blogId+"/"+userMailId);
 		}
-		return true;
 	}
 
 
