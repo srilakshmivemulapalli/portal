@@ -36,6 +36,9 @@ public class EmailAccount {
 	@Value("${gmail.training.request}")
 	private String subtrainingreq;
 	
+	@Value("${gmail.training.reject}")
+	private String trainingRejectSubject;
+	
 	public String getSubQuestToAnser() {
 		return subQuestToAnser;
 	}
@@ -83,4 +86,13 @@ public class EmailAccount {
 	public void setSubtrainingreq(String subtrainingreq) {
 		this.subtrainingreq = subtrainingreq;
 	}
+
+	public String getTrainingRejectSubject() {
+		return trainingRejectSubject;
+	}
+
+	public void setTrainingRejectSubject(String trainingRejectSubject) {
+		this.trainingRejectSubject = trainingRejectSubject;
+	}
+	
 }

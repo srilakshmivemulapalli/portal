@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nisum.portal.service.api.EmailAccount;
 import com.nisum.portal.service.api.TrainingsService;
 import com.nisum.portal.service.api.UserService;
 import com.nisum.portal.service.dto.Errors;
@@ -28,6 +29,7 @@ import com.nisum.portal.service.dto.TrainingRequestDTO;
 import com.nisum.portal.service.dto.TrainingsDTO;
 import com.nisum.portal.service.exception.TrainingsServiceException;
 import com.nisum.portal.util.Constants;
+import com.nisum.portal.util.MailSender;
 
 @RestController
 @RequestMapping(value ="/v1/trainings")
@@ -39,6 +41,8 @@ public class TrainingsRestService {
 	
 	@Autowired
 	private UserService userService;
+	
+	private static EmailAccount emailAccount;
 	
 
 	@RequestMapping(value = "/saveTrainings", method = RequestMethod.POST)
@@ -267,6 +271,12 @@ public class TrainingsRestService {
 		try
 		{
 		TrainingsDTO trainings=trainingsService.updateTrainingStatus(trainingsDTO);
+		 String mailBody=MailSender.trainingApproveMessageBody(trainingsDTO.getTrainerName(),trainingsDTO.getTrainingRemarks());
+		 if(trainings.getTrainingStatus()==0)
+		 {
+			MailSender.sendEmail(emailAccount.getAdminemail(), emailAccount.getAdminpassword(), trainingsDTO.getTrainerEmailId(),null,
+					emailAccount.getTrainingRejectSubject(),mailBody);
+		 }
 		 return new ResponseEntity<TrainingsDTO>(trainings,HttpStatus.OK);
 		}catch(Exception e) {
 			logger.error(Constants.TRAINING_NOT_PRESENCE);
@@ -277,6 +287,9 @@ public class TrainingsRestService {
 		}
 		}
 	
-	
+	@Autowired
+	public void setEmailAccount(EmailAccount emailAccount) {
+		TrainingsRestService.emailAccount = emailAccount;
+	}
 	
 }

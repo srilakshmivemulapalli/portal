@@ -150,6 +150,26 @@ public class MailSender {
 	public static String removeLastChar(String str) {
 		return str.substring(0,str.length()-1);
 	}
+	
+	public static String trainingApproveMessageBody(String userName,String mailBody){
+
+		StringBuilder sb = new StringBuilder();
+
+		sb.append("<html><head></head><title></title>");
+		sb.append("<body style='font-size:12px;font-family:Trebuchet MS;'>");
+		sb.append("<i>Hi"+"  "+userName+","+"</i>");
+		sb.append("<br><br>");
+		sb.append("<i>"+mailBody+" </i>");
+		sb.append("<br><br>");
+		sb.append("<i>This is an auto generated e-mail. Thanking you.</i>");
+		sb.append("<br><br>");
+		sb.append("<i>Regards,</i>");
+		sb.append("<br><br>");
+		sb.append("<font color=red><i>Nisum Portal Application.</i></font>");
+		
+		return sb.toString();
+
+	}
 
 
 }  

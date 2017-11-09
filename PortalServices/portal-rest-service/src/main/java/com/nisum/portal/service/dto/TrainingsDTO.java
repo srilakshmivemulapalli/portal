@@ -28,6 +28,7 @@ public class TrainingsDTO {
 	private ArrayList<LinkedHashMap<String,String>> commentDescriptions;
 	private Integer commentStatus;
 	private Integer trainingStatus;
+	private String trainingRemarks;
 	public Integer getTrainingId() {
 		return trainingId;
 	}
@@ -143,6 +144,12 @@ public class TrainingsDTO {
 	public void setTrainingStatus(Integer trainingStatus) {
 		this.trainingStatus = trainingStatus;
 	}
+	public String getTrainingRemarks() {
+		return trainingRemarks;
+	}
+	public void setTrainingRemarks(String trainingRemarks) {
+		this.trainingRemarks = trainingRemarks;
+	}
 	@Override
 	public String toString() {
 		return "CategoriesDTO [trainingId=" + trainingId + ", description=" + description + ", trainingStartTime="
@@ -153,7 +160,7 @@ public class TrainingsDTO {
 				+trainingEndDate+" ,trainingEndTime="+trainingEndTime+"+duration="+duration+
 						",trainerName="+trainerName+",displayImage="+displayImage+",noOfComments="
 				+noOfComments+",trainingToUserId="+trainingToUserId+"+commentDescriptions="+commentDescriptions+"commentStatus="
-				+commentStatus+",trainingStatus="+trainingStatus+"]";	
+				+commentStatus+",trainingStatus="+trainingStatus+",trainingRemarks="+trainingRemarks+"]";	
 	}
 
 	
