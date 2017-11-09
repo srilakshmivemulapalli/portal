@@ -10,7 +10,7 @@
 			<li class="active"><a>Class Room Trainings</a></li>
 
 		</ul>
-		<div class="row irs-all-course-bb clearfix">
+		<div class="row irs-all-course-bb clearfix" ng-if="trainingsList.trainings.length>0">
 			<div class="col-sm-4 col-md-4 col-lg-4 clearfix"
 				ng-repeat="training in trainingsList.trainings"
 				ng-click="showModal(training)">
@@ -48,6 +48,9 @@
 				</div>
 			</div>
 		</div>
+		<div class="row text-center" ng-if="trainingsList.trainings.length<=0">
+					<h1>No ClassRoom Trainings are available.</h1>
+			</div>
 	</div>
 
 </div>

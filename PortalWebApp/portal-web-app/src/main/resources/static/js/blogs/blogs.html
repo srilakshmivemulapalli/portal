@@ -24,6 +24,7 @@
 
 	<div class="tab-content">
 		<div class="col-md-12 tab-pane active" id="allblogs">
+			<div ng-if="allBlogsList.length>0">
 			<ul id="main_posts_list">
 				<li ng-repeat="blog in allBlogsList">
 					<div class="blog-wrapper">
@@ -54,10 +55,15 @@
 					</div>
 				</li>
 			</ul>
+			</div>
+			<div class="text-center" ng-if="allBlogsList.length==0">
+					<h1>No Blogs are available.</h1>
+			</div>
 
 		</div>
 
 		<div class="col-md-12 tab-pane" id="myblogs">
+			<div ng-if="myBlogsList.length>0">
 			<ul id="main_posts_list">
 				<li ng-repeat="blog in myBlogsList">
 					<div class="blog-wrapper">
@@ -90,6 +96,10 @@
 					</div>
 				</li>
 			</ul>
+			</div>
+			<div class="text-center" ng-if="myBlogsList.length==0">
+					<h1>No Blogs are available.</h1>
+			</div>
 		</div>
 	</div>
 </div>

@@ -30,11 +30,11 @@ adminApp
 
 					};
 					$scope.requestObj={
-							'id': -1,
-							'status': -1,
-							'emailId': '',
-							'name': ''
-							'trainingRemarks':'';
+							'trainingId': -1,
+							'trainingStatus': -1,
+							'trainerEmailId': commonService.emailId,
+							'trainerName': commonService.profile.userName,
+							'trainingRemarks':''
 					
 					};
 					$scope.getUsers = function() {
@@ -404,6 +404,21 @@ adminApp
 						$scope.roleselected = [];
 						$scope.categoryselected = [];
 
+					}
+					$scope.requestApproval=function(description,status){
+						$scope.requestObj.trainingStatus=status;
+						$scope.requestObj.trainingRemarks=description;
+						trainingService.requestApproval($scope.requestObj).then(function(response){
+							if(response.errorcode){
+								$scope.errorMessage=response.errorMessage;
+							}else{
+								$scope.requestObj.trainingRemarks='';
+								$scope.requestObj.trainingStatus=-1;
+							}
+						},function(response){
+							
+						})
+						
 					}
 					
 					

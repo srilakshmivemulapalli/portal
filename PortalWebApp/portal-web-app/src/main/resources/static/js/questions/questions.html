@@ -63,6 +63,7 @@
 
 	<div class="tab-content">
 		<div class="tab-pane active" id="all">
+			<div ng-if="items.length>0">
 			<div class="main-questions-list">
 				<ul id="main_questions_list">
 					<li ng-repeat="question in items"
@@ -131,8 +132,13 @@
 
 				</div>
 			</div>
+			</div>
+			<div class="text-center" ng-if="items.length==0">
+					<h1>No Questions are available.</h1>
+			</div>
 		</div>
 		<div class="tab-pane" id="unanswered">
+			<div ng-if="items.length>0">
 			<div class="main-questions-list">
 				<ul id="main_questions_list">
 					<li ng-repeat="question in items"
@@ -202,9 +208,14 @@
 
 				</div>
 			</div>
+			</div>
+			<div class="text-center" ng-if="items.length==0">
+					<h1>No Questions are available.</h1>
+			</div>
 
 		</div>
 		<div class="tab-pane" id="myposts">
+			<div ng-if="items.length>0">
 			<div class="main-questions-list">
 				<ul id="main_questions_list">
 					<li ng-repeat="question in items"
@@ -274,10 +285,15 @@
 
 				</div>
 			</div>
+			</div>
+			<div class="text-center" ng-if="items.length==0">
+					<h1>No Questions are available.</h1>
+			</div>
 
 		</div>
 		
 		<div class="tab-pane" id="myreplies">
+			<div ng-if="items.length>0">
 			<div class="main-questions-list">
 				<ul id="main_questions_list">
 					<li ng-repeat="question in items"
@@ -346,6 +362,10 @@
 					</ul>
 
 				</div>
+			</div>
+			</div>
+			<div class="text-center" ng-if="items.length==0">
+					<h1>No Questions are available.</h1>
 			</div>
 		</div>
 	</div>

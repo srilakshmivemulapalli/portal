@@ -25,11 +25,14 @@ questionApp
 							$scope.categoriesList.addCategories(category);
 
 						})
+						if($scope.categoriesList.categories.length>0){
 						var categoryObj = {
 							'categoryId' : 0,
 							'categoryName' : 'All'
 						};
 						$scope.categoriesList.addCategories(categoryObj);
+						$scope.categoryId = 0;
+						}
 					} else {
 						categoryService
 								.getCategories()
@@ -44,12 +47,16 @@ questionApp
 															$scope.categoriesList
 																	.addCategories(category);
 														});
+												if($scope.categoriesList.categories.length>0){
 												var categoryObj = {
 													'categoryId' : 0,
 													'categoryName' : 'All'
 												};
+												
 												$scope.categoriesList
 														.addCategories(categoryObj);
+												$scope.categoryId = 0;
+												}
 
 												localStorageService.set(
 														'categoriesList',
@@ -63,7 +70,7 @@ questionApp
 										})
 
 					}
-					$scope.categoryId = 0;
+					
 					$scope.filterSelected = function() {
 
 						var attr = $('#nav-tabs .active > a').attr(

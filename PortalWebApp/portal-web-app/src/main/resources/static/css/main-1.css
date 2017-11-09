@@ -5830,23 +5830,18 @@ color:#dd6851;
  margin-right:5px;
 }
 .classstate{
-	float:right;
-	width:30%;
 	margin-bottom:35px;
 }
-.classstate .leftstate,.rightstate{
-	width: 50%;
-	float:left;
-}
-.leftstate span,.rightstate span{
+
+.state span{
 	width:50%;
 	float:left; 
 }
-.leftstate p,.rightstate p{
+.state p{
 color: #3498db;
 font-size: 16px;
 }
-.leftstate p span,.rightstate p span{
+.state p span{
 float: right;
 color: #333;
 font-size:13px;
