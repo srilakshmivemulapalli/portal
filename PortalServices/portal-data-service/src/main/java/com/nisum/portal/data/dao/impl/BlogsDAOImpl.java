@@ -72,5 +72,10 @@ public class BlogsDAOImpl implements BlogsDAO {
 		logger.info("BlogsDAOImpl :: getAllBlogsPaginationByMailId");
 		return blogsRepository.findAllBlogsPaginationByUserMailIdOrderByDateDesc(userMailId, new PageRequest(page,size));
 	}
+	@Override
+	public Long getAllBlogsCount() {
+		logger.info("BlogsDAOImpl :: getAllBlogsCount");
+		return blogsRepository.count();
+	}
 
 }

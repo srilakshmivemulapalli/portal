@@ -14,7 +14,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.nisum.portal.data.dao.api.LocationDAO;
-import com.nisum.portal.data.dao.api.impl.LocationDAOImplTest;
+//import com.nisum.portal.data.dao.api.impl.LocationDAOImplTest;
 import com.nisum.portal.data.domain.Location;
 import com.nisum.portal.service.dto.LocationDTO;
 

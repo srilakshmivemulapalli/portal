@@ -222,6 +222,13 @@ public class BlogServiceImpl implements BlogService{
 		List<Blogs> blogsList=blogDAO.getAllBlogsPaginationByMailId(mailId, page, size);
 		return BlogsServiceUtil.convertDaoTODto(blogsList);
 	}
+
+
+	@Override
+	public Long getAllBlogsCount() {
+		logger.info("BlogServiceImpl :: getAllBlogsCount");
+		return blogDAO.getAllBlogsCount();
+	}
 	
 	
 }

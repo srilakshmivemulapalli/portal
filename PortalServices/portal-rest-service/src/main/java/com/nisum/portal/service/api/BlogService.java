@@ -44,5 +44,7 @@ public interface BlogService {
 	List<BlogsDTO> getAllBlogsPaination(Integer page,Integer size);
 	
 	List<BlogsDTO> getAllBlogsPainationByMailId(String mailId,Integer page,Integer size);
+	
+	Long getAllBlogsCount();
 
 }
