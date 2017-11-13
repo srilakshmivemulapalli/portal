@@ -1252,7 +1252,7 @@
                     component.toggleClass('active');
                 }
                 place();
-                
+                widget.show();
                 if (options.focusOnShow && !input.is(':focus')) {
                     input.focus();
                 }
