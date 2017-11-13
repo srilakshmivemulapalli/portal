@@ -257,7 +257,7 @@ public class TrainingsRestService {
 		}catch(Exception e){
         	logger.error(Constants.TRAINING_NOT_FETCH);
 	    	     Errors error=new Errors();
-	    	     error.setErrorCode("Error-upcoming Trainings");
+	    	     error.setErrorCode("Error-get All Trainings");
 	    	     error.setErrorMessage(Constants.TRAINING_NOT_FETCH);
 	         return new ResponseEntity<Errors>(error,HttpStatus.OK);
 			
@@ -267,7 +267,7 @@ public class TrainingsRestService {
 	@RequestMapping(value="/updateTrainingStatus",method=RequestMethod.PUT,consumes = "application/json",produces = "application/json")
 		public ResponseEntity<?> updateTrainingStatus(@RequestBody TrainingsDTO trainingsDTO)
 		{
-		logger.info("TrainingsRestService :: getAllTrainings");
+		logger.info("TrainingsRestService :: updateTrainingStatus");
 		try
 		{
 		TrainingsDTO trainings=trainingsService.updateTrainingStatus(trainingsDTO);
@@ -281,7 +281,7 @@ public class TrainingsRestService {
 		}catch(Exception e) {
 			logger.error(Constants.TRAINING_NOT_PRESENCE);
 			Errors error = new Errors();
-			error.setErrorCode("Error-All Trainings Requests");
+			error.setErrorCode("Error-update Training Status");
 			error.setErrorMessage(Constants.TRAINING_NOT_PRESENCE);
 			return new ResponseEntity<Errors>(error, HttpStatus.OK);
 		}

@@ -295,55 +295,7 @@ public class TrainingsServiceImpl implements TrainingsService {
 	public TrainingsApproveDTO getAllTrainings() {
 		 logger.info("TrainingsServiceImpl::getAllTrainings");
 		 List<TrainingsDTO> tainingsList=TrainingsServiceUtil.convertDaoTODto(trainingsDAO.getAllTrainings());
-		// TrainingsDetails trainingDetails=new TrainingsDetails();
 		 TrainingsApproveDTO trainingsApproveDTO=new TrainingsApproveDTO();
-		/* int classCount=0;
-		 int onlineCount=0;
-		 int classPending=0;
-		 int onlinePending=0;
-		 int classApproval=0;
-		 int onlineApproval=0;
-		 int classRejected=0;
-		 int onlineRejected=0;
-		 for (TrainingsDTO trainingsDTO : tainingsList) {
-			 if(trainingsDTO.getTrainingType()!=null && trainingsDTO.getTrainingType().equals("classroom"))
-			 {
-				 classCount++;
-				 if(trainingsDTO.getTrainingStatus()!=null )
-				 {
-					 if(trainingsDTO.getTrainingStatus()==1)
-						 classPending++;
-					 if(trainingsDTO.getTrainingStatus()==2)
-						 classApproval++;
-					 if(trainingsDTO.getTrainingStatus()==0)
-						 classRejected++;
-				 }
-			 }
-			 if(trainingsDTO.getTrainingType()!=null && trainingsDTO.getTrainingType().equals("online"))
-			 {
-				 onlineCount++;
-				 if(trainingsDTO.getTrainingStatus()!=null )
-				 {
-					 if(trainingsDTO.getTrainingStatus()==1)
-						 onlinePending++;
-					 if(trainingsDTO.getTrainingStatus()==2)
-						 onlineApproval++;
-					 if(trainingsDTO.getTrainingStatus()==0)
-						 onlineRejected++;
-				 }
-			 }
-			 
-		}
-		 trainingDetails.setNoOfClassTrainings(classCount);
-		 trainingDetails.setNoOfClassPendings(classPending);
-		 trainingDetails.setNoOfClassApprovals(classApproval);
-		 trainingDetails.setNoOfClassRejected(classRejected);
-		 
-		 trainingDetails.setNoOfOnlineTrainings(onlineCount);
-		 trainingDetails.setNoOfOnlinePendings(onlinePending);
-		 trainingDetails.setNoOfOnlineApprovals(onlineApproval);
-		 trainingDetails.setNoOfOnlineRejected(onlineRejected);*/
-		 
 		 TrainingsDetails trainingDetails=	this.getTrainingDetails(tainingsList);
 		 trainingsApproveDTO.setTrainings(tainingsList);
 		 trainingsApproveDTO.setTrainingsDetails(trainingDetails);
@@ -356,22 +308,6 @@ public class TrainingsServiceImpl implements TrainingsService {
 		logger.info("TrainingsServiceImpl :: updateTrainingStatus");
 		 Trainings trainings=TrainingsServiceUtil.convertDtoToDao(trainingsDTO);
 		 List<TrainingsDTO> tainingsList=TrainingsServiceUtil.convertDaoTODto(trainingsDAO.getAllTrainings());
-		 //int classApproval=0;
-		// int onlineApproval=0;
-		 /*for (TrainingsDTO trainingDTO : tainingsList) {
-			 if(trainingDTO.getTrainingType()!=null && trainingDTO.getTrainingType().equals("classroom"))
-			 {
-				 if(trainingDTO.getTrainingStatus()!=null&&trainingDTO.getTrainingStatus()==2)
-					 classApproval++;
-			 }
-			 if(trainingDTO.getTrainingType()!=null && trainingDTO.getTrainingType().equals("online"))
-			 {
-				 if(trainingDTO.getTrainingStatus()!=null&&trainingDTO.getTrainingStatus()==2)
-					 onlineApproval++;
-				 
-			 }
-		 }*/
-           
 		 TrainingsDTO training=TrainingsServiceUtil.convertTrainingsDaoTODto(trainingsDAO.updateTrainingStatus(trainings));
 		 TrainingsDetails trainingsDetail=new TrainingsDetails();
 		 TrainingsDetails trainingsDetails= this.getTrainingDetails(tainingsList);
