@@ -1,7 +1,13 @@
 package com.nisum.portal.rest.api;
 
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.Format;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
+
+import javax.ws.rs.QueryParam;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,10 +61,19 @@ public class BookMeetingRoomRestService {
 	}
 }		
 	
-	@RequestMapping(value = "/getAllbookedMeetingRoom/{locationId}/{startDate}", method = RequestMethod.GET)
-	public ResponseEntity<?> getAllMeetingRoom(@PathVariable int locationId,@PathVariable Timestamp startDate) throws BookMeetingRoomRestServiceException{
+	@RequestMapping(value = "/getAllbookedMeetingRoom", method = RequestMethod.GET)
+	public ResponseEntity<?> getAllMeetingRoom(@QueryParam("locationnId") String locationnId,@QueryParam("startedDate") String startedDate,@QueryParam("startTime") String startTime) throws BookMeetingRoomRestServiceException{
 		logger.info(".....In getAllMeetingRoom() controller...");
+		
+		String startingDate=startedDate+" "+startTime +".1234";
+		Timestamp startDate = Timestamp.valueOf(startingDate);
+		int locationId = 0;
+		if (locationnId != null) {
+			 locationId= Integer.parseInt(locationnId);
+		}
+		 
 		try {
+			
 			List<MeetingRoomDTO> meetingsList = meetingRoomService.getAllMeetingRoom(locationId,startDate);
 			if (meetingsList.size() == 0) {
 				ServiceStatusDto serviceStatusDto = new ServiceStatusDto();

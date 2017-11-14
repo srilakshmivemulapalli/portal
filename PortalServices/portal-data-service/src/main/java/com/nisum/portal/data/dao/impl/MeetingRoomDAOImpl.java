@@ -34,6 +34,9 @@ public class MeetingRoomDAOImpl implements MeetingRoomDAO {
 	 
 	 public List<MeetingRoom> findAllByLocationIdAndDate(int locationId, Timestamp startDate){
 		 logger.info("In MeetingRoomDAOImpl class....findAllByLocationIdAndDate()....");
+		 if (locationId == 0) {
+			 return meetingRoomRepository.findAllByDate(startDate);
+		 }
 		return  meetingRoomRepository.findAllByLocationIdAndDate(locationId,startDate);
 		 
 	 }

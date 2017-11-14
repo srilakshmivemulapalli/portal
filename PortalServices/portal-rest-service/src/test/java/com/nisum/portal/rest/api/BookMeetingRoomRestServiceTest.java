@@ -78,7 +78,7 @@ public class BookMeetingRoomRestServiceTest {
 		when(bookMeetingRoomRestService.registerMeetingRoom(null)).thenThrow(bookMeetingRoomException);
 	}
 	
-	@Test
+	/*@Test
 	public void getAllMeetingRoomTest() throws BookMeetingRoomRestServiceException {
 		List<MeetingRoomDTO> meetingList = new ArrayList<MeetingRoomDTO>();
 		MeetingRoomDTO meetingRoomDTO=new MeetingRoomDTO();
@@ -119,7 +119,7 @@ public class BookMeetingRoomRestServiceTest {
 	@Test(expected = Exception.class)
 	public void getAllMeetingRoomException() throws BookMeetingRoomRestServiceException{
 		when(bookMeetingRoomRestService.getAllMeetingRoom(0,null)).thenThrow(bookMeetingRoomException);
-	}
+	}*/
 	
 	@Test
 	public void getAvailableMeetingRoomTest() throws BookMeetingRoomRestServiceException {
