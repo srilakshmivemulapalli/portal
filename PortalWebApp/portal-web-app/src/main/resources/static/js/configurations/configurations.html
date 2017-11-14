@@ -230,19 +230,19 @@
 					class="col-md-offset-6 col-xs-offset-6 col-sm-offset-6 col-lg-offset-6 col-xl-offset-6 col-md-6 col-xs-6 col-sm-6 col-lg-6 col-xl-6 classstate">
 					<div class="col-md-6 col-xs-6 col-sm-6 col-lg-6 col-xl-6 state">
 						<p>
-							Classroom<span>{{trainingList.noOfClassTrainings}}</span>
+							Classroom<span>{{trainingList.trainingsDetails.noOfClassTrainings}}</span>
 						</p>
-						<span class="green">Approved </span><span>{{trainingList.noOfClassApprovals}}</span>
-						<span class="orange">Pending </span><span>{{trainingList.noOfClassPendings}}</span>
-						<span class="red">Rejected</span><span>{{trainingList.noOfClassRejected}}</span>
+						<span class="green">Approved </span><span>{{trainingList.trainingsDetails.noOfClassApprovals}}</span>
+						<span class="orange">Pending </span><span>{{trainingList.trainingsDetails.noOfClassPendings}}</span>
+						<span class="red">Rejected</span><span>{{trainingList.trainingsDetails.noOfClassRejected}}</span>
 					</div>
 					<div class="col-md-6 col-xs-6 col-sm-6 col-lg-6 col-xl-6 state">
 						<p>
-							online<span>{{trainingList.noOfOnlineTrainings}}</span>
+							online<span>{{trainingList.trainingsDetails.noOfOnlineTrainings}}</span>
 						</p>
-						<span class="green">Approved </span><span>{{trainingList.noOfOnlineApprovals}}</span>
-						<span class="orange">Pending </span><span>{{trainingList.noOfOnlinePendings}}</span>
-						<span class="red">Rejected</span><span>{{trainingList.noOfOnlineRejected}}</span>
+						<span class="green">Approved </span><span>{{trainingList.trainingsDetails.noOfOnlineApprovals}}</span>
+						<span class="orange">Pending </span><span>{{trainingList.trainingsDetails.noOfOnlinePendings}}</span>
+						<span class="red">Rejected</span><span>{{trainingList.trainingsDetails.noOfOnlineRejected}}</span>
 					</div>
 				</div>
 				<div class="col-md-12 col-xs-12 col-lg-12 col-xl-12 col-sm-12" ng-if="trainingList.trainings.length>0">
@@ -259,14 +259,10 @@
 						<tbody>
 							<tr dt-rows ng-repeat="training in trainingList.trainings">
 								<td><h4>{{ training.trainingTitle }}</h4></td>
-								<td><p>{{ training.trainingStartDate | date: 'dd
-										MMM,yyyy'}}-{{ training.trainingEndDate | date: 'dd
-										MMM,yyyy'}}</p>
-									<p>{{ training.trainingStartDate | date: 'hh:mma'}}-{{
-										training.trainingEndDate | date: 'hh:mma'}}</p></td>
+								<td><p><strong>{{ training.trainingStartDate | date: 'dd MMM,yyyy'}} - {{ training.trainingEndDate | date: 'dd MMM,yyyy'}}</strong></p>
+									<p>{{ training.trainingStartDate | date: 'hh:mma'}}-{{training.trainingEndDate | date: 'hh:mma'}}</p></td>
 								<td><p>{{training.trainingType }}</p></td>
-								<td><p ng-if="training.trainingStatus===1"
-										style="color: orange;">Pending</p>
+								<td><p ng-if="training.trainingStatus===1" style="color: orange;">Pending</p>
 									<p ng-if="training.trainingStatus===2" style="color: green;">Approved</p>
 									<p ng-if="training.trainingStatus===0" style="color: red;">Rejected</p></td>
 								<td>

@@ -415,7 +415,7 @@ adminApp
 								$scope.errorMessage=response.errorMessage;
 							}else{
 								$("#remarkModal").modal("hide");
-								
+								$scope.trainingList.trainingsDetails=response.trainingsDetails;
 								angular.forEach($scope.trainingList.trainings,function(innerTraining,index){
 									if(innerTraining.trainingId===response.trainingId){
 										$scope.trainingList.trainings[index].trainingStatus=response.trainingStatus;
