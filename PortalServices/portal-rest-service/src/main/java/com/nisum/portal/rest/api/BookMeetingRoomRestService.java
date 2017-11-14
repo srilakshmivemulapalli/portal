@@ -1,10 +1,7 @@
 package com.nisum.portal.rest.api;
 
-import java.sql.Date;
+
 import java.sql.Timestamp;
-import java.text.Format;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.ws.rs.QueryParam;
