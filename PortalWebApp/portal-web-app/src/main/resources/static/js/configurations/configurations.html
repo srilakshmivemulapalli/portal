@@ -230,7 +230,7 @@
 					class="col-md-offset-6 col-xs-offset-6 col-sm-offset-6 col-lg-offset-6 col-xl-offset-6 col-md-6 col-xs-6 col-sm-6 col-lg-6 col-xl-6 classstate">
 					<div class="col-md-6 col-xs-6 col-sm-6 col-lg-6 col-xl-6 state">
 						<p>
-							Online<span>{{trainingList.noOfClassTrainings}}</span>
+							Classroom<span>{{trainingList.noOfClassTrainings}}</span>
 						</p>
 						<span class="green">Approved </span><span>{{trainingList.noOfClassApprovals}}</span>
 						<span class="orange">Pending </span><span>{{trainingList.noOfClassPendings}}</span>
@@ -238,7 +238,7 @@
 					</div>
 					<div class="col-md-6 col-xs-6 col-sm-6 col-lg-6 col-xl-6 state">
 						<p>
-							Classroom<span>{{trainingList.noOfOnlineTrainings}}</span>
+							online<span>{{trainingList.noOfOnlineTrainings}}</span>
 						</p>
 						<span class="green">Approved </span><span>{{trainingList.noOfOnlineApprovals}}</span>
 						<span class="orange">Pending </span><span>{{trainingList.noOfOnlinePendings}}</span>
@@ -246,7 +246,7 @@
 					</div>
 				</div>
 				<div class="col-md-12 col-xs-12 col-lg-12 col-xl-12 col-sm-12" ng-if="trainingList.trainings.length>0">
-					<table datatable="ng" class="data_table">
+					<table datatable="ng" dt-column-defs="dtColumnDefs" class="data_table">
 						<thead>
 							<tr>
 								<th>Training</th>
@@ -398,6 +398,7 @@
 				<h3>Remarks</h3>
 				<textarea rows="4" cols="50" id="focusText" autogrow
 					ng-model="trainingRemarks"></textarea>
+				<p style="color:red;">* Please give remarks for rejecting the training.</p>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="custombtn btn-normal"

@@ -85,7 +85,7 @@ app.factory('trainingService', function($http, $q,commonService) {
 	}
 	ts.requestApproval=function(data){
 		var deferred = $q.defer();
-		$http.post('v1/trainings/updateTrainingStatus',data).success(function(response) {
+		$http.put('v1/trainings/updateTrainingStatus',data).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);

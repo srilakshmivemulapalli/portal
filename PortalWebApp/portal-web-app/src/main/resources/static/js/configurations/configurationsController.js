@@ -24,6 +24,7 @@ adminApp
 						"description" : ""
 
 					};
+					$scope.trainingRemarks='';
 					$scope.roleobj = {
 
 						"role" : ""
@@ -95,6 +96,7 @@ adminApp
 								})
 					}
 					$scope.getTrainingRequests=function(){
+						
 						trainingService.getTrainingRequests().then(function(response){
 								if(response.errorCode){
 									$scope.errorMessage=response.errorMessage;
@@ -412,7 +414,15 @@ adminApp
 							if(response.errorcode){
 								$scope.errorMessage=response.errorMessage;
 							}else{
+								$("#remarkModal").modal("hide");
+								
+								angular.forEach($scope.trainingList.trainings,function(innerTraining,index){
+									if(innerTraining.trainingId===response.trainingId){
+										$scope.trainingList.trainings[index].trainingStatus=response.trainingStatus;
+									}
+								});
 								$scope.requestObj.trainingRemarks='';
+								$scope.trainingRemarks='';
 								$scope.requestObj.trainingStatus=-1;
 							}
 						},function(response){
