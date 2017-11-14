@@ -1,0 +1,36 @@
+<div class="col-md-1 col-xs-1"></div>
+<div class="col-md-9 col-xs-9 main-content" style="padding-top: 30px;">
+
+	<div class="col-md-12 col-xs-12">
+		<div class="errStatus" ng-if="errorMessage!='';">{{errorMessage}}</div>
+		<div class="success" ng-if="successMessage!='';">{{successMessage}}</div>
+	</div>
+	<div class="col-md-12 col-xs-12" >
+
+		<div align="center" style="color: #2535A9;">
+			<h3>Access Roless</h3>
+		</div>
+
+		<br>
+
+		<table class="table table-bordered">
+			<tr>
+				<th>Portal Pages</th>
+				<th ng-repeat="role in pageList[0].roles">{{role.roleName}}</th>
+			</tr>
+
+			<tr ng-repeat="page in pageList">
+				<td>{{page.pageName}}</td>
+				<td ng-repeat="role in page.roles"><input type="checkbox"  ng-model="role.roleAccess" ng-true-value="'true'" ng-false-value="'false'"></td>
+			</tr>
+
+		</table>
+
+		<button type="button" class="btn btn-success"
+			style="float: right; width: 150px" ng-click="updatePageList();">Update</button>
+
+
+	</div>
+</div>
+
+

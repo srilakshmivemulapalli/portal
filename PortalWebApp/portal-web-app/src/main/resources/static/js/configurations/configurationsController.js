@@ -3,14 +3,15 @@ adminApp
 				'configurationsController',
 				function($scope, $timeout, categoryService, userService,
 						roleService, localStorageService, CategoryListModel,
-						RoleListModel, UserListModel,trainingService,commonService,$state) {
+						RoleListModel, UserListModel, trainingService,
+						commonService, $state) {
 
 					$scope.categoriesList = CategoryListModel
 							.newCategoryListInstance();
 					$scope.rolesList = RoleListModel.newRoleListInstance();
 
 					$scope.usersList = UserListModel.newUserListInstance();
-					$scope.checkRoleName=commonService.checkRoleName;
+					$scope.checkRoleName = commonService.checkRoleName;
 					$scope.dummyUsersList = [];
 					$scope.editUsersList = [];
 					$scope.addrole = false;
@@ -24,19 +25,19 @@ adminApp
 						"description" : ""
 
 					};
-					$scope.trainingRemarks='';
+					$scope.trainingRemarks = '';
 					$scope.roleobj = {
 
 						"role" : ""
 
 					};
-					$scope.requestObj={
-							'trainingId': -1,
-							'trainingStatus': -1,
-							'trainerEmailId': commonService.emailId,
-							'trainerName': commonService.profile.userName,
-							'trainingRemarks':''
-					
+					$scope.requestObj = {
+						'trainingId' : -1,
+						'trainingStatus' : -1,
+						'trainerEmailId' : commonService.emailId,
+						'trainerName' : commonService.profile.userName,
+						'trainingRemarks' : ''
+
 					};
 					$scope.getUsers = function() {
 						$scope.getRoles();
@@ -54,6 +55,9 @@ adminApp
 							console.log(response);
 						})
 
+					}
+					$scope.openAccessPage = function() {
+						$state.go('accessroles');
 					}
 					$scope.getRoles = function() {
 						$scope.clear();
@@ -90,30 +94,32 @@ adminApp
 
 									localStorageService.set('categoriesList',
 											response);
-									commonService.categoriesList=response;
+									commonService.categoriesList = response;
 								}, function(response) {
 									console.log(response);
 								})
 					}
-					$scope.getTrainingRequests=function(){
-						
-						trainingService.getTrainingRequests().then(function(response){
-								if(response.errorCode){
-									$scope.errorMessage=response.errorMessage;
-								}
-								else{
-									console.log(response);
-									$scope.trainingList=response;
-								}
-						},function(resposne){
-								console.log(response);
-						});
-						
+					$scope.getTrainingRequests = function() {
+
+						trainingService
+								.getTrainingRequests()
+								.then(
+										function(response) {
+											if (response.errorCode) {
+												$scope.errorMessage = response.errorMessage;
+											} else {
+												console.log(response);
+												$scope.trainingList = response;
+											}
+										}, function(resposne) {
+											console.log(response);
+										});
+
 					}
-					$scope.requestApproval = function(){
-						
+					$scope.requestApproval = function() {
+
 					}
-					
+
 					$scope.addRole = function() {
 						roleService
 								.addRole($scope.roleobj)
@@ -132,9 +138,9 @@ adminApp
 										},
 										function(response) { // optional
 											$scope.errorMessage = response.errorMessage;
-//											$timeout(function() {
-//												$scope.errorMessage = '';
-//											}, 5000);
+											// $timeout(function() {
+											// $scope.errorMessage = '';
+											// }, 5000);
 
 										});
 					}
@@ -157,9 +163,9 @@ adminApp
 										},
 										function(response) { // optional
 											$scope.errorMessage = response.errorMessage;
-//											$timeout(function() {
-//												$scope.errorMessage = '';
-//											}, 5000);
+											// $timeout(function() {
+											// $scope.errorMessage = '';
+											// }, 5000);
 
 										});
 					};
@@ -220,9 +226,9 @@ adminApp
 											},
 											function(response) {
 												$scope.errorMessage = response.errorMessage;
-//												$timeout(function() {
-//													$scope.errorMessage = '';
-//												}, 5000);
+												// $timeout(function() {
+												// $scope.errorMessage = '';
+												// }, 5000);
 											});
 
 						} else if ($scope.deleteitem.name === 'role') {
@@ -247,9 +253,9 @@ adminApp
 											},
 											function(response) {
 												$scope.errorMessage = response.errorMessage;
-//												$timeout(function() {
-//													$scope.errorMessage = '';
-//												}, 5000);
+												// $timeout(function() {
+												// $scope.errorMessage = '';
+												// }, 5000);
 											});
 
 						} else if ($scope.deleteitem.name === 'category') {
@@ -271,15 +277,18 @@ adminApp
 															.deleteCatgory($scope.deleteitem.itemId);
 
 													$scope.clear();
-													localStorageService.set('categoriesList',$scope.categoriesList.categories);
-													commonService.categoriesList=$scope.categoriesList.categories;
+													localStorageService
+															.set(
+																	'categoriesList',
+																	$scope.categoriesList.categories);
+													commonService.categoriesList = $scope.categoriesList.categories;
 												}
 											},
 											function(response) {
 												$scope.errorMessage = response.errorMessage;
-//												$timeout(function() {
-//													$scope.errorMessage = '';
-//												}, 5000);
+												// $timeout(function() {
+												// $scope.errorMessage = '';
+												// }, 5000);
 											});
 						}
 						$('#deleteModal').modal('hide');
@@ -316,9 +325,9 @@ adminApp
 											},
 											function(response) {
 												$scope.errorMessage = response.errorMessage;
-//												$timeout(function() {
-//													$scope.errorMessage = '';
-//												}, 5000);
+												// $timeout(function() {
+												// $scope.errorMessage = '';
+												// }, 5000);
 											});
 
 						} else if ($scope.editteditem.name === 'role') {
@@ -344,9 +353,9 @@ adminApp
 											},
 											function(response) {
 												$scope.errorMessage = response.message;
-//												$timeout(function() {
-//													$scope.errorMessage = '';
-//												}, 5000);
+												// $timeout(function() {
+												// $scope.errorMessage = '';
+												// }, 5000);
 											});
 						} else if ($scope.editteditem.name === 'category') {
 
@@ -363,10 +372,13 @@ adminApp
 													console
 															.log($scope.categoriesList);
 													$scope.successMessage = response.message;
-													
+
 													$scope.clear();
-													localStorageService.set('categoriesList',$scope.categoriesList.categories);
-													commonService.categoriesList=$scope.categoriesList.categories;
+													localStorageService
+															.set(
+																	'categoriesList',
+																	$scope.categoriesList.categories);
+													commonService.categoriesList = $scope.categoriesList.categories;
 													$timeout(
 															function() {
 																$scope.successMessage = '';
@@ -376,10 +388,10 @@ adminApp
 											},
 											function(response) {
 												$scope.errorMessage = response.errorMessage;
-//
-//												$timeout(function() {
-//													$scope.errorMessage = '';
-//												}, 5000);
+												//
+												// $timeout(function() {
+												// $scope.errorMessage = '';
+												// }, 5000);
 											});
 						}
 						$('#editModal').modal('hide');
@@ -400,36 +412,43 @@ adminApp
 							"role" : ""
 
 						}
-						$scope.errorMessage='';
-							
+						$scope.errorMessage = '';
+
 						$scope.userselected = [];
 						$scope.roleselected = [];
 						$scope.categoryselected = [];
 
 					}
-					$scope.requestApproval=function(description,status){
-						$scope.requestObj.trainingStatus=status;
-						$scope.requestObj.trainingRemarks=description;
-						trainingService.requestApproval($scope.requestObj).then(function(response){
-							if(response.errorcode){
-								$scope.errorMessage=response.errorMessage;
-							}else{
-								$("#remarkModal").modal("hide");
-								$scope.trainingList.trainingsDetails=response.trainingsDetails;
-								angular.forEach($scope.trainingList.trainings,function(innerTraining,index){
-									if(innerTraining.trainingId===response.trainingId){
-										$scope.trainingList.trainings[index].trainingStatus=response.trainingStatus;
-									}
-								});
-								$scope.requestObj.trainingRemarks='';
-								$scope.trainingRemarks='';
-								$scope.requestObj.trainingStatus=-1;
-							}
-						},function(response){
-							
-						})
-						
+					$scope.requestApproval = function(description, status) {
+						$scope.requestObj.trainingStatus = status;
+						$scope.requestObj.trainingRemarks = description;
+						trainingService
+								.requestApproval($scope.requestObj)
+								.then(
+										function(response) {
+											if (response.errorcode) {
+												$scope.errorMessage = response.errorMessage;
+											} else {
+												$("#remarkModal").modal("hide");
+												$scope.trainingList.trainingsDetails = response.trainingsDetails;
+												angular
+														.forEach(
+																$scope.trainingList.trainings,
+																function(
+																		innerTraining,
+																		index) {
+																	if (innerTraining.trainingId === response.trainingId) {
+																		$scope.trainingList.trainings[index].trainingStatus = response.trainingStatus;
+																	}
+																});
+												$scope.requestObj.trainingRemarks = '';
+												$scope.trainingRemarks = '';
+												$scope.requestObj.trainingStatus = -1;
+											}
+										}, function(response) {
+
+										})
+
 					}
-					
-					
+
 				});

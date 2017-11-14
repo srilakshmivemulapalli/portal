@@ -81,14 +81,17 @@
 				<h3>Role details</h3>
 			</div>
 			<div class="row">
-				<div class="col-md-6 col-xs-6 col-sm-6 col-lg-6 col-xl-6"></div>
-				<div class="col-md-6 col-xs-6 col-sm-6 col-lg-6 col-xl-6"
-					ng-show="!addrole">
+				<div class="col-md-6"></div>
+				<div class="col-md-3" ng-show="!addrole">
 					<input class='custombtn btn-normal' type="button" value="Add Role"
 						ng-click="addrole=true;roleobj.role='';" style="float: right;" />
 				</div>
-				<div class="col-md-6 col-xs-6 col-sm-6 col-lg-6 col-xl-6"
-					ng-show="addrole">
+				<div class="col-md-3" ng-show="!addrole">
+					<input class='btn btn-primary' type="button" value="Access Roles"
+						ng-click="openAccessPage();" />
+
+				</div>
+				<div class="col-md-6" ng-show="addrole">
 					<form name="roleadd" class="form-inline" ng-submit="addRole();"
 						style="float: right;">
 						<!-- addrole.$dirty &&  -->
@@ -215,7 +218,8 @@
 						</tbody>
 					</table>
 				</div>
-				<div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xl-12 text-center"
+				<div
+					class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xl-12 text-center"
 					ng-if="categoriesList.categories.length<=0">
 					<h1>No categories are available</h1>
 				</div>
@@ -245,8 +249,10 @@
 						<span class="red">Rejected</span><span>{{trainingList.trainingsDetails.noOfOnlineRejected}}</span>
 					</div>
 				</div>
-				<div class="col-md-12 col-xs-12 col-lg-12 col-xl-12 col-sm-12" ng-if="trainingList.trainings.length>0">
-					<table datatable="ng" dt-column-defs="dtColumnDefs" class="data_table">
+				<div class="col-md-12 col-xs-12 col-lg-12 col-xl-12 col-sm-12"
+					ng-if="trainingList.trainings.length>0">
+					<table datatable="ng" dt-column-defs="dtColumnDefs"
+						class="data_table">
 						<thead>
 							<tr>
 								<th>Training</th>
@@ -259,17 +265,25 @@
 						<tbody>
 							<tr dt-rows ng-repeat="training in trainingList.trainings">
 								<td><h4>{{ training.trainingTitle }}</h4></td>
-								<td><p><strong>{{ training.trainingStartDate | date: 'dd MMM,yyyy'}} - {{ training.trainingEndDate | date: 'dd MMM,yyyy'}}</strong></p>
-									<p>{{ training.trainingStartDate | date: 'hh:mma'}}-{{training.trainingEndDate | date: 'hh:mma'}}</p></td>
+								<td><p>
+										<strong>{{ training.trainingStartDate | date: 'dd
+											MMM,yyyy'}} - {{ training.trainingEndDate | date: 'dd
+											MMM,yyyy'}}</strong>
+									</p>
+									<p>{{ training.trainingStartDate | date:
+										'hh:mma'}}-{{training.trainingEndDate | date: 'hh:mma'}}</p></td>
 								<td><p>{{training.trainingType }}</p></td>
-								<td><p ng-if="training.trainingStatus===1" style="color: orange;">Pending</p>
+								<td><p ng-if="training.trainingStatus===1"
+										style="color: orange;">Pending</p>
 									<p ng-if="training.trainingStatus===2" style="color: green;">Approved</p>
 									<p ng-if="training.trainingStatus===0" style="color: red;">Rejected</p></td>
 								<td>
 									<div ng-if="training.trainingStatus===1">
-										<button class="custombtn btn-approve" ng-click="requestObj.trainingId=training.trainingId;requestApproval(trainingRemarks,2)">Approve</button>
+										<button class="custombtn btn-approve"
+											ng-click="requestObj.trainingId=training.trainingId;requestApproval(trainingRemarks,2)">Approve</button>
 										<button class="custombtn btn-reject" data-toggle="modal"
-											data-target="#remarkModal" ng-click="requestObj.trainingId=training.trainingId;">Reject</button>
+											data-target="#remarkModal"
+											ng-click="requestObj.trainingId=training.trainingId;">Reject</button>
 									</div>
 								</td>
 							</tr>
@@ -277,12 +291,13 @@
 					</table>
 				</div>
 			</div>
-		
-				<div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xl-12 text-center"
-					ng-if="trainingList.trainings.length<=0">
-					<h1>No Trainings are available for approval</h1>
-				</div>
-	
+
+			<div
+				class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xl-12 text-center"
+				ng-if="trainingList.trainings.length<=0">
+				<h1>No Trainings are available for approval</h1>
+			</div>
+
 			<!-- <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xl-12">
 				<div class="col-md-4 col-xs-4 col-sm-4 col-lg-4 col-xl-4">
 					<h4>Training</h4>
@@ -394,7 +409,8 @@
 				<h3>Remarks</h3>
 				<textarea rows="4" cols="50" id="focusText" autogrow
 					ng-model="trainingRemarks"></textarea>
-				<p style="color:red;">* Please give remarks for rejecting the training.</p>
+				<p style="color: red;">* Please give remarks for rejecting the
+					training.</p>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="custombtn btn-normal"
