@@ -23,7 +23,7 @@ public Notifications() {
 }
 	private static final long serialVersionUID = 1L;
 @Id
-@Column (name = "id")
+@Column (name = "notificationId")
 @GeneratedValue(strategy=GenerationType.AUTO)
 private int notificationId;
 private String notificationType;
@@ -34,7 +34,7 @@ private Categories categoryId;
 private String emailId;
 private Timestamp createdDate;
 /**
- * @return the id
+ * @return the notificationId
  */
 public int getNotificationId() {
 	return notificationId;

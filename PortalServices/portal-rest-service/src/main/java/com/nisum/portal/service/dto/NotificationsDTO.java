@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import com.nisum.portal.data.domain.Categories;
 
 public class NotificationsDTO {
-	private int id;
+	private int notificationId;
 	private String notificationType;
 	private int notificationNavId;
 	private Categories categoryId;
@@ -14,14 +14,14 @@ public class NotificationsDTO {
 	/**
 	 * @return the id
 	 */
-	public int getId() {
-		return id;
+	public int getNotificationId() {
+		return notificationId;
 	}
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(int id) {
-		this.id = id;
+	public void setNotificationId(int notificationId) {
+		this.notificationId = notificationId;
 	}
 	/**
 	 * @return the notificationType
@@ -93,7 +93,7 @@ public class NotificationsDTO {
 		result = prime * result + ((categoryId == null) ? 0 : categoryId.hashCode());
 		result = prime * result + ((createdDate == null) ? 0 : createdDate.hashCode());
 		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
-		result = prime * result + id;
+		result = prime * result + notificationId;
 		result = prime * result + notificationNavId;
 		result = prime * result + ((notificationType == null) ? 0 : notificationType.hashCode());
 		return result;
@@ -125,7 +125,7 @@ public class NotificationsDTO {
 				return false;
 		} else if (!emailId.equals(other.emailId))
 			return false;
-		if (id != other.id)
+		if (notificationId != other.notificationId)
 			return false;
 		if (notificationNavId != other.notificationNavId)
 			return false;
@@ -141,7 +141,7 @@ public class NotificationsDTO {
 	 */
 	@Override
 	public String toString() {
-		return "NotificationsDTO [id=" + id + ", notificationType=" + notificationType + ", notificationNavId="
+		return "NotificationsDTO [notificationId=" + notificationId + ", notificationType=" + notificationType + ", notificationNavId="
 				+ notificationNavId + ", categoryId=" + categoryId + ", emailId=" + emailId + ", createdDate="
 				+ createdDate + "]";
 	}

@@ -170,14 +170,24 @@ ALTER TABLE `portal`.`Trainings`
 ADD COLUMN `trainingStatus` INT NULL DEFAULT NULL AFTER `trainingEndTime`;
 
 -- Notifications Table Creation Script
-CREATE TABLE `Notifications` (
-  `NotificationId` int(11) NOT NULL AUTO_INCREMENT,
-  `NotificationType` varchar(45) NOT NULL,
-  `NotificationNavId` int(11) NOT NULL,
-  `CategoryId` int(11) NOT NULL,
-  `EmailId` varchar(45) NOT NULL,
-  `CreatedDate` datetime NOT NULL,
-  PRIMARY KEY (`NotificationId`),
-  KEY `CategoryId_idx` (`CategoryId`),
-  CONSTRAINT `CategoryId` FOREIGN KEY (`CategoryId`) REFERENCES `Categories` (`categoryId`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8
+CREATE TABLE `portal.Notifications` (
+  `notificationId` int(11) NOT NULL AUTO_INCREMENT,
+  `notificationType` varchar(45) NOT NULL,
+  `notificationNavId` int(11) NOT NULL,
+  `categoryId` int(11) NOT NULL,
+  `emailId` varchar(45) NOT NULL,
+  `createdDate` datetime NOT NULL,
+  PRIMARY KEY (`notificationId`)
+  ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  
+  
+  CREATE TABLE `portal.NotificationUserMapping` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`notificationId` int(11) DEFAULT NULL,
+`status` varchar(45) DEFAULT NULL,
+`emailId` varchar(45) DEFAULT NULL,
+PRIMARY KEY (`id`),
+KEY `notificationId_idx` (`notificationId`),
+ CONSTRAINT `notificationId` FOREIGN KEY (`notificationId`) REFERENCES `Notifications` (`notificationId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
