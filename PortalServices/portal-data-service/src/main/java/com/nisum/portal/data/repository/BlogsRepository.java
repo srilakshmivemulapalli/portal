@@ -18,4 +18,6 @@ public interface BlogsRepository extends JpaRepository<Blogs, Integer> {
 	List<Blogs> findAllBlogsPaginationOrderByDateDesc(Pageable pageable);
 	@Query("select b from Blogs b where b.userMailId =:mailId order by b.createdDate desc")
 	List<Blogs> findAllBlogsPaginationByUserMailIdOrderByDateDesc(@Param("mailId") String mailId,Pageable pageable);
+	@Query("select count(*) from Blogs b where b.userMailId=:mailId")
+	Long getAllBlogsCountByMailId(@Param("mailId") String mailId);
 }

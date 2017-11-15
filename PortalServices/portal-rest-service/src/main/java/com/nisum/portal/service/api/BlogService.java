@@ -37,13 +37,13 @@ public interface BlogService {
 	
 	boolean removeFile(String userMailId,Integer blogId,String fileName) throws Exception;
 	
-	BlogsDTO convertJSONObjectToBlogsDTO(JSONObject jsonObject) throws Exception;
-	
 	List<BlogsDTO> getAllBlogsByEmailId(String userMailId);
 	
 	List<BlogsDTO> getAllBlogsPaination(Integer page,Integer size);
 	
 	List<BlogsDTO> getAllBlogsPainationByMailId(String mailId,Integer page,Integer size);
+	
+	Long getAllBlogsCountByMailId(String mailId);
 	
 	Long getAllBlogsCount();
 

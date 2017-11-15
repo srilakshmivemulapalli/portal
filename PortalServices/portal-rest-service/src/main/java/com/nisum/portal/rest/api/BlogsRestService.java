@@ -93,7 +93,32 @@ public class BlogsRestService {
 			return new ResponseEntity<String>(jsonObj.toString(),HttpStatus.OK);
 		}
 		catch(Exception e) {
-			logger.error("BlogsRestService :: getAllBlogs Error ");
+			logger.error("BlogsRestService :: getAllBlogsCount Error ");
+			Errors errors=new Errors();
+			errors.setErrorCode("Errors-Blogs");
+			errors.setErrorMessage(e.getMessage());
+			return new ResponseEntity<Errors>(errors, HttpStatus.BAD_GATEWAY);
+		}
+		
+	}
+	
+	/**
+	 * getAllBlogsCountByUserMailID
+	 * 
+	 * @return
+	 * @throws BlogServiceException
+	 */
+	@RequestMapping(value = "/retrieve/MyBlogsCount/{mailId}/", method = RequestMethod.GET)
+	public Object getAllBlogsCountByUserMailID(@PathVariable String mailId) throws BlogServiceException {
+		logger.info("BlogsRestService :: getAllBlogsCountByUserMailID");
+		try {
+			Long blogsCount=blogService.getAllBlogsCountByMailId(mailId);
+			JSONObject jsonObj=new JSONObject();
+			jsonObj.append("count", blogsCount);
+			return new ResponseEntity<String>(jsonObj.toString(),HttpStatus.OK);
+		}
+		catch(Exception e) {
+			logger.error("BlogsRestService :: getAllBlogsCountByUserMailID Error ");
 			Errors errors=new Errors();
 			errors.setErrorCode("Errors-Blogs");
 			errors.setErrorMessage(e.getMessage());

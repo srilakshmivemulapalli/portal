@@ -111,4 +111,83 @@ public class BlogsDAOImplTest {
 		Blogs actMsg=blogsDaoImpl.addBlog(blog);
 		assertEquals(blog,actMsg);
 	}
+	
+	@Test
+	public void getAllBlogsByUserMailIdTest() {
+		logger.info("BlogsDAOImplTest :: getAllBlogsByUserMailIdTest");
+		List<Blogs> blogs=new ArrayList<Blogs>();
+		
+		Integer id=new Integer(18);
+		long millis=1507111208000L;
+		Timestamp createdDate=new Timestamp(millis);
+		
+		Blogs blog=new Blogs();
+		blog.setBlogsId(id);
+		blog.setCreatedDate(createdDate);
+		blog.setDescription("aaaaaa");
+		blog.setPath("/Users/nisum/Documents/BlogAttachments/sjbasha@nisum.com/18");
+		blog.setUserId(101);
+		blogs.add(blog);
+		when(blogsDaoImpl.getAllBlogsByUserMailId("sjbasha@nisum.com")).thenReturn(blogs);
+		List<Blogs> expMsg=blogsDaoImpl.getAllBlogsByUserMailId("sjbasha@nisum.com");
+		assertEquals(expMsg,blogs);
+	}
+	
+	@Test
+	public void getAllBlogsPaginationTest() {
+		logger.info("BlogsDAOImplTest :: getAllBlogsPaginationTest");
+		List<Blogs> blogs=new ArrayList<Blogs>();
+		
+		Integer id=new Integer(18);
+		long millis=1507111208000L;
+		Timestamp createdDate=new Timestamp(millis);
+		
+		Blogs blog=new Blogs();
+		blog.setBlogsId(id);
+		blog.setCreatedDate(createdDate);
+		blog.setDescription("aaaaaa");
+		blog.setPath("/Users/nisum/Documents/BlogAttachments/sjbasha@nisum.com/18");
+		blog.setUserId(101);
+		blogs.add(blog);
+		
+		when(blogsDaoImpl.getAllBlogsPagination(3, 5)).thenReturn(blogs);
+		List<Blogs> expMsg=blogsDaoImpl.getAllBlogsPagination(3, 5);
+		assertEquals(expMsg,blogs);
+	}
+	
+	@Test
+	public void getAllBlogsPaginationByMailIdTest() {
+		logger.info("BlogsDAOImplTest :: getAllBlogsPaginationTest");
+		
+		List<Blogs> blogs=new ArrayList<Blogs>();
+		
+		Integer id=new Integer(18);
+		long millis=1507111208000L;
+		Timestamp createdDate=new Timestamp(millis);
+		
+		Blogs blog=new Blogs();
+		blog.setBlogsId(id);
+		blog.setCreatedDate(createdDate);
+		blog.setDescription("aaaaaa");
+		blog.setPath("/Users/nisum/Documents/BlogAttachments/sjbasha@nisum.com/18");
+		blog.setUserId(101);
+		blogs.add(blog);
+		
+		when(blogsDaoImpl.getAllBlogsPaginationByMailId("sjbasha@nisum.com", 3, 5)).thenReturn(blogs);
+		List<Blogs> expMsg=blogsDaoImpl.getAllBlogsPaginationByMailId("sjbasha@nisum.com", 3, 5);
+		assertEquals(expMsg,blogs);
+	}
+	
+	@Test
+	public void getAllBlogsCountTest() {
+		logger.info("BlogsDAOImplTest :: getAllBlogsCountTest");
+		
+		Long lng=10L;
+		
+		when(blogsDaoImpl.getAllBlogsCount()).thenReturn(lng);
+		
+		Long expLng=blogsDaoImpl.getAllBlogsCount();
+		
+		assertEquals(expLng,lng);
+	}
 }

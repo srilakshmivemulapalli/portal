@@ -26,6 +26,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.nisum.portal.data.dao.impl.BlogsDAOImpl;
 import com.nisum.portal.data.domain.Blogs;
@@ -128,22 +129,28 @@ public class BlogsServiceImplTest {
 	}
 	
 	@Test
-	public void removeBlog() throws Exception {
+	public void removeBlogTest() throws Exception {
 		logger.info("BlogsServiceImplTest :: removeBlogSuccess");
 		Integer id=18;
+		//Integer idFail=10;
 		String dirPath="/Users/nisum/Documents/BlogAttachments";
 		when(blogsDAOImpl.blogExists(id)).thenReturn(true);
+		//when(blogsDAOImpl.blogExists(idFail)).thenReturn(false);
 		//when(BlogsServiceUtil.removeBlogAttachments("/Users/nisum/Documents/BlogAttachments/sjbasha@nisum.com/18")).thenReturn(true);
 		//when(blosgServiceUtil.removeBlogAttachments("null/sjbasha@nisum.com/18")).thenReturn(true);
 		
 		ReflectionTestUtils.setField(blogsServiceImpl, "blogsAttachmentPath", dirPath);
 		blogsServiceImpl.removeBlog(id, "sjbasha@nisum.com");
+		//blogsServiceImpl.removeBlog(idFail, "sjbasha@nisum.com");
 	}
 	
 	@Test(expected=BlogServiceException.class)
 	public void removeBlogFailure() throws Exception{
 		logger.info("BlogsServiceImplTest :: removeBlogFailure ");
-		blogsServiceImpl.removeBlog(10, "sjbasha@nisum.com");
+		//when(blogsDAOImpl.blogExists(10)).thenReturn(true);
+		when(blogsDAOImpl.blogExists(11)).thenReturn(false);
+		//blogsServiceImpl.removeBlog(10, "sjbasha@nisum.com");
+		blogsServiceImpl.removeBlog(11, "sjbasha@nisum.com");
 	}
 	
 	@Test
@@ -231,7 +238,7 @@ public class BlogsServiceImplTest {
 		when(request.getParameter("title")).thenReturn(title);
 		when(request.getParameter("description")).thenReturn(description);
 		when(request.getParameter("userId")).thenReturn(userId);
-		when(request.getParameter("userMailId")).thenReturn(userMailId);
+		when(request.getParameter("emailId")).thenReturn(userMailId);
 		
 		
 		
@@ -246,9 +253,35 @@ public class BlogsServiceImplTest {
 	}
 	
 	@Test
+	public void parseRequestToGetBlogsDTOForUpdateSuccess() throws Exception {
+		
+		logger.info("BlogsServiceImplTest :: parseRequestToGetBlogsDTOForUpdateSuccess ");
+		
+		HttpServletRequest request=mock(HttpServletRequest.class);
+		
+		String title="testTile";
+		String blogId="0";
+		String description="testDescription";
+
+		
+		when(request.getParameter("blogId")).thenReturn(blogId);
+		when(request.getParameter("title")).thenReturn(title);
+		when(request.getParameter("description")).thenReturn(description);
+				
+		
+		BlogsDTO actDTO=new BlogsDTO();
+		actDTO.setTitle(title);
+		actDTO.setDescription(description);
+		
+		BlogsDTO expDTO=blogsServiceImpl.parseRequestToGetBlogsDTOForUpdate(request);
+		assertThat(actDTO).isEqualToComparingFieldByField(expDTO);
+	}
+	
+	@Test
 	public void parseRequestToStoreUploadsTestSuccess() throws Exception {
 		
 		logger.info("BlogsServiceImplTest :: parseRequestToStoreUploadsTestSuccess ");
+		
 		
 		int blogId=6;
 		String userMailId="sjbasha@nisum.com";
@@ -261,27 +294,24 @@ public class BlogsServiceImplTest {
 		blogDTO.setBlogsId(blogId);
 		blogDTO.setUserMailId(userMailId);
 		
-		List<Part> parts=new ArrayList<Part>();
-		
 		InputStream inputStream=new FileInputStream("/Users/nisum/Documents/BlogAttachments/sjbasha@nisum.com/22/epfuan_17Oct2017_04_44_00_PM.pdf");
 		
-		Part part=mock(Part.class);
+		MultipartFile request=mock(MultipartFile.class);
 		
-		parts.add(part);
+		MultipartFile[] mFileArr=new MultipartFile[1];
+		mFileArr[0]=request;
 		
-		HttpServletRequest request=mock(HttpServletRequest.class);
 		
-		when(part.getSubmittedFileName()).thenReturn(fileName);
+		when(mFileArr[0].getOriginalFilename()).thenReturn(fileName);
 		
-		when(part.getName()).thenReturn("uploads");
+		when(mFileArr[0].getName()).thenReturn("uploads");
 		
-		when(part.getInputStream()).thenReturn(inputStream);
+		when(mFileArr[0].getInputStream()).thenReturn(inputStream);
 		
-		when(request.getParts()).thenReturn(parts);
 		
-		//BlogsDTO actDTO=blogsServiceImpl.parseRequestToStoreUploads(request, dirPath, blogDTO);
+		BlogsDTO actDTO=blogsServiceImpl.parseRequestToStoreUploads(mFileArr, dirPath, blogDTO);
 		
-		//assertThat(actDTO).isEqualToComparingFieldByField(blogDTO);
+		assertThat(actDTO).isEqualToComparingFieldByField(blogDTO);
 		
 		
 	}
@@ -299,23 +329,20 @@ public class BlogsServiceImplTest {
 		
 		InputStream inputStream=new FileInputStream("/Users/nisum/Documents/BlogAttachments/sjbasha@nisum.com/22/epfuan_17Oct2017_04_44_00_PM.pdf");
 		
-		Part part=mock(Part.class);
+		MultipartFile request=mock(MultipartFile.class);
 		
-		parts.add(part);
+		MultipartFile[] mFileArr=new MultipartFile[1];
+		mFileArr[0]=request;
 		
-		HttpServletRequest request=mock(HttpServletRequest.class);
+		when(mFileArr[0].getOriginalFilename()).thenReturn(fileName);
 		
-		when(part.getSubmittedFileName()).thenReturn(fileName);
+		when(mFileArr[0].getName()).thenReturn("uploads");
 		
-		when(part.getName()).thenReturn("uploads");
+		when(mFileArr[0].getInputStream()).thenReturn(inputStream);
 		
-		when(part.getInputStream()).thenReturn(inputStream);
+		String expMsg=blogsServiceImpl.uploadAttachment(mFileArr, dirPath);
 		
-		when(request.getParts()).thenReturn(parts);
-		
-		//String expMsg=blogsServiceImpl.uploadAttachment(request, dirPath);
-		
-		//assertEquals(dirPath,expMsg);
+		assertEquals(dirPath,expMsg);
 	}
 	
 	@Test
@@ -334,6 +361,36 @@ public class BlogsServiceImplTest {
 		assertEquals("epfuan_23Oct2017_11_29_05_PM.pdf",path.getFileName().toString());
 	}
 	
+	@Test(expected=BlogServiceException.class)
+	public void getFileTestInvalidFailure() throws Exception {
+		
+		logger.info("BlogsServiceImplTest :: getFileTestFailure ");
+		
+		String blogsPath="/Users/nisum/Documents/BlogAttachments";
+		
+		ReflectionTestUtils.setField(blogsServiceImpl, "blogsAttachmentPath", blogsPath);
+		
+		//when(blogsServiceImpl.getBlogsAttachmentPath()).thenReturn(blogsPath);
+		
+		
+		Path path=blogsServiceImpl.getFile(null,new Integer(6),"epfuan_23Oct2017_11_29_05_PM.pdf");
+	}
+	
+	@Test(expected=BlogServiceException.class)
+	public void getFileTestFileFailure() throws Exception {
+		
+		logger.info("BlogsServiceImplTest :: getFileTestFailure ");
+		
+		String blogsPath="/Users/nisum/Documents/BlogAttachments";
+		
+		ReflectionTestUtils.setField(blogsServiceImpl, "blogsAttachmentPath", blogsPath);
+		
+		//when(blogsServiceImpl.getBlogsAttachmentPath()).thenReturn(blogsPath);
+		
+		Path path=blogsServiceImpl.getFile("sjbasha@nisum.com",new Integer(6),"epfan_23Oct2017_11_29_05_PM.pdf");
+	}
+
+	
 	@Test
 	public void removeFileTestSuccess() throws Exception {
 		logger.info("BlogsServiceImplTest :: removeFileTestSuccess ");
@@ -344,8 +401,150 @@ public class BlogsServiceImplTest {
 		
 		when(blogsDAOImpl.blogExists(6)).thenReturn(true);
 		
-		boolean expMsg=blogsServiceImpl.removeFile("sjbasha@nisum.com",new Integer(6),"epfuan_17Oct2017_04_44_00_PM_25Oct2017_06_26_09_PM.pdf");
+		boolean expMsg=blogsServiceImpl.removeFile("sjbasha@nisum.com",new Integer(6),"epfuan_23Oct2017_11_41_21_PM.pdf");
 		
 		assertEquals(expMsg,true);
+	}
+	
+	@Test
+	public void removeFileTestFailure() throws Exception {
+		logger.info("BlogsServiceImplTest :: removeFileTestSuccess ");
+		
+		String blogsPath="/Users/nisum/Documents/BlogAttachments";
+		
+		ReflectionTestUtils.setField(blogsServiceImpl, "blogsAttachmentPath", blogsPath);
+		
+		when(blogsDAOImpl.blogExists(6)).thenReturn(true);
+		
+		boolean expMsg=blogsServiceImpl.removeFile("sjbasha@nisum.com",new Integer(6),"epfuan_23Oct2017_11_38_43_PM.pdf");
+		
+		assertEquals(expMsg,false);
+	}
+	
+	@Test
+	public void getAllBlogsByEmailIdTestSuccess() throws Exception{
+		logger.info("BlogsServiceImplTest :: getAllBlogsByEmailIdTestSuccess ");
+		
+		List<BlogsDTO> blogsDTO=new ArrayList<BlogsDTO>();
+		List<Blogs> blogs=new ArrayList<Blogs>();
+		List<String> listValue=new ArrayList<String>();
+		listValue.add("epfuan_17Oct2017_04_44_00_PM.pdf");
+		listValue.add("hdfcAuthImg_17Oct2017_04_44_00_PM.jpg");
+		
+		Integer id=new Integer(22);
+		long millis=1508238840000L;
+		Timestamp createdDate=new Timestamp(millis);
+		
+		BlogsDTO blogDTO=new BlogsDTO();
+		blogDTO.setBlogsId(id);
+		blogDTO.setCreatedDate(createdDate);
+		blogDTO.setDescription("123dddddddddd");
+		blogDTO.setPath("/Users/nisum/Documents/BlogAttachments/sjbasha@nisum.com/22");
+		blogDTO.setUserId(103);
+		blogDTO.setFileNames(listValue);
+		blogsDTO.add(blogDTO);
+		
+		
+		Blogs blog=new Blogs();
+		blog.setBlogsId(id);
+		blog.setCreatedDate(createdDate);
+		blog.setDescription("123dddddddddd");
+		blog.setPath("/Users/nisum/Documents/BlogAttachments/sjbasha@nisum.com/22");
+		blog.setUserId(103);
+		blogs.add(blog);
+		
+		when(blogsDAOImpl.getAllBlogsByUserMailId("sjbasha@nisum.com")).thenReturn(blogs);
+		List<BlogsDTO> expMsg=blogsServiceImpl.getAllBlogsByEmailId("sjbasha@nisum.com");
+		BlogsDTO expObj=expMsg.get(0);
+		BlogsDTO actObj=blogsDTO.get(0);
+		assertThat(actObj).isEqualToComparingFieldByField(expObj);
+	}
+	
+	@Test
+	public void getAllBlogsPainationByMailIdSuccess() {
+		logger.info("BlogsServiceImplTest :: getAllBlogsPainationByMailIdSuccess ");
+		
+		List<BlogsDTO> blogsDTO=new ArrayList<BlogsDTO>();
+		List<Blogs> blogs=new ArrayList<Blogs>();
+		//List<String> listValue=new ArrayList<String>();
+		//listValue.add("epfuan_17Oct2017_04_44_00_PM.pdf");
+		//listValue.add("hdfcAuthImg_17Oct2017_04_44_00_PM.jpg");
+		
+		Integer id=new Integer(22);
+		long millis=1508238840000L;
+		Timestamp createdDate=new Timestamp(millis);
+		
+		BlogsDTO blogDTO=new BlogsDTO();
+		blogDTO.setBlogsId(id);
+		blogDTO.setCreatedDate(createdDate);
+		blogDTO.setDescription("123dddddddddd");
+		blogDTO.setPath("/Users/nisum/Documents/BlogAttachments/sjbasha@nisum.com/22");
+		blogDTO.setUserId(103);
+		//blogDTO.setFileNames(listValue);
+		blogsDTO.add(blogDTO);
+		
+		
+		Blogs blog=new Blogs();
+		blog.setBlogsId(id);
+		blog.setCreatedDate(createdDate);
+		blog.setDescription("123dddddddddd");
+		blog.setPath("/Users/nisum/Documents/BlogAttachments/sjbasha@nisum.com/22");
+		blog.setUserId(103);
+		blogs.add(blog);
+		
+		when(blogsDAOImpl.getAllBlogsPagination(3, 5)).thenReturn(blogs);
+		List<BlogsDTO> expMsg=blogsServiceImpl.getAllBlogsPaination(3, 5);
+		BlogsDTO expObj=expMsg.get(0);
+		BlogsDTO actObj=blogsDTO.get(0);
+		assertThat(actObj).isEqualToComparingFieldByField(expObj);
+	}
+	
+	@Test
+	public void getAllBlogsPainationSuccess() {
+		logger.info("BlogsServiceImplTest :: getAllBlogsPainationSuccess ");
+		
+		List<BlogsDTO> blogsDTO=new ArrayList<BlogsDTO>();
+		List<Blogs> blogs=new ArrayList<Blogs>();
+		//List<String> listValue=new ArrayList<String>();
+		//listValue.add("epfuan_17Oct2017_04_44_00_PM.pdf");
+		//listValue.add("hdfcAuthImg_17Oct2017_04_44_00_PM.jpg");
+		
+		Integer id=new Integer(22);
+		long millis=1508238840000L;
+		Timestamp createdDate=new Timestamp(millis);
+		
+		BlogsDTO blogDTO=new BlogsDTO();
+		blogDTO.setBlogsId(id);
+		blogDTO.setCreatedDate(createdDate);
+		blogDTO.setDescription("123dddddddddd");
+		blogDTO.setPath("/Users/nisum/Documents/BlogAttachments/sjbasha@nisum.com/22");
+		blogDTO.setUserId(103);
+		//blogDTO.setFileNames(listValue);
+		blogsDTO.add(blogDTO);
+		
+		
+		Blogs blog=new Blogs();
+		blog.setBlogsId(id);
+		blog.setCreatedDate(createdDate);
+		blog.setDescription("123dddddddddd");
+		blog.setPath("/Users/nisum/Documents/BlogAttachments/sjbasha@nisum.com/22");
+		blog.setUserId(103);
+		blogs.add(blog);
+		
+		when(blogsDAOImpl.getAllBlogsPaginationByMailId("sjbasha@nisum.com",3, 5)).thenReturn(blogs);
+		List<BlogsDTO> expMsg=blogsServiceImpl.getAllBlogsPainationByMailId("sjbasha@nisum.com", 3, 5);
+		BlogsDTO expObj=expMsg.get(0);
+		BlogsDTO actObj=blogsDTO.get(0);
+		assertThat(actObj).isEqualToComparingFieldByField(expObj);
+	}
+	
+	@Test
+	public void getAllBlogsCountSuccess() {
+		logger.info("BlogsServiceImplTest :: getAllBlogsCountSuccess ");
+		
+		Long ln=10L;
+		when(blogsDAOImpl.getAllBlogsCount()).thenReturn(ln);
+		Long expVal=blogsServiceImpl.getAllBlogsCount();
+		assertEquals(expVal,ln);
 	}
 }

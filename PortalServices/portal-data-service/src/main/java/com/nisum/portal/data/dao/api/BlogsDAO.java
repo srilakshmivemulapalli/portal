@@ -24,6 +24,8 @@ public interface BlogsDAO {
 	
 	List<Blogs> getAllBlogsPaginationByMailId(String userMailId,Integer page,Integer size);
 	
+	Long getAllBlogsCountByMailId(String userMailId);
+	
 	Long getAllBlogsCount();
 
 }

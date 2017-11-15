@@ -7,8 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 
 import com.nisum.portal.data.dao.api.BlogsDAO;
 import com.nisum.portal.data.domain.Blogs;
@@ -76,6 +74,11 @@ public class BlogsDAOImpl implements BlogsDAO {
 	public Long getAllBlogsCount() {
 		logger.info("BlogsDAOImpl :: getAllBlogsCount");
 		return blogsRepository.count();
+	}
+	@Override
+	public Long getAllBlogsCountByMailId(String userMailId) {
+		logger.info("BlogsDAOImpl :: getAllBlogsCountByMailId");
+		return blogsRepository.getAllBlogsCountByMailId(userMailId);
 	}
 
 }

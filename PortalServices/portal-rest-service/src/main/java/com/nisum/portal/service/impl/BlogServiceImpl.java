@@ -166,13 +166,6 @@ public class BlogServiceImpl implements BlogService{
 
 
 	@Override
-	public BlogsDTO convertJSONObjectToBlogsDTO(JSONObject jsonObject) throws Exception {
-		logger.info("BlogServiceImpl :: convertJSONObjectToBlogsDTO");
-		return BlogsServiceUtil.convertJSONObjectToBlogsDTO(jsonObject);
-	}
-
-
-	@Override
 	public String uploadAttachment(MultipartFile[] file, String path) throws Exception {
 		logger.info("BlogServiceImpl :: uploadAttachment");
 		return BlogsServiceUtil.parseRequestToStoreUploadsUI(file, path);
@@ -229,6 +222,13 @@ public class BlogServiceImpl implements BlogService{
 	public Long getAllBlogsCount() {
 		logger.info("BlogServiceImpl :: getAllBlogsCount");
 		return blogDAO.getAllBlogsCount();
+	}
+
+
+	@Override
+	public Long getAllBlogsCountByMailId(String mailId) {
+		logger.info("BlogServiceImpl :: getAllBlogsCountByMailId");
+		return blogDAO.getAllBlogsCountByMailId(mailId);
 	}
 	
 	
