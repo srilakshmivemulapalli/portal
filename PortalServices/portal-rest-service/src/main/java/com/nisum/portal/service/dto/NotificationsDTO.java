@@ -145,5 +145,4 @@ public class NotificationsDTO {
 				+ notificationNavId + ", categoryId=" + categoryId + ", emailId=" + emailId + ", createdDate="
 				+ createdDate + "]";
 	}
-
 }

@@ -39,7 +39,7 @@ public class NotificationServiceImpl implements NotificationService {
 				.convertDtoToDao(notificationDTO.getNotificationId(), Constants.YES, notificationDTO.getEmailId());
 		notificationsDAO.updateNotification(notificationUserMapping);
 
-		return null;
+		return Constants.MSG_RECORD_UPDATE;
 	}
 
 	@SuppressWarnings("unused")
@@ -65,8 +65,6 @@ public class NotificationServiceImpl implements NotificationService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return null;
-
 	}
 }

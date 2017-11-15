@@ -180,7 +180,6 @@ CREATE TABLE `portal.Notifications` (
   PRIMARY KEY (`notificationId`)
   ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
   
-  
   CREATE TABLE `portal.NotificationUserMapping` (
 `id` int(11) NOT NULL AUTO_INCREMENT,
 `notificationId` int(11) DEFAULT NULL,

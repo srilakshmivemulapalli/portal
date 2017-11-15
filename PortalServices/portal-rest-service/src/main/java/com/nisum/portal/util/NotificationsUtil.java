@@ -41,5 +41,4 @@ public class NotificationsUtil {
 		notificationsDetailsDTO.setNotificationsDetails(notificationsDTOs);
 		return notificationsDetailsDTO;
 	}
-
 }

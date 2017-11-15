@@ -6,6 +6,7 @@ public class NotificationsDetailsDTO {
 	
 		private List<NotificationsDTO> notificationsDetails;
 		private long totalQuestionariesNotificationsCount;
+		
 		/**
 		* @return the notificationsDetails
 		*/
@@ -30,8 +31,7 @@ public class NotificationsDetailsDTO {
 		public void setTotalQuestionariesNotificationsCount(long totalQuestionariesNotificationsCount) {
 		this.totalQuestionariesNotificationsCount = totalQuestionariesNotificationsCount;
 		}
-
-		}
+	}
 	
 
 

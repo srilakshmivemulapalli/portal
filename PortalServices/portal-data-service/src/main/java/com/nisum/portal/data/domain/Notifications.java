@@ -184,5 +184,4 @@ public String toString() {
 public int compareTo(Notifications o) {
 	return getCreatedDate().compareTo(o.getCreatedDate());
 }
-
 }

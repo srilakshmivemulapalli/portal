@@ -65,6 +65,4 @@ public class NotificationUserMappingDTO {
 	public void setEmaiId(String emaiId) {
 		this.emaiId = emaiId;
 	}
-
-	
 }

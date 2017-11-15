@@ -47,7 +47,6 @@ public class NotificationsDAOImpl implements NotificationsDAO {
 			e.printStackTrace();
 		}
 		return retriveAllUnreadNotifications;
-
 	}
 
 }

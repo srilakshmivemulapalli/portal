@@ -50,7 +50,6 @@ public class NotificationRestService {
 		String emailId = notificationDTO.getEmailId();
 		return new ResponseEntity<NotificationsDetailsDTO>(notificationService.retriveAllUnreadNotifications(emailId),
 				HttpStatus.OK);
-
 	}
 
 }

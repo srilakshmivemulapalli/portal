@@ -47,5 +47,4 @@ public interface NotificationsRepository extends JpaRepository<Notifications, In
 	@Transactional
 	@Query(value = "SELECT categoryId from ProfileSetting where UserId =:userId")
 	List<Categories> getCategoryByUserId(@Param("userId") int userId);
-
 }

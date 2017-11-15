@@ -12,5 +12,4 @@ public interface NotificationsDAO {
 	public NotificationUserMapping updateNotification(NotificationUserMapping notificationUserMapping);
 	
     List<Notifications> getByNotificationsCategoriesCategoryId(Categories category,String emailId);
-
 }

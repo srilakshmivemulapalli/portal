@@ -8,5 +8,4 @@ public interface NotificationService {
 	String updateNotification(NotificationsDTO notificationDTO);
 	
 	NotificationsDetailsDTO retriveAllUnreadNotifications(String Email);
-
 }
