@@ -17,7 +17,11 @@ blogsApp
 											+ angular.toJson(response)
 											+ 'Files::' + response.fileNames);
 									$scope.blogData = response;
-									$scope.attachments = response.fileNames;
+									$scope.attachments = response.fileNames ? response.fileNames : [] ;
+//									if($scope.attachments==null)
+//										{
+//										$scope.attachments=[];
+//										}
 								}, function(response) {
 									console.log('error....' + response);
 								})
@@ -30,12 +34,20 @@ blogsApp
 								if (confirm("This Action will remove file permenantly..Please confirm")) {
 									blogsService.remove(obj, $scope.emailId,
 											$scope.id).then(function() {
-										$scope.attachments.splice(i, 1);
+										//$scope.attachments.splice(i, 1);
+										$scope.removeSavedFile(obj);
 										console.log('Message:::Success');
 									}, function(response) {
 										console.log('Message:::failed');
 									})
 								}
+							}
+						}
+					};
+					$scope.removeSavedFile = function(obj) {
+						for (var i = $scope.attachments.length - 1; i >= 0; i--) {
+							if ($scope.attachments[i] === obj) {
+								$scope.attachments.splice(i, 1);
 							}
 						}
 					};
