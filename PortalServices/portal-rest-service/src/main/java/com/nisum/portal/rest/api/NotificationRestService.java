@@ -16,7 +16,6 @@ import com.nisum.portal.service.dto.NotificationsDTO;
 import com.nisum.portal.service.dto.NotificationsDetailsDTO;
 import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.exception.NotificationServiceException;
-import com.nisum.portal.service.exception.QuestionariesServiceException;
 import com.nisum.portal.util.Constants;
 
 @RestController
@@ -44,10 +43,9 @@ public class NotificationRestService {
 
 	}
 
-	@RequestMapping(value = "/retrieve/allNotifications", method = RequestMethod.GET)
-	public ResponseEntity<NotificationsDetailsDTO> retriveAllNotifications(@RequestBody NotificationsDTO notificationDTO) throws NotificationServiceException {
+	@RequestMapping(value = "/retrieve/allNotifications/{emailId}", method = RequestMethod.GET)
+	public ResponseEntity<NotificationsDetailsDTO> retriveAllNotifications(@PathVariable("emailId")String emailId) throws NotificationServiceException {
 		logger.info("NotificationRestService :: retriveAllNotifications");
-		String emailId = notificationDTO.getEmailId();
 		return new ResponseEntity<NotificationsDetailsDTO>(notificationService.retriveAllUnreadNotifications(emailId),
 				HttpStatus.OK);
 	}
