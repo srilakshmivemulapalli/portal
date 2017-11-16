@@ -1,27 +1,57 @@
 <div
-	class="col-md-offset-1 col-mxs-offset-1 col-md-9 col-xs-9 main-content questionspage">
+	class="col-md-offset-1 col-xs-offset-1 col-sm-offset-1 col-lg-offset-1 col-xl-offset-1 col-md-9 col-xs-9 col-sm-9 col-xl-9 col-lg-9 main-content questionspage" gn-int="mc.init();">
+	<div class="clearfix"></div>
 	<div class="row select-category">
-		<div class="col-md-6 col-xs-6 current-category">
+		<div class="col-md-6 col-xs-6 col-sm-6 col-xl-6 col-lg-6 current-category">
 			<span>All Blogs</span>
 		</div>
-		<div class="col-md-6 col-xs-6">
+		<div class="col-md-6 col-xs-6 col-sm-6 col-xl-6 col-lg-6">
 			<a class="custombtn btn-normal pull-right" href="#/newBlog">New
 				Blog</a>
 		</div>
+
 	</div>
 
 	<div class="row question-filter" id="question_filter">
-		<div class="col-md-8 col-xs-8 sort-questions">
+		<div class="col-md-8 col-xs-8 col-sm-8 col-xl-8 col-lg-8 sort-questions">
 			<ul id="nav-tabs">
-				<li class="active"><a data-target="#allblogs" data-toggle="tab"
-					ng-click="getAllBlogs();">Latest</a></li>
-				<li><a data-target="#myblogs" data-toggle="tab"
-					ng-click='getMyBlogs()'>My Blogs</a></li>
+				<li class="active"><a data-target="#allblogs" data-toggle="tab" ng-click='getBlogsType("#allblogs")'>Latest</a></li>
+				<li><a data-target="#myblogs" data-toggle="tab" ng-click='getBlogsType("#myblogs")'>My Blogs</a></li>
 
 			</ul>
 		</div>
+		<div class="col-md-4 col-xs-4 col-sm-4 col-xl-4 col-lg-4">
+			<div class="number-of-questions-wrapper">
+				<span class="number-of-questions-text">Blogs Per Page: </span>
+				<div class="number-of-questions">
+					<am-multiselect class="" ng-model="pageSize"
+						ms-header="Select PageSize"
+						options="c.id for c in [{'id':20},{'id':15},{'id':10},{'id':5}]"
+						change="filterSelected()"></am-multiselect>
+				</div>
+			</div>
+		</div>
 	</div>
+			<div class="row paginations home pull-right">
+			<div class="col-md-12">
+				<ul class="pagination">
+					<li ng-class="{disabled:pager.currentPage === 1}"><a
+						ng-click="getBlogs(1)">First</a></li>
+					<li ng-class="{disabled:pager.currentPage === 1}"><a
+						ng-click="getBlogs(pager.currentPage - 1)">Previous</a></li>
+					<li class="page-numbers" ng-repeat="page in pager.pages"><a
+						ng-class="{current:pager.currentPage === page}"
+						ng-click="getBlogs(page);">{{page}}</a></li>
+					<li ng-class="{disabled:pager.currentPage === pager.totalPages}">
+						<a ng-click="getBlogs(pager.currentPage + 1)">Next</a>
+					</li>
+					<li ng-class="{disabled:pager.currentPage === pager.totalPages}">
+						<a ng-click="getBlogs(pager.totalPages)">Last</a>
+					</li>
+				</ul>
 
+			</div>
+		</div>
 	<div class="tab-content">
 		<div class="col-md-12 tab-pane active" id="allblogs">
 			<div ng-if="allBlogsList.length>0">
@@ -102,4 +132,5 @@
 			</div>
 		</div>
 	</div>
+	<div class="clearfix"></div>
 </div>

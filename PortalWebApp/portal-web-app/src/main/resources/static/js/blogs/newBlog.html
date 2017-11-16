@@ -32,7 +32,7 @@
 			</div>
 			<br>
 			<p>Attachments here....</p>
-			<input type="file" upload-files multiple
+			<input type="file" upload-files multiple class = "fileInput"
 				onchange="angular.element(this).scope().setFiles(this)" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf"/>
 			<div ng-repeat="file in files.slice(0)">
 				<span>{{file.webkitRelativePath || file.name}}</span> <a

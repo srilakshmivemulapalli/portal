@@ -1,34 +1,16 @@
 blogsApp
 		.controller(
 				'blogsController',
-				function($scope, $http, blogsService, commonService, $location) {
+				function($scope, $http, blogsService, commonService, $location,
+						PagerService) {
 					$scope.files = [];
+					$scope.blogType = "#allblogs"
 					$scope.profile = commonService.profile;
 					var emailId = $scope.profile.emailId;
-
-					$scope.getAllBlogs = function() {
-						blogsService.getBlogs().then(function(response) {
-							$scope.allBlogsList = response;
-
-						}, function(response) {
-							console.log('error....' + response);
-						})
-
-					}
-					$scope.getMyBlogs = function() {
-						console.log('MyBlogsList::getMyBlogs');
-						blogsService.getMyBlogs(emailId).then(
-								function(response) {
-									$scope.myBlogsList = response;
-									console.log('MyBlogsList::',
-											$scope.myBlogsList);
-								}, function(response) {
-									console.log('error....' + response);
-								})
-
-					}
-					$scope.getAllBlogs();
-
+					$scope.pageSize = 10;
+					
+					// Saving a blog with the data /files
+					
 					$scope.saveBlog = function(JsonData, files) {
 						$scope.blog.userId = $scope.profile.userId;
 						$scope.blog.emailId = $scope.profile.emailId;
@@ -38,6 +20,9 @@ blogsApp
 							console.log('error...' + response);
 						})
 					}
+
+					// Submitting blog to the server with the attachments and
+					// data
 					$scope.submitBlog = function() {
 						$scope.blog.userId = $scope.profile.userId;
 						$scope.blog.emailId = $scope.profile.emailId;
@@ -69,6 +54,8 @@ blogsApp
 							alert("Blog Adding Failed!");
 						});
 					}
+
+					// Directive for multiple upload
 					$scope.$on("fileSelected", function(event, args) {
 						$scope.$apply(function() {
 							// add the file object to the scope's files
@@ -76,6 +63,7 @@ blogsApp
 							$scope.files.push(args.file);
 						});
 					});
+					// Method event for setting files to the data
 					$scope.setFiles = function(element) {
 						$scope
 								.$apply(function(scope) {
@@ -96,6 +84,7 @@ blogsApp
 									}
 								});
 					};
+					// Removing the file from the UI
 					$scope.remove = function(obj) {
 						for (var i = $scope.files.length - 1; i >= 0; i--) {
 							if ($scope.files[i].name === obj) {
@@ -103,5 +92,82 @@ blogsApp
 							}
 						}
 					};
+					// Set the Blog tab
+					$scope.getBlogsType = function(type) {
+						$scope.blogType = type;
+						$scope.getBlogs(1);
+					}
+					// Pagination for the no of blogs per page
+					$scope.filterSelected = function() {
+						$scope.getBlogs(1);
+					};
+					// Getting blogs with the pagination
+					$scope.getBlogs = function(page) {
+
+						var size = $scope.pageSize;
+						var type = $scope.blogType;
+						console.log('Requesting pagination for page:::' + page
+								+ ',page size:::' + size + ',Type of page:::'
+								+ type);
+						blogsService.getBlogs(page - 1, size, type).then(
+								function(response) {
+									if (type == "#allblogs") {
+										// $scope.allBlogsList = response;
+										$scope.setPage(page, response, type);
+									} else if (type == "#myblogs") {
+										// $scope.myBlogsList = response;
+										$scope.setPage(page, response, type);
+									}
+									console.log('BlogsList::', response);
+								}, function(response) {
+									console.log('error....' + response);
+								})
+
+					};
+					// $scope.getMyBlogs=function(page)
+					// getting the count of the blogs
+					$scope.getAllBlogsCount = function() {
+						blogsService.getAllBlogsCount().then(
+								function(response) {
+									$scope.NoOfAllBlogs = response.count[0];
+
+								}, function(response) {
+									console.log('error....' + response);
+								})
+					};
+					// getting the count of the blogs with the profile mail id
+					$scope.getMyBlogsCount = function() {
+						blogsService.getMyBlogsCount(emailId).then(
+								function(response) {
+									$scope.NoOfMyBlogs = response.count[0];
+
+								}, function(response) {
+									console.log('error....' + response);
+								})
+					};
+					//methods will be called while loading the page
+					$scope.getAllBlogsCount();
+					$scope.getMyBlogsCount();
+					$scope.getBlogs(1);
+
+					// Pagination setting the page
+					$scope.setPage = function(page, BlogList, type) {
+						$scope.pager = {};
+						if (page < 1 || page > $scope.pager.totalPages) {
+							return;
+						}
+						// get pager object from service
+						if (type == "#allblogs") {
+							$scope.pager = PagerService.GetPager(
+									$scope.NoOfAllBlogs, page, $scope.pageSize);
+							$scope.allBlogsList = BlogList;
+						} else if (type == "#myblogs") {
+							// get current page of items
+							$scope.pager = PagerService.GetPager(
+									$scope.NoOfMyBlogs, page, $scope.pageSize);
+							$scope.myBlogsList = BlogList;
+						}
+
+					}
 
 				});

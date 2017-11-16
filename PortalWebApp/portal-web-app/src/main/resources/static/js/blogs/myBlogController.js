@@ -46,11 +46,6 @@ blogsApp
 							}
 						}
 					};
-					// $scope.$on("fileSelected", function(event, args) {
-					// $scope.$apply(function() {
-					// $scope.files.push(args.file);
-					// });
-					// });
 					$scope.setFiles = function(element) {
 						$scope
 								.$apply(function(scope) {
@@ -73,17 +68,6 @@ blogsApp
 									}
 								});
 					};
-
-					// $scope.updateBlog = function() {
-					// var blog = $scope.blogData;
-					// blogsService.updateBlog(blog).then(function(response) {
-					// console.log('Success....' + response);
-					// alert('Blog Updated Successfully....!');
-					// $location.url('/blogs');
-					// }, function(response) {
-					// console.log('error....' + response);
-					// })
-					// };
 					$scope.updateBlog = function() {
 						var formData = new FormData();
 						formData.append("model", angular
@@ -106,7 +90,7 @@ blogsApp
 							transformRequest : angular.identity,
 							data : formData
 						}).success(function(data, status, headers, config) {
-							alert("Blog Added Successfully!...");
+							alert("Blog Updated Successfully!...");
 							$scope.blog = {};
 							$scope.files = [];
 							angular.element("input[type='file']").val(null);

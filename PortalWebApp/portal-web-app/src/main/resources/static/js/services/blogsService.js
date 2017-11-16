@@ -1,10 +1,30 @@
-app.factory('blogsService', function($http, $q) {
+app.factory('blogsService', function($http, $q,commonService) {
 	var bs = {};
 
-	bs.getBlogs = function() {
+//	bs.getBlogs = function() {
+//		var deferred = $q.defer();
+//
+//		$http.get('v1/Blogs/retrieve').success(function(response) {
+//			deferred.resolve(response);
+//		}).error(function(response) {
+//			deferred.reject(response);
+//		})
+//		return deferred.promise;
+//	}
+	bs.getAllBlogsCount = function()
+	{
 		var deferred = $q.defer();
-
-		$http.get('v1/Blogs/retrieve').success(function(response) {
+		$http.get('v1/Blogs/retrieve/allBlogsCount').success(function(response) {
+			deferred.resolve(response);
+		}).error(function(response) {
+			deferred.reject(response);
+		})
+		return deferred.promise;
+	}
+	bs.getMyBlogsCount = function(emailId)
+	{
+		var deferred = $q.defer();
+		$http.get('v1/Blogs/retrieve/MyBlogsCount/'+emailId+'/').success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
@@ -20,6 +40,20 @@ app.factory('blogsService', function($http, $q) {
 		})
 		return deferred.promise;
 	}
+	bs.getBlogs = function(page,size,type) {
+	var deferred = $q.defer();
+	var link = 'v1/Blogs/retrieve/allBlogsPagination/';
+	if(type =="#myblogs")
+		link='v1/Blogs/retrieve/allBlogsPaginationByMailId/'+commonService.emailId+'/';
+	console.log('hitting for responce'+link+page+'/'+size)
+	$http.get(link+page+'/'+size).success(function(response) {
+		deferred.resolve(response);
+	}).error(function(response) {
+		deferred.reject(response);
+	})
+	return deferred.promise;
+}
+	
 	bs.remove = function(fileName,emailId,blogId){
 		var deferred = $q.defer();
 		$http.delete('v1/Blogs/remove/file/'+ fileName+'/'+emailId+'/'+blogId).success(function(response) {
