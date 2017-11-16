@@ -28,6 +28,8 @@ CREATE TABLE `portal`.`Categories` (
   PRIMARY KEY (`categoryId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=big5;
 
+INSERT INTO `portal`.`Categories` (`categoryName`,`description`,createDate) VALUES ('importexcel','excel type', CURRENT_TIMESTAMP);
+
 CREATE TABLE `Questionaries` (
   `questionId` int(11) NOT NULL AUTO_INCREMENT,
   `categoryId` int(11) DEFAULT NULL,

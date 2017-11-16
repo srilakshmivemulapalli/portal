@@ -137,4 +137,11 @@ public class CategoriesDAOImpl implements CategoriesDAO {
 		}
 	}
 	
+	@Override
+	public Categories getCategoryByName(String categoryNname) {
+		logger.info("CategoriesDAOImpl :: getCategoryByName");
+		return categoriesRepository.findByCategoryName(categoryNname) ;
+	}
+
+	
 }

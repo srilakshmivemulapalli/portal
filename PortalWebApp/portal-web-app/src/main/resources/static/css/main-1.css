@@ -5338,6 +5338,11 @@ margin:3px;
     border: 1px solid #ddd;
     margin-left: 25px;
 }
+.file-upload{
+	margin: 0px auto;
+	position: relative;
+	top: 10px;
+}
 
 
 /********trainings****/

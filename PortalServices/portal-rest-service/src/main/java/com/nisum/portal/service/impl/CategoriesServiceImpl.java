@@ -136,4 +136,11 @@ public class CategoriesServiceImpl implements CategoriesService {
 		logger.info("CategoriesServiceImpl :: getCategory");
 		return categoriesDAO.getCategory(id);
 	}
+	
+	@Override
+	public Categories getCategoryByName(String categoryNname) {
+		logger.info("CategoriesServiceImpl :: getCategoryByName");
+		return categoriesDAO.getCategoryByName(categoryNname);
+	}
+
 }

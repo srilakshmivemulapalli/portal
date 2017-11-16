@@ -15,4 +15,7 @@ public interface CategoriesDAO {
 	Categories getCategory(Integer id);
 
 	String deleteCategories(Integer categoryId);
+	
+	Categories getCategoryByName( String categoryNname ) ;
+
 }

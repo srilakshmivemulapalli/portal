@@ -1,27 +1,44 @@
 package com.nisum.portal.rest.api;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+ 
 
-import org.apache.commons.lang3.StringUtils;
+import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.nisum.portal.data.dao.api.CategoriesDAO;
+import com.nisum.portal.data.domain.Categories;
+import com.nisum.portal.data.domain.Questionaries;
 import com.nisum.portal.data.domain.User;
 import com.nisum.portal.data.repository.UserProfileRepository;
+import com.nisum.portal.service.api.CategoriesService;
 import com.nisum.portal.service.api.EmailAccount;
 import com.nisum.portal.service.api.QuestionariesService;
 import com.nisum.portal.service.dto.AddQuestionDTO;
@@ -47,6 +64,19 @@ public class QuestionariesRestService {
 
 	@Autowired
 	UserProfileRepository userProfileRepository;
+	
+	@Autowired
+	private CategoriesService categoriesService;
+
+	@Autowired
+	private CategoriesDAO categoriesDAO;
+	
+	@Value("${category.importexcel}")
+	private String CATEGORY_TYPE_IMPORT;
+
+	Map<String, Object> categiriesMap = new HashMap<String, Object>();
+
+
 
 	private static EmailAccount emailAccount;
 
@@ -328,6 +358,79 @@ public class QuestionariesRestService {
 		}
 	}
 
+	@PostConstruct
+	public Map<String, Object> getCategories() {
+		List<Categories> list = categoriesDAO.getCategories();
+		for (int i = 0; i < list.size(); i++) {
+			Categories cList = list.get(i);
+			categiriesMap.put(cList.getCategoryName().toLowerCase(), cList);
+		}
+		return categiriesMap;
+	}
+
+	@RequestMapping(value = "/processImportExcel", method = RequestMethod.POST)
+	public ResponseEntity processExcel(Model model, @RequestParam("excelfile") MultipartFile excelfile, HttpServletRequest request) {
+		String emailId = request.getParameter("emailId");
+		Categories categories = null;
+		ResponseEntity responseEntity = null;
+		int k = 1;
+		try {
+			List<Questionaries> questionariesList = new ArrayList<>();
+			XSSFWorkbook workbook = new XSSFWorkbook(excelfile.getInputStream());
+			Questionaries questionaries = null;
+			if (!(workbook == null)) {
+				int noOfSheets = workbook.getNumberOfSheets();
+				Categories importCategories = (Categories) categiriesMap.get(CATEGORY_TYPE_IMPORT);
+				for (int j = 0; j < noOfSheets; j++) {
+					XSSFSheet worksheet = workbook.getSheetAt(j);
+					if (worksheet.getRow(1) !=null) {
+						XSSFRow row = null;
+						k = 1;
+						int lastRowNum = worksheet.getLastRowNum();
+						while (k <= lastRowNum) {
+							categories = importCategories;
+							questionaries = new Questionaries();
+							row = worksheet.getRow(k);
+							if (row != null) {
+								String category = row.getCell(0).getStringCellValue().toLowerCase();
+								if (categiriesMap.containsKey(category)) {
+									categories = (Categories) categiriesMap.get(category);
+								}
+								questionaries.setCategoryId(categories);
+								questionaries.setQuestion(row.getCell(1).getStringCellValue());
+								questionaries.setDescription(row.getCell(2).getStringCellValue());
+								questionariesList.add(questionaries);
+							}
+							k++;
+						}
+					} else {
+						Errors errors = new Errors();
+						errors.setErrorCode("200");
+						errors.setErrorMessage("Please Upload valid excel with formated data");
+						return new ResponseEntity<Errors>(errors, HttpStatus.OK);
+					}
+				}
+				List<ResponseEntity<?>> responseList = new ArrayList<>();
+				for (Questionaries listOfQuestionaries : questionariesList) {
+					AddQuestionDTO addQuestionDTO = new AddQuestionDTO();
+					addQuestionDTO.setCategoryId(listOfQuestionaries.getCategoryId().getCategoryId());
+					addQuestionDTO.setDescription(listOfQuestionaries.getDescription());
+					addQuestionDTO.setQuestion(listOfQuestionaries.getQuestion());
+					addQuestionDTO.setQuestionId(listOfQuestionaries.getQuestionId());
+					addQuestionDTO.setEmailId(emailId);
+					ResponseEntity<?> serviceStatusDto = saveQuestionaries(addQuestionDTO);
+					responseList.add(serviceStatusDto);
+				}
+				responseEntity = new ResponseEntity(responseList, HttpStatus.ACCEPTED);
+			}
+		} catch (Exception e) {
+			Errors errors = new Errors();
+			errors.setErrorCode("200");
+			errors.setErrorMessage("Please Upload valid excel");
+			return new ResponseEntity<Errors>(errors, HttpStatus.OK);
+		}
+		return responseEntity;
+	}
 
 	@Autowired
 	public void setEmailAccount(EmailAccount emailAccount) {

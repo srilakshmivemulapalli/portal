@@ -16,6 +16,8 @@ questionApp
 					$scope.retriveMyReplyQuestionsList = QuestionsListModel
 							.newQuestionListInstance();
 					$scope.pageSize = 5;
+					$scope.myFile = null;
+					$scope.errorMessage = '';
 
 
 					if (commonService.categoriesList !== (undefined || null)) {
@@ -230,5 +232,42 @@ questionApp
 						$scope.items = questionsList.questionDetails;
 
 					}
+					$scope.exportData = function() {
+						var r = confirm("Are you sure to download");
+						if (r == true) {
+							alasql(
+									'SELECT questionId,question,description,createdDate,categoryName,emailId,displayImage,displayName,questionRepliesCount,questionComments INTO XLSX("Questions.xlsx",{headers:true}) FROM ?',
+									[ $scope.questionsList.questions.questionDetails ]);
+						}
+					
+				}
+
+				$scope.importQuestionsFromExcel = function() {
+					var file = $scope.myFile;
+					console.log('file is ');
+					console.dir(file);
+					var uploadUrl = "/fileUpload";
+					questionService
+							.importQuestionsFromExcelToUrl(file,
+									commonService.emailId)
+							.then(
+									function(response) {
+										if (response.errorCode) {
+											$scope.errorMessage = response.errorMessage;
+											} else {
+											$scope.myFile = null;
+											$scope.clearExcel();
+											$("#importModal").modal('hide');
+											$scope.getAllQuestions();
+										}
+									});
+				}
+				$scope.clearExcel = function() {
+					$scope.errorMessage = '';
+					$('#excelfile').val('');
+				}
+				$('#excelfile').on('change', function() {
+					$scope.errorMessage = '';
+				})
 
 				})

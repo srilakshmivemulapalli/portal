@@ -104,7 +104,24 @@ app.factory('questionService', function($http, $q,commonService) {
 		return deferred.promise;
 	}
 	
-	
+	 qs.importQuestionsFromExcelToUrl = function(file,emailId){
+		 var deferred = $q.defer();
+			var fd = new FormData();
+			fd.append("emailId",emailId);
+	        fd.append('excelfile', file);
+	        $http.post('v1/questionaries/processImportExcel', fd, {
+	            transformRequest: angular.identity,
+	            headers: {'Content-Type': undefined}
+	        })
+	        .success(function(response){
+	        	deferred.resolve(response);
+	        })
+	        .error(function(response){
+	        	deferred.reject(response);
+	        })
+	        return deferred.promise;
+		}
+	 
 	
 	return qs;
 })
