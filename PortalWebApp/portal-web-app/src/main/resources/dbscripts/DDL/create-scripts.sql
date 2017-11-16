@@ -172,7 +172,7 @@ ALTER TABLE `portal`.`Trainings`
 ADD COLUMN `trainingStatus` INT NULL DEFAULT NULL AFTER `trainingEndTime`;
 
 -- Notifications Table Creation Script
-CREATE TABLE `portal.Notifications` (
+CREATE TABLE `portal`.`Notifications` (
   `notificationId` int(11) NOT NULL AUTO_INCREMENT,
   `notificationType` varchar(45) NOT NULL,
   `notificationNavId` int(11) NOT NULL,
@@ -182,7 +182,7 @@ CREATE TABLE `portal.Notifications` (
   PRIMARY KEY (`notificationId`)
   ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
   
-  CREATE TABLE `portal.NotificationUserMapping` (
+CREATE TABLE `portal`.`NotificationUserMapping` (
 `id` int(11) NOT NULL AUTO_INCREMENT,
 `notificationId` int(11) DEFAULT NULL,
 `status` varchar(45) DEFAULT NULL,
