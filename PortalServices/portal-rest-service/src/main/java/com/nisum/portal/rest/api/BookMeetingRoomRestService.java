@@ -67,23 +67,8 @@ public class BookMeetingRoomRestService {
 	public ResponseEntity<?> getAllMeetingRoom(@QueryParam("locationnId") String locationnId,@QueryParam("startedDate") String startedDate,@QueryParam("startTime") String startTime) throws BookMeetingRoomRestServiceException{
 		logger.info(".....In getAllMeetingRoom() controller...");
 		
-		 
-		
 		String startDate1=BookMeetingRoomUtil.getFormatedDate(startedDate) + BookMeetingRoomUtil.getFormatedTime(startedDate);
-	/*	DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-		try {
-		Date date1 = df.parse(startedDate);
-		DateFormat outputFormatter1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		startDate1 = outputFormatter1.format(date1); //
-		} catch (ParseException e) {
-		e.printStackTrace();
-		}
-		
-		*/
-		//System.out.println(BookMeetingRoomUtil.getFormatedDate(startedDate) +" FROM FORMATED "+ BookMeetingRoomUtil.getFormatedTime(startedDate));
-		System.out.println("Direct "+startDate1);
 
-		
 		Timestamp startDate = Timestamp.valueOf(startDate1);
 		int locationId = 0;
 		if (locationnId != null) {
