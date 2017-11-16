@@ -2,6 +2,10 @@ package com.nisum.portal.rest.api;
 
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.QueryParam;
@@ -62,8 +66,20 @@ public class BookMeetingRoomRestService {
 	public ResponseEntity<?> getAllMeetingRoom(@QueryParam("locationnId") String locationnId,@QueryParam("startedDate") String startedDate,@QueryParam("startTime") String startTime) throws BookMeetingRoomRestServiceException{
 		logger.info(".....In getAllMeetingRoom() controller...");
 		
-		String startingDate=startedDate+" "+startTime +".1234";
-		Timestamp startDate = Timestamp.valueOf(startingDate);
+		
+		String startDate1=null;
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+		try {
+		Date date1 = df.parse(startedDate);
+		DateFormat outputFormatter1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		startDate1 = outputFormatter1.format(date1); //
+		System.out.println(startDate1);
+		} catch (ParseException e) {
+		e.printStackTrace();
+		}
+		
+		
+		Timestamp startDate = Timestamp.valueOf(startDate1);
 		int locationId = 0;
 		if (locationnId != null) {
 			 locationId= Integer.parseInt(locationnId);
