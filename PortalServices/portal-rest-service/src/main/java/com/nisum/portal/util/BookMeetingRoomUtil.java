@@ -85,7 +85,7 @@ public class BookMeetingRoomUtil {
 	public static String getFormatedDate(String startedDate) {
 
 		String startDate1 = null;
-
+        System.out.println(startedDate);
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
 		try {
 			Date date1 = df.parse(startedDate);
