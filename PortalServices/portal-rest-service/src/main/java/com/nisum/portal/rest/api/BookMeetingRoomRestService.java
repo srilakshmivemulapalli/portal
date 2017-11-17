@@ -67,14 +67,15 @@ public class BookMeetingRoomRestService {
 	public ResponseEntity<?> getAllMeetingRoom(@QueryParam("locationnId") String locationnId,@QueryParam("startedDate") String startedDate,@QueryParam("startTime") String startTime) throws BookMeetingRoomRestServiceException{
 		logger.info(".....In getAllMeetingRoom() controller...");
 		
+		System.out.println("IN Controller "+startedDate);
 		String startDate1=BookMeetingRoomUtil.getFormatedDate(startedDate) + BookMeetingRoomUtil.getFormatedTime(startedDate);
-
+		System.out.println(startDate1);
 		Timestamp startDate = Timestamp.valueOf(startDate1);
 		int locationId = 0;
 		if (locationnId != null) {
 			 locationId= Integer.parseInt(locationnId);
 		}
-		 
+		  
 		try {
 			
 			List<MeetingRoomDTO> meetingsList = meetingRoomService.getAllMeetingRoom(locationId,startDate);
@@ -95,7 +96,18 @@ public class BookMeetingRoomRestService {
 	public ResponseEntity<?> getAvailableMeetingRoom(@PathVariable int locationId, @PathVariable Timestamp beginTime, @PathVariable Timestamp endTime) throws BookMeetingRoomRestServiceException{
 		logger.info("In getAvailableMeetingRoom() controller....");
 		try {
+			
+			Timestamp beginTimeString = beginTime;
+			Timestamp endTimeString = endTime;
+		    System.out.println(beginTimeString + " "+beginTimeString.toString());
+
+
+			beginTime = Timestamp.valueOf(BookMeetingRoomUtil.getFormatedDateAndTime(beginTimeString.toString()));
+			endTime = Timestamp.valueOf(BookMeetingRoomUtil.getFormatedDateAndTime(endTimeString.toString()));
+
+			
 		List<MeetingRoomDTO> meetingList = bookMeetingRoomService.getAvailableMeetingRoom(locationId, beginTime, endTime);
+		System.out.println(meetingList.size());
 		if(meetingList.size()==0) {
 			Errors error = new Errors();
 			error.setErrorMessage(Constants.MEETINGS_ROOMS_EMPTY);
