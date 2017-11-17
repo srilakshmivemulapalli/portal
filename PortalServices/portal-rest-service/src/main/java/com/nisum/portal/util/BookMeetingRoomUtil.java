@@ -85,6 +85,7 @@ public class BookMeetingRoomUtil {
 	public static String getFormatedDate(String startedDate) {
 
 		String startDate1 = null;
+
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
 		try {
 			Date date1 = df.parse(startedDate);
@@ -98,14 +99,15 @@ public class BookMeetingRoomUtil {
 	}
 
 	public static String getFormatedTime(String startedTime) {
-		
-		String startTime=null;
+
+		String startTime = null;
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
 
 		try {
 			Date date1 = df.parse(startedTime);
 			DateFormat outputFormatter1 = new SimpleDateFormat(" HH:mm:ss");
 			startTime = outputFormatter1.format(date1); //
+
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -117,11 +119,13 @@ public class BookMeetingRoomUtil {
 	public static String getFormatedDateAndTime(String startedDate) {
 
 		String startDateAndTime = null;
+
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
 		try {
 			Date date1 = df.parse(startedDate);
 			DateFormat outputFormatter1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			startDateAndTime = outputFormatter1.format(date1); //
+
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
