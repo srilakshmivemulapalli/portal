@@ -94,13 +94,10 @@ public class BookMeetingRoomRestService {
 	@RequestMapping(value = "/getAvailableMeetingRoom", method = RequestMethod.GET)
 	public ResponseEntity<?> getAvailableMeetingRoom(@QueryParam("locationnId") int locationId, @QueryParam("beginTime") String beginTime, @QueryParam("endTime") String endTime) throws BookMeetingRoomRestServiceException{
 		logger.info("In getAvailableMeetingRoom() controller....");
-		System.out.println(" ========== "+endTime+" In Controller "+beginTime );
 		
 		try {
 			String beginTimeString = BookMeetingRoomUtil.getFormatedDateAndTime(beginTime);
-			System.out.println(beginTimeString);
 			String endTimeString = BookMeetingRoomUtil.getFormatedDateAndTime(endTime);
-			System.out.println(endTimeString);
 
 			Timestamp beginTimeStamp = Timestamp.valueOf(beginTimeString);
 			Timestamp endTimeStamp = Timestamp.valueOf(endTimeString);
