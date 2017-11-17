@@ -51,7 +51,7 @@ public class BookMeetingRoomRestService {
 	
 	@RequestMapping(value = "/registerMeetingRoom", method = RequestMethod.POST)
 	public ResponseEntity<?> registerMeetingRoom(@RequestBody MeetingRoomDTO meetingRoom) throws BookMeetingRoomRestServiceException{
-		logger.info(".....In registerMeetingRoom() controller...");
+		logger.info(".....In registerMeetingRoom() controller..."); 
 		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
 		try {
 			String message = meetingRoomService.registerMeetingRoom(meetingRoom);
@@ -61,7 +61,7 @@ public class BookMeetingRoomRestService {
 	}catch(Exception e){
 		throw new BookMeetingRoomRestServiceException(Constants.INTERNALSERVERERROR);
 	}
-}		
+}		 
 	
 	@RequestMapping(value = "/getAllbookedMeetingRoom", method = RequestMethod.GET)
 	public ResponseEntity<?> getAllMeetingRoom(@QueryParam("locationnId") String locationnId,@QueryParam("startedDate") String startedDate,@QueryParam("startTime") String startTime) throws BookMeetingRoomRestServiceException{
@@ -92,7 +92,7 @@ public class BookMeetingRoomRestService {
 	
 	
 	@RequestMapping(value = "/getAvailableMeetingRoom", method = RequestMethod.GET)
-	public ResponseEntity<?> getAvailableMeetingRoom(@QueryParam("locationnId") int locationId, @QueryParam("beginTime") String beginTime, @QueryParam("endTime") String endTime) throws BookMeetingRoomRestServiceException{
+	public ResponseEntity<?> getAvailableMeetingRoom(@QueryParam("locationId") int locationId, @QueryParam("beginTime") String beginTime, @QueryParam("endTime") String endTime) throws BookMeetingRoomRestServiceException{
 		logger.info("In getAvailableMeetingRoom() controller....");
 		System.out.println(" ========== "+endTime+" In Controller "+beginTime );
 		
