@@ -12,17 +12,24 @@ app.factory('meetingService', function($http, $q) {
 		return deferred.promise;
 	}
 
-	ms.getAllMeetings = function() {
+	ms.getAllMeetings = function(locationId,date) {
 		var deferred = $q.defer();
-
-		$http.get('v1/meetings/getAllMeetingRoom').success(function(response) {
+        $http.get('v1/meetings/getAllbookedMeetingRoom/?locationId='+locationId+"&startedDate="+date).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
 		})
 		return deferred.promise;
 	}
-
-	return ms;
-
+	ms.getAvailableMeetingRoom = function(locationId,bookingDate,beginTime,endTime) {
+		var deferred = $q.defer();
+        $http.get("/v1/meetings/getAvailableMeetingRoom/?locationId="+locationId+"&beginTime="+beginTime+"&endTime="+endTime).success(function(response) {
+				deferred.resolve(response);
+			}).error(function(response) {
+				deferred.reject(response);
+			})
+			return deferred.promise;
+   }
+   
+ return ms;
 })

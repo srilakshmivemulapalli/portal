@@ -85,7 +85,14 @@ public class QuestionariesServiceImpl implements QuestionariesService{
 			List<QuestionariesDTO> dtoList = questionsDTO.getQuestionDetails();
 			QuestionariesDTO questionariesDTO = QuestionariesUtil.convertQuestionariesToQuestionariesDTO(questionaries, userervice);
 			if(questionariesDTO !=null){
-				dtoList.add(questionariesDTO);
+				if(dtoList!=null)
+				     dtoList.add(questionariesDTO);
+				else
+				{
+					 dtoList=new ArrayList<QuestionariesDTO>();
+					 dtoList.add(questionariesDTO);
+					
+				}
 				questionsDTO.setQuestionDetails(dtoList);
 			}
 			return Constants.MSG_RECORD_ADD;
