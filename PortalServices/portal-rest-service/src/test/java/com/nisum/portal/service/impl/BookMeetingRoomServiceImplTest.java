@@ -50,8 +50,8 @@ public class BookMeetingRoomServiceImplTest {
 		String expected = "Saved Successfully...";
 		BookMeetingRoomDTO bookMeetingRoomDTO = new BookMeetingRoomDTO();
 
-		bookMeetingRoomDTO.setBeginTime(new Timestamp(System.currentTimeMillis()));
-		bookMeetingRoomDTO.setEndTime(new Timestamp(System.currentTimeMillis()));
+		//bookMeetingRoomDTO.setBeginTime(new Timestamp(System.currentTimeMillis()));
+	//	bookMeetingRoomDTO.setEndTime(new Timestamp(System.currentTimeMillis()));
 		bookMeetingRoomDTO.setBookMeetingRoomId(0);
 		bookMeetingRoomDTO.setMeetingRoomId(0);
 		bookMeetingRoomDTO.setCreatedDate(new Timestamp(System.currentTimeMillis()));
@@ -86,8 +86,8 @@ public class BookMeetingRoomServiceImplTest {
 
 		when(meetingRoomRepository.findOne(bookMeetingRoomDTO.getMeetingRoomId())).thenReturn(meetingRoom);
 		when(locationRepository.findOne(1)).thenReturn(location);
-		when(bookMeetingRoomRepository.getMeetingRoomForTimePeriod(bookMeetingRoomDTO.getBeginTime(),
-				bookMeetingRoomDTO.getEndTime())).thenReturn(null);
+		//when(bookMeetingRoomRepository.getMeetingRoomForTimePeriod(bookMeetingRoomDTO.getBeginTime(),
+			//	bookMeetingRoomDTO.getEndTime())).thenReturn(null);
 		when(bookMeetingRoomDAOImpl.save(bookMeetingRoom)).thenReturn(bookMeetingRoom);
 		when(bookMeetingRoomDAOImpl.findByBookMeetingRoomId(bookMeetingRoomDTO.getBookMeetingRoomId()))
 				.thenReturn(bookMeetingRoom);
@@ -103,8 +103,8 @@ public class BookMeetingRoomServiceImplTest {
 		String expected = "updated Successfully...";
 		BookMeetingRoomDTO bookMeetingRoomDTO = new BookMeetingRoomDTO();
 
-		bookMeetingRoomDTO.setBeginTime(new Timestamp(System.currentTimeMillis()));
-		bookMeetingRoomDTO.setEndTime(new Timestamp(System.currentTimeMillis()));
+		//bookMeetingRoomDTO.setBeginTime(new Timestamp(System.currentTimeMillis()));
+		//bookMeetingRoomDTO.setEndTime(new Timestamp(System.currentTimeMillis()));
 		bookMeetingRoomDTO.setBookMeetingRoomId(1);
 		bookMeetingRoomDTO.setMeetingRoomId(1);
 		bookMeetingRoomDTO.setCreatedDate(new Timestamp(System.currentTimeMillis()));
@@ -140,8 +140,8 @@ public class BookMeetingRoomServiceImplTest {
 
 		when(meetingRoomRepository.findOne(bookMeetingRoomDTO.getMeetingRoomId())).thenReturn(meetingRoom);
 		when(locationRepository.findOne(1)).thenReturn(location);
-		when(bookMeetingRoomRepository.getMeetingRoomForTimePeriod(bookMeetingRoomDTO.getBeginTime(),
-				bookMeetingRoomDTO.getEndTime())).thenReturn(null);
+		//when(bookMeetingRoomRepository.getMeetingRoomForTimePeriod(bookMeetingRoomDTO.getBeginTime(),
+		//		bookMeetingRoomDTO.getEndTime())).thenReturn(null);
 		when(bookMeetingRoomDAOImpl.save(bookMeetingRoom)).thenReturn(bookMeetingRoom);
 
 		String actual = bookMeetingRoomServiceImpl.bookMeetingRoom(bookMeetingRoomDTO);
@@ -156,8 +156,8 @@ public class BookMeetingRoomServiceImplTest {
 		String expected = "Meeting alredy booked by someone";
 		BookMeetingRoomDTO bookMeetingRoomDTO = new BookMeetingRoomDTO();
 
-		bookMeetingRoomDTO.setBeginTime(new Timestamp(System.currentTimeMillis()));
-		bookMeetingRoomDTO.setEndTime(new Timestamp(System.currentTimeMillis()));
+		//bookMeetingRoomDTO.setBeginTime(new Timestamp(System.currentTimeMillis()));
+		//bookMeetingRoomDTO.setEndTime(new Timestamp(System.currentTimeMillis()));
 		bookMeetingRoomDTO.setBookMeetingRoomId(1);
 		bookMeetingRoomDTO.setMeetingRoomId(1);
 		bookMeetingRoomDTO.setCreatedDate(new Timestamp(System.currentTimeMillis()));
@@ -193,8 +193,8 @@ public class BookMeetingRoomServiceImplTest {
 
 		when(meetingRoomRepository.findOne(bookMeetingRoomDTO.getMeetingRoomId())).thenReturn(meetingRoom);
 		when(locationRepository.findOne(1)).thenReturn(location);
-		when(bookMeetingRoomRepository.getMeetingRoomForTimePeriod(bookMeetingRoomDTO.getBeginTime(),
-				bookMeetingRoomDTO.getEndTime())).thenReturn(bookMeetingRoom);
+		//when(bookMeetingRoomRepository.getMeetingRoomForTimePeriod(bookMeetingRoomDTO.getBeginTime(),
+			//	bookMeetingRoomDTO.getEndTime())).thenReturn(bookMeetingRoom);
 
 		String actual = bookMeetingRoomServiceImpl.bookMeetingRoom(bookMeetingRoomDTO);
 
@@ -207,8 +207,8 @@ public class BookMeetingRoomServiceImplTest {
 		String expected = "Location or meeting Id not found";
 		BookMeetingRoomDTO bookMeetingRoomDTO = new BookMeetingRoomDTO();
 
-		bookMeetingRoomDTO.setBeginTime(new Timestamp(System.currentTimeMillis()));
-		bookMeetingRoomDTO.setEndTime(new Timestamp(System.currentTimeMillis()));
+	//	bookMeetingRoomDTO.setBeginTime(new Timestamp(System.currentTimeMillis()));
+	//	bookMeetingRoomDTO.setEndTime(new Timestamp(System.currentTimeMillis()));
 		bookMeetingRoomDTO.setBookMeetingRoomId(0);
 		bookMeetingRoomDTO.setMeetingRoomId(0);
 		bookMeetingRoomDTO.setCreatedDate(new Timestamp(System.currentTimeMillis()));
@@ -260,8 +260,8 @@ public class BookMeetingRoomServiceImplTest {
 
 		BookMeetingRoomDTO bookMeetingRoomDTO = new BookMeetingRoomDTO();
 
-		bookMeetingRoomDTO.setBeginTime(bookMeetingRoom.getBeginTime());
-		bookMeetingRoomDTO.setEndTime(bookMeetingRoom.getEndTime());
+	//	bookMeetingRoomDTO.setBeginTime(bookMeetingRoom.getBeginTime());
+	//	bookMeetingRoomDTO.setEndTime(bookMeetingRoom.getEndTime());
 		bookMeetingRoomDTO.setBookMeetingRoomId(bookMeetingRoom.getBookMeetingRoomId());
 		bookMeetingRoomDTO.setMeetingRoomId(1);
 		

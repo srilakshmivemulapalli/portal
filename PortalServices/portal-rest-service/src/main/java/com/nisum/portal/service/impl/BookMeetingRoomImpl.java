@@ -1,6 +1,7 @@
 package com.nisum.portal.service.impl;
 
 
+import java.awt.print.Book;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -45,13 +46,20 @@ public class BookMeetingRoomImpl implements BookMeetingRoomService {
 	public String bookMeetingRoom(BookMeetingRoomDTO bookMeetingRoomDTO){
 		logger.info("In bookMeetingRoom()..BookMeetingRoomImpl...");
 
+		System.out.println(bookMeetingRoomDTO.getBeginTime()+" "+bookMeetingRoomDTO.getEndTime());
 		int locationId = bookMeetingRoomDTO.getLocationId();
 		Location location = locationRepository.findOne(locationId);
+		
+		String startTimeString = bookMeetingRoomDTO.getBeginTime().toString();
+		String endTimeString = bookMeetingRoomDTO.getEndTime().toString();
+		
+		Timestamp startTimeStamp = Timestamp.valueOf(BookMeetingRoomUtil.getFormatedDateAndTime(startTimeString));
+		Timestamp endTimeStamp = Timestamp.valueOf(BookMeetingRoomUtil.getFormatedDateAndTime(endTimeString));
 		
 		int meetingRoomId = bookMeetingRoomDTO.getMeetingRoomId();
 		MeetingRoom meetingRoom = meetingRoomRepository.findOne(meetingRoomId);
 		if (location != null && meetingRoom != null) {
-			BookMeetingRoom bookedMeetingRoom = bookMeetingRoomRepository.getMeetingRoomForTimePeriod(bookMeetingRoomDTO.getBeginTime(), bookMeetingRoomDTO.getEndTime());
+			BookMeetingRoom bookedMeetingRoom = bookMeetingRoomRepository.getMeetingRoomForTimePeriod(startTimeStamp, endTimeStamp);
 			if (bookedMeetingRoom == null) {
 				BookMeetingRoom bookMeetingRoomDao = BookMeetingRoomUtil.convertDtoObjectToDao(bookMeetingRoomDTO);
 				BookMeetingRoom bookMeetingRoom = bookMeetingRoomDAO.findByBookMeetingRoomId(bookMeetingRoomDao.getBookMeetingRoomId());

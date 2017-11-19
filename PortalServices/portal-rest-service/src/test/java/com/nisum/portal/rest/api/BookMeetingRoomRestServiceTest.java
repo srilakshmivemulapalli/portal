@@ -174,11 +174,11 @@ public class BookMeetingRoomRestServiceTest {
 	  
 		
 		BookMeetingRoomDTO bookMeetingRoomDTO=new BookMeetingRoomDTO();
-		bookMeetingRoomDTO.setBeginTime(new Timestamp(System.currentTimeMillis()));
+		//bookMeetingRoomDTO.setBeginTime(new Timestamp(System.currentTimeMillis()));
 		bookMeetingRoomDTO.setBookingDate(new Timestamp(System.currentTimeMillis()));
 		bookMeetingRoomDTO.setBookMeetingRoomId(1);
 		bookMeetingRoomDTO.setCreatedDate(new Timestamp(System.currentTimeMillis()));
-		bookMeetingRoomDTO.setEndTime(new Timestamp(System.currentTimeMillis()));
+		//bookMeetingRoomDTO.setEndTime(new Timestamp(System.currentTimeMillis()));
 		bookMeetingRoomDTO.setEmailId("radhi@nisum.com");
 		
 		String value = "saved succesfully";
@@ -204,11 +204,11 @@ public class BookMeetingRoomRestServiceTest {
   public void getUserBookingTest() throws BookMeetingRoomRestServiceException {
 	  List<BookMeetingRoomDTO> userBookingList = new ArrayList<BookMeetingRoomDTO>();
 	  BookMeetingRoomDTO bookMeetingRoomDTO=new BookMeetingRoomDTO();
-		bookMeetingRoomDTO.setBeginTime(new Timestamp(System.currentTimeMillis()));
+		//bookMeetingRoomDTO.setBeginTime(new Timestamp(System.currentTimeMillis()));
 		bookMeetingRoomDTO.setBookingDate(new Timestamp(System.currentTimeMillis()));
 		bookMeetingRoomDTO.setBookMeetingRoomId(1);
 		bookMeetingRoomDTO.setCreatedDate(new Timestamp(System.currentTimeMillis()));
-		bookMeetingRoomDTO.setEndTime(new Timestamp(System.currentTimeMillis()));
+		//bookMeetingRoomDTO.setEndTime(new Timestamp(System.currentTimeMillis()));
 		bookMeetingRoomDTO.setEmailId("radhi@nisum.com");
 		userBookingList.add(bookMeetingRoomDTO);
 		

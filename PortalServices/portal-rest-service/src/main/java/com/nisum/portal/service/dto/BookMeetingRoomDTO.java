@@ -3,7 +3,6 @@
  */
 package com.nisum.portal.service.dto;
 
-
 import java.sql.Timestamp;
 
 /**
@@ -11,37 +10,37 @@ import java.sql.Timestamp;
  * @author nisum
  *
  */
- 
-
 
 public class BookMeetingRoomDTO {
-	
-	
+
 	private int bookMeetingRoomId;
 	private String meetingTitle;
 	private int meetingRoomId;
-	private Timestamp beginTime;
-	private Timestamp endTime;
+	private String beginTime;
+	private String endTime;
 	private String emailId;
 	private int locationId;
 	private Timestamp createdDate;
 	private Timestamp bookingDate;
-	
-	
-	
+
 	/**
 	 * @return the emailId
 	 */
 	public String getEmailId() {
 		return emailId;
 	}
+
 	/**
-	 * @param emailId the emailId to set
+	 * @param emailId
+	 *            the emailId to set
 	 */
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -62,7 +61,10 @@ public class BookMeetingRoomDTO {
 		result = prime * result + ((updatedTime == null) ? 0 : updatedTime.hashCode());
 		return result;
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -124,82 +126,100 @@ public class BookMeetingRoomDTO {
 			return false;
 		return true;
 	}
-	
+
 	private int headCount;
 	private Timestamp createdTime;
 	private Timestamp updatedTime;
+
 	public int getBookMeetingRoomId() {
 		return bookMeetingRoomId;
 	}
+
 	public void setBookMeetingRoomId(int bookMeetingRoomId) {
 		this.bookMeetingRoomId = bookMeetingRoomId;
 	}
+
 	public String getMeetingTitle() {
 		return meetingTitle;
 	}
+
 	public void setMeetingTitle(String meetingTitle) {
 		this.meetingTitle = meetingTitle;
 	}
-	
-	public Timestamp getBeginTime() {
+
+	public String getBeginTime() {
 		return beginTime;
 	}
-	public void setBeginTime(Timestamp beginTime) {
+
+	public void setBeginTime(String beginTime) {
 		this.beginTime = beginTime;
 	}
-	public Timestamp getEndTime() {
+
+	public String getEndTime() {
 		return endTime;
 	}
-	public void setEndTime(Timestamp endTime) {
+
+	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
-	
-	
-	
+
 	public int getHeadCount() {
 		return headCount;
 	}
+
 	public void setHeadCount(int headCount) {
 		this.headCount = headCount;
 	}
+
 	public Timestamp getCreatedTime() {
 		return createdTime;
 	}
+
 	public void setCreatedTime(Timestamp createdTime) {
 		this.createdTime = createdTime;
 	}
+
 	public Timestamp getUpdatedTime() {
 		return updatedTime;
 	}
+
 	public void setUpdatedTime(Timestamp updatedTime) {
 		this.updatedTime = updatedTime;
 	}
-	
+
 	/**
 	 * @return the createdDate
 	 */
 	public Timestamp getCreatedDate() {
 		return createdDate;
 	}
+
 	/**
-	 * @param createdDate the createdDate to set
+	 * @param createdDate
+	 *            the createdDate to set
 	 */
 	public void setCreatedDate(Timestamp createdDate) {
 		this.createdDate = createdDate;
 	}
+
 	/**
 	 * @return the bookingDate
 	 */
 	public Timestamp getBookingDate() {
 		return bookingDate;
 	}
+
 	/**
-	 * @param bookingDate the bookingDate to set
+	 * @param bookingDate
+	 *            the bookingDate to set
 	 */
 	public void setBookingDate(Timestamp bookingDate) {
 		this.bookingDate = bookingDate;
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -210,29 +230,35 @@ public class BookMeetingRoomDTO {
 				+ ", bookingDate=" + bookingDate + ", headCount=" + headCount + ", createdTime=" + createdTime
 				+ ", updatedTime=" + updatedTime + "]";
 	}
+
 	/**
 	 * @return the meetingRoomId
 	 */
 	public int getMeetingRoomId() {
 		return meetingRoomId;
 	}
+
 	/**
-	 * @param meetingRoomId the meetingRoomId to set
+	 * @param meetingRoomId
+	 *            the meetingRoomId to set
 	 */
 	public void setMeetingRoomId(int meetingRoomId) {
 		this.meetingRoomId = meetingRoomId;
 	}
+
 	/**
 	 * @return the locationId
 	 */
 	public int getLocationId() {
 		return locationId;
 	}
+
 	/**
-	 * @param locationId the locationId to set
+	 * @param locationId
+	 *            the locationId to set
 	 */
 	public void setLocationId(int locationId) {
 		this.locationId = locationId;
 	}
-	
+
 }

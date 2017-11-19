@@ -1,5 +1,6 @@
 package com.nisum.portal.util;
 
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,10 +23,10 @@ public class BookMeetingRoomUtil {
 		if (CollectionUtils.isNotEmpty(bookMeetingRoom)) {
 			for (BookMeetingRoom bookMeetingRoomDAO : bookMeetingRoom) {
 				BookMeetingRoomDTO bookMeetingRoomDTO = new BookMeetingRoomDTO();
-				bookMeetingRoomDTO.setBeginTime(bookMeetingRoomDAO.getBeginTime());
+				bookMeetingRoomDTO.setBeginTime(bookMeetingRoomDAO.getBeginTime().toString());
 				bookMeetingRoomDTO.setBookMeetingRoomId(bookMeetingRoomDAO.getBookMeetingRoomId());
 
-				bookMeetingRoomDTO.setEndTime(bookMeetingRoomDAO.getEndTime());
+				bookMeetingRoomDTO.setEndTime(bookMeetingRoomDAO.getEndTime().toString());
 				bookMeetingRoomDTO.setHeadCount(bookMeetingRoomDAO.getHeadCount());
 				// bookMeetingRoomDTO.setMeetingRoomDTO(bookMeetingRoomDAO.getMeetingRoom());
 				bookMeetingRoomDTO.setMeetingTitle(bookMeetingRoomDAO.getMeetingTitle());
@@ -43,10 +44,10 @@ public class BookMeetingRoomUtil {
 
 	public static BookMeetingRoomDTO convertDaoObjectToDto(BookMeetingRoom bookMeetingRoom) {
 		BookMeetingRoomDTO bookMeetingRoomDTO = new BookMeetingRoomDTO();
-		bookMeetingRoomDTO.setBeginTime(bookMeetingRoom.getBeginTime());
+		bookMeetingRoomDTO.setBeginTime(bookMeetingRoom.getBeginTime().toString());
 		bookMeetingRoomDTO.setBookMeetingRoomId(bookMeetingRoom.getBookMeetingRoomId());
 
-		bookMeetingRoomDTO.setEndTime(bookMeetingRoom.getEndTime());
+		bookMeetingRoomDTO.setEndTime(bookMeetingRoom.getEndTime().toString());
 		bookMeetingRoomDTO.setHeadCount(bookMeetingRoom.getHeadCount());
 		bookMeetingRoomDTO.setMeetingTitle(bookMeetingRoom.getMeetingTitle());
 
@@ -66,10 +67,10 @@ public class BookMeetingRoomUtil {
 
 	public static BookMeetingRoom convertDtoObjectToDao(BookMeetingRoomDTO bookMeetingRoomDTO) {
 		BookMeetingRoom bookMeetingRoom = new BookMeetingRoom();
-		bookMeetingRoom.setBeginTime(bookMeetingRoomDTO.getBeginTime());
+		bookMeetingRoom.setBeginTime(Timestamp.valueOf(bookMeetingRoomDTO.getBeginTime()));
 		bookMeetingRoom.setBookMeetingRoomId(bookMeetingRoomDTO.getBookMeetingRoomId());
 
-		bookMeetingRoom.setEndTime(bookMeetingRoomDTO.getEndTime());
+		bookMeetingRoom.setEndTime(Timestamp.valueOf(bookMeetingRoomDTO.getEndTime()));
 		bookMeetingRoom.setHeadCount(bookMeetingRoomDTO.getHeadCount());
 		bookMeetingRoom.setMeetingTitle(bookMeetingRoomDTO.getMeetingTitle());
 
@@ -85,7 +86,7 @@ public class BookMeetingRoomUtil {
 	public static String getFormatedDate(String startedDate) {
 
 		String startDate1 = null;
-        System.out.println(startedDate);
+		System.out.println(startedDate);
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
 		try {
 			Date date1 = df.parse(startedDate);
