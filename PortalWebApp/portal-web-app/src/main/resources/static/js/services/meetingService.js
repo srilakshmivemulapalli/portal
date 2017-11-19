@@ -23,7 +23,8 @@ app.factory('meetingService', function($http, $q) {
 	}
 	ms.getAvailableMeetingRoom = function(locationId,bookingDate,beginTime,endTime) {
 		var deferred = $q.defer();
-        $http.get("/v1/meetings/getAvailableMeetingRoom/?locationId="+locationId+"&beginTime="+beginTime+"&endTime="+endTime).success(function(response) {
+		var url = "v1/meetings/getAvailableMeetingRoom/?locationId="+locationId+"&beginTime="+beginTime+"&endTime="+endTime;
+        $http.get(url).success(function(response) {
 				deferred.resolve(response);
 			}).error(function(response) {
 				deferred.reject(response);
