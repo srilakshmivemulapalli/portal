@@ -23,10 +23,10 @@ public class BookMeetingRoomUtil {
 		if (CollectionUtils.isNotEmpty(bookMeetingRoom)) {
 			for (BookMeetingRoom bookMeetingRoomDAO : bookMeetingRoom) {
 				BookMeetingRoomDTO bookMeetingRoomDTO = new BookMeetingRoomDTO();
-				bookMeetingRoomDTO.setBeginTime(bookMeetingRoomDAO.getBeginTime().toString());
+				bookMeetingRoomDTO.setBeginTime(bookMeetingRoomDAO.getBeginTime());
 				bookMeetingRoomDTO.setBookMeetingRoomId(bookMeetingRoomDAO.getBookMeetingRoomId());
 
-				bookMeetingRoomDTO.setEndTime(bookMeetingRoomDAO.getEndTime().toString());
+				bookMeetingRoomDTO.setEndTime(bookMeetingRoomDAO.getEndTime());
 				bookMeetingRoomDTO.setHeadCount(bookMeetingRoomDAO.getHeadCount());
 				// bookMeetingRoomDTO.setMeetingRoomDTO(bookMeetingRoomDAO.getMeetingRoom());
 				bookMeetingRoomDTO.setMeetingTitle(bookMeetingRoomDAO.getMeetingTitle());
@@ -44,10 +44,10 @@ public class BookMeetingRoomUtil {
 
 	public static BookMeetingRoomDTO convertDaoObjectToDto(BookMeetingRoom bookMeetingRoom) {
 		BookMeetingRoomDTO bookMeetingRoomDTO = new BookMeetingRoomDTO();
-		bookMeetingRoomDTO.setBeginTime(bookMeetingRoom.getBeginTime().toString());
+		bookMeetingRoomDTO.setBeginTime(bookMeetingRoom.getBeginTime());
 		bookMeetingRoomDTO.setBookMeetingRoomId(bookMeetingRoom.getBookMeetingRoomId());
 
-		bookMeetingRoomDTO.setEndTime(bookMeetingRoom.getEndTime().toString());
+		bookMeetingRoomDTO.setEndTime(bookMeetingRoom.getEndTime());
 		bookMeetingRoomDTO.setHeadCount(bookMeetingRoom.getHeadCount());
 		bookMeetingRoomDTO.setMeetingTitle(bookMeetingRoom.getMeetingTitle());
 
@@ -67,10 +67,10 @@ public class BookMeetingRoomUtil {
 
 	public static BookMeetingRoom convertDtoObjectToDao(BookMeetingRoomDTO bookMeetingRoomDTO) {
 		BookMeetingRoom bookMeetingRoom = new BookMeetingRoom();
-		bookMeetingRoom.setBeginTime(Timestamp.valueOf(bookMeetingRoomDTO.getBeginTime()));
+		bookMeetingRoom.setBeginTime(bookMeetingRoomDTO.getBeginTime());
 		bookMeetingRoom.setBookMeetingRoomId(bookMeetingRoomDTO.getBookMeetingRoomId());
 
-		bookMeetingRoom.setEndTime(Timestamp.valueOf(bookMeetingRoomDTO.getEndTime()));
+		bookMeetingRoom.setEndTime(bookMeetingRoomDTO.getEndTime());
 		bookMeetingRoom.setHeadCount(bookMeetingRoomDTO.getHeadCount());
 		bookMeetingRoom.setMeetingTitle(bookMeetingRoomDTO.getMeetingTitle());
 

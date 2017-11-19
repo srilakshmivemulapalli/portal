@@ -68,7 +68,6 @@ public class BookMeetingRoomRestService {
 		logger.info(".....In getAllMeetingRoom() controller...");
 		
 		String startDate1=BookMeetingRoomUtil.getFormatedDate(startedDate) + BookMeetingRoomUtil.getFormatedTime(startedDate);
-		System.out.println(startDate1);
 		Timestamp startDate = Timestamp.valueOf(startDate1);
 		int locationId = 0;
 		if (locationnId != null) {
@@ -104,7 +103,6 @@ public class BookMeetingRoomRestService {
 
 			
 		List<MeetingRoomDTO> meetingList = bookMeetingRoomService.getAvailableMeetingRoom(locationId, beginTimeStamp, endTimeStamp);
-		System.out.println(meetingList.size());
 		if(meetingList.size()==0) {
 			Errors error = new Errors();
 			error.setErrorMessage(Constants.MEETINGS_ROOMS_EMPTY);
@@ -123,6 +121,11 @@ public class BookMeetingRoomRestService {
 	@RequestMapping(value = "/bookMeetingRoom", method = RequestMethod.POST)
 	public  ResponseEntity<?> bookMeetingRoom(@RequestBody BookMeetingRoomDTO bookMeetingRoom) throws BookMeetingRoomRestServiceException{
 		logger.info(".....In bookMeetingRoom() controller...");
+		System.out.println(bookMeetingRoom.getStartingTime()+" "+bookMeetingRoom.getEndingTime());
+		bookMeetingRoom.setBeginTime(Timestamp.valueOf(BookMeetingRoomUtil.getFormatedDateAndTime(bookMeetingRoom.getStartingTime())));
+		bookMeetingRoom.setEndTime(Timestamp.valueOf(BookMeetingRoomUtil.getFormatedDateAndTime(bookMeetingRoom.getEndingTime())));
+
+		
 		String message = bookMeetingRoomService.bookMeetingRoom(bookMeetingRoom);
 		ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
 		try {
@@ -138,7 +141,6 @@ public class BookMeetingRoomRestService {
 	public ResponseEntity<?> getUserBooking(@PathVariable String emailId) throws BookMeetingRoomRestServiceException{
 		logger.info("In getUserBooking() controller....");
 		emailId = emailId.substring(0, emailId.indexOf("@"))+"@nisum.com";
-		System.out.println("emaiId"+emailId);
 		try {
 		List<BookMeetingRoomDTO> bookingRoom = bookMeetingRoomService.getUserBooking(emailId);
 		if(bookingRoom.size()==0) {

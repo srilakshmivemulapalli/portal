@@ -16,12 +16,30 @@ public class BookMeetingRoomDTO {
 	private int bookMeetingRoomId;
 	private String meetingTitle;
 	private int meetingRoomId;
-	private String beginTime;
-	private String endTime;
+	private Timestamp beginTime;
+	private Timestamp endTime;
 	private String emailId;
 	private int locationId;
 	private Timestamp createdDate;
 	private Timestamp bookingDate;
+	private String startingTime;
+	private String endingTime;
+
+	public String getStartingTime() {
+		return startingTime;
+	}
+
+	public void setStartingTime(String startingTime) {
+		this.startingTime = startingTime;
+	}
+
+	public String getEndingTime() {
+		return endingTime;
+	}
+
+	public void setEndingTime(String endingTime) {
+		this.endingTime = endingTime;
+	}
 
 	/**
 	 * @return the emailId
@@ -147,19 +165,19 @@ public class BookMeetingRoomDTO {
 		this.meetingTitle = meetingTitle;
 	}
 
-	public String getBeginTime() {
+	public Timestamp getBeginTime() {
 		return beginTime;
 	}
 
-	public void setBeginTime(String beginTime) {
+	public void setBeginTime(Timestamp beginTime) {
 		this.beginTime = beginTime;
 	}
 
-	public String getEndTime() {
+	public Timestamp getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(String endTime) {
+	public void setEndTime(Timestamp endTime) {
 		this.endTime = endTime;
 	}
 

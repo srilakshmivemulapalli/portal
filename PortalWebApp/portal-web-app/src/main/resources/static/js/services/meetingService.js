@@ -12,25 +12,43 @@ app.factory('meetingService', function($http, $q) {
 		return deferred.promise;
 	}
 
-	ms.getAllMeetings = function(locationId,date) {
+	ms.getAllMeetings = function(locationId, date) {
 		var deferred = $q.defer();
-        $http.get('v1/meetings/getAllbookedMeetingRoom/?locationId='+locationId+"&startedDate="+date).success(function(response) {
+		$http.get(
+				'v1/meetings/getAllbookedMeetingRoom/?locationId=' + locationId
+						+ "&startedDate=" + date).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
 		})
 		return deferred.promise;
 	}
-	ms.getAvailableMeetingRoom = function(locationId,bookingDate,beginTime,endTime) {
+
+	ms.getAvailableMeetingRoom = function(locationId, bookingDate, beginTime,
+			endTime) {
 		var deferred = $q.defer();
-		var url = "v1/meetings/getAvailableMeetingRoom/?locationId="+locationId+"&beginTime="+beginTime+"&endTime="+endTime;
-        $http.get(url).success(function(response) {
-				deferred.resolve(response);
-			}).error(function(response) {
-				deferred.reject(response);
-			})
-			return deferred.promise;
-   }
-   
- return ms;
+		var url = "v1/meetings/getAvailableMeetingRoom/?locationId="
+				+ locationId + "&beginTime=" + beginTime + "&endTime="
+				+ endTime;
+		$http.get(url).success(function(response) {
+			deferred.resolve(response);
+		}).error(function(response) {
+			deferred.reject(response);
+		})
+		return deferred.promise;
+	}
+
+	ms.bookMeetingRoom = function(data) {
+		var deferred = $q.defer();
+		
+		$http.post("v1/meetings/bookMeetingRoom", data).success(function(response) {
+			console.log(response);
+			deferred.resolve(response);
+		}).error(function(response) {
+			deferred.reject(response);
+		})
+		return deferred.promise;
+	}
+
+	return ms;
 })

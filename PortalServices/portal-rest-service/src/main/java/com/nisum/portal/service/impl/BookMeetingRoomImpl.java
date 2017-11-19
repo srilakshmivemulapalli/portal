@@ -50,16 +50,11 @@ public class BookMeetingRoomImpl implements BookMeetingRoomService {
 		int locationId = bookMeetingRoomDTO.getLocationId();
 		Location location = locationRepository.findOne(locationId);
 		
-		String startTimeString = bookMeetingRoomDTO.getBeginTime().toString();
-		String endTimeString = bookMeetingRoomDTO.getEndTime().toString();
-		
-		Timestamp startTimeStamp = Timestamp.valueOf(BookMeetingRoomUtil.getFormatedDateAndTime(startTimeString));
-		Timestamp endTimeStamp = Timestamp.valueOf(BookMeetingRoomUtil.getFormatedDateAndTime(endTimeString));
 		
 		int meetingRoomId = bookMeetingRoomDTO.getMeetingRoomId();
 		MeetingRoom meetingRoom = meetingRoomRepository.findOne(meetingRoomId);
 		if (location != null && meetingRoom != null) {
-			BookMeetingRoom bookedMeetingRoom = bookMeetingRoomRepository.getMeetingRoomForTimePeriod(startTimeStamp, endTimeStamp);
+			BookMeetingRoom bookedMeetingRoom = bookMeetingRoomRepository.getMeetingRoomForTimePeriod(bookMeetingRoomDTO.getBeginTime(), bookMeetingRoomDTO.getEndTime());
 			if (bookedMeetingRoom == null) {
 				BookMeetingRoom bookMeetingRoomDao = BookMeetingRoomUtil.convertDtoObjectToDao(bookMeetingRoomDTO);
 				BookMeetingRoom bookMeetingRoom = bookMeetingRoomDAO.findByBookMeetingRoomId(bookMeetingRoomDao.getBookMeetingRoomId());
