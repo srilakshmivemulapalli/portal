@@ -60,7 +60,9 @@ public class BlogsRestService {
 	@RequestMapping(value = "/retrieve", method = RequestMethod.GET)
 	public Object getAllBlogs() throws BlogServiceException {
 		logger.info("BlogsRestService :: getAllBlogs");
+		
 		try {
+			System.out.println("hhh");
 			List<BlogsDTO> blogsDTO= blogService.getAllBlogs();
 			for(BlogsDTO blogDTO : blogsDTO) {
 				blogDTO.setPath("");
