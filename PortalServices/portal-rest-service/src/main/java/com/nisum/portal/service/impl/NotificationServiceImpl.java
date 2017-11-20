@@ -44,7 +44,7 @@ public class NotificationServiceImpl implements NotificationService {
 
 	@SuppressWarnings("unused")
 	public NotificationsDetailsDTO retriveAllUnreadNotifications(String emailId) {
-		try {
+		
 			logger.info("NotificationServiceImpl :: retriveAllUnreadNotifications(emailId: ");
 			emailId = emailId.substring(0, emailId.indexOf("@")) + "@nisum.com";
 			int userId = profileSettingsDAO.getUserByEmail(emailId).getUserId();
@@ -62,9 +62,6 @@ public class NotificationServiceImpl implements NotificationService {
 			NotificationsDetailsDTO notificationsDetailsDTO = new NotificationsDetailsDTO();
 			return NotificationsUtil.convertDaoToDto(finalList, notificationsDetailsDTO);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
 	}
 }
+

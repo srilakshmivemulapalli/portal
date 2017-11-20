@@ -77,5 +77,6 @@ public class Constants {
 	public static final String NOTIFICATION_TYPE_QUESTION = "Questionaries";
 
 	public static final String YES = "Y";
+	public static final String NOTIFICATIONS_NOT_FETCH = "Error While Fetching the notifications";
 
 }

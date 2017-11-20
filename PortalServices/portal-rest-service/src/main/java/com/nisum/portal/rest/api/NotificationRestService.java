@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nisum.portal.service.api.NotificationService;
+import com.nisum.portal.service.dto.Errors;
 import com.nisum.portal.service.dto.NotificationsDTO;
 import com.nisum.portal.service.dto.NotificationsDetailsDTO;
 import com.nisum.portal.service.dto.ServiceStatusDto;
 import com.nisum.portal.service.exception.NotificationServiceException;
+import com.nisum.portal.util.CommonsUtil;
 import com.nisum.portal.util.Constants;
 
 @RestController
@@ -30,7 +32,7 @@ public class NotificationRestService {
 	public ResponseEntity<ServiceStatusDto> updateNotification(@RequestBody NotificationsDTO notificationDTO)
 			throws NotificationServiceException {
 
-		logger.info("NotificationRestService *****:: updateNotification" + notificationDTO.getNotificationId() + "-"
+		logger.info("NotificationRestService :: updateNotification" + notificationDTO.getNotificationId() + "-"
 				+ notificationDTO.getNotificationNavId() + "-" + notificationDTO.getNotificationType() + "-"
 				+ notificationDTO.getEmailId());
 
@@ -44,10 +46,25 @@ public class NotificationRestService {
 	}
 
 	@RequestMapping(value = "/retrieve/allNotifications/{emailId}", method = RequestMethod.GET)
-	public ResponseEntity<NotificationsDetailsDTO> retriveAllNotifications(@PathVariable("emailId")String emailId) throws NotificationServiceException {
-		logger.info("NotificationRestService :: retriveAllNotifications");
-		return new ResponseEntity<NotificationsDetailsDTO>(notificationService.retriveAllUnreadNotifications(emailId),
-				HttpStatus.OK);
+	public ResponseEntity<?> retriveAllNotifications(@PathVariable("emailId")String emailId) throws NotificationServiceException {
+		{
+			logger.info("NotificationRestService :: retriveAllNotifications");
+			try
+			{
+			return new ResponseEntity<NotificationsDetailsDTO>(notificationService.retriveAllUnreadNotifications(emailId),
+					HttpStatus.OK);
+			}catch(Exception e){
+	        	logger.error("NotificationRestService ::retriveAllNotifications" + Constants.NOTIFICATIONS_NOT_FETCH + CommonsUtil.getErrorStacktrace(e));
+				
+		    	     Errors error=new Errors();
+		    	     error.setErrorCode("Error-get All Notifications");
+		    	     error.setErrorMessage(Constants.NOTIFICATIONS_NOT_FETCH);
+		         return new ResponseEntity<Errors>(error,HttpStatus.OK);
+				
+			}
+			
+		
 	}
 
+	}
 }
