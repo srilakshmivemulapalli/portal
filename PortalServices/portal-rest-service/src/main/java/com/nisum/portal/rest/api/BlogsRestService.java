@@ -35,6 +35,7 @@ import com.nisum.portal.service.dto.BlogsDTO;
 import com.nisum.portal.service.dto.Errors;
 import com.nisum.portal.service.exception.BlogServiceException;
 import com.nisum.portal.util.BlogsServiceUtil;
+import com.nisum.portal.util.CommonsUtil;
 
 /**
  * @author nisum
@@ -68,7 +69,7 @@ public class BlogsRestService {
 			return new ResponseEntity<List<BlogsDTO>>(blogsDTO,HttpStatus.OK);
 		}
 		catch(Exception e) {
-			logger.error("BlogsRestService :: getAllBlogs Error ");
+			logger.error("BlogsRestService :: getAllBlogs Error ",CommonsUtil.getErrorStacktrace(e));
 			Errors errors=new Errors();
 			errors.setErrorCode("Errors-Blogs");
 			errors.setErrorMessage(e.getMessage());
@@ -93,7 +94,7 @@ public class BlogsRestService {
 			return new ResponseEntity<String>(jsonObj.toString(),HttpStatus.OK);
 		}
 		catch(Exception e) {
-			logger.error("BlogsRestService :: getAllBlogsCount Error ");
+			logger.error("BlogsRestService :: getAllBlogsCount Error ",CommonsUtil.getErrorStacktrace(e));
 			Errors errors=new Errors();
 			errors.setErrorCode("Errors-Blogs");
 			errors.setErrorMessage(e.getMessage());
@@ -118,7 +119,7 @@ public class BlogsRestService {
 			return new ResponseEntity<String>(jsonObj.toString(),HttpStatus.OK);
 		}
 		catch(Exception e) {
-			logger.error("BlogsRestService :: getAllBlogsCountByUserMailID Error ");
+			logger.error("BlogsRestService :: getAllBlogsCountByUserMailID Error ",CommonsUtil.getErrorStacktrace(e));
 			Errors errors=new Errors();
 			errors.setErrorCode("Errors-Blogs");
 			errors.setErrorMessage(e.getMessage());
@@ -144,7 +145,7 @@ public class BlogsRestService {
 			return new ResponseEntity<List<BlogsDTO>>(blogsDTO,HttpStatus.OK);
 		}
 		catch(Exception e) {
-			logger.error("BlogsRestService :: getAllBlogsPagination Error ");
+			logger.error("BlogsRestService :: getAllBlogsPagination Error ",CommonsUtil.getErrorStacktrace(e));
 			Errors errors=new Errors();
 			errors.setErrorCode("Errors-Blogs");
 			errors.setErrorMessage(e.getMessage());
@@ -170,7 +171,7 @@ public class BlogsRestService {
 			return new ResponseEntity<List<BlogsDTO>>(blogsDTO,HttpStatus.OK);
 		}
 		catch(Exception e) {
-			logger.error("BlogsRestService :: getAllBlogsPaginationByMailId Error ");
+			logger.error("BlogsRestService :: getAllBlogsPaginationByMailId Error ",CommonsUtil.getErrorStacktrace(e));
 			Errors errors=new Errors();
 			errors.setErrorCode("Errors-Blogs");
 			errors.setErrorMessage(e.getMessage());
@@ -228,7 +229,7 @@ public class BlogsRestService {
 	        return new HttpEntity<byte[]>(document, header);
 		}
 		catch(Exception e) {
-			logger.error("BlogsRestService :: getFile Error");
+			logger.error("BlogsRestService :: getFile Error",CommonsUtil.getErrorStacktrace(e));
 			Errors errors=new Errors();
 			errors.setErrorCode("Errors-Blogs");
 			errors.setErrorMessage(e.getMessage());
@@ -297,7 +298,7 @@ public class BlogsRestService {
 			
 		}
 		catch(Exception e) {
-			logger.error("BlogsRestService :: updateBlogAndAttachments Error");
+			logger.error("BlogsRestService :: updateBlogAndAttachments Error",CommonsUtil.getErrorStacktrace(e));
 			Errors errors=new Errors();
 			errors.setErrorCode("Errors-Blogs");
 			errors.setErrorMessage(e.getMessage());
@@ -347,7 +348,7 @@ public class BlogsRestService {
 			
 		}
 		catch(Exception e) {
-			logger.error("BlogsRestService :: updateBlog Error");
+			logger.error("BlogsRestService :: updateBlog Error",CommonsUtil.getErrorStacktrace(e));
 			Errors errors=new Errors();
 			errors.setErrorCode("Errors-Blogs");
 			errors.setErrorMessage(e.getMessage());
@@ -373,7 +374,7 @@ public class BlogsRestService {
 			return new ResponseEntity<String>(jsonObj.toString(),HttpStatus.OK);
 		}
 		catch(Exception e) {
-			logger.error("BlogsRestService :: removeBlog Error");
+			logger.error("BlogsRestService :: removeBlog Error",CommonsUtil.getErrorStacktrace(e));
 			Errors errors=new Errors();
 			errors.setErrorCode("Errors-Blogs");
 			errors.setErrorMessage(e.getMessage());
@@ -402,7 +403,7 @@ public class BlogsRestService {
 			}
 		}
 		catch(Exception e) {
-			logger.error("BlogsRestService :: removeFile Error");
+			logger.error("BlogsRestService :: removeFile Error",CommonsUtil.getErrorStacktrace(e));
 			Errors errors=new Errors();
 			errors.setErrorCode("Errors-Blogs");
 			errors.setErrorMessage(e.getMessage());
@@ -438,7 +439,7 @@ public class BlogsRestService {
 			return new ResponseEntity<BlogsDTO>(updatedBlog,HttpStatus.OK);
 		}
 		catch(Exception e) {
-			logger.error("BlogsRestService :: addBlog Error");
+			logger.error("BlogsRestService :: addBlog Error",CommonsUtil.getErrorStacktrace(e));
 			Errors errors=new Errors();
 			errors.setErrorCode("Errors-Blogs");
 			errors.setErrorMessage(e.getMessage());
@@ -484,7 +485,7 @@ public class BlogsRestService {
 			}
 		}
 		catch(Exception e) {
-			logger.error("BlogsRestService :: uploadAttachment Error");
+			logger.error("BlogsRestService :: uploadAttachment Error ",CommonsUtil.getErrorStacktrace(e));
 			Errors errors=new Errors();
 			errors.setErrorCode("Errors-Blogs");
 			errors.setErrorMessage(e.getMessage());
@@ -510,7 +511,7 @@ public class BlogsRestService {
 			return new ResponseEntity<List<BlogsDTO>>(blogsDTO,HttpStatus.OK);
 		}
 		catch(Exception e) {
-			logger.error("BlogsRestService :: getAllBlogsByUserMailId Error");
+			logger.error("BlogsRestService :: getAllBlogsByUserMailId Error ",CommonsUtil.getErrorStacktrace(e));
 			Errors errors=new Errors();
 			errors.setErrorCode("Errors-Blogs");
 			errors.setErrorMessage(e.getMessage());
