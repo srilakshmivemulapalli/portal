@@ -44,7 +44,7 @@ public class CategoriesRestService {
 		logger.info("CategoriesRestService :: categories");
 		try {
 		return categoriesService.getCategories();
-		System.out.println("changes");
+		
 		}
 		catch(Exception e) {
 			logger.error("CategoriesRestService :: categories ");
