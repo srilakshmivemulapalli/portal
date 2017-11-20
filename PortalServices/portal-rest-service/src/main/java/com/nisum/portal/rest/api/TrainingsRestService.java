@@ -28,6 +28,7 @@ import com.nisum.portal.service.dto.TrainingFeedBackDTO;
 import com.nisum.portal.service.dto.TrainingRequestDTO;
 import com.nisum.portal.service.dto.TrainingsDTO;
 import com.nisum.portal.service.exception.TrainingsServiceException;
+import com.nisum.portal.util.CommonsUtil;
 import com.nisum.portal.util.Constants;
 import com.nisum.portal.util.MailSender;
 
@@ -55,7 +56,7 @@ public class TrainingsRestService {
 				serviceStatusDto.setMessage(Constants.MSG_RECORD_ADD);
 				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto,HttpStatus.OK);
 		    } catch (Exception e) {
-				logger.error(Constants.Training_Error);
+				logger.error("TrainingsRestService :: saveTrainings",Constants.Training_Error,CommonsUtil.getErrorStacktrace(e));
 				Errors error = new Errors();
 				error.setErrorCode("Error-saveTrainings");
 				error.setErrorMessage(Constants.Training_Error);
@@ -72,7 +73,7 @@ public class TrainingsRestService {
 			    List<TrainingsDTO> upcomingList=	trainingsService.upComingTrainings("classroom",emailId,userService);
 		    		return new ResponseEntity<List<TrainingsDTO>>(upcomingList,HttpStatus.OK);
 	        } catch(Exception e){
-	        	logger.error(Constants.TRAINING_NOT_FETCH);
+	        	logger.error("TrainingsRestService :: classroomUpcomingTrainings",Constants.TRAINING_NOT_FETCH,CommonsUtil.getErrorStacktrace(e));
 		    	     Errors error=new Errors();
 		    	     error.setErrorCode("Error-upcoming Trainings");
 		    	     error.setErrorMessage(Constants.TRAINING_NOT_FETCH);
@@ -88,7 +89,7 @@ public class TrainingsRestService {
 			    List<TrainingsDTO> upcomingList=	trainingsService.upComingTrainings("online",emailId,userService);
 		    		return new ResponseEntity<List<TrainingsDTO>>(upcomingList,HttpStatus.OK);
 	        } catch(Exception e){
-	        	logger.error(Constants.TRAINING_NOT_FETCH);
+	        	logger.error("TrainingsRestService :: onlineUpcomingTrainings",Constants.TRAINING_NOT_FETCH,CommonsUtil.getErrorStacktrace(e));
 		    	     Errors error=new Errors();
 		    	     error.setErrorCode("Error-upcoming Trainings");
 		    	     error.setErrorMessage(Constants.TRAINING_NOT_FETCH);
@@ -104,7 +105,7 @@ public class TrainingsRestService {
 				List<TrainingsDTO> upcomingList = trainingsService.completedTrainings(emailId,userService);
 				return new ResponseEntity<List<TrainingsDTO>>(upcomingList, HttpStatus.OK);
 		    }catch(Exception e) {
-		     	logger.error(Constants.TRAINING_NOT_FETCH);
+		     	logger.error("TrainingsRestService :: completedTrainings",Constants.TRAINING_NOT_FETCH,CommonsUtil.getErrorStacktrace(e));
 				Errors error = new Errors();
 				error.setErrorCode("Error-completed Trainings");
 				error.setErrorMessage(Constants.TRAINING_NOT_FETCH);
@@ -126,6 +127,7 @@ public class TrainingsRestService {
 				 return new ResponseEntity<TrainingToUserDTO>(trainingToUser,HttpStatus.OK);
 		}catch(Exception e)
 		{
+	     	logger.error("TrainingsRestService :: trainingToUser",Constants.TRAINING_NOT_PRESENCE,CommonsUtil.getErrorStacktrace(e));
 				 Errors error=new Errors();
 	    	         error.setErrorCode("Error-Training presence");
 	    	         error.setErrorMessage(Constants.TRAINING_NOT_PRESENCE);
@@ -215,7 +217,7 @@ public class TrainingsRestService {
 		 return new ResponseEntity<List<TrainingsDTO>>(trainingsList,HttpStatus.OK);
 		}catch(Exception e)
 		{
-			logger.error(Constants.TRAINING_NOT_FETCH);
+			logger.error("TrainingsRestService :: getMyTrainings",Constants.TRAINING_NOT_FETCH,CommonsUtil.getErrorStacktrace(e));
 			Errors error = new Errors();
 			error.setErrorCode("Error-getMyTrainings");
 			error.setErrorMessage(Constants.TRAINING_NOT_FETCH);
@@ -255,7 +257,7 @@ public class TrainingsRestService {
 		TrainingsApproveDTO trainingsApproveDTO=trainingsService.getAllTrainings();
 		 return new ResponseEntity<TrainingsApproveDTO>(trainingsApproveDTO,HttpStatus.OK);
 		}catch(Exception e){
-        	logger.error(Constants.TRAINING_NOT_FETCH);
+        	logger.error("TrainingsRestService :: getAllTrainings",Constants.TRAINING_NOT_FETCH,CommonsUtil.getErrorStacktrace(e));
 	    	     Errors error=new Errors();
 	    	     error.setErrorCode("Error-get All Trainings");
 	    	     error.setErrorMessage(Constants.TRAINING_NOT_FETCH);
@@ -279,7 +281,7 @@ public class TrainingsRestService {
 		 }
 		 return new ResponseEntity<TrainingsDTO>(trainings,HttpStatus.OK);
 		}catch(Exception e) {
-			logger.error(Constants.TRAINING_NOT_PRESENCE);
+			logger.error("TrainingsRestService :: updateTrainingStatus",Constants.TRAINING_NOT_PRESENCE,CommonsUtil.getErrorStacktrace(e));
 			Errors error = new Errors();
 			error.setErrorCode("Error-update Training Status");
 			error.setErrorMessage(Constants.TRAINING_NOT_PRESENCE);
