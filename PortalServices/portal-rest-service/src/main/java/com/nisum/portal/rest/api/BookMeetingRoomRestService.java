@@ -77,6 +77,7 @@ public class BookMeetingRoomRestService {
 		try {
 			
 			List<BookMeetingRoomDTO> meetingsList = meetingRoomService.getAllMeetingRoom(locationId,startDate);
+
 			if (meetingsList.size() == 0) {
 				ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
 				serviceStatusDto.setMessage(Constants.MEETINGS_EMPTY);

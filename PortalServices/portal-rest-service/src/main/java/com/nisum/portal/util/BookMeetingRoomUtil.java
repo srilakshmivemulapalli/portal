@@ -24,6 +24,8 @@ public class BookMeetingRoomUtil {
 			for (BookMeetingRoom bookMeetingRoomDAO : bookMeetingRoom) {
 				BookMeetingRoomDTO bookMeetingRoomDTO = new BookMeetingRoomDTO();
 				bookMeetingRoomDTO.setBeginTime(bookMeetingRoomDAO.getBeginTime());
+				bookMeetingRoomDTO.setStartingTime(bookMeetingRoomDAO.getBeginTime().toString());
+				bookMeetingRoomDTO.setEndingTime(bookMeetingRoomDAO.getEndTime().toString());
 				bookMeetingRoomDTO.setBookMeetingRoomId(bookMeetingRoomDAO.getBookMeetingRoomId());
 
 				bookMeetingRoomDTO.setEndTime(bookMeetingRoomDAO.getEndTime());
@@ -86,7 +88,6 @@ public class BookMeetingRoomUtil {
 	public static String getFormatedDate(String startedDate) {
 
 		String startDate1 = null;
-		System.out.println(startedDate);
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
 		try {
 			Date date1 = df.parse(startedDate);

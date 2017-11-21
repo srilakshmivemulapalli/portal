@@ -33,10 +33,5 @@ public interface MeetingRoomRepository extends JpaRepository<MeetingRoom, Intege
 	
 	@Query(value = "SELECT m from  MeetingRoom m where m.meetingRoomId IN(SELECT bm.meetingRoom.meetingRoomId from BookMeetingRoom bm where bm.beginTime>:startDate)" )
 	public List<MeetingRoom> findAllByDate(@Param("startDate") Timestamp startDate);
-	
-	
-
-	
-
 
 }
