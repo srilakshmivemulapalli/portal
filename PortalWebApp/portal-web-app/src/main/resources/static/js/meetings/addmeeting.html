@@ -77,7 +77,7 @@
 			<div class="form-group row">
 				<label class="control-label col-sm-2" for="room">Select Room:</label>
 				<div class="col-sm-10">
-					<am-multiselect id="meetingroom" class="" ng-model="meeting.room"
+					<am-multiselect id="meetingroom" class="" ng-model="meeting.meetingRoomId "
 						ms-header="Select Room"
 						options="meetingroom.meetingRoomId as meetingroom.meetingRoomName for meetingroom in availableMeetingRooms"
 						change="conferenceroomSelected()" required style="float:left">
