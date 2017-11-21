@@ -67,7 +67,7 @@ public class BookMeetingRoomRestService {
 	public ResponseEntity<?> getAllMeetingRoom(@QueryParam("locationnId") String locationnId,@QueryParam("startedDate") String startedDate,@QueryParam("startTime") String startTime) throws BookMeetingRoomRestServiceException{
 		logger.info(".....In getAllMeetingRoom() controller...");
 		
-		String startDate1=BookMeetingRoomUtil.getFormatedDate(startedDate) + BookMeetingRoomUtil.getFormatedTime(startedDate);
+		String startDate1=BookMeetingRoomUtil.getFormatedDate(startedDate) + " 00:00:00";
 		Timestamp startDate = Timestamp.valueOf(startDate1);
 		int locationId = 0;
 		if (locationnId != null) {
