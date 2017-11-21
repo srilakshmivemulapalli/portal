@@ -4,6 +4,7 @@ meetingApp.controller('addMeetingController', function($scope,
 	$scope.meeting = {};
 	$scope.locationsList = LocationListModel.newLocationListInstance();
 	$scope.meeting.locationId = null;
+	$scope.availableMeetingRooms=[];
 	$scope.dateOptions = {
 		format : 'D/MM/YYYY',
 		minDate : new Date(),
@@ -28,37 +29,37 @@ meetingApp.controller('addMeetingController', function($scope,
 			console.log(response);
 		})
 	};
-	$scope.getAllMeetings = function(locationId, bookingDate, beginTime) {
+	$scope.getAllMeetings = function() {
+		
 
-		beginTime = beginTime ? new Date(beginTime).toISOString() : null;
+		$scope.meeting.startingTime = $scope.startingTime ? new Date($scope.startingTime).toISOString() : null;
 
-		bookingDate = bookingDate ? new Date(bookingDate).toISOString() : null;
+		$scope.meeting.bookingDate = $scope.bookingDate ? new Date($scope.bookingDate).toISOString() : null;
 
-		meetingService.getAllMeetings($scope.meeting.locationId, bookingDate,
-				beginTime).then(function(response) {
+		meetingService.getAllMeetings($scope.meeting.locationId, $scope.meeting.bookingDate,
+				$scope.meeting.startingTime).then(function(response) {
 			console.log(response, "res///");
 		})
 	};
+	$scope.getallavailblemeetings = function() {
 
-	$scope.getallavailblemeetings = function(locationId, bookingDate,
-			beginTime, endTime) {
-
-		if (locationId && bookingDate && beginTime && endTime) {
-			beginTime = beginTime ? new Date(beginTime).toISOString() : null;
-			endTime = endTime ? new Date(endTime).toISOString() : null;
-			bookingDate = bookingDate ? new Date(bookingDate).toISOString()
-					: null;
-
-			meetingService.getAvailableMeetingRoom(locationId, bookingDate,
-					beginTime, endTime).then(function(response) {
-				console.log(response, "responsedateeee///");
-			})
+		if ($scope.meeting.locationId && $scope.bookingDate && $scope.startingTime && $scope.endingTime)
+		{
+			$scope.meeting.startingTime = $scope.startingTime ? new Date($scope.startingTime).toISOString() : null;
+			$scope.meeting.endingTime = $scope.endingTime ? new Date($scope.endingTime).toISOString() : null;
+			$scope.bookingDate1 = $scope.bookingDate ? new Date($scope.bookingDate).toISOString() : null;
+			meetingService.getAvailableMeetingRoom($scope.meeting.locationId, $scope.meeting.bookingDate,
+					$scope.meeting.startingTime, $scope.meeting.endingTime).then(function(response) {
+				$scope.availableMeetingRooms= response;
+				console.log($scope.availableMeetingRooms,"$scope.availableMeetingRooms")
+				
+			});
 		}
 
-	}
-
-	$scope.bookMeetingRoom = function(locationId, bookingDate, meetingRoomId,
-			description, meetingTitle, startingTime, endingTime, headCount) {
+	};
+var meetingDetails = {}
+	$scope.bookMeetingRoom = function() {
+		console.log("jkjkj");
 		var bookMeetingObj = {
 			"description" : "for meetings",
 			"startingTime" : "2017-11-15T13:04:32.838-0600Z",
@@ -70,7 +71,7 @@ meetingApp.controller('addMeetingController', function($scope,
 			"meetingRoomId" : 4
 		};
 
-		meetingService.bookMeetingRoom(bookMeetingObj).then(function(response) {
+		meetingService.bookMeetingRoom($scope.meeting).then(function(response) {
 			console.log(response, "BookMeeting///");
 		})
 	}

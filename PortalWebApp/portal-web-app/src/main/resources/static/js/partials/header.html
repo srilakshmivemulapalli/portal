@@ -44,23 +44,32 @@
 						</form>
 					</div></li>
 			</ul>
-			<ul class="nav navbar-nav navbar-right sidebaropen">
-				<li><a data-toggle="dropdown" href="javascript:void(0);">{{mc.profile.userName}}
-						<img class="profImgHeader" ng-src="{{mc.profile.image}}" />
-				</a>
-					<ul class="dropdown-menu togglemenu">
-						<li><a href="#/profile"><span
-								class="glyphicon glyphicon-wrench pull-right"></span><span
-								class="dropdown-link-text">Settings</span></a></li>
-						<!-- <li><a href=""><span
-								class="glyphicon glyphicon-lock pull-right"></span><span
-								class="dropdown-link-text">Change Password</span></a></li> -->
-						<li role="separator" class="divider"></li>
-						<li ng-click="mc.logout();"><a href="javascript:void(0);"><span
-								class="glyphicon glyphicon-log-out pull-right"></span><span
-								class="dropdown-link-text">Logout</span></a></li>
-					</ul></li>
-			</ul>
+			<div class="right-wrapper">
+			<div class="bell_notifications">
+				<span class="notification-show" ng-if="mc.notificationStatus">{{mc.notificationStatus}}</span>
+				<span class="glyphicon glyphicon-bell" ng-click="mc.open_notifications()" data-toggle="dropdown"></span>
+				<ul class="notificationData dropdown-menu togglemenu">
+				<li ng-repeat="notificationTitle in mc.notificationsDetails"><a href="#" class="dropdown-link-text">{{notificationTitle.title}}</a></li>
+				</ul>
+			</div>	
+				<ul class="nav navbar-nav navbar-right sidebaropen">
+					<li><a data-toggle="dropdown" href="javascript:void(0);">{{mc.profile.userName}}
+							<img class="profImgHeader" ng-src="{{mc.profile.image}}" />
+					</a>
+						<ul class="dropdown-menu togglemenu">
+							<li><a href="#/profile"><span
+									class="glyphicon glyphicon-wrench pull-right"></span><span
+									class="dropdown-link-text">Settings</span></a></li>
+							<!-- <li><a href=""><span
+									class="glyphicon glyphicon-lock pull-right"></span><span
+									class="dropdown-link-text">Change Password</span></a></li> -->
+							<li role="separator" class="divider"></li>
+							<li ng-click="mc.logout();"><a href="javascript:void(0);"><span
+									class="glyphicon glyphicon-log-out pull-right"></span><span
+									class="dropdown-link-text">Logout</span></a></li>
+						</ul></li>
+				</ul>
+			</div>
 		</div>
 		<!-- <a class="login-url" data-toggle="dropdown"
 				href="javascript:void(0);">{{mc.profile.username}}<img

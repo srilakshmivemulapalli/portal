@@ -15,7 +15,7 @@
 					<am-multiselect id="location" class=""
 						ng-model="meeting.locationId" ms-header="Select Location"
 						options="location.locationId as location.locationName for location in locationsList.locations"
-						change="getAllMeetings(meeting.locationId,meeting.bookingDate,meeting.beginTime);getallavailblemeetings(meeting.locationId,meeting.bookingDate,meeting.beginTime,meeting.endTime)"
+						change="getAllMeetings();getallavailblemeetings();"
 						required style="float:left"></am-multiselect>
 				</div>
 			</div>
@@ -35,8 +35,8 @@
 					<div class='input-group date'>
 						<input type='text' class="form-control" datetimepicker
 						
-							ng-model="meeting.bookingDate" placeholder="Meeting Date"
-							options="dateOptions" ng-change="getallavailblemeetings(meeting.locationId,meeting.bookingDate,meeting.beginTime,meeting.endTime)" required /> <span
+							ng-model="bookingDate" placeholder="Meeting Date"
+							options="dateOptions" ng-change="getallavailblemeetings()" required /> <span
 							class="input-group-addon"> <span
 							class="glyphicon glyphicon-calendar"></span>
 						</span>
@@ -50,8 +50,8 @@
 					<div class="col-md-5">
 						<div class='input-group date'>
 							<input type='text' class="form-control"
-								ng-model="meeting.beginTime" datetimepicker
-								options="timeOptions" ng-change="getallavailblemeetings(meeting.locationId,meeting.bookingDate,meeting.beginTime,meeting.endTime)" required placeholder="Start Time" /> <span
+								ng-model="startingTime" datetimepicker
+								options="timeOptions" ng-change="getallavailblemeetings()" required placeholder="Start Time" /> <span
 								class="input-group-addon"> <span
 								class="glyphicon glyphicon-time"></span>
 							</span>
@@ -63,8 +63,8 @@
 					<div class="col-md-5">
 						<div class='input-group date'>
 							<input type='text' class="form-control"
-								ng-model="meeting.endTime" datetimepicker
-								options="timeOptions" ng-change="getallavailblemeetings(meeting.locationId,meeting.bookingDate,meeting.beginTime,meeting.endTime)" required placeholder="End Time" /> <span
+								ng-model="endingTime" datetimepicker
+								options="timeOptions" ng-change="getallavailblemeetings()" required placeholder="End Time" /> <span
 								class="input-group-addon"> <span
 								class="glyphicon glyphicon-time"></span>
 							</span>
@@ -79,7 +79,7 @@
 				<div class="col-sm-10">
 					<am-multiselect id="meetingroom" class="" ng-model="meeting.room"
 						ms-header="Select Room"
-						options="conferenceroom.conferenceroomId as conferenceroom.conferenceroomName for conferenceroom in conferenceroomList.conferencerooms"
+						options="meetingroom.meetingRoomId as meetingroom.meetingRoomName for meetingroom in availableMeetingRooms"
 						change="conferenceroomSelected()" required style="float:left">
 					</am-multiselect>
 				</div>
@@ -97,7 +97,7 @@
 
 				<div class="col-sm-offset-4 col-sm-5">
 					<input type="submit" class="custombtn btn-normal"
-						value="Book Meeting" />
+						value="Book Meeting" ng-disabled="meetingForm.$invalid" ng-click="bookMeetingRoom()">
 				</div>
 			</div>
 		</form>

@@ -24,8 +24,7 @@ app.factory('meetingService', function($http, $q) {
 		return deferred.promise;
 	}
 
-	ms.getAvailableMeetingRoom = function(locationId, bookingDate, beginTime,
-			endTime) {
+	ms.getAvailableMeetingRoom = function(locationId, bookingDate, beginTime, endTime) {
 		var deferred = $q.defer();
 		var url = "v1/meetings/getAvailableMeetingRoom/?locationId="
 				+ locationId + "&beginTime=" + beginTime + "&endTime="

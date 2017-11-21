@@ -5864,3 +5864,41 @@ font-size:13px;
 table.data_table{
 	border:1px solid;
 }
+.right-wrapper{
+	float:right;
+}
+.bell_notifications{
+	float: left;
+    margin: 21px 0 0 0;
+    width: 60px;
+    	position:relative;
+}
+.notification-show{
+    position: absolute;
+    top: -11px;
+    right: 10px;
+    color: #fff;
+    background: red;
+    border-radius: 3px;
+    padding: 0 2px;
+    z-index: 99;
+    font-size: 12px;
+}
+.bell_notifications .glyphicon-bell{
+	color: #3498db;
+	font-size: 22px;	
+}
+.notificationData{
+	position: absolute;
+    background: #fff;
+    padding: 10px;
+    left: -70px;
+}
+.notificationData li{
+    padding: 5px 0;
+    border-bottom:1px solid #eee;
+    width: 100%;
+}
+.notificationData li:last-child(){
+  	border-bottom:none;
+}

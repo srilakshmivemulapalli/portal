@@ -77,7 +77,7 @@ var app = angular
 				'mainController',
 				function($scope, $rootScope, localStorageService, $state,
 						$http, loginLogoutService, questionService,
-						commonService) {
+						commonService,notificationService) {
 					var vm = this;
 					vm.checkRoleName = commonService.checkRoleName;
 					vm.redirectQuestion = function() {
@@ -121,5 +121,17 @@ var app = angular
 						})
 
 					}
-
+					
+					notificationService.getAllNotifications().then(function(response) {
+						console.log(response,"//app")
+						vm.notificationStatus = 3//response.totalQuestionariesNotificationsCount;
+					});
+					$scope.showNotification = false;
+					vm.open_notifications =function(){
+						$scope.showNotification = true;
+						vm.notificationsDetails = [{'title':'Notification1'},
+												  {'title':'Notification2'},
+												  {'title':'Notification3'}]
+				}
+                     
 				})
