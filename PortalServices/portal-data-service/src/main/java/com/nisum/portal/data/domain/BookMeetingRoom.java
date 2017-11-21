@@ -3,7 +3,6 @@
  */
 package com.nisum.portal.data.domain;
 
-
 import java.sql.Timestamp;
 
 import javax.persistence.CascadeType;
@@ -16,20 +15,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
 /**
  * 
  * @author nisum
  *
  */
- 
 
 @Entity
 @Table(name = "BookMeetingRoom")
 public class BookMeetingRoom {
-	
-	
-		@Id
+
+	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int bookMeetingRoomId;
 	private String meetingTitle;
@@ -37,87 +33,97 @@ public class BookMeetingRoom {
 	@OneToOne
 	@JoinColumn(name = "meetingRoomId", referencedColumnName = "meetingRoomId")
 	private MeetingRoom meetingRoom;
-	
-	
+
 	private Timestamp beginTime;
 	private Timestamp endTime;
-	
+
 	private int headCount;
-	
-	
+
 	@OneToOne
 	@JoinColumn(name = "locationId", referencedColumnName = "locationId")
 	private Location location;
-	
+
 	public void setMeetingRoom(MeetingRoom meetingRoom) {
 		this.meetingRoom = meetingRoom;
 	}
-	
+
 	/**
 	 * @return the location
 	 */
 	public Location getLocation() {
 		return location;
 	}
+
 	/**
-	 * @param location the location to set
+	 * @param location
+	 *            the location to set
 	 */
 	public void setLocation(Location location) {
 		this.location = location;
 	}
+
 	public int getBookMeetingRoomId() {
 		return bookMeetingRoomId;
 	}
+
 	public void setBookMeetingRoomId(int bookMeetingRoomId) {
 		this.bookMeetingRoomId = bookMeetingRoomId;
 	}
+
 	public String getMeetingTitle() {
 		return meetingTitle;
 	}
+
 	public void setMeetingTitle(String meetingTitle) {
 		this.meetingTitle = meetingTitle;
 	}
+
 	/**
 	 * @return the user
 	 */
 	public String getEmailId() {
 		return emailId;
 	}
+
 	/**
-	 * @param user the user to set
+	 * @param user
+	 *            the user to set
 	 */
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
 	}
 
-	
 	/**
 	 * @return the meetingRoom
 	 */
 	public MeetingRoom getMeetingRoom() {
 		return meetingRoom;
 	}
+
 	/**
-	 * @param meetingRoom the meetingRoom to set
+	 * @param meetingRoom
+	 *            the meetingRoom to set
 	 */
-	
+
 	public Timestamp getBeginTime() {
 		return beginTime;
 	}
+
 	public void setBeginTime(Timestamp beginTime) {
 		this.beginTime = beginTime;
 	}
+
 	public Timestamp getEndTime() {
 		return endTime;
 	}
+
 	public void setEndTime(Timestamp endTime) {
 		this.endTime = endTime;
 	}
-	
 
-	
-	
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -126,7 +132,7 @@ public class BookMeetingRoom {
 		int result = 1;
 		result = prime * result + ((beginTime == null) ? 0 : beginTime.hashCode());
 		result = prime * result + bookMeetingRoomId;
-		
+
 		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
 		result = prime * result + ((endTime == null) ? 0 : endTime.hashCode());
 		result = prime * result + headCount;
@@ -135,7 +141,10 @@ public class BookMeetingRoom {
 		result = prime * result + ((meetingTitle == null) ? 0 : meetingTitle.hashCode());
 		return result;
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -154,7 +163,7 @@ public class BookMeetingRoom {
 			return false;
 		if (bookMeetingRoomId != other.bookMeetingRoomId)
 			return false;
-		
+
 		if (emailId == null) {
 			if (other.emailId != null)
 				return false;
@@ -184,22 +193,25 @@ public class BookMeetingRoom {
 			return false;
 		return true;
 	}
+
 	public int getHeadCount() {
 		return headCount;
 	}
+
 	public void setHeadCount(int headCount) {
 		this.headCount = headCount;
 	}
-	
-		/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		return "BookMeetingRoom [bookMeetingRoomId=" + bookMeetingRoomId + ", meetingTitle=" + meetingTitle
 				+ ", emailId=" + emailId + ", meetingRoom=" + meetingRoom + ", beginTime=" + beginTime + ", endTime="
-				+ endTime + ", headCount=" + headCount 
-				+ ", location=" + location + "]";
+				+ endTime + ", headCount=" + headCount + ", location=" + location + "]";
 	}
-	
+
 }

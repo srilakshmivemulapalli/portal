@@ -10,6 +10,6 @@ public interface MeetingRoomDAO {
 	
 	 MeetingRoom save( MeetingRoom meetingRoom);
 	 
-	List<MeetingRoom> findAllByLocationIdAndDate(int locationId,Timestamp startDate);
+	List<BookMeetingRoom> findAllByLocationIdAndDate(int locationId,Timestamp startDate);
 
 }

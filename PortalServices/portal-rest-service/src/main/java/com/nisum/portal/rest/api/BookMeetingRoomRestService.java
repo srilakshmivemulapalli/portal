@@ -76,13 +76,13 @@ public class BookMeetingRoomRestService {
 		  
 		try {
 			
-			List<MeetingRoomDTO> meetingsList = meetingRoomService.getAllMeetingRoom(locationId,startDate);
+			List<BookMeetingRoomDTO> meetingsList = meetingRoomService.getAllMeetingRoom(locationId,startDate);
 			if (meetingsList.size() == 0) {
 				ServiceStatusDto serviceStatusDto = new ServiceStatusDto();
 				serviceStatusDto.setMessage(Constants.MEETINGS_EMPTY);
 				return new ResponseEntity<ServiceStatusDto>(serviceStatusDto, HttpStatus.NO_CONTENT);
 			} else {
-				return new ResponseEntity<List<MeetingRoomDTO>>(meetingsList, HttpStatus.OK);
+				return new ResponseEntity<List<BookMeetingRoomDTO>>(meetingsList, HttpStatus.OK);
 			}
 		} catch(Exception e) {
 			throw new BookMeetingRoomRestServiceException(Constants.INTERNALSERVERERROR);

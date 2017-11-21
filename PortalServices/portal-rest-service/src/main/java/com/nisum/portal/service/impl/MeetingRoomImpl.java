@@ -8,9 +8,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.nisum.portal.data.dao.api.MeetingRoomDAO;
+import com.nisum.portal.data.domain.BookMeetingRoom;
 import com.nisum.portal.data.domain.MeetingRoom;
 import com.nisum.portal.service.api.MeetingRoomService;
+import com.nisum.portal.service.dto.BookMeetingRoomDTO;
 import com.nisum.portal.service.dto.MeetingRoomDTO;
+import com.nisum.portal.util.BookMeetingRoomUtil;
 import com.nisum.portal.util.MeetingRoomUtil;
 
 @Service
@@ -39,10 +42,10 @@ public class MeetingRoomImpl implements MeetingRoomService {
 			}
 	}
 	
-	public List<MeetingRoomDTO> getAllMeetingRoom(int locationId,Timestamp startDate){
+	public List<BookMeetingRoomDTO> getAllMeetingRoom(int locationId,Timestamp startDate){
 		logger.info("In MeetingRoomImpl....getAllMeetingRoom()....");
-		List<MeetingRoom> meetingRoomList = meetingRoomDAO.findAllByLocationIdAndDate(locationId,startDate);
-		return MeetingRoomUtil.convertDaoListToDto(meetingRoomList);
+		List<BookMeetingRoom> meetingRoomList = meetingRoomDAO.findAllByLocationIdAndDate(locationId,startDate);
+		return BookMeetingRoomUtil.convertDaoListToDto(meetingRoomList);
 	}
 
 	

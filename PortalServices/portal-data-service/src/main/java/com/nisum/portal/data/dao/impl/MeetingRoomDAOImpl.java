@@ -10,35 +10,39 @@ import org.springframework.context.annotation.Configuration;
 
 import com.nisum.portal.data.dao.api.MeetingRoomDAO;
 import com.nisum.portal.data.domain.MeetingRoom;
+import com.nisum.portal.data.repository.BookMeetingRoomRepository;
 import com.nisum.portal.data.repository.MeetingRoomRepository;
 
 @Configuration
 public class MeetingRoomDAOImpl implements MeetingRoomDAO {
-	
+
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-@Autowired	
- MeetingRoomRepository meetingRoomRepository;
+	@Autowired
+	MeetingRoomRepository meetingRoomRepository;
+	
+	@Autowired
+	BookMeetingRoomRepository bookMeetingRoomRepository;
 
 	public MeetingRoom findByMeetingRoomId(int meetingRoomId) {
 		logger.info("In MeetingRoomDAOImpl class....findByMeetingRoomId()....");
 		return meetingRoomRepository.findOne(meetingRoomId);
-		
-	}
-	
-	public MeetingRoom save( MeetingRoom meetingRoom) {
-		logger.info("In MeetingRoomDAOImpl class....save()....");
-		return  meetingRoomRepository.save(meetingRoom);
 
-	 }
-	 
-	 public List<MeetingRoom> findAllByLocationIdAndDate(int locationId, Timestamp startDate){
-		 logger.info("In MeetingRoomDAOImpl class....findAllByLocationIdAndDate()....");
-		 if (locationId == 0) {
-			 return meetingRoomRepository.findAllByDate(startDate);
-		 }
-		return  meetingRoomRepository.findAllByLocationIdAndDate(locationId,startDate);
-		 
-	 }
+	}
+
+	public MeetingRoom save(MeetingRoom meetingRoom) {
+		logger.info("In MeetingRoomDAOImpl class....save()....");
+		return meetingRoomRepository.save(meetingRoom);
+
+	}
+
+	public List<BookMeetingRoom> findAllByLocationIdAndDate(int locationId, Timestamp startDate) {
+		logger.info("In MeetingRoomDAOImpl class....findAllByLocationIdAndDate()....");
+		if (locationId == 0) {
+			return bookMeetingRoomRepository.findAllByDate(startDate);
+		}
+		return bookMeetingRoomRepository.findAllByLocationIdAndDate(locationId, startDate);
+
+	}
 
 }
