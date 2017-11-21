@@ -17,75 +17,74 @@ import javax.persistence.Table;
  *
  */
 
-
-
 @Entity
 @Table(name = "MeetingRoom")
 public class MeetingRoom {
-	
-	
-	
-	
-	
-	private String meetingRoomName;
-	
 
+	private String meetingRoomName;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int meetingRoomId;
-   private int location;
-   
-   
-   
+	private int location;
+
 	public MeetingRoom(int meetingRoomId) {
-		this.meetingRoomId=meetingRoomId;
-	// TODO Auto-generated constructor stub
-}
-	public MeetingRoom() {
-		// TODO Auto-generated constructor stub
+		this.meetingRoomId = meetingRoomId;
 	}
+
+	public MeetingRoom() {
+	}
+
 	/**
 	 * @return the location
 	 */
 	public int getLocation() {
 		return location;
 	}
+
 	/**
-	 * @param location the location to set
+	 * @param location
+	 *            the location to set
 	 */
 	public void setLocation(int location) {
 		this.location = location;
 	}
-	
+
 	/**
 	 * @return the meetingRoomName
 	 */
 	public String getMeetingRoomName() {
 		return meetingRoomName;
 	}
+
 	/**
-	 * @param meetingRoomName the meetingRoomName to set
+	 * @param meetingRoomName
+	 *            the meetingRoomName to set
 	 */
 	public void setMeetingRoomName(String meetingRoomName) {
 		this.meetingRoomName = meetingRoomName;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		
+
 		result = prime * result + location;
 		result = prime * result + meetingRoomId;
 		result = prime * result + ((meetingRoomName == null) ? 0 : meetingRoomName.hashCode());
-		
+
 		return result;
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -97,7 +96,7 @@ public class MeetingRoom {
 		if (getClass() != obj.getClass())
 			return false;
 		MeetingRoom other = (MeetingRoom) obj;
-		
+
 		if (location != other.location)
 			return false;
 		if (meetingRoomId != other.meetingRoomId)
@@ -107,26 +106,27 @@ public class MeetingRoom {
 				return false;
 		} else if (!meetingRoomName.equals(other.meetingRoomName))
 			return false;
-		
+
 		return true;
 	}
-	
+
 	public int getMeetingRoomId() {
 		return meetingRoomId;
 	}
+
 	public void setMeetingRoomId(int meetingRoomId) {
 		this.meetingRoomId = meetingRoomId;
 	}
-	
-	
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "MeetingRoom [meetingRoomName=" + meetingRoomName + ", meetingRoomId=" + meetingRoomId + ", location=" + location
-				+ "]";
+		return "MeetingRoom [meetingRoomName=" + meetingRoomName + ", meetingRoomId=" + meetingRoomId + ", location="
+				+ location + "]";
 	}
-	
+
 }

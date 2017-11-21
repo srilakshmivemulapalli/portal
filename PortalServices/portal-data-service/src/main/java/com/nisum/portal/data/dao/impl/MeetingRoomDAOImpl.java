@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 import com.nisum.portal.data.dao.api.MeetingRoomDAO;
+import com.nisum.portal.data.domain.BookMeetingRoom;
 import com.nisum.portal.data.domain.MeetingRoom;
 import com.nisum.portal.data.repository.BookMeetingRoomRepository;
 import com.nisum.portal.data.repository.MeetingRoomRepository;

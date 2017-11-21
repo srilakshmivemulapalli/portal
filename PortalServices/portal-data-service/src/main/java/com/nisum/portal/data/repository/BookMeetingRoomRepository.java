@@ -30,10 +30,10 @@ public interface BookMeetingRoomRepository extends JpaRepository<BookMeetingRoom
 			@Param("endTime") Timestamp endTime);
 	
 	
-	@Query(value = "select * from BookMeetingRoom where beginTime > :startDate" )
+	@Query(value = "select bm from BookMeetingRoom bm where bm.beginTime > :startDate" )
 	public List<BookMeetingRoom> findAllByDate(@Param("startDate") Timestamp startDate);
 	
-	@Query(value = "select * from BookMeetingRoom where beginTime > :startDate and locationId = :locationId" )
+	@Query(value = "select bmr from BookMeetingRoom bmr, MeetingRoom mr, Location l where bmr.beginTime > :startDate and mr.location = l.locationId and  l.locationId = :locationId" )
 	List<BookMeetingRoom> findAllByLocationIdAndDate(@Param("locationId") int locationId,@Param("startDate") Timestamp startDate);
 
 }
