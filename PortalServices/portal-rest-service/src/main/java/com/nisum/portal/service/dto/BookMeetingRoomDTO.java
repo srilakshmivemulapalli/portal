@@ -24,6 +24,28 @@ public class BookMeetingRoomDTO {
 	private Timestamp bookingDate;
 	private String startingTime;
 	private String endingTime;
+	private String meetingRoomName;
+	private String locationName;
+	
+	
+	
+	
+
+	public String getLocationName() {
+		return locationName;
+	}
+
+	public void setLocationName(String locationName) {
+		this.locationName = locationName;
+	}
+
+	public String getMeetingRoomName() {
+		return meetingRoomName;
+	}
+
+	public void setMeetingRoomName(String meetingRoomName) {
+		this.meetingRoomName = meetingRoomName;
+	}
 
 	public String getStartingTime() {
 		return startingTime;

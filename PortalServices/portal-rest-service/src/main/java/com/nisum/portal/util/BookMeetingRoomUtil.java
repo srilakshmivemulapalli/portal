@@ -36,6 +36,8 @@ public class BookMeetingRoomUtil {
 				bookMeetingRoomDTO.setEmailId(bookMeetingRoomDAO.getEmailId());
 				bookMeetingRoomDTO.setLocationId(bookMeetingRoomDAO.getLocation().getLocationId());
 				bookMeetingRoomDTO.setMeetingRoomId(bookMeetingRoomDAO.getMeetingRoom().getMeetingRoomId());
+				bookMeetingRoomDTO.setMeetingRoomName(bookMeetingRoomDAO.getMeetingRoom().getMeetingRoomName());
+				bookMeetingRoomDTO.setLocationName(bookMeetingRoomDAO.getLocation().getLocationName());
 
 				bookMeetingRoomDTOList.add(bookMeetingRoomDTO);
 
