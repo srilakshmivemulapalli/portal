@@ -112,7 +112,7 @@
 			 <span class="col-md-3 col-xs-3 meetingbold">MeetingRoom : </span><span class="col-md-4 col-xs-4"> {{meetings.meetingRoomName}} </span></p>
 			<p class="col-md-12 col-xs-12"><span class="col-md-2 col-xs-2 meetingbold">StartTime : </span><span class="col-md-3 col-xs-3">{{meetings.beginTime | date:'HH:mma'}}</span>
 			<span  class="col-md-3 col-xs-3 meetingbold">EndTime : </span><span  class="col-md-4 col-xs-4">{{meetings.endTime | date:'HH:mma'}}</span></p>
-			<p class="col-md-12 col-xs-12"><span class="col-md-3 col-xs-3 meetingbold">BookingDate : </span><span class="col-md-3 col-xs-3"> {{meetings.bookingDate}} </span></p>
+			<p class="col-md-12 col-xs-12"><span class="col-md-3 col-xs-3 meetingbold">BookingDate : </span><span class="col-md-3 col-xs-3"> {{meetings.beginTime | date:'MM-dd-yyyy'}} </span></p>
 			</li>
 		</ul>
 	</div>
