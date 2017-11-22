@@ -1,5 +1,5 @@
 meetingApp.controller('addMeetingController', function($scope,
-		LocationListModel, meetingService) {
+		LocationListModel, meetingService,commonService) {
 
 	$scope.meeting = {};
 	$scope.locationsList = LocationListModel.newLocationListInstance();
@@ -30,15 +30,23 @@ meetingApp.controller('addMeetingController', function($scope,
 		})
 	};
 	$scope.getAllMeetings = function() {
+		 setTimeout(function(){
+			 document.querySelector('.btn-group').style.width = "182px";
+			 document.querySelector('#location button').style.width = "100%";
+			 document.querySelector('#location ul').style.width = "182px";
+			 document.querySelector('#meetingroom .btn-group').style.width = "182px";
+			 document.querySelector('#meetingroom button').style.width = "100%";
+			 document.querySelector('#meetingroom ul').style.width = "182px";
+		 },100);
+		 
 		
-
 		$scope.meeting.startingTime = $scope.startingTime ? new Date($scope.startingTime).toISOString() : null;
 
 		$scope.meeting.bookingDate = $scope.bookingDate ? new Date($scope.bookingDate).toISOString() : null;
 
 		meetingService.getAllMeetings($scope.meeting.locationId, $scope.meeting.bookingDate,
 				$scope.meeting.startingTime).then(function(response) {
-			console.log(response, "res///");
+					$scope.AllMeetings = response;
 		})
 	};
 	$scope.getallavailblemeetings = function() {
@@ -59,17 +67,7 @@ meetingApp.controller('addMeetingController', function($scope,
 	};
 var meetingDetails = {}
 	$scope.bookMeetingRoom = function() {
-		console.log("jkjkj");
-		var bookMeetingObj = {
-			"description" : "for meetings",
-			"startingTime" : "2017-11-15T13:04:32.838-0600Z",
-			"emailId" : "radhi@nisum.com",
-			"endingTime" : "2017-11-15T13:04:32.838-0600Z",
-			"headCount" : 20,
-			"meetingTitle" : "meeting",
-			"locationId" : 4,
-			"meetingRoomId" : 4
-		};
+	$scope.meeting.emailId=commonService.emailId;
 
 		meetingService.bookMeetingRoom($scope.meeting).then(function(response) {
 			console.log(response, "BookMeeting///");

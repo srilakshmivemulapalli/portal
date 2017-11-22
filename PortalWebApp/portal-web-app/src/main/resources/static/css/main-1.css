@@ -5902,3 +5902,15 @@ table.data_table{
 .notificationData li:last-child(){
   	border-bottom:none;
 }
+.meetingList li{
+    padding: 2px 10px;
+ }
+.meetingList li span,.meetingList li p{
+	padding:0;
+}
+.meetingList li .meetingbold{
+    font-weight: bold;
+ } 
+ .middleto{
+ padding:0 8.3%;
+ }

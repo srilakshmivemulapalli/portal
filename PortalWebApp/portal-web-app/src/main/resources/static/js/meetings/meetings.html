@@ -1,1 +1,19 @@
-<div class="col-md-offset-1 col-xs-offset-1 col-md-9 col-xs-9 main-content"></div>
+<div class="col-md-offset-1 col-xs-offset-1 col-md-9 col-xs-9 main-content">
+	<div class="col-md-5 col-xs-5 meetingList">
+		<h4 class="text-center Heading">Booked Meeting List</h4>
+		<ul class="list-group">
+		
+			<li class="col-md-12 col-xs-12 list-group-item justify-content-between" ng-repeat="meetings in AllMeetings">
+			 <h5 class="meetingbold">{{meetings.meetingTitle}}</h5>
+			 <p class="col-md-12 col-xs-12"><span class="col-md-2 col-xs-2 meetingbold">Location : </span><span class="col-md-3 col-xs-3">{{meetings.locationName}} </span>
+			 <span class="col-md-3 col-xs-3 meetingbold">MeetingRoom : </span><span class="col-md-4 col-xs-4"> {{meetings.meetingRoomName}} </span></p>
+			<p class="col-md-12 col-xs-12"><span class="col-md-2 col-xs-2 meetingbold">StartTime : </span><span class="col-md-3 col-xs-3">{{meetings.beginTime | date:'HH:mma'}}</span>
+			<span  class="col-md-3 col-xs-3 meetingbold">EndTime : </span><span  class="col-md-4 col-xs-4">{{meetings.endTime | date:'HH:mma'}}</span></p>
+			<p class="col-md-12 col-xs-12"><span class="col-md-3 col-xs-3 meetingbold">BookingDate : </span><span class="col-md-3 col-xs-3"> {{meetings.bookingDate}} </span></p>
+			<p class="col-md-12 col-xs-12"><span class="col-md-2 col-xs-2 meetingbold">Emai Id : </span><span class="col-md-4 col-xs-4"> {{meetings.emailId}} </span></p>
+			
+			</li>
+		</ul>
+	</div>
+
+</div>

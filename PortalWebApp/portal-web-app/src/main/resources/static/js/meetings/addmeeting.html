@@ -57,7 +57,7 @@
 							</span>
 						</div>
 					</div>
-					<div class="col-md-1">
+					<div class="col-md-1 middleto">
 						<label style="margin-top:7px">To</label>
 					</div>
 					<div class="col-md-5">
@@ -104,43 +104,16 @@
 	</div>
 	<div class="col-md-5 col-xs-5 meetingList">
 		<h4 class="text-center Heading">Booked Meeting List</h4>
-		<ul class="list-group" style="height:300px;overflow-x:scroll;">
-			<li class="list-group-item justify-content-between">
-			 <p>Meeting 1</p>
-			 <span>2-11-2017</span>&nbsp;<span> 2:30PM - 3:00PM</span>
+		<ul class="list-group">
+		
+			<li class="col-md-12 col-xs-12 list-group-item justify-content-between" ng-repeat="meetings in AllMeetings">
+			 <h5 class="meetingbold">{{meetings.meetingTitle}}</h5>
+			 <p class="col-md-12 col-xs-12"><span class="col-md-2 col-xs-2 meetingbold">Location : </span><span class="col-md-3 col-xs-3">{{meetings.locationName}} </span>
+			 <span class="col-md-3 col-xs-3 meetingbold">MeetingRoom : </span><span class="col-md-4 col-xs-4"> {{meetings.meetingRoomName}} </span></p>
+			<p class="col-md-12 col-xs-12"><span class="col-md-2 col-xs-2 meetingbold">StartTime : </span><span class="col-md-3 col-xs-3">{{meetings.beginTime | date:'HH:mma'}}</span>
+			<span  class="col-md-3 col-xs-3 meetingbold">EndTime : </span><span  class="col-md-4 col-xs-4">{{meetings.endTime | date:'HH:mma'}}</span></p>
+			<p class="col-md-12 col-xs-12"><span class="col-md-3 col-xs-3 meetingbold">BookingDate : </span><span class="col-md-3 col-xs-3"> {{meetings.bookingDate}} </span></p>
 			</li>
-			<li class="list-group-item justify-content-between">
-			<p>Meeting 2</p>
-			 <span>3-11-2017</span><span> 2:30PM - 3:00PM</span>
-			</li>
-			<li class="list-group-item justify-content-between">
-			<p>Meeting 3</p>
-			 <span>3-11-2017</span><span> 3:30PM - 4:30PM</span>
-			 </li>
-			 <li class="list-group-item justify-content-between">
-			<p>Meeting 3</p>
-			 <span>3-11-2017</span><span> 3:30PM - 4:30PM</span>
-			 </li>
-			 <li class="list-group-item justify-content-between">
-			<p>Meeting 3</p>
-			 <span>3-11-2017</span><span> 3:30PM - 4:30PM</span>
-			 </li>
-			 <li class="list-group-item justify-content-between">
-			<p>Meeting 3</p>
-			 <span>3-11-2017</span><span> 3:30PM - 4:30PM</span>
-			 </li>
-			 <li class="list-group-item justify-content-between">
-			<p>Meeting 3</p>
-			 <span>3-11-2017</span><span> 3:30PM - 4:30PM</span>
-			 </li>
-			 <li class="list-group-item justify-content-between">
-			<p>Meeting 3</p>
-			 <span>3-11-2017</span><span> 3:30PM - 4:30PM</span>
-			 </li>
-			 <li class="list-group-item justify-content-between">
-			<p>Meeting 3</p>
-			 <span>3-11-2017</span><span> 3:30PM - 4:30PM</span>
-			 </li>
 		</ul>
 	</div>
 

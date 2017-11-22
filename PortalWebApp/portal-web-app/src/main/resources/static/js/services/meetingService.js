@@ -12,11 +12,11 @@ app.factory('meetingService', function($http, $q) {
 		return deferred.promise;
 	}
 
-	ms.getAllMeetings = function(locationId, date) {
+	ms.getAllMeetings = function(locationId, date, startTime) {
 		var deferred = $q.defer();
 		$http.get(
 				'v1/meetings/getAllbookedMeetingRoom/?locationId=' + locationId
-						+ "&startedDate=" + date).success(function(response) {
+						+ "&startedDate=" + date + "&startTime=" + startTime).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
