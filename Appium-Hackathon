@@ -1,0 +1,104 @@
+package hackathon.com;
+
+import java.io.File;
+import java.net.URL;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.remote.MobileCapabilityType;
+
+public class Shopstopapp {
+
+	private static final String PressX = null;
+	AndroidDriver andriodAppiumDriver;
+
+	@Test (priority=2)	
+	public void LaunchApp() throws Exception
+	{
+
+		
+		File f = new File("src");
+		File appFilePath=new File(f,"Shoppers Stop Shopping App_v2.7_apkpure.com.apk");
+		
+		
+		DesiredCapabilities cap=new DesiredCapabilities();
+		cap.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Device");
+		cap.setCapability("platformName", "Android");
+		cap.setCapability(MobileCapabilityType.PLATFORM_VERSION ,"5.1.1");
+		cap.setCapability("app", appFilePath.getAbsolutePath());
+		
+		
+		andriodAppiumDriver = new AndroidDriver(new URL("http://0.0.0.0:4723/wd/hub"),cap);
+		
+		Thread.sleep(4000);
+		andriodAppiumDriver.findElementById("shoppersstop.shoppersstop:id/layout_footer").click();
+		
+		
+		Thread.sleep(4000);
+		andriodAppiumDriver.findElementById("shoppersstop.shoppersstop:id/action_search_products").click();
+		
+		
+		}
+
+	
+	@Test(priority=2)	
+	public void searchProduct() throws Exception
+	{
+		Thread.sleep(4000);
+		
+		andriodAppiumDriver.findElementById("shoppersstop.shoppersstop:id/et_auto_suggest_search").sendKeys("Shirt");
+		
+		
+		Thread.sleep(4000);
+		andriodAppiumDriver.findElementById("shoppersstop.shoppersstop:id/tv_rv_text_item").click();
+		
+		
+	}
+	
+	@Test(priority=3)	
+	public void selectProduct() throws Exception
+	{
+		Thread.sleep(4000);
+		andriodAppiumDriver.findElementById("shoppersstop.shoppersstop:id/icon").click();
+	}
+	
+	@Test(priority=4)	
+	public void AddProductToCart() throws Exception
+	{
+		Thread.sleep(4000);
+		andriodAppiumDriver.findElementById("shoppersstop.shoppersstop:id/btn_add_poduct_cart").click();
+			
+	}
+	@Test(priority=5)	
+	public void checkout() throws Exception
+	{
+		Thread.sleep(4000);
+		andriodAppiumDriver.findElement(By.id("shoppersstop.shoppersstop:id/cartCheckoutId")).click();
+		andriodAppiumDriver.quit();
+	}
+	
+	private void findelementbyid(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+	@AfterClass
+	public void tearDown()
+	{
+		//Close app
+		//d.closeApp();
+	}
+
+
+
+
+}
